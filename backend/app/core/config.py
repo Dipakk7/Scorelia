@@ -1,0 +1,41 @@
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from typing import List, Union
+import json
+from pydantic import field_validator
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore"
+    )
+
+    APP_NAME: str = "CareerPilot AI"
+    APP_VERSION: str = "0.1.0"
+    API_PREFIX: str = "/api/v1"
+    DATABASE_URL: str
+    JWT_SECRET_KEY: str
+    JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    OLLAMA_BASE_URL: str = "http://localhost:11434"
+    CORS_ORIGINS: Union[List[str], str] = ["http://localhost:3000"]
+    LOG_LEVEL: str = "INFO"
+
+    @field_validator("CORS_ORIGINS", mode="before")
+    @classmethod
+    def assemble_cors_origins(cls, v: Union[str, List[str]]) -> List[str]:
+        if isinstance(v, str):
+            try:
+                # Try parsing as JSON array
+                parsed = json.loads(v)
+                if isinstance(parsed, list):
+                    return [str(item) for item in parsed]
+            except json.JSONDecodeError:
+                pass
+            # Fallback to comma-separated list
+            return [x.strip() for x in v.split(",") if x.strip()]
+        elif isinstance(v, list):
+            return [str(item) for item in v]
+        return []
+
+settings = Settings()
