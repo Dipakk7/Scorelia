@@ -15,7 +15,8 @@ try:
     engine = create_engine(
         db_url,
         pool_pre_ping=True,
-        future=True
+        future=True,
+        connect_args={"sslmode": "disable"}
     )
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, future=True)
 except Exception as e:
