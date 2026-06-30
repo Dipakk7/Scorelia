@@ -12,6 +12,13 @@ from app.schemas.resume import (
     ResumeListResponse,
     ResumeUploadResponse,
 )
+from app.schemas.parser import (
+    EducationItem,
+    ExperienceItem,
+    ProjectItem,
+    ParsedResumeData,
+    ParseResumeResponse,
+)
 
 __all__ = [
     "UserCreate",
@@ -23,5 +30,11 @@ __all__ = [
     "ResumeResponse",
     "ResumeListResponse",
     "ResumeUploadResponse",
+    "EducationItem",
+    "ExperienceItem",
+    "ProjectItem",
+    "ParsedResumeData",
+    "ParseResumeResponse",
 ]
+
 

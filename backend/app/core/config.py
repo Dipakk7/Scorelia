@@ -22,6 +22,12 @@ class Settings(BaseSettings):
     CORS_ORIGINS: Union[List[str], str] = ["http://localhost:3000"]
     LOG_LEVEL: str = "INFO"
 
+    # Parser settings
+    SPACY_MODEL: str = "en_core_web_sm"
+    PARSER_VERSION: str = "v2"
+    MAX_PAGES: int = 10
+    MAX_TEXT_LENGTH: int = 200000
+
     STORAGE_PROVIDER: str = "LOCAL"
     LOCAL_STORAGE_PATH: str = "storage/resumes"
     MAX_FILE_SIZE_MB: int = 5
