@@ -120,7 +120,9 @@ async def analyze_match_json(
             overall_score=match_result.match_score,
             grade=match_result.grade,
             job_title=job_desc.title,
-            company=job_desc.company
+            company=job_desc.company,
+            missing_skills=match_result.missing_skills,
+            recommendations=match_result.recommendations
         )
 
         return match_result
@@ -247,7 +249,9 @@ async def match_resume_to_job(
             overall_score=match_result.match_score,
             grade=match_result.grade,
             job_title=job_desc.title,
-            company=job_desc.company
+            company=job_desc.company,
+            missing_skills=match_result.missing_skills,
+            recommendations=match_result.recommendations
         )
 
         return match_result

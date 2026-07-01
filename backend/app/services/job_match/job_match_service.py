@@ -325,3 +325,26 @@ def analyze_resume_gap(
         raise e
 
 
+class JobMatchService:
+    """Public service interface for Job Matching module."""
+
+    @staticmethod
+    def get_match_statistics() -> dict:
+        """
+        Public method to retrieve all raw matches stored in the history cache.
+        Returns a dictionary containing list of matches to keep modules decoupled.
+        """
+        import time
+        start = time.perf_counter()
+        
+        from app.services.job_match.history import _history_cache
+        # Gather records into a list of dicts. We convert to list to copy and decouple.
+        matches = list(_history_cache)
+        
+        duration_ms = (time.perf_counter() - start) * 1000.0
+        logger.info("JobMatchService.get_match_statistics completed", duration_ms=round(duration_ms, 2))
+        
+        return {"matches": matches}
+
+
+

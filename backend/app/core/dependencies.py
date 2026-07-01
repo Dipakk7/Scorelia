@@ -63,3 +63,11 @@ def get_current_user(
         )
         
     return user
+
+
+def get_job_match_service() -> "JobMatchService":
+    """Dependency provider for JobMatchService."""
+    from app.services.job_match import JobMatchService
+    return JobMatchService()
+
+

@@ -13,7 +13,9 @@ def add_to_history(
     overall_score: int,
     grade: str,
     job_title: str | None,
-    company: str | None
+    company: str | None,
+    missing_skills: list[str] | None = None,
+    recommendations: list | None = None
 ) -> None:
     """
     Add a record to the in-memory match history cache.
@@ -24,10 +26,13 @@ def add_to_history(
         "overall_score": overall_score,
         "grade": grade,
         "job_title": job_title or "Unknown Title",
-        "company": company or "Unknown Company"
+        "company": company or "Unknown Company",
+        "missing_skills": missing_skills or [],
+        "recommendations": recommendations or []
     }
     _history_cache.append(record)
     logger.info("job_match_cached", resume_id=str(resume_id), overall_score=overall_score, grade=grade)
+
 
 def get_recent_matches(resume_id: uuid.UUID | str) -> list[dict]:
     """
@@ -40,3 +45,22 @@ def get_recent_matches(resume_id: uuid.UUID | str) -> list[dict]:
     matches.reverse()
     logger.info("job_match_cache_hit", resume_id=resume_id_str, count=len(matches))
     return matches
+
+def get_history_summary() -> dict:
+    """
+    Get a summary of all job matches in the history cache.
+    """
+    total_matches = len(_history_cache)
+    if total_matches > 0:
+        sum_scores = sum(item["overall_score"] for item in _history_cache)
+        avg_score = sum_scores / total_matches
+        latest_match = _history_cache[-1]
+    else:
+        avg_score = 0.0
+        latest_match = None
+    return {
+        "total_matches": total_matches,
+        "average_score": avg_score,
+        "latest_match": latest_match
+    }
+
