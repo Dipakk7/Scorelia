@@ -7,6 +7,7 @@ from app.analytics.router import router as analytics_router
 from app.api.v1.endpoints.ai_resume_review import router as ai_review_router
 from app.api.v1.endpoints.ai_resume_rewrite import router as ai_rewrite_router
 from app.api.v1.endpoints.ai_resume_optimization import router as ai_optimization_router
+from app.cover_letter.api.router import router as cover_letter_router
 
 api_router = APIRouter()
 
@@ -46,6 +47,12 @@ api_router.include_router(
     ai_optimization_router,
     prefix="/ai",
     tags=["AI Resume Optimization"]
+)
+
+api_router.include_router(
+    cover_letter_router,
+    prefix="/ai/cover-letter",
+    tags=["AI Cover Letter"]
 )
 
 api_router.include_router(

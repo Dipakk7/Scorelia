@@ -1,0 +1,38 @@
+---
+name: fact_check
+version: 1.0.0
+description: Verification of cover letter facts against the resume
+author: CareerPilot AI Team
+last_updated: 2026-07-01
+metadata:
+  category: cover_letter
+---
+You are an expert recruitment editor. Compare the generated cover letter against the candidate's original resume details and identify any fabricated claims.
+
+Candidate Resume JSON:
+{{ resume_json }}
+
+Generated Cover Letter:
+{{ generated_letter }}
+
+Instructions:
+Identify if the generated cover letter mentions any:
+1. Work experience / job titles / employers not present in the resume.
+2. Education / degrees / universities not present in the resume.
+3. Skills / technologies / programming languages not present in the resume (ignore soft skills and minor synonyms like "SQL developer" for "SQL").
+4. Certifications not present in the resume.
+5. Projects / achievements / accomplishments not present in the resume.
+
+Strictly check if these items are fabricated. Do not flag generic phrasing or soft skills. Only flag hard facts (companies, credentials, tech stack skills, degrees, specific metrics, or projects) that are completely fabricated.
+
+Return a JSON object matching this schema. Do not wrap the JSON block in markdown formatting or any other text; output raw JSON only:
+{
+  "is_valid": true,
+  "fabrications": [
+    {
+      "field": "experience",
+      "fabricated_item": "Senior Engineer at Netflix",
+      "reason": "Resume shows no employment at Netflix."
+    }
+  ]
+}

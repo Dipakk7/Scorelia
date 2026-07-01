@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.9.0] - 2026-07-01 (Phase 9)
+### Added
+- **Cover Letter Foundation**: Decoupled clean architecture folder mapping (`app/cover_letter/`), custom SQLAlchemy database models (`ai_cover_letters`, `ai_cover_letter_optimizations`, `ai_cover_letter_exports`), schema validations using Pydantic, and configurable experience-level based Jinja prompt templates.
+- **AI Cover Letter Generation Engine**: Dynamic prompt resolving system choosing between Internship, Fresher, Experienced, Referral, Career Change, or Executive layout strategies. Incorporates local Ollama Qwen2.5 execution with high-fidelity structured JSON outputs.
+- **Cover Letter Fact Check**: Implemented local LLM validation scanning generated content against original resume to identify and reject fabricated work experience, degrees, skills, or projects. Returns standard 422 validations on mismatches.
+- **Cover Letter Optimization & Scoring Engine**: Built a service analyzing letters against job descriptions. Computes a weighted overall score across 10 distinct categories, compiles lists of matched/missing/recommended keywords, assesses cultural/mission/technical alignment, and provides detailed suggestions.
+- **Local Diff Engine**: Computes word-level diff comparisons (`added_content`, `removed_content`, `modified_sections`) between original and optimized letters locally.
+- **Cover Letter Export Engine**: Added high-quality export rendering engines:
+  - **PDF** using ReportLab (supporting fonts, alignment, slate blue titles, page margins, and divider rules).
+  - **DOCX** using Python-Docx (proper paragraph margins, styles, indentations).
+  - **Markdown (MD)** (with structured YAML frontmatter).
+  - **TXT** plain text files.
+- **Export History & Isolation**: Implemented export metadata histories, file cleanup/purging on delete, strict security path traversal protections, ownership validations, and download authorizations.
+- **Test Coverage**: Expanded backend testing with 21 new unit and integration tests covering the entire Cover Letter workflow, with all 317 workspace tests passing.
+
+---
+
 ## [0.8.0] - 2026-07-01 (Phase 8)
 ### Added
 - **AI Foundation**: Implemented a decoupled factory pattern for AI providers, a robust client for local Ollama deployments, and health check validation.

@@ -1,0 +1,67 @@
+---
+name: fresher
+version: 1.0.0
+description: Cover letter template for entry-level fresher applicants
+author: CareerPilot AI Team
+last_updated: 2026-07-01
+metadata:
+  category: cover_letter
+---
+You are an expert recruitment consultant and copywriter. Your task is to write a highly professional, ATS-optimized, and personalized cover letter matching the candidate's education and entry-level qualifications to the target entry-level role.
+
+Target Position Details:
+- Company Name: {{ company_name }}
+- Target Entry-level Role/Title: {{ role }}
+- Job Description: {{ job_description }}
+
+Candidate Context:
+- Resume Details:
+{{ resume_json }}
+- Resume Review Feedback:
+{{ resume_review_json }}
+- Resume Optimization / Analysis:
+{{ resume_optimization_json }}
+- Current calculated ATS Score: {{ ats_score }}
+
+Requested Style & Constraints:
+- Writing Style: {{ writing_style }}
+- Generation Mode: {{ generation_mode }}
+
+Strict Fact Preservation Rules:
+1. Never hallucinate, fabricate, or invent experience, certifications, education, projects, companies, achievements, or skills.
+2. If any resume detail is missing, do not guess or invent. Focus entirely on the verified items in the resume (such as degrees, educational projects, programming languages/frameworks mastered, certifications, or internships/extracurricular activities).
+3. Focus on bridging academic/learning success with entry-level performance and adaptability. Highlight matching skills and experiences naturally. Avoid keyword stuffing.
+
+Tone and Length:
+- Ensure the tone reflects the style: {{ writing_style }} (PROFESSIONAL, MODERN, FORMAL, FRIENDLY, EXECUTIVE, STARTUP, ACADEMIC, or GOVERNMENT).
+- Format according to generation mode:
+  - FAST: Concise, direct, high impact.
+  - STANDARD: Well-balanced structure with standard intro, 1-2 body paragraphs emphasizing coursework projects and technical readiness, and professional closing.
+  - DETAILED: Deep dive alignment, thoroughly linking learning background to junior-level role responsibilities.
+
+Output JSON Structure:
+You must return the response strictly as a JSON object matching this schema. Do not wrap the JSON block in markdown formatting or any other text; output raw JSON only:
+{
+  "title": "Application for {{ role }} at {{ company_name }}",
+  "greeting": "Dear Hiring Manager at {{ company_name }},",
+  "introduction": "Introductory paragraph explaining applicant's interest as a recent graduate, and summary of core technical background.",
+  "body": "Paragraphs outlining academic projects, technical skills, certifications, and enthusiasm for growth in this role, keeping strictly to facts in the resume.",
+  "closing": "Closing statement expressing motivation to contribute as an entry-level professional, and next steps.",
+  "signature": "Sincerely,\n[Candidate Name]",
+  "overall_quality": 95,
+  "ats_score": 90,
+  "tone": "Evaluated tone matching requested writing style",
+  "writing_style": "{{ writing_style }}",
+  "provider": "{{ provider }}",
+  "model": "{{ model }}",
+  "prompt_version": "{{ prompt_version }}",
+  "created_at": "{{ current_time }}",
+  "category_scores": {
+    "grammar": 95,
+    "professional_tone": 95,
+    "readability": 90,
+    "ats_friendliness": 92,
+    "role_alignment": 94,
+    "company_alignment": 90
+  }
+}

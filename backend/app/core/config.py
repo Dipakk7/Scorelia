@@ -61,6 +61,11 @@ class Settings(BaseSettings):
     PROMPT_CACHE_TTL: int = 300
     PROMPT_TEMPLATE_PATH: str = "app/ai/prompts/templates"
 
+    # Cover Letter settings
+    COVER_LETTER_DEFAULT_STYLE: str = "PROFESSIONAL"
+    COVER_LETTER_DEFAULT_MODE: str = "STANDARD"
+    COVER_LETTER_MAX_LENGTH: int = 4000
+
     @field_validator("CORS_ORIGINS", mode="before")
     @classmethod
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> List[str]:

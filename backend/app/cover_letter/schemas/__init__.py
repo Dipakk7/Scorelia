@@ -1,0 +1,41 @@
+from app.cover_letter.schemas.schemas import (
+    CoverLetterRequest,
+    CoverLetterResponse,
+    CoverLetterHistory,
+    ValidationErrorDetail,
+    ValidationErrorResponse,
+    CategoryScores,
+    AICoverLetterOutput,
+    CoverLetterOptimizationRequest,
+    CoverLetterOptimizationResponse,
+    QualityScore,
+    CategoryScore,
+    OptimizationSuggestion,
+    KeywordAnalysis,
+    VersionComparison,
+    OptimizationMetadata,
+    CompanyAlignment,
+    CoverLetterCompareRequest,
+    CoverLetterOptimizationListResponse
+)
+
+__all__ = [
+    "CoverLetterRequest",
+    "CoverLetterResponse",
+    "CoverLetterHistory",
+    "ValidationErrorDetail",
+    "ValidationErrorResponse",
+    "CategoryScores",
+    "AICoverLetterOutput",
+    "CoverLetterOptimizationRequest",
+    "CoverLetterOptimizationResponse",
+    "QualityScore",
+    "CategoryScore",
+    "OptimizationSuggestion",
+    "KeywordAnalysis",
+    "VersionComparison",
+    "OptimizationMetadata",
+    "CompanyAlignment",
+    "CoverLetterCompareRequest",
+    "CoverLetterOptimizationListResponse"
+]

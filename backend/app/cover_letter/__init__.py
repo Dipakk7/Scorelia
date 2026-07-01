@@ -1,0 +1,1 @@
+# Cover Letter module initialization

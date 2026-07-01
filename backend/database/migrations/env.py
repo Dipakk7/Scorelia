@@ -22,6 +22,8 @@ from app.models.resume import Resume
 from app.models.ai_resume_review import AIResumeReview
 from app.models.ai_resume_rewrite import AIResumeRewrite
 from app.models.ai_resume_optimization import AIResumeOptimization
+from app.cover_letter.models.ai_cover_letter import AICoverLetter
+from app.cover_letter.models.ai_cover_letter_optimization import AICoverLetterOptimization
 
 # 4. Set metadata AFTER all model imports
 target_metadata = Base.metadata
