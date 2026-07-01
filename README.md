@@ -56,54 +56,28 @@ CareerPilot AI follows a clean, decoupled client-server architecture designed to
 
 ```mermaid
 graph TD
-    %% Frontend Layer
-    subgraph Frontend [Next.js App Client]
-        UI[Dashboard / Chat / Analytics]
-        Charts[Plotly Chart Wrapper]
-        State[React Context / localState]
-    end
+    User[User] --> Frontend[Next.js Frontend]
+    Frontend --> API[FastAPI Router]
 
-    %% Backend Layer
-    subgraph Backend [FastAPI Application Server]
-        API[FastAPI Router]
-        Auth[JWT Security Guard]
-        Parser[spaCy Parser Engine]
-        Embedding[Sentence Transformers Engine]
+    API --> Auth[JWT Security Guard]
+    API --> Parser[spaCy Parser Engine]
+    API --> Embedding[Sentence Transformers Engine]
+    API --> Workflow[Resume Workflow Service]
 
-        subgraph AI [Phase 8: AI Resume Intelligence]
-            Workflow[Resume Workflow Service]
-            Review[Review Engine]
-            Rewrite[Rewrite Engine]
-            Optimize[Optimization Engine]
-            Registry[Prompt Registry]
-            Factory[Provider Factory]
-        end
-    end
+    Parser --> Embedding
 
-    %% Database & External AI
-    subgraph Storage [Local Database & Offline AI]
-        DB[(PostgreSQL)]
-        OllamaLocal[Ollama: Qwen 2.5 3B]
-    end
+    Workflow --> Review[Review Engine]
+    Workflow --> Rewrite[Rewrite Engine]
+    Workflow --> Optimize[Optimization Engine]
 
-    %% Flow connections
-    UI -->|HTTPS Requests / JWT Auth| API
-    API --> Auth
-    API --> Parser
-    API --> Embedding
-    API --> Workflow
-
-    Parser -.->|Document NLP| Embedding
-    Workflow --> Review
-    Workflow --> Rewrite
-    Workflow --> Optimize
-    Review --> Registry
+    Review --> Registry[Prompt Registry]
     Rewrite --> Registry
     Optimize --> Registry
-    Registry --> Factory
-    Factory -->|Local API Port 11434| OllamaLocal
 
-    API -->|SQLAlchemy ORM| DB
+    Registry --> Factory[Provider Factory]
+    Factory --> Ollama[Ollama Qwen 2.5 3B]
+
+    API --> DB[(PostgreSQL)]
 ```
 
 ---
