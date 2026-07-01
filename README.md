@@ -69,7 +69,15 @@ graph TD
         Auth[JWT Security Guard]
         Parser[spaCy Parser Engine]
         Embedding[Sentence Transformers Engine]
-        OllamaClient[Ollama API Wrapper]
+
+        subgraph AI [Phase 8: AI Resume Intelligence]
+            Workflow[Resume Workflow Service]
+            Review[Review Engine]
+            Rewrite[Rewrite Engine]
+            Optimize[Optimization Engine]
+            Registry[Prompt Registry]
+            Factory[Provider Factory]
+        end
     end
 
     %% Database & External AI
@@ -83,10 +91,18 @@ graph TD
     API --> Auth
     API --> Parser
     API --> Embedding
-    API --> OllamaClient
-    
+    API --> Workflow
+
     Parser -.->|Document NLP| Embedding
-    OllamaClient -->|Local API Port 11434| OllamaLocal
+    Workflow --> Review
+    Workflow --> Rewrite
+    Workflow --> Optimize
+    Review --> Registry
+    Rewrite --> Registry
+    Optimize --> Registry
+    Registry --> Factory
+    Factory -->|Local API Port 11434| OllamaLocal
+
     API -->|SQLAlchemy ORM| DB
 ```
 
@@ -124,7 +140,7 @@ To explore the architecture and planning documents created during Phase 1, refer
 *   [UI/UX Style & Design Guide](docs/UI_UX_GUIDE.md) — Obsidian-glassmorphism styling parameters, grid values, layout mockups, and Framer Motion dynamics.
 *   [Module Breakdown Specification](docs/MODULE_BREAKDOWN.md) — Responsibilities, inputs, outputs, database tables, and dependencies of all 12 modules.
 *   [System Workflow Specification](docs/SYSTEM_WORKFLOW.md) — Detailed user journey mappings, Mermaid charts, and systems error handling flows.
-*   [Development Roadmap Specification](docs/DEVELOPMENT_ROADMAP.md) — Detailed implementation roadmap including milestones,testing strategy and Git workflow.
+*   [Development Roadmap Specification](docs/DEVELOPMENT_ROADMAP.md) — Detailed implementation roadmap including milestones, testing strategy and Git workflow.
 
 ---
 
