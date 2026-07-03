@@ -8,12 +8,15 @@ from app.models.ai_resume_optimization import AIResumeOptimization
 from app.cover_letter.models.ai_cover_letter import AICoverLetter
 from app.cover_letter.models.ai_cover_letter_optimization import AICoverLetterOptimization
 from app.cover_letter.models.ai_cover_letter_export import AICoverLetterExport
+from app.interview.models.interview import InterviewSession, InterviewTurn
 from app.core.enums import StorageProvider, ResumeStatus
 
 __all__ = [
     "Base", "SharedBase", "User", "Resume", "AIResumeReview", "AIResumeRewrite",
     "AIResumeOptimization", "AICoverLetter", "AICoverLetterOptimization",
-    "AICoverLetterExport", "StorageProvider", "ResumeStatus"
+    "AICoverLetterExport", "InterviewSession", "InterviewTurn", "StorageProvider",
+    "ResumeStatus"
 ]
+
 
 

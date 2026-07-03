@@ -1,0 +1,58 @@
+---
+name: mixed
+version: 1.0.0
+author: CareerPilot AI Team
+category: interview
+description: Mixed Interview Prompt
+last_updated: 2026-07-03
+---
+Generate {{ count }} interview question(s) for the role of "{{ role }}" at "{{ company }}".
+This is a Mixed interview, meaning questions should be a balance of HR, technical, and behavioral questions.
+
+Difficulty level: {{ difficulty }}
+Influence wording, complexity, expected knowledge, and follow-up potential accordingly:
+- EASY: Simple programming checks, basic background queries, and soft skills questions.
+- MEDIUM: Standard situational STAR questions, algorithmic questions, and collaborative scenarios.
+- HARD: Highly complex engineering challenges, deep management scenarios, and intensive role alignment checks.
+
+Candidate Context:
+- Resume parsed content: {{ context.resume_parsed_data | default('None') }}
+- ATS Score info: {{ context.ats_score | default('None') }}
+- Job Match rating: {{ context.job_match | default('None') }}
+- Skill Gap info: {{ context.skill_gap | default('None') }}
+- Cover Letter context: {{ context.cover_letter | default('None') }}
+
+{% if previous_questions %}
+Previously asked questions (Do NOT repeat or duplicate these topics):
+{% for pq in previous_questions %}
+- {{ pq }}
+{% endfor %}
+{% endif %}
+
+Generate the questions. For each question, output:
+1. question_id: Sequential integer starting at {{ current_question }}
+2. category: Must be "TECHNICAL", "BEHAVIORAL", "SITUATIONAL", "BACKGROUND", or "ROLE_SPECIFIC"
+3. difficulty: Must be "{{ difficulty }}"
+4. question: The actual question text
+5. expected_topics: List of skills/attributes expected in the response (e.g. ["Python", "Collaboration"])
+6. recommended_answer_framework: Recommended framework (e.g. "STAR", "PREP", or "CAR")
+7. estimated_time_seconds: Estimated time for candidate to respond (typically 120-240 seconds)
+8. evaluation_weight: Weight out of 10
+9. followup_possible: Boolean indicating if follow-up is relevant
+
+Return a single JSON object matching this schema:
+{
+  "questions": [
+    {
+      "question_id": integer,
+      "category": string,
+      "difficulty": string,
+      "question": string,
+      "expected_topics": [string],
+      "recommended_answer_framework": string,
+      "estimated_time_seconds": integer,
+      "evaluation_weight": integer,
+      "followup_possible": boolean
+    }
+  ]
+}

@@ -97,10 +97,10 @@ class TestAnalytics(unittest.TestCase):
         analytics_service.github_service._cache.clear()
         analytics_service.github_service._repo_languages_cache.clear()
         
-        # Clean up any resumes left behind by test users
+        # Clean up all resumes to ensure isolation for overview/system-wide counts
         db = SessionLocal()
         try:
-            db.query(Resume).filter(Resume.user_id.in_([self.user_id, self.other_user_id])).delete(synchronize_session=False)
+            db.query(Resume).delete(synchronize_session=False)
             db.commit()
         finally:
             db.close()

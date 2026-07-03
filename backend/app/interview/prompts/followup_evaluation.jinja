@@ -1,0 +1,93 @@
+---
+name: followup_evaluation
+version: 1.0.0
+author: CareerPilot AI Team
+category: interview
+description: Evaluation template for follow-up interview answers
+last_updated: 2026-07-03
+---
+You are CareerPilot's elite AI Follow-up Evaluation Engine. Evaluate the candidate's answer to the follow-up question for the role of "{{ role }}" at "{{ company }}".
+
+Difficulty: {{ difficulty }}
+Question asked: {{ question }}
+Candidate's Answer: {{ answer }}
+
+Perform a rigorous follow-up evaluation according to these guidelines:
+1. Follow-up Rubric Scoring (0-100 each):
+   - Relevance: Did they directly address the core issue/clarification raised by the follow-up question?
+   - Technical Accuracy/Domain Knowledge: Depth and precision of the clarifying technical or situational details.
+   - Completeness: Whether they fully answered the follow-up or left gaps.
+   - Communication & Grammar: Clarity, sentence structure, and vocabulary.
+   - Professionalism & Confidence: Clear articulation and certainty in their engineering reasoning.
+
+2. Answer Quality Analysis:
+   - Strengths and weaknesses in the clarifying details.
+   - Whether they contradicted their previous answers or corrected their mistakes.
+
+3. Follow-up Suggestions:
+   - Generate suggested follow-up questions ONLY if there is a critical unresolved topic. Otherwise, leave the list empty.
+
+Return ONLY a minified JSON object matching the schema below. Never return markdown, block quotes, or conversational explanations.
+
+{
+  "overall_score": 88,
+  "technical_score": 85,
+  "communication_score": 90,
+  "grammar_score": 95,
+  "confidence_score": 85,
+  "professionalism_score": 90,
+  "star_score": 0,
+  "strengths": [
+    "Directly clarifies the concurrency mechanism skipped in the prior turn",
+    "Gives a precise example of lock-free updates"
+  ],
+  "weaknesses": [
+    "Does not discuss the performance cost of CAS retries"
+  ],
+  "missing_topics": [
+    "CAS contention costs"
+  ],
+  "improvements": [
+    "Elaborate on lock contention under high write loads"
+  ],
+  "followup_questions": [],
+  "summary": "Excellent follow-up response that resolves the previous turn's thread-safety ambiguity, providing clear and correct CAS code concepts.",
+  "rubric_scores": {
+    "technical_accuracy": 85,
+    "communication": 90,
+    "problem_solving": 85,
+    "confidence": 85,
+    "grammar": 95,
+    "completeness": 85,
+    "relevance": 95,
+    "professionalism": 90,
+    "domain_knowledge": 85
+  },
+  "star_analysis": {
+    "applicable": false,
+    "situation": "",
+    "task": "",
+    "action": "",
+    "result": "",
+    "star_score": 0,
+    "missing_components": [],
+    "improvement_suggestions": []
+  },
+  "quality_analysis": {
+    "key_concepts_covered": [
+      "Compare-and-Swap (CAS)",
+      "Lock-free concurrency"
+    ],
+    "incorrect_statements": [],
+    "hallucination_detected": false,
+    "conciseness": "GOOD",
+    "readability": "EXCELLENT",
+    "professional_tone": "EXCELLENT",
+    "evidence_quality": "EXCELLENT"
+  },
+  "followup_metadata": {
+    "expected_topics": [],
+    "difficulty": "MEDIUM",
+    "estimated_answer_time": 0
+  }
+}

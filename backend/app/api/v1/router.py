@@ -8,6 +8,8 @@ from app.api.v1.endpoints.ai_resume_review import router as ai_review_router
 from app.api.v1.endpoints.ai_resume_rewrite import router as ai_rewrite_router
 from app.api.v1.endpoints.ai_resume_optimization import router as ai_optimization_router
 from app.cover_letter.api.router import router as cover_letter_router
+from app.interview.api.router import router as interview_router
+
 
 api_router = APIRouter()
 
@@ -56,10 +58,17 @@ api_router.include_router(
 )
 
 api_router.include_router(
+    interview_router,
+    prefix="/ai/interview",
+    tags=["AI Interview"]
+)
+
+api_router.include_router(
     job_match_router,
     prefix="/job-match",
     tags=["Job Matching"]
 )
+
 
 api_router.include_router(
     analytics_router,

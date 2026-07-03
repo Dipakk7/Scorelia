@@ -1,0 +1,56 @@
+---
+name: followup
+version: 1.0.0
+author: CareerPilot AI Team
+category: interview
+description: Follow-up Interview Prompt
+last_updated: 2026-07-03
+---
+Based on the previous question asked: "{{ last_question }}"
+and the candidate's response: "{{ last_answer }}"
+
+Generate {{ count }} targeted follow-up question(s) for the role of "{{ role }}" at "{{ company }}".
+
+Difficulty level: {{ difficulty }}
+Influence wording, complexity, expected knowledge, and follow-up potential accordingly:
+- EASY: Asking to clarify a term or detail mentioned in their answer.
+- MEDIUM: Probing their specific contribution, asking how they resolved a challenge they mentioned, or their reasoning.
+- HARD: Deeply challenging their technical choices, asking for alternative designs, exploring how they'd scale their solution, or probing weaknesses in their response.
+
+Candidate Context:
+- Resume parsed content: {{ context.resume_parsed_data | default('None') }}
+
+{% if previous_questions %}
+Previously asked questions (Do NOT repeat or duplicate these topics):
+{% for pq in previous_questions %}
+- {{ pq }}
+{% endfor %}
+{% endif %}
+
+Generate the follow-up question. Output:
+1. question_id: Sequential integer starting at {{ current_question }}
+2. category: Must be "BEHAVIORAL", "SITUATIONAL", "BACKGROUND", "ROLE_SPECIFIC", or "TECHNICAL"
+3. difficulty: Must be "{{ difficulty }}"
+4. question: The actual follow-up question text probing their answer
+5. expected_topics: List of skills/attributes expected in the response (e.g. ["Critical Thinking", "Scalability"])
+6. recommended_answer_framework: Recommended framework (e.g. "STAR", "PREP", or "CAR")
+7. estimated_time_seconds: Estimated time for candidate to respond (typically 60-120 seconds)
+8. evaluation_weight: Weight out of 10
+9. followup_possible: Boolean indicating if further follow-up is relevant
+
+Return a single JSON object matching this schema:
+{
+  "questions": [
+    {
+      "question_id": integer,
+      "category": string,
+      "difficulty": string,
+      "question": string,
+      "expected_topics": [string],
+      "recommended_answer_framework": string,
+      "estimated_time_seconds": integer,
+      "evaluation_weight": integer,
+      "followup_possible": boolean
+    }
+  ]
+}

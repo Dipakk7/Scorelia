@@ -25,6 +25,7 @@ backend/.env
 
 # Database
 *.db
+*.sqlite3
 
 # IDEs
 .vscode/
@@ -44,3 +45,5 @@ htmlcov/
 *.docx
 *.md.tmp
 *.tmp
+*.env
+

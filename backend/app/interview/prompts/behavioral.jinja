@@ -1,0 +1,57 @@
+---
+name: behavioral
+version: 1.0.0
+author: CareerPilot AI Team
+category: interview
+description: Behavioral Interview Prompt
+last_updated: 2026-07-03
+---
+Generate {{ count }} behavioral interview question(s) for the role of "{{ role }}" at "{{ company }}".
+
+Difficulty level: {{ difficulty }}
+Influence wording, complexity, expected knowledge, and follow-up potential accordingly:
+- EASY: Basic workplace situations like working in a group, handling a busy day, or seeking help.
+- MEDIUM: Managing minor conflicts, handling a mistake, adapting to changing priorities, or mentoring a peer.
+- HARD: Resolving deep stakeholder disagreements, managing major project failure, leading under high pressure, or driving critical organizational change.
+
+Candidate Context:
+- Resume parsed content: {{ context.resume_parsed_data | default('None') }}
+- ATS Score info: {{ context.ats_score | default('None') }}
+- Job Match rating: {{ context.job_match | default('None') }}
+- Skill Gap info: {{ context.skill_gap | default('None') }}
+- Cover Letter context: {{ context.cover_letter | default('None') }}
+
+{% if previous_questions %}
+Previously asked questions (Do NOT repeat or duplicate these topics):
+{% for pq in previous_questions %}
+- {{ pq }}
+{% endfor %}
+{% endif %}
+
+Generate the questions. For each question, output:
+1. question_id: Sequential integer starting at {{ current_question }}
+2. category: Must be "BEHAVIORAL" or "SITUATIONAL"
+3. difficulty: Must be "{{ difficulty }}"
+4. question: The actual question text (e.g., "Tell me about a time when...")
+5. expected_topics: List of behaviors/skills targeted (e.g. ["Leadership", "Conflict Resolution"])
+6. recommended_answer_framework: Must be "STAR"
+7. estimated_time_seconds: Estimated time for candidate to respond (typically 120-180 seconds)
+8. evaluation_weight: Weight out of 10
+9. followup_possible: Boolean indicating if follow-up is relevant
+
+Return a single JSON object matching this schema:
+{
+  "questions": [
+    {
+      "question_id": integer,
+      "category": string,
+      "difficulty": string,
+      "question": string,
+      "expected_topics": [string],
+      "recommended_answer_framework": string,
+      "estimated_time_seconds": integer,
+      "evaluation_weight": integer,
+      "followup_possible": boolean
+    }
+  ]
+}

@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2026-07-03 (Phase 10)
+### Added
+- **Interview Foundation**: Designed a Clean Architecture directory structure (`app/interview/`), custom SQLAlchemy schemas (`interview_sessions`, `interview_turns`), and robust Pydantic schemas.
+- **AI Platform Integration**: Integrated with the global thread-safe `PromptRegistry` using Jinja templates for dynamic prompt rendering, validation, metrics logging, and local LLM execution.
+- **Question Generation**: Built an engine to automatically generate technical, behavioral, and resume-based questions tuned to the candidate's experience and targeted role.
+- **Answer Evaluation**: Implemented a STAR (Situation, Task, Action, Result) methodology evaluation system compiling detailed feedback, scores, strengths, weaknesses, and improvement recommendations.
+- **Mock Interview Engine**: Implemented an automated session state workflow spanning 7 states (`Created`, `Context Ready`, `Waiting For Questions`, `Waiting For Answers`, `Evaluation Pending`, `Evaluated`, `Completed`) with transaction checks.
+- **Analytics**: Captured session completion rates, average response scores, detailed charts data, and historical logs.
+- **Reports**: Generated summary and turn-level performance reports.
+- **Testing**: Added a suite of unit and integration tests covering the generation, session management, evaluation, and analytics endpoints.
+- **Documentation**: Formulated comprehensive user and architecture docs (`docs/AI_INTERVIEW.md`).
+
 ---
 
 ## [0.9.0] - 2026-07-01 (Phase 9)

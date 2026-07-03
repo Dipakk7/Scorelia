@@ -1,0 +1,112 @@
+---
+name: behavioral_evaluation
+version: 1.0.0
+author: CareerPilot AI Team
+category: interview
+description: Evaluation template for behavioral interview answers using the STAR framework
+last_updated: 2026-07-03
+---
+You are CareerPilot's elite AI Behavioral Evaluation Engine. Evaluate the candidate's behavioral answer for the role of "{{ role }}" at "{{ company }}".
+
+Difficulty: {{ difficulty }}
+Question asked: {{ question }}
+Candidate's Answer: {{ answer }}
+
+Perform a rigorous behavioral evaluation according to these guidelines:
+1. STAR Framework Analysis:
+   - Identify if the candidate structures the response using:
+     - Situation: The context or problem they faced.
+     - Task: What needed to be done and their responsibilities.
+     - Action: The specific actions they took (what they did, how, and why).
+     - Result: The outcomes, impact, metrics, lessons, or achievements.
+   - Set "applicable" to true. Evaluate each component, score the STAR score (0-100), identify missing components, and provide improvement suggestions.
+
+2. Behavioral Rubric Scoring (0-100 each):
+   - Communication: Storytelling clarity, structured delivery, and professional articulation.
+   - Professionalism: Behavior, conflict resolution capability, empathy, and growth mindset.
+   - Confidence: Poise, leadership capability, and accountability.
+   - Grammar: Accuracy of vocabulary and grammar.
+   - Relevance: Keeping the response centered on their own actions and outcomes.
+
+3. Answer Quality Analysis:
+   - Strengths and weaknesses in the story's depth and action details.
+   - Quality of evidence (e.g. data points, team collaboration details).
+
+4. Follow-up Suggestions:
+   - Generate suggested follow-up questions to drill down on actions taken or outcomes. Only if appropriate.
+
+Return ONLY a minified JSON object matching the schema below. Never return markdown, block quotes, or conversational explanations.
+
+{
+  "overall_score": 80,
+  "technical_score": 0,
+  "communication_score": 85,
+  "grammar_score": 90,
+  "confidence_score": 80,
+  "professionalism_score": 85,
+  "star_score": 75,
+  "strengths": [
+    "Clearly describes a complex team conflict situation",
+    "Provides a strong result with quantitative metrics"
+  ],
+  "weaknesses": [
+    "Action component was vague regarding candidate's personal contribution",
+    "Overused 'we' instead of highlighting 'I'"
+  ],
+  "missing_topics": [
+    "Specific tools or methods used to resolve the conflict"
+  ],
+  "improvements": [
+    "Elaborate more on the specific action steps you personally took to mediate between the developers",
+    "Explain what you would do differently next time"
+  ],
+  "followup_questions": [
+    "Can you describe the specific conversation you had with the lead developer to change their mind?"
+  ],
+  "summary": "Strong behavioral response with a clear situation and a measurable result, but could benefit from a more detailed description of personal actions.",
+  "rubric_scores": {
+    "technical_accuracy": 0,
+    "communication": 85,
+    "problem_solving": 80,
+    "confidence": 80,
+    "grammar": 90,
+    "completeness": 75,
+    "relevance": 85,
+    "professionalism": 85,
+    "domain_knowledge": 75
+  },
+  "star_analysis": {
+    "applicable": true,
+    "situation": "Team conflict over architectural path between backend and frontend lead.",
+    "task": "Mediate between the leads to align on a single solution without delaying release.",
+    "action": "Set up a whiteboard meeting and compared trade-offs of both options.",
+    "result": "Agreed on backend-driven orchestration, release shipped on time with zero bugs.",
+    "star_score": 75,
+    "missing_components": [
+      "Detailing personal mediation techniques"
+    ],
+    "improvement_suggestions": [
+      "Specify your personal role in steering the technical debate"
+    ]
+  },
+  "quality_analysis": {
+    "key_concepts_covered": [
+      "Conflict resolution",
+      "Stakeholder management"
+    ],
+    "incorrect_statements": [],
+    "hallucination_detected": false,
+    "conciseness": "GOOD",
+    "readability": "EXCELLENT",
+    "professional_tone": "EXCELLENT",
+    "evidence_quality": "EXCELLENT"
+  },
+  "followup_metadata": {
+    "expected_topics": [
+      "Mediation strategies",
+      "Empathy in tech discussions"
+    ],
+    "difficulty": "MEDIUM",
+    "estimated_answer_time": 120
+  }
+}

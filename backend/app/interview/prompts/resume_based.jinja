@@ -1,0 +1,59 @@
+---
+name: resume_based
+version: 1.0.0
+author: CareerPilot AI Team
+category: interview
+description: Resume Based Interview Prompt
+last_updated: 2026-07-03
+---
+Generate {{ count }} resume-specific interview question(s) for the role of "{{ role }}" at "{{ company }}".
+
+Difficulty level: {{ difficulty }}
+Influence wording, complexity, expected knowledge, and follow-up potential accordingly:
+- EASY: Asking for details about a listed tool, skill, or project. Clarifying dates or role scopes.
+- MEDIUM: Probing achievements, choices of technical stack, design patterns used, or team structure on the resume projects.
+- HARD: Challenging the candidate on architectural decisions, performance optimization, trade-offs, scaling limits, or skill gaps relative to the job.
+
+Candidate Context:
+- Resume parsed content: {{ context.resume_parsed_data | default('None') }}
+- ATS Score info: {{ context.ats_score | default('None') }}
+- Job Match rating: {{ context.job_match | default('None') }}
+- Skill Gap info: {{ context.skill_gap | default('None') }}
+- Cover Letter context: {{ context.cover_letter | default('None') }}
+- Resume Review feedback: {{ context.resume_review | default('None') }}
+- Resume Optimization suggestions: {{ context.resume_optimization | default('None') }}
+
+{% if previous_questions %}
+Previously asked questions (Do NOT repeat or duplicate these topics):
+{% for pq in previous_questions %}
+- {{ pq }}
+{% endfor %}
+{% endif %}
+
+Generate the questions. For each question, output:
+1. question_id: Sequential integer starting at {{ current_question }}
+2. category: Must be "BACKGROUND", "ROLE_SPECIFIC", or "TECHNICAL"
+3. difficulty: Must be "{{ difficulty }}"
+4. question: The actual question text referencing the candidate's resume/projects (e.g. "On your resume you mentioned X. Can you explain...")
+5. expected_topics: List of skills/attributes expected in the response (e.g. ["Python", "System Design"])
+6. recommended_answer_framework: Recommended framework (e.g. "STAR", "PREP", or "CAR")
+7. estimated_time_seconds: Estimated time for candidate to respond (typically 120-180 seconds)
+8. evaluation_weight: Weight out of 10
+9. followup_possible: Boolean indicating if follow-up is relevant
+
+Return a single JSON object matching this schema:
+{
+  "questions": [
+    {
+      "question_id": integer,
+      "category": string,
+      "difficulty": string,
+      "question": string,
+      "expected_topics": [string],
+      "recommended_answer_framework": string,
+      "estimated_time_seconds": integer,
+      "evaluation_weight": integer,
+      "followup_possible": boolean
+    }
+  ]
+}

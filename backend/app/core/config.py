@@ -66,6 +66,17 @@ class Settings(BaseSettings):
     COVER_LETTER_DEFAULT_MODE: str = "STANDARD"
     COVER_LETTER_MAX_LENGTH: int = 4000
 
+    # AI Interview settings
+    INTERVIEW_DEFAULT_TYPE: str = "BEHAVIORAL"
+    INTERVIEW_DEFAULT_DIFFICULTY: str = "MEDIUM"
+    INTERVIEW_MAX_QUESTIONS: int = 15
+    INTERVIEW_MAX_SESSION_MINUTES: int = 60
+    INTERVIEW_PROMPT_VERSION: str = "1.0.0"
+    INTERVIEW_CONTEXT_CACHE: bool = True
+    INTERVIEW_WORKFLOW_VERSION: str = "1.0.0"
+
+
+
     @field_validator("CORS_ORIGINS", mode="before")
     @classmethod
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> List[str]:
