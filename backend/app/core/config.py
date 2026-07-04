@@ -75,6 +75,15 @@ class Settings(BaseSettings):
     INTERVIEW_CONTEXT_CACHE: bool = True
     INTERVIEW_WORKFLOW_VERSION: str = "1.0.0"
 
+    # AI Career Roadmap settings
+    ROADMAP_DEFAULT_MONTHS: int = 12
+    ROADMAP_DEFAULT_PHASES: int = 3
+    ROADMAP_MAX_MILESTONES: int = 15
+    ROADMAP_PROMPT_VERSION: str = "1.0.0"
+    ROADMAP_CONTEXT_CACHE: bool = True
+    ROADMAP_WORKFLOW_VERSION: str = "1.0.0"
+
+
 
 
     @field_validator("CORS_ORIGINS", mode="before")

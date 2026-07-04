@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-07-04 (Phase 11)
+### Added
+- **Foundation**: Set up clean architecture layout (`app/career_roadmap/`), SQLAlchemy models (`career_roadmaps`, `career_milestones`, `skill_gap_analyses`, `learning_recommendations`), and Pydantic validation schemas.
+- **AI Generation**: Developed personalized step-by-step transition plan generator utilizing local LLM inference, Jinja-templated prompt registry prompts, validation checks, and telemetry metadata.
+- **Skill Gap Engine**: Created an extraction service comparing candidate parsed resume skills against target role requirements to identify gaps and generate tailored learning recommendations (courses, platforms, and practice projects).
+- **Timeline Planner**: Implemented milestone sequencing, task schedules, state controls (Not Started, In Progress, Completed), and date validation constraints.
+- **Analytics Dashboard**: Integrated roadmap analytics, including target career analysis, milestone completion rates, and learning progress charts into the centralized analytics pipeline.
+
+---
+
 ## [1.0.0] - 2026-07-03 (Phase 10)
 ### Added
 - **Interview Foundation**: Designed a Clean Architecture directory structure (`app/interview/`), custom SQLAlchemy schemas (`interview_sessions`, `interview_turns`), and robust Pydantic schemas.

@@ -1,0 +1,28 @@
+---
+name: monthly_plan
+version: 1.0.0
+author: CareerPilot AI Team
+category: career_roadmap
+description: Monthly plan prompt template
+last_updated: 2026-07-04
+---
+Generate a monthly breakdown of goals for the transition from {{ current_role }} to {{ target_role }} over {{ estimated_duration_months }} months.
+
+Roadmap Phases:
+{% for phase in roadmap_phases %}
+Phase {{ phase.phase_number }}: {{ phase.title }}
+Duration: {{ phase.duration }}
+Description: {{ phase.description }}
+{% endfor %}
+
+Construct a monthly plan. Return only a JSON object:
+{
+  "monthly_milestones": [
+    {
+      "month_number": 1,
+      "milestone": "Monthly milestone focus"
+    }
+  ]
+}
+
+Ensure the response contains only the raw, valid JSON object. Do not add markdown backticks, notes, or explanations.

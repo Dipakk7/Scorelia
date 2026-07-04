@@ -1,0 +1,38 @@
+---
+name: milestones
+version: 1.0.0
+author: CareerPilot AI Team
+category: career_roadmap
+description: Milestone Planner prompt template
+last_updated: 2026-07-04
+---
+Generate detailed milestones for the candidate's transition from {{ current_role }} to {{ target_role }} ({{ experience_level }} level) over {{ estimated_duration_months }} months.
+
+Candidate Profile Context:
+{{ context }}
+
+Roadmap Phases:
+{% for phase in roadmap_phases %}
+Phase {{ phase.phase_number }}: {{ phase.title }}
+Duration: {{ phase.duration }}
+Description: {{ phase.description }}
+{% endfor %}
+
+Construct a list of milestones. Return only a JSON object:
+{
+  "milestones": [
+    {
+      "id": "m1",
+      "title": "Milestone Title",
+      "description": "Milestone Description",
+      "start_week": 1,
+      "end_week": 4,
+      "estimated_hours": 40,
+      "prerequisite_skills": ["Skill A"],
+      "expected_outcome": "Outcome",
+      "completion_status": "NOT_STARTED"
+    }
+  ]
+}
+
+Ensure the response contains only the raw, valid JSON object. Do not add markdown backticks, notes, or explanations.

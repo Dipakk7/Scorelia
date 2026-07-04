@@ -1,0 +1,41 @@
+---
+name: career_roadmap
+version: 1.0.0
+author: CareerPilot AI Team
+category: career_roadmap
+description: Main Career Roadmap prompt template
+last_updated: 2026-07-03
+---
+Generate a personalized career roadmap for transitioning from {{ current_role }} to {{ target_role }} at the {{ experience_level }} level in the {{ target_industry }} industry over an estimated {{ estimated_duration_months }} months.
+
+Candidate Profile Context:
+{{ context }}
+
+Based on the candidate's profile, parsed skills, ATS score, missing skills (skill gap), GitHub projects, and interview history, construct a highly customized sequential career roadmap divided into distinct phases.
+
+You must return a single JSON object with the following structure:
+{
+  "roadmap_title": "Actionable title for the roadmap",
+  "target_role": "{{ target_role }}",
+  "experience_level": "{{ experience_level }}",
+  "estimated_duration_months": {{ estimated_duration_months }},
+  "current_readiness_score": 60,
+  "phases": [
+    {
+      "phase_number": 1,
+      "title": "Phase Title",
+      "objective": "Clear objective for this phase",
+      "description": "Detailed description of what the user needs to learn and do in this phase",
+      "estimated_duration_weeks": 4,
+      "difficulty": "Beginner",
+      "skills": ["SkillA", "SkillB"],
+      "projects": ["Hands-on project description or title"],
+      "certifications": ["Relevant certification"],
+      "resources": ["Key learning resources or documentation URLs"],
+      "completion_criteria": ["What defines completion of this phase"],
+      "career_outcome": "What the candidate gains at the end of this phase"
+    }
+  ]
+}
+
+Ensure the response contains only the raw, valid JSON object matching this schema. Do not add markdown backticks, notes, or explanations.

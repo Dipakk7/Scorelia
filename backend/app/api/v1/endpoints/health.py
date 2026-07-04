@@ -81,6 +81,49 @@ async def health_check(
         logger.error("Health check Context Builder failed", error=str(e))
         context_builder_status = "unhealthy"
 
+    # 6. Career Roadmap Module
+    roadmap_module_status = "healthy"
+    try:
+        from app.career_roadmap.services.service import RoadmapService
+    except Exception as e:
+        logger.error("Health check Career Roadmap Module failed", error=str(e))
+        roadmap_module_status = "unhealthy"
+
+    # 7. Roadmap Prompt Registry
+    roadmap_prompt_registry_status = "healthy"
+    try:
+        from app.career_roadmap.services.ai_service import RoadmapAIService
+    except Exception as e:
+        logger.error("Health check Roadmap Prompt Registry failed", error=str(e))
+        roadmap_prompt_registry_status = "unhealthy"
+
+    # 8. Roadmap Dependency Injection
+    roadmap_dependency_injection_status = "healthy"
+    try:
+        from app.career_roadmap.dependencies import get_roadmap_service, get_roadmap_ai_service
+        assert callable(get_roadmap_service)
+        assert callable(get_roadmap_ai_service)
+    except Exception as e:
+        logger.error("Health check Roadmap Dependency Injection failed", error=str(e))
+        roadmap_dependency_injection_status = "unhealthy"
+
+    # 9. Roadmap Workflow Skeleton
+    roadmap_workflow_skeleton_status = "healthy"
+    try:
+        from app.career_roadmap.services.workflow import RoadmapWorkflow, RoadmapWorkflowState
+        assert len(RoadmapWorkflow.get_all_states()) == 9
+    except Exception as e:
+        logger.error("Health check Roadmap Workflow Skeleton failed", error=str(e))
+        roadmap_workflow_skeleton_status = "unhealthy"
+
+    # 10. Roadmap Context Builder
+    roadmap_context_builder_status = "healthy"
+    try:
+        from app.career_roadmap.services.context import RoadmapContext
+    except Exception as e:
+        logger.error("Health check Roadmap Context Builder failed", error=str(e))
+        roadmap_context_builder_status = "unhealthy"
+
     interview_health = {
         "status": "healthy" if (
             interview_module_status == "healthy" and
@@ -96,10 +139,26 @@ async def health_check(
         "context_builder": context_builder_status
     }
 
+    roadmap_health = {
+        "status": "healthy" if (
+            roadmap_module_status == "healthy" and
+            roadmap_prompt_registry_status == "healthy" and
+            roadmap_dependency_injection_status == "healthy" and
+            roadmap_workflow_skeleton_status == "healthy" and
+            roadmap_context_builder_status == "healthy"
+        ) else "unhealthy",
+        "career_roadmap_module": roadmap_module_status,
+        "prompt_registry": roadmap_prompt_registry_status,
+        "dependency_injection": roadmap_dependency_injection_status,
+        "workflow_skeleton": roadmap_workflow_skeleton_status,
+        "context_builder": roadmap_context_builder_status
+    }
+
     overall_status = "healthy" if (
         db_status == "healthy" and 
         ai_status == "healthy" and 
-        interview_health["status"] == "healthy"
+        interview_health["status"] == "healthy" and
+        roadmap_health["status"] == "healthy"
     ) else "unhealthy"
 
     return {
@@ -107,5 +166,7 @@ async def health_check(
         "database": db_status,
         "ai": ai_details,
         "interview": interview_health,
+        "roadmap": roadmap_health,
         "timestamp": datetime.now(timezone.utc).isoformat() + "Z"
     }
+

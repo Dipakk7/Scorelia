@@ -64,6 +64,7 @@ graph TD
     API --> Embedding[Sentence Transformers Engine]
     API --> Workflow[Resume Workflow Service]
     API --> Interview[Interview Service]
+    API --> Roadmap[Roadmap Service]
 
     Parser --> Embedding
 
@@ -78,6 +79,12 @@ graph TD
     Interview --> InterviewWorkflow[Interview Workflow]
     InterviewWorkflow --> InterviewAI[Interview AI Service]
     InterviewAI --> Registry
+
+    Roadmap --> RoadmapGen[Roadmap Generator]
+    Roadmap --> SkillGap[Skill Gap Engine]
+    Roadmap --> Timeline[Timeline Planner]
+    RoadmapGen --> Registry
+    SkillGap --> Registry
 
     Registry --> Factory[Provider Factory]
     Factory --> Ollama[Ollama Qwen 2.5 3B]
@@ -181,7 +188,7 @@ npm run dev
 CareerPilot AI is being developed incrementally, with features
 added and validated through iterative releases.
 
-Current implementation status: **83% Complete (10/12 Phases)**
+Current implementation status: **91% Complete (11/12 Phases)**
 
 ### ✅ Core Backend, Analytics & AI Platform (Complete)
 - [x] Phase 1: User Authentication — JWT + HttpOnly Cookies + bcrypt
@@ -194,9 +201,9 @@ Current implementation status: **83% Complete (10/12 Phases)**
 - [x] Phase 8: AI Resume Intelligence — Ollama + Qwen 2.5 3B + Prompt Registry + Resume Review/Rewrite/Optimization Engine
 - [x] Phase 9: AI Cover Letter Module — Foundation, Generation, Optimization, and multi-format Export Engine
 - [x] Phase 10: Mock Interview Generator — role-specific questions and scoring
+- [x] Phase 11: Career Roadmap Generator — step-by-step transition plans
 
 ### 🚀 Upcoming AI Features (Planned)
-- [ ] Phase 11: Career Roadmap Generator — step-by-step transition plans
 - [ ] Phase 12: AI Career Assistant — persistent context-aware chat
 
 ### 🌐 Deployment & CI/CD (Planned)
@@ -242,6 +249,18 @@ CareerPilot AI has successfully completed Phase 10: **Mock Interview Generator**
 - **Answer Evaluation**: Implements STAR methodology evaluations (Situation, Task, Action, Result) compiling detailed strengths, weaknesses, and improvement recommendations.
 - **Mock Interview Engine**: Controls sessions through 7 workflow states from creation to completion, validating state transitions.
 - **Analytics & History**: Captures detailed metrics, averages, completion rates, and historical logs.
+
+---
+
+# Phase 11 Completed
+
+CareerPilot AI has successfully completed Phase 11: **AI Career Roadmap Module**. This completes the AI-powered professional development and transitional pathway planner:
+
+- **Career Roadmap Foundation**: Custom database models (`career_roadmaps`, `career_milestones`, `skill_gap_analyses`, `learning_recommendations`), clear SQLAlchemy mappings, and complete schema validations using Pydantic.
+- **AI Roadmap Generation**: Personalized step-by-step roadmap generation utilizing local LLM inference via the shared `AIService`, crafting custom timelines, transition guidance, and milestone checkpoints.
+- **Skill Gap & Learning Engine**: Analyzes target career requirements against the candidate's existing parsed resume skills, computing exact gaps and compiling targeted learning recommendations with specific courses, platforms, and practice projects.
+- **Timeline & Milestone Planner**: Provides structured chronological task planning with milestone sequencing and states (Not Started, In Progress, Completed).
+- **Career Analytics Dashboard**: Integrated roadmap completion metrics, skill acquisition progress, and timeline analytics directly into the central analytics engine.
 
 ---
 

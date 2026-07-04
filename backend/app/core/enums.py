@@ -43,3 +43,31 @@ class QuestionCategory(str, Enum):
     BACKGROUND = "BACKGROUND"
     ROLE_SPECIFIC = "ROLE_SPECIFIC"
 
+
+class RoadmapStatus(str, Enum):
+    PENDING = "PENDING"
+    IN_PROGRESS = "IN_PROGRESS"
+    COMPLETED = "COMPLETED"
+    FAILED = "FAILED"
+
+
+class ExperienceLevel(str, Enum):
+    ENTRY = "ENTRY"
+    MID = "MID"
+    SENIOR = "SENIOR"
+    LEAD = "LEAD"
+    EXECUTIVE = "EXECUTIVE"
+
+
+class LearningPriority(str, Enum):
+    LOW = "LOW"
+    MEDIUM = "MEDIUM"
+    HIGH = "HIGH"
+
+
+class MilestoneStatus(str, Enum):
+    NOT_STARTED = "NOT_STARTED"
+    IN_PROGRESS = "IN_PROGRESS"
+    COMPLETED = "COMPLETED"
+
+

@@ -1,0 +1,59 @@
+---
+name: learning_path
+version: 1.0.0
+author: CareerPilot AI Team
+category: career_roadmap
+description: Personalized Learning Path prompt template
+last_updated: 2026-07-03
+---
+Analyze the user's career transition from {{ current_role }} to {{ target_role }} ({{ experience_level }} level) in {{ target_industry }} over {{ estimated_duration_months }} months.
+
+Candidate Profile Context:
+{{ context }}
+
+Generate a structured, highly personalized learning plan aligning with the target role, experience level, preferred industry, and current readiness.
+
+You must return a single JSON object with the following structure:
+{
+  "weekly_plan": [
+    {
+      "week_number": 1,
+      "topic": "Topic Name",
+      "focus": "Focus Area",
+      "objectives": ["Objective 1", "Objective 2"],
+      "schedule": [
+        {
+          "day": "Monday",
+          "focus": "Daily focus",
+          "tasks": ["Task 1", "Task 2"]
+        }
+      ]
+    }
+  ],
+  "monthly_goals": ["Goal 1", "Goal 2"],
+  "quarterly_goals": ["Goal 1", "Goal 2"],
+  "practice_schedule": ["Practice schedule detail"],
+  "certification_suggestions": ["Suggested Certification"],
+  "books": ["Suggested Book"],
+  "courses": ["Suggested Course"],
+  "hands_on_projects": ["Suggested Project"],
+  "open_source_contributions": ["Suggested Contribution"],
+  "interview_practice": ["Suggested Interview Prep"],
+  "recommendations": [
+    {
+      "recommendation_id": 1,
+      "title": "Recommendation Title",
+      "category": "Courses",
+      "priority": "High",
+      "estimated_hours": 20,
+      "difficulty": "Intermediate",
+      "reason": "Reason for recommendation",
+      "learning_resources": ["Resource URL or title"],
+      "practice_projects": ["Practice Project Name"],
+      "success_criteria": ["Success criteria description"],
+      "career_impact": "Impact on career"
+    }
+  ]
+}
+
+Ensure the response contains only the raw, valid JSON object matching this schema. Do not add markdown backticks, notes, or explanations.

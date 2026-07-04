@@ -1,0 +1,67 @@
+---
+name: timeline
+version: 1.0.0
+author: CareerPilot AI Team
+category: career_roadmap
+description: Main Career Timeline prompt template
+last_updated: 2026-07-04
+---
+Generate a structured career execution timeline based on the candidate's career roadmap phases and transition from {{ current_role }} to {{ target_role }} ({{ experience_level }} level) in {{ target_industry }} over {{ estimated_duration_months }} months.
+
+Candidate Profile Context:
+{{ context }}
+
+Roadmap Phases:
+{% for phase in roadmap_phases %}
+Phase {{ phase.phase_number }}: {{ phase.title }}
+Duration: {{ phase.duration }}
+Description: {{ phase.description }}
+{% endfor %}
+
+Construct a detailed execution timeline. You must return a single JSON object matching this structure:
+{
+  "weekly_goals": [
+    {
+      "week_number": 1,
+      "goal": "Focus goal for this week",
+      "tasks": ["Specific action item 1", "Specific action item 2"]
+    }
+  ],
+  "monthly_milestones": [
+    {
+      "month_number": 1,
+      "milestone": "Focus milestone for this month"
+    }
+  ],
+  "quarterly_objectives": [
+    {
+      "quarter_number": 1,
+      "objective": "Objective to achieve by the end of this quarter"
+    }
+  ],
+  "estimated_completion_date": "Estimated completion date (e.g. within N months from start or specific month/year format)",
+  "time_estimates": "Total estimated hours per week or duration summary",
+  "dependencies": [
+    "Prerequisite skill or task dependency 1",
+    "Dependency 2"
+  ],
+  "priority_ordering": [
+    "Priority 1: Description of first priority focus",
+    "Priority 2: Description of second priority focus"
+  ],
+  "milestones": [
+    {
+      "id": "m1",
+      "title": "Milestone Title",
+      "description": "Milestone Description",
+      "start_week": 1,
+      "end_week": 4,
+      "estimated_hours": 40,
+      "prerequisite_skills": ["Skill A"],
+      "expected_outcome": "Demonstrable project or certificate",
+      "completion_status": "NOT_STARTED"
+    }
+  ]
+}
+
+Ensure the response contains only the raw, valid JSON object. Do not add markdown backticks, notes, explanations, or code blocks.

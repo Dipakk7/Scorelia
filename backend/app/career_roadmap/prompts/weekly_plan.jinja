@@ -1,0 +1,34 @@
+---
+name: weekly_plan
+version: 1.0.0
+author: CareerPilot AI Team
+category: career_roadmap
+description: Weekly Plan prompt template
+last_updated: 2026-07-03
+---
+Analyze the user's career transition from {{ current_role }} to {{ target_role }} ({{ experience_level }} level) in {{ target_industry }} over {{ estimated_duration_months }} months.
+
+Candidate Profile Context:
+{{ context }}
+
+Generate a weekly plan. Return only JSON:
+{
+  "target_role": "{{ target_role }}",
+  "weekly_plan": [
+    {
+      "week_number": 1,
+      "topic": "Topic Name",
+      "focus": "Focus Area",
+      "objectives": ["Objective 1"],
+      "schedule": [
+        {
+          "day": "Monday",
+          "focus": "Daily focus topic",
+          "tasks": ["Daily Task 1"]
+        }
+      ]
+    }
+  ]
+}
+
+Ensure the response contains only the raw, valid JSON object matching this schema. Do not add markdown backticks, notes, or explanations.

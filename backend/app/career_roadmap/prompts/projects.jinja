@@ -1,0 +1,35 @@
+---
+name: projects
+version: 1.0.0
+author: CareerPilot AI Team
+category: career_roadmap
+description: Practice Projects recommendations prompt template
+last_updated: 2026-07-03
+---
+Analyze the user's career transition from {{ current_role }} to {{ target_role }} ({{ experience_level }} level) in {{ target_industry }} over {{ estimated_duration_months }} months.
+
+Candidate Profile Context:
+{{ context }}
+
+Recommend practice projects to bridge skill gaps. Return only JSON:
+{
+  "target_role": "{{ target_role }}",
+  "projects": [
+    {
+      "recommendation_id": 1,
+      "title": "Project Title",
+      "description": "Project Description",
+      "technologies": ["Tech1", "Tech2"],
+      "difficulty": "Intermediate",
+      "priority": "High",
+      "estimated_hours": 15,
+      "reason": "Demonstrate skills",
+      "learning_resources": ["Doc link"],
+      "practice_projects": ["Task manager app"],
+      "success_criteria": ["Deploy to cloud"],
+      "career_impact": "Build portfolio"
+    }
+  ]
+}
+
+Ensure the response contains only the raw, valid JSON object matching this schema. Do not add markdown backticks, notes, or explanations.

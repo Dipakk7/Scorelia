@@ -35,9 +35,9 @@ backend/.env
 .DS_Store
 Thumbs.db
 
-# Uploaded resume files
-backend/storage/resumes/*
-!backend/storage/resumes/.gitkeep
+# Storage
+backend/storage/*
+!backend/storage/.gitkeep
 
 # Cover Letter Exports & Temporary files
 htmlcov/

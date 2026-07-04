@@ -1,0 +1,29 @@
+---
+name: weekly_schedule
+version: 1.0.0
+author: CareerPilot AI Team
+category: career_roadmap
+description: Weekly schedule prompt template
+last_updated: 2026-07-04
+---
+Generate a weekly goal schedule for the transition from {{ current_role }} to {{ target_role }} over {{ estimated_duration_months }} months.
+
+Roadmap Phases:
+{% for phase in roadmap_phases %}
+Phase {{ phase.phase_number }}: {{ phase.title }}
+Duration: {{ phase.duration }}
+Description: {{ phase.description }}
+{% endfor %}
+
+Construct a weekly schedule. Return only a JSON object:
+{
+  "weekly_goals": [
+    {
+      "week_number": 1,
+      "goal": "Weekly goal focus",
+      "tasks": ["Task 1", "Task 2"]
+    }
+  ]
+}
+
+Ensure the response contains only the raw, valid JSON object. Do not add markdown backticks, notes, or explanations.

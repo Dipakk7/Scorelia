@@ -1,0 +1,36 @@
+---
+name: certifications
+version: 1.0.0
+author: CareerPilot AI Team
+category: career_roadmap
+description: Certification recommendations prompt template
+last_updated: 2026-07-03
+---
+Analyze the user's career transition from {{ current_role }} to {{ target_role }} ({{ experience_level }} level) in {{ target_industry }} over {{ estimated_duration_months }} months.
+
+Candidate Profile Context:
+{{ context }}
+
+Recommend industry-recognized certifications. Return only JSON:
+{
+  "target_role": "{{ target_role }}",
+  "certifications": [
+    {
+      "recommendation_id": 1,
+      "title": "Certification Name",
+      "issuer": "Issuer",
+      "importance": "High",
+      "estimated_hours": 40,
+      "difficulty": "Advanced",
+      "reason": "Required for target role",
+      "learning_resources": ["Study guide"],
+      "practice_projects": ["Sample questions"],
+      "success_criteria": ["Pass exam"],
+      "career_impact": "Industry recognition",
+      "category": "Certifications",
+      "priority": "High"
+    }
+  ]
+}
+
+Ensure the response contains only the raw, valid JSON object matching this schema. Do not add markdown backticks, notes, or explanations.

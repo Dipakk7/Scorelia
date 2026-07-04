@@ -1,0 +1,45 @@
+---
+name: skill_gap
+version: 1.0.0
+author: CareerPilot AI Team
+category: career_roadmap
+description: Custom prompt template for extracting gaps
+last_updated: 2026-07-03
+---
+Analyze the user's career transition from {{ current_role }} to {{ target_role }} ({{ experience_level }} level) in {{ target_industry }} over {{ estimated_duration_months }} months.
+
+Candidate Profile Context:
+{{ context }}
+
+Identify critical skill gaps of the following categories:
+- Technical Gaps (e.g. coding skills, system design, data structures)
+- Soft Skill Gaps (e.g. leadership, collaboration, agility)
+- Domain Knowledge Gaps (e.g. industry domain specific knowledge)
+- Tool Gaps (e.g. Git, Docker, Kubernetes, CI/CD)
+- Framework Gaps (e.g. FastAPI, React, Spring Boot)
+- Communication Gaps (e.g. technical presentation, stakeholder management)
+- Confidence Gaps (e.g. imposter syndrome, public speaking)
+
+Rank the severity of each identified gap as "High", "Medium", or "Low". Give a concrete, actionable remediation step for each.
+Calculate an overall current readiness score (0-100) reflecting how close the user is to their target role.
+
+You must return a single JSON object with the following structure:
+{
+  "target_role": "{{ target_role }}",
+  "readiness_score": 60,
+  "technical_gaps": [
+    {
+      "skill": "Skill Name",
+      "gap_severity": "High",
+      "remediation_action": "Action to take"
+    }
+  ],
+  "soft_skill_gaps": [],
+  "domain_knowledge_gaps": [],
+  "tool_gaps": [],
+  "framework_gaps": [],
+  "communication_gaps": [],
+  "confidence_gaps": []
+}
+
+Ensure the response contains only the raw, valid JSON object matching this schema. Do not add markdown backticks, notes, or explanations.
