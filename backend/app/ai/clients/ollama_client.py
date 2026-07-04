@@ -273,3 +273,40 @@ class OllamaClient:
             raise AIError(f"Ollama server returned error {e.response.status_code} during chat stream: {e.response.text}")
         except Exception as e:
             raise AIError(f"Unexpected error in Ollama chat streaming: {str(e)}")
+
+    async def embed(
+        self,
+        input_data: Any,
+        model: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Perform a request to Ollama /api/embed.
+
+        Args:
+            input_data: A single string prompt or list of string prompts.
+            model: Optional model override.
+
+        Returns:
+            Parsed response JSON from Ollama.
+        """
+        url = f"{self.host}/api/embed"
+        target_model = model or self.model
+        payload = {
+            "model": target_model,
+            "input": input_data
+        }
+        try:
+            async with httpx.AsyncClient(timeout=self.timeout) as client:
+                response = await client.post(url, json=payload)
+                response.raise_for_status()
+                return response.json()
+
+        except httpx.TimeoutException as e:
+            raise AIRequestTimeout(f"Ollama embed request timed out: {str(e)}")
+        except (httpx.ConnectError, httpx.NetworkError) as e:
+            raise AIProviderUnavailable(f"Ollama server is unreachable: {str(e)}")
+        except httpx.HTTPStatusError as e:
+            if e.response.status_code == 404:
+                raise ModelNotFound(f"Model '{target_model}' not found on Ollama server: {e.response.text}")
+            raise AIError(f"Ollama server returned error {e.response.status_code}: {e.response.text}")
+        except Exception as e:
+            raise AIError(f"Unexpected error in Ollama embed client: {str(e)}")

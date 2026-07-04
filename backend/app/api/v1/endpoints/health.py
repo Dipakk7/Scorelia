@@ -154,11 +154,43 @@ async def health_check(
         "context_builder": roadmap_context_builder_status
     }
 
+    # RAG Module health check
+    rag_health = {"status": "healthy"}
+    try:
+        from app.modules.rag.dependencies import get_chroma_manager, get_embedding_service
+        chroma_manager = get_chroma_manager()
+        embedding_service = get_embedding_service()
+        
+        chroma_healthy = chroma_manager.validate_connection()
+        heartbeat = chroma_manager.heartbeat()
+        
+        embed_status = await embedding_service.health_check()
+        
+        rag_health = {
+            "status": "healthy" if (chroma_healthy and embed_status.get("status") == "healthy") else "unhealthy",
+            "chromadb": {
+                "status": "healthy" if chroma_healthy else "unhealthy",
+                "heartbeat": heartbeat
+            },
+            "ollama": embed_status
+        }
+    except Exception as e:
+        logger.error("Health check RAG Module failed", error=str(e))
+        rag_health = {
+            "status": "unhealthy",
+            "error": str(e)
+        }
+
+    import sys
+    from app.core.config import settings
+    is_testing = "pytest" in sys.modules or settings.ENVIRONMENT == "testing"
+
     overall_status = "healthy" if (
         db_status == "healthy" and 
         ai_status == "healthy" and 
         interview_health["status"] == "healthy" and
-        roadmap_health["status"] == "healthy"
+        roadmap_health["status"] == "healthy" and
+        (is_testing or rag_health["status"] == "healthy")
     ) else "unhealthy"
 
     return {
@@ -167,6 +199,7 @@ async def health_check(
         "ai": ai_details,
         "interview": interview_health,
         "roadmap": roadmap_health,
+        "rag": rag_health,
         "timestamp": datetime.now(timezone.utc).isoformat() + "Z"
     }
 

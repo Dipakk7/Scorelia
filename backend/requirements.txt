@@ -17,3 +17,5 @@ pymupdf
 python-docx
 spacy
 reportlab
+chromadb
+langchain-text-splitters

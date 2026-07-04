@@ -10,6 +10,8 @@ from app.api.v1.endpoints.ai_resume_optimization import router as ai_optimizatio
 from app.cover_letter.api.router import router as cover_letter_router
 from app.interview.api.router import router as interview_router
 from app.career_roadmap.api.router import router as roadmap_router
+from app.modules.rag.api.router import router as rag_router
+
 
 
 api_router = APIRouter()
@@ -81,6 +83,12 @@ api_router.include_router(
     analytics_router,
     prefix="/analytics",
     tags=["Analytics"]
+)
+
+api_router.include_router(
+    rag_router,
+    prefix="/rag",
+    tags=["RAG Foundation"]
 )
 
 

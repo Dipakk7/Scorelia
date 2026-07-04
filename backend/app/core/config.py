@@ -83,6 +83,82 @@ class Settings(BaseSettings):
     ROADMAP_CONTEXT_CACHE: bool = True
     ROADMAP_WORKFLOW_VERSION: str = "1.0.0"
 
+    # RAG settings
+    CHROMA_STORAGE_DIR: str = "storage/chromadb"
+    RAG_EMBEDDING_PROVIDER: str = "ollama"
+    RAG_EMBEDDING_MODEL: str = "nomic-embed-text"
+    RAG_TOP_K: int = 4
+    RAG_DEFAULT_TOP_K: int = 4
+    RAG_MAX_TOP_K: int = 20
+    RAG_SIMILARITY_THRESHOLD: float = 0.7
+    RAG_RETRIEVAL_LIMIT: int = 10
+    RAG_SCORE_NORMALIZATION: bool = True
+    RAG_METADATA_FILTERING: bool = True
+    RAG_DUPLICATE_REMOVAL: bool = True
+
+    # RAG Collection names
+    RAG_COLLECTION_RESUME: str = "resume_kb"
+    RAG_COLLECTION_COMPANY: str = "company_kb"
+    RAG_COLLECTION_COURSE: str = "course_kb"
+    RAG_COLLECTION_SKILLS: str = "skills_kb"
+    RAG_COLLECTION_INTERVIEW: str = "interview_kb"
+    RAG_COLLECTION_ATS: str = "ats_kb"
+    RAG_COLLECTION_JOB: str = "job_kb"
+
+    # RAG Chunking settings
+    RAG_CHUNK_SIZE: int = 500
+    RAG_CHUNK_OVERLAP: int = 50
+    RAG_MAX_CHUNK_SIZE: int = 2000
+    RAG_MIN_CHUNK_SIZE: int = 50
+    RAG_TOKEN_ESTIMATE_RATIO: float = 0.25
+    RAG_STRIP_WHITESPACE: bool = True
+    RAG_KEEP_SEPARATOR: bool = True
+    RAG_RECURSIVE_SEPARATORS: Union[List[str], str] = ["\n\n", "\n", " ", ""]
+    RAG_MARKDOWN_HEADERS: Union[List[str], str] = ["#", "##", "###", "####"]
+
+    # RAG indexing & pipeline configurations
+    RAG_BATCH_SIZE: int = 32
+    RAG_EMBEDDING_TIMEOUT: float = 60.0
+    RAG_RETRY_COUNT: int = 3
+    RAG_MAX_RETRIES: int = 5
+    RAG_DUPLICATE_POLICY: str = "skip"
+    RAG_ASYNC_WORKERS: int = 4
+    RAG_VECTOR_PERSISTENCE: bool = True
+    RAG_AUTO_INDEXING: bool = False
+    RAG_COLLECTION_DEFAULTS: Union[dict, str] = "{}"
+
+    # Multi-Collection & Search Strategy configuration settings
+    RAG_DEFAULT_KNOWLEDGE_BASE: str = "resume_kb"
+    RAG_DEFAULT_SEARCH_STRATEGY: str = "global"
+    RAG_COLLECTION_PRIORITY: Union[dict, str] = {"resume_kb": 1, "job_kb": 2, "company_kb": 3, "course_kb": 4, "skills_kb": 5, "interview_kb": 6, "ats_kb": 7}
+    RAG_COLLECTION_WEIGHT: Union[dict, str] = {"resume_kb": 1.0, "job_kb": 1.0, "company_kb": 1.0, "course_kb": 1.0, "skills_kb": 1.0, "interview_kb": 1.0, "ats_kb": 1.0}
+    RAG_MAX_COLLECTIONS: int = 10
+    RAG_CROSS_COLLECTION_SEARCH: bool = True
+
+    # RAG Generation settings
+    RAG_MAX_CONTEXT_TOKENS: int = 4096
+    RAG_MAX_RETRIEVED_CHUNKS: int = 10
+    RAG_MAX_PROMPT_SIZE: int = 8192
+    RAG_DEFAULT_PROMPT_TEMPLATE: str = "general"
+    RAG_TEMPERATURE: float = 0.3
+    RAG_TOP_P: float = 0.9
+    RAG_MAX_OUTPUT_TOKENS: int = 1024
+    RAG_HALLUCINATION_GUARD: bool = True
+    RAG_STRICT_CONTEXT_MODE: bool = True
+
+    # RAG Production settings
+    RAG_CACHE_TTL: int = 300
+    RAG_CACHE_SIZE: int = 1000
+    RAG_MAX_RETRIEVAL_TIME: float = 10.0
+    RAG_MAX_GENERATION_TIME: float = 30.0
+    RAG_CITATION_MODE: str = "standard"
+    RAG_METRICS_ENABLED: bool = True
+    RAG_OBSERVABILITY_ENABLED: bool = True
+    RAG_HEALTH_MONITORING: bool = True
+    RAG_STRICT_PRODUCTION_MODE: bool = False
+
+
+
 
 
 
