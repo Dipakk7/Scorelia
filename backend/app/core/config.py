@@ -157,6 +157,14 @@ class Settings(BaseSettings):
     RAG_HEALTH_MONITORING: bool = True
     RAG_STRICT_PRODUCTION_MODE: bool = False
 
+    # Agent configurations
+    AGENT_MAX_AGENTS: int = 5
+    AGENT_EXECUTION_TIMEOUT: float = 30.0
+    AGENT_PARALLEL_EXECUTION: bool = False
+    AGENT_RETRY_COUNT: int = 2
+    AGENT_MEMORY_TTL: int = 300
+    AGENT_LOGGING_ENABLED: bool = True
+
 
 
 
