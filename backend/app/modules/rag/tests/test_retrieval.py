@@ -170,6 +170,8 @@ class MockCollectionManager:
 def setup_overrides():
     from app.modules.rag.embeddings.service import EmbeddingService
     from app.modules.rag.vectorstores.service import VectorStorageService
+    from app.modules.rag.retrieval.semantic import SemanticRetriever
+    from app.modules.rag.retrieval.service import RetrievalService
 
     provider = MockEmbeddingProvider()
     mock_embed_service = EmbeddingService(provider=provider)
@@ -178,13 +180,23 @@ def setup_overrides():
     col_mgr = MockCollectionManager()
     mock_vector_service = VectorStorageService(vector_store=mock_store, collection_manager=col_mgr)
 
+    cfg = get_rag_config()
+    mock_retriever = SemanticRetriever(
+        embedding_service=mock_embed_service,
+        vector_storage_service=mock_vector_service,
+        config=cfg
+    )
+    mock_retrieval_service = RetrievalService(retriever=mock_retriever, config=cfg)
+
     app.dependency_overrides[get_current_user] = lambda: mock_user
     app.dependency_overrides[get_embedding_service] = lambda: mock_embed_service
     app.dependency_overrides[get_vector_storage_service] = lambda: mock_vector_service
+    app.dependency_overrides[get_retrieval_service] = lambda: mock_retrieval_service
 
     yield mock_store
 
     app.dependency_overrides.clear()
+
 
 
 client = TestClient(app)

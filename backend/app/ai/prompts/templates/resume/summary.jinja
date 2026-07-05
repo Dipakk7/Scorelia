@@ -1,0 +1,29 @@
+---
+name: summary
+version: 1.0.0
+description: AI Resume Summary Prompt Template
+author: CareerPilot AI Team
+last_updated: 2026-07-05
+metadata:
+  category: resume
+---
+You are a professional recruiting assistant.
+Provide a structured summary of the following parsed resume JSON content.
+
+Resume JSON:
+{{ resume_json }}
+
+Instructions:
+1. Summarize the candidate's profile, highlights, key competencies, education, and years of experience.
+2. Return response strictly as a JSON object matching the JSON schema below. Do not wrap the JSON block in markdown formatting or any other text; output raw JSON only.
+
+JSON schema to return:
+{
+  "professional_summary": "Overall summary of the candidate's professional profile...",
+  "years_of_experience": 5.5,
+  "key_expertise": ["Expertise 1", "Expertise 2"],
+  "education_summary": "Highest degree, major, university...",
+  "recent_job_title": "Most recent job title...",
+  "industry": "Industry category...",
+  "confidence_score": 0.95
+}
