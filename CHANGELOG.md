@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0-frontend-complete] - 2026-07-06
+### Added
+- **Visual Skeleton Loaders**: Engineered custom `Skeletons.tsx` containing page-specific loaders (`DashboardSkeleton`, `ResumesSkeleton`, `AtsSkeleton`, `AiResumeSkeleton`, `CoverLetterSkeleton`, `InterviewSkeleton`, `CareerCoachSkeleton`, `RagWorkspaceSkeleton`, `MultiAgentWorkspaceSkeleton`, `AnalyticsSkeleton`, `GithubIntelligenceSkeleton`).
+- **Standardized Empty States**: Crafted unified `<EmptyState>` variants for scenarios including no resumes, no analytics, no cover letters, no interviews, no notifications, no RAG Vector chunks, no agents logs, and no GitHub code insights.
+- **Robust Error Suite**: Implemented dedicated web views for standard errors: `404Page` (Not Found), `403Page` (Access Denied), `500Page` (Server Error), and `OfflinePage` (Offline mode).
+- **Auto-Connectivity Detector**: Integrated real-time connectivity listeners within `AppRoutes.tsx` that route immediately to the `OfflinePage` if network is lost.
+- **Diagnostics Crash Viewer**: Upgraded `ErrorBoundary.tsx` to provide collapsible rendering crash stack logs.
+- **Unified Toast Provider**: Configured standardized styled toast components for Info, Success, Warnings, Error, and Loading events.
+
+---
+
 ## [1.1.0] - 2026-07-04 (Phase 11)
 ### Added
 - **Foundation**: Set up clean architecture layout (`app/career_roadmap/`), SQLAlchemy models (`career_roadmaps`, `career_milestones`, `skill_gap_analyses`, `learning_recommendations`), and Pydantic validation schemas.

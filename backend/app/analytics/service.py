@@ -1,8 +1,19 @@
 import time
 import structlog
+import uuid
 from sqlalchemy.orm import Session
 
 from app.schemas.resume import ResumeResponse
+from app.models.user import User
+from app.models.resume import Resume
+from app.interview.models.interview import InterviewSession, InterviewTurn
+from app.cover_letter.models.ai_cover_letter import AICoverLetter
+from app.career_roadmap.models.roadmap import CareerRoadmap, RoadmapMilestone
+from app.models.ai_resume_review import AIResumeReview
+from app.models.ai_resume_rewrite import AIResumeRewrite
+from app.models.ai_resume_optimization import AIResumeOptimization
+from app.services.job_match.history import _history_cache
+
 from app.analytics.schemas import (
     DashboardSummaryResponse, 
     LatestJobMatch,
@@ -70,24 +81,33 @@ class AnalyticsService:
         self.github_service = GitHubService()
         logger.info("Analytics module initialized")
 
-    async def get_dashboard_summary(self, db: Session) -> DashboardSummaryResponse:
+    async def get_dashboard_summary(self, db: Session, user_id: uuid.UUID | None = None) -> DashboardSummaryResponse:
         """
-        Orchestrate system-wide metrics calculation for the dashboard.
+        Orchestrate system-wide or user-specific metrics calculation for the dashboard.
         Uses the Statistics layer for DB queries and decoupled service calls for job matches.
         """
-        logger.info("Dashboard analytics requested")
+        logger.info("Dashboard analytics requested", user_id=user_id)
         start_time = time.perf_counter()
 
         # Retrieve DB stats from the Statistics layer
-        db_stats = AnalyticsStatistics.get_dashboard_db_stats(db)
+        db_stats = AnalyticsStatistics.get_dashboard_db_stats(db, user_id=user_id)
 
-        # Retrieve Job Match stats via public service function (decoupled)
-        history_summary = get_history_summary()
-        total_job_matches = history_summary["total_matches"]
-        average_match_score = round(float(history_summary["average_score"]), 1)
+        # Retrieve Job Match stats via public service function or scoped cache list
+        if user_id:
+            user_resumes = db.query(Resume).filter(Resume.user_id == user_id).all()
+            resume_ids = {str(r.id) for r in user_resumes}
+            user_matches = [item for item in _history_cache if str(item.get("resume_id")) in resume_ids]
+            
+            total_job_matches = len(user_matches)
+            average_match_score = round(sum(item["overall_score"] for item in user_matches) / total_job_matches, 1) if total_job_matches > 0 else 0.0
+            latest_match_entry = user_matches[-1] if total_job_matches > 0 else None
+        else:
+            history_summary = get_history_summary()
+            total_job_matches = history_summary["total_matches"]
+            average_match_score = round(float(history_summary["average_score"]), 1)
+            latest_match_entry = history_summary["latest_match"]
 
         latest_job_match = None
-        latest_match_entry = history_summary["latest_match"]
         if latest_match_entry:
             latest_job_match = LatestJobMatch(
                 resume_id=str(latest_match_entry["resume_id"]),
@@ -102,6 +122,51 @@ class AnalyticsService:
         latest_resume_db = db_stats["latest_resume"]
         latest_resume = ResumeResponse.model_validate(latest_resume_db) if latest_resume_db else None
 
+        # Compute Part 2 metrics
+        skill_gap_count = 0
+        interview_sessions = 0
+        career_progress = 0.0
+        cover_letters_generated = 0
+        ai_usage = 0
+
+        if user_id:
+            from collections import Counter
+            # 1. Skill Gap Count (unique missing skills across user matches)
+            skill_counter = Counter()
+            for m in user_matches:
+                for s in m.get("missing_skills", []):
+                    if isinstance(s, str) and s.strip():
+                        skill_counter[s.strip()] += 1
+            skill_gap_count = len(skill_counter)
+
+            # 2. Interview Sessions
+            interview_sessions = db.query(InterviewSession).filter(InterviewSession.user_id == user_id).count()
+
+            # 3. Career Progress
+            total_milestones = db.query(RoadmapMilestone).join(CareerRoadmap).filter(CareerRoadmap.user_id == user_id).count()
+            completed_milestones = db.query(RoadmapMilestone).join(CareerRoadmap).filter(
+                CareerRoadmap.user_id == user_id, RoadmapMilestone.status == "COMPLETED"
+            ).count()
+            career_progress = round((completed_milestones / total_milestones * 100.0), 1) if total_milestones > 0 else 0.0
+
+            # 4. Cover Letters Generated
+            cover_letters_generated = db.query(AICoverLetter).filter(AICoverLetter.user_id == user_id).count()
+
+            # 5. AI Usage (sum of reviews, rewrites, optimizations, roadmaps, interviews, cover letters)
+            reviews_count = db.query(AIResumeReview).filter(AIResumeReview.user_id == user_id).count()
+            rewrites_count = db.query(AIResumeRewrite).filter(AIResumeRewrite.user_id == user_id).count()
+            opts_count = db.query(AIResumeOptimization).filter(AIResumeOptimization.user_id == user_id).count()
+            roadmaps_count = db.query(CareerRoadmap).filter(CareerRoadmap.user_id == user_id).count()
+            
+            ai_usage = (
+                reviews_count + 
+                rewrites_count + 
+                opts_count + 
+                roadmaps_count + 
+                interview_sessions + 
+                cover_letters_generated
+            )
+
         # Log completion metrics
         execution_time_ms = (time.perf_counter() - start_time) * 1000.0
         logger.info("Dashboard generated successfully", execution_time_ms=round(execution_time_ms, 2))
@@ -114,8 +179,14 @@ class AnalyticsService:
             average_ats_score=db_stats["average_ats_score"],
             average_match_score=average_match_score,
             latest_resume=latest_resume,
-            latest_job_match=latest_job_match
+            latest_job_match=latest_job_match,
+            skill_gap_count=skill_gap_count,
+            interview_sessions=interview_sessions,
+            career_progress=career_progress,
+            cover_letters_generated=cover_letters_generated,
+            ai_usage=ai_usage
         )
+
 
     async def get_resume_analytics(self, db: Session) -> ResumeAnalyticsData:
         """
@@ -500,12 +571,13 @@ class AnalyticsService:
         db: Session,
         chart_id: str,
         username: str | None = None,
-        job_match_service: JobMatchService | None = None
+        job_match_service: JobMatchService | None = None,
+        user_id: uuid.UUID | None = None
     ) -> ChartDataset:
         """
         Retrieve a single chart by its ID, validating inputs and invoking the source registry.
         """
-        logger.info("Single chart requested", chart_id=chart_id)
+        logger.info("Single chart requested", chart_id=chart_id, user_id=user_id)
         start_time = time.perf_counter()
 
         if chart_id not in CHART_REGISTRY:
@@ -519,7 +591,13 @@ class AnalyticsService:
             raise ValueError(f"GitHub username is required for chart: '{chart_id}'")
 
         try:
-            data, metadata = await config.source(db, username, job_match_service)
+            import inspect
+            sig = inspect.signature(config.source)
+            if len(sig.parameters) >= 4 or any(p.kind == inspect.Parameter.VAR_POSITIONAL for p in sig.parameters.values()):
+                data, metadata = await config.source(db, username, job_match_service, user_id)
+            else:
+                data, metadata = await config.source(db, username, job_match_service)
+                
             points = [ChartPoint(label=p["label"], value=p["value"]) for p in data]
 
             execution_time_ms = (time.perf_counter() - start_time) * 1000.0
@@ -543,12 +621,13 @@ class AnalyticsService:
     async def get_charts_overview(
         self,
         db: Session,
-        job_match_service: JobMatchService | None = None
+        job_match_service: JobMatchService | None = None,
+        user_id: uuid.UUID | None = None
     ) -> ChartOverviewData:
         """
         Retrieve a curated set of general dashboard overview charts, skipping failed modules.
         """
-        logger.info("Charts overview requested")
+        logger.info("Charts overview requested", user_id=user_id)
         start_time = time.perf_counter()
 
         curated_ids = [
@@ -567,7 +646,8 @@ class AnalyticsService:
                 chart_dataset = await self.get_chart_by_id(
                     db=db,
                     chart_id=chart_id,
-                    job_match_service=job_match_service
+                    job_match_service=job_match_service,
+                    user_id=user_id
                 )
                 charts.append(chart_dataset)
             except Exception as e:

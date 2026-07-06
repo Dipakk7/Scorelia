@@ -20,6 +20,9 @@ SECTION_HEADERS = {
     "experience": ["experience", "work experience", "professional experience", "employment", "career history", "employment history", "professional background", "work history", "history"],
     "projects": ["projects", "personal projects", "academic projects", "key projects", "technical projects"],
     "certifications": ["certifications", "certificates", "licenses", "courses", "awards", "credentials"],
-    "skills": ["skills", "technical skills", "core skills", "technologies", "expertise", "core competencies", "skills & tools"]
+    "skills": ["skills", "technical skills", "core skills", "technologies", "expertise", "core competencies", "skills & tools"],
+    "summary": ["summary", "professional summary", "about me", "objective", "career objective", "profile", "personal profile", "executive summary"],
+    "languages": ["languages", "language proficiency", "languages spoken"],
+    "achievements": ["achievements", "accomplishments", "honors", "key achievements", "awards & achievements"]
 }
 

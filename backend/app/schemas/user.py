@@ -46,11 +46,48 @@ class UserResponse(BaseModel):
     is_verified: bool
     created_at: datetime
     last_login: datetime | None = None
+    
+    # Profile fields
+    bio: str | None = None
+    location: str | None = None
+    website: str | None = None
+    linkedin: str | None = None
+    github: str | None = None
+    role: str | None = "Job Seeker"
+    skills: list[str] | None = []
+    education: list[dict] | None = []
+    experience: list[dict] | None = []
+
+    # Settings fields
+    language: str = "en"
+    timezone: str = "UTC"
+    theme: str = "dark"
+
+    # Notification preferences
+    email_notifications: bool = True
+    push_notifications: bool = True
+    marketing_emails: bool = False
 
     model_config = ConfigDict(from_attributes=True)
 
 class UserUpdate(BaseModel):
     full_name: str | None = None
+    bio: str | None = None
+    location: str | None = None
+    website: str | None = None
+    linkedin: str | None = None
+    github: str | None = None
+    role: str | None = None
+    skills: list[str] | None = None
+    education: list[dict] | None = None
+    experience: list[dict] | None = None
+    language: str | None = None
+    timezone: str | None = None
+    theme: str | None = None
+    email_notifications: bool | None = None
+    push_notifications: bool | None = None
+    marketing_emails: bool | None = None
+
 
 class Token(BaseModel):
     access_token: str

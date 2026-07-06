@@ -12,10 +12,12 @@ from app.interview.api.router import router as interview_router
 from app.career_roadmap.api.router import router as roadmap_router
 from app.modules.rag.api.router import router as rag_router
 from app.api.v1.endpoints.agents import router as agents_router
+from app.api.v1.endpoints.notifications import router as notifications_router
 
 
 
 api_router = APIRouter()
+
 
 
 
@@ -97,6 +99,13 @@ api_router.include_router(
     prefix="/agents",
     tags=["Agent Orchestrator"]
 )
+
+api_router.include_router(
+    notifications_router,
+    prefix="/notifications",
+    tags=["Notifications"]
+)
+
 
 
 

@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.models.user import User
+from typing import Any
 from app.models.resume import Resume
 from app.core.enums import ResumeStatus
 from app.services.job_match.matcher import calculate_experience_years
@@ -17,22 +18,30 @@ logger = structlog.get_logger()
 
 class ResumeStatistics(BaseStatistics):
     @classmethod
-    def get_dashboard_db_stats(cls, db: Session) -> dict:
+    def get_dashboard_db_stats(cls, db: Session, user_id: Any = None) -> dict:
         """
-        Query system-wide user and resume metrics from the database using aggregate functions.
+        Query user and resume metrics from the database using aggregate functions.
         """
         start = time.perf_counter()
         try:
             total_users = db.query(func.count(User.id)).scalar() or 0
-            total_resumes = db.query(func.count(Resume.id)).scalar() or 0
-            parsed_resumes = db.query(func.count(Resume.id)).filter(
-                Resume.status == ResumeStatus.PARSED
-            ).scalar() or 0
+            
+            if user_id:
+                total_resumes = db.query(func.count(Resume.id)).filter(Resume.user_id == user_id).scalar() or 0
+                parsed_resumes = db.query(func.count(Resume.id)).filter(
+                    Resume.user_id == user_id, Resume.status == ResumeStatus.PARSED
+                ).scalar() or 0
+                avg_ats = db.query(func.avg(Resume.ats_score)).filter(Resume.user_id == user_id).scalar()
+                latest_resume = db.query(Resume).filter(Resume.user_id == user_id).order_by(Resume.uploaded_at.desc()).first()
+            else:
+                total_resumes = db.query(func.count(Resume.id)).scalar() or 0
+                parsed_resumes = db.query(func.count(Resume.id)).filter(
+                    Resume.status == ResumeStatus.PARSED
+                ).scalar() or 0
+                avg_ats = db.query(func.avg(Resume.ats_score)).scalar()
+                latest_resume = db.query(Resume).order_by(Resume.uploaded_at.desc()).first()
 
-            avg_ats = db.query(func.avg(Resume.ats_score)).scalar()
             average_ats_score = round(float(avg_ats), 1) if avg_ats is not None else 0.0
-
-            latest_resume = db.query(Resume).order_by(Resume.uploaded_at.desc()).first()
 
             duration_ms = (time.perf_counter() - start) * 1000.0
             logger.info("Database queries completed", query_duration_ms=round(duration_ms, 2))

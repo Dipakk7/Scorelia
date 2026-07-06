@@ -1,12 +1,13 @@
 import uuid
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 import structlog
 
 from app.core.db import get_db
 from app.core.dependencies import get_current_user
 from app.models.user import User
-from app.schemas.resume import ResumeResponse, ResumeListResponse, ResumeUploadResponse
+from app.schemas.resume import ResumeResponse, ResumeListResponse, ResumeUploadResponse, ResumeUpdateRequest
 from app.schemas.parser import ParseResumeResponse
 from app.services import resume_service
 
@@ -133,4 +134,68 @@ async def parse_resume_endpoint(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Parsing failed: {str(e)}"
         )
+
+@router.put("/{resume_id}", response_model=ResumeResponse, status_code=status.HTTP_200_OK)
+async def update_resume(
+    resume_id: uuid.UUID,
+    payload: ResumeUpdateRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """Update resume metadata (like original filename) or manually edit parsed data."""
+    resume = resume_service.get_resume_by_id(
+        db=db,
+        resume_id=resume_id,
+        user_id=current_user.id
+    )
+    if not resume:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Resume not found"
+        )
+    
+    if payload.original_filename is not None:
+        resume.original_filename = payload.original_filename
+        
+    if payload.parsed_data is not None:
+        from app.core.enums import ResumeStatus
+        # Save parsed data to JSONB column
+        resume.parsed_data = payload.parsed_data.model_dump()
+        if resume.status == ResumeStatus.UPLOADED:
+            resume.status = ResumeStatus.PARSED
+            
+    db.commit()
+    db.refresh(resume)
+    return resume
+
+@router.get("/{resume_id}/download", status_code=status.HTTP_200_OK)
+async def download_resume(
+    resume_id: uuid.UUID,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """Download the original uploaded resume file (PDF/DOCX)."""
+    resume = resume_service.get_resume_by_id(
+        db=db,
+        resume_id=resume_id,
+        user_id=current_user.id
+    )
+    if not resume:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Resume not found"
+        )
+        
+    import os
+    if not resume.file_path or not os.path.exists(resume.file_path):
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Resume file not found on storage"
+        )
+        
+    return FileResponse(
+        path=resume.file_path,
+        filename=resume.original_filename,
+        media_type=resume.mime_type
+    )
 

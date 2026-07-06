@@ -90,6 +90,9 @@ def extract_entities(text: str) -> dict:
         "experience": entity_extractor.extract_experience(text),
         "projects": entity_extractor.extract_projects(text),
         "certifications": entity_extractor.extract_certifications(text),
+        "summary": entity_extractor.extract_summary(text),
+        "languages": entity_extractor.extract_languages(text),
+        "achievements": entity_extractor.extract_achievements(text),
     }
 
 def parse_resume(db: Session, resume_id: UUID) -> ParsedResumeData:
@@ -225,6 +228,15 @@ def parse_resume(db: Session, resume_id: UUID) -> ParsedResumeData:
         certs_val = flat_entities.get("certifications", [])
         cert_conf = 0.85 if certs_val else 0.0
 
+        summary_val = flat_entities.get("summary")
+        summary_conf = 0.90 if summary_val else 0.0
+
+        langs_val = flat_entities.get("languages", [])
+        langs_conf = 0.85 if langs_val else 0.0
+
+        achvs_val = flat_entities.get("achievements", [])
+        achvs_conf = 0.85 if achvs_val else 0.0
+
         confident_data = {
             "name": {"value": name_val, "confidence": name_conf},
             "email": {"value": email_val, "confidence": email_conf},
@@ -235,6 +247,9 @@ def parse_resume(db: Session, resume_id: UUID) -> ParsedResumeData:
             "experience": {"value": exp_val, "confidence": exp_conf},
             "projects": {"value": proj_val, "confidence": proj_conf},
             "certifications": {"value": certs_val, "confidence": cert_conf},
+            "summary": {"value": summary_val, "confidence": summary_conf},
+            "languages": {"value": langs_val, "confidence": langs_conf},
+            "achievements": {"value": achvs_val, "confidence": achvs_conf},
         }
 
         # Calculate empty sections count
@@ -248,6 +263,9 @@ def parse_resume(db: Session, resume_id: UUID) -> ParsedResumeData:
             1 if not exp_val else 0,
             1 if not proj_val else 0,
             1 if not certs_val else 0,
+            1 if not summary_val else 0,
+            1 if not langs_val else 0,
+            1 if not achvs_val else 0,
         ])
 
         processing_time_ms = int((time.time() - start_time) * 1000)
@@ -262,7 +280,10 @@ def parse_resume(db: Session, resume_id: UUID) -> ParsedResumeData:
             "certifications_found": len(certs_val),
             "links_found": len(links_val),
             "processing_time_ms": processing_time_ms,
-            "empty_sections": empty_sections
+            "empty_sections": empty_sections,
+            "summary_found": 1 if summary_val else 0,
+            "languages_found": len(langs_val),
+            "achievements_found": len(achvs_val),
         }
 
         logger.info("statistics_generated", resume_id=str(resume_id), stats=stats)

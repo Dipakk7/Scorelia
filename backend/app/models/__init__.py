@@ -10,6 +10,7 @@ from app.cover_letter.models.ai_cover_letter_optimization import AICoverLetterOp
 from app.cover_letter.models.ai_cover_letter_export import AICoverLetterExport
 from app.interview.models.interview import InterviewSession, InterviewTurn
 from app.career_roadmap.models.roadmap import CareerRoadmap, RoadmapMilestone, LearningRecommendation
+from app.models.notification import Notification
 from app.core.enums import StorageProvider, ResumeStatus, RoadmapStatus, ExperienceLevel, LearningPriority, MilestoneStatus
 
 __all__ = [
@@ -17,8 +18,10 @@ __all__ = [
     "AIResumeOptimization", "AICoverLetter", "AICoverLetterOptimization",
     "AICoverLetterExport", "InterviewSession", "InterviewTurn", "StorageProvider",
     "ResumeStatus", "CareerRoadmap", "RoadmapMilestone", "LearningRecommendation",
-    "RoadmapStatus", "ExperienceLevel", "LearningPriority", "MilestoneStatus"
+    "RoadmapStatus", "ExperienceLevel", "LearningPriority", "MilestoneStatus",
+    "Notification"
 ]
+
 
 
 

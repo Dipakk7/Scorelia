@@ -168,31 +168,68 @@ Detailed step-by-step instructions for running the stack locally in development 
 *   PostgreSQL 15+
 *   Ollama (installed and running background service)
 
-### 1. Download Local AI Models
-```bash
-# Pull the target lightweight LLM
-ollama pull qwen2.5:3b
-
-# Download the default NLP model for parsing
-python -m spacy download en_core_web_sm
-```
-
-### 2. Backend Initialization
+### Backend Setup
+Initialize the Python virtual environment and dependencies:
 ```bash
 cd backend
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
-cp ../config/backend.env.example .env
-# Edit your .env database connection configs
-uvicorn app.main:app --reload
+python -m spacy download en_core_web_sm
 ```
 
-### 3. Frontend Initialization
+### Frontend Setup
+Initialize Node packages:
 ```bash
 cd frontend
 npm install
-cp ../config/frontend.env.example .env.local
+```
+
+### PostgreSQL Setup
+1. Create a local PostgreSQL database named `careerpilot_db`:
+   ```sql
+   CREATE DATABASE careerpilot_db;
+   ```
+2. Configure credentials in backend `.env` (default connection string is postgres/postgres@localhost:5432).
+
+### Ollama Setup
+1. Download and run Ollama from [ollama.com](https://ollama.com).
+2. Pull the target LLM and embedding models:
+   ```bash
+   ollama pull qwen2.5:3b
+   ollama pull nomic-embed-text
+   ```
+
+### ChromaDB Setup
+1. ChromaDB runs locally in-process with the backend.
+2. The storage paths are defined in backend config (`backend/app/core/config.py`) and are automatically initialized in `backend/storage/chromadb`.
+
+### Environment Variables
+#### Backend Environment Configuration
+Create a `.env` file under `backend/` from the example template:
+```bash
+cp config/backend.env.example backend/.env
+```
+Ensure variables such as `DATABASE_URL` and `JWT_SECRET_KEY` are defined.
+
+#### Frontend Environment Configuration
+Create a `.env.development` file under `frontend/` from the example template:
+```bash
+cp config/frontend.env.example frontend/.env.development
+```
+Set `VITE_API_URL` to `http://localhost:8000/api/v1`.
+
+### Running Locally
+To start the entire application in development mode:
+#### 1. Run the Backend FastAPI Server
+```bash
+cd backend
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+uvicorn app.main:app --reload
+```
+#### 2. Run the Frontend React Server
+```bash
+cd frontend
 npm run dev
 ```
 
@@ -200,29 +237,27 @@ npm run dev
 
 ## 🗺️ Project Roadmap
 
-Current implementation status: **100% Core Platform Complete (12/12 Phases)**
+Current implementation status: **Phase 14 Complete (Frontend Complete)**
 
-### ✅ Core Backend, Analytics, AI & RAG Platform (Complete)
-- [x] Phase 1: User Authentication — JWT + HttpOnly Cookies + bcrypt
-- [x] Phase 2: Resume Upload — PDF and DOCX support with validation
-- [x] Phase 3: Resume Parser — spaCy NLP entity extraction
-- [x] Phase 4: ATS Scoring Engine — 0 to 100 compatibility score & recommendations
-- [x] Phase 5: Job Matching — Sentence Transformers semantic search & gap analysis
-- [x] Phase 6: GitHub Integration — REST API profile summary
-- [x] Phase 7: Analytics Engine — Dashboard, Resume, ATS, Jobs, GitHub Insights, and dynamic Charts Engine
-- [x] Phase 8: AI Resume Intelligence — Ollama + Qwen 2.5 3B + Prompt Registry + Resume Review/Rewrite/Optimization Engine
-- [x] Phase 9: AI Cover Letter Module — Foundation, Generation, Optimization, and multi-format Export Engine
-- [x] Phase 10: Mock Interview Generator — role-specific questions and scoring
-- [x] Phase 11: AI Career Roadmap Module — step-by-step transition plans
-- [x] Phase 12: AI Career Assistant & RAG Platform — complete production-ready RAG platform with semantic retrieval, citation, caching, and monitoring
-- [x] Phase 13: Multi-Agent AI Foundation & Agent Orchestrator
+### ✅ Completed Phases
+- [x] **Phase 1: User Authentication** — JWT + HttpOnly Cookies + bcrypt
+- [x] **Phase 2: Resume Upload** — PDF and DOCX support with validation
+- [x] **Phase 3: Resume Parser** — spaCy NLP entity extraction & confidence scoring
+- [x] **Phase 4: ATS Scoring Engine** — Compatibility score & keyword recommendations
+- [x] **Phase 5: Job Matching** — Sentence Transformers semantic search & gap analysis
+- [x] **Phase 6: GitHub Integration** — Profile summary & repository analysis
+- [x] **Phase 7: Analytics Engine** — Dashboard, Resume, ATS, Jobs, GitHub Insights, and dynamic charts
+- [x] **Phase 8: AI Resume Intelligence** — Ollama + Qwen 2.5 3B + Prompt Registry + Resume Review/Rewrite/Optimization
+- [x] **Phase 9: AI Cover Letter Module** — Foundation, Generation, Optimization, and multi-format Export Engine
+- [x] **Phase 10: Mock Interview Generator** — Role-specific questions & scoring
+- [x] **Phase 11: AI Career Roadmap Module** — Custom transition plans & timelines
+- [x] **Phase 12: AI Career Assistant & RAG Platform** — Semantic retrieval, citation, caching, and monitoring
+- [x] **Phase 13: Multi-Agent AI Platform & Agent Orchestrator** — Multi-Agent foundation, collaborative workflows, and shared memory engine
+- [x] **Phase 14: Production Frontend Complete** — Beautiful responsive React frontend with all 10 interfaces complete
 
-### 🌐 Deployment & CI/CD (Planned)
-- [ ] Backend deployment — Render free tier
-- [ ] Frontend deployment — Vercel
-- [ ] Database hosting — Supabase free tier
-- [ ] CI/CD pipeline — GitHub Actions
-- [ ] Live demo URL and video walkthrough
+### 🚀 Upcoming Phase 15
+- [ ] **Phase 15: Deployment & Production** — Production environments, Dockerization, Supabase database, and CI/CD pipelines.
+
 
 
 ---

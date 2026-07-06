@@ -14,7 +14,7 @@ class ChartConfig:
         self,
         chart_type: str,
         title: str,
-        source: Callable[[Session, str | None, JobMatchService | None], Awaitable[tuple[list[dict[str, Any]], dict[str, Any] | None]]],
+        source: Callable[..., Awaitable[tuple[list[dict[str, Any]], dict[str, Any] | None]]],
         requires_username: bool = False
     ):
         self.chart_type = chart_type
@@ -168,6 +168,157 @@ async def get_github_repo_growth(
     points = [{"label": item.get("date", ""), "value": item.get("value", 0)} for item in growth_summary.get("repos_created_by_year", [])]
     return points, None
 
+async def get_resume_score_trend(
+    db: Session,
+    username: str | None,
+    job_match_service: JobMatchService | None,
+    user_id: Any = None
+) -> tuple[list[dict[str, Any]], dict[str, Any] | None]:
+    """Retrieve resume ATS score trend over time."""
+    from app.models.resume import Resume
+    if not user_id:
+        return [], None
+    resumes = db.query(Resume).filter(Resume.user_id == user_id, Resume.ats_score.isnot(None)).order_by(Resume.uploaded_at.asc()).all()
+    points = [{"label": r.original_filename or f"Resume {i+1}", "value": r.ats_score} for i, r in enumerate(resumes)]
+    return points, None
+
+async def get_ats_trend(
+    db: Session,
+    username: str | None,
+    job_match_service: JobMatchService | None,
+    user_id: Any = None
+) -> tuple[list[dict[str, Any]], dict[str, Any] | None]:
+    """Retrieve ATS evaluation score trend over time."""
+    from app.models.resume import Resume
+    if not user_id:
+        return [], None
+    resumes = db.query(Resume).filter(Resume.user_id == user_id, Resume.ats_score.isnot(None)).order_by(Resume.uploaded_at.asc()).all()
+    points = [{"label": r.uploaded_at.strftime("%Y-%m-%d") if r.uploaded_at else f"CV-{i+1}", "value": r.ats_score} for i, r in enumerate(resumes)]
+    return points, None
+
+async def get_job_match_trend(
+    db: Session,
+    username: str | None,
+    job_match_service: JobMatchService | None,
+    user_id: Any = None
+) -> tuple[list[dict[str, Any]], dict[str, Any] | None]:
+    """Retrieve job match score trend history."""
+    from app.services.job_match.history import _history_cache
+    from app.models.resume import Resume
+    if not user_id:
+        return [], None
+    user_resumes = db.query(Resume).filter(Resume.user_id == user_id).all()
+    resume_ids = {str(r.id) for r in user_resumes}
+    user_matches = [item for item in _history_cache if str(item.get("resume_id")) in resume_ids]
+    points = [{"label": item.get("job_title", "Match")[:15], "value": item.get("overall_score", 0)} for item in user_matches]
+    return points, None
+
+async def get_interview_performance(
+    db: Session,
+    username: str | None,
+    job_match_service: JobMatchService | None,
+    user_id: Any = None
+) -> tuple[list[dict[str, Any]], dict[str, Any] | None]:
+    """Retrieve interview session performance score history."""
+    from app.interview.models.interview import InterviewSession, InterviewTurn
+    from sqlalchemy import func
+    if not user_id:
+        return [], None
+    sessions = db.query(InterviewSession).filter(InterviewSession.user_id == user_id).order_by(InterviewSession.created_at.asc()).all()
+    points = []
+    for i, s in enumerate(sessions):
+        avg_score = db.query(func.avg(InterviewTurn.score)).filter(
+            InterviewTurn.session_id == s.id, InterviewTurn.score.isnot(None)
+        ).scalar()
+        score = round(float(avg_score), 1) if avg_score is not None else 0.0
+        points.append({
+            "label": f"Session {i+1}",
+            "value": score
+        })
+    return points, None
+
+async def get_weekly_activity(
+    db: Session,
+    username: str | None,
+    job_match_service: JobMatchService | None,
+    user_id: Any = None
+) -> tuple[list[dict[str, Any]], dict[str, Any] | None]:
+    """Retrieve aggregated activity counts by day of week for the past 7 days."""
+    import datetime
+    from app.models.resume import Resume
+    from app.interview.models.interview import InterviewSession
+    from app.cover_letter.models.ai_cover_letter import AICoverLetter
+    
+    if not user_id:
+        return [], None
+        
+    days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    counts = {d: 0 for d in days}
+    
+    now = datetime.datetime.utcnow()
+    start_date = now - datetime.timedelta(days=7)
+    
+    resumes = db.query(Resume).filter(Resume.user_id == user_id, Resume.uploaded_at >= start_date).all()
+    interviews = db.query(InterviewSession).filter(InterviewSession.user_id == user_id, InterviewSession.created_at >= start_date).all()
+    letters = db.query(AICoverLetter).filter(AICoverLetter.user_id == user_id, AICoverLetter.created_at >= start_date).all()
+    
+    for r in resumes:
+        d = r.uploaded_at.strftime("%a")
+        if d in counts:
+            counts[d] += 1
+    for iv in interviews:
+        d = iv.created_at.strftime("%a")
+        if d in counts:
+            counts[d] += 1
+    for l in letters:
+        d = l.created_at.strftime("%a")
+        if d in counts:
+            counts[d] += 1
+            
+    points = [{"label": d, "value": counts[d]} for d in days]
+    return points, None
+
+async def get_monthly_activity(
+    db: Session,
+    username: str | None,
+    job_match_service: JobMatchService | None,
+    user_id: Any = None
+) -> tuple[list[dict[str, Any]], dict[str, Any] | None]:
+    """Retrieve aggregated activity counts by month for the current year."""
+    import datetime
+    from app.models.resume import Resume
+    from app.interview.models.interview import InterviewSession
+    from app.cover_letter.models.ai_cover_letter import AICoverLetter
+    
+    if not user_id:
+        return [], None
+        
+    months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    counts = {m: 0 for m in months}
+    
+    now = datetime.datetime.utcnow()
+    start_date = datetime.datetime(now.year, 1, 1)
+    
+    resumes = db.query(Resume).filter(Resume.user_id == user_id, Resume.uploaded_at >= start_date).all()
+    interviews = db.query(InterviewSession).filter(InterviewSession.user_id == user_id, InterviewSession.created_at >= start_date).all()
+    letters = db.query(AICoverLetter).filter(AICoverLetter.user_id == user_id, AICoverLetter.created_at >= start_date).all()
+    
+    for r in resumes:
+        m = r.uploaded_at.strftime("%b")
+        if m in counts:
+            counts[m] += 1
+    for iv in interviews:
+        m = iv.created_at.strftime("%b")
+        if m in counts:
+            counts[m] += 1
+    for l in letters:
+        m = l.created_at.strftime("%b")
+        if m in counts:
+            counts[m] += 1
+            
+    points = [{"label": m, "value": counts[m]} for m in months]
+    return points, None
+
 # Registry definition
 CHART_REGISTRY: dict[str, ChartConfig] = {
     "ats-grade-distribution": ChartConfig(
@@ -241,5 +392,41 @@ CHART_REGISTRY: dict[str, ChartConfig] = {
         title="Repository Growth",
         source=get_github_repo_growth,
         requires_username=True
+    ),
+    "resume-score-trend": ChartConfig(
+        chart_type="line",
+        title="Resume Score Trend",
+        source=get_resume_score_trend,
+        requires_username=False
+    ),
+    "ats-trend": ChartConfig(
+        chart_type="line",
+        title="ATS Trend",
+        source=get_ats_trend,
+        requires_username=False
+    ),
+    "job-match-trend": ChartConfig(
+        chart_type="line",
+        title="Job Match Trend",
+        source=get_job_match_trend,
+        requires_username=False
+    ),
+    "interview-performance": ChartConfig(
+        chart_type="line",
+        title="Interview Performance",
+        source=get_interview_performance,
+        requires_username=False
+    ),
+    "weekly-activity": ChartConfig(
+        chart_type="bar",
+        title="Weekly Activity",
+        source=get_weekly_activity,
+        requires_username=False
+    ),
+    "monthly-activity": ChartConfig(
+        chart_type="bar",
+        title="Monthly Activity",
+        source=get_monthly_activity,
+        requires_username=False
     )
 }

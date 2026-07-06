@@ -2,6 +2,7 @@ import re
 from fastapi import APIRouter, Depends, status, Response
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 from datetime import datetime, timezone
 import structlog
@@ -81,15 +82,59 @@ async def get_dashboard(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ) -> DashboardAnalyticsResponse:
-    """Retrieve aggregate statistics for the admin dashboard."""
-    logger.info("Dashboard endpoint accessed")
-    summary = await analytics_service.get_dashboard_summary(db=db)
+    """Retrieve aggregate statistics for the dashboard."""
+    logger.info("Dashboard endpoint accessed", user_id=current_user.id)
+    summary = await analytics_service.get_dashboard_summary(db=db, user_id=None)
     return DashboardAnalyticsResponse(
         success=True,
         message="Dashboard analytics generated successfully",
         timestamp=datetime.now(timezone.utc),
         data=summary
     )
+
+
+@router.get(
+    "/profile-stats",
+    status_code=status.HTTP_200_OK,
+    summary="Get user profile statistics summary"
+)
+async def get_profile_stats(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+) -> dict:
+    """Retrieve profile metrics: resume count, ats average, interview score, career progress."""
+    user_id = current_user.id
+    
+    # 1. Resume Count
+    from app.models.resume import Resume
+    resume_count = db.query(Resume).filter(Resume.user_id == user_id).count()
+    
+    # 2. ATS Average
+    avg_ats = db.query(func.avg(Resume.ats_score)).filter(Resume.user_id == user_id).scalar()
+    ats_average = round(float(avg_ats), 1) if avg_ats is not None else 0.0
+    
+    # 3. Interview Score
+    from app.interview.models.interview import InterviewSession, InterviewTurn
+    avg_int = db.query(func.avg(InterviewTurn.score)).join(InterviewSession).filter(
+        InterviewSession.user_id == user_id, InterviewTurn.score.isnot(None)
+    ).scalar()
+    interview_score = round(float(avg_int), 1) if avg_int is not None else 0.0
+    
+    # 4. Career Progress
+    from app.career_roadmap.models.roadmap import CareerRoadmap, RoadmapMilestone
+    total_milestones = db.query(RoadmapMilestone).join(CareerRoadmap).filter(CareerRoadmap.user_id == user_id).count()
+    completed_milestones = db.query(RoadmapMilestone).join(CareerRoadmap).filter(
+        CareerRoadmap.user_id == user_id, RoadmapMilestone.status == "COMPLETED"
+    ).count()
+    career_progress = round((completed_milestones / total_milestones * 100.0), 1) if total_milestones > 0 else 0.0
+    
+    return {
+        "resume_count": resume_count,
+        "ats_average": ats_average,
+        "interview_score": interview_score,
+        "career_progress": career_progress
+    }
+
 
 @router.get(
     "/resumes",
@@ -441,7 +486,7 @@ async def get_charts_overview(
 ) -> ChartOverviewResponse:
     """Retrieve a curated list of dashboard-level chart datasets."""
     logger.info("Charts overview endpoint accessed")
-    overview_data = await analytics_service.get_charts_overview(db=db, job_match_service=job_match_service)
+    overview_data = await analytics_service.get_charts_overview(db=db, job_match_service=job_match_service, user_id=current_user.id)
     return ChartOverviewResponse(
         success=True,
         message="Chart overview generated successfully",
@@ -542,7 +587,8 @@ async def get_chart(
             db=db,
             chart_id=chart_id,
             username=username,
-            job_match_service=job_match_service
+            job_match_service=job_match_service,
+            user_id=current_user.id
         )
         return JSONResponse(
             status_code=status.HTTP_200_OK,

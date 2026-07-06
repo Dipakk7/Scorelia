@@ -25,3 +25,9 @@ class ResumeUploadResponse(BaseModel):
     message: str
     resume: ResumeResponse
     next_step: str = "Ready for parsing"
+
+from app.schemas.parser import ParsedResumeData
+
+class ResumeUpdateRequest(BaseModel):
+    original_filename: str | None = None
+    parsed_data: ParsedResumeData | None = None

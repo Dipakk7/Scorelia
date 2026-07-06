@@ -21,6 +21,14 @@ class DashboardSummaryResponse(BaseModel):
     average_match_score: float = Field(..., description="Average match score across job matches")
     latest_resume: ResumeResponse | None = Field(default=None, description="Metadata of the latest uploaded resume")
     latest_job_match: LatestJobMatch | None = Field(default=None, description="Details of the latest job match calculation")
+    
+    # Part 2 additions
+    skill_gap_count: int = Field(0, description="Total missing skills count across job matches")
+    interview_sessions: int = Field(0, description="Total AI interview preparation sessions")
+    career_progress: float = Field(0.0, description="Overall career roadmap milestone progress (percentage)")
+    cover_letters_generated: int = Field(0, description="Total AI cover letters generated")
+    ai_usage: int = Field(0, description="Aggregated count of all AI-related user interactions")
+
 
     model_config = ConfigDict(
         from_attributes=True,

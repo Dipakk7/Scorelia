@@ -71,6 +71,9 @@ class ParsedResumeDataStatistics(BaseModel):
     links_found: int
     processing_time_ms: int
     empty_sections: int
+    summary_found: int | None = None
+    languages_found: int | None = None
+    achievements_found: int | None = None
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -85,6 +88,9 @@ class ParsedResumeDataInner(BaseModel):
     experience: ConfidentExperienceList
     projects: ConfidentProjectList
     certifications: ConfidentStrList
+    summary: ConfidentStr | None = None
+    languages: ConfidentStrList | None = None
+    achievements: ConfidentStrList | None = None
 
     model_config = ConfigDict(from_attributes=True)
 

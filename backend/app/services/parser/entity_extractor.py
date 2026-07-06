@@ -625,3 +625,53 @@ def extract_certifications(text: str) -> list[str]:
             deduped_certs.append(cert)
             
     return deduped_certs
+
+def extract_summary(text: str) -> str | None:
+    """Extract professional summary section text."""
+    return _extract_section_text(text, "summary")
+
+def extract_languages(text: str) -> list[str]:
+    """Extract list of languages."""
+    section_text = _extract_section_text(text, "languages")
+    if not section_text:
+        return []
+    
+    # Split by comma, semicolon, or newline
+    normalized = re.sub(r'[,;\t]', '\n', section_text)
+    lines = [line.strip() for line in normalized.split("\n") if line.strip()]
+    langs = []
+    for line in lines:
+        cleaned = re.sub(r'^[•\-\*\d\.\s\)\(]+', '', line).strip()
+        if cleaned and len(cleaned) >= 2:
+            langs.append(cleaned)
+            
+    seen = set()
+    deduped = []
+    for lang in langs:
+        lang_lower = lang.lower()
+        if lang_lower not in seen:
+            seen.add(lang_lower)
+            deduped.append(lang)
+    return deduped
+
+def extract_achievements(text: str) -> list[str]:
+    """Extract list of achievements."""
+    section_text = _extract_section_text(text, "achievements")
+    if not section_text:
+        return []
+        
+    lines = [line.strip() for line in section_text.split("\n") if line.strip()]
+    achvs = []
+    for line in lines:
+        cleaned = re.sub(r'^[•\-\*\d\.\s\)\(]+', '', line).strip()
+        if cleaned and len(cleaned) > 3:
+            achvs.append(cleaned)
+            
+    seen = set()
+    deduped = []
+    for ach in achvs:
+        ach_lower = ach.lower()
+        if ach_lower not in seen:
+            seen.add(ach_lower)
+            deduped.append(ach)
+    return deduped

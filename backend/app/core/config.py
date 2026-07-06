@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     )
 
     APP_NAME: str = "CareerPilot AI"
-    APP_VERSION: str = "0.1.0"
+    APP_VERSION: str = "1.2.0-frontend-complete"
     ENVIRONMENT: str = "development"
     API_PREFIX: str = "/api/v1"
     DATABASE_URL: str

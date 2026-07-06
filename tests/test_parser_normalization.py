@@ -174,7 +174,7 @@ class TestParserNormalization(unittest.TestCase):
         self.assertTrue(stats.text_length > 0)
         self.assertEqual(stats.page_count, 1)
         self.assertTrue(stats.processing_time_ms >= 0)
-        self.assertEqual(stats.empty_sections, 4) # experience, projects, certifications, links are empty (4)
+        self.assertEqual(stats.empty_sections, 7) # experience, projects, certifications, links, summary, languages, achievements are empty (7)
 
     def test_performance_and_reusability(self):
         """Verify Task 11: parse same resume 5 times, check spaCy model and PhraseMatcher reuse, show average parsing time and ensure no memory leaks."""
