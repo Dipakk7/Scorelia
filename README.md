@@ -3,7 +3,8 @@
 ### *The Intelligent Career Copilot*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Next.js](https://img.shields.io/badge/Frontend-Next.js%2014-black?style=flat&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/Frontend-React%2019-black?style=flat&logo=react)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Build-Vite-646CFF?style=flat&logo=vite)](https://vitejs.dev/)
 [![TypeScript](https://img.shields.io/badge/Language-TypeScript-blue?style=flat&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind%20CSS-38bdf8?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=flat&logo=fastapi)](https://fastapi.tiangolo.com/)
@@ -38,17 +39,20 @@ Scorelia is a full-stack AI-powered career intelligence platform that helps user
 
 | Layer | Technology | Details |
 | :--- | :--- | :--- |
-| **Frontend** | Next.js (App Router), React, TypeScript | Premium modular layout, client-side routing, static pages |
-| **Styling & UI** | Tailwind CSS, shadcn/ui, Framer Motion | Modern, glassmorphic layout with responsive micro-animations |
-| **Backend** | FastAPI, Python 3.12 | Async event loop, structured schemas, performance-oriented endpoints |
-| **Database** | PostgreSQL | Relational transactional storage for profiles, histories, and chats |
+| **Frontend** | React 19, Vite, TypeScript | Fast dev/build tooling, client-side routing via React Router |
+| **Styling & UI** | Tailwind CSS, Lucide React, Sonner | Utility-first styling, iconography, and toast notifications |
+| **Forms & Validation** | React Hook Form, Zod, React Dropzone | Type-safe form handling and file upload validation |
+| **Data Fetching & Viz** | Axios, Recharts | API communication and dynamic dashboard charts |
+| **Backend** | FastAPI, Python 3.12, Uvicorn | Async event loop, structured Pydantic schemas, performance-oriented endpoints |
+| **Database** | PostgreSQL, SQLAlchemy, Alembic | Relational storage with ORM modeling and versioned migrations |
 | **Vector DB** | ChromaDB | Local persistent vector storage for RAG knowledge bases |
-| **Authentication** | JSON Web Tokens (JWT) | Secure stateless session control with HttpOnly cookies |
+| **Authentication** | JWT, Passlib | Secure token-based auth with hashed password storage |
 | **AI LLM Engine** | Ollama (Qwen 2.5 3B Instruct) | Low-latency local model inference for content generation |
 | **Embedding Engine** | Ollama (nomic-embed-text) | Local normalized 768-dimensional text embedding generation |
 | **NLP & Vectors** | spaCy, Sentence Transformers, scikit-learn | Entity extraction (NER), semantic cosine similarity, vectorization |
-| **Data Viz** | Plotly | Dynamic dashboard charts and skill metrics |
-| **Deployment** | Vercel (Frontend), Render (Backend) | Cost-free global hosting strategy with zero cold-start configurations |
+| **Multi-Agent System** | Agent Orchestrator, Shared Memory, Tool Calling | Specialized agents (Resume, ATS, Job Match, Interview, Career Coach, Learning) |
+| **Testing** | Pytest, ESLint, Oxlint | Backend unit/integration tests and frontend type/lint checks |
+| **Deployment (Planned — Phase 15)** | Docker, Docker Compose, Nginx, GitHub Actions | Containerized production deployment with CI/CD pipeline |
 
 ---
 
@@ -58,7 +62,7 @@ Scorelia follows a clean, decoupled client-server architecture designed to run e
 
 ```mermaid
 graph TD
-    User[User] --> Frontend[Next.js Frontend]
+    User[User] --> Frontend[React 19 + Vite Frontend]
     Frontend --> API[FastAPI Router]
 
     API --> Auth[JWT Security Guard]
@@ -229,7 +233,7 @@ cd backend
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 uvicorn app.main:app --reload
 ```
-#### 2. Run the Frontend React Server
+#### 2. Run the Frontend Vite Dev Server
 ```bash
 cd frontend
 npm run dev
