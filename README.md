@@ -246,14 +246,6 @@ Contributions are welcome! To maintain software quality:
 
 ---
 
-## 🔮 Future Enhancements
-
-*   Multi-Agent AI Interview Panel
-*   AI Resume Builder & PDF Export
-*   Job Board Integrations
-
----
-
 ## 📄 License
 
 Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
