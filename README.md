@@ -116,15 +116,17 @@ The project code is organized to enforce strict separation of concerns, modular 
 Scorelia/
 ├── .github/                            # CI/CD Workflows & Templates
 ├── assets/                             # Brand assets & resume templates
-├── screenshots/                        # Documentation images
-├── config/                             # Setup and environment configs
-├── docs/                               # Architecture, DB Schema, and API specifications
-├── database/                           # Relational migrations and seeds
-├── scripts/                            # One-click installers & downloader utilities
-├── logs/                               # Application operation logs
-├── frontend/                           # Next.js SPA Client (App Router)
 ├── backend/                            # FastAPI Server & Python ML/LLM services
-└── tests/                              # Dual-stack unit, integration, and E2E tests
+├── config/                             # Setup and environment configs
+├── database/                           # Relational migrations and seeds
+├── docs/                               # Architecture, DB Schema, and API specifications
+├── frontend/                           # Next.js SPA Client (App Router)
+├── screenshots/                        # Documentation images
+├── scripts/                            # One-click installers & downloader utilities
+├── tests/                              # Dual-stack unit, integration, and E2E tests
+├── CHANGELOG.md                        # Version history and release notes
+├── LICENSE                             # MIT License
+└── README.md                           # Project overview and setup guide
 ```
 
 ---
