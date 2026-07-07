@@ -28,7 +28,7 @@ class TestAIInterviewSessionEngine(unittest.IsolatedAsyncioTestCase):
         cls.db = db
         try:
             # Cleanup old test users
-            for email in ["engine_test@careerpilot.com"]:
+            for email in ["engine_test@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     db.query(InterviewTurn).filter(InterviewTurn.session_id.in_(
@@ -44,7 +44,7 @@ class TestAIInterviewSessionEngine(unittest.IsolatedAsyncioTestCase):
             from app.schemas.user import UserCreate
 
             user_in = UserCreate(
-                email="engine_test@careerpilot.com",
+                email="engine_test@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Engine User"
             )
@@ -77,7 +77,7 @@ class TestAIInterviewSessionEngine(unittest.IsolatedAsyncioTestCase):
         # Login client
         cls.client = TestClient(app)
         login_payload = {
-            "email": "engine_test@careerpilot.com",
+            "email": "engine_test@scorelia.com",
             "password": "SecurePassword@2026"
         }
         login_response = cls.client.post("/api/v1/auth/login", json=login_payload)

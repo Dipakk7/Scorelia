@@ -61,7 +61,7 @@ export default function ForgotPasswordPage() {
             <Compass size={26} className="animate-float" />
           </div>
           <h1 className="text-2xl font-bold font-display tracking-tight text-slate-900 dark:text-white m-0">
-            CareerPilot <span className="text-brand-500">AI</span>
+            Scorelia <span className="text-brand-500">AI</span>
           </h1>
         </div>
 

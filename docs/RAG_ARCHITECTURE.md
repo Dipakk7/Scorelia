@@ -1,12 +1,12 @@
 # Retrieval-Augmented Generation (RAG) Architecture
 
-This document details the architecture, design decisions, and system structure of the Retrieval-Augmented Generation (RAG) foundation module in CareerPilot AI.
+This document details the architecture, design decisions, and system structure of the Retrieval-Augmented Generation (RAG) foundation module in Scorelia.
 
 ---
 
 ## 1. Overall RAG Architecture
 
-The RAG architecture follows a modular, scalable design adhering to **Clean Architecture** principles. It serves as the primary system of record for CareerPilot AI's semantic knowledge, caching and indexing relevant materials to support context injection for the various AI services.
+The RAG architecture follows a modular, scalable design adhering to **Clean Architecture** principles. It serves as the primary system of record for Scorelia's semantic knowledge, caching and indexing relevant materials to support context injection for the various AI services.
 
 ```mermaid
 graph TD
@@ -643,7 +643,7 @@ The retrieval pipeline coordinates similarity search from query to structured ch
 
 ## 17. Knowledge Base Management & Registry
 
-To support various functional domains in CareerPilot AI, the RAG module utilizes a structured **Knowledge Base Registry** managed by `KnowledgeBaseRegistry`.
+To support various functional domains in Scorelia, the RAG module utilizes a structured **Knowledge Base Registry** managed by `KnowledgeBaseRegistry`.
 
 ### 17.1. Registered Knowledge Bases
 By default, the registry initializes the following core knowledge sources:

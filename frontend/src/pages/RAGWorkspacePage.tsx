@@ -64,13 +64,13 @@ export default function RAGWorkspacePage() {
   // Load from local storage on mount
   useEffect(() => {
     try {
-      const recent = localStorage.getItem('careerpilot_rag_recent_searches')
+      const recent = localStorage.getItem('scorelia_rag_recent_searches')
       if (recent) setRecentSearches(JSON.parse(recent))
 
-      const saved = localStorage.getItem('careerpilot_rag_saved_searches')
+      const saved = localStorage.getItem('scorelia_rag_saved_searches')
       if (saved) setSavedSearches(JSON.parse(saved))
 
-      const metrics = localStorage.getItem('careerpilot_rag_query_metrics')
+      const metrics = localStorage.getItem('scorelia_rag_query_metrics')
       if (metrics) setQueryMetrics(JSON.parse(metrics))
     } catch (e) {
       console.error('Failed to load local storage lists', e)
@@ -120,7 +120,7 @@ export default function RAGWorkspacePage() {
       const queryText = variables.question
       const nextRecent = [queryText, ...recentSearches.filter(q => q !== queryText)].slice(0, 10)
       setRecentSearches(nextRecent)
-      localStorage.setItem('careerpilot_rag_recent_searches', JSON.stringify(nextRecent))
+      localStorage.setItem('scorelia_rag_recent_searches', JSON.stringify(nextRecent))
 
       // Update analytics query metrics
       const newMetric = {
@@ -132,7 +132,7 @@ export default function RAGWorkspacePage() {
       }
       const nextMetrics = [newMetric, ...queryMetrics].slice(0, 15)
       setQueryMetrics(nextMetrics)
-      localStorage.setItem('careerpilot_rag_query_metrics', JSON.stringify(nextMetrics))
+      localStorage.setItem('scorelia_rag_query_metrics', JSON.stringify(nextMetrics))
       
       // Force change to answer panel tab
       setActiveSearchTab('answer')
@@ -226,18 +226,18 @@ export default function RAGWorkspacePage() {
       toast.success('Query bookmarked!')
     }
     setSavedSearches(nextSaved)
-    localStorage.setItem('careerpilot_rag_saved_searches', JSON.stringify(nextSaved))
+    localStorage.setItem('scorelia_rag_saved_searches', JSON.stringify(nextSaved))
   }
 
   const handleDeleteRecent = (query: string) => {
     const nextRecent = recentSearches.filter(q => q !== query)
     setRecentSearches(nextRecent)
-    localStorage.setItem('careerpilot_rag_recent_searches', JSON.stringify(nextRecent))
+    localStorage.setItem('scorelia_rag_recent_searches', JSON.stringify(nextRecent))
   }
 
   const handleClearRecent = () => {
     setRecentSearches([])
-    localStorage.removeItem('careerpilot_rag_recent_searches')
+    localStorage.removeItem('scorelia_rag_recent_searches')
     toast.success('Recent queries cleared.')
   }
 

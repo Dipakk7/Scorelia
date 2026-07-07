@@ -48,7 +48,7 @@ export default function LoginPage() {
   const onSubmit = async (data: LoginFormInputs) => {
     try {
       await login(data.email, data.password)
-      toast.success('Welcome back to CareerPilot AI!')
+      toast.success('Welcome back to Scorelia!')
       navigate(from, { replace: true })
     } catch (err: any) {
       const apiErr = err as ApiErrorResponse
@@ -75,7 +75,7 @@ export default function LoginPage() {
             <Compass size={26} className="animate-float" />
           </div>
           <h1 className="text-2xl font-bold font-display tracking-tight text-slate-900 dark:text-white m-0">
-            CareerPilot <span className="text-brand-500">AI</span>
+            Scorelia <span className="text-brand-500">AI</span>
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Navigate your professional journey with precision

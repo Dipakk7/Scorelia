@@ -34,7 +34,7 @@ class TestCareerRoadmapRecommendations(unittest.TestCase):
         cls.db = db
         try:
             # Cleanup old test users
-            email = "roadmap_recs_test@careerpilot.com"
+            email = "roadmap_recs_test@scorelia.com"
             test_user = db.query(User).filter(User.email == email).first()
             if test_user:
                 db.query(LearningRecommendation).filter(LearningRecommendation.roadmap_id.in_(

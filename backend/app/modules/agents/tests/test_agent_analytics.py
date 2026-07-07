@@ -31,7 +31,7 @@ from app.modules.agents.analytics.metrics import AgentExecutionRecord, ToolExecu
 MOCK_USER_ID = uuid.uuid4()
 mock_user = User(
     id=MOCK_USER_ID,
-    email="analytics_test@careerpilot.com",
+    email="analytics_test@scorelia.com",
     full_name="Analytics Test User",
     hashed_password="somehashpassword"
 )

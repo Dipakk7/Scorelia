@@ -183,7 +183,7 @@ export default function ProfilePage() {
             Professional Profile
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-            Customize details and credentials analyzed by CareerPilot AI.
+            Customize details and credentials analyzed by Scorelia.
           </p>
         </div>
 

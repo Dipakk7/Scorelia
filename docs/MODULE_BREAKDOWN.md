@@ -1,12 +1,12 @@
 # Module Breakdown Specification
 
-## CareerPilot AI — The Intelligent Career Copilot
+## Scorelia — The Intelligent Career Copilot
 
 ---
 
 ## 1. Module Directory
 
-The CareerPilot AI backend and frontend architectures are divided into 12 functional modules, designed to separate concerns, ensure testability, and support clean vertical slice architectures.
+The Scorelia backend and frontend architectures are divided into 12 functional modules, designed to separate concerns, ensure testability, and support clean vertical slice architectures.
 
 1.  **Authentication Module**
 2.  **User Profile Module**

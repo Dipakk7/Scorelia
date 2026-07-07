@@ -17,11 +17,11 @@ export interface ApiErrorResponse {
 }
 
 // Create custom event to handle logging out from outside components
-export const AUTH_LOGOUT_EVENT = 'careerpilot-auth-logout'
+export const AUTH_LOGOUT_EVENT = 'scorelia-auth-logout'
 
 // Access token and refresh token storage key (for header-based token system if used)
-const ACCESS_TOKEN_KEY = 'careerpilot_access_token'
-const REFRESH_TOKEN_KEY = 'careerpilot_refresh_token'
+const ACCESS_TOKEN_KEY = 'scorelia_access_token'
+const REFRESH_TOKEN_KEY = 'scorelia_refresh_token'
 
 export const getStoredAccessToken = (): string | null => {
   return localStorage.getItem(ACCESS_TOKEN_KEY)

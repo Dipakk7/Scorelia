@@ -25,7 +25,7 @@ class TestJobMatchExport(unittest.TestCase):
         cls.db = db
         try:
             # Delete any existing test users to clean up state
-            for email in ["export_test@careerpilot.com", "export_test_other@careerpilot.com"]:
+            for email in ["export_test@scorelia.com", "export_test_other@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     resumes = db.query(Resume).filter(Resume.user_id == test_user.id).all()
@@ -39,7 +39,7 @@ class TestJobMatchExport(unittest.TestCase):
             from app.schemas.user import UserCreate
             
             user_in = UserCreate(
-                email="export_test@careerpilot.com",
+                email="export_test@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Export Test User"
             )
@@ -48,7 +48,7 @@ class TestJobMatchExport(unittest.TestCase):
 
             # Create secondary test user (other user)
             other_user_in = UserCreate(
-                email="export_test_other@careerpilot.com",
+                email="export_test_other@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Other Export User"
             )
@@ -62,7 +62,7 @@ class TestJobMatchExport(unittest.TestCase):
         # Primary user client
         cls.client = TestClient(app)
         login_payload = {
-            "email": "export_test@careerpilot.com",
+            "email": "export_test@scorelia.com",
             "password": "SecurePassword@2026"
         }
         login_response = cls.client.post("/api/v1/auth/login", json=login_payload)
@@ -71,7 +71,7 @@ class TestJobMatchExport(unittest.TestCase):
         # Other user client
         cls.other_client = TestClient(app)
         other_login_payload = {
-            "email": "export_test_other@careerpilot.com",
+            "email": "export_test_other@scorelia.com",
             "password": "SecurePassword@2026"
         }
         other_login_response = cls.other_client.post("/api/v1/auth/login", json=other_login_payload)
@@ -87,7 +87,7 @@ class TestJobMatchExport(unittest.TestCase):
         """Clean up database records generated during tests."""
         db = SessionLocal()
         try:
-            for email in ["export_test@careerpilot.com", "export_test_other@careerpilot.com"]:
+            for email in ["export_test@scorelia.com", "export_test_other@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     resumes = db.query(Resume).filter(Resume.user_id == test_user.id).all()
@@ -303,7 +303,7 @@ Experience:
             overall_score=85,
             grade="Good",
             job_title="Test Software Engineer",
-            company="CareerPilot AI"
+            company="Scorelia"
         )
         history = get_recent_matches(dummy_resume_id)
         self.assertEqual(len(history), 1)
@@ -312,7 +312,7 @@ Experience:
         self.assertEqual(record["overall_score"], 85)
         self.assertEqual(record["grade"], "Good")
         self.assertEqual(record["job_title"], "Test Software Engineer")
-        self.assertEqual(record["company"], "CareerPilot AI")
+        self.assertEqual(record["company"], "Scorelia")
 
     # --- Test 18: History cache size bounding (100 elements limit) ---
     def test_18_cache_bounding(self):

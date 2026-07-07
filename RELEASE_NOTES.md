@@ -1,8 +1,8 @@
-# CareerPilot AI — Frontend Release Notes
+# Scorelia — Frontend Release Notes
 ## Version: v1.2.0-frontend-complete
 **Release Date**: 2026-07-06
 
-We are proud to announce the finalization of the frontend client for CareerPilot AI. This release hardens user interface consistency, introduces smooth skeleton transitions, unifies empty lists layouts, sets up network connectivity failure recoveries, and prepares the client code bundle for stable production hosting.
+We are proud to announce the finalization of the frontend client for Scorelia. This release hardens user interface consistency, introduces smooth skeleton transitions, unifies empty lists layouts, sets up network connectivity failure recoveries, and prepares the client code bundle for stable production hosting.
 
 ---
 

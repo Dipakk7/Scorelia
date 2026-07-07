@@ -12,7 +12,7 @@ def parse_prompt_content(content: str, filepath_for_error: str = "unknown") -> T
     name: resume_review
     version: 1.0.0
     description: ATS Review prompt
-    author: CareerPilot AI Team
+    author: Scorelia Team
     last_updated: 2026-07-01
     metadata:
       category: resume

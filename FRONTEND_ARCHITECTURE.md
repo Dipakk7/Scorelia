@@ -1,6 +1,6 @@
-# Frontend Architecture Documentation — CareerPilot AI
+# Frontend Architecture Documentation — Scorelia
 
-This document provides a comprehensive overview of the design system, directory mapping, state management architecture, API synchronization rules, routing paths, and deployment specifications for the CareerPilot AI React application.
+This document provides a comprehensive overview of the design system, directory mapping, state management architecture, API synchronization rules, routing paths, and deployment specifications for the Scorelia React application.
 
 ---
 
@@ -41,7 +41,7 @@ frontend/
 ## 2. Component System Guidelines
 
 The frontend is constructed using a decoupled, atomic design system utilizing Tailwind CSS v4 styling rules.
-- **Card**: Contained within [Card.tsx](file:///c:/CareerPilot%20AI/frontend/src/components/ui/Card.tsx). Renders slate border guidelines, dark card backgrounds (`--color-dark-card`), and hover shadow elevations.
+- **Card**: Contained within [Card.tsx](file:///c:/Scorelia%20AI/frontend/src/components/ui/Card.tsx). Renders slate border guidelines, dark card backgrounds (`--color-dark-card`), and hover shadow elevations.
 - **Button**: Custom variant options (`primary`, `secondary`, `outline`, `ghost`, `danger`) with integrated loading spinner animations.
 - **Input**: Strict form labels, prefix icons options, error messages, and aria-describedby accessibility markers.
 - **Skeletons**: Page-specific, responsive CSS-animated elements layout to mock page sections during loading.
@@ -91,7 +91,7 @@ graph TD
 
 ## 5. API Interceptor Rules
 
-The global API client is declared inside [api.ts](file:///c:/CareerPilot%20AI/frontend/src/api/api.ts):
+The global API client is declared inside [api.ts](file:///c:/Scorelia%20AI/frontend/src/api/api.ts):
 - **Base URL**: Defaults to environment `VITE_API_URL` or fallback prefix path `/api/v1`.
 - **Request Headers**: Automatically injects standard JWT token `Authorization: Bearer <token>`.
 - **Error Formatting**: Intercepts Axios responses, mapping standard FastAPI status codes to structured user-facing messages.
@@ -101,7 +101,7 @@ The global API client is declared inside [api.ts](file:///c:/CareerPilot%20AI/fr
 
 ## 6. Theme Styling Specification
 
-Configured inside [index.css](file:///c:/CareerPilot%20AI/frontend/src/index.css) using Tailwind v4 `@theme` directives:
+Configured inside [index.css](file:///c:/Scorelia%20AI/frontend/src/index.css) using Tailwind v4 `@theme` directives:
 - **Fonts**: Outfit & Inter for crisp typeface display.
 - **Colors**: Curated deep indigo brand shades (`--color-brand-50` to `950`), cyber accent colors (`--color-accent-blue`, `purple`), and high-contrast dark elements (`--color-dark-bg: #090d16`).
 - **Glassmorphism**: `.glass-navbar` and `.glass-card` classes utilize `backdrop-filter: blur(12px)` for premium visual depth.

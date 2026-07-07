@@ -10,7 +10,7 @@ class Settings(BaseSettings):
         extra="ignore"
     )
 
-    APP_NAME: str = "CareerPilot AI"
+    APP_NAME: str = "Scorelia"
     APP_VERSION: str = "1.2.0-frontend-complete"
     ENVIRONMENT: str = "development"
     API_PREFIX: str = "/api/v1"

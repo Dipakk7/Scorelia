@@ -1,6 +1,6 @@
 # Development Roadmap Specification
 
-## CareerPilot AI — The Intelligent Career Copilot
+## Scorelia — The Intelligent Career Copilot
 
 ---
 

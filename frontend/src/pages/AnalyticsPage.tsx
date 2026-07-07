@@ -168,7 +168,7 @@ export default function AnalyticsPage() {
               Analytics Center
             </h2>
             <p className="text-sm text-slate-500 dark:text-slate-400">
-              Centralized operations intelligence dashboard across all CareerPilot AI modules.
+              Centralized operations intelligence dashboard across all Scorelia modules.
             </p>
           </div>
         </div>
@@ -186,7 +186,7 @@ export default function AnalyticsPage() {
             Analytics Center
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            Centralized operations intelligence dashboard across all CareerPilot AI modules.
+            Centralized operations intelligence dashboard across all Scorelia modules.
           </p>
         </div>
       </div>

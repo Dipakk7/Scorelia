@@ -30,7 +30,7 @@ class TestAIResumeReview(unittest.TestCase):
         cls.db = db
         try:
             # Cleanup old test users
-            for email in ["review_test@careerpilot.com", "review_test_other@careerpilot.com"]:
+            for email in ["review_test@scorelia.com", "review_test_other@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     db.query(AIResumeReview).filter(AIResumeReview.user_id == test_user.id).delete()
@@ -43,7 +43,7 @@ class TestAIResumeReview(unittest.TestCase):
             from app.schemas.user import UserCreate
             
             user_in = UserCreate(
-                email="review_test@careerpilot.com",
+                email="review_test@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Review Test User"
             )
@@ -52,7 +52,7 @@ class TestAIResumeReview(unittest.TestCase):
 
             # Create secondary test user
             other_user_in = UserCreate(
-                email="review_test_other@careerpilot.com",
+                email="review_test_other@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Other Review User"
             )
@@ -66,7 +66,7 @@ class TestAIResumeReview(unittest.TestCase):
         # Login client
         cls.client = TestClient(app)
         login_payload = {
-            "email": "review_test@careerpilot.com",
+            "email": "review_test@scorelia.com",
             "password": "SecurePassword@2026"
         }
         login_response = cls.client.post("/api/v1/auth/login", json=login_payload)
@@ -75,7 +75,7 @@ class TestAIResumeReview(unittest.TestCase):
         # Login other client
         cls.other_client = TestClient(app)
         other_login_payload = {
-            "email": "review_test_other@careerpilot.com",
+            "email": "review_test_other@scorelia.com",
             "password": "SecurePassword@2026"
         }
         other_login_response = cls.other_client.post("/api/v1/auth/login", json=other_login_payload)
@@ -150,7 +150,7 @@ class TestAIResumeReview(unittest.TestCase):
         """Clean up all records inserted during tests."""
         db = SessionLocal()
         try:
-            for email in ["review_test@careerpilot.com", "review_test_other@careerpilot.com"]:
+            for email in ["review_test@scorelia.com", "review_test_other@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     db.query(AIResumeReview).filter(AIResumeReview.user_id == test_user.id).delete()

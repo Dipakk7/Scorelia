@@ -37,7 +37,7 @@ export default function OfflinePage() {
         You are offline
       </h1>
       <p className="text-base text-slate-500 dark:text-slate-455 max-w-sm mb-8 leading-relaxed">
-        CareerPilot AI cannot reach the services. Please inspect your connection status and select refresh.
+        Scorelia cannot reach the services. Please inspect your connection status and select refresh.
       </p>
       <Button
         onClick={handleCheckConnectivity}

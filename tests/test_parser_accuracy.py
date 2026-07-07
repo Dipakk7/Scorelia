@@ -140,15 +140,15 @@ class TestParserAccuracy(unittest.TestCase):
         # PDF Projects
         pdf_proj = extract_projects(self.pdf_text)
         self.assertEqual(len(pdf_proj), 1)
-        self.assertEqual(pdf_proj[0]["name"], "CareerPilot AI")
+        self.assertEqual(pdf_proj[0]["name"], "Scorelia")
         self.assertIn("parser backend", pdf_proj[0]["description"])
         self.assertEqual(set(pdf_proj[0]["technologies"]), {"Python", "FastAPI"})
-        self.assertIn("CareerPilot AI", pdf_proj[0]["raw_text"])
+        self.assertIn("Scorelia", pdf_proj[0]["raw_text"])
 
         # DOCX Projects
         docx_proj = extract_projects(self.docx_text)
         self.assertEqual(len(docx_proj), 1)
-        self.assertEqual(docx_proj[0]["name"], "CareerPilot AI")
+        self.assertEqual(docx_proj[0]["name"], "Scorelia")
         self.assertIn("parser backend", docx_proj[0]["description"])
         self.assertEqual(set(docx_proj[0]["technologies"]), {"Python", "FastAPI"})
 

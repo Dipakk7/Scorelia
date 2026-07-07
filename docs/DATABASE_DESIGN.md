@@ -1,12 +1,12 @@
 # Database Design Document
 
-## CareerPilot AI — The Intelligent Career Copilot
+## Scorelia — The Intelligent Career Copilot
 
 ---
 
 ## 1. Database Overview
 
-CareerPilot AI utilizes **PostgreSQL** as its primary persistence layer. The database is designed using a hybrid model:
+Scorelia utilizes **PostgreSQL** as its primary persistence layer. The database is designed using a hybrid model:
 1. **Relational Model (SQL):** Standardized, structured tables enforce referential integrity, strong consistency, and transactional security for user authentication, billing outlines, analytics metrics, and session states.
 2. **Semi-Structured Document Model (JSONB):** Flexible schemas accommodate deep nested data structures that evolve dynamically with AI generation. These include parsed resumes, detailed skill trees, interview transcripts, and AI-generated roadmaps.
 

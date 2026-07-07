@@ -30,7 +30,7 @@ class TestCareerRoadmapAnalytics(unittest.IsolatedAsyncioTestCase):
         cls.db = db
         try:
             # Cleanup old test users
-            email = "analytics_test@careerpilot.com"
+            email = "analytics_test@scorelia.com"
             test_user = db.query(User).filter(User.email == email).first()
             if test_user:
                 # Cleanup associated roadmaps

@@ -21,7 +21,7 @@ class TestJobMatchAPI(unittest.TestCase):
         cls.db = db
         try:
             # Delete any existing test users to clean up state
-            for email in ["job_match_test@careerpilot.com", "job_match_test_other@careerpilot.com"]:
+            for email in ["job_match_test@scorelia.com", "job_match_test_other@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     resumes = db.query(Resume).filter(Resume.user_id == test_user.id).all()
@@ -35,7 +35,7 @@ class TestJobMatchAPI(unittest.TestCase):
             from app.schemas.user import UserCreate
             
             user_in = UserCreate(
-                email="job_match_test@careerpilot.com",
+                email="job_match_test@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Job Match Test User"
             )
@@ -44,7 +44,7 @@ class TestJobMatchAPI(unittest.TestCase):
 
             # Create secondary test user (other user)
             other_user_in = UserCreate(
-                email="job_match_test_other@careerpilot.com",
+                email="job_match_test_other@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Other Test User"
             )
@@ -58,7 +58,7 @@ class TestJobMatchAPI(unittest.TestCase):
         # Primary user client
         cls.client = TestClient(app)
         login_payload = {
-            "email": "job_match_test@careerpilot.com",
+            "email": "job_match_test@scorelia.com",
             "password": "SecurePassword@2026"
         }
         login_response = cls.client.post("/api/v1/auth/login", json=login_payload)
@@ -67,7 +67,7 @@ class TestJobMatchAPI(unittest.TestCase):
         # Other user client
         cls.other_client = TestClient(app)
         other_login_payload = {
-            "email": "job_match_test_other@careerpilot.com",
+            "email": "job_match_test_other@scorelia.com",
             "password": "SecurePassword@2026"
         }
         other_login_response = cls.other_client.post("/api/v1/auth/login", json=other_login_payload)
@@ -85,7 +85,7 @@ class TestJobMatchAPI(unittest.TestCase):
         """Clean up database records generated during tests."""
         db = SessionLocal()
         try:
-            for email in ["job_match_test@careerpilot.com", "job_match_test_other@careerpilot.com"]:
+            for email in ["job_match_test@scorelia.com", "job_match_test_other@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     resumes = db.query(Resume).filter(Resume.user_id == test_user.id).all()

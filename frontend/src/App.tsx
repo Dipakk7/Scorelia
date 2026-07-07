@@ -11,7 +11,7 @@ export function App() {
   return (
     <ErrorBoundary>
       <QueryProvider>
-        <ThemeProvider defaultTheme="system" storageKey="careerpilot-theme">
+        <ThemeProvider defaultTheme="system" storageKey="scorelia-theme">
           <AuthProvider>
             <BrowserRouter>
               <AppRoutes />

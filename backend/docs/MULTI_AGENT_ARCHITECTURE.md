@@ -1,6 +1,6 @@
 # Multi-Agent AI Architecture Guide
 
-This document describes the foundation architecture of the CareerPilot AI Multi-Agent system. The framework coordinates multiple specialized agents utilizing tool-calling, RAG retrieval, shared memory, and event-based tracking.
+This document describes the foundation architecture of the Scorelia Multi-Agent system. The framework coordinates multiple specialized agents utilizing tool-calling, RAG retrieval, shared memory, and event-based tracking.
 
 ---
 
@@ -230,7 +230,7 @@ class ATSScoreAgent(BaseAgent):
 
 ## 8. Resume Agent
 
-The Resume Agent is a dedicated AI agent specializing in all resume-related workflows in CareerPilot AI.
+The Resume Agent is a dedicated AI agent specializing in all resume-related workflows in Scorelia.
 
 ### Architecture
 

@@ -60,7 +60,7 @@ export default function RoadmapPage() {
   useEffect(() => {
     if (selectedRoadmapId) {
       try {
-        const saved = localStorage.getItem(`careerpilot_milestones_status_${selectedRoadmapId}`)
+        const saved = localStorage.getItem(`scorelia_milestones_status_${selectedRoadmapId}`)
         if (saved) {
           setMilestoneStatusOverrides(JSON.parse(saved))
         } else {
@@ -81,7 +81,7 @@ export default function RoadmapPage() {
     setMilestoneStatusOverrides(nextOverrides)
     try {
       localStorage.setItem(
-        `careerpilot_milestones_status_${selectedRoadmapId}`,
+        `scorelia_milestones_status_${selectedRoadmapId}`,
         JSON.stringify(nextOverrides)
       )
       // Invalidating queries to force calculations refresh

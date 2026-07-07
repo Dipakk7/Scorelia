@@ -32,7 +32,7 @@ class TestAIInterviewGeneration(unittest.TestCase):
         cls.db = db
         try:
             # Cleanup old test users
-            for email in ["gen_test@careerpilot.com"]:
+            for email in ["gen_test@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     db.query(InterviewTurn).filter(InterviewTurn.session_id.in_(
@@ -48,7 +48,7 @@ class TestAIInterviewGeneration(unittest.TestCase):
             from app.schemas.user import UserCreate
 
             user_in = UserCreate(
-                email="gen_test@careerpilot.com",
+                email="gen_test@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Generation User"
             )
@@ -98,7 +98,7 @@ class TestAIInterviewGeneration(unittest.TestCase):
         # Login primary user client
         cls.client = TestClient(app)
         login_payload = {
-            "email": "gen_test@careerpilot.com",
+            "email": "gen_test@scorelia.com",
             "password": "SecurePassword@2026"
         }
         login_response = cls.client.post("/api/v1/auth/login", json=login_payload)
@@ -109,7 +109,7 @@ class TestAIInterviewGeneration(unittest.TestCase):
         """Clean up database records generated during tests."""
         db = SessionLocal()
         try:
-            for email in ["gen_test@careerpilot.com"]:
+            for email in ["gen_test@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     db.query(InterviewTurn).filter(InterviewTurn.session_id.in_(

@@ -26,7 +26,7 @@ class TestAICoverLetterExport(unittest.TestCase):
         cls.db = db
         try:
             # Cleanup old test users
-            for email in ["export_unit_test@careerpilot.com", "export_unit_other@careerpilot.com"]:
+            for email in ["export_unit_test@scorelia.com", "export_unit_other@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     db.query(AICoverLetterExport).filter(AICoverLetterExport.user_id == test_user.id).delete()
@@ -41,7 +41,7 @@ class TestAICoverLetterExport(unittest.TestCase):
             from app.schemas.user import UserCreate
 
             user_in = UserCreate(
-                email="export_unit_test@careerpilot.com",
+                email="export_unit_test@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Export User"
             )
@@ -50,7 +50,7 @@ class TestAICoverLetterExport(unittest.TestCase):
 
             # Create secondary test user
             other_user_in = UserCreate(
-                email="export_unit_other@careerpilot.com",
+                email="export_unit_other@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Other Export User"
             )
@@ -71,7 +71,7 @@ class TestAICoverLetterExport(unittest.TestCase):
                 parsed_data={
                     "personal_info": {
                         "name": "Export User",
-                        "email": "export_unit_test@careerpilot.com",
+                        "email": "export_unit_test@scorelia.com",
                         "phone": "555-0199",
                         "links": ["linkedin.com/in/exportuser"]
                     },
@@ -135,14 +135,14 @@ class TestAICoverLetterExport(unittest.TestCase):
 
         # Login primary user
         login_res = cls.client.post("/api/v1/auth/login", json={
-            "email": "export_unit_test@careerpilot.com",
+            "email": "export_unit_test@scorelia.com",
             "password": "SecurePassword@2026"
         })
         assert login_res.status_code == 200, f"Primary login failed: {login_res.text}"
 
         # Login secondary user
         login_res_other = cls.other_client.post("/api/v1/auth/login", json={
-            "email": "export_unit_other@careerpilot.com",
+            "email": "export_unit_other@scorelia.com",
             "password": "SecurePassword@2026"
         })
         assert login_res_other.status_code == 200, f"Other login failed: {login_res_other.text}"
@@ -159,7 +159,7 @@ class TestAICoverLetterExport(unittest.TestCase):
             db.query(Resume).filter(Resume.user_id.in_([cls.user_id, cls.other_user_id])).delete()
             
             # Delete users
-            for email in ["export_unit_test@careerpilot.com", "export_unit_other@careerpilot.com"]:
+            for email in ["export_unit_test@scorelia.com", "export_unit_other@scorelia.com"]:
                 u = db.query(User).filter(User.email == email).first()
                 if u:
                     db.delete(u)

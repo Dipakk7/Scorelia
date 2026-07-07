@@ -160,7 +160,7 @@ export default function SettingsPage() {
       const url = window.URL.createObjectURL(blob)
       const link = document.createElement('a')
       link.href = url
-      link.setAttribute('download', `careerpilot-data-export-${new Date().toISOString().split('T')[0]}.json`)
+      link.setAttribute('download', `scorelia-data-export-${new Date().toISOString().split('T')[0]}.json`)
       document.body.appendChild(link)
       link.click()
       link.parentNode?.removeChild(link)
@@ -557,7 +557,7 @@ export default function SettingsPage() {
             </div>
           </DialogHeader>
           <div className="py-3 text-sm text-slate-650 dark:text-slate-350 font-sans leading-relaxed text-left">
-            Are you absolutely sure you want to delete your CareerPilot AI account? All resumes, mock preparation turn logs, roadmap milestones, and profile records will be permanently erased.
+            Are you absolutely sure you want to delete your Scorelia account? All resumes, mock preparation turn logs, roadmap milestones, and profile records will be permanently erased.
           </div>
           <DialogFooter className="flex gap-2 justify-end">
             <Button

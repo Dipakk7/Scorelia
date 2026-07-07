@@ -1,12 +1,12 @@
 # Software Architecture Document (SAD)
 
-## CareerPilot AI — The Intelligent Career Copilot
+## Scorelia — The Intelligent Career Copilot
 
 ---
 
 ## 1. System Overview
 
-CareerPilot AI is designed around a decoupled, client-server clean architecture. The primary objective is to separate presentation logic, orchestration controllers, local business services, and database layers. The frontend runs as a client-side Single Page Application (SPA) powered by Next.js, and the backend operates as a high-performance Python FastAPI service. Communication is handled via REST APIs with stateless JWT authentication payloads.
+Scorelia is designed around a decoupled, client-server clean architecture. The primary objective is to separate presentation logic, orchestration controllers, local business services, and database layers. The frontend runs as a client-side Single Page Application (SPA) powered by Next.js, and the backend operates as a high-performance Python FastAPI service. Communication is handled via REST APIs with stateless JWT authentication payloads.
 
 ```
 ┌────────────────────────────────┐       JSON/REST       ┌─────────────────────────────────┐
@@ -97,7 +97,7 @@ backend/
 
 ## 5. AI & Natural Language Processing Architecture
 
-The core value of CareerPilot AI lies in its fully local machine learning and generative pipelines, ensuring privacy and offline compatibility.
+The core value of Scorelia lies in its fully local machine learning and generative pipelines, ensuring privacy and offline compatibility.
 
 ```mermaid
 flowchart TD

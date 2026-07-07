@@ -90,7 +90,7 @@ export function ExportDialog({
 
   // Generate Markdown report string
   const generateMarkdown = (data: any) => {
-    let md = `# CareerPilot AI Resume Intelligence Report\n`
+    let md = `# Scorelia Resume Intelligence Report\n`
     md += `**Date Exported:** ${new Date().toLocaleDateString()}\n`
     md += `**Source Document:** ${resumeFilename}\n\n`
     md += `---\n\n`
@@ -178,7 +178,7 @@ export function ExportDialog({
       const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(compiledData, null, 2))
       const link = document.createElement('a')
       link.setAttribute('href', dataStr)
-      link.setAttribute('download', `careerpilot_ai_report_${resumeFilename}.json`)
+      link.setAttribute('download', `scorelia_report_${resumeFilename}.json`)
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
@@ -188,7 +188,7 @@ export function ExportDialog({
       const dataStr = 'data:text/markdown;charset=utf-8,' + encodeURIComponent(mdContent)
       const link = document.createElement('a')
       link.setAttribute('href', dataStr)
-      link.setAttribute('download', `careerpilot_ai_report_${resumeFilename}.md`)
+      link.setAttribute('download', `scorelia_report_${resumeFilename}.md`)
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)

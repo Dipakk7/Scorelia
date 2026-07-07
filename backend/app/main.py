@@ -20,7 +20,7 @@ logger = structlog.get_logger()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info(
-        "Starting CareerPilot AI Backend",
+        "Starting Scorelia Backend",
         app_name=settings.APP_NAME,
         version=settings.APP_VERSION,
         api_prefix=settings.API_PREFIX,
@@ -37,7 +37,7 @@ async def lifespan(app: FastAPI):
 
     yield
 
-    logger.info("Shutting down CareerPilot AI Backend...")
+    logger.info("Shutting down Scorelia Backend...")
 
 app = FastAPI(
     title=settings.APP_NAME,

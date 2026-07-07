@@ -1,4 +1,4 @@
-# CareerPilot AI — Frontend Production Readiness Report
+# Scorelia — Frontend Production Readiness Report
 
 This report evaluates the React client application against enterprise production standards, covering UI validation, performance optimizations, accessibility metrics, cross-browser compatibility, security audits, and deployment specifications.
 

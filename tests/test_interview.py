@@ -36,7 +36,7 @@ class TestAIInterviewFoundation(unittest.TestCase):
         cls.db = db
         try:
             # Cleanup old test users
-            for email in ["int_test@careerpilot.com", "int_test_other@careerpilot.com"]:
+            for email in ["int_test@scorelia.com", "int_test_other@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     db.query(InterviewTurn).filter(InterviewTurn.session_id.in_(
@@ -53,7 +53,7 @@ class TestAIInterviewFoundation(unittest.TestCase):
             from app.schemas.user import UserCreate
 
             user_in = UserCreate(
-                email="int_test@careerpilot.com",
+                email="int_test@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Interview User"
             )
@@ -62,7 +62,7 @@ class TestAIInterviewFoundation(unittest.TestCase):
 
             # Create secondary test user
             other_user_in = UserCreate(
-                email="int_test_other@careerpilot.com",
+                email="int_test_other@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Other Int User"
             )
@@ -142,7 +142,7 @@ class TestAIInterviewFoundation(unittest.TestCase):
         # Login primary user client
         cls.client = TestClient(app)
         login_payload = {
-            "email": "int_test@careerpilot.com",
+            "email": "int_test@scorelia.com",
             "password": "SecurePassword@2026"
         }
         login_response = cls.client.post("/api/v1/auth/login", json=login_payload)
@@ -151,7 +151,7 @@ class TestAIInterviewFoundation(unittest.TestCase):
         # Login other user client
         cls.other_client = TestClient(app)
         other_login_payload = {
-            "email": "int_test_other@careerpilot.com",
+            "email": "int_test_other@scorelia.com",
             "password": "SecurePassword@2026"
         }
         other_login_response = cls.other_client.post("/api/v1/auth/login", json=other_login_payload)
@@ -162,7 +162,7 @@ class TestAIInterviewFoundation(unittest.TestCase):
         """Clean up database records generated during tests."""
         db = SessionLocal()
         try:
-            for email in ["int_test@careerpilot.com", "int_test_other@careerpilot.com"]:
+            for email in ["int_test@scorelia.com", "int_test_other@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     db.query(InterviewTurn).filter(InterviewTurn.session_id.in_(

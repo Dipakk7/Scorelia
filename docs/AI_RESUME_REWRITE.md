@@ -1,6 +1,6 @@
 # AI Resume Rewrite Engine
 
-The AI Resume Rewrite Engine is a core production feature of CareerPilot AI that automatically improves the writing quality, professional tone, grammar, action verbs, and ATS keywords of a user's resume while strictly preserving all factual achievements, dates, designations, education, and company names. It supports custom Rewrite Modes, section-by-section rewrites, optional job-specific tailoring, detailed diff generation, and undo support (rollback).
+The AI Resume Rewrite Engine is a core production feature of Scorelia that automatically improves the writing quality, professional tone, grammar, action verbs, and ATS keywords of a user's resume while strictly preserving all factual achievements, dates, designations, education, and company names. It supports custom Rewrite Modes, section-by-section rewrites, optional job-specific tailoring, detailed diff generation, and undo support (rollback).
 
 ---
 
@@ -115,7 +115,7 @@ All API endpoints require authentication and are mounted under the `/api/v1/ai/`
 ### Running Tests
 To run unit, database, diff engine, caching, and API integration tests:
 ```powershell
-$env:DATABASE_URL="postgresql+psycopg://postgres:postgres@localhost:5432/careerpilot_db"
+$env:DATABASE_URL="postgresql+psycopg://postgres:postgres@localhost:5432/scorelia_db"
 $env:JWT_SECRET_KEY="supersecretchangeitinproduction"
 backend/venv/Scripts/pytest -v tests/test_ai_resume_rewrite.py
 ```

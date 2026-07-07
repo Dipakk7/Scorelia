@@ -36,7 +36,7 @@ class TestParserPart3(unittest.TestCase):
         cls.db = db
         try:
             # Delete any existing test user to clean up state
-            test_user = db.query(User).filter(User.email == "parser_test@careerpilot.com").first()
+            test_user = db.query(User).filter(User.email == "parser_test@scorelia.com").first()
             if test_user:
                 # Delete any associated resumes
                 resumes = db.query(Resume).filter(Resume.user_id == test_user.id).all()
@@ -49,7 +49,7 @@ class TestParserPart3(unittest.TestCase):
             from app.services import auth_service
             from app.schemas.user import UserCreate
             user_in = UserCreate(
-                email="parser_test@careerpilot.com",
+                email="parser_test@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Parser Test User"
             )
@@ -61,7 +61,7 @@ class TestParserPart3(unittest.TestCase):
 
         cls.client = TestClient(app)
         login_payload = {
-            "email": "parser_test@careerpilot.com",
+            "email": "parser_test@scorelia.com",
             "password": "SecurePassword@2026"
         }
         login_response = cls.client.post("/api/v1/auth/login", json=login_payload)
@@ -72,7 +72,7 @@ class TestParserPart3(unittest.TestCase):
         """Clean up database records generated during tests."""
         db = SessionLocal()
         try:
-            test_user = db.query(User).filter(User.email == "parser_test@careerpilot.com").first()
+            test_user = db.query(User).filter(User.email == "parser_test@scorelia.com").first()
             if test_user:
                 resumes = db.query(Resume).filter(Resume.user_id == test_user.id).all()
                 for r in resumes:
@@ -155,7 +155,7 @@ class TestParserPart3(unittest.TestCase):
             "Experience:\n"
             "Software Engineer, Tech Corp, 2020-Present\n"
             "Projects\n"
-            "CareerPilot AI: Side project.\n"
+            "Scorelia: Side project.\n"
             "Certifications\n"
             "AWS Certified Developer\n"
             "FastAPI Expert Certification"
@@ -171,7 +171,7 @@ class TestParserPart3(unittest.TestCase):
 
         projects = extract_projects(resume_text)
         self.assertEqual(len(projects), 1)
-        self.assertIn("CareerPilot AI", projects[0]["raw_text"])
+        self.assertIn("Scorelia", projects[0]["raw_text"])
 
         certifications = extract_certifications(resume_text)
         self.assertEqual(len(certifications), 2)

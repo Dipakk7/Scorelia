@@ -38,7 +38,7 @@ class TestAICoverLetterFoundation(unittest.TestCase):
         cls.db = db
         try:
             # Cleanup old test users
-            for email in ["cl_test@careerpilot.com", "cl_test_other@careerpilot.com"]:
+            for email in ["cl_test@scorelia.com", "cl_test_other@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     db.query(AICoverLetter).filter(AICoverLetter.user_id == test_user.id).delete()
@@ -51,7 +51,7 @@ class TestAICoverLetterFoundation(unittest.TestCase):
             from app.schemas.user import UserCreate
 
             user_in = UserCreate(
-                email="cl_test@careerpilot.com",
+                email="cl_test@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Cover Letter User"
             )
@@ -60,7 +60,7 @@ class TestAICoverLetterFoundation(unittest.TestCase):
 
             # Create secondary test user
             other_user_in = UserCreate(
-                email="cl_test_other@careerpilot.com",
+                email="cl_test_other@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Other CL User"
             )
@@ -122,7 +122,7 @@ class TestAICoverLetterFoundation(unittest.TestCase):
         # Login primary user client
         cls.client = TestClient(app)
         login_payload = {
-            "email": "cl_test@careerpilot.com",
+            "email": "cl_test@scorelia.com",
             "password": "SecurePassword@2026"
         }
         login_response = cls.client.post("/api/v1/auth/login", json=login_payload)
@@ -131,7 +131,7 @@ class TestAICoverLetterFoundation(unittest.TestCase):
         # Login other user client
         cls.other_client = TestClient(app)
         other_login_payload = {
-            "email": "cl_test_other@careerpilot.com",
+            "email": "cl_test_other@scorelia.com",
             "password": "SecurePassword@2026"
         }
         other_login_response = cls.other_client.post("/api/v1/auth/login", json=other_login_payload)
@@ -142,7 +142,7 @@ class TestAICoverLetterFoundation(unittest.TestCase):
         """Clean up database records generated during tests."""
         db = SessionLocal()
         try:
-            for email in ["cl_test@careerpilot.com", "cl_test_other@careerpilot.com"]:
+            for email in ["cl_test@scorelia.com", "cl_test_other@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     db.query(AICoverLetter).filter(AICoverLetter.user_id == test_user.id).delete()

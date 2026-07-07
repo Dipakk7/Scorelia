@@ -77,7 +77,7 @@ class GitHubService:
         start_time = time.perf_counter()
         
         headers = {
-            "User-Agent": "CareerPilot-AI-Analytics-Engine",
+            "User-Agent": "Scorelia-Analytics-Engine",
             "Accept": "application/vnd.github.v3+json"
         }
 
@@ -185,7 +185,7 @@ class GitHubService:
         is_partial = False
         
         headers = {
-            "User-Agent": "CareerPilot-AI-Analytics-Engine",
+            "User-Agent": "Scorelia-Analytics-Engine",
             "Accept": "application/vnd.github.v3+json"
         }
         

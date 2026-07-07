@@ -1,6 +1,6 @@
 # AI Cover Letter Generator Infrastructure
 
-This document describes the design, architecture, database models, schemas, workflows, and extension guides for the AI Cover Letter Generator module in CareerPilot AI.
+This document describes the design, architecture, database models, schemas, workflows, and extension guides for the AI Cover Letter Generator module in Scorelia.
 
 ---
 

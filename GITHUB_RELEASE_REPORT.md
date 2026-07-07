@@ -76,9 +76,9 @@
 
 ## 🚀 Release Summary
 
-The release of Phase 14 marks the completion of the core frontend system for CareerPilot AI. With this release:
+The release of Phase 14 marks the completion of the core frontend system for Scorelia. With this release:
 1. All 10 modules have visual and interactive layouts in React.
 2. Production polish (loaders, empty states, crash boundaries, connection failure routes) is fully in place.
 3. Decoupled, local-first architectures for both backend FastAPI and frontend React are synchronized and tested.
 
-CareerPilot AI is now fully ready to begin **Phase 15 — Deployment & Production**.
+Scorelia is now fully ready to begin **Phase 15 — Deployment & Production**.

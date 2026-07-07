@@ -39,7 +39,7 @@ class TestAIResumeRewrite(unittest.TestCase):
         cls.db = db
         try:
             # Cleanup old test users
-            for email in ["rewrite_test@careerpilot.com", "rewrite_test_other@careerpilot.com"]:
+            for email in ["rewrite_test@scorelia.com", "rewrite_test_other@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     db.query(AIResumeRewrite).filter(AIResumeRewrite.user_id == test_user.id).delete()
@@ -52,7 +52,7 @@ class TestAIResumeRewrite(unittest.TestCase):
             from app.schemas.user import UserCreate
             
             user_in = UserCreate(
-                email="rewrite_test@careerpilot.com",
+                email="rewrite_test@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Rewrite Test User"
             )
@@ -61,7 +61,7 @@ class TestAIResumeRewrite(unittest.TestCase):
 
             # Create secondary test user
             other_user_in = UserCreate(
-                email="rewrite_test_other@careerpilot.com",
+                email="rewrite_test_other@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Other Rewrite User"
             )
@@ -75,7 +75,7 @@ class TestAIResumeRewrite(unittest.TestCase):
         # Login client
         cls.client = TestClient(app)
         login_payload = {
-            "email": "rewrite_test@careerpilot.com",
+            "email": "rewrite_test@scorelia.com",
             "password": "SecurePassword@2026"
         }
         login_response = cls.client.post("/api/v1/auth/login", json=login_payload)
@@ -84,7 +84,7 @@ class TestAIResumeRewrite(unittest.TestCase):
         # Login other client
         cls.other_client = TestClient(app)
         other_login_payload = {
-            "email": "rewrite_test_other@careerpilot.com",
+            "email": "rewrite_test_other@scorelia.com",
             "password": "SecurePassword@2026"
         }
         other_login_response = cls.other_client.post("/api/v1/auth/login", json=other_login_payload)
@@ -125,7 +125,7 @@ class TestAIResumeRewrite(unittest.TestCase):
         """Clean up all records inserted during tests."""
         db = SessionLocal()
         try:
-            for email in ["rewrite_test@careerpilot.com", "rewrite_test_other@careerpilot.com"]:
+            for email in ["rewrite_test@scorelia.com", "rewrite_test_other@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     db.query(AIResumeRewrite).filter(AIResumeRewrite.user_id == test_user.id).delete()

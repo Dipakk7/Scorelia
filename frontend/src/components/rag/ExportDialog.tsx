@@ -37,10 +37,10 @@ export function ExportDialog({
     let mimeType = ''
 
     if (format === 'md') {
-      blobContent = `# CareerPilot AI Advisor Answer\n\n**Query:** _${query}_\n\n---\n\n${content}`
+      blobContent = `# Scorelia Advisor Answer\n\n**Query:** _${query}_\n\n---\n\n${content}`
       mimeType = 'text/markdown;charset=utf-8;'
     } else {
-      blobContent = `CareerPilot AI Advisor Answer\n\nQuery: ${query}\n\n========================================\n\n${content}`
+      blobContent = `Scorelia Advisor Answer\n\nQuery: ${query}\n\n========================================\n\n${content}`
       mimeType = 'text/plain;charset=utf-8;'
     }
 

@@ -33,7 +33,7 @@ class TestAICareerRoadmapFoundation(unittest.TestCase):
         cls.db = db
         try:
             # Cleanup old test users
-            for email in ["roadmap_test@careerpilot.com", "roadmap_test_other@careerpilot.com"]:
+            for email in ["roadmap_test@scorelia.com", "roadmap_test_other@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     db.query(RoadmapMilestone).filter(RoadmapMilestone.roadmap_id.in_(
@@ -52,7 +52,7 @@ class TestAICareerRoadmapFoundation(unittest.TestCase):
             from app.schemas.user import UserCreate
 
             user_in = UserCreate(
-                email="roadmap_test@careerpilot.com",
+                email="roadmap_test@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Roadmap User"
             )
@@ -61,7 +61,7 @@ class TestAICareerRoadmapFoundation(unittest.TestCase):
 
             # Create secondary test user
             other_user_in = UserCreate(
-                email="roadmap_test_other@careerpilot.com",
+                email="roadmap_test_other@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Other Roadmap User"
             )
@@ -98,7 +98,7 @@ class TestAICareerRoadmapFoundation(unittest.TestCase):
                     },
                     "data": {
                         "name": {"value": "Roadmap User", "confidence": 1.0},
-                        "email": {"value": "roadmap_test@careerpilot.com", "confidence": 1.0},
+                        "email": {"value": "roadmap_test@scorelia.com", "confidence": 1.0},
                         "phone": {"value": "1234567890", "confidence": 1.0},
                         "links": {"value": ["https://github.com/roadmapdev"], "confidence": 1.0},
                         "skills": {"value": ["Python", "FastAPI", "SQLAlchemy"], "confidence": 1.0},

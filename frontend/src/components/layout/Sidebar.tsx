@@ -76,7 +76,7 @@ export function Sidebar({ collapsed, setCollapsed, className }: SidebarProps) {
           </div>
           {!collapsed && (
             <span className="font-semibold font-display text-white text-base tracking-wide whitespace-nowrap">
-              CareerPilot <span className="text-brand-400">AI</span>
+              Scorelia <span className="text-brand-400">AI</span>
             </span>
           )}
         </div>

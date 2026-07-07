@@ -34,7 +34,7 @@ class TestAIInterviewEvaluation(unittest.IsolatedAsyncioTestCase):
         cls.db = db
         try:
             # Cleanup old test users
-            for email in ["eval_test@careerpilot.com"]:
+            for email in ["eval_test@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     db.query(InterviewTurn).filter(InterviewTurn.session_id.in_(
@@ -50,7 +50,7 @@ class TestAIInterviewEvaluation(unittest.IsolatedAsyncioTestCase):
             from app.schemas.user import UserCreate
 
             user_in = UserCreate(
-                email="eval_test@careerpilot.com",
+                email="eval_test@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Evaluation User"
             )
@@ -83,7 +83,7 @@ class TestAIInterviewEvaluation(unittest.IsolatedAsyncioTestCase):
         # Login primary user client
         cls.client = TestClient(app)
         login_payload = {
-            "email": "eval_test@careerpilot.com",
+            "email": "eval_test@scorelia.com",
             "password": "SecurePassword@2026"
         }
         login_response = cls.client.post("/api/v1/auth/login", json=login_payload)
@@ -146,7 +146,7 @@ class TestAIInterviewEvaluation(unittest.IsolatedAsyncioTestCase):
         """Clean up database records generated during tests."""
         db = SessionLocal()
         try:
-            for email in ["eval_test@careerpilot.com"]:
+            for email in ["eval_test@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     db.query(InterviewTurn).filter(InterviewTurn.session_id.in_(

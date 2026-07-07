@@ -290,7 +290,7 @@ class GitHubStatistics(BaseStatistics):
     @classmethod
     def calculate_developer_score(cls, repos: list[dict], unique_languages: list[str]) -> dict:
         """
-        Compute CareerPilot-specific Developer Score heuristic.
+        Compute Scorelia-specific Developer Score heuristic.
         """
         if not repos:
             return {

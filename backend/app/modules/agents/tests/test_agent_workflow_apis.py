@@ -15,7 +15,7 @@ from app.modules.agents.workflow.tools.tool_models import ToolMetadata, ToolPara
 MOCK_USER_ID = uuid.uuid4()
 mock_user = User(
     id=MOCK_USER_ID,
-    email="workflow_api_test@careerpilot.com",
+    email="workflow_api_test@scorelia.com",
     full_name="Workflow API Test User",
     hashed_password="somehashpassword"
 )

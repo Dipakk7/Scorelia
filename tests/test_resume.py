@@ -23,7 +23,7 @@ class TestResumePipeline(unittest.TestCase):
         cls.db = db
         try:
             # Delete any existing test user to clean up state
-            test_user = db.query(User).filter(User.email == "resume_test@careerpilot.com").first()
+            test_user = db.query(User).filter(User.email == "resume_test@scorelia.com").first()
             if test_user:
                 # Delete any associated resumes and their files
                 resumes = db.query(Resume).filter(Resume.user_id == test_user.id).all()
@@ -39,7 +39,7 @@ class TestResumePipeline(unittest.TestCase):
             from app.services import auth_service
             from app.schemas.user import UserCreate
             user_in = UserCreate(
-                email="resume_test@careerpilot.com",
+                email="resume_test@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Resume Test User"
             )
@@ -51,7 +51,7 @@ class TestResumePipeline(unittest.TestCase):
         cls.client = TestClient(app)
         # Log in the user to populate the client's HttpOnly cookie
         login_payload = {
-            "email": "resume_test@careerpilot.com",
+            "email": "resume_test@scorelia.com",
             "password": "SecurePassword@2026"
         }
         login_response = cls.client.post("/api/v1/auth/login", json=login_payload)
@@ -62,7 +62,7 @@ class TestResumePipeline(unittest.TestCase):
         """Clean up database records and files generated during tests."""
         db = SessionLocal()
         try:
-            test_user = db.query(User).filter(User.email == "resume_test@careerpilot.com").first()
+            test_user = db.query(User).filter(User.email == "resume_test@scorelia.com").first()
             if test_user:
                 resumes = db.query(Resume).filter(Resume.user_id == test_user.id).all()
                 for r in resumes:

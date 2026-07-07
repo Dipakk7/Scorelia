@@ -1,4 +1,5 @@
 from fastapi import Depends
+from fastapi.params import Depends as DependsClass
 from app.ai.providers.base import BaseAIProvider
 from app.ai.providers.factory import AIProviderFactory
 from app.ai.services.ai_service import AIService
@@ -24,4 +25,7 @@ def get_ai_service(
     Returns:
         The initialized AIService.
     """
+    if isinstance(provider, DependsClass):
+        provider = get_ai_provider()
     return AIService(provider)
+

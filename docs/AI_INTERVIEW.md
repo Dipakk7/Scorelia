@@ -43,7 +43,7 @@ The AI Interview module is structured using **Clean Architecture** patterns, ens
 
 ## 2. AI Integration & Dependency Graph
 
-The Interview module integrates with CareerPilot's shared AI service infrastructure. It avoids duplication of LLM clients or Prompt Registries by resolving them through FastAPI's dependency injection container.
+The Interview module integrates with Scorelia's shared AI service infrastructure. It avoids duplication of LLM clients or Prompt Registries by resolving them through FastAPI's dependency injection container.
 
 ### Dependency Graph
 

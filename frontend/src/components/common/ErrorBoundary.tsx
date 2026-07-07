@@ -38,7 +38,7 @@ export class ErrorBoundary extends Component<Props, State> {
           <div className="max-w-lg w-full bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl space-y-6">
             <ErrorState
               title="Application Render Crash"
-              message="Something went wrong inside the CareerPilot AI workspace. Please try reloading or check the developer logs."
+              message="Something went wrong inside the Scorelia workspace. Please try reloading or check the developer logs."
               retryLabel="Reload Application"
               onRetry={this.handleReset}
               className="border-0 bg-transparent dark:bg-transparent min-h-0 p-0"

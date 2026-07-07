@@ -20,9 +20,9 @@ class TestAuthFlow(unittest.TestCase):
         try:
             # Delete any pre-existing test users to ensure clean state
             db.query(User).filter(User.email.in_([
-                "test@careerpilot.com", 
-                "weak@careerpilot.com", 
-                "test_upper@careerpilot.com"
+                "test@scorelia.com", 
+                "weak@scorelia.com", 
+                "test_upper@scorelia.com"
             ])).delete(synchronize_session=False)
             db.commit()
         finally:
@@ -34,14 +34,14 @@ class TestAuthFlow(unittest.TestCase):
 
         # --- Test 1 — Register new user ---
         register_payload = {
-            "email": "test@careerpilot.com",
+            "email": "test@scorelia.com",
             "password": "Career@2026",
             "full_name": "Test User"
         }
         response = client.post("/api/v1/auth/register", json=register_payload)
         self.assertEqual(response.status_code, 201, f"Test 1 failed: {response.text}")
         user_data = response.json()
-        self.assertEqual(user_data["email"], "test@careerpilot.com")
+        self.assertEqual(user_data["email"], "test@scorelia.com")
         self.assertEqual(user_data["full_name"], "Test User")
         self.assertEqual(user_data["auth_provider"], "LOCAL")
         self.assertNotIn("password", user_data)
@@ -51,7 +51,7 @@ class TestAuthFlow(unittest.TestCase):
 
         # --- Test 1.5 — Weak password rejection ---
         weak_payload = {
-            "email": "weak@careerpilot.com",
+            "email": "weak@scorelia.com",
             "password": "password123",
             "full_name": "Weak User"
         }
@@ -68,7 +68,7 @@ class TestAuthFlow(unittest.TestCase):
         # Verify no user created in db
         db = SessionLocal()
         try:
-            weak_user = db.query(User).filter(User.email == "weak@careerpilot.com").first()
+            weak_user = db.query(User).filter(User.email == "weak@scorelia.com").first()
             self.assertIsNone(weak_user, "Weak user was created in the database!")
         finally:
             db.close()
@@ -85,7 +85,7 @@ class TestAuthFlow(unittest.TestCase):
 
         # --- Test 2.5 — Email normalization ---
         upper_payload = {
-            "email": "TEST@CAREERPILOT.COM",
+            "email": "TEST@SCORELIA.COM",
             "password": "Career@2026",
             "full_name": "Test Upper"
         }
@@ -99,14 +99,14 @@ class TestAuthFlow(unittest.TestCase):
 
         # --- Test 3 — Login success ---
         login_payload = {
-            "email": "test@careerpilot.com",
+            "email": "test@scorelia.com",
             "password": "Career@2026"
         }
         response = client.post("/api/v1/auth/login", json=login_payload)
         self.assertEqual(response.status_code, 200, f"Test 3 failed: {response.text}")
         login_data = response.json()
         self.assertEqual(login_data["message"], "Login successful")
-        self.assertEqual(login_data["user"]["email"], "test@careerpilot.com")
+        self.assertEqual(login_data["user"]["email"], "test@scorelia.com")
         self.assertNotIn("password", login_data["user"])
         self.assertNotIn("hashed_password", login_data["user"])
         
@@ -119,7 +119,7 @@ class TestAuthFlow(unittest.TestCase):
         self.assertIsNotNone(access_token)
         token_data = decode_access_token(access_token)
         self.assertIsNotNone(token_data, "Test 3.5 failed: JWT decoding failed")
-        self.assertEqual(token_data.email, "test@careerpilot.com")
+        self.assertEqual(token_data.email, "test@scorelia.com")
         self.assertEqual(token_data.provider, "LOCAL")
         # Verify user_id is a valid UUID
         try:
@@ -130,7 +130,7 @@ class TestAuthFlow(unittest.TestCase):
 
         # --- Test 4 — Wrong password ---
         wrong_payload = {
-            "email": "test@careerpilot.com",
+            "email": "test@scorelia.com",
             "password": "WrongPass@123"
         }
         # Clear client cookies to avoid passing auth in request
@@ -151,7 +151,7 @@ class TestAuthFlow(unittest.TestCase):
         response = client.get("/api/v1/auth/me")
         self.assertEqual(response.status_code, 200, f"Test 5 failed: {response.text}")
         me_data = response.json()
-        self.assertEqual(me_data["email"], "test@careerpilot.com")
+        self.assertEqual(me_data["email"], "test@scorelia.com")
         self.assertEqual(me_data["id"], registered_user_id)
         self.assertNotIn("password", me_data)
         self.assertNotIn("hashed_password", me_data)

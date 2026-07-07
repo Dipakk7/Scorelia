@@ -53,7 +53,7 @@ export function ReportExportDialog({
     try {
       // Gather relevant data
       let exportData: any = null
-      let filename = `careerpilot_${reportType}_report_${new Date().toISOString().split('T')[0]}`
+      let filename = `scorelia_${reportType}_report_${new Date().toISOString().split('T')[0]}`
 
       if (reportType === 'analytics') {
         if (!dashboard.data) throw new Error('Analytics summary data is loading, please try again.')
@@ -208,7 +208,7 @@ export function ReportExportDialog({
         <body>
           <div class="header">
             <div>
-              <h1 class="title">CareerPilot AI</h1>
+              <h1 class="title">Scorelia</h1>
               <div class="meta">Exported on: ${new Date().toLocaleString()}</div>
             </div>
             <div class="badge">${type.toUpperCase()} REPORT</div>
@@ -344,7 +344,7 @@ export function ReportExportDialog({
 
     htmlContent += `
           <div class="footer">
-            Powered by CareerPilot AI — Centralized Intelligence Center &copy; ${new Date().getFullYear()}
+            Powered by Scorelia — Centralized Intelligence Center &copy; ${new Date().getFullYear()}
           </div>
         </body>
       </html>
@@ -363,7 +363,7 @@ export function ReportExportDialog({
             Export Intelligence Report
           </DialogTitle>
           <DialogDescription className="text-xs text-slate-400 dark:text-slate-500">
-            Generate custom data exports from your CareerPilot modules.
+            Generate custom data exports from your Scorelia modules.
           </DialogDescription>
         </DialogHeader>
 

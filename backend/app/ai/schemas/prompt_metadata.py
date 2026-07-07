@@ -6,7 +6,7 @@ class PromptMetadata(BaseModel):
     name: str = Field(..., description="Unique name identifier for the prompt.")
     version: str = Field(..., description="Semantic version string (e.g. 1.0.0).")
     description: str = Field(..., description="A description of the prompt's purpose.")
-    author: str = Field("CareerPilot AI Team", description="Author of the prompt template.")
+    author: str = Field("Scorelia Team", description="Author of the prompt template.")
     last_updated: str = Field(..., description="Date when this prompt version was last updated.")
     metadata: Dict[str, Any] = Field(default_factory=dict, description="Additional custom metadata for the prompt.")
 

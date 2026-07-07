@@ -1,16 +1,16 @@
 # System Workflow Specification
 
-## CareerPilot AI — The Intelligent Career Copilot
+## Scorelia — The Intelligent Career Copilot
 
 ---
 
 ## 1. Complete User Journey Overview
 
-The user journey in CareerPilot AI is designed to guide a job seeker step-by-step from initial signup to mock interview readiness and career tracking.
+The user journey in Scorelia is designed to guide a job seeker step-by-step from initial signup to mock interview readiness and career tracking.
 
 ```mermaid
 flowchart TD
-    Start([1. Land on CareerPilot AI]) --> Auth[2. Create Account & Login]
+    Start([1. Land on Scorelia]) --> Auth[2. Create Account & Login]
     Auth --> Upload[3. Upload PDF/DOCX Resume]
     Upload --> Parsing[4. Run NLP Parser & View Extracted Entities]
     Parsing --> ATS[5. Execute ATS Compliance & Score Audit]

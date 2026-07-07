@@ -1,6 +1,6 @@
 # Multi-Agent AI Platform Architecture Specification
 
-This specification documents the Multi-Agent framework implemented in the CareerPilot AI platform, detailing the specialized agents, their tools, RAG integrations, and core workflows.
+This specification documents the Multi-Agent framework implemented in the Scorelia platform, detailing the specialized agents, their tools, RAG integrations, and core workflows.
 
 ---
 

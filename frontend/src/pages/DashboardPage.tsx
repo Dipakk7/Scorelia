@@ -227,7 +227,7 @@ export default function DashboardPage() {
     recentActivities.push({
       id: 'welcome',
       title: 'Account Activated',
-      description: 'Your CareerPilot AI workspace has been fully initialized.',
+      description: 'Your Scorelia workspace has been fully initialized.',
       timestamp: 'Today',
       icon: CheckCircle2,
       badgeText: 'Info',

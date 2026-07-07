@@ -115,13 +115,13 @@ class TestParserNormalization(unittest.TestCase):
         # Duplicate Projects
         proj_text = (
             "Projects:\n"
-            "CareerPilot AI: description 1\n\n"
-            "CareerPilot AI: description 1\n\n"
+            "Scorelia: description 1\n\n"
+            "Scorelia: description 1\n\n"
             "Different Project: description 2"
         )
         proj = extract_projects(proj_text)
         self.assertEqual(len(proj), 2)
-        self.assertEqual(proj[0]["name"], "CareerPilot AI")
+        self.assertEqual(proj[0]["name"], "Scorelia")
         self.assertEqual(proj[1]["name"], "Different Project")
 
         # Duplicate Certifications

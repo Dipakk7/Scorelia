@@ -1,4 +1,4 @@
-# CareerPilot AI — RAG Production Guide
+# Scorelia — RAG Production Guide
 
 This guide is designed for developers and system operators to configure, tune, troubleshoot, and monitor the Retrieval-Augmented Generation (RAG) system in production environments.
 

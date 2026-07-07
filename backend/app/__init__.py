@@ -1,1 +1,1 @@
-# CareerPilot AI Backend Package
+# Scorelia Backend Package

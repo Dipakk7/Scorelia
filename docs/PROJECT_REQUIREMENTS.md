@@ -1,14 +1,14 @@
 # Project Requirements Document (PRD)
 
-## CareerPilot AI — The Intelligent Career Copilot
+## Scorelia — The Intelligent Career Copilot
 
 ---
 
 ## 1. Executive Summary
 
-CareerPilot AI is a private, open-source, local-first AI SaaS platform that serves as a personal career assistant. Modern job seekers face an increasingly automated recruiting environment dominated by applicant tracking systems (ATS), complex skill landscapes, and intense interview processes. Proprietary resume optimization tools exist but are typically subscription-based, leak sensitive personal data, and rely on expensive external LLM APIs (e.g., OpenAI, Anthropic).
+Scorelia is a private, open-source, local-first AI SaaS platform that serves as a personal career assistant. Modern job seekers face an increasingly automated recruiting environment dominated by applicant tracking systems (ATS), complex skill landscapes, and intense interview processes. Proprietary resume optimization tools exist but are typically subscription-based, leak sensitive personal data, and rely on expensive external LLM APIs (e.g., OpenAI, Anthropic).
 
-CareerPilot AI addresses these limitations by offering a robust enterprise-ready system built on a fully local and free AI stack: **FastAPI**, **PostgreSQL**, **Ollama (Qwen 2.5 3B Instruct)**, **spaCy**, and **Sentence Transformers**. On the frontend, a premium **Next.js** dashboard built with Tailwind CSS, shadcn/ui, and Framer Motion delivers a high-fidelity visual experience. The result is a secure, completely free-to-run career assistant that provides resume intelligence, semantic matching, interactive mock interviews, roadmap planning, and career analytics.
+Scorelia addresses these limitations by offering a robust enterprise-ready system built on a fully local and free AI stack: **FastAPI**, **PostgreSQL**, **Ollama (Qwen 2.5 3B Instruct)**, **spaCy**, and **Sentence Transformers**. On the frontend, a premium **Next.js** dashboard built with Tailwind CSS, shadcn/ui, and Framer Motion delivers a high-fidelity visual experience. The result is a secure, completely free-to-run career assistant that provides resume intelligence, semantic matching, interactive mock interviews, roadmap planning, and career analytics.
 
 ---
 

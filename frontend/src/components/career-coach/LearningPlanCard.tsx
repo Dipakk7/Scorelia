@@ -12,7 +12,7 @@ interface LearningPlanCardProps {
 
 export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }: LearningPlanCardProps) {
   // Key for local storage
-  const storageKey = `careerpilot_tasks_completed_${roadmapId}`
+  const storageKey = `scorelia_tasks_completed_${roadmapId}`
 
   // State to hold completed tasks mapping (task unique string -> boolean)
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>({})

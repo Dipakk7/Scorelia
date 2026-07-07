@@ -2,7 +2,7 @@
 
 ## 1. Overview
 
-The Analytics Engine provides comprehensive, system-wide, and user-specific statistical insights for CareerPilot AI. It operates by aggregating database models (users, resumes), querying external integrations (GitHub public API), and parsing in-memory service logs (Job Matches) into chart-ready, structured Pydantic payloads.
+The Analytics Engine provides comprehensive, system-wide, and user-specific statistical insights for Scorelia. It operates by aggregating database models (users, resumes), querying external integrations (GitHub public API), and parsing in-memory service logs (Job Matches) into chart-ready, structured Pydantic payloads.
 
 ### Directory Structure & File Responsibilities
 

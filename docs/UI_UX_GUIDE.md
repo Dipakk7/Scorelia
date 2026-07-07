@@ -1,12 +1,12 @@
 # UI/UX Style and Design Guide
 
-## CareerPilot AI — The Intelligent Career Copilot
+## Scorelia — The Intelligent Career Copilot
 
 ---
 
 ## 1. Design Philosophy
 
-CareerPilot AI employs a **Modern Obsidian & Glassmorphic visual language** tailored for a premium, developer-grade SaaS experience. The design moves away from default, stark light modes or generic dark gray templates. Instead, it creates an immersive workspace utilizing dark deep-indigo space tones, glowing neon accents, blur backdrops, and soft ambient light cones.
+Scorelia employs a **Modern Obsidian & Glassmorphic visual language** tailored for a premium, developer-grade SaaS experience. The design moves away from default, stark light modes or generic dark gray templates. Instead, it creates an immersive workspace utilizing dark deep-indigo space tones, glowing neon accents, blur backdrops, and soft ambient light cones.
 
 ### Rationale behind Design Decisions:
 *   **Cognitive Relief:** Job seeking, resume editing, and mock interviewing are stressful tasks. A premium dark mode reduces visual strain during prolonged preparation sessions.
@@ -102,7 +102,7 @@ We utilize a base **8-pixel grid system** for consistent padding, margins, and s
 ---
 
 ### 3.4 Icon Library
-To maintain visual consistency, CareerPilot AI strictly uses **Lucide React** icons. All icons feature a consistent line weight of `1.75px` to match the geometric curves of the Inter font.
+To maintain visual consistency, Scorelia strictly uses **Lucide React** icons. All icons feature a consistent line weight of `1.75px` to match the geometric curves of the Inter font.
 
 *   `UploadCloud`: Resume upload dropzone.
 *   `Sparkles`: AI parse and rewrite suggestions.
@@ -129,7 +129,7 @@ The sidebar acts as the primary navigational control for the desktop layout.
 *   **Mockup Outline:**
     ```
     ┌──────────────────────────┐
-    │ 🛩️ CareerPilot AI        │  <- Brand Header
+    │ 🛩️ Scorelia        │  <- Brand Header
     ├──────────────────────────┤
     │  📊 Dashboard            │  <- Nav Item (Active: Indigo left bar)
     │  📄 My Resumes           │  <- Nav Item
@@ -338,7 +338,7 @@ The application is built to follow W3C WCAG 2.1 AA standards:
 
 ## 9. Typical User Journey (UI Step-by-Step Flow)
 
-The diagram below outlines the standard flow of a job seeker using CareerPilot AI to optimize their application materials.
+The diagram below outlines the standard flow of a job seeker using Scorelia to optimize their application materials.
 
 ```mermaid
 flowchart TD

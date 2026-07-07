@@ -1,6 +1,6 @@
 # AI Resume Review Engine
 
-The AI Resume Review Engine is a core production feature of CareerPilot AI that analyzes parsed resume JSON and generates structured, actionable, and multi-dimensional feedback using local or external Large Language Models (LLMs).
+The AI Resume Review Engine is a core production feature of Scorelia that analyzes parsed resume JSON and generates structured, actionable, and multi-dimensional feedback using local or external Large Language Models (LLMs).
 
 ---
 

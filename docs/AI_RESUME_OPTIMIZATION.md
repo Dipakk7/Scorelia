@@ -1,6 +1,6 @@
 # AI Resume Optimization & Intelligence Engine
 
-The **AI Resume Optimization & Intelligence Engine** (Phase 8 Part 5) provides CareerPilot AI's premium feature suite, combining parsing, deep AI reviews, targeted rewrites, and full-resume orchestration. It integrates python-based calculations (like ATS score and job description keyword analysis) with large language model semantic evaluations to create actionable improvements.
+The **AI Resume Optimization & Intelligence Engine** (Phase 8 Part 5) provides Scorelia's premium feature suite, combining parsing, deep AI reviews, targeted rewrites, and full-resume orchestration. It integrates python-based calculations (like ATS score and job description keyword analysis) with large language model semantic evaluations to create actionable improvements.
 
 ---
 
@@ -77,7 +77,7 @@ Run the complete AI pipeline in sequence.
 
 ## 3. Optimization Modes Configuration
 
-Modes are configuration-driven within [config.py](file:///c:/CareerPilot%20AI/backend/app/ai/config.py):
+Modes are configuration-driven within [config.py](file:///c:/Scorelia%20AI/backend/app/ai/config.py):
 
 *   **`BASIC`**: Lower token budget (max 2048) and low temperature (0.2).
 *   **`ADVANCED`**: Full coverage (max 4096) and low temperature (0.2).
@@ -87,7 +87,7 @@ Modes are configuration-driven within [config.py](file:///c:/CareerPilot%20AI/ba
 
 ## 4. Prompt Engineering
 
-The Jinja template is declared under [optimization.jinja](file:///c:/CareerPilot%20AI/backend/app/ai/prompts/templates/resume/optimization.jinja). It enforces:
+The Jinja template is declared under [optimization.jinja](file:///c:/Scorelia%20AI/backend/app/ai/prompts/templates/resume/optimization.jinja). It enforces:
 *   Strict compliance with Pydantic JSON schemas.
 *   Preservation of factual data (no fabricated metrics or achievements).
 *   Quantitative improvements (identifying and correcting weak action verbs and missing business value metrics).
@@ -98,6 +98,6 @@ The Jinja template is declared under [optimization.jinja](file:///c:/CareerPilot
 
 ### Adding Support for Future Industries
 Industry alignments are returned as a list of `IndustryAlignmentDetail` containing `industry` and `confidence`. To add a new target industry (e.g., "Product Manager", "DevOps Engineer"):
-1.  Update the `resume/optimization` prompt instructions under [optimization.jinja](file:///c:/CareerPilot%20AI/backend/app/ai/prompts/templates/resume/optimization.jinja).
+1.  Update the `resume/optimization` prompt instructions under [optimization.jinja](file:///c:/Scorelia%20AI/backend/app/ai/prompts/templates/resume/optimization.jinja).
 2.  Add the new industry to the listed categories instructions.
 3.  No Pydantic or database code changes are required because the list architecture naturally supports key-value string expansions.

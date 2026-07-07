@@ -301,7 +301,7 @@ class CoverLetterExportService:
             canvas.setAuthor(contact["name"])
             canvas.setTitle(f"Cover Letter - {company_name}")
             canvas.setSubject(f"Application for {job_title}")
-            canvas.setCreator("CareerPilot AI")
+            canvas.setCreator("Scorelia")
             canvas.setKeywords(metadata_comment)
 
         story = []
@@ -447,7 +447,7 @@ class CoverLetterExportService:
             textColor=colors.HexColor("#94A3B8"),
             alignment=TA_CENTER
         )
-        story.append(Paragraph(f"Generated with CareerPilot AI | {metadata_comment}", footer_style))
+        story.append(Paragraph(f"Generated with Scorelia | {metadata_comment}", footer_style))
 
         doc.build(story, onFirstPage=add_pdf_metadata)
         pdf_bytes = buffer.getvalue()
@@ -572,7 +572,7 @@ class CoverLetterExportService:
         # Footer Notice
         p_foot = doc.add_paragraph()
         p_foot.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        run_foot = p_foot.add_run(f"Generated with CareerPilot AI | {metadata_comment}")
+        run_foot = p_foot.add_run(f"Generated with Scorelia | {metadata_comment}")
         run_foot.font.name = font_family
         run_foot.font.size = Pt(7)
         run_foot.font.color.rgb = hex_to_rgb("#94A3B8")
@@ -615,7 +615,7 @@ class CoverLetterExportService:
 
         md_text += f"{content_parts['closing']}\n\n"
         md_text += f"**{content_parts['signature']}**\n\n"
-        md_text += f"---\n*Generated with CareerPilot AI | {metadata_comment}*\n"
+        md_text += f"---\n*Generated with Scorelia | {metadata_comment}*\n"
 
         return md_text.encode('utf-8')
 
@@ -647,6 +647,6 @@ class CoverLetterExportService:
         txt += f"{content_parts['closing']}\n\n"
         txt += f"{content_parts['signature']}\n\n"
         txt += "=" * 50 + "\n"
-        txt += f"Generated with CareerPilot AI | {metadata_comment}\n"
+        txt += f"Generated with Scorelia | {metadata_comment}\n"
 
         return txt.encode('utf-8')

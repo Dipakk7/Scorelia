@@ -1,12 +1,12 @@
 # REST API Specification Document
 
-## CareerPilot AI — The Intelligent Career Copilot
+## Scorelia — The Intelligent Career Copilot
 
 ---
 
 ## 1. API Design Philosophy
 
-CareerPilot AI follows a **RESTful, Resource-Oriented architecture** centered on standard HTTP verbs, structured URLs, and uniform response payloads. The API is designed with the following guidelines:
+Scorelia follows a **RESTful, Resource-Oriented architecture** centered on standard HTTP verbs, structured URLs, and uniform response payloads. The API is designed with the following guidelines:
 
 *   **Stateless Authentication (HttpOnly Cookies):** To prevent Cross-Site Scripting (XSS) and intercept token hijacking, authorization credentials are not transmitted via `Authorization` headers. Instead, a cryptographically signed JSON Web Token (JWT) is stored in an `HttpOnly`, `Secure`, `SameSite=Strict` cookie named `access_token`. The backend middleware automatically extracts and validates this cookie on protected routes.
 *   **Predictable Resource URIs:** API routes are nested logically under collections. (e.g., `/api/v1/resumes/{id}/ats-analysis`).

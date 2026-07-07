@@ -1,4 +1,4 @@
-# CareerPilot AI — Prompt Management & AI Service Layer
+# Scorelia — Prompt Management & AI Service Layer
 
 This documentation outlines the architecture, standards, lifecycle, and development guides for the **Prompt Management System** and **AI Service Layer** implemented in Phase 8 Part 2.
 

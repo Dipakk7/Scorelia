@@ -25,7 +25,7 @@ class TestCareerRoadmapGeneration(unittest.TestCase):
         cls.db = db
         try:
             # Cleanup old test users
-            email = "roadmap_gen_test@careerpilot.com"
+            email = "roadmap_gen_test@scorelia.com"
             test_user = db.query(User).filter(User.email == email).first()
             if test_user:
                 db.query(RoadmapMilestone).filter(RoadmapMilestone.roadmap_id.in_(

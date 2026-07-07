@@ -94,7 +94,7 @@ export default function DashboardLayout() {
                 <Compass size={18} />
               </div>
               <span className="font-semibold font-display text-white tracking-wide">
-                CareerPilot AI
+                Scorelia
               </span>
             </div>
             <button

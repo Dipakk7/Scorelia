@@ -37,7 +37,7 @@ def generate_fixtures():
         "Jun 2019 - Aug 2019\n"
         "- Researched Deep Learning models using PyTorch.\n\n"
         "Projects:\n"
-        "CareerPilot AI: Side project for parsing resumes.\n"
+        "Scorelia: Side project for parsing resumes.\n"
         "- Built parser backend with Python and FastAPI.\n\n"
         "Certifications:\n"
         "Oracle AI Foundations\n"
@@ -82,7 +82,7 @@ def generate_fixtures():
     doc_docx.add_paragraph("- Researched Deep Learning models using PyTorch.")
     
     doc_docx.add_heading("Projects", level=1)
-    doc_docx.add_paragraph("CareerPilot AI: Side project for parsing resumes.")
+    doc_docx.add_paragraph("Scorelia: Side project for parsing resumes.")
     doc_docx.add_paragraph("- Built parser backend with Python and FastAPI.")
     
     doc_docx.add_heading("Certifications", level=1)

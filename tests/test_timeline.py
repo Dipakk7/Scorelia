@@ -24,7 +24,7 @@ class TestCareerTimelinePlanner(unittest.TestCase):
         cls.db = db
         try:
             # Cleanup old test users
-            email = "timeline_test@careerpilot.com"
+            email = "timeline_test@scorelia.com"
             test_user = db.query(User).filter(User.email == email).first()
             if test_user:
                 # Cleanup related roadmaps

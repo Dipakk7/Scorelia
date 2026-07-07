@@ -33,7 +33,7 @@ class TestAIInterviewIntegration(unittest.TestCase):
         cls.db = db
         try:
             # Clean up old test user
-            for email in ["int_integration@careerpilot.com"]:
+            for email in ["int_integration@scorelia.com"]:
                 test_user = db.query(User).filter(User.email == email).first()
                 if test_user:
                     db.query(AIResumeReview).filter(AIResumeReview.user_id == test_user.id).delete()
@@ -46,7 +46,7 @@ class TestAIInterviewIntegration(unittest.TestCase):
 
             # Create test user
             user_in = UserCreate(
-                email="int_integration@careerpilot.com",
+                email="int_integration@scorelia.com",
                 password="SecurePassword@2026",
                 full_name="Integration User"
             )
@@ -134,7 +134,7 @@ class TestAIInterviewIntegration(unittest.TestCase):
     def tearDownClass(cls):
         db = SessionLocal()
         try:
-            test_user = db.query(User).filter(User.email == "int_integration@careerpilot.com").first()
+            test_user = db.query(User).filter(User.email == "int_integration@scorelia.com").first()
             if test_user:
                 db.query(AIResumeReview).filter(AIResumeReview.user_id == test_user.id).delete()
                 db.query(AIResumeRewrite).filter(AIResumeRewrite.user_id == test_user.id).delete()

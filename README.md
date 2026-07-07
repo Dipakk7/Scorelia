@@ -1,4 +1,4 @@
-# CareerPilot AI
+# Scorelia
 
 ### *The Intelligent Career Copilot*
 
@@ -9,9 +9,9 @@
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=flat&logo=fastapi)](https://fastapi.tiangolo.com/)
 [![Ollama](https://img.shields.io/badge/AI%20Engine-Ollama-blue?style=flat)](https://ollama.com/)
 
-CareerPilot AI is a full-stack AI-powered career intelligence platform that helps users analyze resumes, evaluate ATS compatibility, match resumes with job descriptions using semantic search, prepare for interviews, and receive personalized career guidance—all while running completely locally using open-source AI.
+Scorelia is a full-stack AI-powered career intelligence platform that helps users analyze resumes, evaluate ATS compatibility, match resumes with job descriptions using semantic search, prepare for interviews, and receive personalized career guidance—all while running completely locally using open-source AI.
 
-## ⭐ Why CareerPilot AI?
+## ⭐ Why Scorelia?
 
 *   **100% Free & Open Source:** Zero licensing fees, zero external API costs, and runs completely locally or on free cloud tiers.
 *   **Privacy-first Local AI using Ollama:** Your resume, credentials, and conversation history never leave your device.
@@ -54,7 +54,7 @@ CareerPilot AI is a full-stack AI-powered career intelligence platform that help
 
 ## 📐 System Architecture Overview
 
-CareerPilot AI follows a clean, decoupled client-server architecture designed to run efficiently on commodity developer hardware without external API expenses.
+Scorelia follows a clean, decoupled client-server architecture designed to run efficiently on commodity developer hardware without external API expenses.
 
 ```mermaid
 graph TD
@@ -113,7 +113,7 @@ graph TD
 The project code is organized to enforce strict separation of concerns, modular testability, and clean architecture practices.
 
 ```
-CareerPilot-AI/
+Scorelia/
 ├── .github/                            # CI/CD Workflows & Templates
 ├── assets/                             # Brand assets & resume templates
 ├── screenshots/                        # Documentation images
@@ -186,9 +186,9 @@ npm install
 ```
 
 ### PostgreSQL Setup
-1. Create a local PostgreSQL database named `careerpilot_db`:
+1. Create a local PostgreSQL database named `scorelia_db`:
    ```sql
-   CREATE DATABASE careerpilot_db;
+   CREATE DATABASE scorelia_db;
    ```
 2. Configure credentials in backend `.env` (default connection string is postgres/postgres@localhost:5432).
 
