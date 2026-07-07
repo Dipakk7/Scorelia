@@ -241,17 +241,6 @@ npm run dev
 
 ---
 
-## 🤝 Contribution Guide
-
-Contributions are welcome! To maintain software quality:
-1.  **Fork** the repository and create your feature branch: `git checkout -b feature/amazing-feature`.
-2.  Follow **PEP 8** style guidelines for all backend Python code and run `ruff` for linting.
-3.  Ensure all TypeScript/Next.js files pass strict build checks (`npm run build`).
-4.  Write comprehensive Unit tests for any new business logic inside the `tests/` directory.
-5.  Submit a Pull Request targeting the `main` branch with detailed descriptions of changes.
-
----
-
 ## 📄 License
 
 Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
