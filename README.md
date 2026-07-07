@@ -256,8 +256,6 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
 
 ## 👨‍💻 Connect With Me
 
-| Platform  | Link                           |
-| --------- | ------------------------------ |
-| GitHub    | https://github.com/Dipakk7     |
-| LinkedIn  | https://www.linkedin.com/in/dipakkhandagale/ |
-| Portfolio | https://dipakkhandagale.vercel.app/     |
+[![GitHub](https://img.shields.io/badge/GitHub-Dipakk7-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Dipakk7)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Dipak%20Khandagale-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/dipakkhandagale/)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Visit%20Site-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://dipakkhandagale.vercel.app/)
