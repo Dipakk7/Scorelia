@@ -52,7 +52,7 @@ Scorelia is a full-stack AI-powered career intelligence platform that helps user
 | **NLP & Vectors** | spaCy, Sentence Transformers, scikit-learn | Entity extraction (NER), semantic cosine similarity, vectorization |
 | **Multi-Agent System** | Agent Orchestrator, Shared Memory, Tool Calling | Specialized agents (Resume, ATS, Job Match, Interview, Career Coach, Learning) |
 | **Testing** | Pytest, ESLint, Oxlint | Backend unit/integration tests and frontend type/lint checks |
-| **Deployment (Planned — Phase 15)** | Docker, Docker Compose, Nginx, GitHub Actions | Containerized production deployment with CI/CD pipeline |
+| **Deployment** | Docker, Docker Compose, Nginx, GitHub Actions | Containerized production deployment with CI/CD pipeline |
 
 ---
 
