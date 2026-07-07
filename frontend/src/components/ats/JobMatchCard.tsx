@@ -89,10 +89,10 @@ export function JobMatchCard({ matchData }: JobMatchCardProps) {
           <div className="h-56 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart cx="50%" cy="50%" outerRadius="70%" data={chartData}>
-                <PolarGrid stroke="#e2e8f0" className="dark:stroke-slate-800" />
+                <PolarGrid stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
                 <PolarAngleAxis
                   dataKey="subject"
-                  tick={{ fill: '#64748b', fontSize: 10, fontWeight: 600, fontFamily: 'Outfit' }}
+                  tick={{ fill: '#64748b', fontSize: 10, fontWeight: 600, fontFamily: 'Inter' }}
                 />
                 <PolarRadiusAxis
                   angle={30}
@@ -102,8 +102,8 @@ export function JobMatchCard({ matchData }: JobMatchCardProps) {
                 <Radar
                   name="Score"
                   dataKey="value"
-                  stroke="#5555ff"
-                  fill="#7375ff"
+                  stroke="#0F9D9A"
+                  fill="#0F9D9A"
                   fillOpacity={0.25}
                 />
                 <Tooltip
@@ -113,7 +113,7 @@ export function JobMatchCard({ matchData }: JobMatchCardProps) {
                     borderRadius: '8px',
                     fontSize: '11px',
                     color: '#f8fafc',
-                    fontFamily: 'Outfit',
+                    fontFamily: 'Inter',
                   }}
                 />
               </RadarChart>

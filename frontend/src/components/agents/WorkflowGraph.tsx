@@ -91,7 +91,7 @@ export const WorkflowGraph: React.FC<WorkflowGraphProps> = ({
                   {/* Outer ring */}
                   <div
                     className={cn(
-                      'h-12 w-12 rounded-2xl flex items-center justify-center border-2 transition-all duration-350 shadow-xs',
+                      'h-12 w-12 rounded-xl flex items-center justify-center border-2 transition-all duration-350 shadow-xs',
                       config.border,
                       config.bg
                     )}

@@ -117,24 +117,24 @@ export function QualityScoreCard({
             qualityScore,
             'Quality Score',
             'gradQuality',
-            '#6366f1',
-            '#4f46e5',
+            '#0F9D9A',
+            '#0c7f7d',
             'Weighted quality evaluation'
           )}
           {renderCircularGauge(
             readinessScore,
             'Career Readiness',
             'gradReady',
-            '#10b981',
-            '#059669',
+            '#aa3bff',
+            '#7d1edb',
             'Industry fit readiness'
           )}
           {renderCircularGauge(
             improvementScore,
             'ATS Grade',
             'gradImprove',
-            '#eab308',
-            '#ca8a04',
+            '#00D2FF',
+            '#00a2cc',
             'ATS-friendly compatibility'
           )}
         </div>
@@ -158,14 +158,14 @@ export function QualityScoreCard({
                 <AreaChart data={history} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
                   <defs>
                     <linearGradient id="scoreSpark" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#6366f1" stopOpacity={0.25} />
-                      <stop offset="95%" stopColor="#6366f1" stopOpacity={0.0} />
+                      <stop offset="5%" stopColor="#0F9D9A" stopOpacity={0.25} />
+                      <stop offset="95%" stopColor="#0F9D9A" stopOpacity={0.0} />
                     </linearGradient>
                   </defs>
                   <Area
                     type="monotone"
                     dataKey="score"
-                    stroke="#6366f1"
+                    stroke="#0F9D9A"
                     strokeWidth={2}
                     fillOpacity={1}
                     fill="url(#scoreSpark)"

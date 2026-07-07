@@ -43,7 +43,7 @@ export default function InterviewQuestionCard({
     : 'General'
 
   return (
-    <Card className="border-slate-200/80 dark:border-dark-border dark:bg-dark-card overflow-hidden text-left flex flex-col h-full justify-between">
+    <Card className="overflow-hidden text-left flex flex-col h-full justify-between shadow-md">
       <CardContent className="p-6 flex flex-col justify-between h-full space-y-6">
         {/* Header indicator */}
         <div className="flex items-center justify-between gap-4 pb-3.5 border-b border-slate-100 dark:border-slate-800/85">
@@ -86,7 +86,7 @@ export default function InterviewQuestionCard({
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
               placeholder="Structure your answer clearly. For behavioral questions, consider using the STAR methodology: describe the Situation, specify the Task, describe your Actions, and share the final Results..."
-              className="flex-1 w-full text-xs font-sans leading-relaxed text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:border-brand-500 focus:outline-none rounded-xl p-4.5 resize-none min-h-[160px]"
+              className="flex-1 w-full text-xs font-sans leading-relaxed text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:border-brand-500 focus:outline-none rounded-md p-4 resize-none min-h-[160px]"
             />
             {/* TextArea character metrics */}
             <div className="flex items-center justify-between text-[10px] text-slate-400 dark:text-slate-500 px-1 pt-0.5">

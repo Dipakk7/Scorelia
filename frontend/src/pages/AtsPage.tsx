@@ -500,10 +500,10 @@ export default function AtsPage() {
                       <div className="h-60 w-full">
                         <ResponsiveContainer width="100%" height="100%">
                           <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarChartData}>
-                            <PolarGrid stroke="#e2e8f0" className="dark:stroke-slate-800" />
+                            <PolarGrid stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
                             <PolarAngleAxis
                               dataKey="subject"
-                              tick={{ fill: '#64748b', fontSize: 10, fontWeight: 600, fontFamily: 'Outfit' }}
+                              tick={{ fill: '#64748b', fontSize: 10, fontWeight: 600, fontFamily: 'Inter' }}
                             />
                             <PolarRadiusAxis
                               angle={30}
@@ -513,8 +513,8 @@ export default function AtsPage() {
                             <Radar
                               name="ATS Core"
                               dataKey="value"
-                              stroke="#aa3bff"
-                              fill="#accent-purple"
+                              stroke="#0F9D9A"
+                              fill="#0F9D9A"
                               fillOpacity={0.2}
                             />
                             <Tooltip

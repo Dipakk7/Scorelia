@@ -23,7 +23,7 @@ export function StatisticCard({
   className,
 }: StatisticCardProps) {
   return (
-    <Card className={cn('overflow-hidden relative border-slate-200/60 dark:border-slate-800/40 bg-white/40 dark:bg-slate-900/30 backdrop-blur-md transition-all hover:shadow-lg hover:border-slate-350 dark:hover:border-slate-700', className)}>
+    <Card className={cn('overflow-hidden relative border-slate-200/60 dark:border-slate-800/40 bg-white/40 dark:bg-slate-900/30 backdrop-blur-md transition-all hover:shadow-lg hover:border-slate-350 dark:hover:border-slate-700 group', className)}>
       <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <div className="space-y-1">
@@ -34,8 +34,8 @@ export function StatisticCard({
               {value}
             </h3>
           </div>
-          <div className="p-3 bg-brand-500/10 text-brand-600 dark:text-brand-400 rounded-2xl border border-brand-500/10 shadow-sm">
-            <Icon size={24} />
+          <div className="p-3 bg-brand-500/8 text-brand-600 dark:text-brand-400 rounded-xl border border-brand-500/12 shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:bg-brand-500/15">
+            <Icon size={24} className="transition-transform duration-300" />
           </div>
         </div>
 

@@ -38,7 +38,7 @@ export function ComparisonChart({ data, type = 'bar' }: ComparisonChartProps) {
   }
 
   // Define colors to assign dynamically to different compared items
-  const colors = ['#7375ff', '#aa3bff', '#00d2ff', '#10b981', '#f59e0b']
+  const colors = ['#0F9D9A', '#aa3bff', '#00d2ff', '#10b981', '#f59e0b']
 
   // If radar comparison, we need to restructure the data format:
   // Subject, Item 1 Score, Item 2 Score, Item 3 Score...
@@ -68,7 +68,7 @@ export function ComparisonChart({ data, type = 'bar' }: ComparisonChartProps) {
             <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" className="dark:stroke-slate-800/40" />
             <XAxis
               dataKey="name"
-              tick={{ fill: '#64748b', fontSize: 10, fontFamily: 'Outfit' }}
+              tick={{ fill: '#64748b', fontSize: 10, fontFamily: 'Inter' }}
               axisLine={false}
               tickLine={false}
             />
@@ -85,19 +85,19 @@ export function ComparisonChart({ data, type = 'bar' }: ComparisonChartProps) {
                 borderRadius: '8px',
                 color: '#f8fafc',
                 fontSize: '11px',
-                fontFamily: 'Outfit',
+                fontFamily: 'Inter',
               }}
             />
-            <Legend wrapperStyle={{ fontSize: '11px', fontFamily: 'Outfit', paddingTop: '10px' }} />
-            <Bar dataKey="overall" name="Overall Match Score" fill="#5555ff" radius={[6, 6, 0, 0]} maxBarSize={50} />
-            <Bar dataKey="skills" name="Skills Score" fill="#aa3bff" radius={[6, 6, 0, 0]} maxBarSize={50} />
+            <Legend wrapperStyle={{ fontSize: '11px', fontFamily: 'Inter', paddingTop: '10px' }} />
+            <Bar dataKey="overall" name="Overall Match Score" fill="#0F9D9A" radius={[6, 6, 0, 0]} maxBarSize={50} />
+            <Bar dataKey="skills" name="Skills Score" fill="#00D2FF" radius={[6, 6, 0, 0]} maxBarSize={50} />
           </BarChart>
         ) : (
           <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
-            <PolarGrid stroke="#e2e8f0" className="dark:stroke-slate-800" />
+            <PolarGrid stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
             <PolarAngleAxis
               dataKey="subject"
-              tick={{ fill: '#64748b', fontSize: 10, fontWeight: 600, fontFamily: 'Outfit' }}
+              tick={{ fill: '#64748b', fontSize: 10, fontWeight: 600, fontFamily: 'Inter' }}
             />
             <PolarRadiusAxis
               angle={30}
@@ -121,10 +121,10 @@ export function ComparisonChart({ data, type = 'bar' }: ComparisonChartProps) {
                 borderRadius: '8px',
                 color: '#f8fafc',
                 fontSize: '11px',
-                fontFamily: 'Outfit',
+                fontFamily: 'Inter',
               }}
             />
-            <Legend wrapperStyle={{ fontSize: '11px', fontFamily: 'Outfit', paddingTop: '10px' }} />
+            <Legend wrapperStyle={{ fontSize: '11px', fontFamily: 'Inter', paddingTop: '10px' }} />
           </RadarChart>
         )}
       </ResponsiveContainer>

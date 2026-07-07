@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Outlet, NavLink, useLocation } from 'react-router-dom'
+import { Outlet, NavLink, useLocation, Link } from 'react-router-dom'
+
 import {
   LayoutDashboard,
   FileText,
@@ -8,7 +9,6 @@ import {
   Map,
   Settings,
   X,
-  Compass,
   Sparkles,
   MailOpen,
   Database,
@@ -20,6 +20,8 @@ import { Sidebar } from '@/components/layout/Sidebar'
 import { Navbar } from '@/components/layout/Navbar'
 import { useAuth } from '@/providers/AuthProvider'
 import { cn } from '@/lib/utils'
+import { Logo } from '@/components/common/Logo'
+
 
 // Custom Github SVG Icon to bypass missing brand icons in this version of lucide-react
 const Github = (props: React.SVGProps<SVGSVGElement> & { size?: number }) => {
@@ -89,14 +91,9 @@ export default function DashboardLayout() {
       >
         <div className="flex flex-col gap-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="h-8 w-8 bg-brand-600 rounded-lg flex items-center justify-center text-white">
-                <Compass size={18} />
-              </div>
-              <span className="font-semibold font-display text-white tracking-wide">
-                Scorelia
-              </span>
-            </div>
+            <Link to="/dashboard" className="flex items-center gap-3 focus:outline-none">
+              <Logo iconOnly={false} className="h-7 w-auto text-white" />
+            </Link>
             <button
               onClick={() => setMobileOpen(false)}
               className="p-1 rounded-lg text-slate-400 hover:text-slate-200 cursor-pointer focus:outline-none"
@@ -106,7 +103,7 @@ export default function DashboardLayout() {
             </button>
           </div>
 
-          <nav className="flex flex-col gap-1.5 mt-4">
+          <nav className="flex flex-col gap-1 mt-4">
             {mobileNavItems.map((item) => {
               const Icon = item.icon
               return (
@@ -115,15 +112,15 @@ export default function DashboardLayout() {
                   to={item.to}
                   className={({ isActive }) =>
                     cn(
-                      'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150',
+                      'flex items-center gap-3 py-2.5 rounded-lg text-sm font-semibold transition-all duration-150 group',
                       isActive
-                        ? 'bg-brand-600 text-white shadow-md'
-                        : 'hover:bg-slate-800 hover:text-slate-100 text-slate-400'
+                        ? 'bg-brand-500/12 text-brand-400 border-l-2 border-brand-500 pl-2.5 pr-3 shadow-inner'
+                        : 'hover:bg-slate-800/40 hover:text-slate-100 text-slate-400 px-3'
                     )
                   }
                 >
-                  <Icon size={18} />
-                  <span>{item.label}</span>
+                  <Icon size={18} className="flex-shrink-0 transition-colors" />
+                  <span className="tracking-wide">{item.label}</span>
                 </NavLink>
               )
             })}

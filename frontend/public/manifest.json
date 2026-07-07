@@ -1,0 +1,20 @@
+{
+  "short_name": "Scorelia",
+  "name": "Scorelia — AI Career Intelligence Platform",
+  "icons": [
+    {
+      "src": "/logo-mark.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#FFFDFC",
+  "theme_color": "#0F9D9A",
+  "display": "standalone"
+}

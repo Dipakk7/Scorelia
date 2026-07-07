@@ -258,7 +258,7 @@ export default function DashboardPage() {
           <Link to="/resumes" className="shrink-0">
             <Button
               variant="primary"
-              className="bg-brand-600 hover:bg-brand-700 hover:shadow-brand-500/10 shrink-0 font-display font-bold flex items-center gap-2"
+              className="bg-brand-500 hover:bg-brand-600 hover:shadow-brand-500/10 shrink-0 font-display font-bold flex items-center gap-2"
             >
               <Upload size={16} />
               <span>Upload Resume</span>
@@ -268,7 +268,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Statistics Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {statCards.map((stat, i) => (
           <StatisticCard
             key={i}
@@ -294,17 +294,17 @@ export default function DashboardPage() {
               <AreaChart>
                 <defs>
                   <linearGradient id="scoreColor" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="var(--color-brand-500, #6366f1)" stopOpacity={0.2}/>
-                    <stop offset="95%" stopColor="var(--color-brand-500, #6366f1)" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#0F9D9A" stopOpacity={0.2}/>
+                    <stop offset="95%" stopColor="#0F9D9A" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
                 <XAxis dataKey="label" stroke="#94a3b8" fontSize={11} tickLine={false} />
                 <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} domain={[0, 100]} />
                 <Tooltip />
                 <Legend verticalAlign="top" height={36} iconType="circle" />
-                <Area type="monotone" data={scoreTrend || []} dataKey="value" stroke="var(--color-brand-600, #4f46e5)" fillOpacity={1} fill="url(#scoreColor)" name="Resume Score" strokeWidth={2} />
-                <Area type="monotone" data={atsTrend || []} dataKey="value" stroke="#10b981" fillOpacity={0} name="ATS Progress" strokeWidth={2} />
+                <Area type="monotone" data={scoreTrend || []} dataKey="value" stroke="#0F9D9A" fillOpacity={1} fill="url(#scoreColor)" name="Resume Score" strokeWidth={2.5} />
+                <Area type="monotone" data={atsTrend || []} dataKey="value" stroke="#00D2FF" fillOpacity={0} name="ATS Progress" strokeWidth={2} />
               </AreaChart>
             </ResponsiveContainer>
           )}
@@ -320,13 +320,13 @@ export default function DashboardPage() {
           ) : (
             <ResponsiveContainer width="100%" height="100%">
               <LineChart>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
                 <XAxis dataKey="label" stroke="#94a3b8" fontSize={11} tickLine={false} />
                 <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} domain={[0, 100]} />
                 <Tooltip />
                 <Legend verticalAlign="top" height={36} iconType="circle" />
-                <Line type="monotone" data={matchTrend || []} dataKey="value" stroke="var(--color-brand-600, #4f46e5)" name="Match Score" strokeWidth={2} activeDot={{ r: 6 }} />
-                <Line type="monotone" data={interviewTrend || []} dataKey="value" stroke="#10b981" name="Interview Prep" strokeWidth={2} />
+                <Line type="monotone" data={matchTrend || []} dataKey="value" stroke="#0F9D9A" name="Match Score" strokeWidth={2.5} activeDot={{ r: 6 }} />
+                <Line type="monotone" data={interviewTrend || []} dataKey="value" stroke="#00D2FF" name="Interview Prep" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           )}
@@ -342,11 +342,11 @@ export default function DashboardPage() {
           ) : (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={weeklyTrend || []}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
                 <XAxis dataKey="label" stroke="#94a3b8" fontSize={11} tickLine={false} />
                 <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} allowDecimals={false} />
                 <Tooltip />
-                <Bar dataKey="value" fill="var(--color-brand-600, #4f46e5)" radius={[4, 4, 0, 0]} name="Actions" maxBarSize={40} />
+                <Bar dataKey="value" fill="#0F9D9A" radius={[6, 6, 0, 0]} name="Actions" maxBarSize={32} />
               </BarChart>
             </ResponsiveContainer>
           )}
@@ -362,11 +362,11 @@ export default function DashboardPage() {
           ) : (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={monthlyTrend || []}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
                 <XAxis dataKey="label" stroke="#94a3b8" fontSize={11} tickLine={false} />
                 <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} allowDecimals={false} />
                 <Tooltip />
-                <Bar dataKey="value" fill="var(--color-brand-600, #4f46e5)" radius={[4, 4, 0, 0]} name="Actions" maxBarSize={40} />
+                <Bar dataKey="value" fill="#0F9D9A" radius={[6, 6, 0, 0]} name="Actions" maxBarSize={32} />
               </BarChart>
             </ResponsiveContainer>
           )}

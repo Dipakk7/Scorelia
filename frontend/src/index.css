@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
-  --font-display: 'Outfit', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Inter', system-ui, sans-serif;
 
-  /* Custom Theme Colors */
-  --color-brand-50: #f4f5ff;
-  --color-brand-100: #ebedff;
-  --color-brand-200: #dbdfff;
-  --color-brand-300: #c1c5ff;
-  --color-brand-400: #9da0ff;
-  --color-brand-500: #7375ff;
-  --color-brand-600: #5555ff;
-  --color-brand-700: #4643eb;
-  --color-brand-800: #3835c2;
-  --color-brand-900: #302e9c;
-  --color-brand-950: #1d1b5c;
+  /* Custom Theme Colors: Scorelia Teal brand scale */
+  --color-brand-50: #f0fbfb;
+  --color-brand-100: #daf5f4;
+  --color-brand-200: #b9ebe9;
+  --color-brand-300: #87dcd8;
+  --color-brand-400: #4ec3bf;
+  --color-brand-500: #0F9D9A;
+  --color-brand-600: #0c7f7d;
+  --color-brand-700: #0a6765;
+  --color-brand-800: #095251;
+  --color-brand-900: #084443;
+  --color-brand-950: #042626;
 
   --color-accent-blue: #00d2ff;
   --color-accent-purple: #aa3bff;
@@ -23,6 +23,16 @@
   --color-dark-bg: #090d16;
   --color-dark-card: #111726;
   --color-dark-border: #1f293d;
+
+  /* Border Radius Tokens */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Shadow Tokens with Brand Charcoal tint */
+  --shadow-md: 0 4px 12px -2px rgba(48, 50, 35, 0.08), 0 2px 6px -1px rgba(48, 50, 35, 0.04);
+  --shadow-lg: 0 10px 25px -5px rgba(48, 50, 35, 0.1), 0 8px 16px -6px rgba(48, 50, 35, 0.05);
 
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -98,11 +108,17 @@ body {
 .glass-navbar {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.4);
 }
 
 .dark .glass-navbar {
   background: rgba(9, 13, 22, 0.8);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(31, 41, 61, 0.8);
+  border-bottom: 1px solid rgba(31, 41, 61, 0.3);
+}
+
+/* Focus Ring Accessibility Styles for keyboard users */
+*:focus-visible {
+  outline: 2px solid var(--color-brand-500, #0F9D9A);
+  outline-offset: 2px;
 }

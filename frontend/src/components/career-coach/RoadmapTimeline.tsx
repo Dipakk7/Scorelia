@@ -78,21 +78,21 @@ export function RoadmapTimeline({ milestones, onUpdateStatus }: RoadmapTimelineP
               placeholder="Search milestones..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full text-xs pl-9 pr-4 py-2 border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-brand-500"
+              className="w-full text-xs pl-9 pr-4 py-2 border border-slate-200 dark:border-slate-800 rounded-md bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-brand-500"
             />
           </div>
 
           <div className="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
-            <span className="text-xs text-slate-400 font-medium flex items-center gap-1.5 mr-2">
+            <span className="text-xs text-slate-400 font-medium flex items-center gap-1.5 mr-2 font-display uppercase tracking-wider text-[10px]">
               <ListFilter size={14} /> Filter:
             </span>
             {['ALL', 'NOT_STARTED', 'IN_PROGRESS', 'COMPLETED'].map((status) => (
               <button
                 key={status}
                 onClick={() => setStatusFilter(status)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold font-display transition-all ${
+                className={`px-3 py-1.5 rounded-md text-[10px] uppercase tracking-wider font-extrabold font-display transition-all cursor-pointer ${
                   statusFilter === status
-                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm'
+                    ? 'bg-brand-500/12 text-brand-600 dark:text-brand-400 border border-brand-500/25'
                     : 'bg-white dark:bg-slate-950 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 border border-slate-200 dark:border-slate-800'
                 }`}
               >

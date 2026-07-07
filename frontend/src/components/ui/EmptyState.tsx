@@ -51,21 +51,21 @@ export function EmptyState({
   return (
     <div
       className={cn(
-        'flex flex-col items-center justify-center text-center p-8 border border-dashed border-slate-300 dark:border-slate-800 rounded-xl bg-slate-50/50 dark:bg-slate-900/30 min-h-[300px]',
+        'flex flex-col items-center justify-center text-center p-8 border border-dashed border-slate-250 dark:border-slate-800 rounded-lg bg-slate-50/50 dark:bg-slate-900/30 min-h-[300px]',
         className
       )}
     >
-      <div className="text-slate-400 mb-4 bg-slate-100 dark:bg-slate-850 p-3 rounded-full">
-        {icon || <FolderOpen size={36} />}
+      <div className="text-brand-600 dark:text-brand-400 mb-4 bg-brand-500/8 border border-brand-500/12 p-3.5 rounded-xl shadow-xs">
+        {icon || <FolderOpen size={32} />}
       </div>
-      <h3 className="text-base font-semibold font-display text-slate-800 dark:text-slate-200 mb-1">
+      <h3 className="text-base font-bold font-display text-slate-800 dark:text-slate-200 mb-1.5">
         {title}
       </h3>
-      <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mb-6 font-sans">
+      <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mb-6 font-sans leading-relaxed">
         {description}
       </p>
       {actionLabel && onAction && (
-        <Button variant="primary" size="sm" onClick={onAction}>
+        <Button variant="primary" size="md" onClick={onAction}>
           {actionLabel}
         </Button>
       )}

@@ -18,14 +18,14 @@ export function Breadcrumbs({ className }: BreadcrumbsProps) {
   }
 
   return (
-    <nav aria-label="Breadcrumb" className={cn('flex items-center text-sm font-sans', className)}>
-      <ol className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+    <nav aria-label="Breadcrumb" className={cn('flex items-center text-[10px] font-bold uppercase tracking-widest font-display', className)}>
+      <ol className="flex items-center gap-2 text-slate-400 dark:text-slate-500">
         <li className="flex items-center">
           <Link
             to="/dashboard"
-            className="hover:text-slate-800 dark:hover:text-slate-100 flex items-center transition-colors"
+            className="hover:text-brand-600 dark:hover:text-brand-400 flex items-center transition-colors"
           >
-            <Home size={15} />
+            <Home size={13} />
             <span className="sr-only">Home</span>
           </Link>
         </li>
@@ -39,19 +39,19 @@ export function Breadcrumbs({ className }: BreadcrumbsProps) {
           if (value.toLowerCase() === 'dashboard' && index === 0) return null
 
           return (
-            <li key={to} className="flex items-center gap-1.5">
-              <ChevronRight size={14} className="text-slate-400" />
+            <li key={to} className="flex items-center gap-2">
+              <ChevronRight size={11} className="text-slate-300 dark:text-slate-750" />
               {isLast ? (
                 <span
                   aria-current="page"
-                  className="font-medium text-slate-800 dark:text-slate-200"
+                  className="font-extrabold text-slate-800 dark:text-slate-200 tracking-wider"
                 >
                   {label}
                 </span>
               ) : (
                 <Link
                   to={to}
-                  className="hover:text-slate-800 dark:hover:text-slate-100 transition-colors"
+                  className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                 >
                   {label}
                 </Link>

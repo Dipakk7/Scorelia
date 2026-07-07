@@ -371,7 +371,7 @@ export default function ResumesPage() {
                 ) : (
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={uploadActivityData}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
                       <XAxis dataKey="date" stroke="#94a3b8" />
                       <YAxis allowDecimals={false} stroke="#94a3b8" />
                       <Tooltip
@@ -380,7 +380,7 @@ export default function ResumesPage() {
                           border: '1px solid #e2e8f0',
                         }}
                       />
-                      <Bar dataKey="count" fill="#4f46e5" radius={[4, 4, 0, 0]} barSize={32} />
+                      <Bar dataKey="count" fill="#0F9D9A" radius={[6, 6, 0, 0]} barSize={32} />
                     </BarChart>
                   </ResponsiveContainer>
                 )}

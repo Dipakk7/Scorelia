@@ -170,8 +170,8 @@ export default function InterviewAnalyticsChart({
                         }}
                       />
                       <Legend wrapperStyle={{ fontSize: '9px', marginTop: '5px' }} />
-                      <Line type="monotone" dataKey="Technical" stroke="#f59e0b" strokeWidth={2} activeDot={{ r: 4 }} />
-                      <Line type="monotone" dataKey="Communication" stroke="#3b82f6" strokeWidth={2} activeDot={{ r: 4 }} />
+                      <Line type="monotone" dataKey="Technical" stroke="#0F9D9A" strokeWidth={2} activeDot={{ r: 4 }} />
+                      <Line type="monotone" dataKey="Communication" stroke="#00D2FF" strokeWidth={2} activeDot={{ r: 4 }} />
                     </LineChart>
                   </ResponsiveContainer>
                 ) : (
@@ -270,7 +270,7 @@ export default function InterviewAnalyticsChart({
                         fontSize: '10px',
                       }}
                     />
-                    <Bar dataKey="Sessions" fill="var(--color-brand-600)" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="Sessions" fill="var(--color-brand-600)" radius={[6, 6, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </CardContent>

@@ -1,4 +1,5 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
+
 import {
   LayoutDashboard,
   FileText,
@@ -8,7 +9,6 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
-  Compass,
   Sparkles,
   MailOpen,
   Database,
@@ -17,6 +17,8 @@ import {
 } from 'lucide-react'
 import React from 'react'
 import { cn } from '@/lib/utils'
+import { Logo } from '@/components/common/Logo'
+
 
 // Custom Github SVG Icon to bypass missing brand icons in this version of lucide-react
 const Github = (props: React.SVGProps<SVGSVGElement> & { size?: number }) => {
@@ -68,22 +70,14 @@ export function Sidebar({ collapsed, setCollapsed, className }: SidebarProps) {
         className
       )}
     >
-      {/* Sidebar Header / Logo */}
-      <div className="h-16 flex items-center justify-between px-5 border-b border-slate-800">
-        <div className="flex items-center gap-3">
-          <div className="h-9 w-9 bg-brand-600 rounded-lg flex items-center justify-center text-white flex-shrink-0 animate-pulse-slow">
-            <Compass size={20} />
-          </div>
-          {!collapsed && (
-            <span className="font-semibold font-display text-white text-base tracking-wide whitespace-nowrap">
-              Scorelia <span className="text-brand-400">AI</span>
-            </span>
-          )}
-        </div>
+      <div className="h-16 flex items-center px-5 border-b border-slate-800">
+        <Link to="/dashboard" className="flex items-center gap-3 w-full focus:outline-none">
+          <Logo iconOnly={collapsed} className={cn("text-slate-100 transition-all duration-150", collapsed ? "h-8 w-8 mx-auto" : "h-7 w-auto")} />
+        </Link>
       </div>
 
       {/* Navigation Items */}
-      <nav className="flex-1 px-3 py-6 space-y-1.5 overflow-y-auto">
+      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
         {navItems.map((item) => {
           const Icon = item.icon
           return (
@@ -92,15 +86,15 @@ export function Sidebar({ collapsed, setCollapsed, className }: SidebarProps) {
               to={item.to}
               className={({ isActive }) =>
                 cn(
-                  'flex items-center gap-3.5 px-3 py-2.5 rounded-lg text-sm font-medium font-sans transition-all duration-150 cursor-pointer',
+                  'flex items-center gap-3.5 py-2.5 rounded-lg text-sm font-semibold font-sans transition-all duration-150 cursor-pointer group',
                   isActive
-                    ? 'bg-brand-600 text-white shadow-md shadow-brand-500/10'
-                    : 'text-slate-400 hover:bg-slate-850 hover:text-slate-100'
+                    ? 'bg-brand-500/12 text-brand-400 border-l-2 border-brand-500 pl-2.5 pr-3 shadow-inner'
+                    : 'text-slate-400 hover:bg-slate-800/40 hover:text-slate-100 px-3'
                 )
               }
             >
-              <Icon size={20} className="flex-shrink-0" />
-              {!collapsed && <span className="whitespace-nowrap">{item.label}</span>}
+              <Icon size={18} className="flex-shrink-0 transition-colors" />
+              {!collapsed && <span className="whitespace-nowrap tracking-wide">{item.label}</span>}
             </NavLink>
           )
         })}

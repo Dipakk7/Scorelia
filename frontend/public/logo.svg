@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" fill="none">
+  <style>
+    path, rect, text { stroke: #303223; fill: #303223; }
+    rect, text { stroke: none; }
+    @media (prefers-color-scheme: dark) {
+      path, rect, text { stroke: #FFFFFF; fill: #FFFFFF; }
+      rect, text { stroke: none; }
+    }
+  </style>
+  <g transform="translate(10, 5) scale(0.5)">
+    <path d="M38 74 C38 86, 68 86, 68 70 C68 54, 38 56, 38 40 C38 24, 68 24, 68 34" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M62 34 L68 41 L84 18" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="32" cy="74" r="5" fill="#0F9D9A"/>
+    <rect x="46" y="68" width="4" height="8" rx="1.5"/>
+    <rect x="53" y="60" width="4" height="16" rx="1.5"/>
+    <rect x="60" y="52" width="4" height="24" rx="1.5"/>
+  </g>
+  <text x="68" y="38" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="28" letter-spacing="-0.02em">Scorelia</text>
+</svg>

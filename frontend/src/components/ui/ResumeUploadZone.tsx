@@ -179,10 +179,10 @@ export default function ResumeUploadZone({ onUploadSuccess, maxSizeMB = 5 }: Res
         onDrop={handleDrop}
         onClick={triggerFileInput}
         className={cn(
-          'relative border-2 border-dashed rounded-2xl p-10 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 min-h-[220px]',
+          'relative border-2 border-dashed rounded-lg p-10 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 min-h-[220px] group shadow-xs hover:shadow-md hover:border-brand-500/60 dark:hover:border-brand-500/50',
           isDragActive
-            ? 'border-brand-600 bg-brand-50/15 dark:border-brand-500 dark:bg-brand-950/10'
-            : 'border-slate-200 hover:border-slate-400 dark:border-slate-800 dark:hover:border-slate-700 bg-white dark:bg-slate-900'
+            ? 'border-brand-500 bg-brand-500/8 dark:border-brand-500 dark:bg-brand-950/10'
+            : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 backdrop-blur-md'
         )}
       >
         <input
@@ -194,14 +194,14 @@ export default function ResumeUploadZone({ onUploadSuccess, maxSizeMB = 5 }: Res
           multiple
         />
 
-        <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-full text-slate-400 dark:text-slate-500 mb-4 transition-transform group-hover:scale-110">
-          <Upload size={32} />
+        <div className="p-4 bg-brand-500/8 text-brand-600 dark:text-brand-400 border border-brand-500/12 rounded-xl mb-4 transition-all duration-300 group-hover:scale-105 group-hover:bg-brand-500/12">
+          <Upload size={28} className="transition-transform" />
         </div>
 
-        <h3 className="text-base font-bold font-display text-slate-800 dark:text-slate-100 mb-1">
+        <h3 className="text-base font-bold font-display text-slate-800 dark:text-slate-100 mb-1.5">
           Drag and drop your resume here
         </h3>
-        <p className="text-sm text-slate-500 dark:text-slate-400 font-sans mb-3 text-center">
+        <p className="text-sm text-slate-500 dark:text-slate-400 font-sans mb-4 text-center leading-relaxed">
           Or click to browse from your device
         </p>
 
