@@ -235,33 +235,6 @@ npm run dev
 
 ---
 
-## 🗺️ Project Roadmap
-
-Current implementation status: **Phase 14 Complete (Frontend Complete)**
-
-### ✅ Completed Phases
-- [x] **Phase 1: User Authentication** — JWT + HttpOnly Cookies + bcrypt
-- [x] **Phase 2: Resume Upload** — PDF and DOCX support with validation
-- [x] **Phase 3: Resume Parser** — spaCy NLP entity extraction & confidence scoring
-- [x] **Phase 4: ATS Scoring Engine** — Compatibility score & keyword recommendations
-- [x] **Phase 5: Job Matching** — Sentence Transformers semantic search & gap analysis
-- [x] **Phase 6: GitHub Integration** — Profile summary & repository analysis
-- [x] **Phase 7: Analytics Engine** — Dashboard, Resume, ATS, Jobs, GitHub Insights, and dynamic charts
-- [x] **Phase 8: AI Resume Intelligence** — Ollama + Qwen 2.5 3B + Prompt Registry + Resume Review/Rewrite/Optimization
-- [x] **Phase 9: AI Cover Letter Module** — Foundation, Generation, Optimization, and multi-format Export Engine
-- [x] **Phase 10: Mock Interview Generator** — Role-specific questions & scoring
-- [x] **Phase 11: AI Career Roadmap Module** — Custom transition plans & timelines
-- [x] **Phase 12: AI Career Assistant & RAG Platform** — Semantic retrieval, citation, caching, and monitoring
-- [x] **Phase 13: Multi-Agent AI Platform & Agent Orchestrator** — Multi-Agent foundation, collaborative workflows, and shared memory engine
-- [x] **Phase 14: Production Frontend Complete** — Beautiful responsive React frontend with all 10 interfaces complete
-
-### 🚀 Upcoming Phase 15
-- [ ] **Phase 15: Deployment & Production** — Production environments, Dockerization, Supabase database, and CI/CD pipelines.
-
-
-
----
-
 ## 🤝 Contribution Guide
 
 Contributions are welcome! To maintain software quality:
