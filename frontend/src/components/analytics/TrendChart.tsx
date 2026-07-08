@@ -32,12 +32,12 @@ export function TrendChart({
   valueFormatter = (val) => String(val),
 }: TrendChartProps) {
   const colors = {
-    brand: { stroke: '#4f46e5', fill: '#818cf8' },
-    violet: { stroke: '#7c3aed', fill: '#a78bfa' },
-    emerald: { stroke: '#059669', fill: '#34d399' },
-    amber: { stroke: '#d97706', fill: '#fbbf24' },
-    rose: { stroke: '#e11d48', fill: '#fb7185' },
-    cyan: { stroke: '#0891b2', fill: '#22d3ee' },
+    brand: { stroke: '#0F9D9A', fill: '#0F9D9A' },
+    violet: { stroke: '#6366f1', fill: '#6366f1' },
+    emerald: { stroke: '#10b981', fill: '#10b981' },
+    amber: { stroke: '#f59e0b', fill: '#f59e0b' },
+    rose: { stroke: '#ef4444', fill: '#ef4444' },
+    cyan: { stroke: '#00D2FF', fill: '#00D2FF' },
   }
 
   const activeColor = colors[colorScheme]
@@ -46,11 +46,15 @@ export function TrendChart({
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-slate-900/90 dark:bg-slate-950/95 backdrop-blur-md border border-slate-800 rounded-xl p-3 shadow-xl text-xs font-sans text-slate-100">
-          <p className="font-bold mb-1 text-slate-400 uppercase tracking-wider text-[10px]">{label}</p>
-          <p className="font-extrabold text-sm text-white">
-            Value: <span className="text-brand-400">{valueFormatter(payload[0].value)}</span>
-          </p>
+        <div className="rounded-xl border border-slate-205 dark:border-slate-805 bg-white/95 dark:bg-slate-950/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+          {label && <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-455 m-0 mb-1 leading-none">{label}</p>}
+          {payload.map((entry: any, index: number) => (
+            <div key={index} className="mt-1.5 flex items-center gap-2 font-semibold leading-none">
+              <span className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.stroke || entry.fill || activeColor.stroke }} />
+              <span className="text-slate-555 dark:text-slate-400">Value:</span>
+              <span className="text-slate-905 dark:text-white font-mono">{valueFormatter(entry.value)}</span>
+            </div>
+          ))}
         </div>
       )
     }
@@ -58,34 +62,36 @@ export function TrendChart({
   }
 
   return (
-    <div style={{ width: '100%', height }}>
+    <div style={{ width: '100%', height }} className="text-left font-sans text-xs">
       <ResponsiveContainer width="100%" height="100%">
         {type === 'area' ? (
           <AreaChart data={data} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
             <defs>
               <linearGradient id={`grad-${colorScheme}`} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor={activeColor.stroke} stopOpacity={0.3} />
+                <stop offset="5%" stopColor={activeColor.stroke} stopOpacity={0.2} />
                 <stop offset="95%" stopColor={activeColor.stroke} stopOpacity={0.0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#334155" opacity={0.15} />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/20" />
             <XAxis
               dataKey={xAxisKey}
-              stroke="#64748b"
+              stroke="#94a3b8"
               fontSize={10}
               tickLine={false}
               axisLine={false}
               dy={10}
+              tick={{ fontWeight: 'bold' }}
             />
             <YAxis
-              stroke="#64748b"
+              stroke="#94a3b8"
               fontSize={10}
               tickLine={false}
               axisLine={false}
               dx={-5}
               tickFormatter={valueFormatter}
+              tick={{ fontWeight: 'bold' }}
             />
-            <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#475569', strokeWidth: 1, strokeDasharray: '4 4' }} />
+            <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#94a3b8', strokeWidth: 1, strokeDasharray: '4 4' }} />
             <Area
               type="monotone"
               dataKey={yAxisKey}
@@ -98,24 +104,26 @@ export function TrendChart({
           </AreaChart>
         ) : type === 'line' ? (
           <LineChart data={data} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#334155" opacity={0.15} />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/20" />
             <XAxis
               dataKey={xAxisKey}
-              stroke="#64748b"
+              stroke="#94a3b8"
               fontSize={10}
               tickLine={false}
               axisLine={false}
               dy={10}
+              tick={{ fontWeight: 'bold' }}
             />
             <YAxis
-              stroke="#64748b"
+              stroke="#94a3b8"
               fontSize={10}
               tickLine={false}
               axisLine={false}
               dx={-5}
               tickFormatter={valueFormatter}
+              tick={{ fontWeight: 'bold' }}
             />
-            <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#475569', strokeWidth: 1, strokeDasharray: '4 4' }} />
+            <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#94a3b8', strokeWidth: 1, strokeDasharray: '4 4' }} />
             <Line
               type="monotone"
               dataKey={yAxisKey}
@@ -127,22 +135,24 @@ export function TrendChart({
           </LineChart>
         ) : (
           <BarChart data={data} margin={{ top: 10, right: 10, left: -25, bottom: 0 }} barSize={16}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#334155" opacity={0.15} />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/20" />
             <XAxis
               dataKey={xAxisKey}
-              stroke="#64748b"
+              stroke="#94a3b8"
               fontSize={10}
               tickLine={false}
               axisLine={false}
               dy={10}
+              tick={{ fontWeight: 'bold' }}
             />
             <YAxis
-              stroke="#64748b"
+              stroke="#94a3b8"
               fontSize={10}
               tickLine={false}
               axisLine={false}
               dx={-5}
               tickFormatter={valueFormatter}
+              tick={{ fontWeight: 'bold' }}
             />
             <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(148, 163, 184, 0.05)' }} />
             <Bar
@@ -157,3 +167,4 @@ export function TrendChart({
     </div>
   )
 }
+export default TrendChart

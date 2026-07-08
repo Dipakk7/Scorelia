@@ -13,6 +13,7 @@ import {
   PolarRadiusAxis,
   Radar,
 } from 'recharts'
+import { ChartEmptyState } from '@/components/ui/ChartEmptyState'
 
 export interface ComparisonDataPoint {
   name: string // Resume name or Job title
@@ -28,11 +29,33 @@ interface ComparisonChartProps {
   type?: 'bar' | 'radar'
 }
 
+function CustomTooltip({ active, payload, label }: any) {
+  if (active && payload && payload.length) {
+    return (
+      <div className="rounded-xl border border-slate-200 dark:border-slate-805 bg-white/95 dark:bg-slate-950/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+        <p className="text-[10px] font-black uppercase tracking-wider text-slate-900 dark:text-slate-100 m-0 truncate max-w-[200px]">{label}</p>
+        <div className="mt-2 space-y-1">
+          {payload.map((p: any, idx: number) => (
+            <div key={idx} className="flex items-center gap-2 font-medium">
+              <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: p.fill }} />
+              <span className="text-slate-500 dark:text-slate-400">{p.name}:</span>
+              <span className="text-slate-900 dark:text-white font-bold">{p.value}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+  return null
+}
+
 export function ComparisonChart({ data, type = 'bar' }: ComparisonChartProps) {
   if (!data || data.length === 0) {
     return (
-      <div className="h-64 flex items-center justify-center text-xs text-slate-400 dark:text-slate-500">
-        No comparison data available. Select items to compare.
+      <div className="h-64 pt-6">
+        <ChartEmptyState
+          message="No comparison data available. Select additional resumes from your repository to compare suitability side-by-side."
+        />
       </div>
     )
   }
@@ -61,11 +84,11 @@ export function ComparisonChart({ data, type = 'bar' }: ComparisonChartProps) {
   })()
 
   return (
-    <div className="w-full h-80 min-h-[320px]">
+    <div className="w-full h-80 min-h-[320px] font-sans">
       <ResponsiveContainer width="100%" height="100%">
         {type === 'bar' ? (
           <BarChart data={data} margin={{ top: 20, right: 10, left: -20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" className="dark:stroke-slate-800/40" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" className="dark:stroke-slate-800/20" />
             <XAxis
               dataKey="name"
               tick={{ fill: '#64748b', fontSize: 10, fontFamily: 'Inter' }}
@@ -78,17 +101,8 @@ export function ComparisonChart({ data, type = 'bar' }: ComparisonChartProps) {
               axisLine={false}
               tickLine={false}
             />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: 'rgba(15, 23, 42, 0.95)',
-                border: 'none',
-                borderRadius: '8px',
-                color: '#f8fafc',
-                fontSize: '11px',
-                fontFamily: 'Inter',
-              }}
-            />
-            <Legend wrapperStyle={{ fontSize: '11px', fontFamily: 'Inter', paddingTop: '10px' }} />
+            <Tooltip content={<CustomTooltip />} />
+            <Legend wrapperStyle={{ fontSize: '10px', fontFamily: 'Inter', paddingTop: '10px', fontWeight: 'bold' }} />
             <Bar dataKey="overall" name="Overall Match Score" fill="#0F9D9A" radius={[6, 6, 0, 0]} maxBarSize={50} />
             <Bar dataKey="skills" name="Skills Score" fill="#00D2FF" radius={[6, 6, 0, 0]} maxBarSize={50} />
           </BarChart>
@@ -114,17 +128,8 @@ export function ComparisonChart({ data, type = 'bar' }: ComparisonChartProps) {
                 fillOpacity={0.15}
               />
             ))}
-            <Tooltip
-              contentStyle={{
-                backgroundColor: 'rgba(15, 23, 42, 0.95)',
-                border: 'none',
-                borderRadius: '8px',
-                color: '#f8fafc',
-                fontSize: '11px',
-                fontFamily: 'Inter',
-              }}
-            />
-            <Legend wrapperStyle={{ fontSize: '11px', fontFamily: 'Inter', paddingTop: '10px' }} />
+            <Tooltip content={<CustomTooltip />} />
+            <Legend wrapperStyle={{ fontSize: '10px', fontFamily: 'Inter', paddingTop: '10px', fontWeight: 'bold' }} />
           </RadarChart>
         )}
       </ResponsiveContainer>

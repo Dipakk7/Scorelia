@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import type { InterviewTurnResponse } from '@/types/interview'
+import { cn } from '@/lib/utils'
 
 interface InterviewQuestionCardProps {
   turn: InterviewTurnResponse
@@ -43,19 +44,19 @@ export default function InterviewQuestionCard({
     : 'General'
 
   return (
-    <Card className="overflow-hidden text-left flex flex-col h-full justify-between shadow-md">
+    <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left flex flex-col h-full justify-between font-sans text-xs">
       <CardContent className="p-6 flex flex-col justify-between h-full space-y-6">
         {/* Header indicator */}
-        <div className="flex items-center justify-between gap-4 pb-3.5 border-b border-slate-100 dark:border-slate-800/85">
+        <div className="flex items-center justify-between gap-4 pb-3.5 border-b border-slate-100 dark:border-slate-800/60">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400 font-sans">
+            <span className="text-[10px] font-black uppercase tracking-widest text-brand-600 dark:text-brand-405 font-sans leading-none">
               Question {currentNumber} of {totalCount}
             </span>
-            <Badge variant="outline" className="text-[9px] uppercase font-semibold py-0 border-slate-200/60 text-slate-500">
+            <Badge variant="outline" className="text-[9px] font-black uppercase tracking-wider py-0 px-2 border-slate-200/60 text-slate-500">
               {categoryLabel}
             </Badge>
           </div>
-          <div className="h-2 w-28 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden shrink-0">
+          <div className="h-1.5 w-28 bg-slate-100 dark:bg-slate-850 rounded-full overflow-hidden shrink-0">
             <div
               className="h-full bg-brand-500 rounded-full transition-all duration-300"
               style={{ width: `${(currentNumber / totalCount) * 100}%` }}
@@ -65,19 +66,19 @@ export default function InterviewQuestionCard({
 
         {/* Question Text */}
         <div className="space-y-2">
-          <span className="text-[10px] uppercase font-bold text-slate-450 tracking-wider flex items-center gap-1.5">
-            <BookOpen size={12} />
+          <span className="text-[9px] font-black uppercase tracking-widest text-slate-405 dark:text-slate-500 flex items-center gap-1.5 leading-none">
+            <BookOpen size={12} className="text-slate-400" />
             <span>Active Question Prompt</span>
           </span>
-          <p className="text-sm font-semibold font-display text-slate-905 dark:text-white leading-relaxed">
+          <p className="text-sm font-extrabold font-display text-slate-900 dark:text-white leading-relaxed m-0">
             {turn.question_text}
           </p>
         </div>
 
         {/* Typing Form */}
-        <form onSubmit={handleSubmit} className="space-y-4 flex-1 flex flex-col justify-between">
-          <div className="space-y-1.5 flex-1 flex flex-col">
-            <label htmlFor="response-text" className="block text-[10px] uppercase font-bold text-slate-450 tracking-wider">
+        <form onSubmit={handleSubmit} className="space-y-4 flex-1 flex flex-col justify-between m-0">
+          <div className="space-y-2 flex-1 flex flex-col">
+            <label htmlFor="response-text" className="block text-[9px] font-black uppercase tracking-widest text-slate-405 dark:text-slate-500 leading-none">
               Your Professional Answer
             </label>
             <textarea
@@ -86,24 +87,24 @@ export default function InterviewQuestionCard({
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
               placeholder="Structure your answer clearly. For behavioral questions, consider using the STAR methodology: describe the Situation, specify the Task, describe your Actions, and share the final Results..."
-              className="flex-1 w-full text-xs font-sans leading-relaxed text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:border-brand-500 focus:outline-none rounded-md p-4 resize-none min-h-[160px]"
+              className="flex-1 w-full text-xs font-sans leading-relaxed text-slate-805 dark:text-slate-205 bg-slate-55/30 dark:bg-slate-950/20 border border-slate-250 dark:border-slate-850 focus:border-brand-500 focus:outline-none rounded-xl p-4 resize-none min-h-[160px] focus:ring-1 focus:ring-brand-500 transition-colors font-medium"
             />
             {/* TextArea character metrics */}
-            <div className="flex items-center justify-between text-[10px] text-slate-400 dark:text-slate-500 px-1 pt-0.5">
+            <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-1 pt-0.5">
               <div className="flex items-center gap-3">
                 <span>
-                  Words: <strong className="font-semibold text-slate-500 dark:text-slate-400">{wordCount}</strong>
+                  Words: <strong className="font-extrabold text-slate-500 dark:text-slate-400">{wordCount}</strong>
                 </span>
                 <span>
-                  Characters: <strong className="font-semibold text-slate-500 dark:text-slate-400">{charCount}</strong>
+                  Characters: <strong className="font-extrabold text-slate-500 dark:text-slate-400">{charCount}</strong>
                 </span>
               </div>
-              <span className="italic">Recommended: 150+ words for deep evaluation.</span>
+              <span className="italic text-[9px] tracking-normal normal-case font-medium text-slate-405">Recommended: 150+ words for deep evaluation.</span>
             </div>
           </div>
 
           {/* Action buttons */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-slate-100 dark:border-slate-800/85">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-slate-100 dark:border-slate-850">
             <div className="flex gap-2">
               <Button
                 type="button"
@@ -111,7 +112,7 @@ export default function InterviewQuestionCard({
                 size="sm"
                 onClick={onSkipQuestion}
                 disabled={isSubmitting}
-                className="text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 h-9 font-semibold text-xs gap-1.5 cursor-pointer"
+                className="text-slate-500 hover:text-slate-900 hover:bg-slate-100/50 dark:hover:bg-slate-850/30 h-9 font-bold text-[10px] uppercase tracking-wider gap-1.5 cursor-pointer rounded-lg transition-all bg-transparent border-none flex items-center"
               >
                 <SkipForward size={13} />
                 <span>Skip</span>
@@ -122,7 +123,7 @@ export default function InterviewQuestionCard({
                 size="sm"
                 onClick={onCompleteSession}
                 disabled={isSubmitting}
-                className="text-slate-500 hover:text-rose-500 hover:bg-rose-500/5 h-9 font-semibold text-xs gap-1.5 cursor-pointer"
+                className="text-slate-500 hover:text-rose-500 hover:bg-rose-500/5 h-9 font-bold text-[10px] uppercase tracking-wider gap-1.5 cursor-pointer rounded-lg transition-all bg-transparent border-none flex items-center"
               >
                 <Flag size={13} />
                 <span>Finish</span>
@@ -132,7 +133,7 @@ export default function InterviewQuestionCard({
             <Button
               type="submit"
               disabled={isSubmitting || !answer.trim()}
-              className="gap-2 h-9 text-xs px-5 font-bold shadow-xs cursor-pointer"
+              className="flex items-center justify-center gap-1.5 px-5 py-2.5 font-bold cursor-pointer bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-9"
             >
               {isSubmitting ? (
                 <>

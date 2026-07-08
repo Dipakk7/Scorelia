@@ -34,47 +34,47 @@ export const AnalyticsCard = React.forwardRef<HTMLDivElement, AnalyticsCardProps
       <Card
         ref={ref}
         className={cn(
-          'transition-all duration-300 hover:shadow-lg dark:hover:shadow-slate-900/40 border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md overflow-hidden relative group',
+          'border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs relative group',
           className
         )}
         {...props}
       >
         {/* Glow accent bar on hover */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-brand-500 via-violet-500 to-fuchsia-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-linear-to-r from-brand-500 via-violet-500 to-fuchsia-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 border-b border-slate-100 dark:border-slate-800/40 mb-4">
-          <div className="space-y-1">
-            <CardTitle className="text-lg font-bold tracking-tight text-slate-800 dark:text-slate-100 font-display">
+        <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-800/60 text-left mb-4 flex flex-row items-center justify-between space-y-0 select-none">
+          <div className="space-y-1.5 text-left">
+            <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
               {title}
             </CardTitle>
             {description && (
-              <CardDescription className="text-xs text-slate-400 dark:text-slate-400 font-sans">
+              <CardDescription className="text-[9px] text-slate-405 dark:text-slate-500 font-sans block mt-1.5 leading-none">
                 {description}
               </CardDescription>
             )}
           </div>
-          {headerActions && <div className="flex items-center gap-2">{headerActions}</div>}
+          {headerActions && <div className="flex items-center gap-2 shrink-0">{headerActions}</div>}
         </CardHeader>
         
-        <CardContent className="min-h-[220px] flex flex-col justify-center">
+        <CardContent className="min-h-[220px] flex flex-col justify-center text-left">
           {loading ? (
-            <div className="flex flex-col items-center justify-center py-10">
+            <div className="flex flex-col items-center justify-center py-10 text-center">
               <Loader label="Computing insights..." />
             </div>
           ) : error ? (
-            <div className="flex flex-col items-center justify-center text-center p-6 text-rose-500 dark:text-rose-400 gap-2.5">
-              <AlertCircle className="h-10 w-10 stroke-[1.5]" />
-              <p className="text-sm font-semibold">Failed to load analytics</p>
-              <p className="text-xs text-slate-400 dark:text-slate-400">
+            <div className="flex flex-col items-center justify-center text-center p-6 text-rose-600 dark:text-rose-455 gap-2.5">
+              <AlertCircle className="h-10 w-10 stroke-[1.5] animate-bounce" />
+              <p className="text-sm font-bold leading-none m-0">Failed to load analytics</p>
+              <p className="text-xs text-slate-405 dark:text-slate-500 leading-normal m-0">
                 {error.message || 'An unexpected server error occurred.'}
               </p>
             </div>
           ) : empty ? (
-            <div className="flex flex-col items-center justify-center text-center p-6 text-slate-400 dark:text-slate-500 gap-2">
-              <p className="text-sm font-medium">{emptyMessage}</p>
+            <div className="flex flex-col items-center justify-center text-center p-6 text-slate-455 dark:text-slate-500 gap-2 font-sans font-medium text-xs">
+              <p className="m-0 leading-relaxed">{emptyMessage}</p>
             </div>
           ) : (
-            <div className="w-full h-full animate-fade-in">{children}</div>
+            <div className="w-full h-full animate-fade-in text-left">{children}</div>
           )}
         </CardContent>
       </Card>
@@ -83,3 +83,4 @@ export const AnalyticsCard = React.forwardRef<HTMLDivElement, AnalyticsCardProps
 )
 
 AnalyticsCard.displayName = 'AnalyticsCard'
+export default AnalyticsCard

@@ -1,5 +1,3 @@
-// frontend/src/components/agents/WorkflowGraph.tsx
-
 import React from 'react'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Layers, CheckCircle2, AlertTriangle, Loader2, Play } from 'lucide-react'
@@ -26,24 +24,24 @@ export const WorkflowGraph: React.FC<WorkflowGraphProps> = ({
   className,
 }) => {
   return (
-    <Card className={cn('glass-card border border-slate-200 dark:border-dark-border', className)}>
-      <CardHeader className="pb-2 border-b border-slate-100 dark:border-dark-border/40">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+    <Card className={cn('border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs', className)}>
+      <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-800/60 text-left">
+        <div className="flex items-center justify-between text-left">
+          <div className="flex items-center gap-2 text-left">
             <Layers size={18} className="text-brand-500" />
-            <CardTitle className="text-sm font-semibold font-display text-slate-800 dark:text-slate-200">
+            <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
               {workflowName || 'Active Orchestrator Workflow'}
             </CardTitle>
           </div>
-          <span className="px-2 py-0.5 text-xxs font-semibold bg-brand-50 text-brand-600 dark:bg-brand-950/20 dark:text-brand-400 rounded-md uppercase tracking-wider font-mono">
+          <span className="px-2 py-0.5 text-[9px] font-black uppercase tracking-wider bg-brand-500/10 text-brand-655 dark:text-brand-400 border border-brand-500/10 rounded-lg leading-none shrink-0">
             {executionMode}
           </span>
         </div>
       </CardHeader>
       
-      <CardContent className="p-6">
+      <CardContent className="p-6 text-left">
         {/* SVG Workflow Steps Flow */}
-        <div className="relative flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4 overflow-x-auto py-4 scrollbar-thin">
+        <div className="relative flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4 overflow-x-auto py-4 scrollbar-thin text-left">
           {steps.map((step, idx) => {
             // Determine status
             let status: 'pending' | 'running' | 'completed' | 'failed' = 'pending'
@@ -59,27 +57,27 @@ export const WorkflowGraph: React.FC<WorkflowGraphProps> = ({
 
             const config = {
               pending: {
-                border: 'border-slate-350 dark:border-slate-700 border-dashed',
-                bg: 'bg-slate-50 dark:bg-slate-900',
-                text: 'text-slate-400 dark:text-slate-500',
-                icon: <div className="h-2 w-2 rounded-full bg-slate-450 dark:bg-slate-655" />,
+                border: 'border-slate-250 dark:border-slate-800 border-dashed',
+                bg: 'bg-slate-50/20 dark:bg-slate-900/35',
+                text: 'text-slate-400 dark:text-slate-550',
+                icon: <div className="h-2 w-2 rounded-full bg-slate-400 dark:bg-slate-655 animate-pulse" />,
               },
               running: {
-                border: 'border-amber-500 ring-2 ring-amber-500/30 animate-pulse',
-                bg: 'bg-amber-50 dark:bg-amber-950/20',
-                text: 'text-amber-600 dark:text-amber-400',
+                border: 'border-amber-500 ring-2 ring-amber-500/20 animate-pulse',
+                bg: 'bg-amber-50/30 dark:bg-amber-950/20',
+                text: 'text-amber-600 dark:text-amber-450',
                 icon: <Loader2 size={16} className="animate-spin text-amber-500" />,
               },
               completed: {
-                border: 'border-emerald-500 shadow-sm shadow-emerald-500/10',
-                bg: 'bg-emerald-50 dark:bg-emerald-950/20',
-                text: 'text-emerald-600 dark:text-emerald-400',
+                border: 'border-emerald-500 shadow-2xs border-emerald-500/20',
+                bg: 'bg-emerald-500/10 dark:bg-emerald-950/20',
+                text: 'text-emerald-600 dark:text-emerald-450',
                 icon: <CheckCircle2 size={16} className="text-emerald-500" />,
               },
               failed: {
-                border: 'border-rose-500 ring-2 ring-rose-500/30',
-                bg: 'bg-rose-50 dark:bg-rose-950/20',
-                text: 'text-rose-600 dark:text-rose-400',
+                border: 'border-rose-500 ring-2 ring-rose-500/20',
+                bg: 'bg-rose-500/10 dark:bg-rose-950/20',
+                text: 'text-rose-650 dark:text-rose-455',
                 icon: <AlertTriangle size={16} className="text-rose-500" />,
               },
             }[status]
@@ -91,7 +89,7 @@ export const WorkflowGraph: React.FC<WorkflowGraphProps> = ({
                   {/* Outer ring */}
                   <div
                     className={cn(
-                      'h-12 w-12 rounded-xl flex items-center justify-center border-2 transition-all duration-350 shadow-xs',
+                      'h-12 w-12 rounded-xl flex items-center justify-center border-2 transition-all duration-350 shadow-xs cursor-default',
                       config.border,
                       config.bg
                     )}
@@ -101,19 +99,19 @@ export const WorkflowGraph: React.FC<WorkflowGraphProps> = ({
 
                   {/* Labels */}
                   <div className="mt-3 font-sans">
-                    <span className="text-slate-400 text-xxs font-mono block">Step {idx + 1}</span>
-                    <span className="font-semibold text-xs text-slate-700 dark:text-slate-350 block leading-tight mt-0.5 group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors duration-150">
+                    <span className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase font-mono tracking-widest block leading-none">Step {idx + 1}</span>
+                    <span className="font-extrabold text-xs text-slate-805 dark:text-slate-205 block leading-tight mt-1.5 group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors duration-150">
                       {step.name}
                     </span>
-                    <span className="text-xxs text-slate-400 font-mono block mt-1 dark:text-slate-500 bg-slate-100 dark:bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-200/40 dark:border-dark-border/40 truncate max-w-[120px] mx-auto">
+                    <span className="text-[9px] text-slate-455 dark:text-slate-500 font-mono block mt-1.5 bg-slate-100/50 dark:bg-slate-800/80 px-2 py-0.5 rounded-lg border border-slate-200/50 dark:border-dark-border/40 truncate max-w-[120px] mx-auto leading-none font-bold">
                       {step.target}
                     </span>
                   </div>
 
                   {/* Error tooltip */}
                   {status === 'failed' && error && (
-                    <div className="absolute top-14 bg-slate-900 text-white text-xxs p-2 rounded border border-rose-500 shadow-xl max-w-[200px] z-25 text-left font-sans animate-fade-in">
-                      <span className="text-rose-400 font-bold block mb-0.5">Execution Failed:</span>
+                    <div className="absolute top-14 bg-slate-905 dark:bg-slate-950 text-white text-[10px] p-2.5 rounded-xl border border-rose-500 shadow-xl max-w-[200px] z-25 text-left font-sans animate-fade-in font-medium leading-relaxed">
+                      <span className="text-rose-400 font-black uppercase tracking-wider block mb-1">Execution Failed</span>
                       {error}
                     </div>
                   )}
@@ -121,7 +119,7 @@ export const WorkflowGraph: React.FC<WorkflowGraphProps> = ({
 
                 {/* Connecting arrow/line */}
                 {idx < steps.length - 1 && (
-                  <div className="flex-1 h-0.5 min-w-[30px] md:min-w-[40px] border-t-2 border-dashed relative">
+                  <div className="flex-1 h-0.5 min-w-[30px] md:min-w-[40px] border-t-2 border-dashed relative select-none">
                     {/* Line style updates based on progress */}
                     <div
                       className={cn(
@@ -148,3 +146,4 @@ export const WorkflowGraph: React.FC<WorkflowGraphProps> = ({
     </Card>
   )
 }
+export default WorkflowGraph

@@ -22,12 +22,12 @@ export function RadarAnalytics({
   maxVal = 100,
 }: RadarAnalyticsProps) {
   const colors = {
-    brand: { stroke: '#4f46e5', fill: '#818cf8' },
-    violet: { stroke: '#7c3aed', fill: '#a78bfa' },
-    emerald: { stroke: '#059669', fill: '#34d399' },
-    amber: { stroke: '#d97706', fill: '#fbbf24' },
-    rose: { stroke: '#e11d48', fill: '#fb7185' },
-    cyan: { stroke: '#0891b2', fill: '#22d3ee' },
+    brand: { stroke: '#0F9D9A', fill: '#0F9D9A' },
+    violet: { stroke: '#6366f1', fill: '#6366f1' },
+    emerald: { stroke: '#10b981', fill: '#10b981' },
+    amber: { stroke: '#f59e0b', fill: '#f59e0b' },
+    rose: { stroke: '#ef4444', fill: '#ef4444' },
+    cyan: { stroke: '#00D2FF', fill: '#00D2FF' },
   }
 
   const activeColor = colors[colorScheme]
@@ -35,13 +35,15 @@ export function RadarAnalytics({
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-slate-900/90 dark:bg-slate-950/95 backdrop-blur-md border border-slate-800 rounded-xl p-2.5 shadow-xl text-xs font-sans text-slate-100">
-          <p className="font-bold text-slate-400 mb-0.5 text-[10px] uppercase tracking-wider">
+        <div className="rounded-xl border border-slate-205 dark:border-slate-855 bg-white/95 dark:bg-slate-950/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+          <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-455 m-0 mb-1 leading-none">
             {payload[0].payload.label}
           </p>
-          <p className="font-extrabold text-sm text-white">
-            Score: <span className="text-brand-400">{payload[0].value}%</span>
-          </p>
+          <div className="mt-1.5 flex items-center gap-2 font-semibold leading-none">
+            <span className="h-2 w-2 rounded-full" style={{ backgroundColor: activeColor.stroke }} />
+            <span className="text-slate-555 dark:text-slate-400">Score:</span>
+            <span className="text-slate-905 dark:text-white font-mono">{payload[0].value}%</span>
+          </div>
         </div>
       )
     }
@@ -49,18 +51,18 @@ export function RadarAnalytics({
   }
 
   return (
-    <div style={{ width: '100%', height }}>
+    <div style={{ width: '100%', height }} className="text-left font-sans text-xs">
       <ResponsiveContainer width="100%" height="100%">
         <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data}>
-          <PolarGrid stroke="#475569" opacity={0.15} />
+          <PolarGrid stroke="#e2e8f0" className="dark:stroke-slate-800/20" />
           <PolarAngleAxis
             dataKey="label"
-            tick={{ fill: '#64748b', fontSize: 10, fontWeight: 500 }}
+            tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 'bold' }}
           />
           <PolarRadiusAxis
             angle={30}
             domain={[0, maxVal]}
-            tick={{ fill: '#64748b', fontSize: 9 }}
+            tick={{ fill: '#94a3b8', fontSize: 8, fontWeight: 'bold' }}
             axisLine={false}
             tickLine={false}
           />
@@ -70,7 +72,7 @@ export function RadarAnalytics({
             dataKey="value"
             stroke={activeColor.stroke}
             fill={activeColor.stroke}
-            fillOpacity={0.25}
+            fillOpacity={0.2}
             activeDot={{ r: 5, stroke: activeColor.stroke, strokeWidth: 1.5, fill: '#fff' }}
           />
         </RadarChart>
@@ -78,3 +80,4 @@ export function RadarAnalytics({
     </div>
   )
 }
+export default RadarAnalytics

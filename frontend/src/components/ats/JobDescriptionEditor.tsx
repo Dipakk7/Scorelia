@@ -151,9 +151,9 @@ export function JobDescriptionEditor({
   const isInvalid = wordCount < 20 || wordCount > 2000
 
   return (
-    <div className="space-y-4 text-left">
+    <div className="space-y-4 text-left font-sans">
       <div className="flex justify-between items-center">
-        <label className="text-sm font-semibold font-display text-slate-800 dark:text-slate-200">
+        <label className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-100">
           Job Description Details
         </label>
         {/* Templates */}
@@ -166,7 +166,7 @@ export function JobDescriptionEditor({
                 onChange(tmpl.text)
                 toast.success(`Imported template: ${tmpl.title}`)
               }}
-              className="text-[10px] font-semibold bg-brand-500/10 hover:bg-brand-500/20 text-brand-600 dark:text-brand-400 dark:bg-brand-500/20 px-2 py-1 rounded-md transition-colors cursor-pointer border border-brand-500/15"
+              className="text-[9px] font-black uppercase tracking-wider bg-brand-500/10 hover:bg-brand-500/20 text-brand-600 dark:text-brand-400 dark:bg-brand-500/20 px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer border border-brand-500/15"
             >
               Load {tmpl.title.split(' ')[0]} Template
             </button>
@@ -176,11 +176,12 @@ export function JobDescriptionEditor({
 
       {/* Editor & Drag Zone */}
       <div
-        className={`relative rounded-xl border transition-all duration-200 ${
+        className={cn(
+          'relative rounded-2xl border transition-all duration-200',
           dragActive
             ? 'border-brand-500 bg-brand-500/5 ring-4 ring-brand-500/10'
-            : 'border-slate-250/60 dark:border-slate-800 bg-white dark:bg-slate-900/40'
-        }`}
+            : 'border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md shadow-2xs'
+        )}
         onDragEnter={handleDrag}
         onDragOver={handleDrag}
         onDragLeave={handleDrag}
@@ -190,7 +191,7 @@ export function JobDescriptionEditor({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder="Paste the target job description here, or drag & drop a .txt file..."
-          className="w-full h-64 p-4 text-xs bg-transparent border-0 focus:outline-none focus:ring-0 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 resize-none font-sans leading-relaxed"
+          className="w-full h-64 p-4 text-xs bg-transparent border-0 focus:outline-none focus:ring-0 text-slate-800 dark:text-slate-100 placeholder-slate-455 dark:placeholder-slate-500 resize-none font-sans leading-relaxed"
         />
 
         {/* Buttons inside overlay */}
@@ -200,7 +201,7 @@ export function JobDescriptionEditor({
             variant="outline"
             size="sm"
             onClick={handlePasteFromClipboard}
-            className="flex items-center gap-1 h-8 text-[10px] px-2.5 bg-slate-50 hover:bg-slate-100 dark:bg-slate-900/80 cursor-pointer"
+            className="flex items-center gap-1.5 h-8 text-[10px] px-2.5 bg-slate-50/80 hover:bg-slate-100 dark:bg-slate-900/80 cursor-pointer rounded-lg border-slate-200 dark:border-slate-800"
           >
             <Clipboard size={12} />
             <span>Paste Clipboard</span>
@@ -211,7 +212,7 @@ export function JobDescriptionEditor({
             variant="outline"
             size="sm"
             onClick={triggerFileInput}
-            className="flex items-center gap-1 h-8 text-[10px] px-2.5 bg-slate-50 hover:bg-slate-100 dark:bg-slate-900/80 cursor-pointer"
+            className="flex items-center gap-1.5 h-8 text-[10px] px-2.5 bg-slate-50/80 hover:bg-slate-100 dark:bg-slate-900/80 cursor-pointer rounded-lg border-slate-200 dark:border-slate-800"
           >
             <Upload size={12} />
             <span>Upload .TXT</span>
@@ -229,26 +230,26 @@ export function JobDescriptionEditor({
       {/* Count Info & Validation */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center text-xs text-slate-400 gap-2">
         <div className="flex items-center gap-4">
-          <span>Words: <strong className="font-mono text-slate-700 dark:text-slate-350">{wordCount}</strong></span>
-          <span>Characters: <strong className="font-mono text-slate-700 dark:text-slate-350">{charCount}</strong></span>
+          <span className="font-semibold text-slate-500">Words: <strong className="font-mono text-slate-700 dark:text-slate-350">{wordCount}</strong></span>
+          <span className="font-semibold text-slate-500">Characters: <strong className="font-mono text-slate-700 dark:text-slate-350">{charCount}</strong></span>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {value.trim() && wordCount < 20 && (
-            <span className="flex items-center gap-1 text-red-500 font-medium">
-              <AlertTriangle size={14} />
-              <span>Too short (min 20 words)</span>
+            <span className="flex items-center gap-1 text-red-500 font-bold uppercase tracking-wider text-[10px]">
+              <AlertTriangle size={13} />
+              <span>Too short</span>
             </span>
           )}
           {wordCount > 2000 && (
-            <span className="flex items-center gap-1 text-red-500 font-medium">
-              <AlertTriangle size={14} />
-              <span>Too long (max 2000 words)</span>
+            <span className="flex items-center gap-1 text-red-500 font-bold uppercase tracking-wider text-[10px]">
+              <AlertTriangle size={13} />
+              <span>Too long</span>
             </span>
           )}
           {wordCount >= 20 && wordCount <= 2000 && (
-            <span className="flex items-center gap-1 text-emerald-500 font-medium">
-              <Check size={14} className="stroke-[3]" />
+            <span className="flex items-center gap-1 text-emerald-500 font-bold uppercase tracking-wider text-[10px]">
+              <Check size={13} className="stroke-[3]" />
               <span>Valid length</span>
             </span>
           )}
@@ -259,9 +260,9 @@ export function JobDescriptionEditor({
             isLoading={isLoading}
             variant="primary"
             size="sm"
-            className="w-full sm:w-auto h-9 cursor-pointer"
+            className="w-full sm:w-auto h-9 cursor-pointer rounded-xl font-bold transition-all duration-200 flex items-center gap-1.5"
           >
-            <Sparkles size={14} className="mr-1.5" />
+            <Sparkles size={13} />
             <span>Run Match Engine</span>
           </Button>
         </div>

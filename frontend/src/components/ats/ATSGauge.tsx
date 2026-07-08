@@ -59,15 +59,15 @@ export function ATSGauge({
           />
         </svg>
         {/* Centered Content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-          <span className="text-4xl font-extrabold font-display text-slate-800 dark:text-slate-100 transition-colors">
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center font-sans">
+          <span className="text-4xl font-black text-slate-900 dark:text-slate-50 tracking-tight transition-colors">
             {score}
           </span>
-          <span className="text-xs text-slate-400 dark:text-slate-500 uppercase tracking-wider font-semibold mt-0.5">
+          <span className="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-widest font-extrabold mt-0.5">
             {label}
           </span>
           {grade && (
-            <div className="mt-2.5 px-3 py-0.5 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700/60 rounded-full text-xs font-bold text-slate-700 dark:text-slate-350 shadow-xs">
+            <div className="mt-2.5 px-3 py-0.5 bg-slate-50/60 dark:bg-slate-850 border border-slate-200/60 dark:border-slate-800 rounded-full text-[10px] font-black uppercase tracking-wider text-slate-700 dark:text-slate-350 shadow-2xs">
               Grade: {grade}
             </div>
           )}

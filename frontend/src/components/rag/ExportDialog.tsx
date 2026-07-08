@@ -9,9 +9,11 @@ import {
 } from '@/components/ui/Dialog'
 import { Button } from '@/components/ui/Button'
 import { Download, FileText, FileCode } from 'lucide-react'
+import type { ExportDialogProps } from '@/types/export' // Wait, RAG local props
 import toast from 'react-hot-toast'
+import { cn } from '@/lib/utils'
 
-interface ExportDialogProps {
+interface LocalExportDialogProps {
   isOpen: boolean
   onClose: () => void
   content: string
@@ -23,7 +25,7 @@ export function ExportDialog({
   onClose,
   content,
   query
-}: ExportDialogProps) {
+}: LocalExportDialogProps) {
   const [fileName, setFileName] = useState('career-advisor-answer')
   const [format, setFormat] = useState<'md' | 'txt'>('md')
 
@@ -65,21 +67,21 @@ export function ExportDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-md text-left">
-        <DialogHeader>
-          <DialogTitle className="text-base font-bold font-display text-slate-900 dark:text-white flex items-center gap-2">
-            <Download className="text-brand-500 h-5 w-5" />
+      <DialogContent className="sm:max-w-md text-left font-sans text-xs">
+        <DialogHeader className="pb-4 border-b border-slate-100 dark:border-slate-800/60 text-left">
+          <DialogTitle className="text-base font-black font-display text-slate-900 dark:text-white flex items-center gap-2 m-0 leading-none">
+            <Download className="text-brand-500 h-5 w-5 animate-bounce" />
             <span>Export Answer Segment</span>
           </DialogTitle>
-          <DialogDescription className="text-xs">
+          <DialogDescription className="text-[10px] text-slate-500 dark:text-slate-405 leading-relaxed font-sans m-0 mt-1.5 font-medium">
             Save the AI advisor response local to your machine.
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4 py-4 text-xs">
+        <div className="space-y-4 py-4 text-xs text-left">
           {/* File Name input */}
-          <div className="space-y-1">
-            <label htmlFor="filename-input" className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-display">
+          <div className="space-y-1.5 text-left">
+            <label htmlFor="filename-input" className="text-[9px] font-black text-slate-455 dark:text-slate-500 uppercase tracking-widest block font-display leading-none">
               File Name
             </label>
             <input
@@ -87,57 +89,59 @@ export function ExportDialog({
               type="text"
               value={fileName}
               onChange={(e) => setFileName(e.target.value)}
-              className="w-full text-xs py-2.5 px-3 border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans"
+              className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-slate-50/50 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder-slate-405 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans font-medium transition-colors shadow-2xs h-10"
             />
           </div>
 
           {/* Format selection */}
-          <div className="space-y-2">
-            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-display">
+          <div className="space-y-2 text-left">
+            <label className="text-[9px] font-black text-slate-455 dark:text-slate-500 uppercase tracking-widest block font-display leading-none">
               Select Format
             </label>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-3 text-left">
               <button
                 type="button"
                 onClick={() => setFormat('md')}
-                className={`flex items-center gap-3 p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                className={cn(
+                  'flex items-center gap-3 p-3 rounded-xl border text-left transition-all cursor-pointer shadow-2xs hover:shadow-sm border-slate-205 dark:border-slate-850 hover:border-slate-350 dark:hover:border-slate-750 bg-transparent',
                   format === 'md'
                     ? 'border-brand-500 bg-brand-500/5 dark:bg-brand-500/10'
-                    : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900'
-                }`}
+                    : ''
+                )}
               >
-                <FileCode size={20} className="text-brand-500" />
-                <div>
-                  <span className="font-bold text-slate-800 dark:text-slate-200 block">Markdown</span>
-                  <span className="text-[10px] text-slate-400 block mt-0.5">Styled document (.md)</span>
+                <FileCode size={20} className="text-brand-500 shrink-0" />
+                <div className="min-w-0">
+                  <span className="font-extrabold text-slate-800 dark:text-slate-200 block text-xs leading-none">Markdown</span>
+                  <span className="text-[9px] text-slate-405 dark:text-slate-500 block mt-1 leading-none font-bold">Styled document (.md)</span>
                 </div>
               </button>
 
               <button
                 type="button"
                 onClick={() => setFormat('txt')}
-                className={`flex items-center gap-3 p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                className={cn(
+                  'flex items-center gap-3 p-3 rounded-xl border text-left transition-all cursor-pointer shadow-2xs hover:shadow-sm border-slate-205 dark:border-slate-850 hover:border-slate-350 dark:hover:border-slate-750 bg-transparent',
                   format === 'txt'
                     ? 'border-brand-500 bg-brand-500/5 dark:bg-brand-500/10'
-                    : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900'
-                }`}
+                    : ''
+                )}
               >
-                <FileText size={20} className="text-slate-500" />
-                <div>
-                  <span className="font-bold text-slate-800 dark:text-slate-200 block">Plain Text</span>
-                  <span className="text-[10px] text-slate-400 block mt-0.5">Raw text file (.txt)</span>
+                <FileText size={20} className="text-slate-500 shrink-0" />
+                <div className="min-w-0">
+                  <span className="font-extrabold text-slate-800 dark:text-slate-200 block text-xs leading-none">Plain Text</span>
+                  <span className="text-[9px] text-slate-405 dark:text-slate-500 block mt-1 leading-none font-bold">Raw text file (.txt)</span>
                 </div>
               </button>
             </div>
           </div>
         </div>
 
-        <DialogFooter className="gap-2">
+        <DialogFooter className="gap-2 border-t border-slate-100 dark:border-slate-850 pt-4">
           <Button
             variant="outline"
             size="sm"
             onClick={onClose}
-            className="text-xs border-slate-200 dark:border-slate-800"
+            className="h-9.5 text-xs font-bold cursor-pointer rounded-xl border border-slate-200 dark:border-slate-850 hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent"
           >
             Cancel
           </Button>
@@ -145,7 +149,7 @@ export function ExportDialog({
             variant="primary"
             size="sm"
             onClick={handleExport}
-            className="text-xs bg-brand-600 hover:bg-brand-700 font-bold"
+            className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-9.5"
           >
             Export Now
           </Button>

@@ -53,38 +53,38 @@ export function RecommendationPanel({
     switch (priority) {
       case 'HIGH':
         return {
-          bg: 'bg-rose-500/5 dark:bg-rose-500/10 border-rose-200 dark:border-rose-900/50',
+          bg: 'bg-rose-500/5 dark:bg-rose-500/10 border-rose-200/50 dark:border-rose-900/40',
           badge: 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-550/20',
-          icon: <AlertTriangle size={15} className="text-rose-500" />,
+          icon: <AlertTriangle size={14} className="text-rose-500 stroke-[2.25]" />,
         }
       case 'MEDIUM':
         return {
-          bg: 'bg-amber-500/5 dark:bg-amber-500/10 border-amber-200 dark:border-amber-900/50',
+          bg: 'bg-amber-500/5 dark:bg-amber-500/10 border-amber-200/50 dark:border-amber-900/40',
           badge: 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-550/20',
-          icon: <Zap size={15} className="text-amber-500 animate-pulse" />,
+          icon: <Zap size={14} className="text-amber-500 animate-pulse stroke-[2.25]" />,
         }
       case 'LOW':
         return {
-          bg: 'bg-slate-50 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800',
+          bg: 'bg-slate-50/50 dark:bg-slate-900/20 border-slate-200/60 dark:border-slate-800',
           badge: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-300/30',
-          icon: <Info size={15} className="text-slate-400" />,
+          icon: <Info size={14} className="text-slate-400 stroke-[2.25]" />,
         }
     }
   }
 
   return (
     <div className="space-y-4 text-left font-sans">
-      <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-850">
-        <h3 className="text-sm font-bold text-slate-850 dark:text-slate-100 flex items-center gap-2">
+      <div className="flex justify-between items-center pb-2.5 border-b border-slate-100 dark:border-slate-850/80">
+        <h3 className="text-sm font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2 m-0">
           <ShieldCheck size={16} className="text-emerald-500" />
-          <span>Actionable Fix Recommendations</span>
+          <span>Actionable Fixes</span>
         </h3>
-        <span className="text-[10px] text-slate-550 bg-slate-100 dark:bg-slate-850 px-2 py-0.5 rounded-full font-bold">
-          {sortedRecs.length} total suggestions
+        <span className="text-[9px] font-black uppercase tracking-wider text-slate-550 bg-slate-100 dark:bg-slate-850 px-2 py-0.5 rounded-lg border border-slate-200/30 dark:border-slate-750/30">
+          {sortedRecs.length} suggestions
         </span>
       </div>
 
-      <div className="space-y-3 max-h-[580px] overflow-y-auto pr-1">
+      <div className="space-y-3 max-h-[580px] overflow-y-auto pr-1 scrollbar-none">
         {sortedRecs.length > 0 ? (
           sortedRecs.map((rec, idx) => {
             const isOpen = !!openStates[idx]
@@ -93,60 +93,60 @@ export function RecommendationPanel({
             return (
               <div
                 key={idx}
-                className={`border rounded-xl transition-all duration-200 overflow-hidden ${styles.bg} ${
-                  isOpen ? 'ring-1 ring-brand-500/10 shadow-xs' : ''
+                className={`border rounded-2xl transition-all duration-200 overflow-hidden ${styles.bg} ${
+                  isOpen ? 'ring-1 ring-brand-500/10 shadow-2xs border-brand-500/20' : 'hover:border-slate-350 dark:hover:border-slate-700'
                 }`}
               >
                 {/* Recommendation Header */}
                 <button
                   onClick={() => toggleOpen(idx)}
-                  className="w-full flex items-center justify-between p-4 cursor-pointer focus:outline-none"
+                  className="w-full flex items-center justify-between p-4 cursor-pointer focus:outline-none bg-transparent border-none"
                 >
-                  <div className="flex items-center gap-3 min-w-0 pr-4">
+                  <div className="flex items-center gap-3 min-w-0 pr-4 text-left">
                     <span className="shrink-0">{styles.icon}</span>
                     <span
-                      className={`text-[9px] font-bold px-2 py-0.5 rounded-full border ${styles.badge}`}
+                      className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-lg border ${styles.badge}`}
                     >
                       {rec.priority}
                     </span>
-                    <h4 className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate leading-snug">
+                    <h4 className="text-xs font-bold text-slate-900 dark:text-slate-200 truncate leading-tight m-0">
                       {rec.suggested_fix}
                     </h4>
                   </div>
-                  <span className="text-slate-400 hover:text-slate-600 shrink-0">
-                    {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                  <span className="text-slate-400 hover:text-slate-655 dark:hover:text-slate-300 shrink-0">
+                    {isOpen ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
                   </span>
                 </button>
 
                 {/* Recommendation Details */}
                 {isOpen && (
-                  <div className="px-4 pb-4 pt-0 border-t border-slate-100 dark:border-slate-850/60 mt-0 bg-white/40 dark:bg-dark-bg/30 space-y-3.5">
+                  <div className="px-4 pb-4 pt-0 border-t border-slate-150/40 dark:border-slate-850/40 mt-0 bg-white/50 dark:bg-dark-bg/20 space-y-3.5">
                     {/* Reason */}
                     <div className="space-y-1 mt-3">
-                      <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 block">
+                      <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 block">
                         Issue Found
                       </span>
-                      <p className="text-xs text-slate-655 dark:text-slate-350 leading-relaxed font-normal">
+                      <p className="text-xs text-slate-655 dark:text-slate-350 leading-relaxed font-medium m-0">
                         {rec.reason}
                       </p>
                     </div>
 
                     {/* Impact / Estimations */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1 border-t border-dashed border-slate-150/40 dark:border-slate-850/40">
-                      <div>
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 block">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-3 border-t border-dashed border-slate-150/40 dark:border-slate-850/40">
+                      <div className="space-y-0.5">
+                        <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 block">
                           Impact Analysis
                         </span>
-                        <p className="text-xs text-slate-655 dark:text-slate-350 leading-relaxed font-normal mt-0.5">
+                        <p className="text-xs text-slate-655 dark:text-slate-300 leading-relaxed font-normal m-0">
                           {rec.impact}
                         </p>
                       </div>
-                      <div>
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 block flex items-center gap-1">
+                      <div className="space-y-0.5">
+                        <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 block flex items-center gap-1">
                           <TrendingUp size={10} className="text-brand-500" />
                           <span>Estimated Benefit</span>
                         </span>
-                        <p className="text-xs text-brand-600 dark:text-brand-400 leading-relaxed font-semibold mt-0.5">
+                        <p className="text-xs text-brand-600 dark:text-brand-400 leading-relaxed font-bold m-0">
                           {rec.estimated_benefit}
                         </p>
                       </div>

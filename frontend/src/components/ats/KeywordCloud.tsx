@@ -22,55 +22,55 @@ export function KeywordCloud({ keywords }: KeywordCloudProps) {
   const getTagStyle = (type: 'matched' | 'missing' | 'suggested') => {
     switch (type) {
       case 'matched':
-        return 'bg-emerald-500/10 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300 border-emerald-500/20 dark:border-emerald-500/30'
+        return 'bg-emerald-500/10 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-350 border-emerald-500/20 dark:border-emerald-500/30'
       case 'missing':
-        return 'bg-red-500/10 text-red-700 dark:bg-red-500/20 dark:text-red-300 border-red-500/20 dark:border-red-500/30'
+        return 'bg-rose-500/10 text-rose-700 dark:bg-rose-500/20 dark:text-rose-455 border-rose-500/20 dark:border-rose-500/30'
       case 'suggested':
       default:
-        return 'bg-blue-500/10 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300 border-blue-500/20 dark:border-blue-500/30'
+        return 'bg-brand-500/10 text-brand-600 dark:bg-brand-500/20 dark:text-brand-400 border-brand-500/20 dark:border-brand-500/30'
     }
   }
 
   // Determine tag sizing
   const getTagSize = (count?: number) => {
     if (!count) return 'text-xs px-2.5 py-1'
-    if (count > 5) return 'text-lg px-4 py-2 font-bold'
-    if (count > 3) return 'text-base px-3.5 py-1.5 font-semibold'
-    if (count > 1) return 'text-sm px-3 py-1 font-medium'
+    if (count > 5) return 'text-lg px-4 py-2 font-black tracking-tight'
+    if (count > 3) return 'text-base px-3.5 py-1.5 font-bold'
+    if (count > 1) return 'text-sm px-3 py-1 font-semibold'
     return 'text-xs px-2.5 py-1'
   }
 
   return (
-    <div className="p-6 bg-white dark:bg-slate-900/40 rounded-xl border border-slate-200/60 dark:border-slate-800/40 shadow-xs">
+    <div className="p-6 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-205 dark:border-slate-855 shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-center font-sans">
       <div className="flex flex-wrap gap-2.5 justify-center items-center">
         {keywords.map((kw, i) => (
           <div
             key={`${kw.text}-${i}`}
-            className={`inline-flex items-center rounded-lg border font-display transition-all duration-300 hover:scale-105 select-none cursor-default ${getTagStyle(
+            className={`inline-flex items-center rounded-xl border transition-all duration-300 hover:scale-105 select-none cursor-default ${getTagStyle(
               kw.type
             )} ${getTagSize(kw.count)}`}
             title={`${kw.text} (${kw.type}${kw.count ? `, count: ${kw.count}` : ''})`}
           >
             <span>{kw.text}</span>
             {kw.count && kw.count > 0 && (
-              <span className="ml-1.5 px-1 bg-current/10 text-[10px] rounded-sm font-mono opacity-80">
+              <span className="ml-1.5 px-1 bg-current/10 text-[10px] rounded-md font-mono opacity-80">
                 {kw.count}
               </span>
             )}
           </div>
         ))}
       </div>
-      <div className="flex justify-center gap-6 mt-6 border-t border-slate-100 dark:border-slate-800/40 pt-4 text-xs font-semibold">
+      <div className="flex justify-center flex-wrap gap-4 mt-6 border-t border-slate-100 dark:border-slate-800/60 pt-4 text-[10px] font-bold uppercase tracking-wider">
         <div className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           <span>Matched Keywords</span>
         </div>
-        <div className="flex items-center gap-1.5 text-red-600 dark:text-red-400">
-          <span className="w-2 h-2 rounded-full bg-red-500" />
+        <div className="flex items-center gap-1.5 text-rose-650 dark:text-rose-500">
+          <span className="w-2 h-2 rounded-full bg-rose-500" />
           <span>Missing Keywords</span>
         </div>
-        <div className="flex items-center gap-1.5 text-blue-600 dark:text-blue-400">
-          <span className="w-2 h-2 rounded-full bg-blue-500" />
+        <div className="flex items-center gap-1.5 text-brand-600 dark:text-brand-400">
+          <span className="w-2 h-2 rounded-full bg-brand-500" />
           <span>Suggested Keywords</span>
         </div>
       </div>

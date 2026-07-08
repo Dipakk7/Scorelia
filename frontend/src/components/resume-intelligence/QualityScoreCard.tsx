@@ -1,12 +1,17 @@
-import { TrendingUp, Award } from 'lucide-react'
+import { TrendingUp, Award, Sparkles } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/Card'
+import { Button } from '@/components/ui/Button'
+import { Spinner } from '@/components/ui/Spinner'
 import { ResponsiveContainer, AreaChart, Area, XAxis } from 'recharts'
+import { cn } from '@/lib/utils'
 
 interface QualityScoreCardProps {
   qualityScore: number
   readinessScore: number
   improvementScore: number
   history?: { date: string; score: number }[]
+  onAnalyze?: () => void
+  isAnalyzing?: boolean
 }
 
 export function QualityScoreCard({
@@ -14,7 +19,11 @@ export function QualityScoreCard({
   readinessScore = 0,
   improvementScore = 0,
   history = [],
+  onAnalyze,
+  isAnalyzing = false,
 }: QualityScoreCardProps) {
+  const isZeroState = qualityScore === 0 && readinessScore === 0 && improvementScore === 0
+
   // Circular progress helper
   const renderCircularGauge = (
     value: number,
@@ -29,7 +38,7 @@ export function QualityScoreCard({
     const strokeDashoffset = circumference - (value / 100) * circumference
 
     return (
-      <div className="flex flex-col items-center text-center p-4 bg-slate-50/50 dark:bg-slate-900/40 rounded-2xl border border-slate-100 dark:border-slate-800/80 shadow-xs relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300">
+      <div className="flex flex-col items-center text-center p-5 bg-white/30 dark:bg-slate-900/20 backdrop-blur-md rounded-2xl border border-slate-205 dark:border-slate-800/80 shadow-xs relative overflow-hidden group hover:scale-[1.01] hover:border-brand-500/20 dark:hover:border-brand-500/10 transition-all duration-300">
         <svg className="w-24 h-24 transform -rotate-90">
           <defs>
             <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
@@ -42,7 +51,7 @@ export function QualityScoreCard({
             cx="48"
             cy="48"
             r={radius}
-            className="stroke-slate-200 dark:stroke-slate-850"
+            className="stroke-slate-100 dark:stroke-slate-850"
             strokeWidth="7"
             fill="transparent"
           />
@@ -62,18 +71,18 @@ export function QualityScoreCard({
         </svg>
 
         {/* Value Label inside circle */}
-        <div className="absolute top-[42px] flex flex-col items-center">
-          <span className="text-lg font-extrabold text-slate-800 dark:text-slate-100 tracking-tight">
+        <div className="absolute top-[40px] flex flex-col items-center">
+          <span className="text-xl font-black text-slate-900 dark:text-slate-100 tracking-tight">
             {value}
-            <span className="text-[10px] text-slate-455 font-normal">%</span>
+            <span className="text-[10px] text-slate-400 font-normal">%</span>
           </span>
         </div>
 
         <div className="mt-4">
-          <h4 className="text-xs font-bold text-slate-700 dark:text-slate-355 tracking-wide uppercase">
+          <h4 className="text-xs font-black text-slate-700 dark:text-slate-300 tracking-wide uppercase">
             {label}
           </h4>
-          <p className="text-[10px] text-slate-500 mt-0.5 leading-tight">{subtext}</p>
+          <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1 leading-tight font-medium">{subtext}</p>
         </div>
       </div>
     )
@@ -90,91 +99,121 @@ export function QualityScoreCard({
   const tier = getScoreTier(qualityScore)
 
   return (
-    <Card className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-dark-bg shadow-lg overflow-hidden font-sans">
-      <div className="p-6 pb-4 flex justify-between items-start border-b border-slate-100 dark:border-slate-800/80">
-        <div>
+    <Card className="border border-slate-200/60 dark:border-slate-850 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md shadow-sm overflow-hidden font-sans rounded-2xl hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+      <div className="p-6 pb-4 flex justify-between items-center border-b border-slate-100 dark:border-slate-800/60">
+        <div className="text-left">
           <div className="flex items-center gap-2">
-            <span className="p-1 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400">
-              <Award size={16} />
+            <span className="p-1.5 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/15">
+              <Award size={15} />
             </span>
-            <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100">
+            <h3 className="text-sm font-extrabold text-slate-900 dark:text-slate-100 m-0">
               AI Scoring Center
             </h3>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5">
             Real-time quality grading, career suitability index, and optimization history metrics.
           </p>
         </div>
-        <span className={`px-2.5 py-1 rounded-full border text-xs font-bold ${tier.color}`}>
-          {tier.label}
-        </span>
+        {!isZeroState && (
+          <span className={`px-2.5 py-1 rounded-full border text-[10px] font-black uppercase tracking-wider ${tier.color}`}>
+            {tier.label}
+          </span>
+        )}
       </div>
 
       <CardContent className="pt-6 space-y-6">
-        {/* Metric Gauges Grid */}
-        <div className="grid grid-cols-3 gap-3.5">
-          {renderCircularGauge(
-            qualityScore,
-            'Quality Score',
-            'gradQuality',
-            '#0F9D9A',
-            '#0c7f7d',
-            'Weighted quality evaluation'
-          )}
-          {renderCircularGauge(
-            readinessScore,
-            'Career Readiness',
-            'gradReady',
-            '#aa3bff',
-            '#7d1edb',
-            'Industry fit readiness'
-          )}
-          {renderCircularGauge(
-            improvementScore,
-            'ATS Grade',
-            'gradImprove',
-            '#00D2FF',
-            '#00a2cc',
-            'ATS-friendly compatibility'
-          )}
-        </div>
-
-        {/* Small trend graph inside */}
-        {history && history.length > 1 && (
-          <div className="p-4 bg-slate-50/50 dark:bg-slate-900/20 border border-slate-100 dark:border-slate-800 rounded-xl space-y-3">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
-                <TrendingUp size={14} className="text-brand-500" />
-                <span className="text-[11px] font-bold uppercase tracking-wider">
-                  Quality Score Trend
-                </span>
-              </div>
-              <span className="text-[10px] text-slate-500 font-medium">
-                Last {history.length} scans
-              </span>
+        {isZeroState ? (
+          <div className="flex flex-col items-center justify-center text-center p-8 border border-dashed border-slate-200/80 dark:border-slate-800 rounded-2xl bg-slate-50/20 dark:bg-slate-900/10 min-h-[220px]">
+            <div className="p-3 bg-brand-500/10 border border-brand-500/20 rounded-2xl mb-3.5 text-brand-500 shadow-xs">
+              <Sparkles size={22} className="stroke-[1.75]" />
             </div>
-            <div className="h-16 w-full opacity-90">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={history} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
-                  <defs>
-                    <linearGradient id="scoreSpark" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#0F9D9A" stopOpacity={0.25} />
-                      <stop offset="95%" stopColor="#0F9D9A" stopOpacity={0.0} />
-                    </linearGradient>
-                  </defs>
-                  <Area
-                    type="monotone"
-                    dataKey="score"
-                    stroke="#0F9D9A"
-                    strokeWidth={2}
-                    fillOpacity={1}
-                    fill="url(#scoreSpark)"
-                  />
-                  <XAxis dataKey="date" hide />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
+            <h4 className="text-sm font-extrabold text-slate-800 dark:text-slate-200 m-0">
+              No AI analysis available
+            </h4>
+            <p className="text-xs text-slate-500 dark:text-slate-450 mt-1 max-w-xs leading-relaxed">
+              Analyze your active resume selection to unlock intelligent ratings and ATS diagnostic scores.
+            </p>
+            {onAnalyze && (
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={onAnalyze}
+                disabled={isAnalyzing}
+                className="mt-4 font-bold flex items-center gap-1.5 rounded-xl shadow-xs"
+              >
+                {isAnalyzing ? <Spinner size="sm" className="text-white" /> : <Sparkles size={12} />}
+                <span>Analyze Resume</span>
+              </Button>
+            )}
           </div>
+        ) : (
+          <>
+            {/* Metric Gauges Grid */}
+            <div className="grid grid-cols-3 gap-4">
+              {renderCircularGauge(
+                qualityScore,
+                'Quality Score',
+                'gradQuality',
+                '#0F9D9A',
+                '#0c7f7d',
+                'Weighted evaluation'
+              )}
+              {renderCircularGauge(
+                readinessScore,
+                'Career Readiness',
+                'gradReady',
+                '#aa3bff',
+                '#7d1edb',
+                'Industry suitability'
+              )}
+              {renderCircularGauge(
+                improvementScore,
+                'ATS Grade',
+                'gradImprove',
+                '#00D2FF',
+                '#00a2cc',
+                'Keyword compliance'
+              )}
+            </div>
+
+            {/* Small trend graph inside */}
+            {history && history.length > 1 && (
+              <div className="p-4 bg-slate-50/30 dark:bg-slate-900/20 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-3 text-left">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+                    <TrendingUp size={14} className="text-brand-500" />
+                    <span className="text-[10px] font-bold uppercase tracking-wider">
+                      Quality Score Trend
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+                    Last {history.length} scans
+                  </span>
+                </div>
+                <div className="h-16 w-full opacity-95">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={history} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
+                      <defs>
+                        <linearGradient id="scoreSpark" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#0F9D9A" stopOpacity={0.25} />
+                          <stop offset="95%" stopColor="#0F9D9A" stopOpacity={0.0} />
+                        </linearGradient>
+                      </defs>
+                      <Area
+                        type="monotone"
+                        dataKey="score"
+                        stroke="#0F9D9A"
+                        strokeWidth={2}
+                        fillOpacity={1}
+                        fill="url(#scoreSpark)"
+                      />
+                      <XAxis dataKey="date" hide />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+            )}
+          </>
         )}
       </CardContent>
     </Card>

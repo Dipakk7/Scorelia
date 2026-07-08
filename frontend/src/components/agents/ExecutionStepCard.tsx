@@ -1,5 +1,3 @@
-// frontend/src/components/agents/ExecutionStepCard.tsx
-
 import React, { useState } from 'react'
 import { Card, CardContent } from '@/components/ui/Card'
 import { AgentStatusBadge } from './AgentStatusBadge'
@@ -20,10 +18,8 @@ export const ExecutionStepCard: React.FC<ExecutionStepCardProps> = ({ step, inde
   return (
     <Card
       className={cn(
-        'border transition-all duration-200 shadow-xs glass-card',
-        isSuccess
-          ? 'border-slate-200 dark:border-dark-border/60 hover:border-emerald-500/35'
-          : 'border-rose-300 dark:border-rose-950/60 hover:border-rose-500/50',
+        'border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs',
+        !isSuccess && 'border-rose-350 dark:border-rose-950/60',
         className
       )}
     >
@@ -34,27 +30,27 @@ export const ExecutionStepCard: React.FC<ExecutionStepCardProps> = ({ step, inde
             {/* Step Index badge */}
             <div
               className={cn(
-                'h-7 w-7 rounded-lg text-xs font-bold font-mono flex items-center justify-center flex-shrink-0',
+                'h-7 w-7 rounded-xl text-xs font-black font-mono flex items-center justify-center flex-shrink-0 leading-none shadow-2xs border border-transparent',
                 isSuccess
-                  ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-                  : 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
+                  ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-450 border-emerald-500/10'
+                  : 'bg-rose-500/10 text-rose-650 dark:text-rose-455 border-rose-500/10'
               )}
             >
               {index + 1}
             </div>
 
-            <div>
-              <span className="text-slate-400 text-xxs font-mono block uppercase">Agent Execution Step</span>
-              <h5 className="font-semibold text-xs text-slate-800 dark:text-slate-200 font-sans mt-0.5">
+            <div className="text-left">
+              <span className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase font-mono tracking-widest block leading-none">Agent Execution Step</span>
+              <h5 className="font-extrabold text-xs text-slate-800 dark:text-slate-200 font-sans mt-1.5 leading-none">
                 {step.agent_id.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
               </h5>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             {/* Time metric */}
-            <div className="flex items-center gap-1 text-slate-400 dark:text-slate-500 text-xxs font-mono">
-              <Clock size={12} />
+            <div className="flex items-center gap-1 text-slate-455 dark:text-slate-500 text-[10px] font-mono leading-none">
+              <Clock size={12} className="text-slate-400" />
               <span>{step.execution_time_ms.toFixed(0)}ms</span>
             </div>
 
@@ -63,7 +59,7 @@ export const ExecutionStepCard: React.FC<ExecutionStepCardProps> = ({ step, inde
             {/* Toggle Expand button */}
             <button
               onClick={() => setExpanded(!expanded)}
-              className="p-1 rounded-md text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-850 hover:text-slate-600 dark:hover:text-slate-250 cursor-pointer focus:outline-none"
+              className="p-1 rounded-md text-slate-455 hover:bg-slate-100/50 dark:hover:bg-slate-900 hover:text-slate-700 cursor-pointer focus:outline-none border-none bg-transparent flex items-center"
               aria-label={expanded ? 'Collapse detail' : 'Expand detail'}
             >
               {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -73,15 +69,15 @@ export const ExecutionStepCard: React.FC<ExecutionStepCardProps> = ({ step, inde
 
         {/* Detailed collapsible content */}
         {expanded && (
-          <div className="mt-4 pt-4 border-t border-slate-100 dark:border-dark-border/40 flex flex-col gap-3 font-sans text-xs">
+          <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-850/65 flex flex-col gap-3 font-sans text-xs text-left animate-fade-in">
             {/* Errors display */}
             {step.errors && step.errors.length > 0 && (
-              <div className="p-3 bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 rounded-lg flex gap-2">
+              <div className="p-3 bg-rose-500/10 border border-rose-500/20 text-rose-650 dark:text-rose-455 rounded-xl flex gap-2 text-left">
                 <AlertCircle size={16} className="flex-shrink-0 mt-0.5" />
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1 text-left">
                   <strong className="font-bold">Errors:</strong>
                   {step.errors.map((err, i) => (
-                    <span key={i} className="block font-mono text-xxs break-all">
+                    <span key={i} className="block font-mono text-[10px] break-all leading-relaxed">
                       {err}
                     </span>
                   ))}
@@ -90,18 +86,18 @@ export const ExecutionStepCard: React.FC<ExecutionStepCardProps> = ({ step, inde
             )}
 
             {/* Step Output */}
-            <div className="flex flex-col gap-1.5">
-              <span className="text-slate-400 text-xxs font-mono flex items-center gap-1">
-                <FileCode size={12} />
-                <span>STEP OUTPUT PAYLOAD</span>
+            <div className="flex flex-col gap-1.5 text-left">
+              <span className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase tracking-widest font-mono flex items-center gap-1.5 leading-none">
+                <FileCode size={12} className="text-slate-400" />
+                <span>Step Output Payload</span>
               </span>
-              <div className="p-3 bg-slate-900 text-slate-350 dark:bg-slate-950/80 rounded-lg font-mono text-xxs overflow-x-auto max-h-60 border border-slate-950/50">
-                <pre>{JSON.stringify(step.output, null, 2)}</pre>
+              <div className="p-3 bg-slate-900 dark:bg-slate-950/80 rounded-xl font-mono text-[10px] overflow-x-auto max-h-60 border border-slate-950/50 text-left">
+                <pre className="m-0 leading-normal">{JSON.stringify(step.output, null, 2)}</pre>
               </div>
             </div>
 
             {/* Latency Breakdown Info */}
-            <div className="flex items-center gap-2 text-xxs text-slate-500 dark:text-slate-450 mt-1">
+            <div className="flex items-center gap-2 text-[10px] font-bold text-slate-550 dark:text-slate-450 mt-1 select-none leading-none">
               <CheckCircle size={12} className="text-emerald-500" />
               <span>Orchestrated successfully. Memory variables merged to session space.</span>
             </div>
@@ -111,3 +107,4 @@ export const ExecutionStepCard: React.FC<ExecutionStepCardProps> = ({ step, inde
     </Card>
   )
 }
+export default ExecutionStepCard

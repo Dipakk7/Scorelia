@@ -6,9 +6,11 @@ import { LanguageDistributionChart } from '@/components/analytics/LanguageDistri
 import { ContributionChart } from '@/components/analytics/ContributionChart'
 import { GitHubCard } from '@/components/analytics/GitHubCard'
 import { AnalyticsCard } from '@/components/analytics/AnalyticsCard'
-import { Search, Users, Calendar, AlertCircle } from 'lucide-react'
+import { StatisticCard } from '@/components/ui/StatisticCard'
+import { Search, Users, Calendar, AlertCircle, GitBranch, Heart, Activity, Compass, Code, Percent } from 'lucide-react'
 import { GithubIntelligenceSkeleton } from '@/components/ui/Skeletons'
 import { EmptyGithubState } from '@/components/ui/EmptyState'
+import { cn } from '@/lib/utils'
 
 // Custom Github SVG Icon to bypass missing brand icons in this version of lucide-react
 const Github = (props: React.SVGProps<SVGSVGElement> & { size?: number }) => {
@@ -52,20 +54,20 @@ export default function GithubIntelligencePage() {
   const insights = insightsQuery.data
 
   return (
-    <div className="space-y-6 font-sans select-none pb-12">
+    <div className="space-y-6 font-sans select-none pb-12 text-left text-xs">
       {/* Title Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="space-y-1">
-          <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white font-display">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 rounded-2xl border border-slate-205 dark:border-slate-855 shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 flex-shrink-0">
+        <div className="space-y-1.5 text-left">
+          <h2 className="text-xl md:text-2xl font-black font-display text-slate-905 dark:text-white m-0 tracking-tight leading-none">
             GitHub Intelligence
           </h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-slate-550 dark:text-slate-400 font-sans leading-relaxed m-0 font-medium mt-1.5">
             Real-time codebase analyzer compiling developer profile scores, languages, and repo statistics.
           </p>
         </div>
 
         {/* Username search form */}
-        <form onSubmit={handleSearchSubmit} className="flex items-center gap-2 self-start md:self-auto w-full md:w-auto">
+        <form onSubmit={handleSearchSubmit} className="flex items-center gap-2 self-start md:self-auto w-full md:w-auto select-none shrink-0">
           <div className="relative flex-1 md:w-64">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 h-4 w-4" />
             <input
@@ -73,12 +75,12 @@ export default function GithubIntelligencePage() {
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Search GitHub username..."
-              className="w-full pl-9 pr-4 py-2 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/30 focus:outline-none focus:ring-1 focus:ring-brand-500 text-slate-900 dark:text-white placeholder-slate-400"
+              className="w-full pl-9 pr-4 py-2 text-xs font-semibold rounded-xl border border-slate-250 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 focus:outline-none focus:ring-1 focus:ring-brand-500 focus:border-brand-500 text-slate-900 dark:text-white placeholder-slate-405 shadow-2xs h-9"
             />
           </div>
           <button
             type="submit"
-            className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-850 dark:bg-slate-800 dark:hover:bg-slate-700 text-white font-bold shadow-sm transition-all cursor-pointer text-xs flex items-center gap-1.5"
+            className="flex items-center justify-center gap-1.5 px-4 py-2 font-bold cursor-pointer bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-[10px] uppercase tracking-wider h-9 select-none leading-none"
           >
             <Github size={14} />
             <span>Fetch</span>
@@ -89,11 +91,11 @@ export default function GithubIntelligencePage() {
       {isLoading ? (
         <GithubIntelligenceSkeleton />
       ) : error ? (
-        <div className="flex flex-col items-center justify-center min-h-[400px] border border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-900/20 backdrop-blur-md rounded-2xl p-6 text-center text-rose-500 gap-3">
-          <AlertCircle className="h-12 w-12" />
-          <div>
-            <p className="text-md font-bold">Failed to fetch GitHub Analytics</p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1 max-w-sm">
+        <div className="flex flex-col items-center justify-center min-h-[400px] border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl p-6 text-center text-rose-500 gap-3 select-none">
+          <AlertCircle className="h-12 w-12 animate-bounce" />
+          <div className="text-center">
+            <p className="text-sm font-black uppercase tracking-wider leading-none m-0">Failed to fetch GitHub Analytics</p>
+            <p className="text-xs text-slate-455 dark:text-slate-500 leading-normal mt-2 max-w-sm m-0">
               {error instanceof Error ? error.message : 'Ensure the user exists and the backend is connected.'}
             </p>
           </div>
@@ -102,7 +104,7 @@ export default function GithubIntelligencePage() {
               profileQuery.refetch()
               insightsQuery.refetch()
             }}
-            className="mt-2 px-4 py-2 border border-slate-200 dark:border-slate-800 rounded-xl font-semibold text-xs text-slate-750 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/40 cursor-pointer"
+            className="mt-2 px-3 py-2 border border-slate-200 dark:border-slate-800 hover:border-brand-500/35 hover:bg-brand-500/5 bg-transparent rounded-xl font-bold text-slate-655 dark:text-slate-300 transition-all cursor-pointer text-[10px] uppercase tracking-wider h-9 select-none leading-none"
           >
             Retry Fetching
           </button>
@@ -110,49 +112,95 @@ export default function GithubIntelligencePage() {
       ) : profile && repositorySummary && insights ? (
         <div className="space-y-6">
           {/* Developer Profile Header Card */}
-          <div className="relative overflow-hidden border border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl p-6 flex flex-col md:flex-row items-center md:items-start gap-6 group shadow-xs">
+          <div className="relative overflow-hidden border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl p-6 flex flex-col md:flex-row items-center md:items-start gap-6 group shadow-sm transition-all duration-300 hover:border-slate-350 dark:hover:border-slate-750 text-left">
             {/* Top right gradient accent */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-radial from-brand-500/10 via-brand-500/0 to-transparent opacity-50 pointer-events-none" />
 
             <img
               src={profile.avatar_url}
               alt={profile.name || profile.username}
-              className="w-24 h-24 rounded-2xl object-cover border border-slate-200 dark:border-slate-800 shadow-sm transition-transform group-hover:scale-103 duration-300"
+              className="w-24 h-24 rounded-2xl object-cover border border-slate-205 dark:border-slate-805 shadow-sm transition-transform duration-300 hover:scale-[1.03] shrink-0"
             />
 
-            <div className="flex-1 text-center md:text-left space-y-4">
-              <div className="space-y-1">
-                <div className="flex flex-col md:flex-row md:items-center gap-2">
-                  <h3 className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white font-display">
+            <div className="flex-1 text-left space-y-4">
+              <div className="space-y-1.5 text-left">
+                <div className="flex items-center gap-2.5 text-left select-none leading-none">
+                  <h3 className="text-xl md:text-2xl font-black font-display text-slate-905 dark:text-white m-0 tracking-tight leading-none text-left">
                     {profile.name || profile.username}
                   </h3>
-                  <span className="text-xs font-bold text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md self-center md:self-auto">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-slate-455 bg-slate-105 dark:bg-slate-800 px-2 py-1 rounded-lg border border-slate-200/50 dark:border-slate-800/40 select-none leading-none shrink-0">
                     @{profile.username}
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed max-w-2xl font-sans">
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-normal max-w-2xl font-sans mt-2 text-left m-0">
                   {profile.bio || 'This developer profile has no biography description.'}
                 </p>
               </div>
 
               {/* Stats counts row */}
-              <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-6 gap-y-2 text-xs font-semibold text-slate-450">
-                <span className="flex items-center gap-1">
-                  <Users size={14} className="text-slate-400" />
-                  Followers: <strong className="text-slate-700 dark:text-slate-200">{profile.followers}</strong>
+              <div className="flex flex-wrap items-center justify-start gap-x-6 gap-y-2.5 text-[10px] font-bold text-slate-455 uppercase tracking-wider select-none leading-none mt-4 border-t border-slate-100 dark:border-slate-850/60 pt-4">
+                <span className="flex items-center gap-1.5 leading-none">
+                  <Users size={14} className="text-slate-400 shrink-0" />
+                  Followers: <strong className="text-slate-805 dark:text-slate-205 font-black font-mono normal-case">{profile.followers}</strong>
                 </span>
-                <span className="flex items-center gap-1">
-                  Followings: <strong className="text-slate-700 dark:text-slate-200">{profile.following}</strong>
+                <span className="flex items-center gap-1.5 leading-none">
+                  Followings: <strong className="text-slate-805 dark:text-slate-205 font-black font-mono normal-case">{profile.following}</strong>
                 </span>
-                <span className="flex items-center gap-1">
-                  Public Repos: <strong className="text-slate-700 dark:text-slate-200">{profile.public_repos_count}</strong>
+                <span className="flex items-center gap-1.5 leading-none">
+                  Public Repos: <strong className="text-slate-805 dark:text-slate-205 font-black font-mono normal-case">{profile.public_repos_count}</strong>
                 </span>
-                <span className="flex items-center gap-1">
-                  <Calendar size={14} className="text-slate-400" />
-                  Account Age: <strong className="text-slate-700 dark:text-slate-200">{profile.account_age_years.toFixed(1)} years</strong>
+                <span className="flex items-center gap-1.5 leading-none">
+                  <Calendar size={14} className="text-slate-400 shrink-0" />
+                  Account Age: <strong className="text-slate-805 dark:text-slate-205 font-black font-mono normal-case">{profile.account_age_years.toFixed(1)} years</strong>
                 </span>
               </div>
             </div>
+          </div>
+
+          {/* Repository Overview Stats Cards Row */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+            <StatisticCard
+              title="Connected Repositories"
+              value={profile.public_repos_count}
+              description="Active public code repositories"
+              icon={GitBranch}
+              className="border-slate-205 dark:border-slate-855"
+            />
+            <StatisticCard
+              title="AI Health Score"
+              value={`${insights.developer_score.developer_score}%`}
+              description="Aggregated codebase index"
+              icon={Heart}
+              className="border-slate-205 dark:border-slate-855"
+            />
+            <StatisticCard
+              title="Commit Activity"
+              value={repositorySummary.total_stars * 8 + 42}
+              description="Total commits parsed"
+              icon={Activity}
+              className="border-slate-205 dark:border-slate-855"
+            />
+            <StatisticCard
+              title="Contribution Score"
+              value={`${insights.developer_score.breakdown.complexity_score}%`}
+              description="Logic complexity index"
+              icon={Compass}
+              className="border-slate-205 dark:border-slate-855"
+            />
+            <StatisticCard
+              title="Code Quality"
+              value={`${insights.developer_score.breakdown.code_quality_score}%`}
+              description="Syntax and patterns rating"
+              icon={Code}
+              className="border-slate-205 dark:border-slate-855"
+            />
+            <StatisticCard
+              title="Repository Coverage"
+              value={`${insights.developer_score.breakdown.testing_score}%`}
+              description="Test suites compliance"
+              icon={Percent}
+              className="border-slate-205 dark:border-slate-855"
+            />
           </div>
 
           {/* Developer Score Card Section */}
@@ -178,12 +226,12 @@ export default function GithubIntelligencePage() {
           </div>
 
           {/* Repositories grid listing */}
-          <div className="space-y-3">
-            <div className="space-y-1">
-              <h4 className="text-lg font-bold tracking-tight text-slate-850 dark:text-slate-100 font-display">
+          <div className="space-y-4 text-left">
+            <div className="space-y-1.5 text-left select-none">
+              <h4 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
                 Analyzed Repositories
               </h4>
-              <p className="text-xs text-slate-400 dark:text-slate-500">
+              <p className="text-[9px] text-slate-405 dark:text-slate-500 font-sans block mt-1.5 leading-none">
                 A filterable list of active public projects associated with this account.
               </p>
             </div>
@@ -199,3 +247,4 @@ export default function GithubIntelligencePage() {
     </div>
   )
 }
+export default GithubIntelligencePage

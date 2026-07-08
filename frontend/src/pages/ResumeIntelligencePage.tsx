@@ -40,6 +40,8 @@ import {
   Layers,
   Zap,
 } from 'lucide-react'
+import { ChartEmptyState } from '@/components/ui/ChartEmptyState'
+import { cn } from '@/lib/utils'
 
 type DashboardTab = 'overview' | 'review' | 'rewrite' | 'optimization' | 'history'
 
@@ -262,15 +264,15 @@ export default function ResumeIntelligencePage() {
   ].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
 
   return (
-    <div className="space-y-6 text-left max-w-7xl mx-auto font-sans focus:outline-none">
+    <div className="space-y-6 text-left max-w-7xl mx-auto font-sans focus:outline-none animate-fade-in">
       {/* Selector & Setup Header */}
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 bg-white dark:bg-dark-bg p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs">
-        <div className="space-y-1">
-          <h1 className="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-slate-50 tracking-tight flex items-center gap-2">
-            <Sparkles className="text-brand-500 animate-pulse" size={24} />
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 rounded-2xl border border-slate-200/60 dark:border-slate-855 shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+        <div className="space-y-1.5">
+          <h1 className="text-xl md:text-2xl font-black text-slate-900 dark:text-slate-50 tracking-tight flex items-center gap-2 m-0 leading-none">
+            <Sparkles className="text-brand-500 animate-pulse" size={22} />
             <span>AI Resume Intelligence Workspace</span>
           </h1>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-sans leading-relaxed m-0">
             Audit formatting, match keywords, score readiness, and generate persona styles.
           </p>
         </div>
@@ -278,7 +280,7 @@ export default function ResumeIntelligencePage() {
         {/* Dropdown selector & pipeline triggers */}
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex flex-col gap-1 min-w-[200px]">
-            <label htmlFor="resume-select" className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">
+            <label htmlFor="resume-select" className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-none mb-1">
               Active Selection
             </label>
             <select
@@ -286,7 +288,7 @@ export default function ResumeIntelligencePage() {
               value={selectedResumeId}
               onChange={(e) => setSelectedResumeId(e.target.value)}
               disabled={pipelineMutation.isPending}
-              className="text-xs bg-slate-50 dark:bg-slate-900 border border-slate-250 dark:border-slate-800 rounded-xl p-2.5 text-slate-850 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer"
+              className="text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 rounded-xl p-2.5 text-slate-850 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer transition-colors duration-200"
             >
               {resumes.map((r) => (
                 <option key={r.id} value={r.id}>
@@ -303,7 +305,7 @@ export default function ResumeIntelligencePage() {
               size="sm"
               onClick={handleRunPipeline}
               disabled={!selectedResumeId || pipelineMutation.isPending}
-              className="flex items-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-gradient-to-r from-brand-600 to-indigo-650 text-white shadow-md shadow-brand-500/10 border-none"
+              className="flex items-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200"
             >
               <Zap size={14} className="animate-pulse" />
               <span>Run AI Pipeline</span>
@@ -314,7 +316,7 @@ export default function ResumeIntelligencePage() {
               size="sm"
               onClick={() => setIsExportOpen(true)}
               disabled={!latestReview && !latestOptimization}
-              className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-bold border-slate-250 dark:border-slate-800 cursor-pointer"
+              className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-bold border-slate-250 dark:border-slate-800 cursor-pointer rounded-xl hover:border-brand-500/30 hover:bg-brand-500/5 transition-all"
             >
               <Download size={14} />
               <span>Export Report</span>
@@ -324,14 +326,14 @@ export default function ResumeIntelligencePage() {
       </div>
 
       {resumes.length === 0 ? (
-        <Card className="border border-slate-200 dark:border-slate-800 text-center py-16">
-          <CardContent className="space-y-4 max-w-sm mx-auto">
-            <div className="h-12 w-12 rounded-2xl bg-slate-100 dark:bg-slate-900 flex items-center justify-center mx-auto text-slate-400">
-              <FileText size={24} />
+        <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm text-center py-16">
+          <CardContent className="space-y-4 max-w-sm mx-auto p-0">
+            <div className="h-12 w-12 rounded-2xl bg-slate-50 dark:bg-slate-850 flex items-center justify-center mx-auto text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-800">
+              <FileText size={22} className="stroke-[1.75]" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-slate-850 dark:text-slate-200">No Resumes Found</h3>
-              <p className="text-xs text-slate-500 mt-1 leading-normal">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-200 m-0">No Resumes Found</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-455 mt-1.5 leading-relaxed font-sans">
                 Please upload a resume in the Resume Builder or parsed document list before initiating the AI scan.
               </p>
             </div>
@@ -351,7 +353,7 @@ export default function ResumeIntelligencePage() {
           )}
 
           {/* Workspace Tabs */}
-          <div className="flex border-b border-slate-200 dark:border-slate-850 overflow-x-auto scrollbar-none">
+          <div className="flex border-b border-slate-200 dark:border-slate-850 overflow-x-auto scrollbar-none gap-1 bg-slate-50/20 dark:bg-slate-900/10 rounded-t-2xl">
             {[
               { id: 'overview', label: 'Intelligence Dashboard', icon: Layers },
               { id: 'review', label: 'AI Review & Diagnostic', icon: Activity },
@@ -365,13 +367,14 @@ export default function ResumeIntelligencePage() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as DashboardTab)}
-                  className={`flex items-center gap-2 px-5 py-3.5 text-xs font-bold whitespace-nowrap transition-all border-b-2 cursor-pointer ${
+                  className={cn(
+                    'flex items-center gap-2 px-5 py-3.5 text-xs font-bold whitespace-nowrap transition-all border-b-2 cursor-pointer',
                     isActive
-                      ? 'border-brand-500 text-brand-600 dark:text-brand-400 font-extrabold'
-                      : 'border-transparent text-slate-550 hover:text-slate-700'
-                  }`}
+                      ? 'border-brand-500 text-brand-600 dark:text-brand-400 bg-white/40 dark:bg-slate-900/20'
+                      : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100/50 dark:hover:bg-slate-850/20'
+                  )}
                 >
-                  <Icon size={14} />
+                  <Icon size={13} className={isActive ? 'text-brand-500' : 'text-slate-455'} />
                   <span>{tab.label}</span>
                 </button>
               )
@@ -390,6 +393,8 @@ export default function ResumeIntelligencePage() {
                     readinessScore={latestOptimization?.quality_score?.career_readiness || 0}
                     improvementScore={latestOptimization?.ats_optimization?.current_score || 0}
                     history={historyData}
+                    onAnalyze={handleRunPipeline}
+                    isAnalyzing={pipelineMutation.isPending}
                   />
 
                   {/* Recharts Analytics graphs */}
@@ -397,104 +402,106 @@ export default function ResumeIntelligencePage() {
                     reviews={reviews}
                     optimizations={optimizations}
                     rewrites={rewrites}
+                    onAnalyze={handleRunPipeline}
+                    isAnalyzing={pipelineMutation.isPending}
                   />
                 </div>
 
                 {/* Status and Activity history */}
-                <div className="space-y-6">
+                <div className="space-y-6 col-span-1">
                   {/* Latest Review Info */}
-                  <Card className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-dark-bg p-5 shadow-sm space-y-4">
-                    <div className="pb-2 border-b border-slate-100 dark:border-slate-850">
-                      <h4 className="text-xs font-bold text-slate-850 dark:text-slate-200 uppercase tracking-wide">
+                  <Card className="border border-slate-200/60 dark:border-slate-850 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 rounded-2xl shadow-sm space-y-4 hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+                    <div className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60 text-left">
+                      <h4 className="text-xs font-black text-slate-900 dark:text-slate-250 uppercase tracking-wider m-0">
                         Latest Review Audit
                       </h4>
                     </div>
                     {latestReview ? (
-                      <div className="space-y-3.5 text-xs">
-                        <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-900/40 p-2.5 rounded-lg border border-slate-100 dark:border-slate-850">
-                          <span className="text-slate-500 font-medium">Quality Score</span>
-                          <Badge variant="success" className="font-extrabold">
+                      <div className="space-y-3.5 text-xs text-left">
+                        <div className="flex justify-between items-center bg-slate-50/50 dark:bg-slate-950/20 p-2.5 rounded-xl border border-slate-200/40 dark:border-slate-850 font-sans">
+                          <span className="text-slate-550 dark:text-slate-400 font-semibold">Quality Score</span>
+                          <Badge variant="success" className="font-extrabold text-[10px] px-2 py-0">
                             {latestReview.overall_score}/100
                           </Badge>
                         </div>
                         <div className="space-y-1">
-                          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                          <span className="text-[9px] text-slate-400 dark:text-slate-500 font-extrabold uppercase tracking-widest">
                             Summary Brief
                           </span>
-                          <p className="text-[11px] text-slate-550 leading-relaxed line-clamp-3">
+                          <p className="text-[11px] text-slate-655 dark:text-slate-300 leading-relaxed line-clamp-3 font-medium m-0">
                             {latestReview.overall_summary}
                           </p>
                         </div>
-                        <div className="text-[10px] text-slate-400">
-                          Scanned on: {new Date(latestReview.created_at).toLocaleDateString()}
+                        <div className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">
+                          Scanned on: {new Date(latestReview.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                         </div>
                       </div>
                     ) : (
-                      <div className="text-xs text-slate-450 italic text-center py-6">
+                      <div className="text-xs text-slate-450 dark:text-slate-500 italic text-center py-6 font-sans font-medium">
                         No review record available. Click 'Run AI Pipeline'.
                       </div>
                     )}
                   </Card>
 
                   {/* Latest Style Rewrite Version */}
-                  <Card className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-dark-bg p-5 shadow-sm space-y-4">
-                    <div className="pb-2 border-b border-slate-100 dark:border-slate-850">
-                      <h4 className="text-xs font-bold text-slate-850 dark:text-slate-200 uppercase tracking-wide">
+                  <Card className="border border-slate-200/60 dark:border-slate-850 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 rounded-2xl shadow-sm space-y-4 hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+                    <div className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60 text-left">
+                      <h4 className="text-xs font-black text-slate-900 dark:text-slate-250 uppercase tracking-wider m-0">
                         Latest Style Rewrite
                       </h4>
                     </div>
                     {latestRewrite ? (
-                      <div className="space-y-3 text-xs">
-                        <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-900/40 p-2.5 rounded-lg border border-slate-100 dark:border-slate-850">
-                          <span className="text-slate-500 font-medium">Applied Persona</span>
-                          <Badge variant="secondary" className="font-bold">
+                      <div className="space-y-3 text-xs text-left">
+                        <div className="flex justify-between items-center bg-slate-50/50 dark:bg-slate-955/20 p-2.5 rounded-xl border border-slate-200/40 dark:border-slate-850">
+                          <span className="text-slate-555 dark:text-slate-400 font-semibold">Applied Persona</span>
+                          <Badge variant="secondary" className="font-bold text-[10px] px-2 py-0">
                             {latestRewrite.rewrite_mode}
                           </Badge>
                         </div>
-                        <div className="flex justify-between text-[10px] text-slate-400">
+                        <div className="flex justify-between text-[10px] text-slate-400 dark:text-slate-500 font-medium">
                           <span>Model: {latestRewrite.metadata?.model || 'Ollama'}</span>
-                          <span>{new Date(latestRewrite.created_at).toLocaleDateString()}</span>
+                          <span>{new Date(latestRewrite.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
                         </div>
                       </div>
                     ) : (
-                      <div className="text-xs text-slate-450 italic text-center py-6">
+                      <div className="text-xs text-slate-450 dark:text-slate-500 italic text-center py-6 font-sans font-medium">
                         No rewritten version.
                       </div>
                     )}
                   </Card>
 
                   {/* ATS optimizations status */}
-                  <Card className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-dark-bg p-5 shadow-sm space-y-4">
-                    <div className="pb-2 border-b border-slate-100 dark:border-slate-850">
-                      <h4 className="text-xs font-bold text-slate-850 dark:text-slate-200 uppercase tracking-wide">
+                  <Card className="border border-slate-200/60 dark:border-slate-850 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 rounded-2xl shadow-sm space-y-4 hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+                    <div className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60 text-left">
+                      <h4 className="text-xs font-black text-slate-900 dark:text-slate-250 uppercase tracking-wider m-0">
                         ATS Diagnostic Level
                       </h4>
                     </div>
                     {latestOptimization?.ats_optimization ? (
-                      <div className="space-y-3 text-xs">
-                        <div className="flex justify-between items-center">
-                          <span className="text-slate-500 font-medium">ATS Match Score</span>
-                          <span className="font-extrabold text-brand-600 dark:text-brand-400">
+                      <div className="space-y-3 text-xs text-left">
+                        <div className="flex justify-between items-center font-sans">
+                          <span className="text-slate-555 dark:text-slate-400 font-semibold">ATS Match Score</span>
+                          <span className="font-black text-brand-600 dark:text-brand-400">
                             {latestOptimization.ats_optimization.current_score}%
                           </span>
                         </div>
                         <div className="space-y-1">
-                          <span className="text-[10px] text-slate-400 font-bold uppercase block">
+                          <span className="text-[9px] text-slate-400 dark:text-slate-500 font-extrabold uppercase tracking-widest block">
                             Key Missing Keywords
                           </span>
-                          <div className="flex flex-wrap gap-1 mt-1">
+                          <div className="flex flex-wrap gap-1 mt-1.5">
                             {latestOptimization.ats_optimization.missing_keywords
                               ?.slice(0, 5)
                               .map((kw) => (
                                 <span
                                   key={kw}
-                                  className="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-rose-500/10 text-rose-700 dark:text-rose-455 border border-rose-500/15"
+                                  className="text-[9px] font-bold px-2 py-0.5 rounded-lg bg-rose-500/10 text-rose-700 dark:text-rose-455 border border-rose-500/15 shadow-2xs"
                                 >
                                   {kw}
                                 </span>
                               ))}
                             {latestOptimization.ats_optimization.missing_keywords?.length > 5 && (
-                              <span className="text-[8px] text-slate-400 self-center font-bold">
+                              <span className="text-[9px] text-slate-450 dark:text-slate-500 self-center font-bold">
                                 +{latestOptimization.ats_optimization.missing_keywords.length - 5} more
                               </span>
                             )}
@@ -502,7 +509,7 @@ export default function ResumeIntelligencePage() {
                         </div>
                       </div>
                     ) : (
-                      <div className="text-xs text-slate-455 italic text-center py-6">
+                      <div className="text-xs text-slate-455 dark:text-slate-500 italic text-center py-6 font-sans font-medium">
                         No optimizations found.
                       </div>
                     )}
@@ -513,22 +520,22 @@ export default function ResumeIntelligencePage() {
 
             {/* AI REVIEW */}
             {activeTab === 'review' && (
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in">
                 {/* Diagnostic detailed tabs */}
                 <div className="lg:col-span-2">
                   {latestReview ? (
                     <AIReviewCard review={latestReview} />
                   ) : (
-                    <Card className="border border-slate-200 dark:border-slate-800 text-center py-16">
-                      <CardContent className="space-y-4 max-w-sm mx-auto">
-                        <div className="h-10 w-10 rounded-xl bg-slate-50 dark:bg-slate-900 flex items-center justify-center mx-auto text-slate-400">
-                          <AlertCircle size={20} />
+                    <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm text-center py-16">
+                      <CardContent className="space-y-4 max-w-sm mx-auto p-0 text-center">
+                        <div className="h-10 w-10 rounded-xl bg-slate-55/60 dark:bg-slate-850 flex items-center justify-center mx-auto text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-800">
+                          <AlertCircle size={18} />
                         </div>
                         <div>
-                          <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200">
+                          <h4 className="text-sm font-extrabold text-slate-900 dark:text-slate-200 m-0">
                             No Review Found
                           </h4>
-                          <p className="text-xs text-slate-500 mt-1 leading-normal">
+                          <p className="text-xs text-slate-500 dark:text-slate-455 mt-1.5 leading-relaxed font-sans">
                             Generate diagnostic review feedback by executing the full workflow orchestrator.
                           </p>
                         </div>
@@ -545,7 +552,7 @@ export default function ResumeIntelligencePage() {
                       priorityImprovements={latestReview.priority_improvements}
                     />
                   ) : (
-                    <div className="text-xs text-slate-400 italic text-center py-10">
+                    <div className="text-xs text-slate-450 dark:text-slate-500 italic text-center py-10 font-sans font-medium">
                       No recommendations to show.
                     </div>
                   )}
@@ -555,7 +562,7 @@ export default function ResumeIntelligencePage() {
 
             {/* AI REWRITE */}
             {activeTab === 'rewrite' && (
-              <div className="space-y-6">
+              <div className="space-y-6 animate-fade-in">
                 {/* Trigger panels */}
                 <RewriteToolbar
                   onRewrite={(payload) => rewriteMutation.mutate(payload)}
@@ -578,16 +585,16 @@ export default function ResumeIntelligencePage() {
                     }
                   />
                 ) : (
-                  <Card className="border border-slate-200 dark:border-slate-800 text-center py-16">
-                    <CardContent className="space-y-4 max-w-sm mx-auto">
-                      <div className="h-10 w-10 bg-slate-50 dark:bg-slate-900 rounded-xl flex items-center justify-center mx-auto text-slate-400">
-                        <Sparkles size={20} />
+                  <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm text-center py-16">
+                    <CardContent className="space-y-4 max-w-sm mx-auto p-0 text-center">
+                      <div className="h-10 w-10 bg-slate-55/60 dark:bg-slate-850 rounded-xl flex items-center justify-center mx-auto text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-800">
+                        <Sparkles size={18} />
                       </div>
                       <div>
-                        <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200">
+                        <h4 className="text-sm font-extrabold text-slate-900 dark:text-slate-200 m-0">
                           No Rewritten Versions
                         </h4>
-                        <p className="text-xs text-slate-500 mt-1 leading-normal">
+                        <p className="text-xs text-slate-500 dark:text-slate-455 mt-1.5 leading-relaxed font-sans">
                           Choose a persona style and hit 'Generate AI Rewrite' above to tailor your resume text.
                         </p>
                       </div>
@@ -599,20 +606,20 @@ export default function ResumeIntelligencePage() {
 
             {/* ATS OPTIMIZER */}
             {activeTab === 'optimization' && (
-              <div className="space-y-6">
+              <div className="space-y-6 animate-fade-in">
                 {latestOptimization ? (
                   <OptimizationCard optimization={latestOptimization} />
                 ) : (
-                  <Card className="border border-slate-200 dark:border-slate-800 text-center py-16">
-                    <CardContent className="space-y-4 max-w-sm mx-auto">
-                      <div className="h-10 w-10 bg-slate-50 dark:bg-slate-900 rounded-xl flex items-center justify-center mx-auto text-slate-400">
-                        <TrendingUp size={20} />
+                  <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm text-center py-16">
+                    <CardContent className="space-y-4 max-w-sm mx-auto p-0 text-center">
+                      <div className="h-10 w-10 bg-slate-55/60 dark:bg-slate-850 rounded-xl flex items-center justify-center mx-auto text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-800">
+                        <TrendingUp size={18} />
                       </div>
                       <div>
-                        <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200">
+                        <h4 className="text-sm font-extrabold text-slate-900 dark:text-slate-200 m-0">
                           No Optimization Recommendations
                         </h4>
-                        <p className="text-xs text-slate-500 mt-1 leading-normal">
+                        <p className="text-xs text-slate-500 dark:text-slate-455 mt-1.5 leading-relaxed font-sans">
                           Run the AI pipeline to analyze ATS keywords density and compile bullet point suggestions.
                         </p>
                       </div>
@@ -624,7 +631,7 @@ export default function ResumeIntelligencePage() {
 
             {/* TIMELINE */}
             {activeTab === 'history' && (
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in">
                 <div className="lg:col-span-2">
                   <VersionTimeline
                     resumeUploadedAt={activeResume?.uploaded_at || new Date().toISOString()}
@@ -647,19 +654,19 @@ export default function ResumeIntelligencePage() {
 
                 {/* Compare view sidebar overlay */}
                 <div className="lg:col-span-1">
-                  <Card className="border border-slate-200 dark:border-slate-800 p-5 bg-white dark:bg-dark-bg/40 shadow-sm space-y-4">
-                    <div className="pb-2 border-b border-slate-100 dark:border-slate-850">
-                      <h4 className="text-xs font-bold text-slate-805 dark:text-slate-200 uppercase tracking-wide">
+                  <Card className="border border-slate-200/60 dark:border-slate-850 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 shadow-sm rounded-2xl space-y-4 hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+                    <div className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60 text-left">
+                      <h4 className="text-xs font-black text-slate-900 dark:text-slate-200 uppercase tracking-wider m-0">
                         Timeline Sandbox Comparator
                       </h4>
                     </div>
                     {comparisonItem ? (
                       <div className="space-y-3.5 text-xs text-left">
                         <div className="p-3 bg-brand-500/5 border border-brand-500/10 rounded-xl space-y-1">
-                          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
+                          <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider block">
                             Comparison Target
                           </span>
-                          <span className="font-bold text-slate-800 dark:text-slate-200">
+                          <span className="font-bold text-slate-850 dark:text-slate-200">
                             {comparisonItem.title}
                           </span>
                           <span className="block text-[9px] text-slate-500">
@@ -668,7 +675,7 @@ export default function ResumeIntelligencePage() {
                         </div>
 
                         {/* Direct comparison view trigger */}
-                        <p className="text-[11px] text-slate-500 leading-normal leading-relaxed">
+                        <p className="text-[11px] text-slate-550 dark:text-slate-400 leading-normal leading-relaxed m-0 font-medium">
                           Currently evaluating revisions for {comparisonItem.title}. Compare how keyword lists, bullet highlights, or summary fields have drifted across edits.
                         </p>
 
@@ -676,13 +683,13 @@ export default function ResumeIntelligencePage() {
                           variant="outline"
                           size="sm"
                           onClick={() => setComparisonItem(null)}
-                          className="w-full py-2 text-xs cursor-pointer"
+                          className="w-full py-2 text-xs cursor-pointer rounded-xl font-bold border-slate-200 dark:border-slate-800 hover:border-brand-500/30 hover:bg-brand-500/5 transition-all"
                         >
                           Clear Selection
                         </Button>
                       </div>
                     ) : (
-                      <div className="text-xs text-slate-455 italic text-center py-8">
+                      <div className="text-xs text-slate-455 dark:text-slate-500 italic text-center py-8 font-sans font-medium">
                         Select 'Compare' on any timeline version item to load differences.
                       </div>
                     )}

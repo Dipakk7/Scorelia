@@ -9,11 +9,9 @@ import {
   Award,
   Calendar,
   Layers,
-  TrendingUp,
-  CheckCircle2
+  TrendingUp
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { Button } from '@/components/ui/Button'
 import {
   ResponsiveContainer,
   AreaChart,
@@ -41,6 +39,7 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@
 import { ErrorState } from '@/components/ui/ErrorState'
 import { DashboardSkeleton } from '@/components/ui/Skeletons'
 import { cn } from '@/lib/utils'
+import { ChartEmptyState } from '@/components/ui/ChartEmptyState'
 import type { ResumeResponse } from '@/types/resume'
 
 interface DashboardStatsData {
@@ -72,6 +71,33 @@ interface ChartPoint {
   value: number
 }
 
+// Recharts Custom Stripe/Vercel-style Tooltip
+interface CustomTooltipProps {
+  active?: boolean
+  payload?: any[]
+  label?: string
+}
+
+function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
+  if (active && payload && payload.length) {
+    return (
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 p-3 shadow-xl backdrop-blur-md text-left">
+        <p className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">{label}</p>
+        <div className="mt-1.5 space-y-1">
+          {payload.map((pld: any, index: number) => (
+            <div key={index} className="flex items-center gap-2 text-xs font-semibold">
+              <span className="h-2 w-2 rounded-full" style={{ backgroundColor: pld.color || pld.stroke }} />
+              <span className="text-slate-500 dark:text-slate-400">{pld.name}:</span>
+              <span className="text-slate-900 dark:text-slate-100">{pld.value}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+  return null
+}
+
 export default function DashboardPage() {
   const { user } = useAuth()
   const userDisplayName = user?.full_name || user?.email.split('@')[0] || 'User'
@@ -81,6 +107,15 @@ export default function DashboardPage() {
     month: 'long',
     day: 'numeric',
   })
+
+  // Dynamic time-based greeting
+  const getGreeting = () => {
+    const hour = new Date().getHours()
+    if (hour < 12) return 'Good Morning'
+    if (hour < 17) return 'Good Afternoon'
+    return 'Good Evening'
+  }
+  const greeting = getGreeting()
 
   // Query: Dashboard stats
   const {
@@ -183,16 +218,122 @@ export default function DashboardPage() {
 
   const resumes = resumesData?.resumes ?? []
 
-  // Statistics configs
-  const statCards = [
-    { title: 'Total Resumes', value: analytics?.total_resumes ?? 0, icon: FileText, desc: 'CV uploads recorded' },
-    { title: 'Avg ATS Score', value: analytics?.average_ats_score ? `${Math.round(analytics.average_ats_score)}%` : '0%', icon: Award, desc: 'Averaged scanner rating' },
-    { title: 'Job Matches', value: analytics?.total_job_matches ?? 0, icon: Layers, desc: 'Positions evaluated' },
-    { title: 'Skill Gap Count', value: analytics?.skill_gap_count ?? 0, icon: Scan, desc: 'Identified missing skills' },
-    { title: 'Interview Loops', value: analytics?.interview_sessions ?? 0, icon: MessageSquareCode, desc: 'Mock prep runs completed' },
-    { title: 'Career Progress', value: analytics?.career_progress ? `${Math.round(analytics.career_progress)}%` : '0%', icon: Map, desc: 'Roadmap phase completion' },
-    { title: 'Cover Letters', value: analytics?.cover_letters_generated ?? 0, icon: Sparkles, desc: 'AI letters created' },
-    { title: 'AI Usage Logs', value: analytics?.ai_usage ?? 0, icon: TrendingUp, desc: 'Aggregated AI prompts run' },
+  // Trend Delta Calculations (at least 2 points to avoid fabrication)
+  let atsTrendDelta: { value: number; isPositive: boolean } | undefined = undefined
+  if (atsTrend && atsTrend.length >= 2) {
+    const lastVal = atsTrend[atsTrend.length - 1].value
+    const prevVal = atsTrend[atsTrend.length - 2].value
+    const diff = lastVal - prevVal
+    if (diff !== 0) {
+      atsTrendDelta = { value: Math.abs(diff), isPositive: diff > 0 }
+    }
+  }
+
+  let matchTrendDelta: { value: number; isPositive: boolean } | undefined = undefined
+  if (matchTrend && matchTrend.length >= 2) {
+    const lastVal = matchTrend[matchTrend.length - 1].value
+    const prevVal = matchTrend[matchTrend.length - 2].value
+    const diff = lastVal - prevVal
+    if (diff !== 0) {
+      matchTrendDelta = { value: Math.abs(diff), isPositive: diff > 0 }
+    }
+  }
+
+  let interviewTrendDelta: { value: number; isPositive: boolean } | undefined = undefined
+  if (interviewTrend && interviewTrend.length >= 2) {
+    const lastVal = interviewTrend[interviewTrend.length - 1].value
+    const prevVal = interviewTrend[interviewTrend.length - 2].value
+    const diff = lastVal - prevVal
+    if (diff !== 0) {
+      interviewTrendDelta = { value: Math.abs(diff), isPositive: diff > 0 }
+    }
+  }
+
+  // Primary Metrics
+  const primaryCards = [
+    {
+      title: 'Avg ATS Score',
+      value: analytics?.average_ats_score ?? 0,
+      icon: Award,
+      desc: 'Based on latest resume analysis',
+      metricType: 'percentage' as const,
+      accentColor: 'emerald' as const,
+      zeroStateText: 'No score computed yet',
+      cta: { text: 'Analyze ATS score', to: '/ats' },
+      trend: atsTrendDelta,
+    },
+    {
+      title: 'Career Progress',
+      value: analytics?.career_progress ?? 0,
+      icon: Map,
+      desc: 'Roadmap phase completion',
+      metricType: 'percentage' as const,
+      accentColor: 'purple' as const,
+      zeroStateText: 'No milestones completed',
+      cta: { text: 'Build career roadmap', to: '/roadmap' },
+    },
+    {
+      title: 'Job Matches',
+      value: analytics?.total_job_matches ?? 0,
+      icon: Layers,
+      desc: 'Positions evaluated',
+      metricType: 'number' as const,
+      accentColor: 'blue' as const,
+      zeroStateText: 'No matched positions',
+      cta: { text: 'Scan job matches', to: '/ats' },
+      trend: matchTrendDelta,
+    },
+    {
+      title: 'Total Resumes',
+      value: analytics?.total_resumes ?? 0,
+      icon: FileText,
+      desc: 'CV uploads recorded',
+      metricType: 'number' as const,
+      accentColor: 'teal' as const,
+      zeroStateText: 'No resumes uploaded yet',
+      cta: { text: 'Upload first resume', to: '/resumes' },
+    },
+  ]
+
+  // Secondary Metrics
+  const secondaryCards = [
+    {
+      title: 'Skill Gap Count',
+      value: analytics?.skill_gap_count ?? 0,
+      icon: Scan,
+      desc: 'Missing skillsets identified',
+      accentColor: 'purple' as const,
+      zeroStateText: 'No gaps identified',
+      cta: { text: 'Analyze skill gaps', to: '/roadmap' },
+    },
+    {
+      title: 'Interview Loops',
+      value: analytics?.interview_sessions ?? 0,
+      icon: MessageSquareCode,
+      desc: 'Mock reviews completed',
+      accentColor: 'blue' as const,
+      zeroStateText: 'No loops started',
+      cta: { text: 'Start mock interview', to: '/interview' },
+      trend: interviewTrendDelta,
+    },
+    {
+      title: 'Cover Letters',
+      value: analytics?.cover_letters_generated ?? 0,
+      icon: Sparkles,
+      desc: 'AI drafts created',
+      accentColor: 'teal' as const,
+      zeroStateText: 'No letters generated',
+      cta: { text: 'Create cover letter', to: '/cover-letter' },
+    },
+    {
+      title: 'AI Usage Logs',
+      value: analytics?.ai_usage ?? 0,
+      icon: TrendingUp,
+      desc: 'Prompts run',
+      accentColor: 'teal' as const,
+      zeroStateText: 'No AI prompts logged',
+      cta: { text: 'Interact with copilot', to: '/resumes' },
+    },
   ]
 
   // Construct recent activity items list
@@ -203,7 +344,7 @@ export default function DashboardPage() {
       id: 'latest-resume',
       title: 'Resume Uploaded',
       description: `Resume "${analytics.latest_resume.original_filename}" parsed successfully.`,
-      timestamp: new Date(analytics.latest_resume.uploaded_at).toLocaleDateString(),
+      timestamp: analytics.latest_resume.uploaded_at,
       icon: Upload,
       badgeText: analytics.latest_resume.ats_score ? `Score: ${analytics.latest_resume.ats_score}` : undefined,
       badgeVariant: 'success',
@@ -215,67 +356,108 @@ export default function DashboardPage() {
       id: 'latest-match',
       title: 'Job Match Completed',
       description: `Matched against "${analytics.latest_job_match.job_title}" at ${analytics.latest_job_match.company}.`,
-      timestamp: new Date(analytics.latest_job_match.timestamp).toLocaleDateString(),
+      timestamp: analytics.latest_job_match.timestamp,
       icon: Scan,
       badgeText: `Match: ${analytics.latest_job_match.overall_score}%`,
       badgeVariant: 'info',
     })
   }
 
-  // Fallbacks if lists are empty
-  if (recentActivities.length === 0) {
-    recentActivities.push({
-      id: 'welcome',
-      title: 'Account Activated',
-      description: 'Your Scorelia workspace has been fully initialized.',
-      timestamp: 'Today',
-      icon: CheckCircle2,
-      badgeText: 'Info',
-      badgeVariant: 'secondary',
-    })
-  }
+  // Chart point count checks
+  const scoreLength = scoreTrend?.length ?? 0
+  const atsLength = atsTrend?.length ?? 0
+  const chart1Points = Math.max(scoreLength, atsLength)
+
+  const matchLength = matchTrend?.length ?? 0
+  const interviewLength = interviewTrend?.length ?? 0
+  const chart2Points = Math.max(matchLength, interviewLength)
+
+  const hasWeeklyActivity = weeklyTrend && weeklyTrend.length > 0 && weeklyTrend.some(p => p.value > 0)
+  const hasMonthlyActivity = monthlyTrend && monthlyTrend.length > 0 && monthlyTrend.some(p => p.value > 0)
 
   return (
-    <div className="space-y-6 text-left">
+    <div className="space-y-6 text-left animate-fade-in">
       {/* Welcome Hero / Header */}
-      <div className="relative overflow-hidden rounded-2xl bg-slate-900 dark:bg-slate-900/40 p-6 md:p-8 text-white border border-slate-800 backdrop-blur-md">
-        <div className="absolute right-0 top-0 -mr-16 -mt-16 w-64 h-64 bg-brand-500/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute left-1/3 bottom-0 -ml-16 -mb-16 w-48 h-48 bg-accent-blue/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="relative overflow-hidden rounded-2xl bg-slate-950 dark:bg-slate-900/20 p-6 md:p-8 text-white border border-slate-800 backdrop-blur-md shadow-xl">
+        {/* Glow ornaments */}
+        <div className="absolute right-0 top-0 -mr-16 -mt-16 w-80 h-80 bg-brand-500/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute left-1/4 bottom-0 -ml-16 -mb-16 w-64 h-64 bg-accent-blue/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-2">
-            <span className="text-xs uppercase font-extrabold tracking-widest text-brand-400 font-sans flex items-center gap-1.5">
-              <Calendar size={12} />
-              {currentDate}
-            </span>
-            <h1 className="text-2xl md:text-3xl font-extrabold font-display text-white m-0 tracking-tight leading-tight">
-              Welcome back, {userDisplayName}!
-            </h1>
-            <p className="text-xs md:text-sm text-slate-400 max-w-xl font-sans leading-relaxed">
-              Your intelligent copilot is synchronized. Scan resumes, prep for mocks, and track your career roadmap progress.
-            </p>
+        <div className="relative z-10 space-y-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/60 pb-6">
+            <div className="space-y-1.5">
+              <span className="text-xs uppercase font-extrabold tracking-widest text-brand-400 font-sans flex items-center gap-1.5">
+                <Calendar size={12} className="text-brand-400" />
+                {currentDate}
+              </span>
+              <h1 className="text-2xl md:text-3.5xl font-black font-display text-white m-0 tracking-tight leading-none">
+                {greeting}, {userDisplayName} 👋
+              </h1>
+              <p className="text-xs md:text-sm text-slate-400 max-w-2xl font-sans leading-relaxed">
+                Welcome back to Scorelia. Track your AI-powered career journey, improve your resume, increase ATS scores, prepare for interviews, and monitor your professional growth from one place.
+              </p>
+            </div>
           </div>
-          <Link to="/resumes" className="shrink-0">
-            <Button
-              variant="primary"
-              className="bg-brand-500 hover:bg-brand-600 hover:shadow-brand-500/10 shrink-0 font-display font-bold flex items-center gap-2"
-            >
-              <Upload size={16} />
-              <span>Upload Resume</span>
-            </Button>
-          </Link>
+
+          {/* Hero Quick Actions Grid */}
+          <div className="space-y-3">
+            <p className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Launch Copilot Services</p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <Link to="/resumes" className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900/50 hover:bg-slate-850 border border-slate-800 hover:border-brand-500/40 hover:shadow-[0_0_15px_rgba(15,157,154,0.15)] transition-all duration-200 group">
+                <div className="p-2 rounded-lg bg-brand-500/10 text-brand-400 group-hover:scale-105 transition-transform duration-200">
+                  <Upload size={16} />
+                </div>
+                <div className="text-left min-w-0">
+                  <p className="text-xs font-bold text-white group-hover:text-brand-400 transition-colors">Upload Resume</p>
+                  <p className="text-[10px] text-slate-500 truncate">Import CV file</p>
+                </div>
+              </Link>
+              <Link to="/ats" className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900/50 hover:bg-slate-850 border border-slate-800 hover:border-accent-blue/40 hover:shadow-[0_0_15px_rgba(0,210,255,0.15)] transition-all duration-200 group">
+                <div className="p-2 rounded-lg bg-accent-blue/10 text-accent-blue group-hover:scale-105 transition-transform duration-200">
+                  <Scan size={16} />
+                </div>
+                <div className="text-left min-w-0">
+                  <p className="text-xs font-bold text-white group-hover:text-accent-blue transition-colors">Analyze ATS</p>
+                  <p className="text-[10px] text-slate-500 truncate">Scan score check</p>
+                </div>
+              </Link>
+              <Link to="/cover-letter" className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900/50 hover:bg-slate-850 border border-slate-800 hover:border-accent-purple/40 hover:shadow-[0_0_15px_rgba(170,59,255,0.15)] transition-all duration-200 group">
+                <div className="p-2 rounded-lg bg-accent-purple/10 text-accent-purple group-hover:scale-105 transition-transform duration-200">
+                  <Sparkles size={16} />
+                </div>
+                <div className="text-left min-w-0">
+                  <p className="text-xs font-bold text-white group-hover:text-accent-purple transition-colors">Generate Cover Letter</p>
+                  <p className="text-[10px] text-slate-500 truncate">AI draft editor</p>
+                </div>
+              </Link>
+              <Link to="/interview" className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900/50 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/40 hover:shadow-[0_0_15px_rgba(16,185,129,0.15)] transition-all duration-200 group">
+                <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 group-hover:scale-105 transition-transform duration-200">
+                  <MessageSquareCode size={16} />
+                </div>
+                <div className="text-left min-w-0">
+                  <p className="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors">Start Mock Interview</p>
+                  <p className="text-[10px] text-slate-500 truncate">Practice prep bot</p>
+                </div>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Statistics Grid */}
+      {/* Primary KPI & Important Metrics Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {statCards.map((stat, i) => (
+        {primaryCards.map((stat, i) => (
           <StatisticCard
             key={i}
             title={stat.title}
             value={stat.value}
             icon={stat.icon}
             description={stat.desc}
+            metricType={stat.metricType}
+            accentColor={stat.accentColor}
+            zeroStateText={stat.zeroStateText}
+            cta={stat.cta}
+            trend={stat.trend}
           />
         ))}
       </div>
@@ -288,25 +470,38 @@ export default function DashboardPage() {
           description="Timeline progression of your resume review ratings and ATS evaluations."
         >
           {scoreLoading || atsLoading ? (
-            <div className="h-full flex items-center justify-center text-xs text-slate-400">Loading chart records...</div>
+            <div className="h-full flex items-center justify-center text-xs text-slate-400 animate-pulse">Loading chart records...</div>
+          ) : chart1Points === 0 ? (
+            <ChartEmptyState
+              message="No historical data available. Analyze your first resume to unlock performance trends."
+              ctaText="Analyze Resume"
+              ctaTo="/ats"
+            />
           ) : (
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart>
-                <defs>
-                  <linearGradient id="scoreColor" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#0F9D9A" stopOpacity={0.2}/>
-                    <stop offset="95%" stopColor="#0F9D9A" stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
-                <XAxis dataKey="label" stroke="#94a3b8" fontSize={11} tickLine={false} />
-                <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} domain={[0, 100]} />
-                <Tooltip />
-                <Legend verticalAlign="top" height={36} iconType="circle" />
-                <Area type="monotone" data={scoreTrend || []} dataKey="value" stroke="#0F9D9A" fillOpacity={1} fill="url(#scoreColor)" name="Resume Score" strokeWidth={2.5} />
-                <Area type="monotone" data={atsTrend || []} dataKey="value" stroke="#00D2FF" fillOpacity={0} name="ATS Progress" strokeWidth={2} />
-              </AreaChart>
-            </ResponsiveContainer>
+            <div className="h-full flex flex-col justify-between">
+              <ResponsiveContainer width="100%" height={chart1Points === 1 ? '85%' : '100%'}>
+                <AreaChart>
+                  <defs>
+                    <linearGradient id="scoreColor" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#0F9D9A" stopOpacity={0.2}/>
+                      <stop offset="95%" stopColor="#0F9D9A" stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
+                  <XAxis dataKey="label" stroke="#94a3b8" fontSize={11} tickLine={false} />
+                  <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} domain={[0, 100]} />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend verticalAlign="top" height={36} iconType="circle" />
+                  <Area type="monotone" data={scoreTrend || []} dataKey="value" stroke="#0F9D9A" fillOpacity={1} fill="url(#scoreColor)" name="Resume Score" strokeWidth={2.5} animationDuration={400} />
+                  <Area type="monotone" data={atsTrend || []} dataKey="value" stroke="#00D2FF" fillOpacity={0} name="ATS Progress" strokeWidth={2} animationDuration={400} />
+                </AreaChart>
+              </ResponsiveContainer>
+              {chart1Points === 1 && (
+                <p className="text-[10px] text-slate-400 dark:text-slate-500 text-center font-sans font-semibold uppercase tracking-wider">
+                  Trend line unlocks after your second analysis.
+                </p>
+              )}
+            </div>
           )}
         </ChartCard>
 
@@ -316,19 +511,32 @@ export default function DashboardPage() {
           description="Comparison of job match scoring percentages against mock interview turns."
         >
           {matchLoading || interviewLoading ? (
-            <div className="h-full flex items-center justify-center text-xs text-slate-400">Loading chart records...</div>
+            <div className="h-full flex items-center justify-center text-xs text-slate-400 animate-pulse">Loading chart records...</div>
+          ) : chart2Points === 0 ? (
+            <ChartEmptyState
+              message="No historical data available. Perform job match scans or interview prep to see performance trends."
+              ctaText="Start Mock Interview"
+              ctaTo="/interview"
+            />
           ) : (
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
-                <XAxis dataKey="label" stroke="#94a3b8" fontSize={11} tickLine={false} />
-                <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} domain={[0, 100]} />
-                <Tooltip />
-                <Legend verticalAlign="top" height={36} iconType="circle" />
-                <Line type="monotone" data={matchTrend || []} dataKey="value" stroke="#0F9D9A" name="Match Score" strokeWidth={2.5} activeDot={{ r: 6 }} />
-                <Line type="monotone" data={interviewTrend || []} dataKey="value" stroke="#00D2FF" name="Interview Prep" strokeWidth={2} />
-              </LineChart>
-            </ResponsiveContainer>
+            <div className="h-full flex flex-col justify-between">
+              <ResponsiveContainer width="100%" height={chart2Points === 1 ? '85%' : '100%'}>
+                <LineChart>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
+                  <XAxis dataKey="label" stroke="#94a3b8" fontSize={11} tickLine={false} />
+                  <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} domain={[0, 100]} />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend verticalAlign="top" height={36} iconType="circle" />
+                  <Line type="monotone" data={matchTrend || []} dataKey="value" stroke="#0F9D9A" name="Match Score" strokeWidth={2.5} activeDot={{ r: 6 }} animationDuration={400} />
+                  <Line type="monotone" data={interviewTrend || []} dataKey="value" stroke="#00D2FF" name="Interview Prep" strokeWidth={2} animationDuration={400} />
+                </LineChart>
+              </ResponsiveContainer>
+              {chart2Points === 1 && (
+                <p className="text-[10px] text-slate-400 dark:text-slate-500 text-center font-sans font-semibold uppercase tracking-wider">
+                  Trend line unlocks after your second analysis.
+                </p>
+              )}
+            </div>
           )}
         </ChartCard>
 
@@ -338,7 +546,13 @@ export default function DashboardPage() {
           description="Aggregated user events and AI analyses completed over the past 7 days."
         >
           {weeklyLoading ? (
-            <div className="h-full flex items-center justify-center text-xs text-slate-400">Loading chart records...</div>
+            <div className="h-full flex items-center justify-center text-xs text-slate-400 animate-pulse">Loading chart records...</div>
+          ) : !hasWeeklyActivity ? (
+            <ChartEmptyState
+              message="No weekly activity recorded. Perform actions in the workspace to build stats."
+              ctaText="Upload Resume"
+              ctaTo="/resumes"
+            />
           ) : (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={weeklyTrend || []}>
@@ -346,7 +560,7 @@ export default function DashboardPage() {
                 <XAxis dataKey="label" stroke="#94a3b8" fontSize={11} tickLine={false} />
                 <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} allowDecimals={false} />
                 <Tooltip />
-                <Bar dataKey="value" fill="#0F9D9A" radius={[6, 6, 0, 0]} name="Actions" maxBarSize={32} />
+                <Bar dataKey="value" fill="#0F9D9A" radius={[6, 6, 0, 0]} name="Actions" maxBarSize={32} animationDuration={400} />
               </BarChart>
             </ResponsiveContainer>
           )}
@@ -358,7 +572,13 @@ export default function DashboardPage() {
           description="Chronological aggregate counts of actions completed throughout the current year."
         >
           {monthlyLoading ? (
-            <div className="h-full flex items-center justify-center text-xs text-slate-400">Loading chart records...</div>
+            <div className="h-full flex items-center justify-center text-xs text-slate-400 animate-pulse">Loading chart records...</div>
+          ) : !hasMonthlyActivity ? (
+            <ChartEmptyState
+              message="No monthly activity recorded. Perform actions in the workspace to build stats."
+              ctaText="Upload Resume"
+              ctaTo="/resumes"
+            />
           ) : (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={monthlyTrend || []}>
@@ -366,22 +586,40 @@ export default function DashboardPage() {
                 <XAxis dataKey="label" stroke="#94a3b8" fontSize={11} tickLine={false} />
                 <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} allowDecimals={false} />
                 <Tooltip />
-                <Bar dataKey="value" fill="#0F9D9A" radius={[6, 6, 0, 0]} name="Actions" maxBarSize={32} />
+                <Bar dataKey="value" fill="#0F9D9A" radius={[6, 6, 0, 0]} name="Actions" maxBarSize={32} animationDuration={400} />
               </BarChart>
             </ResponsiveContainer>
           )}
         </ChartCard>
       </div>
 
+      {/* Secondary Metrics Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {secondaryCards.map((stat, i) => (
+          <StatisticCard
+            key={i}
+            title={stat.title}
+            value={stat.value}
+            icon={stat.icon}
+            description={stat.desc}
+            accentColor={stat.accentColor}
+            zeroStateText={stat.zeroStateText}
+            cta={stat.cta}
+            trend={stat.trend}
+          />
+        ))}
+      </div>
+
+      {/* Quick Navigation, Recent Activity & Resumes List Table */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Quick Actions Panel */}
-        <div className="lg:col-span-1 space-y-4">
-          <Card className="border-slate-200/60 dark:border-slate-800/40 bg-white/40 dark:bg-slate-900/30 backdrop-blur-md">
+        {/* Left Side: Quick Navigation & Timeline */}
+        <div className="lg:col-span-1 space-y-6">
+          <Card className="border-slate-200/60 dark:border-slate-850 bg-white/40 dark:bg-slate-900/30 backdrop-blur-md rounded-2xl">
             <CardHeader className="text-left pb-4">
               <CardTitle className="text-lg font-bold font-display text-slate-900 dark:text-slate-50">
                 Quick Navigation
               </CardTitle>
-              <CardDescription className="text-xs text-slate-500 dark:text-slate-400">
+              <CardDescription className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                 Launch copilot tools to build resume drafts and prepare for applications.
               </CardDescription>
             </CardHeader>
@@ -396,7 +634,7 @@ export default function DashboardPage() {
               />
               <QuickActionCard
                 title="AI Mock Interview"
-                description="Simulate turn-based mock reviews"
+                description="Simulate mock recruiter reviews"
                 icon={MessageSquareCode}
                 to="/interview"
                 bgColor="bg-emerald-500/10"
@@ -421,15 +659,15 @@ export default function DashboardPage() {
           />
         </div>
 
-        {/* Resumes List Table */}
-        <Card className="lg:col-span-2 border-slate-200/60 dark:border-slate-800/40 bg-white/40 dark:bg-slate-900/30 backdrop-blur-md">
-          <CardHeader className="pb-4">
+        {/* Right Side: Resumes List Table */}
+        <Card className="lg:col-span-2 border-slate-200/60 dark:border-slate-850 bg-white/40 dark:bg-slate-900/30 backdrop-blur-md rounded-2xl">
+          <CardHeader className="pb-4 text-left">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <CardTitle className="text-lg font-bold font-display text-slate-900 dark:text-slate-50">
                   Resumes List
                 </CardTitle>
-                <CardDescription className="text-xs text-slate-555">
+                <CardDescription className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                   Chronological record of your uploaded credentials and computed ATS levels.
                 </CardDescription>
               </div>
@@ -437,57 +675,61 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             {resumes.length === 0 ? (
-              <div className="py-12 text-center text-xs text-slate-500 dark:text-slate-400 font-sans italic">
-                No resumes uploaded yet. Click "Upload Resume" to get started.
+              <div className="py-12 text-center text-xs text-slate-500 dark:text-slate-400 font-sans italic border border-dashed border-slate-200 dark:border-slate-800 rounded-xl">
+                No resumes uploaded yet. Click "Upload Resume" in the Copilot launch grid to get started.
               </div>
             ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>File Name</TableHead>
-                    <TableHead>Uploaded</TableHead>
-                    <TableHead>ATS Score</TableHead>
-                    <TableHead>Status</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {resumes.slice(0, 5).map((resume) => (
-                    <TableRow key={resume.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-900/10">
-                      <TableCell className="font-semibold text-slate-900 dark:text-slate-200 truncate max-w-[200px]">
-                        {resume.original_filename}
-                      </TableCell>
-                      <TableCell>{new Date(resume.uploaded_at).toLocaleDateString()}</TableCell>
-                      <TableCell>
-                        {resume.ats_score !== null ? (
-                          <span
-                            className={cn(
-                              'font-extrabold font-display text-sm',
-                              resume.ats_score >= 80 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'
-                            )}
-                          >
-                            {resume.ats_score}/100
-                          </span>
-                        ) : (
-                          <span className="text-slate-400 font-sans">N/A</span>
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        <Badge
-                          variant={
-                            resume.status.toLowerCase() === 'completed' || resume.status.toLowerCase() === 'parsed'
-                              ? 'success'
-                              : resume.status.toLowerCase() === 'failed'
-                              ? 'error'
-                              : 'warning'
-                          }
-                        >
-                          {resume.status}
-                        </Badge>
-                      </TableCell>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="border-slate-100 dark:border-slate-800">
+                      <TableHead className="font-bold text-[10px] uppercase tracking-wider text-slate-400">File Name</TableHead>
+                      <TableHead className="font-bold text-[10px] uppercase tracking-wider text-slate-400">Uploaded</TableHead>
+                      <TableHead className="font-bold text-[10px] uppercase tracking-wider text-slate-400">ATS Score</TableHead>
+                      <TableHead className="font-bold text-[10px] uppercase tracking-wider text-slate-400">Status</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {resumes.slice(0, 5).map((resume) => (
+                      <TableRow key={resume.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-900/10 transition-colors border-slate-100 dark:border-slate-800">
+                        <TableCell className="font-bold text-slate-900 dark:text-slate-200 truncate max-w-[200px] text-left">
+                          {resume.original_filename}
+                        </TableCell>
+                        <TableCell className="text-slate-550 dark:text-slate-400 font-medium text-left">
+                          {new Date(resume.uploaded_at).toLocaleDateString()}
+                        </TableCell>
+                        <TableCell className="text-left">
+                          {resume.ats_score !== null ? (
+                            <span
+                              className={cn(
+                                'font-black font-display text-sm',
+                                resume.ats_score >= 80 ? 'text-emerald-500' : 'text-amber-500'
+                              )}
+                            >
+                              {resume.ats_score}/100
+                            </span>
+                          ) : (
+                            <span className="text-slate-400 font-sans font-semibold">N/A</span>
+                          )}
+                        </TableCell>
+                        <TableCell className="text-left">
+                          <Badge
+                            variant={
+                              resume.status.toLowerCase() === 'completed' || resume.status.toLowerCase() === 'parsed'
+                                ? 'success'
+                                : resume.status.toLowerCase() === 'failed'
+                                ? 'error'
+                                : 'warning'
+                            }
+                          >
+                            {resume.status}
+                          </Badge>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
             )}
           </CardContent>
         </Card>

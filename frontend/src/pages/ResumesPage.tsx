@@ -31,13 +31,30 @@ import {
   Download,
   ArrowLeft,
   Sparkles,
-  TrendingUp,
   Server,
   Activity,
   Award,
 } from 'lucide-react'
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
 import { Spinner } from '@/components/ui/Spinner'
+import { ChartEmptyState } from '@/components/ui/ChartEmptyState'
+import { cn } from '@/lib/utils'
+
+function CustomTooltip({ active, payload, label }: any) {
+  if (active && payload && payload.length) {
+    return (
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+        <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400">{label}</p>
+        <div className="mt-1.5 flex items-center gap-2 font-semibold">
+          <span className="h-2 w-2 rounded-full bg-brand-500" />
+          <span className="text-slate-500 dark:text-slate-400">Uploads:</span>
+          <span className="text-slate-900 dark:text-slate-100">{payload[0].value}</span>
+        </div>
+      </div>
+    )
+  }
+  return null
+}
 
 export default function ResumesPage() {
   const queryClient = useQueryClient()
@@ -219,8 +236,18 @@ export default function ResumesPage() {
   const formatBytes = (bytes: number) => {
     if (bytes === 0) return '0 KB'
     const k = 1024
+    if (bytes < k * k) {
+      return (bytes / k).toFixed(1) + ' KB'
+    }
     return (bytes / (k * k)).toFixed(1) + ' MB'
   }
+
+  const avgAtsScore = (() => {
+    const ratedResumes = resumes.filter((r) => r.ats_score !== null)
+    if (ratedResumes.length === 0) return 0
+    const sum = ratedResumes.reduce((acc, curr) => acc + (curr.ats_score || 0), 0)
+    return Math.round(sum / ratedResumes.length)
+  })()
 
   // Generate upload activity list for chart
   const uploadActivityData = (() => {
@@ -253,10 +280,10 @@ export default function ResumesPage() {
   }
 
   return (
-    <div className="space-y-6 text-left animate-fadeIn font-sans">
+    <div className="space-y-6 text-left animate-fade-in font-sans">
       {/* Workspace Banner */}
-      <div className="p-4 bg-amber-500/10 border border-amber-500/20 text-amber-800 dark:text-amber-300 rounded-xl flex items-start gap-3">
-        <Hammer className="shrink-0 mt-0.5" size={20} />
+      <div className="p-4 bg-amber-500/5 dark:bg-amber-500/8 border border-amber-500/20 text-amber-800 dark:text-amber-300 rounded-2xl flex items-start gap-3 shadow-xs">
+        <Hammer className="shrink-0 mt-0.5 text-amber-550 dark:text-amber-400" size={20} />
         <div>
           <strong className="block font-semibold font-display text-sm">Resume Management Live</strong>
           <p className="text-xs mt-0.5 leading-relaxed font-sans">
@@ -268,41 +295,56 @@ export default function ResumesPage() {
       {/* Main Page Headers & Action Buttons */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold font-display text-slate-900 dark:text-white m-0">
+          <h1 className="text-2xl md:text-3xl font-black font-display text-slate-900 dark:text-white m-0 tracking-tight leading-none">
             Resume Workspace
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1.5 font-sans leading-relaxed">
             Build, optimize, parse, and review your professional profiles.
           </p>
         </div>
 
         {currentView !== 'workspace' && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 bg-slate-105/50 dark:bg-slate-900/40 p-1 rounded-2xl border border-slate-200/50 dark:border-slate-800/85">
             <Button
               variant={currentView === 'dashboard' ? 'primary' : 'ghost'}
               size="sm"
               onClick={() => setCurrentView('dashboard')}
-              className="flex items-center gap-1.5 text-xs font-semibold cursor-pointer"
+              className={cn(
+                'flex items-center gap-1.5 text-xs font-bold cursor-pointer rounded-xl transition-all duration-250 px-3 py-1.5',
+                currentView === 'dashboard'
+                  ? 'bg-brand-600 hover:bg-brand-700 text-white shadow-xs'
+                  : 'text-slate-500 hover:text-slate-950 dark:hover:text-slate-150 hover:bg-slate-100/50 dark:hover:bg-slate-850/60'
+              )}
             >
-              <LayoutDashboard size={14} />
+              <LayoutDashboard size={13} />
               <span>Dashboard</span>
             </Button>
             <Button
               variant={currentView === 'list' ? 'primary' : 'ghost'}
               size="sm"
               onClick={() => setCurrentView('list')}
-              className="flex items-center gap-1.5 text-xs font-semibold cursor-pointer"
+              className={cn(
+                'flex items-center gap-1.5 text-xs font-bold cursor-pointer rounded-xl transition-all duration-250 px-3 py-1.5',
+                currentView === 'list'
+                  ? 'bg-brand-600 hover:bg-brand-700 text-white shadow-xs'
+                  : 'text-slate-500 hover:text-slate-950 dark:hover:text-slate-150 hover:bg-slate-100/50 dark:hover:bg-slate-850/60'
+              )}
             >
-              <ListFilter size={14} />
+              <ListFilter size={13} />
               <span>Inventory List</span>
             </Button>
             <Button
               variant={currentView === 'upload' ? 'primary' : 'ghost'}
               size="sm"
               onClick={() => setCurrentView('upload')}
-              className="flex items-center gap-1.5 text-xs font-semibold cursor-pointer"
+              className={cn(
+                'flex items-center gap-1.5 text-xs font-bold cursor-pointer rounded-xl transition-all duration-250 px-3 py-1.5',
+                currentView === 'upload'
+                  ? 'bg-brand-600 hover:bg-brand-700 text-white shadow-xs'
+                  : 'text-slate-500 hover:text-slate-950 dark:hover:text-slate-150 hover:bg-slate-100/50 dark:hover:bg-slate-850/60'
+              )}
             >
-              <Upload size={14} />
+              <Upload size={13} />
               <span>Upload Files</span>
             </Button>
           </div>
@@ -317,72 +359,83 @@ export default function ResumesPage() {
       {currentView === 'dashboard' && totalResumes > 0 && (
         <div className="space-y-6">
           {/* Stats Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             <StatisticCard
               title="Total Resumes"
               value={totalResumes}
               description="Uploaded resume profiles"
               icon={FileText}
+              metricType="number"
+              accentColor="teal"
+              zeroStateText="No resumes uploaded yet"
+              cta={{ text: 'Upload first resume', onClick: () => setCurrentView('upload') }}
             />
             <StatisticCard
               title="Parse Success Rate"
-              value={`${parsingSuccessRate}%`}
+              value={parsingSuccessRate}
               description="spaCy extraction success"
               icon={Sparkles}
+              metricType="percentage"
+              accentColor="emerald"
+              zeroStateText="No parses completed"
+              cta={{ text: 'Upload files to parse', onClick: () => setCurrentView('upload') }}
             />
             <StatisticCard
               title="Storage Occupied"
-              value={formatBytes(totalStorageBytes)}
+              value={totalResumes > 0 ? formatBytes(totalStorageBytes) : '0 KB'}
               description="Local server storage"
               icon={Server}
+              metricType="number"
+              accentColor="blue"
+              zeroStateText="0 MB occupied"
+              cta={{ text: 'Upload resume file', onClick: () => setCurrentView('upload') }}
             />
             <StatisticCard
               title="Avg. ATS Score"
-              value={
-                resumes.filter((r) => r.ats_score !== null).length > 0
-                  ? Math.round(
-                      resumes
-                        .filter((r) => r.ats_score !== null)
-                        .reduce((acc, curr) => acc + (curr.ats_score || 0), 0) /
-                        resumes.filter((r) => r.ats_score !== null).length
-                    )
-                  : 'N/A'
-              }
+              value={avgAtsScore}
               description="Across analyzed profiles"
               icon={Award}
+              metricType="percentage"
+              accentColor="emerald"
+              zeroStateText="No ATS scores computed"
+              cta={{ text: 'Calculate ATS scores', onClick: () => setCurrentView('list') }}
             />
           </div>
 
           {/* Quick Dashboard Activity and Actions */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Chart: Upload Activity */}
-            <Card className="lg:col-span-2 p-5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col justify-between">
-              <div className="flex items-center gap-2 mb-4 text-left">
-                <Activity className="text-brand-500" size={18} />
-                <h3 className="text-sm font-bold font-display text-slate-850 dark:text-slate-100 m-0">
+            <Card className="lg:col-span-2 p-5 border border-slate-200/60 dark:border-slate-850 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm flex flex-col justify-between hover:border-slate-350 dark:hover:border-slate-700 transition-all duration-300">
+              <div className="flex items-center gap-2 mb-4 text-left border-b border-slate-100 dark:border-slate-800/60 pb-2.5">
+                <Activity className="text-brand-500" size={16} />
+                <h3 className="text-sm font-bold font-display text-slate-900 dark:text-slate-100 m-0">
                   Upload Activity History
                 </h3>
               </div>
               <div className="h-56 w-full font-sans text-xs">
                 {uploadActivityData.length === 0 ? (
-                  <div className="h-full flex items-center justify-center text-slate-400">
-                    No upload activity logs.
-                  </div>
+                  <ChartEmptyState
+                    message="No upload activity recorded. Upload your first resume file to start building your career database."
+                    ctaText="Upload Resume"
+                    ctaOnClick={() => setCurrentView('upload')}
+                  />
                 ) : (
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={uploadActivityData}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
-                      <XAxis dataKey="date" stroke="#94a3b8" />
-                      <YAxis allowDecimals={false} stroke="#94a3b8" />
-                      <Tooltip
-                        contentStyle={{
-                          borderRadius: '8px',
-                          border: '1px solid #e2e8f0',
-                        }}
-                      />
-                      <Bar dataKey="count" fill="#0F9D9A" radius={[6, 6, 0, 0]} barSize={32} />
-                    </BarChart>
-                  </ResponsiveContainer>
+                  <div className="h-full flex flex-col justify-between">
+                    <ResponsiveContainer width="100%" height={uploadActivityData.length === 1 ? '85%' : '100%'}>
+                      <BarChart data={uploadActivityData}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
+                        <XAxis dataKey="date" stroke="#94a3b8" tickLine={false} fontSize={11} />
+                        <YAxis allowDecimals={false} stroke="#94a3b8" tickLine={false} fontSize={11} />
+                        <Tooltip content={<CustomTooltip />} />
+                        <Bar dataKey="count" fill="#0F9D9A" radius={[6, 6, 0, 0]} barSize={32} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                    {uploadActivityData.length === 1 && (
+                      <p className="text-[10px] text-slate-400 dark:text-slate-500 text-center font-sans font-semibold uppercase tracking-wider">
+                        Activity tracking enabled. Upload more files to build a rich historical record.
+                      </p>
+                    )}
+                  </div>
                 )}
               </div>
             </Card>
@@ -391,34 +444,41 @@ export default function ResumesPage() {
             <div className="space-y-6 lg:col-span-1">
               {/* Latest Uploaded Resume Summary */}
               {latestResume && (
-                <Card className="p-5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-4 text-left">
-                  <div className="flex items-center gap-2 text-slate-500">
-                    <TrendingUp size={16} />
-                    <h3 className="text-xs font-bold uppercase tracking-wider font-display m-0">
+                <Card className="p-5 border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm text-left">
+                  <div className="flex items-center gap-2 text-slate-400 dark:text-slate-555 mb-3 pb-2.5 border-b border-slate-100 dark:border-slate-800/60">
+                    <Activity size={15} className="text-brand-500" />
+                    <h3 className="text-xs font-extrabold uppercase tracking-wider font-display m-0">
                       Latest Activity
                     </h3>
                   </div>
 
-                  <div className="space-y-1">
-                    <p className="text-sm font-semibold text-slate-850 dark:text-slate-100 truncate">
-                      {latestResume.original_filename}
-                    </p>
-                    <div className="flex items-center gap-2 text-[10px] text-slate-450 dark:text-slate-500">
-                      <span className="uppercase">{latestResume.file_type}</span>
-                      <span>•</span>
-                      <span>Uploaded {new Date(latestResume.uploaded_at).toLocaleDateString()}</span>
+                  <div className="relative pl-7 py-0.5 text-left">
+                    {/* Mini Timeline Line */}
+                    <div className="absolute left-[9px] top-4 bottom-2 w-0.5 bg-slate-250 dark:bg-slate-800" />
+                    {/* Mini Timeline Node */}
+                    <div className="absolute left-0 top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand-500/10 text-brand-500 border border-brand-500/20 z-10">
+                      <FileText size={10} />
+                    </div>
+
+                    <div className="space-y-1">
+                      <p className="text-xs font-bold text-slate-900 dark:text-slate-150 truncate max-w-[220px]" title={latestResume.original_filename}>
+                        {latestResume.original_filename}
+                      </p>
+                      <p className="text-[10px] text-slate-500 font-medium">
+                        Uploaded {new Date(latestResume.uploaded_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                      </p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-850">
+                  <div className="flex items-center gap-2 pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/60">
                     <Button
-                      variant="ghost"
+                      variant="secondary"
                       size="sm"
                       onClick={() => handleViewDetails(latestResume.id)}
-                      className="text-[11px] py-1 px-3 flex-1 flex items-center justify-center gap-1 cursor-pointer"
+                      className="text-[11px] py-1.5 px-3 flex-1 flex items-center justify-center gap-1.5 cursor-pointer rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors font-bold"
                     >
                       <Eye size={12} />
-                      <span>View details</span>
+                      <span>View Details</span>
                     </Button>
                     {latestResume.status.toLowerCase() === 'parsed' && (
                       <Button
@@ -426,9 +486,9 @@ export default function ResumesPage() {
                         size="sm"
                         onClick={() => scoreMutation.mutate(latestResume.id)}
                         disabled={scoreMutation.isPending}
-                        className="text-[11px] py-1 px-3 flex-1 flex items-center justify-center gap-1 cursor-pointer"
+                        className="text-[11px] py-1.5 px-3 flex-1 flex items-center justify-center gap-1.5 cursor-pointer rounded-xl font-bold bg-brand-600 hover:bg-brand-700 transition-colors"
                       >
-                        <Play size={12} />
+                        {scoreMutation.isPending ? <Spinner size="sm" className="text-white" /> : <Play size={12} />}
                         <span>ATS Analysis</span>
                       </Button>
                     )}
@@ -437,24 +497,35 @@ export default function ResumesPage() {
               )}
 
               {/* General Quick Actions list */}
-              <Card className="p-5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-4 text-left font-sans">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-display m-0">
+              <Card className="p-5 border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm space-y-3.5 text-left font-sans animate-fadeIn">
+                <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-550 font-display m-0">
                   Quick Actions
                 </h3>
-                <div className="grid grid-cols-2 gap-2 text-xs">
+                <div className="flex flex-col gap-2">
                   <button
                     onClick={() => setCurrentView('upload')}
-                    className="p-3 bg-slate-50 dark:bg-slate-850/50 hover:bg-brand-50 dark:hover:bg-brand-950/20 border border-slate-150 dark:border-slate-800 rounded-xl font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-650 cursor-pointer text-center space-y-1 transition-all"
+                    className="flex items-center gap-3 p-3 w-full bg-slate-50 dark:bg-slate-850/30 hover:bg-brand-500/5 hover:border-brand-500/20 border border-slate-150 dark:border-slate-800/80 rounded-xl font-bold text-xs text-slate-750 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 group cursor-pointer"
                   >
-                    <Plus className="mx-auto" size={16} />
-                    <span>Upload New</span>
+                    <div className="p-1.5 rounded-lg bg-brand-500/10 text-brand-500 group-hover:scale-105 transition-transform duration-200 shrink-0">
+                      <Plus size={14} className="stroke-[2.5]" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-bold m-0 leading-tight">Upload New Resume</p>
+                      <p className="text-[9px] text-slate-450 dark:text-slate-500 mt-0.5 leading-none">Import PDF/DOCX profiles</p>
+                    </div>
                   </button>
+
                   <button
                     onClick={() => setCurrentView('list')}
-                    className="p-3 bg-slate-50 dark:bg-slate-850/50 hover:bg-brand-50 dark:hover:bg-brand-950/20 border border-slate-150 dark:border-slate-800 rounded-xl font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-650 cursor-pointer text-center space-y-1 transition-all"
+                    className="flex items-center gap-3 p-3 w-full bg-slate-50 dark:bg-slate-850/30 hover:bg-brand-500/5 hover:border-brand-500/20 border border-slate-150 dark:border-slate-800/80 rounded-xl font-bold text-xs text-slate-750 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 group cursor-pointer"
                   >
-                    <ListFilter className="mx-auto" size={16} />
-                    <span>View List</span>
+                    <div className="p-1.5 rounded-lg bg-brand-500/10 text-brand-500 group-hover:scale-105 transition-transform duration-200 shrink-0">
+                      <ListFilter size={14} className="stroke-[2.5]" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-bold m-0 leading-tight">View Resume Inventory</p>
+                      <p className="text-[9px] text-slate-450 dark:text-slate-500 mt-0.5 leading-none">Manage parsed profiles list</p>
+                    </div>
                   </button>
                 </div>
               </Card>
@@ -463,10 +534,10 @@ export default function ResumesPage() {
 
           {/* Grid Layout of resumes */}
           <div className="space-y-4">
-            <h3 className="text-sm font-bold font-display text-slate-800 dark:text-slate-100 text-left">
-              Recent uploads
+            <h3 className="text-sm font-bold font-display text-slate-900 dark:text-slate-100 text-left">
+              Recent Uploads
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {resumes.slice(0, 3).map((resume) => (
                 <ResumeCard
                   key={resume.id}
@@ -505,7 +576,7 @@ export default function ResumesPage() {
 
       {/* ==================== VIEW 3: UPLOAD ZONE ==================== */}
       {currentView === 'upload' && (
-        <Card className="p-6 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-2xl shadow-sm">
+        <Card className="p-6 border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm">
           <ResumeUploadZone onUploadSuccess={() => queryClient.invalidateQueries({ queryKey: ['resumesList'] })} />
         </Card>
       )}
@@ -514,7 +585,7 @@ export default function ResumesPage() {
       {currentView === 'workspace' && selectedResumeId && (
         <div className="space-y-6">
           {/* Workspace Sub Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-2xl shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm">
             <div className="flex items-center gap-3">
               <Button
                 variant="ghost"
@@ -523,12 +594,12 @@ export default function ResumesPage() {
                   setSelectedResumeId(null)
                   setCurrentView('list')
                 }}
-                className="p-2 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl cursor-pointer"
+                className="p-2 text-slate-500 hover:text-slate-800 dark:hover:text-slate-205 hover:bg-slate-100 dark:hover:bg-slate-850 rounded-xl cursor-pointer"
               >
                 <ArrowLeft size={16} />
               </Button>
               <div className="text-left">
-                <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-slate-400 dark:text-slate-555">
                   Workspace Profile
                 </span>
                 <h2 className="text-sm font-bold font-display text-slate-800 dark:text-white truncate max-w-sm m-0">

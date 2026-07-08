@@ -47,22 +47,22 @@ export default function ResumeCard({
   return (
     <div
       className={cn(
-        'group relative flex flex-col justify-between p-5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300',
+        'group relative flex flex-col justify-between p-5 border border-slate-200/60 dark:border-slate-850 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-[0_4px_25px_rgba(0,0,0,0.015)] dark:shadow-none hover:border-brand-500/30 dark:hover:border-brand-500/20 hover:bg-white dark:hover:bg-slate-900/60 hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] dark:hover:shadow-none transition-all duration-300',
         className
       )}
     >
       <div className="space-y-4">
         {/* Card Header */}
         <div className="flex items-start justify-between gap-2">
-          <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-500 dark:text-slate-400 group-hover:scale-105 transition-transform duration-300">
-            <FileText size={24} />
+          <div className="p-2.5 bg-slate-50 dark:bg-slate-850 rounded-xl text-slate-400 dark:text-slate-550 border border-slate-100 dark:border-slate-800/80 group-hover:scale-105 group-hover:bg-brand-500/5 group-hover:text-brand-500 group-hover:border-brand-500/10 transition-all duration-300 shadow-xs">
+            <FileText size={20} className="stroke-[1.75]" />
           </div>
           <div className="flex flex-col items-end gap-1.5">
-            <Badge variant={getStatusColor(resume.status)} className="capitalize text-[10px]">
+            <Badge variant={getStatusColor(resume.status)} className="capitalize text-[9px] px-2 py-0">
               {resume.status}
             </Badge>
             {resume.ats_score !== null && (
-              <span className="text-xs font-bold font-display text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/45 px-2 py-0.5 rounded-lg border border-brand-100 dark:border-brand-900/30">
+              <span className="text-[10px] font-black font-display text-brand-600 dark:text-brand-400 bg-brand-50/50 dark:bg-brand-950/30 px-2 py-0.5 rounded-lg border border-brand-100/50 dark:border-brand-900/20 shadow-2xs">
                 ATS: {resume.ats_score}/100
               </span>
             )}
@@ -70,73 +70,73 @@ export default function ResumeCard({
         </div>
 
         {/* Content */}
-        <div className="space-y-1">
+        <div className="space-y-1.5 text-left">
           <h4
-            className="font-semibold text-sm text-slate-800 dark:text-slate-100 line-clamp-1 group-hover:text-brand-650 dark:group-hover:text-brand-400 transition-colors duration-200 cursor-pointer text-left"
+            className="font-bold text-sm text-slate-900 dark:text-slate-100 line-clamp-1 group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors duration-200 cursor-pointer"
             onClick={() => onView && onView(resume.id)}
             title={resume.original_filename}
           >
             {resume.original_filename}
           </h4>
-          <div className="flex items-center gap-2 text-[11px] text-slate-550 dark:text-slate-450 font-sans">
-            <span className="uppercase">{resume.file_type}</span>
-            <span className="w-1 h-1 bg-slate-300 dark:bg-slate-650 rounded-full" />
+          <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 font-sans">
+            <span className="text-slate-500 dark:text-slate-400">{resume.file_type}</span>
+            <span className="w-1 h-1 bg-slate-350 dark:bg-slate-700 rounded-full" />
             <span>{formatFileSize(resume.file_size)}</span>
           </div>
         </div>
       </div>
 
       {/* Footer Info */}
-      <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-850 flex items-center justify-between">
-        <span className="text-[10px] text-slate-400 dark:text-slate-500 font-sans">
-          Uploaded {new Date(resume.uploaded_at).toLocaleDateString()}
+      <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between">
+        <span className="text-[10px] font-medium text-slate-450 dark:text-slate-500 font-sans">
+          {new Date(resume.uploaded_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
         </span>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-0.5">
           {onView && (
             <button
               onClick={() => onView(resume.id)}
-              className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-450 hover:bg-slate-50 dark:hover:bg-slate-800/80 rounded-lg cursor-pointer transition-colors"
+              className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-brand-500 dark:hover:text-brand-400 hover:bg-slate-50 dark:hover:bg-slate-850 rounded-lg cursor-pointer transition-colors"
               title="View Parsed Content"
             >
-              <Eye size={14} />
+              <Eye size={13} />
             </button>
           )}
           {onEdit && resume.status.toLowerCase() !== 'failed' && (
             <button
               onClick={() => onEdit(resume.id)}
-              className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-450 hover:bg-slate-50 dark:hover:bg-slate-800/80 rounded-lg cursor-pointer transition-colors"
+              className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-850 rounded-lg cursor-pointer transition-colors"
               title="Edit Resume Sections"
             >
-              <Edit3 size={14} />
+              <Edit3 size={13} />
             </button>
           )}
           {onDownload && (
             <button
               onClick={() => onDownload(resume.id)}
-              className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-450 hover:bg-slate-50 dark:hover:bg-slate-800/80 rounded-lg cursor-pointer transition-colors"
+              className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-emerald-500 dark:hover:text-emerald-450 hover:bg-slate-50 dark:hover:bg-slate-850 rounded-lg cursor-pointer transition-colors"
               title="Download File"
             >
-              <Download size={14} />
+              <Download size={13} />
             </button>
           )}
           {onAnalyze && resume.status.toLowerCase() === 'parsed' && (
             <button
               onClick={() => onAnalyze(resume.id)}
-              className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-450 hover:bg-slate-50 dark:hover:bg-slate-800/80 rounded-lg cursor-pointer transition-colors"
+              className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-850 rounded-lg cursor-pointer transition-colors"
               title="Start ATS Analysis"
             >
-              <RefreshCw size={14} />
+              <RefreshCw size={13} />
             </button>
           )}
           {onDelete && (
             <button
               onClick={() => onDelete(resume.id)}
-              className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-450 hover:bg-slate-50 dark:hover:bg-slate-800/80 rounded-lg cursor-pointer transition-colors"
+              className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-red-500 dark:hover:text-red-400 hover:bg-slate-50 dark:hover:bg-slate-850 rounded-lg cursor-pointer transition-colors"
               title="Delete Resume"
             >
-              <Trash2 size={14} />
+              <Trash2 size={13} />
             </button>
           )}
         </div>

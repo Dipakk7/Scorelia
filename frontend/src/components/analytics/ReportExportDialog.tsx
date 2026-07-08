@@ -19,6 +19,7 @@ import {
 } from '@/api/analytics'
 import { Download, FileJson, FileSpreadsheet, FileText, CheckCircle2, Loader2 } from 'lucide-react'
 import { toast } from 'react-hot-toast'
+import { cn } from '@/lib/utils'
 
 interface ReportExportDialogProps {
   open: boolean
@@ -191,18 +192,18 @@ export function ReportExportDialog({
           <title>${name.replace(/_/g, ' ').toUpperCase()}</title>
           <style>
             body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #1e293b; padding: 40px; line-height: 1.6; }
-            .header { border-bottom: 2px solid #4f46e5; padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
-            .title { color: #4f46e5; margin: 0; font-size: 24px; font-weight: bold; }
+            .header { border-bottom: 2px solid #0F9D9A; padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
+            .title { color: #0F9D9A; margin: 0; font-size: 24px; font-weight: bold; }
             .meta { font-size: 11px; color: #64748b; margin-top: 5px; }
             .section { margin-bottom: 25px; }
             .section-title { font-size: 16px; font-weight: bold; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 6px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
             table { width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 20px; }
             th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
             th { background-color: #f8fafc; font-weight: bold; color: #475569; }
-            .badge { display: inline-block; padding: 2px 8px; font-size: 10px; font-weight: bold; border-radius: 4px; background-color: #4f46e5; color: white; }
+            .badge { display: inline-block; padding: 2px 8px; font-size: 10px; font-weight: bold; border-radius: 4px; background-color: #0F9D9A; color: white; }
             .footer { border-top: 1px solid #e2e8f0; margin-top: 50px; padding-top: 15px; font-size: 10px; color: #94a3b8; text-align: center; }
             .score-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 20px; text-align: center; }
-            .score-val { font-size: 32px; font-weight: 900; color: #4f46e5; margin: 5px 0; }
+            .score-val { font-size: 32px; font-weight: 900; color: #0F9D9A; margin: 5px 0; }
           </style>
         </head>
         <body>
@@ -357,23 +358,23 @@ export function ReportExportDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl p-6">
-        <DialogHeader className="space-y-1">
-          <DialogTitle className="text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100 font-display">
+      <DialogContent className="max-w-md bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-855 rounded-2xl shadow-2xl p-6 text-left">
+        <DialogHeader className="space-y-1.5 text-left select-none">
+          <DialogTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
             Export Intelligence Report
           </DialogTitle>
-          <DialogDescription className="text-xs text-slate-400 dark:text-slate-500">
+          <DialogDescription className="text-[9px] text-slate-405 dark:text-slate-500 font-sans block mt-1.5 leading-none">
             Generate custom data exports from your Scorelia modules.
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4 py-4 font-sans text-xs">
+        <div className="space-y-4 py-4 font-sans text-xs text-left">
           {/* Report Category Select */}
-          <div className="space-y-1.5">
-            <label className="font-bold text-slate-500 uppercase tracking-wider text-[10px]">
+          <div className="space-y-1.5 text-left">
+            <label className="font-black text-slate-455 dark:text-slate-500 uppercase tracking-widest text-[8px] font-mono leading-none">
               1. Select Report Category
             </label>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2 text-left">
               {[
                 { value: 'analytics', label: 'Overall Analytics' },
                 { value: 'resume', label: 'Resume Profile' },
@@ -381,27 +382,31 @@ export function ReportExportDialog({
                 { value: 'interview', label: 'AI Interviews' },
                 { value: 'career', label: 'Career Roadmaps' },
                 { value: 'github', label: 'GitHub Profile' },
-              ].map((item) => (
-                <button
-                  key={item.value}
-                  onClick={() => setReportType(item.value as ReportType)}
-                  className={`p-2.5 rounded-xl border text-left font-semibold transition-all cursor-pointer flex items-center justify-between ${
-                    reportType === item.value
-                      ? 'border-brand-500 bg-brand-500/5 text-brand-600 dark:text-brand-400'
-                      : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/40 text-slate-600 dark:text-slate-300'
-                  }`}
-                >
-                  <span>{item.label}</span>
-                  {reportType === item.value && <CheckCircle2 size={12} className="text-brand-500" />}
-                </button>
-              ))}
+              ].map((item) => {
+                const isSelected = reportType === item.value
+                return (
+                  <button
+                    key={item.value}
+                    onClick={() => setReportType(item.value as ReportType)}
+                    className={cn(
+                      'p-2.5 rounded-xl border text-left font-bold transition-all cursor-pointer flex items-center justify-between leading-none text-xs',
+                      isSelected
+                        ? 'border-brand-500 bg-brand-500/5 text-brand-655 dark:text-brand-400 font-extrabold'
+                        : 'border-slate-200 dark:border-slate-800 hover:border-brand-500/35 hover:bg-brand-500/5 text-slate-600 dark:text-slate-400 bg-transparent'
+                    )}
+                  >
+                    <span>{item.label}</span>
+                    {isSelected && <CheckCircle2 size={12} className="text-brand-500 shrink-0" />}
+                  </button>
+                )
+              })}
             </div>
           </div>
 
           {/* GitHub Input */}
           {reportType === 'github' && (
-            <div className="space-y-1.5 animate-slide-down">
-              <label className="font-bold text-slate-500 uppercase tracking-wider text-[10px]">
+            <div className="space-y-1.5 animate-slide-down text-left">
+              <label className="font-black text-slate-455 dark:text-slate-500 uppercase tracking-widest text-[8px] font-mono leading-none">
                 Enter GitHub Username
               </label>
               <input
@@ -409,34 +414,36 @@ export function ReportExportDialog({
                 value={githubUsername}
                 onChange={(e) => setGithubUsername(e.target.value)}
                 placeholder="e.g. torvalds"
-                className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-brand-500 font-semibold"
+                className="w-full p-2.5 rounded-xl border border-slate-205 dark:border-slate-800 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-405 focus:outline-none focus:ring-1 focus:ring-brand-500 font-semibold"
               />
             </div>
           )}
 
           {/* Format Selection */}
-          <div className="space-y-1.5">
-            <label className="font-bold text-slate-500 uppercase tracking-wider text-[10px]">
+          <div className="space-y-1.5 text-left">
+            <label className="font-black text-slate-455 dark:text-slate-500 uppercase tracking-widest text-[8px] font-mono leading-none">
               2. Choose File Format
             </label>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-3 gap-2 text-left">
               {[
                 { value: 'pdf', label: 'Print PDF', icon: FileText },
                 { value: 'csv', label: 'CSV Sheet', icon: FileSpreadsheet },
                 { value: 'json', label: 'JSON Data', icon: FileJson },
               ].map((item) => {
                 const ItemIcon = item.icon
+                const isSelected = formatType === item.value
                 return (
                   <button
                     key={item.value}
                     onClick={() => setFormatType(item.value as FormatType)}
-                    className={`p-3 rounded-xl border text-center font-bold transition-all cursor-pointer flex flex-col items-center justify-center gap-1.5 ${
-                      formatType === item.value
-                        ? 'border-brand-500 bg-brand-500/5 text-brand-600 dark:text-brand-400'
-                        : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/40 text-slate-600 dark:text-slate-300'
-                    }`}
+                    className={cn(
+                      'p-3 rounded-xl border text-center font-black transition-all cursor-pointer flex flex-col items-center justify-center gap-1.5 leading-none text-xs',
+                      isSelected
+                        ? 'border-brand-500 bg-brand-500/5 text-brand-655 dark:text-brand-400'
+                        : 'border-slate-200 dark:border-slate-800 hover:border-brand-500/35 hover:bg-brand-500/5 text-slate-600 dark:text-slate-400 bg-transparent'
+                    )}
                   >
-                    <ItemIcon size={18} />
+                    <ItemIcon size={18} className="shrink-0" />
                     <span>{item.label}</span>
                   </button>
                 )
@@ -445,18 +452,18 @@ export function ReportExportDialog({
           </div>
         </div>
 
-        <DialogFooter className="mt-4 flex gap-2">
+        <DialogFooter className="mt-4 flex gap-2 select-none">
           <Button
             variant="outline"
             onClick={() => onOpenChange(false)}
-            className="flex-1 font-bold rounded-xl border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/40 text-slate-600 dark:text-slate-350 cursor-pointer text-xs p-2.5"
+            className="flex-1 font-bold rounded-xl border border-slate-205 dark:border-slate-800 hover:bg-slate-55 dark:hover:bg-slate-800/40 text-slate-600 dark:text-slate-350 cursor-pointer text-xs p-2.5 bg-transparent h-10 select-none leading-none uppercase tracking-wider text-[10px] flex items-center justify-center"
           >
             Cancel
           </Button>
           <Button
             onClick={handleExport}
             disabled={exporting}
-            className="flex-1 font-bold rounded-xl bg-brand-600 hover:bg-brand-700 text-white cursor-pointer shadow-md text-xs p-2.5 flex items-center justify-center gap-1.5"
+            className="flex-1 font-bold rounded-xl bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white cursor-pointer shadow-md text-xs p-2.5 flex items-center justify-center gap-1.5 border-none h-10 select-none leading-none uppercase tracking-wider text-[10px]"
           >
             {exporting ? (
               <>
@@ -475,3 +482,4 @@ export function ReportExportDialog({
     </Dialog>
   )
 }
+export default ReportExportDialog

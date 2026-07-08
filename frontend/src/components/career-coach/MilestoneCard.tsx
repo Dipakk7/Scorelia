@@ -27,29 +27,40 @@ export function MilestoneCard({
     }
   }
 
-  const getStatusBadgeVariant = (status: MilestoneStatus) => {
+  const getStatusBadge = (status: MilestoneStatus) => {
     switch (status) {
       case 'COMPLETED':
-        return 'success'
+        return (
+          <Badge variant="outline" className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-450 border border-emerald-500/20 text-[9px] font-black uppercase tracking-wider py-0 px-2 rounded-lg leading-none shrink-0">
+            COMPLETED
+          </Badge>
+        )
       case 'IN_PROGRESS':
-        return 'warning'
+        return (
+          <Badge variant="outline" className="bg-amber-500/10 text-amber-600 dark:text-amber-450 border border-amber-500/20 text-[9px] font-black uppercase tracking-wider py-0 px-2 rounded-lg leading-none shrink-0">
+            IN PROGRESS
+          </Badge>
+        )
       default:
-        return 'secondary'
+        return (
+          <Badge variant="outline" className="text-[9px] font-black uppercase tracking-wider py-0 px-2 border-slate-200 dark:border-slate-805 text-slate-500 rounded-lg leading-none shrink-0">
+            NOT STARTED
+          </Badge>
+        )
     }
   }
 
-  // Parse out sections from description if formatted with custom markdown headers
   const renderDescription = (desc?: string) => {
     if (!desc) return null
     return (
-      <div className="space-y-3 text-xs text-slate-650 dark:text-slate-350 whitespace-pre-line leading-relaxed font-sans mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+      <div className="space-y-3 text-xs text-slate-655 dark:text-slate-400 whitespace-pre-line leading-relaxed font-sans mt-3 pt-3 border-t border-slate-100 dark:border-slate-850/60 font-medium text-left">
         {desc}
       </div>
     )
   }
 
   return (
-    <Card className="border-slate-200/60 dark:border-slate-800/40 bg-white/70 dark:bg-slate-900/40 hover:bg-slate-50/50 dark:hover:bg-slate-900/60 transition-all duration-150">
+    <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs hover:bg-slate-50/20 dark:hover:bg-slate-850/10">
       <CardContent className="p-4">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 text-left">
@@ -65,36 +76,34 @@ export function MilestoneCard({
                   onUpdateStatus(milestone.id, nextStatusMap[milestone.status] || 'NOT_STARTED')
                 }
               }}
-              className="focus:outline-none hover:opacity-85 transition-opacity cursor-pointer"
+              className="focus:outline-none hover:opacity-85 transition-opacity cursor-pointer border-none bg-transparent p-0 flex items-center"
               title="Click to cycle status"
               aria-label={`Cycle status for ${milestone.title}`}
             >
               {getStatusIcon(milestone.status)}
             </button>
             
-            <div className="space-y-0.5">
-              <h4 className="text-sm font-bold text-slate-900 dark:text-white font-display">
+            <div className="space-y-0.5 text-left">
+              <h4 className="text-xs font-extrabold text-slate-900 dark:text-white font-display m-0 leading-none">
                 {milestone.title}
               </h4>
-              <div className="flex items-center gap-2.5 text-[10px] text-slate-400">
+              <div className="flex items-center gap-2.5 text-[10px] text-slate-455 dark:text-slate-500 font-sans font-bold leading-none mt-1.5">
                 <span className="flex items-center gap-1">
-                  <Calendar size={11} />
+                  <Calendar size={11} className="text-slate-400" />
                   {milestone.duration || 'Flexible'}
                 </span>
-                <span>•</span>
+                <span className="text-slate-300">•</span>
                 <span>Phase {milestone.phase_number}</span>
               </div>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            <Badge variant={getStatusBadgeVariant(milestone.status)}>
-              {milestone.status.replace('_', ' ')}
-            </Badge>
+            {getStatusBadge(milestone.status)}
 
             <button
               onClick={onToggleExpand}
-              className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer focus:outline-none"
+              className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer focus:outline-none border-none bg-transparent flex items-center"
               aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
             >
               {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}

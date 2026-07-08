@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/Card'
 import type { ResumeResponse } from '@/types/resume'
 import type { InterviewSessionCreate } from '@/types/interview'
 import { Briefcase, Building, Settings, Play, Loader2 } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface InterviewSetupFormProps {
   onSubmit: (data: InterviewSessionCreate & { timeLimitMinutes: number }) => void
@@ -54,10 +55,10 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 text-left">
-      <Card className="border-slate-200/80 dark:border-dark-border dark:bg-dark-card overflow-hidden">
+    <form onSubmit={handleSubmit} className="space-y-6 text-left font-sans text-xs">
+      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm overflow-hidden hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
         <CardContent className="p-6 space-y-6">
-          <h3 className="font-display font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
+          <h3 className="font-display font-black text-sm text-slate-900 dark:text-white flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-800 m-0">
             <Settings size={16} className="text-brand-500" />
             <span>Mock Interview Configuration Wizard</span>
           </h3>
@@ -65,17 +66,17 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Target Role */}
             <div className="space-y-1.5">
-              <label htmlFor="role" className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <label htmlFor="role" className="block text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest leading-none">
                 Target Job Title / Role
               </label>
               <div className="relative">
-                <Briefcase className="absolute left-3 top-3 h-4.5 w-4.5 text-slate-400" />
+                <Briefcase className="absolute left-3.5 top-3 h-4.5 w-4.5 text-slate-400" />
                 <Input
                   id="role"
                   value={targetRole}
                   onChange={(e) => setTargetRole(e.target.value)}
                   placeholder="e.g. Frontend Engineer, Product Manager"
-                  className="pl-10 text-xs dark:bg-dark-bg dark:border-slate-800 h-10 bg-slate-50"
+                  className="pl-10 text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 rounded-xl p-2.5 h-10 text-slate-850 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500 transition-colors"
                   required
                 />
               </div>
@@ -83,17 +84,17 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
 
             {/* Company Name */}
             <div className="space-y-1.5">
-              <label htmlFor="company" className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <label htmlFor="company" className="block text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest leading-none">
                 Target Company Name
               </label>
               <div className="relative">
-                <Building className="absolute left-3 top-3 h-4.5 w-4.5 text-slate-400" />
+                <Building className="absolute left-3.5 top-3 h-4.5 w-4.5 text-slate-400" />
                 <Input
                   id="company"
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
                   placeholder="e.g. Google, Netflix, Stripe"
-                  className="pl-10 text-xs dark:bg-dark-bg dark:border-slate-800 h-10 bg-slate-50"
+                  className="pl-10 text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 rounded-xl p-2.5 h-10 text-slate-850 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500 transition-colors"
                   required
                 />
               </div>
@@ -103,14 +104,14 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Interview Type */}
             <div className="space-y-1.5">
-              <label htmlFor="type" className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <label htmlFor="type" className="block text-[10px] font-black text-slate-455 dark:text-slate-505 uppercase tracking-widest leading-none">
                 Interview Domain Category
               </label>
               <select
                 id="type"
                 value={interviewType}
                 onChange={(e: any) => setInterviewType(e.target.value)}
-                className="w-full text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200/65 dark:border-slate-800 rounded-lg p-2.5 h-10 text-slate-850 dark:text-slate-100 focus:outline-none focus:border-brand-500 cursor-pointer"
+                className="w-full text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 rounded-xl p-2.5 h-10 text-slate-855 dark:text-slate-205 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer transition-colors"
               >
                 <option value="BEHAVIORAL">Behavioral / Leadership (STAR Method)</option>
                 <option value="TECHNICAL">Technical Coding & Concept Core</option>
@@ -123,14 +124,14 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
 
             {/* Difficulty Level */}
             <div className="space-y-1.5">
-              <label htmlFor="difficulty" className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <label htmlFor="difficulty" className="block text-[10px] font-black text-slate-455 dark:text-slate-505 uppercase tracking-widest leading-none">
                 Difficulty Level
               </label>
               <select
                 id="difficulty"
                 value={difficulty}
                 onChange={(e: any) => setDifficulty(e.target.value)}
-                className="w-full text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200/65 dark:border-slate-800 rounded-lg p-2.5 h-10 text-slate-850 dark:text-slate-100 focus:outline-none focus:border-brand-500 cursor-pointer"
+                className="w-full text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 rounded-xl p-2.5 h-10 text-slate-855 dark:text-slate-205 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer transition-colors"
               >
                 <option value="EASY">Easy (Screening / Fundamental Concepts)</option>
                 <option value="MEDIUM">Medium (Standard Industry Benchmarks)</option>
@@ -143,7 +144,7 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {/* Question count */}
             <div className="space-y-1.5">
-              <label htmlFor="questions" className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <label htmlFor="questions" className="block text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest leading-none">
                 Total Question Count ({totalQuestions})
               </label>
               <input
@@ -156,12 +157,12 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
                 onChange={(e) => setTotalQuestions(parseInt(e.target.value))}
                 className="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-600 mt-2"
               />
-              <span className="text-[10px] text-slate-450 block text-right mt-1">{totalQuestions} questions</span>
+              <span className="text-[10px] text-slate-450 dark:text-slate-500 block text-right mt-1 font-bold">{totalQuestions} questions</span>
             </div>
 
             {/* Time limit */}
             <div className="space-y-1.5">
-              <label htmlFor="time" className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <label htmlFor="time" className="block text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest leading-none">
                 Timer Limit: {timeLimitMinutes} min ({timeLimitMinutes * 60}s)
               </label>
               <input
@@ -174,25 +175,25 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
                 onChange={(e) => setTimeLimitMinutes(parseInt(e.target.value))}
                 className="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-600 mt-2"
               />
-              <span className="text-[10px] text-slate-450 block text-right mt-1">{timeLimitMinutes} minutes total</span>
+              <span className="text-[10px] text-slate-450 dark:text-slate-500 block text-right mt-1 font-bold">{timeLimitMinutes} minutes total</span>
             </div>
 
             {/* Resume Selection */}
             <div className="space-y-1.5">
-              <label htmlFor="resume" className="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <label htmlFor="resume" className="block text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest leading-none">
                 Tailor with parsed Resume
               </label>
               {resumesLoading ? (
-                <div className="h-10 flex items-center px-3 border border-slate-200 dark:border-slate-800 bg-slate-50 rounded-lg">
+                <div className="h-10 flex items-center px-3 border border-slate-250 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/60 rounded-xl">
                   <Loader2 size={14} className="animate-spin text-slate-400 mr-2" />
-                  <span className="text-[10px] text-slate-500">Loading resumes...</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400">Loading resumes...</span>
                 </div>
               ) : (
                 <select
                   id="resume"
                   value={resumeId}
                   onChange={(e) => setResumeId(e.target.value)}
-                  className="w-full text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200/65 dark:border-slate-800 rounded-lg p-2.5 h-10 text-slate-850 dark:text-slate-100 focus:outline-none focus:border-brand-500 cursor-pointer"
+                  className="w-full text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 rounded-xl p-2.5 h-10 text-slate-855 dark:text-slate-205 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer transition-colors"
                 >
                   <option value="">-- No resume mapping (Uses general model defaults) --</option>
                   {parsedResumes.map((r) => (
@@ -211,16 +212,16 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
         <Button
           type="submit"
           disabled={isSubmitting || resumesLoading}
-          className="gap-2.5 px-6 py-5.5 font-bold text-sm shadow-md"
+          className="flex items-center justify-center gap-1.5 px-5 py-2.5 font-bold cursor-pointer bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-10"
         >
           {isSubmitting ? (
             <>
-              <Loader2 className="h-4.5 w-4.5 animate-spin" />
+              <Loader2 className="h-4 w-4 animate-spin" />
               <span>Simulating...</span>
             </>
           ) : (
             <>
-              <Play size={16} />
+              <Play size={14} className="animate-pulse" />
               <span>Start Mock Session</span>
             </>
           )}

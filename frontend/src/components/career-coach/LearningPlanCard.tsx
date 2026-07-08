@@ -3,6 +3,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { ProgressTracker } from './ProgressTracker'
 import { CheckSquare, Square, Book, PlayCircle, Award, Terminal, Calendar, Layers } from 'lucide-react'
 import type { AILearningPlanResponse } from '@/types/roadmap'
+import { cn } from '@/lib/utils'
 
 interface LearningPlanCardProps {
   learningPlan: AILearningPlanResponse | null
@@ -47,9 +48,9 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
 
   if (isLoading) {
     return (
-      <div className="space-y-4">
+      <div className="space-y-4 font-sans text-xs">
         {[1, 2, 3].map((n) => (
-          <Card key={n} className="border-slate-200/60 dark:border-slate-800/40 animate-pulse">
+          <Card key={n} className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 animate-pulse">
             <CardContent className="h-32 bg-slate-100/50 dark:bg-slate-900/50" />
           </Card>
         ))}
@@ -59,8 +60,8 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
 
   if (!learningPlan) {
     return (
-      <Card className="border-slate-200/60 dark:border-slate-800/40 bg-white/40 dark:bg-slate-900/30 backdrop-blur-md">
-        <CardContent className="py-12 text-center text-xs text-slate-400 italic">
+      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 font-sans text-xs">
+        <CardContent className="py-12 text-center text-slate-455 dark:text-slate-500 italic font-medium leading-relaxed">
           No learning plan generated yet. Generate or select a roadmap to get started.
         </CardContent>
       </Card>
@@ -110,20 +111,20 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
   const progressPercent = totalTasks > 0 ? (completedTasksCount / totalTasks) * 100 : 0
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 font-sans text-xs">
       {/* Learning Plan header & Progress tracker */}
-      <Card className="border-slate-200/60 dark:border-slate-800/40 bg-slate-900 text-white p-5">
+      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 p-5 text-slate-805 dark:text-white text-left">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 text-left">
-          <div className="space-y-1">
-            <h3 className="text-base font-extrabold font-display m-0">Learning Progress</h3>
-            <p className="text-xs text-slate-400 font-sans m-0">
+          <div className="space-y-1.5 text-left">
+            <h3 className="text-sm font-black font-display text-slate-905 dark:text-white m-0 leading-none">Learning Progress</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-405 font-sans m-0 font-medium mt-1.5">
               Track courses, books, project milestones, and certifications.
             </p>
           </div>
-          <div className="w-full md:max-w-xs space-y-1.5">
-            <div className="flex justify-between text-xs font-semibold text-slate-350">
-              <span>Tasks Check-off: {completedTasksCount}/{totalTasks}</span>
-              <span>{Math.round(progressPercent)}%</span>
+          <div className="w-full md:max-w-xs space-y-1.5 shrink-0 text-left">
+            <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-slate-455 dark:text-slate-500">
+              <span>Tasks Completed: {completedTasksCount}/{totalTasks}</span>
+              <span className="font-mono">{Math.round(progressPercent)}%</span>
             </div>
             <ProgressTracker value={progressPercent} />
           </div>
@@ -134,8 +135,8 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-left">
         {/* Weekly plan (2/3 width) */}
         <div className="lg:col-span-2 space-y-6">
-          <h3 className="text-sm font-extrabold font-display text-slate-900 dark:text-white flex items-center gap-2 pl-1 m-0">
-            <Calendar size={16} className="text-brand-500" />
+          <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none flex items-center gap-2 pl-1">
+            <Calendar size={14} className="text-brand-500 animate-pulse" />
             <span>Weekly Learning Schedule</span>
           </h3>
 
@@ -144,27 +145,27 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
               <p className="text-xs text-slate-400 italic">No weekly schedule generated.</p>
             ) : (
               learningPlan.weekly_plan?.map((week) => (
-                <Card key={week.week_number} className="border-slate-200/60 dark:border-slate-800/40 bg-white/60 dark:bg-slate-900/40">
-                  <CardHeader className="pb-3 text-left">
+                <Card key={week.week_number} className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
+                  <CardHeader className="pb-3 text-left border-b border-slate-100 dark:border-slate-855/60">
                     <div className="flex justify-between items-start gap-4">
-                      <div>
-                        <CardTitle className="text-sm font-bold font-display text-slate-900 dark:text-slate-100 m-0">
+                      <div className="space-y-1 text-left">
+                        <CardTitle className="text-sm font-extrabold font-display text-slate-900 dark:text-slate-100 m-0">
                           Week {week.week_number}: {week.topic}
                         </CardTitle>
-                        <CardDescription className="text-xs text-slate-500 mt-1">
+                        <CardDescription className="text-[10px] text-slate-500 dark:text-slate-405 leading-relaxed font-sans m-0 mt-1 font-medium">
                           Focus: {week.focus}
                         </CardDescription>
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="space-y-4 pt-0">
+                  <CardContent className="space-y-4 pt-4 text-left">
                     {/* Objectives list */}
                     {week.objectives && week.objectives.length > 0 && (
-                      <div className="bg-slate-50 dark:bg-slate-950/20 p-3 rounded-lg border border-slate-100 dark:border-slate-800/50">
-                        <h5 className="text-[10px] uppercase font-bold text-slate-400 mb-1.5">Weekly Objectives</h5>
-                        <ul className="list-disc pl-4 space-y-1">
+                      <div className="bg-slate-50/30 dark:bg-slate-950/10 p-3.5 rounded-xl border border-slate-100 dark:border-slate-850/60 text-left">
+                        <h5 className="text-[9px] font-black uppercase tracking-widest text-slate-405 dark:text-slate-500 mb-1.5 leading-none">Weekly Objectives</h5>
+                        <ul className="list-disc pl-4 space-y-1.5 m-0">
                           {week.objectives.map((obj, oIdx) => (
-                            <li key={oIdx} className="text-xs text-slate-650 dark:text-slate-455 font-sans">
+                            <li key={oIdx} className="text-xs text-slate-655 dark:text-slate-400 font-sans leading-relaxed font-medium">
                               {obj}
                             </li>
                           ))}
@@ -173,11 +174,11 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
                     )}
 
                     {/* Schedule schedule item checks */}
-                    <div className="space-y-3">
+                    <div className="space-y-3 text-left">
                       {week.schedule?.map((day) => (
-                        <div key={day.day} className="space-y-2">
-                          <h6 className="text-xs font-bold text-brand-600 dark:text-brand-400 font-display m-0">{day.day} — {day.focus}</h6>
-                          <div className="space-y-1.5 pl-2">
+                        <div key={day.day} className="space-y-2 text-left">
+                          <h6 className="text-[10px] font-black uppercase tracking-widest text-brand-655 dark:text-brand-405 font-sans m-0">{day.day} — {day.focus}</h6>
+                          <div className="space-y-1 pl-1">
                             {day.tasks?.map((task, tIdx) => {
                               const tKey = `week-${week.week_number}-day-${day.day}-task-${tIdx}`
                               const isDone = !!completedTasks[tKey]
@@ -185,16 +186,16 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
                                 <button
                                   key={tIdx}
                                   onClick={() => toggleTask(tKey)}
-                                  className="w-full flex items-start gap-2.5 text-left text-xs text-slate-650 dark:text-slate-350 hover:bg-slate-50/50 dark:hover:bg-slate-900/10 p-1.5 rounded-lg transition-colors cursor-pointer focus:outline-none"
+                                  className="w-full flex items-start gap-2.5 text-left text-xs text-slate-655 dark:text-slate-400 hover:bg-slate-50/35 dark:hover:bg-slate-850/20 p-2.5 rounded-xl transition-all cursor-pointer focus:outline-none border-none bg-transparent font-medium leading-relaxed"
                                 >
                                   <span className="shrink-0 mt-0.5 text-slate-400 hover:text-brand-500">
                                     {isDone ? (
-                                      <CheckSquare size={16} className="text-brand-600 dark:text-brand-400" />
+                                      <CheckSquare size={16} className="text-brand-605 dark:text-brand-400" />
                                     ) : (
                                       <Square size={16} />
                                     )}
                                   </span>
-                                  <span className={isDone ? 'line-through text-slate-400' : ''}>
+                                  <span className={isDone ? 'line-through text-slate-400 dark:text-slate-500 font-bold' : ''}>
                                     {task}
                                   </span>
                                 </button>
@@ -212,23 +213,23 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
         </div>
 
         {/* Recommended Resources (1/3 width) */}
-        <div className="space-y-6">
-          <h3 className="text-sm font-extrabold font-display text-slate-900 dark:text-white flex items-center gap-2 pl-1 m-0">
-            <Layers size={16} className="text-purple-500" />
+        <div className="space-y-6 text-left">
+          <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none flex items-center gap-2 pl-1">
+            <Layers size={14} className="text-purple-500" />
             <span>Recommended Assets</span>
           </h3>
 
           <div className="space-y-5">
             {/* Courses section */}
             {learningPlan.courses && learningPlan.courses.length > 0 && (
-              <Card className="border-slate-200/60 dark:border-slate-800/40 bg-white/60 dark:bg-slate-900/40">
-                <CardHeader className="pb-3 text-left">
-                  <CardTitle className="text-xs font-bold font-display text-slate-900 dark:text-slate-100 flex items-center gap-1.5 m-0">
-                    <PlayCircle size={15} className="text-blue-500" />
+              <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
+                <CardHeader className="pb-3 text-left border-b border-slate-100 dark:border-slate-855/60">
+                  <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-1.5 m-0 leading-none">
+                    <PlayCircle size={14} className="text-blue-500" />
                     <span>Courses</span>
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-2 pt-0">
+                <CardContent className="space-y-1 pt-3.5 text-left">
                   {learningPlan.courses.map((item, idx) => {
                     const tKey = `course-${idx}`
                     const isDone = !!completedTasks[tKey]
@@ -236,12 +237,12 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
                       <button
                         key={idx}
                         onClick={() => toggleTask(tKey)}
-                        className="w-full flex items-start gap-2.5 text-left text-xs text-slate-650 dark:text-slate-350 hover:bg-slate-50/50 dark:hover:bg-slate-900/10 p-1.5 rounded-lg transition-colors cursor-pointer focus:outline-none"
+                        className="w-full flex items-start gap-2.5 text-left text-xs text-slate-655 dark:text-slate-400 hover:bg-slate-50/35 dark:hover:bg-slate-850/20 p-2.5 rounded-xl transition-all cursor-pointer focus:outline-none border-none bg-transparent font-medium leading-relaxed"
                       >
                         <span className="shrink-0 mt-0.5">
                           {isDone ? <CheckSquare size={14} className="text-brand-600" /> : <Square size={14} />}
                         </span>
-                        <span className={isDone ? 'line-through text-slate-400' : ''}>{item}</span>
+                        <span className={isDone ? 'line-through text-slate-400 dark:text-slate-500 font-bold' : ''}>{item}</span>
                       </button>
                     )
                   })}
@@ -251,14 +252,14 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
 
             {/* Books section */}
             {learningPlan.books && learningPlan.books.length > 0 && (
-              <Card className="border-slate-200/60 dark:border-slate-800/40 bg-white/60 dark:bg-slate-900/40">
-                <CardHeader className="pb-3 text-left">
-                  <CardTitle className="text-xs font-bold font-display text-slate-900 dark:text-slate-100 flex items-center gap-1.5 m-0">
-                    <Book size={15} className="text-emerald-500" />
+              <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
+                <CardHeader className="pb-3 text-left border-b border-slate-100 dark:border-slate-855/60">
+                  <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-1.5 m-0 leading-none">
+                    <Book size={14} className="text-emerald-500" />
                     <span>Books</span>
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-2 pt-0">
+                <CardContent className="space-y-1 pt-3.5 text-left">
                   {learningPlan.books.map((item, idx) => {
                     const tKey = `book-${idx}`
                     const isDone = !!completedTasks[tKey]
@@ -266,12 +267,12 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
                       <button
                         key={idx}
                         onClick={() => toggleTask(tKey)}
-                        className="w-full flex items-start gap-2.5 text-left text-xs text-slate-650 dark:text-slate-350 hover:bg-slate-50/50 dark:hover:bg-slate-900/10 p-1.5 rounded-lg transition-colors cursor-pointer focus:outline-none"
+                        className="w-full flex items-start gap-2.5 text-left text-xs text-slate-655 dark:text-slate-400 hover:bg-slate-50/35 dark:hover:bg-slate-850/20 p-2.5 rounded-xl transition-all cursor-pointer focus:outline-none border-none bg-transparent font-medium leading-relaxed"
                       >
                         <span className="shrink-0 mt-0.5">
                           {isDone ? <CheckSquare size={14} className="text-brand-600" /> : <Square size={14} />}
                         </span>
-                        <span className={isDone ? 'line-through text-slate-400' : ''}>{item}</span>
+                        <span className={isDone ? 'line-through text-slate-400 dark:text-slate-500 font-bold' : ''}>{item}</span>
                       </button>
                     )
                   })}
@@ -281,14 +282,14 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
 
             {/* Practice Projects section */}
             {learningPlan.hands_on_projects && learningPlan.hands_on_projects.length > 0 && (
-              <Card className="border-slate-200/60 dark:border-slate-800/40 bg-white/60 dark:bg-slate-900/40">
-                <CardHeader className="pb-3 text-left">
-                  <CardTitle className="text-xs font-bold font-display text-slate-900 dark:text-slate-100 flex items-center gap-1.5 m-0">
-                    <Terminal size={15} className="text-amber-500" />
+              <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
+                <CardHeader className="pb-3 text-left border-b border-slate-100 dark:border-slate-855/60">
+                  <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-1.5 m-0 leading-none">
+                    <Terminal size={14} className="text-amber-500" />
                     <span>Practice Projects</span>
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-2 pt-0">
+                <CardContent className="space-y-1 pt-3.5 text-left">
                   {learningPlan.hands_on_projects.map((item, idx) => {
                     const tKey = `project-${idx}`
                     const isDone = !!completedTasks[tKey]
@@ -296,12 +297,12 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
                       <button
                         key={idx}
                         onClick={() => toggleTask(tKey)}
-                        className="w-full flex items-start gap-2.5 text-left text-xs text-slate-650 dark:text-slate-350 hover:bg-slate-50/50 dark:hover:bg-slate-900/10 p-1.5 rounded-lg transition-colors cursor-pointer focus:outline-none"
+                        className="w-full flex items-start gap-2.5 text-left text-xs text-slate-655 dark:text-slate-400 hover:bg-slate-50/35 dark:hover:bg-slate-850/20 p-2.5 rounded-xl transition-all cursor-pointer focus:outline-none border-none bg-transparent font-medium leading-relaxed"
                       >
                         <span className="shrink-0 mt-0.5">
                           {isDone ? <CheckSquare size={14} className="text-brand-600" /> : <Square size={14} />}
                         </span>
-                        <span className={isDone ? 'line-through text-slate-400' : ''}>{item}</span>
+                        <span className={isDone ? 'line-through text-slate-400 dark:text-slate-500 font-bold' : ''}>{item}</span>
                       </button>
                     )
                   })}
@@ -311,14 +312,14 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
 
             {/* Certifications section */}
             {learningPlan.certification_suggestions && learningPlan.certification_suggestions.length > 0 && (
-              <Card className="border-slate-200/60 dark:border-slate-800/40 bg-white/60 dark:bg-slate-900/40">
-                <CardHeader className="pb-3 text-left">
-                  <CardTitle className="text-xs font-bold font-display text-slate-900 dark:text-slate-100 flex items-center gap-1.5 m-0">
-                    <Award size={15} className="text-purple-500" />
+              <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
+                <CardHeader className="pb-3 text-left border-b border-slate-100 dark:border-slate-855/60">
+                  <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-1.5 m-0 leading-none">
+                    <Award size={14} className="text-purple-500" />
                     <span>Certifications</span>
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-2 pt-0">
+                <CardContent className="space-y-1 pt-3.5 text-left">
                   {learningPlan.certification_suggestions.map((item, idx) => {
                     const tKey = `cert-${idx}`
                     const isDone = !!completedTasks[tKey]
@@ -326,12 +327,12 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
                       <button
                         key={idx}
                         onClick={() => toggleTask(tKey)}
-                        className="w-full flex items-start gap-2.5 text-left text-xs text-slate-650 dark:text-slate-350 hover:bg-slate-50/50 dark:hover:bg-slate-900/10 p-1.5 rounded-lg transition-colors cursor-pointer focus:outline-none"
+                        className="w-full flex items-start gap-2.5 text-left text-xs text-slate-655 dark:text-slate-400 hover:bg-slate-50/35 dark:hover:bg-slate-850/20 p-2.5 rounded-xl transition-all cursor-pointer focus:outline-none border-none bg-transparent font-medium leading-relaxed"
                       >
                         <span className="shrink-0 mt-0.5">
                           {isDone ? <CheckSquare size={14} className="text-brand-600" /> : <Square size={14} />}
                         </span>
-                        <span className={isDone ? 'line-through text-slate-400' : ''}>{item}</span>
+                        <span className={isDone ? 'line-through text-slate-400 dark:text-slate-500 font-bold' : ''}>{item}</span>
                       </button>
                     )
                   })}

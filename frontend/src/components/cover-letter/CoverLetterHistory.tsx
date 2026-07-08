@@ -13,7 +13,7 @@ interface CoverLetterHistoryProps {
   onCompare: (original: string, optimized: string) => void
 }
 
-export default function CoverLetterHistory({
+export function CoverLetterHistory({
   coverLetterId,
   activeContent,
   onRestore,
@@ -78,9 +78,9 @@ export default function CoverLetterHistory({
   }
 
   return (
-    <div className="space-y-4 text-left">
+    <div className="space-y-4 text-left font-sans text-xs">
       <div className="flex items-center justify-between">
-        <h4 className="font-display font-bold text-xs uppercase text-slate-500 dark:text-slate-400 tracking-wider">
+        <h4 className="font-display font-black text-xs uppercase text-slate-455 dark:text-slate-500 tracking-widest m-0 leading-none">
           Revision Version History
         </h4>
         <Button
@@ -88,7 +88,7 @@ export default function CoverLetterHistory({
           size="sm"
           onClick={fetchHistory}
           disabled={isLoading}
-          className="h-7 text-[10px] font-bold cursor-pointer"
+          className="h-7 text-[9px] font-black uppercase tracking-wider cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg px-2 bg-transparent border-none"
         >
           Refresh Logs
         </Button>
@@ -105,48 +105,48 @@ export default function CoverLetterHistory({
           <span>{error}</span>
         </div>
       ) : optimizations.length === 0 ? (
-        <div className="p-6 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 bg-white dark:bg-dark-card text-center space-y-2">
+        <div className="p-6 rounded-2xl border border-dashed border-slate-205 dark:border-slate-850 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md text-center space-y-2.5">
           <Clock size={20} className="mx-auto text-slate-400 dark:text-slate-500" />
-          <h5 className="font-semibold text-slate-900 dark:text-white text-xs">Initial Draft Active</h5>
-          <p className="text-[10px] text-slate-500 dark:text-slate-400 max-w-[200px] mx-auto leading-normal font-sans">
+          <h5 className="font-bold text-slate-900 dark:text-white text-xs m-0">Initial Draft Active</h5>
+          <p className="text-[10px] text-slate-500 dark:text-slate-455 max-w-[200px] mx-auto leading-relaxed font-sans font-medium m-0">
             Only the initial generated version exists. Use AI audits to rewrite and build revisions.
           </p>
         </div>
       ) : (
-        <div className="relative border-l border-slate-200 dark:border-slate-800 ml-3.5 pl-6 space-y-5 py-1">
+        <div className="relative border-l border-slate-200 dark:border-slate-855 ml-3.5 pl-6 space-y-6 py-1">
           {optimizations.map((opt) => {
             const isRestored = activeContent === opt.optimized_content
 
             return (
-              <div key={opt.id} className="relative group/item">
+              <div key={opt.id} className="relative group/item text-left">
                 {/* Timeline Dot icon */}
                 <div
                   className={cn(
                     'absolute left-[-31px] top-1.5 h-3.5 w-3.5 rounded-full border-2 transition-all duration-200 flex items-center justify-center',
                     isRestored
                       ? 'bg-brand-500 border-brand-500 ring-4 ring-brand-500/10'
-                      : 'bg-white dark:bg-dark-bg border-slate-300 dark:border-slate-700'
+                      : 'bg-white dark:bg-slate-950 border-slate-350 dark:border-slate-705'
                   )}
                 />
 
-                <div className="space-y-2">
+                <div className="space-y-2 text-left">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-[11px] font-semibold text-slate-900 dark:text-white font-sans">
+                    <span className="text-[11px] font-extrabold text-slate-900 dark:text-white font-sans uppercase">
                       {formatTimestamp(opt.created_at)}
                     </span>
                     <div className="flex items-center gap-1.5 shrink-0">
-                      <Badge variant="outline" className="text-[9px] py-0 px-1 border-slate-200 dark:border-slate-800 text-slate-500">
+                      <Badge variant="outline" className="text-[9px] font-bold uppercase tracking-wider py-0 px-1.5 border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400">
                         Score: {opt.quality_score.overall_score}/100
                       </Badge>
                       {opt.version_comparison.estimated_quality_gain > 0 && (
-                        <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 text-[9px] py-0 px-1">
+                        <Badge className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20 text-[9px] font-bold uppercase tracking-wider py-0 px-1.5">
                           +{opt.version_comparison.estimated_quality_gain}% Gain
                         </Badge>
                       )}
                     </div>
                   </div>
 
-                  <p className="text-[10px] text-slate-600 dark:text-slate-455 font-sans leading-normal">
+                  <p className="text-[10px] text-slate-655 dark:text-slate-400 font-sans leading-relaxed m-0 font-medium text-left">
                     <strong>Changes:</strong> {opt.version_comparison.improvement_summary || 'Optimized document structure.'}
                   </p>
 
@@ -155,7 +155,7 @@ export default function CoverLetterHistory({
                       variant="ghost"
                       size="sm"
                       onClick={() => onCompare(opt.original_content, opt.optimized_content)}
-                      className="h-7 px-2.5 text-[10px] gap-1 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/80"
+                      className="h-7 px-2.5 text-[9px] font-bold uppercase tracking-wider gap-1 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-850/30 rounded-lg transition-all bg-transparent border-none"
                     >
                       <Eye size={10} />
                       <span>Compare Diff</span>
@@ -166,8 +166,8 @@ export default function CoverLetterHistory({
                       onClick={() => onRestore(opt.optimized_content)}
                       disabled={isRestored}
                       className={cn(
-                        'h-7 px-2.5 text-[10px] gap-1 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/80',
-                        isRestored && 'text-slate-400 hover:bg-transparent pointer-events-none'
+                        'h-7 px-2.5 text-[9px] font-bold uppercase tracking-wider gap-1 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-855/30 rounded-lg transition-all bg-transparent border-none',
+                        isRestored && 'text-slate-400 dark:text-slate-550 hover:bg-transparent pointer-events-none'
                       )}
                     >
                       <RotateCcw size={10} />
@@ -183,3 +183,5 @@ export default function CoverLetterHistory({
     </div>
   )
 }
+
+export default CoverLetterHistory

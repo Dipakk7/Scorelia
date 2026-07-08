@@ -11,6 +11,8 @@ import {
   ResponsiveContainer,
   AreaChart,
   Area,
+  LineChart,
+  Line,
   BarChart,
   Bar,
   XAxis,
@@ -22,8 +24,6 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
   Radar,
-  LineChart,
-  Line,
   Legend,
 } from 'recharts'
 import { cn } from '@/lib/utils'
@@ -36,6 +36,40 @@ interface InterviewAnalyticsChartProps {
 }
 
 type ChartTab = 'scores' | 'dimensions' | 'activity'
+
+function CustomTooltip({ active, payload, label }: any) {
+  if (active && payload && payload.length) {
+    return (
+      <div className="rounded-xl border border-slate-205 dark:border-slate-805 bg-white/95 dark:bg-slate-950/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+        <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 m-0">{label}</p>
+        {payload.map((entry: any, index: number) => (
+          <div key={index} className="mt-1.5 flex items-center gap-2 font-semibold">
+            <span className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.stroke || entry.fill }} />
+            <span className="text-slate-555 dark:text-slate-400">{entry.name}:</span>
+            <span className="text-slate-905 dark:text-white font-mono">{entry.value}%</span>
+          </div>
+        ))}
+      </div>
+    )
+  }
+  return null
+}
+
+function ActivityTooltip({ active, payload, label }: any) {
+  if (active && payload && payload.length) {
+    return (
+      <div className="rounded-xl border border-slate-205 dark:border-slate-805 bg-white/95 dark:bg-slate-950/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+        <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 m-0">{label}</p>
+        <div className="mt-1.5 flex items-center gap-2 font-semibold">
+          <span className="h-2 w-2 rounded-full bg-brand-500" />
+          <span className="text-slate-555 dark:text-slate-405">Sessions:</span>
+          <span className="text-slate-900 dark:text-white font-mono">{payload[0].value} rounds</span>
+        </div>
+      </div>
+    )
+  }
+  return null
+}
 
 export default function InterviewAnalyticsChart({
   scoreTrend = [],
@@ -81,18 +115,18 @@ export default function InterviewAnalyticsChart({
   }))
 
   return (
-    <div className="space-y-4 text-left font-sans">
+    <div className="space-y-4 text-left font-sans text-xs">
       {/* Chart controls */}
-      <div className="flex border-b border-slate-200 dark:border-slate-800">
+      <div className="flex border-b border-slate-200/60 dark:border-slate-850 gap-1">
         {(['scores', 'dimensions', 'activity'] as ChartTab[]).map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={cn(
-              'pb-2.5 px-4 text-xs font-semibold capitalize border-b-2 transition-all cursor-pointer focus:outline-none -mb-[2px]',
+              'pb-2.5 px-3.5 text-[10px] font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer focus:outline-none -mb-[2px] bg-transparent border-none',
               activeTab === tab
-                ? 'border-brand-600 text-brand-600 dark:border-brand-400 dark:text-brand-400 font-bold'
-                : 'border-transparent text-slate-400 dark:text-slate-500 hover:text-slate-700'
+                ? 'border-brand-500 text-brand-500 font-extrabold'
+                : 'border-transparent text-slate-405 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-355'
             )}
           >
             {tab === 'scores' && 'Performance Trends'}
@@ -107,35 +141,28 @@ export default function InterviewAnalyticsChart({
         {activeTab === 'scores' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {/* Chart 1: Score progress area */}
-            <Card className="border-slate-200/80 dark:border-dark-border dark:bg-dark-card">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+            <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+              <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60">
+                <CardTitle className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5 m-0">
                   <TrendingUp size={14} className="text-brand-500" />
                   <span>Interview Score Progression</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="h-64">
+              <CardContent className="h-64 pt-6">
                 {overallTrendData.length > 0 ? (
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={overallTrendData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
                       <defs>
                         <linearGradient id="scoreColor" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="var(--color-brand-600)" stopOpacity={0.2} />
-                          <stop offset="95%" stopColor="var(--color-brand-600)" stopOpacity={0.0} />
+                          <stop offset="5%" stopColor="#0F9D9A" stopOpacity={0.2} />
+                          <stop offset="95%" stopColor="#0F9D9A" stopOpacity={0.0} />
                         </linearGradient>
                       </defs>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)" />
-                      <XAxis dataKey="name" stroke="#888888" fontSize={9} tickLine={false} axisLine={false} />
-                      <YAxis stroke="#888888" fontSize={9} tickLine={false} axisLine={false} domain={[0, 100]} />
-                      <Tooltip
-                        contentStyle={{
-                          background: 'rgba(17,23,38,0.9)',
-                          border: '1px solid rgba(255,255,255,0.08)',
-                          borderRadius: '8px',
-                          fontSize: '10px',
-                        }}
-                      />
-                      <Area type="monotone" dataKey="Score" stroke="var(--color-brand-600)" strokeWidth={2} fillOpacity={1} fill="url(#scoreColor)" />
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/20" />
+                      <XAxis dataKey="name" stroke="#94a3b8" fontSize={9} tickLine={false} axisLine={false} />
+                      <YAxis stroke="#94a3b8" fontSize={9} tickLine={false} axisLine={false} domain={[0, 100]} />
+                      <Tooltip content={<CustomTooltip />} />
+                      <Area type="monotone" dataKey="Score" stroke="#0F9D9A" strokeWidth={2} fillOpacity={1} fill="url(#scoreColor)" />
                     </AreaChart>
                   </ResponsiveContainer>
                 ) : (
@@ -147,28 +174,21 @@ export default function InterviewAnalyticsChart({
             </Card>
 
             {/* Chart 2: Tech vs Comm Line */}
-            <Card className="border-slate-200/80 dark:border-dark-border dark:bg-dark-card">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+            <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+              <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60">
+                <CardTitle className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5 m-0">
                   <Activity size={14} className="text-blue-500" />
                   <span>Technical vs. Communication Skill</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="h-64">
+              <CardContent className="h-64 pt-6">
                 {techCommData.length > 0 ? (
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={techCommData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)" />
-                      <XAxis dataKey="name" stroke="#888888" fontSize={9} tickLine={false} axisLine={false} />
-                      <YAxis stroke="#888888" fontSize={9} tickLine={false} axisLine={false} domain={[0, 100]} />
-                      <Tooltip
-                        contentStyle={{
-                          background: 'rgba(17,23,38,0.9)',
-                          border: '1px solid rgba(255,255,255,0.08)',
-                          borderRadius: '8px',
-                          fontSize: '10px',
-                        }}
-                      />
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/20" />
+                      <XAxis dataKey="name" stroke="#94a3b8" fontSize={9} tickLine={false} axisLine={false} />
+                      <YAxis stroke="#94a3b8" fontSize={9} tickLine={false} axisLine={false} domain={[0, 100]} />
+                      <Tooltip content={<CustomTooltip />} />
                       <Legend wrapperStyle={{ fontSize: '9px', marginTop: '5px' }} />
                       <Line type="monotone" dataKey="Technical" stroke="#0F9D9A" strokeWidth={2} activeDot={{ r: 4 }} />
                       <Line type="monotone" dataKey="Communication" stroke="#00D2FF" strokeWidth={2} activeDot={{ r: 4 }} />
@@ -187,9 +207,9 @@ export default function InterviewAnalyticsChart({
         {activeTab === 'dimensions' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {/* Chart 3: Radar Chart */}
-            <Card className="border-slate-200/80 dark:border-dark-border dark:bg-dark-card">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+            <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+              <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60">
+                <CardTitle className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5 m-0">
                   <Layers size={14} className="text-purple-500" />
                   <span>STAR Dimensions Coverage</span>
                 </CardTitle>
@@ -197,36 +217,29 @@ export default function InterviewAnalyticsChart({
               <CardContent className="h-64 flex justify-center items-center">
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
-                    <PolarGrid stroke="rgba(255,255,255,0.08)" />
-                    <PolarAngleAxis dataKey="subject" tick={{ fill: '#888888', fontSize: 10 }} />
-                    <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fill: '#888888', fontSize: 8 }} />
-                    <Radar name="Candidate" dataKey="A" stroke="var(--color-brand-600)" fill="var(--color-brand-600)" fillOpacity={0.25} />
-                    <Tooltip
-                      contentStyle={{
-                        background: 'rgba(17,23,38,0.9)',
-                        border: '1px solid rgba(255,255,255,0.08)',
-                        borderRadius: '8px',
-                        fontSize: '10px',
-                      }}
-                    />
+                    <PolarGrid stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
+                    <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 'bold' }} />
+                    <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fill: '#94a3b8', fontSize: 8 }} />
+                    <Radar name="Candidate" dataKey="A" stroke="#0F9D9A" fill="#0F9D9A" fillOpacity={0.2} />
+                    <Tooltip content={<CustomTooltip />} />
                   </RadarChart>
                 </ResponsiveContainer>
               </CardContent>
             </Card>
 
             {/* Visual Guide explanation */}
-            <Card className="border-slate-200/80 dark:border-dark-border dark:bg-dark-card">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+            <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+              <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60">
+                <CardTitle className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5 m-0">
                   <Compass size={14} className="text-emerald-500" />
                   <span>STAR Methodology Scoring Blueprint</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="p-5 text-xs text-slate-600 dark:text-slate-400 font-sans space-y-3 leading-relaxed">
-                <p>
+              <CardContent className="p-5 text-xs text-slate-655 dark:text-slate-400 font-sans space-y-3 leading-relaxed font-medium">
+                <p className="m-0 leading-relaxed">
                   Behavioral performance is calculated by examining responses against the four pillars of structured storytelling:
                 </p>
-                <ul className="space-y-2">
+                <ul className="space-y-2 m-0 p-0 pl-4 list-disc leading-relaxed">
                   <li>
                     <strong className="text-blue-500">Situation (S)</strong>: Explaining the problem background clearly, setting context, timeframe, and scale.
                   </li>
@@ -248,29 +261,21 @@ export default function InterviewAnalyticsChart({
         {activeTab === 'activity' && (
           <div className="grid grid-cols-1 gap-4">
             {/* Chart 4: Activity Weekly Count */}
-            <Card className="border-slate-200/80 dark:border-dark-border dark:bg-dark-card">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+            <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+              <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60">
+                <CardTitle className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5 m-0">
                   <Map size={14} className="text-emerald-500" />
                   <span>Weekly Simulated Drills Activity</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="h-64">
+              <CardContent className="h-64 pt-6">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={weeklyData} margin={{ top: 10, right: 10, left: -30, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)" />
-                    <XAxis dataKey="name" stroke="#888888" fontSize={9} tickLine={false} axisLine={false} />
-                    <YAxis stroke="#888888" fontSize={9} tickLine={false} axisLine={false} allowDecimals={false} />
-                    <Tooltip
-                      cursor={{ fill: 'rgba(255,255,255,0.02)' }}
-                      contentStyle={{
-                        background: 'rgba(17,23,38,0.9)',
-                        border: '1px solid rgba(255,255,255,0.08)',
-                        borderRadius: '8px',
-                        fontSize: '10px',
-                      }}
-                    />
-                    <Bar dataKey="Sessions" fill="var(--color-brand-600)" radius={[6, 6, 0, 0]} />
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/20" />
+                    <XAxis dataKey="name" stroke="#94a3b8" fontSize={9} tickLine={false} axisLine={false} />
+                    <YAxis stroke="#94a3b8" fontSize={9} tickLine={false} axisLine={false} allowDecimals={false} />
+                    <Tooltip content={<ActivityTooltip />} />
+                    <Bar dataKey="Sessions" fill="#0F9D9A" radius={[4, 4, 0, 0]} maxBarSize={30} />
                   </BarChart>
                 </ResponsiveContainer>
               </CardContent>

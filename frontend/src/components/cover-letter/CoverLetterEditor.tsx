@@ -165,18 +165,18 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
   const charCount = editorContent.length
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch text-left">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch text-left font-sans text-xs">
       {/* Editor Panel */}
       <div className="lg:col-span-7 flex flex-col space-y-4">
         <div className="flex items-center justify-between">
-          <div className="flex bg-slate-100 dark:bg-slate-900/60 p-0.5 rounded-lg border border-slate-200/50 dark:border-slate-800">
+          <div className="flex bg-slate-100/50 dark:bg-slate-900/40 p-1 border border-slate-205 dark:border-slate-800/80 rounded-2xl text-[9px] font-black uppercase tracking-wider gap-1">
             <button
               onClick={() => setIsPreviewMode(false)}
               className={cn(
-                'px-3 py-1.5 rounded-md text-[10px] uppercase font-bold tracking-wider cursor-pointer transition-all duration-150',
+                'px-3 py-1.5 rounded-xl text-[9px] uppercase font-black tracking-wider cursor-pointer border-none bg-transparent transition-all',
                 !isPreviewMode
-                  ? 'bg-white dark:bg-dark-bg text-brand-600 dark:text-brand-400 shadow-xs'
-                  : 'text-slate-500 dark:text-slate-400'
+                  ? 'bg-white dark:bg-slate-950 text-slate-955 dark:text-white shadow-2xs font-extrabold'
+                  : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-150 hover:bg-slate-100/50 dark:hover:bg-slate-850/20'
               )}
             >
               Edit
@@ -184,63 +184,63 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
             <button
               onClick={() => setIsPreviewMode(true)}
               className={cn(
-                'px-3 py-1.5 rounded-md text-[10px] uppercase font-bold tracking-wider cursor-pointer transition-all duration-150',
+                'px-3 py-1.5 rounded-xl text-[9px] uppercase font-black tracking-wider cursor-pointer border-none bg-transparent transition-all',
                 isPreviewMode
-                  ? 'bg-white dark:bg-dark-bg text-brand-600 dark:text-brand-400 shadow-xs'
-                  : 'text-slate-500 dark:text-slate-400'
+                  ? 'bg-white dark:bg-slate-950 text-slate-955 dark:text-white shadow-2xs font-extrabold'
+                  : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-150 hover:bg-slate-100/50 dark:hover:bg-slate-850/20'
               )}
             >
               Preview
             </button>
           </div>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             <Button
               variant="ghost"
               size="sm"
               onClick={triggerUndo}
               disabled={historyIndex <= 0}
-              className="h-8 w-8 p-0 cursor-pointer text-slate-500 hover:text-slate-800 disabled:opacity-50"
+              className="h-8 w-8 p-0 cursor-pointer text-slate-400 hover:text-slate-900 hover:bg-slate-50/50 dark:hover:bg-slate-850/30 rounded-lg flex items-center justify-center transition-all bg-transparent border-none disabled:opacity-40 disabled:pointer-events-none"
               title="Undo"
             >
-              <Undo size={14} />
+              <Undo size={13} />
             </Button>
             <Button
               variant="ghost"
               size="sm"
               onClick={triggerRedo}
               disabled={historyIndex >= history.length - 1}
-              className="h-8 w-8 p-0 cursor-pointer text-slate-500 hover:text-slate-800 disabled:opacity-50"
+              className="h-8 w-8 p-0 cursor-pointer text-slate-400 hover:text-slate-900 hover:bg-slate-50/50 dark:hover:bg-slate-850/30 rounded-lg flex items-center justify-center transition-all bg-transparent border-none disabled:opacity-40 disabled:pointer-events-none"
               title="Redo"
             >
-              <Redo size={14} />
+              <Redo size={13} />
             </Button>
             <Button
               variant="ghost"
               size="sm"
               onClick={handleCopy}
-              className="h-8 w-8 p-0 cursor-pointer text-slate-500 hover:text-slate-800"
+              className="h-8 w-8 p-0 cursor-pointer text-slate-400 hover:text-slate-900 hover:bg-slate-50/50 dark:hover:bg-slate-850/30 rounded-lg flex items-center justify-center transition-all bg-transparent border-none"
               title="Copy"
             >
-              <Copy size={14} />
+              <Copy size={13} />
             </Button>
             <Button
               variant="outline"
               size="sm"
               onClick={handleSave}
-              className="h-8 px-3 font-semibold text-xs cursor-pointer text-brand-600 border-brand-500/20 hover:bg-brand-500/5 dark:text-brand-400"
+              className="h-8 px-3.5 font-bold text-[10px] uppercase tracking-wider cursor-pointer text-brand-600 border-slate-205 dark:border-slate-800 hover:border-brand-500/30 hover:bg-brand-500/5 rounded-xl transition-all bg-transparent"
             >
               Save Draft
             </Button>
           </div>
         </div>
 
-        <Card className="flex-1 flex flex-col border-slate-200/85 dark:border-dark-border dark:bg-dark-card overflow-hidden min-h-[480px]">
+        <Card className="flex-1 flex flex-col border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden min-h-[480px]">
           <CardContent className="p-0 flex-1 flex flex-col">
             {isPreviewMode ? (
-              <div className="flex-1 p-8 overflow-y-auto whitespace-pre-wrap font-sans text-sm text-slate-800 dark:text-slate-200 leading-relaxed bg-slate-50/50 dark:bg-dark-bg">
+              <div className="flex-1 p-8 overflow-y-auto whitespace-pre-wrap font-sans text-sm text-slate-850 dark:text-slate-250 leading-relaxed bg-slate-50/20 dark:bg-slate-955/10 font-medium">
                 {editorContent || (
-                  <span className="text-slate-400 italic">No content generated. Start typing or use the Generator.</span>
+                  <span className="text-slate-400 dark:text-slate-500 italic">No content generated. Start typing or use the Generator.</span>
                 )}
               </div>
             ) : (
@@ -248,23 +248,23 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
                 value={editorContent}
                 onChange={(e) => handleContentChange(e.target.value)}
                 placeholder="Type or generate your cover letter here..."
-                className="flex-1 w-full p-6 text-sm font-sans leading-relaxed text-slate-850 dark:text-slate-200 bg-transparent border-0 focus:ring-0 focus:outline-none resize-none min-h-[440px]"
+                className="flex-1 w-full p-6 text-sm font-sans leading-relaxed text-slate-850 dark:text-slate-200 bg-transparent border-0 focus:ring-0 focus:outline-none resize-none min-h-[440px] font-medium"
               />
             )}
 
             {/* Bottom info bar */}
-            <div className="px-5 py-2.5 bg-slate-50/70 dark:bg-slate-900/40 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px] text-slate-500 dark:text-slate-400">
+            <div className="px-5 py-2.5 bg-slate-50/30 dark:bg-slate-900/30 border-t border-slate-100 dark:border-slate-850 flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
               <div className="flex items-center gap-4">
                 <span>
-                  Words: <strong className="font-semibold text-slate-700 dark:text-slate-350">{wordCount}</strong>
+                  Words: <strong className="font-extrabold text-slate-700 dark:text-slate-350">{wordCount}</strong>
                 </span>
                 <span>
                   Characters:{' '}
-                  <strong className="font-semibold text-slate-700 dark:text-slate-350">{charCount}</strong>
+                  <strong className="font-extrabold text-slate-700 dark:text-slate-350">{charCount}</strong>
                 </span>
               </div>
-              <div>
-                Auto-saved to draft
+              <div className="font-bold text-slate-400">
+                Draft Auto-Saved
               </div>
             </div>
           </CardContent>
@@ -274,17 +274,17 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
       {/* AI Side Panel */}
       <div className="lg:col-span-5 flex flex-col space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-display font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
-            <Sparkles size={16} className="text-brand-500" />
+          <h3 className="font-display font-black text-xs uppercase tracking-widest text-slate-900 dark:text-white flex items-center gap-2 m-0">
+            <Sparkles size={16} className="text-brand-500 animate-pulse" />
             <span>AI Optimization Workspace</span>
           </h3>
           <div className="flex items-center gap-2">
-            <label className="flex items-center gap-1.5 text-[10px] text-slate-450 dark:text-slate-500 cursor-pointer">
+            <label className="flex items-center gap-1.5 text-[10px] text-slate-450 dark:text-slate-500 cursor-pointer select-none font-bold uppercase tracking-wider">
               <input
                 type="checkbox"
                 checked={bypassCache}
                 onChange={(e) => setBypassCache(e.target.checked)}
-                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 h-3 w-3"
+                className="rounded-sm border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500 h-3.5 w-3.5 bg-transparent cursor-pointer"
               />
               <span>Bypass cache</span>
             </label>
@@ -292,12 +292,12 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
         </div>
 
         {/* Optimise trigger buttons */}
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-3">
           <Button
             size="sm"
             onClick={() => handleOptimize('STANDARD')}
             disabled={isOptimizing || !editorContent}
-            className="text-xs gap-1.5 h-9 font-semibold"
+            className="text-[10px] font-bold uppercase tracking-wider gap-1.5 h-9 bg-brand-500 hover:bg-brand-600 text-white rounded-xl shadow-xs border-none cursor-pointer flex items-center justify-center"
           >
             {isOptimizing ? (
               <Loader2 size={13} className="animate-spin" />
@@ -311,7 +311,7 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
             variant="outline"
             onClick={() => handleOptimize('DETAILED')}
             disabled={isOptimizing || !editorContent}
-            className="text-xs gap-1.5 h-9 font-semibold text-brand-600 border-brand-500/20 hover:bg-brand-500/5 dark:text-brand-400"
+            className="text-[10px] font-bold uppercase tracking-wider gap-1.5 h-9 text-brand-600 border-slate-205 dark:border-slate-800 hover:border-brand-500/30 hover:bg-brand-500/5 rounded-xl transition-all cursor-pointer bg-transparent"
           >
             {isOptimizing ? (
               <Loader2 size={13} className="animate-spin" />
@@ -323,7 +323,7 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
         </div>
 
         {/* Tab Selection */}
-        <div className="flex border-b border-slate-200/80 dark:border-slate-800">
+        <div className="flex border-b border-slate-200/60 dark:border-slate-850 gap-1">
           {(['analysis', 'suggestions', 'comparison'] as PanelTab[]).map((tab) => {
             const isTabDisabled = tab === 'comparison' && !optimization
             return (
@@ -332,11 +332,11 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
                 disabled={isTabDisabled}
                 onClick={() => setActiveTab(tab)}
                 className={cn(
-                  'pb-2 px-4 text-xs font-semibold capitalize border-b-2 transition-all cursor-pointer focus:outline-none -mb-[2px]',
+                  'pb-2 px-3 text-[10px] font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer focus:outline-none -mb-[2px] bg-transparent border-none',
                   activeTab === tab
-                    ? 'border-brand-600 text-brand-600 dark:border-brand-400 dark:text-brand-400'
-                    : 'border-transparent text-slate-400 dark:text-slate-500 hover:text-slate-700',
-                  isTabDisabled && 'opacity-40 cursor-not-allowed hover:text-slate-550'
+                    ? 'border-brand-500 text-brand-500 font-extrabold'
+                    : 'border-transparent text-slate-405 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-350',
+                  isTabDisabled && 'opacity-40 cursor-not-allowed hover:text-slate-400'
                 )}
               >
                 {tab === 'analysis' && 'Metric Analytics'}
@@ -350,84 +350,84 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
         {/* Dynamic content rendering */}
         <div className="flex-1">
           {activeTab === 'analysis' && (
-            <Card className="border-slate-200/80 dark:border-dark-border dark:bg-dark-card p-5 space-y-5 h-full min-h-[380px]">
+            <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl p-5 space-y-5 h-full min-h-[380px] shadow-sm text-left hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
               {optimization ? (
-                <div className="space-y-4 text-xs">
+                <div className="space-y-4 text-xs font-sans">
                   {/* Score */}
-                  <div className="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-900/60 rounded-xl border border-slate-200/40 dark:border-slate-800">
-                    <div className="space-y-1">
-                      <span className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+                  <div className="flex items-center justify-between p-3.5 bg-slate-50/50 dark:bg-slate-950/20 rounded-xl border border-slate-200/50 dark:border-slate-850">
+                    <div className="space-y-1 text-left">
+                      <span className="text-[9px] uppercase font-black text-slate-400 dark:text-slate-500 tracking-wider">
                         Overall Quality Score
                       </span>
-                      <p className="text-slate-500 dark:text-slate-400 leading-normal">
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed m-0 font-medium">
                         Score based on ATS friendliness, tone, grammar, and alignment.
                       </p>
                     </div>
-                    <div className="h-14 w-14 bg-brand-500/10 text-brand-500 rounded-full flex flex-col items-center justify-center border border-brand-500/20">
-                      <span className="text-lg font-bold font-display">{optimization.quality_score.overall_score}</span>
-                      <span className="text-[7px] uppercase font-bold">/100</span>
+                    <div className="h-14 w-14 bg-brand-500/10 text-brand-500 rounded-full flex flex-col items-center justify-center border border-brand-500/30 font-black shadow-2xs font-mono shrink-0">
+                      <span className="text-base font-black">{optimization.quality_score.overall_score}</span>
+                      <span className="text-[7px] uppercase font-bold tracking-wider leading-none mt-0.5">/100</span>
                     </div>
                   </div>
 
                   {/* Category Scores Grid */}
                   <div className="space-y-2.5">
-                    <span className="block font-bold text-slate-700 dark:text-slate-350 text-[10px] uppercase tracking-wider">
+                    <span className="block font-black text-slate-400 dark:text-slate-500 text-[9px] uppercase tracking-wider">
                       Evaluation Breakdown
                     </span>
                     <div className="grid grid-cols-2 gap-3">
                       {Object.entries(optimization.quality_score.category_scores).map(([key, score]) => (
                         <div
                           key={key}
-                          className="p-2.5 bg-slate-50/50 dark:bg-slate-900/30 border border-slate-200/40 dark:border-slate-800/80 rounded-lg flex items-center justify-between"
+                          className="p-2.5 bg-slate-50/50 dark:bg-slate-950/20 border border-slate-200/50 dark:border-slate-850 rounded-xl flex items-center justify-between font-bold text-[10px] font-sans"
                         >
-                          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium capitalize">
+                          <span className="text-[9px] text-slate-500 dark:text-slate-400 font-extrabold uppercase tracking-wider capitalize">
                             {key.replace('_', ' ')}
                           </span>
-                          <span className="text-xs font-bold text-slate-700 dark:text-slate-200">{score}%</span>
+                          <span className="text-xs font-black text-slate-700 dark:text-slate-200">{score}%</span>
                         </div>
                       ))}
                     </div>
                   </div>
 
                   {/* Keyword analysis */}
-                  <div className="space-y-2">
-                    <span className="block font-bold text-slate-700 dark:text-slate-350 text-[10px] uppercase tracking-wider">
+                  <div className="space-y-2.5">
+                    <span className="block font-black text-slate-400 dark:text-slate-500 text-[9px] uppercase tracking-wider">
                       Keyword Densities
                     </span>
-                    <div className="space-y-2">
+                    <div className="space-y-2.5">
                       <div>
-                        <span className="text-[10px] text-slate-450 block mb-1">Matched Keywords:</span>
-                        <div className="flex flex-wrap gap-1">
+                        <span className="text-[9px] text-slate-405 dark:text-slate-500 font-extrabold uppercase block mb-1.5">Matched Keywords:</span>
+                        <div className="flex flex-wrap gap-1.5">
                           {optimization.keyword_analysis.matched_keywords.length > 0 ? (
                             optimization.keyword_analysis.matched_keywords.map((kw, i) => (
                               <Badge
                                 key={i}
                                 variant="outline"
-                                className="bg-emerald-500/5 text-emerald-600 border-emerald-500/10 text-[9px] py-0 px-1.5"
+                                className="bg-emerald-500/5 text-emerald-600 border-emerald-500/15 text-[9px] font-bold py-0 px-2 rounded-lg"
                               >
                                 {kw}
                               </Badge>
                             ))
                           ) : (
-                            <span className="text-[10px] text-slate-400 italic">None found</span>
+                            <span className="text-[10px] text-slate-400 dark:text-slate-500 italic">None found</span>
                           )}
                         </div>
                       </div>
                       <div>
-                        <span className="text-[10px] text-slate-450 block mb-1">Recommended / Missing:</span>
-                        <div className="flex flex-wrap gap-1">
+                        <span className="text-[9px] text-slate-405 dark:text-slate-500 font-extrabold uppercase block mb-1.5">Recommended / Missing:</span>
+                        <div className="flex flex-wrap gap-1.5">
                           {optimization.keyword_analysis.missing_keywords.length > 0 ? (
                             optimization.keyword_analysis.missing_keywords.map((kw, i) => (
                               <Badge
                                 key={i}
                                 variant="outline"
-                                className="bg-amber-500/5 text-amber-600 border-amber-500/10 text-[9px] py-0 px-1.5"
+                                className="bg-rose-500/5 text-rose-600 border-rose-500/15 text-[9px] font-bold py-0 px-2 rounded-lg"
                               >
                                 {kw}
                               </Badge>
                             ))
                           ) : (
-                            <span className="text-[10px] text-slate-400 italic">None recommended</span>
+                            <span className="text-[10px] text-slate-400 dark:text-slate-500 italic">None recommended</span>
                           )}
                         </div>
                       </div>
@@ -435,19 +435,19 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
                   </div>
 
                   {/* Company alignment */}
-                  <div className="space-y-2 border-t border-slate-100 dark:border-slate-800/80 pt-3">
+                  <div className="space-y-2 border-t border-slate-100 dark:border-slate-850 pt-3">
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-slate-700 dark:text-slate-350 text-[10px] uppercase tracking-wider">
+                      <span className="font-black text-slate-400 dark:text-slate-500 text-[9px] uppercase tracking-wider">
                         Corporate Alignment
                       </span>
-                      <span className="text-[10px] font-semibold text-brand-500">
-                        Match Confidence: {(optimization.company_alignment.alignment_confidence * 100).toFixed(0)}%
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-brand-500">
+                        Match: {(optimization.company_alignment.alignment_confidence * 100).toFixed(0)}%
                       </span>
                     </div>
-                    <p className="text-[10px] leading-relaxed text-slate-600 dark:text-slate-400">
+                    <p className="text-[11px] leading-relaxed text-slate-655 dark:text-slate-405 font-medium m-0">
                       <strong>Culture Fit:</strong> {optimization.company_alignment.culture_fit}
                     </p>
-                    <p className="text-[10px] leading-relaxed text-slate-600 dark:text-slate-400">
+                    <p className="text-[11px] leading-relaxed text-slate-655 dark:text-slate-405 font-medium m-0 mt-1">
                       <strong>Mission Fit:</strong> {optimization.company_alignment.mission_alignment}
                     </p>
                   </div>
@@ -457,8 +457,8 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
                   <div className="h-10 w-10 rounded-full bg-brand-500/10 text-brand-500 flex items-center justify-center">
                     <Award size={18} />
                   </div>
-                  <h4 className="text-xs font-bold text-slate-900 dark:text-white">Audit Pending</h4>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 max-w-[240px] leading-normal font-sans">
+                  <h4 className="text-xs font-bold text-slate-900 dark:text-white m-0">Audit Pending</h4>
+                  <p className="text-[11px] text-slate-550 dark:text-slate-400 max-w-[240px] leading-relaxed font-sans m-0 font-medium">
                     Run standard or detailed AI Audits to inspect readability scores, keyword distributions, and company alignment.
                   </p>
                 </div>
@@ -467,27 +467,27 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
           )}
 
           {activeTab === 'suggestions' && (
-            <Card className="border-slate-200/80 dark:border-dark-border dark:bg-dark-card p-5 space-y-4 h-full min-h-[380px] overflow-y-auto max-h-[460px]">
+            <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl p-5 space-y-4 h-full min-h-[380px] overflow-y-auto max-h-[460px] shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
               {optimization ? (
                 <div className="space-y-4">
                   {/* High Priority */}
                   {optimization.suggestions.high_priority.length > 0 && (
                     <div className="space-y-2">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-rose-500 flex items-center gap-1.5">
-                        <AlertCircle size={12} />
+                      <span className="text-[9px] font-black uppercase tracking-widest text-rose-500 flex items-center gap-1.5">
+                        <AlertCircle size={12} className="text-rose-500" />
                         <span>High Priority</span>
                       </span>
-                      <div className="space-y-2">
+                      <div className="space-y-2.5">
                         {optimization.suggestions.high_priority.map((sug, i) => (
                           <div
                             key={i}
-                            className="p-3 rounded-lg border border-rose-200/50 bg-rose-500/5 dark:border-rose-950/20 dark:bg-rose-950/5 space-y-1"
+                            className="p-3.5 rounded-xl border border-rose-200/50 bg-rose-500/5 dark:border-rose-955/20 dark:bg-rose-955/5 space-y-1.5 text-left"
                           >
-                            <h5 className="font-semibold text-xs text-rose-900 dark:text-rose-350">{sug.suggested_improvement}</h5>
-                            <p className="text-[10px] text-slate-600 dark:text-slate-400 font-sans leading-normal">
+                            <h5 className="font-bold text-xs text-rose-700 dark:text-rose-400 m-0">{sug.suggested_improvement}</h5>
+                            <p className="text-[11px] text-slate-655 dark:text-slate-400 font-sans leading-relaxed m-0 font-medium">
                               {sug.reason}
                             </p>
-                            <span className="text-[9px] text-rose-600 dark:text-rose-455 font-medium block">
+                            <span className="text-[9px] font-bold text-rose-600 dark:text-rose-455 uppercase tracking-wider block mt-1">
                               Impact: +{sug.estimated_ats_improvement}% ATS Score (Expected: {sug.expected_benefit})
                             </span>
                           </div>
@@ -499,21 +499,21 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
                   {/* Medium Priority */}
                   {optimization.suggestions.medium_priority.length > 0 && (
                     <div className="space-y-2 pt-2">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-amber-500 flex items-center gap-1.5">
-                        <Info size={12} />
+                      <span className="text-[9px] font-black uppercase tracking-widest text-amber-500 flex items-center gap-1.5">
+                        <Info size={12} className="text-amber-500" />
                         <span>Medium Priority</span>
                       </span>
-                      <div className="space-y-2">
+                      <div className="space-y-2.5">
                         {optimization.suggestions.medium_priority.map((sug, i) => (
                           <div
                             key={i}
-                            className="p-3 rounded-lg border border-amber-200/50 bg-amber-500/5 dark:border-amber-950/20 dark:bg-amber-950/5 space-y-1"
+                            className="p-3.5 rounded-xl border border-amber-200/50 bg-amber-500/5 dark:border-amber-955/20 dark:bg-amber-955/5 space-y-1.5 text-left"
                           >
-                            <h5 className="font-semibold text-xs text-amber-900 dark:text-amber-350">{sug.suggested_improvement}</h5>
-                            <p className="text-[10px] text-slate-600 dark:text-slate-400 font-sans leading-normal">
+                            <h5 className="font-bold text-xs text-amber-700 dark:text-amber-400 m-0">{sug.suggested_improvement}</h5>
+                            <p className="text-[11px] text-slate-655 dark:text-slate-400 font-sans leading-relaxed m-0 font-medium">
                               {sug.reason}
                             </p>
-                            <span className="text-[9px] text-amber-600 dark:text-amber-455 font-medium block">
+                            <span className="text-[9px] font-bold text-amber-605 dark:text-amber-455 uppercase tracking-wider block mt-1">
                               Impact: +{sug.estimated_ats_improvement}% ATS Score (Expected: {sug.expected_benefit})
                             </span>
                           </div>
@@ -525,21 +525,21 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
                   {/* Low Priority */}
                   {optimization.suggestions.low_priority.length > 0 && (
                     <div className="space-y-2 pt-2">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                      <span className="text-[9px] font-black uppercase tracking-widest text-slate-405 dark:text-slate-500 flex items-center gap-1.5">
                         <ShieldCheck size={12} className="text-emerald-500" />
                         <span>Minor Enhancements</span>
                       </span>
-                      <div className="space-y-2">
+                      <div className="space-y-2.5">
                         {optimization.suggestions.low_priority.map((sug, i) => (
                           <div
                             key={i}
-                            className="p-3 rounded-lg border border-slate-200/60 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/10 space-y-1"
+                            className="p-3.5 rounded-xl border border-slate-205 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/10 space-y-1.5 text-left"
                           >
-                            <h5 className="font-semibold text-xs text-slate-850 dark:text-slate-250">{sug.suggested_improvement}</h5>
-                            <p className="text-[10px] text-slate-550 dark:text-slate-400 font-sans leading-normal">
+                            <h5 className="font-bold text-xs text-slate-800 dark:text-slate-250 m-0">{sug.suggested_improvement}</h5>
+                            <p className="text-[11px] text-slate-550 dark:text-slate-400 font-sans leading-relaxed m-0 font-medium">
                               {sug.reason}
                             </p>
-                            <span className="text-[9px] text-brand-600 dark:text-brand-400 font-medium block">
+                            <span className="text-[9px] font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider block mt-1">
                               Impact: +{sug.estimated_ats_improvement}% ATS Score (Expected: {sug.expected_benefit})
                             </span>
                           </div>
@@ -551,7 +551,7 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
                   {optimization.suggestions.high_priority.length === 0 &&
                     optimization.suggestions.medium_priority.length === 0 &&
                     optimization.suggestions.low_priority.length === 0 && (
-                      <div className="h-full min-h-[300px] flex flex-col items-center justify-center text-center p-6">
+                      <div className="h-full min-h-[300px] flex flex-col items-center justify-center text-center p-6 text-slate-500">
                         <div className="h-10 w-10 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
                           <ShieldCheck size={18} />
                         </div>
@@ -567,8 +567,8 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
                   <div className="h-10 w-10 rounded-full bg-brand-500/10 text-brand-500 flex items-center justify-center">
                     <BookOpen size={18} />
                   </div>
-                  <h4 className="text-xs font-bold text-slate-900 dark:text-white">Suggestions Pending</h4>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 max-w-[240px] leading-normal font-sans">
+                  <h4 className="text-xs font-bold text-slate-900 dark:text-white m-0">Suggestions Pending</h4>
+                  <p className="text-[11px] text-slate-550 dark:text-slate-400 max-w-[240px] leading-relaxed font-sans m-0 font-medium">
                     Run an AI audit to receive priority based structural recommendations, spelling edits, and ATS improvements.
                   </p>
                 </div>
@@ -578,14 +578,14 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
 
           {activeTab === 'comparison' && optimization && (
             <div className="space-y-4 h-full min-h-[380px]">
-              <div className="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-900/60 border border-slate-200/40 dark:border-slate-800 rounded-xl">
-                <div className="space-y-0.5">
-                  <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-500">
+              <div className="flex items-center justify-between p-3.5 bg-slate-50/50 dark:bg-slate-950/20 border border-slate-200/50 dark:border-slate-850 rounded-xl">
+                <div className="space-y-0.5 text-left">
+                  <span className="block text-[9px] font-black uppercase tracking-wider text-emerald-500">
                     Quality Optimization
                   </span>
-                  <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-normal">
+                  <p className="text-[11px] text-slate-555 dark:text-slate-400 leading-normal m-0 font-medium">
                     AI estimates quality gain of{' '}
-                    <strong className="text-slate-700 dark:text-slate-350">
+                    <strong className="text-slate-800 dark:text-white font-extrabold">
                       +{optimization.version_comparison.estimated_quality_gain}%
                     </strong>
                   </p>
@@ -593,9 +593,9 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
                 <Button
                   size="sm"
                   onClick={handleAcceptOptimization}
-                  className="text-xs gap-1.5 h-8 font-semibold cursor-pointer"
+                  className="flex items-center justify-center gap-1.5 px-3 py-2.5 font-bold cursor-pointer bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-[10px] uppercase tracking-wider h-8"
                 >
-                  <Check size={12} />
+                  <Check size={12} className="stroke-[3]" />
                   <span>Accept AI Text</span>
                 </Button>
               </div>

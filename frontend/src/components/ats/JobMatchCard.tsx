@@ -10,6 +10,7 @@ import {
   Radar,
   Tooltip,
 } from 'recharts'
+import { cn } from '@/lib/utils'
 
 interface MatchBreakdown {
   skills: number
@@ -44,6 +45,22 @@ interface JobMatchCardProps {
   matchData: JobMatchData
 }
 
+function CustomTooltip({ active, payload, label }: any) {
+  if (active && payload && payload.length) {
+    return (
+      <div className="rounded-xl border border-slate-200 dark:border-slate-805 bg-white/95 dark:bg-slate-955/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+        <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 m-0">{label}</p>
+        <div className="mt-1.5 flex items-center gap-2 font-semibold">
+          <span className="h-2 w-2 rounded-full bg-brand-500" />
+          <span className="text-slate-500 dark:text-slate-400">Match:</span>
+          <span className="text-slate-900 dark:text-white">{payload[0].value}%</span>
+        </div>
+      </div>
+    )
+  }
+  return null
+}
+
 export function JobMatchCard({ matchData }: JobMatchCardProps) {
   const {
     match_score,
@@ -67,20 +84,20 @@ export function JobMatchCard({ matchData }: JobMatchCardProps) {
   const semanticSimilarity = Math.round(match_score * 0.95 + 4)
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-left">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-left font-sans">
       {/* Gauge and Radar Card */}
-      <Card className="lg:col-span-2 dark:bg-slate-900/40 border-slate-200/60 dark:border-slate-800/40">
-        <CardHeader>
-          <CardTitle className="text-lg">Job Match Scoring Breakdown</CardTitle>
+      <Card className="lg:col-span-2 border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left">
+        <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60">
+          <CardTitle className="text-sm font-black uppercase tracking-wider text-slate-900 dark:text-slate-150 m-0">Job Match Scoring Breakdown</CardTitle>
         </CardHeader>
-        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-0 items-center">
+        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 items-center">
           <div className="flex flex-col items-center">
             <ATSGauge score={match_score} label="Match Score" grade={grade} size={180} />
-            <div className="mt-2 text-center">
-              <span className="text-xs text-slate-400 dark:text-slate-500 font-sans block">
+            <div className="mt-2.5 text-center">
+              <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider block">
                 Semantic Similarity:
               </span>
-              <strong className="text-sm font-semibold font-mono text-brand-600 dark:text-brand-400">
+              <strong className="text-sm font-extrabold text-brand-600 dark:text-brand-400">
                 {semanticSimilarity}%
               </strong>
             </div>
@@ -106,16 +123,7 @@ export function JobMatchCard({ matchData }: JobMatchCardProps) {
                   fill="#0F9D9A"
                   fillOpacity={0.25}
                 />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '11px',
-                    color: '#f8fafc',
-                    fontFamily: 'Inter',
-                  }}
-                />
+                <Tooltip content={<CustomTooltip />} />
               </RadarChart>
             </ResponsiveContainer>
           </div>
@@ -123,82 +131,79 @@ export function JobMatchCard({ matchData }: JobMatchCardProps) {
       </Card>
 
       {/* Quick Summary list */}
-      <Card className="dark:bg-slate-900/40 border-slate-200/60 dark:border-slate-800/40 flex flex-col justify-between">
-        <CardHeader>
-          <CardTitle className="text-lg">Skills Matching Metrics</CardTitle>
+      <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 flex flex-col justify-between text-left">
+        <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60">
+          <CardTitle className="text-sm font-black uppercase tracking-wider text-slate-900 dark:text-slate-150 m-0">Skills Matching Metrics</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4 pt-0 text-xs font-sans">
+        <CardContent className="space-y-4 pt-6 text-xs font-sans">
           {/* Matched Skills */}
-          <div className="space-y-1.5">
-            <div className="flex justify-between font-semibold text-emerald-600 dark:text-emerald-400">
+          <div className="space-y-2">
+            <div className="flex justify-between items-center font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider text-[10px]">
               <span>Matched Skills</span>
-              <span className="font-mono bg-emerald-500/10 px-1.5 py-0.5 rounded-sm">
+              <Badge variant="success" className="font-extrabold text-[10px] px-2 py-0">
                 {matched_skills.length}
-              </span>
+              </Badge>
             </div>
-            <div className="flex flex-wrap gap-1 max-h-24 overflow-y-auto pr-1">
+            <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto pr-1 scrollbar-none">
               {matched_skills.length > 0 ? (
                 matched_skills.map((skill, idx) => (
-                  <Badge
+                  <span
                     key={idx}
-                    variant="success"
-                    className="text-[9px] font-sans px-1.5 py-0 bg-emerald-500/10 text-emerald-700 dark:text-emerald-350 border-emerald-500/20"
+                    className="text-[9px] font-bold px-2 py-0.5 rounded-lg bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/15"
                   >
                     {skill}
-                  </Badge>
+                  </span>
                 ))
               ) : (
-                <span className="text-[10px] text-slate-400 italic">No direct matches found</span>
+                <span className="text-[10px] text-slate-400 dark:text-slate-500 italic">No direct matches found</span>
               )}
             </div>
           </div>
 
           {/* Missing Skills */}
-          <div className="space-y-1.5">
-            <div className="flex justify-between font-semibold text-red-600 dark:text-red-400">
+          <div className="space-y-2 border-t border-slate-150/40 dark:border-slate-800/40 pt-3">
+            <div className="flex justify-between items-center font-bold text-rose-600 dark:text-rose-500 uppercase tracking-wider text-[10px]">
               <span>Missing Core Skills</span>
-              <span className="font-mono bg-red-500/10 px-1.5 py-0.5 rounded-sm">
+              <Badge variant="error" className="font-extrabold text-[10px] px-2 py-0">
                 {missing_skills.length}
-              </span>
+              </Badge>
             </div>
-            <div className="flex flex-wrap gap-1 max-h-24 overflow-y-auto pr-1">
+            <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto pr-1 scrollbar-none">
               {missing_skills.length > 0 ? (
                 missing_skills.map((skill, idx) => (
-                  <Badge
+                  <span
                     key={idx}
-                    variant="error"
-                    className="text-[9px] font-sans px-1.5 py-0 bg-red-500/10 text-red-700 dark:text-red-350 border-red-500/20"
+                    className="text-[9px] font-bold px-2 py-0.5 rounded-lg bg-rose-500/10 text-rose-700 dark:text-rose-455 border border-rose-500/15"
                   >
                     {skill}
-                  </Badge>
+                  </span>
                 ))
               ) : (
-                <span className="text-[10px] text-slate-400 italic">No missing skills detected</span>
+                <span className="text-[10px] text-slate-400 dark:text-slate-500 italic">No missing skills detected</span>
               )}
             </div>
           </div>
 
           {/* Extra Skills */}
-          <div className="space-y-1.5">
-            <div className="flex justify-between font-semibold text-blue-600 dark:text-blue-400">
+          <div className="space-y-2 border-t border-slate-150/40 dark:border-slate-800/40 pt-3">
+            <div className="flex justify-between items-center font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider text-[10px]">
               <span>Extra Candidate Skills</span>
-              <span className="font-mono bg-blue-500/10 px-1.5 py-0.5 rounded-sm">
+              <Badge variant="info" className="font-extrabold text-[10px] px-2 py-0">
                 {extra_skills.length}
-              </span>
+              </Badge>
             </div>
-            <div className="flex flex-wrap gap-1 max-h-24 overflow-y-auto pr-1">
+            <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto pr-1 scrollbar-none">
               {extra_skills.length > 0 ? (
                 extra_skills.map((skill, idx) => (
-                  <Badge
+                  <span
                     key={idx}
-                    variant="info"
-                    className="text-[9px] font-sans px-1.5 py-0 bg-blue-500/10 text-blue-700 dark:text-blue-350 border-blue-500/20"
+                    className="text-[9px] font-bold px-2 py-0.5 rounded-lg bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/15"
                   >
                     {skill}
-                  </Badge>
+                  </span>
                 ))
               ) : (
-                <span className="text-[10px] text-slate-400 italic">No additional skills found</span>
+                <span className="text-[10px] text-slate-400 dark:text-slate-500 italic">No additional skills found</span>
               )}
             </div>
           </div>

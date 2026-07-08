@@ -1,7 +1,8 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
 import { ProgressTracker } from './ProgressTracker'
 import { Badge } from '@/components/ui/Badge'
-import { Award, Compass } from 'lucide-react'
+import { StatisticCard } from '@/components/ui/StatisticCard'
+import { Award, Compass, CheckCircle2, Circle, GraduationCap, Flame } from 'lucide-react'
 import type { RoadmapAnalyticsResponse } from '@/types/roadmap'
 
 interface CareerDashboardCardProps {
@@ -13,8 +14,8 @@ interface CareerDashboardCardProps {
 export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }: CareerDashboardCardProps) {
   if (!analytics) {
     return (
-      <Card className="border-slate-200/60 dark:border-slate-800/40 bg-white/40 dark:bg-slate-900/30 backdrop-blur-md">
-        <CardContent className="py-12 text-center text-sm text-slate-500 italic">
+      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left font-sans text-xs">
+        <CardContent className="py-12 text-center text-sm text-slate-450 dark:text-slate-500 italic font-medium leading-relaxed">
           No analytics data available.
           Generate or select a roadmap to get started.
         </CardContent>
@@ -39,19 +40,19 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-sans text-xs">
       {/* Radial Score Card */}
-      <Card className="border-slate-200/60 dark:border-slate-800/40 bg-white/60 dark:bg-slate-900/40 backdrop-blur-md md:col-span-1">
-        <CardHeader className="text-left">
-          <CardTitle className="text-base font-bold font-display text-slate-900 dark:text-white flex items-center gap-2">
-            <Award className="text-purple-500 h-5 w-5" />
+      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 md:col-span-1 text-left">
+        <CardHeader className="text-left pb-4 border-b border-slate-100 dark:border-slate-800/60">
+          <CardTitle className="text-sm font-black font-display text-slate-900 dark:text-white flex items-center gap-2 m-0 leading-none">
+            <Award className="text-brand-500 h-5 w-5" />
             <span>Career Readiness Score</span>
           </CardTitle>
-          <CardDescription className="text-xs">
+          <CardDescription className="text-[10px] text-slate-500 dark:text-slate-405 leading-relaxed font-sans max-w-sm m-0 mt-1.5 font-medium">
             Overall AI score based on skills coverage and milestones.
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex flex-col items-center justify-center pb-6">
+        <CardContent className="flex flex-col items-center justify-center pt-6 pb-6 text-center">
           <div className="relative h-32 w-32 flex items-center justify-center">
             {/* SVG circle loader */}
             <svg className="w-full h-full transform -rotate-90">
@@ -59,16 +60,16 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
                 cx="64"
                 cy="64"
                 r="52"
-                strokeWidth="10"
+                strokeWidth="8"
                 stroke="currentColor"
-                className="text-slate-100 dark:text-slate-800"
+                className="text-slate-100 dark:text-slate-800/60"
                 fill="transparent"
               />
               <circle
                 cx="64"
                 cy="64"
                 r="52"
-                strokeWidth="10"
+                strokeWidth="8"
                 strokeDasharray={2 * Math.PI * 52}
                 strokeDashoffset={2 * Math.PI * 52 * (1 - score / 100)}
                 strokeLinecap="round"
@@ -76,28 +77,28 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
                 className={`transition-all duration-500 ${getScoreColor(score)}`}
               />
             </svg>
-            <div className="absolute flex flex-col items-center">
-              <span className="text-3xl font-extrabold font-display text-slate-950 dark:text-white">
+            <div className="absolute flex flex-col items-center select-none font-display">
+              <span className="text-3xl font-black font-mono text-slate-950 dark:text-white leading-none">
                 {Math.round(score)}
               </span>
-              <span className="text-[10px] uppercase font-bold text-slate-400">Readiness</span>
+              <span className="text-[7px] uppercase tracking-widest font-black text-slate-400 dark:text-slate-500 mt-1.5 leading-none">Readiness</span>
             </div>
           </div>
           
-          <div className="mt-4 w-full border-t border-slate-100 dark:border-slate-800 pt-4 text-left">
-            <h4 className="text-xs font-bold text-slate-900 dark:text-slate-200 mb-2">Readiness Breakdown</h4>
-            <div className="space-y-1.5 text-xs text-slate-500 dark:text-slate-400">
-              <div className="flex justify-between">
-                <span>ATS Optimization</span>
-                <span className="font-semibold text-slate-800 dark:text-slate-200">{Math.round(readiness?.breakdown?.ats_score ?? 0)}%</span>
+          <div className="mt-4 w-full border-t border-slate-100 dark:border-slate-850 pt-4 text-left">
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-405 dark:text-slate-500 mb-2 leading-none">Readiness Breakdown</h4>
+            <div className="space-y-2 text-[10px] text-slate-500 dark:text-slate-400 font-sans">
+              <div className="flex justify-between items-center">
+                <span className="font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest text-[9px]">ATS Optimization</span>
+                <span className="font-mono font-black text-slate-900 dark:text-white">{Math.round(readiness?.breakdown?.ats_score ?? 0)}%</span>
               </div>
-              <div className="flex justify-between">
-                <span>Interview Mastery</span>
-                <span className="font-semibold text-slate-800 dark:text-slate-200">{Math.round(readiness?.breakdown?.interview_readiness ?? 0)}%</span>
+              <div className="flex justify-between items-center">
+                <span className="font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest text-[9px]">Interview Mastery</span>
+                <span className="font-mono font-black text-slate-900 dark:text-white">{Math.round(readiness?.breakdown?.interview_readiness ?? 0)}%</span>
               </div>
-              <div className="flex justify-between">
-                <span>Skill Coverage</span>
-                <span className="font-semibold text-slate-800 dark:text-slate-200">{Math.round(readiness?.breakdown?.skill_gap ?? 0)}%</span>
+              <div className="flex justify-between items-center">
+                <span className="font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest text-[9px]">Skill Coverage</span>
+                <span className="font-mono font-black text-slate-900 dark:text-white">{Math.round(readiness?.breakdown?.skill_gap ?? 0)}%</span>
               </div>
             </div>
           </div>
@@ -105,66 +106,79 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
       </Card>
 
       {/* Goal & Progress Card */}
-      <Card className="border-slate-200/60 dark:border-slate-800/40 bg-white/60 dark:bg-slate-900/40 backdrop-blur-md md:col-span-2 flex flex-col justify-between">
-        <CardHeader className="text-left pb-2">
+      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 md:col-span-2 flex flex-col justify-between text-left">
+        <CardHeader className="text-left pb-4 border-b border-slate-100 dark:border-slate-800/60">
           <div className="flex items-start justify-between gap-4">
-            <div>
-              <CardTitle className="text-base font-bold font-display text-slate-900 dark:text-white flex items-center gap-2">
+            <div className="space-y-1 text-left">
+              <CardTitle className="text-sm font-black font-display text-slate-900 dark:text-white flex items-center gap-2 m-0 leading-none">
                 <Compass className="text-brand-500 h-5 w-5" />
                 <span>Active Career Goal</span>
               </CardTitle>
-              <h3 className="text-lg font-extrabold text-brand-600 dark:text-brand-400 mt-2 mb-1">
+              <h3 className="text-lg font-black text-slate-905 dark:text-white mt-3 mb-0.5 leading-none">
                 {targetRole}
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-[10px] text-slate-500 dark:text-slate-405 leading-relaxed font-sans max-w-sm m-0 font-medium">
                 Learning pathway mapped for {estimatedDuration} months.
               </p>
             </div>
-            <Badge variant={completionPercentage >= 100 ? 'success' : 'warning'}>
+            <Badge variant="outline" className="bg-brand-500/5 text-brand-650 border border-brand-500/10 text-[9px] font-black uppercase tracking-wider py-0.5 px-2.5 rounded-lg leading-none shrink-0">
               {completionPercentage >= 100 ? 'Achieved' : 'In Progress'}
             </Badge>
           </div>
         </CardHeader>
 
-        <CardContent className="space-y-4 pt-0">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-2 bg-slate-50/50 dark:bg-slate-950/20 rounded-xl p-4 border border-slate-100 dark:border-slate-800/50">
-            <div>
-              <div className="text-xs text-slate-400 font-medium">Milestones Done</div>
-              <div className="text-base font-bold text-slate-900 dark:text-white mt-0.5">{completedMilestones}</div>
-            </div>
-            <div>
-              <div className="text-xs text-slate-400 font-medium">Remaining</div>
-              <div className="text-base font-bold text-slate-900 dark:text-white mt-0.5">{remainingMilestones}</div>
-            </div>
-            <div>
-              <div className="text-xs text-slate-400 font-medium">Skills Verified</div>
-              <div className="text-base font-bold text-slate-900 dark:text-white mt-0.5">{skillsCompleted}</div>
-            </div>
-            <div>
-              <div className="text-xs text-slate-400 font-medium">Skills In Progress</div>
-              <div className="text-base font-bold text-slate-900 dark:text-white mt-0.5">{skillsInProgress}</div>
-            </div>
+        <CardContent className="space-y-5 pt-5 pb-5 text-left">
+          {/* StatisticCard Grids */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <StatisticCard
+              title="Milestones Completed"
+              value={completedMilestones}
+              description="Tasks accomplished"
+              icon={CheckCircle2}
+              className="border-slate-205 dark:border-slate-855 p-3.5"
+            />
+            <StatisticCard
+              title="Upcoming Left"
+              value={remainingMilestones}
+              description="Awaiting completion"
+              icon={Circle}
+              className="border-slate-205 dark:border-slate-855 p-3.5"
+            />
+            <StatisticCard
+              title="Skills Verified"
+              value={skillsCompleted}
+              description="Verified in profile"
+              icon={GraduationCap}
+              className="border-slate-205 dark:border-slate-855 p-3.5"
+            />
+            <StatisticCard
+              title="Skills Active"
+              value={skillsInProgress}
+              description="Acquisitions active"
+              icon={Flame}
+              className="border-slate-205 dark:border-slate-855 p-3.5"
+            />
           </div>
 
-          <div className="space-y-1 text-left">
+          <div className="space-y-1.5 text-left">
             <div className="flex justify-between text-xs font-semibold text-slate-800 dark:text-slate-350">
-              <span>Overall Roadmap Completion</span>
-              <span>{Math.round(completionPercentage)}%</span>
+              <span className="font-extrabold text-slate-500 dark:text-slate-450 uppercase tracking-widest text-[9px]">Overall Roadmap Completion</span>
+              <span className="font-mono font-black text-slate-905 dark:text-white">{Math.round(completionPercentage)}%</span>
             </div>
             <ProgressTracker value={completionPercentage} />
           </div>
 
           {/* Upcoming milestones snapshot */}
-          <div className="border-t border-slate-100 dark:border-slate-800 pt-3 text-left">
-            <h4 className="text-xs font-bold text-slate-900 dark:text-slate-200 mb-2">Upcoming Milestones</h4>
+          <div className="border-t border-slate-100 dark:border-slate-850 pt-4 text-left">
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-405 dark:text-slate-500 mb-2 leading-none">Upcoming Milestones</h4>
             {upcomingMilestones.length === 0 ? (
               <p className="text-xs text-slate-400 italic">No upcoming milestones.</p>
             ) : (
               <div className="space-y-2">
                 {upcomingMilestones.slice(0, 2).map((ms) => (
-                  <div key={ms.id} className="flex items-center justify-between gap-3 text-xs bg-slate-50 dark:bg-slate-900 p-2 rounded-lg">
-                    <span className="font-semibold text-slate-800 dark:text-slate-200 truncate">{ms.title}</span>
-                    <Badge variant="secondary" className="shrink-0">{ms.duration || 'Flexible'}</Badge>
+                  <div key={ms.id} className="flex items-center justify-between gap-3 text-xs bg-slate-50/50 dark:bg-slate-900/40 p-2.5 rounded-xl border border-slate-200/50 dark:border-slate-850 hover:border-slate-300 dark:hover:border-slate-750 transition-all duration-200">
+                    <span className="font-semibold text-slate-800 dark:text-slate-205 truncate text-left">{ms.title}</span>
+                    <Badge variant="outline" className="shrink-0 text-[9px] font-bold py-0.5 px-2 bg-slate-100/50 dark:bg-slate-800/60 text-slate-500 rounded-lg border-none leading-none">{ms.duration || 'Flexible'}</Badge>
                   </div>
                 ))}
               </div>

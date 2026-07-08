@@ -51,21 +51,21 @@ export function EmptyState({
   return (
     <div
       className={cn(
-        'flex flex-col items-center justify-center text-center p-8 border border-dashed border-slate-250 dark:border-slate-800 rounded-lg bg-slate-50/50 dark:bg-slate-900/30 min-h-[300px]',
+        'flex flex-col items-center justify-center text-center p-8 border border-dashed border-slate-200/80 dark:border-slate-850 rounded-2xl bg-white/40 dark:bg-slate-900/20 backdrop-blur-md min-h-[300px] shadow-[0_4px_25px_rgba(0,0,0,0.01)] dark:shadow-none',
         className
       )}
     >
-      <div className="text-brand-600 dark:text-brand-400 mb-4 bg-brand-500/8 border border-brand-500/12 p-3.5 rounded-xl shadow-xs">
-        {icon || <FolderOpen size={32} />}
+      <div className="text-brand-600 dark:text-brand-400 mb-4 bg-brand-500/10 border border-brand-500/20 p-3 rounded-2xl shadow-sm">
+        {icon || <FolderOpen size={30} className="stroke-[1.75]" />}
       </div>
-      <h3 className="text-base font-bold font-display text-slate-800 dark:text-slate-200 mb-1.5">
+      <h3 className="text-base font-bold font-display text-slate-900 dark:text-slate-250 mb-1.5">
         {title}
       </h3>
-      <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mb-6 font-sans leading-relaxed">
+      <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mb-5 font-sans leading-relaxed">
         {description}
       </p>
       {actionLabel && onAction && (
-        <Button variant="primary" size="md" onClick={onAction}>
+        <Button variant="primary" size="sm" onClick={onAction} className="rounded-xl font-bold hover:shadow-brand-500/10 transition-all cursor-pointer">
           {actionLabel}
         </Button>
       )}
@@ -149,9 +149,9 @@ export function EmptyGithubState({ onAction }: { onAction: () => void }) {
   return (
     <EmptyState
       icon={<Github size={36} className="text-slate-700 dark:text-slate-400" />}
-      title="No GitHub Repositories Linked"
-      description="Connect your remote repositories list to audit code structure quality metrics and repository analytics dashboards."
-      actionLabel="Sync Repositories"
+      title="No GitHub Repository Connected"
+      description="Connect your GitHub account to unlock AI-powered code insights."
+      actionLabel="Connect GitHub"
       onAction={onAction}
     />
   )

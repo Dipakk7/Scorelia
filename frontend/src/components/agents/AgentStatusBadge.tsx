@@ -1,5 +1,3 @@
-// frontend/src/components/agents/AgentStatusBadge.tsx
-
 import React from 'react'
 import { cn } from '@/lib/utils'
 
@@ -13,22 +11,22 @@ export const AgentStatusBadge: React.FC<AgentStatusBadgeProps> = ({ status, clas
 
   const config = {
     healthy: {
-      bg: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20',
+      bg: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-450 border-emerald-500/20',
       label: 'Healthy',
       dot: 'bg-emerald-500 animate-pulse',
     },
     unhealthy: {
-      bg: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20',
+      bg: 'bg-rose-500/10 text-rose-650 dark:text-rose-455 border-rose-500/20',
       label: 'Degraded',
       dot: 'bg-rose-500',
     },
     active: {
-      bg: 'bg-brand-500/10 text-brand-600 dark:text-brand-400 border-brand-500/20',
+      bg: 'bg-brand-500/10 text-brand-655 dark:text-brand-400 border-brand-500/20',
       label: 'Active',
       dot: 'bg-brand-500 animate-ping',
     },
     running: {
-      bg: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
+      bg: 'bg-amber-500/10 text-amber-600 dark:text-amber-450 border-amber-500/20',
       label: 'Running',
       dot: 'bg-amber-500 animate-pulse',
     },
@@ -46,13 +44,14 @@ export const AgentStatusBadge: React.FC<AgentStatusBadgeProps> = ({ status, clas
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-semibold tracking-wide border font-sans uppercase',
+        'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-wider border font-sans select-none leading-none shrink-0 border',
         config.bg,
         className
       )}
     >
-      <span className={cn('h-1.5 w-1.5 rounded-full', config.dot)} />
+      <span className={cn('h-1.5 w-1.5 rounded-full shrink-0', config.dot)} />
       {config.label}
     </span>
   )
 }
+export default AgentStatusBadge

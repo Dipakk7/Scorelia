@@ -105,15 +105,15 @@ export function SkillGapCard({ missingSkills, preferredSkills = [] }: SkillGapCa
 
   if (!missingSkills || missingSkills.length === 0) {
     return (
-      <Card className="dark:bg-slate-900/40 border-slate-200/60 dark:border-slate-800/40">
-        <CardContent className="py-12 flex flex-col items-center justify-center text-center">
-          <div className="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center mb-3">
-            <CheckCircle size={24} />
+      <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left">
+        <CardContent className="py-12 flex flex-col items-center justify-center text-center p-0">
+          <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center mb-3">
+            <CheckCircle size={22} className="stroke-[1.75]" />
           </div>
-          <h3 className="text-base font-bold font-display text-slate-800 dark:text-slate-100">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 m-0">
             No Skill Gaps Detected
           </h3>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-1 max-w-sm">
+          <p className="text-xs text-slate-500 dark:text-slate-455 mt-1.5 max-w-sm font-sans leading-normal m-0 font-medium">
             Your resume perfectly matches all candidate skills requested in the job description!
           </p>
         </CardContent>
@@ -125,42 +125,42 @@ export function SkillGapCard({ missingSkills, preferredSkills = [] }: SkillGapCa
     return (
       <div
         key={i}
-        className="p-4 bg-slate-50/50 dark:bg-slate-900/30 border border-slate-200/50 dark:border-slate-800 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-left font-sans text-xs"
+        className="p-4 bg-slate-50/50 dark:bg-slate-950/20 border border-slate-200/50 dark:border-slate-850 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-left font-sans text-xs hover:border-slate-300 dark:hover:border-slate-800 transition-colors duration-200"
       >
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <strong className="font-semibold text-slate-800 dark:text-slate-200 text-sm">
+            <strong className="font-extrabold text-slate-900 dark:text-slate-200 text-sm">
               {gap.name}
             </strong>
-            <Badge variant={gap.priority === 'HIGH' ? 'error' : 'warning'} className="text-[9px] px-1.5 py-0">
+            <Badge variant={gap.priority === 'HIGH' ? 'error' : 'warning'} className="text-[9px] px-1.5 py-0 font-bold uppercase tracking-wider">
               {gap.priority === 'HIGH' ? 'Required' : 'Preferred'}
             </Badge>
           </div>
-          <div className="flex items-center gap-3 text-slate-450 text-[11px]">
+          <div className="flex items-center gap-3 text-slate-450 dark:text-slate-500 text-[11px] font-medium">
             <span className="flex items-center gap-1">
               <Award size={12} className="text-slate-400" />
-              <span>Difficulty: <strong className="text-slate-600 dark:text-slate-350">{gap.difficulty}</strong></span>
+              <span>Difficulty: <strong className="text-slate-700 dark:text-slate-300">{gap.difficulty}</strong></span>
             </span>
             <span className="flex items-center gap-1">
               <Clock size={12} className="text-slate-400" />
-              <span>Est. Study: <strong className="text-slate-600 dark:text-slate-350">{gap.time}</strong></span>
+              <span>Est. Study: <strong className="text-slate-700 dark:text-slate-300">{gap.time}</strong></span>
             </span>
           </div>
         </div>
 
         {/* Resources list */}
         <div className="flex flex-wrap gap-1.5 shrink-0">
-          <span className="text-[10px] text-slate-400 self-center mr-1">Study links:</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-500 self-center mr-1 font-bold uppercase tracking-wider">Study links:</span>
           {gap.resources.map((res, rIdx) => (
             <a
               key={rIdx}
               href={res.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 px-2.5 py-1 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-750 text-slate-650 hover:text-brand-600 dark:text-slate-300 dark:hover:text-brand-400 border border-slate-250/60 dark:border-slate-700/60 rounded-md transition-colors"
+              className="inline-flex items-center gap-1 px-2.5 py-1 bg-white dark:bg-slate-850 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-655 hover:text-brand-600 dark:text-slate-300 dark:hover:text-brand-400 border border-slate-200 dark:border-slate-800 rounded-lg transition-colors font-semibold"
             >
               <span>{res.name}</span>
-              <ExternalLink size={10} />
+              <ExternalLink size={9} />
             </a>
           ))}
         </div>
@@ -169,19 +169,19 @@ export function SkillGapCard({ missingSkills, preferredSkills = [] }: SkillGapCa
   }
 
   return (
-    <Card className="dark:bg-slate-900/40 border-slate-200/60 dark:border-slate-800/40">
-      <CardHeader>
-        <CardTitle className="text-lg flex items-center gap-2">
-          <BookOpen className="text-brand-500 h-5 w-5" />
+    <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm overflow-hidden hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left">
+      <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60">
+        <CardTitle className="text-sm font-extrabold flex items-center gap-1.5 m-0">
+          <BookOpen className="text-brand-500" size={14} />
           <span>Skill Gap & Learning Path</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-6 pt-0">
+      <CardContent className="space-y-6 pt-6">
         {/* Technical skills gap */}
         {technicalGaps.length > 0 && (
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <Lightbulb size={14} className="text-amber-500" />
+          <div className="space-y-3.5">
+            <h4 className="text-xs font-black text-slate-900 dark:text-slate-250 flex items-center gap-1.5 m-0 uppercase tracking-wider">
+              <Lightbulb size={13} className="text-amber-500" />
               <span>Technical Skills to Add</span>
             </h4>
             <div className="space-y-2.5">
@@ -192,9 +192,9 @@ export function SkillGapCard({ missingSkills, preferredSkills = [] }: SkillGapCa
 
         {/* Soft skills gap */}
         {softGaps.length > 0 && (
-          <div className="space-y-3">
-            <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <CheckCircle size={14} className="text-emerald-500" />
+          <div className="space-y-3.5">
+            <h4 className="text-xs font-black text-slate-900 dark:text-slate-250 flex items-center gap-1.5 m-0 uppercase tracking-wider">
+              <CheckCircle size={13} className="text-emerald-500" />
               <span>Soft Skills & Professional Gaps</span>
             </h4>
             <div className="space-y-2.5">

@@ -1,6 +1,7 @@
 import { RadarAnalytics } from '@/components/analytics/RadarAnalytics'
 import { Card } from '@/components/ui/Card'
 import { Award, Zap, Code, ShieldCheck, HelpCircle } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface ScoreBreakdown {
   code_quality_score: number
@@ -27,29 +28,29 @@ export function DeveloperScoreCard({ score, breakdown }: DeveloperScoreCardProps
 
   // Determine rank based on score
   const getRank = (val: number) => {
-    if (val >= 90) return { label: 'Elite Architect', color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20' }
-    if (val >= 75) return { label: 'Senior Engineer', color: 'text-brand-500 bg-brand-500/10 border-brand-500/20' }
-    if (val >= 50) return { label: 'Intermediate Developer', color: 'text-amber-500 bg-amber-500/10 border-amber-500/20' }
-    return { label: 'Junior Developer', color: 'text-rose-500 bg-rose-500/10 border-rose-500/20' }
+    if (val >= 90) return { label: 'Elite Architect', color: 'text-emerald-650 bg-emerald-500/10 border-emerald-500/20' }
+    if (val >= 75) return { label: 'Senior Engineer', color: 'text-brand-655 bg-brand-500/10 border-brand-500/20' }
+    if (val >= 50) return { label: 'Intermediate Developer', color: 'text-amber-600 bg-amber-500/10 border-amber-500/20' }
+    return { label: 'Junior Developer', color: 'text-rose-650 bg-rose-500/10 border-rose-500/20' }
   }
 
   const rank = getRank(score)
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-left font-sans text-xs select-none">
       {/* Overall Score Gauge Card */}
-      <Card className="border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-slate-900/40 backdrop-blur-md flex flex-col justify-between p-6">
-        <div className="space-y-1.5">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs flex flex-col justify-between p-6">
+        <div className="space-y-1.5 text-left">
+          <span className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase font-mono tracking-widest block leading-none">
             Developer Index
           </span>
-          <h4 className="text-xl font-bold tracking-tight text-slate-850 dark:text-slate-100 font-display">
+          <h4 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
             Overall Developer Score
           </h4>
         </div>
 
         {/* Circular Gauge Ring */}
-        <div className="flex flex-col items-center justify-center my-6 relative">
+        <div className="flex flex-col items-center justify-center my-6 relative select-none">
           <svg className="w-36 h-36 transform -rotate-90">
             {/* Background circle */}
             <circle
@@ -57,8 +58,8 @@ export function DeveloperScoreCard({ score, breakdown }: DeveloperScoreCardProps
               cy="72"
               r="62"
               stroke="currentColor"
-              strokeWidth="10"
-              className="text-slate-100 dark:text-slate-800/50"
+              strokeWidth="8"
+              className="text-slate-100 dark:text-slate-800/40"
               fill="transparent"
             />
             {/* Foreground circle */}
@@ -67,7 +68,7 @@ export function DeveloperScoreCard({ score, breakdown }: DeveloperScoreCardProps
               cy="72"
               r="62"
               stroke="url(#scoreGrad)"
-              strokeWidth="10"
+              strokeWidth="8"
               strokeDasharray={2 * Math.PI * 62}
               strokeDashoffset={2 * Math.PI * 62 * (1 - score / 100)}
               strokeLinecap="round"
@@ -76,63 +77,63 @@ export function DeveloperScoreCard({ score, breakdown }: DeveloperScoreCardProps
             />
             <defs>
               <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#4f46e5" />
-                <stop offset="50%" stopColor="#7c3aed" />
-                <stop offset="100%" stopColor="#ec4899" />
+                <stop offset="0%" stopColor="#0F9D9A" />
+                <stop offset="50%" stopColor="#00D2FF" />
+                <stop offset="100%" stopColor="#10b981" />
               </linearGradient>
             </defs>
           </svg>
-          <div className="absolute flex flex-col items-center justify-center text-center">
-            <span className="text-4xl font-black font-display tracking-tighter text-slate-800 dark:text-white bg-linear-to-r from-brand-600 to-fuchsia-500 bg-clip-text text-transparent">
+          <div className="absolute flex flex-col items-center justify-center text-center leading-none">
+            <span className="text-4xl font-black font-display tracking-tighter bg-gradient-to-r from-brand-500 via-cyan-500 to-emerald-500 bg-clip-text text-transparent leading-none block">
               {score}
             </span>
-            <span className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+            <span className="text-[10px] font-bold text-slate-450 dark:text-slate-500 uppercase tracking-widest mt-1 block">
               / 100
             </span>
           </div>
         </div>
 
         {/* Rank badge */}
-        <div className={`mt-2 py-2 px-4 rounded-xl border text-center text-xs font-bold ${rank.color}`}>
+        <div className={cn('mt-2 py-2.5 px-4 rounded-xl border text-center text-[10px] font-black uppercase tracking-wider leading-none select-none', rank.color)}>
           Rank: {rank.label}
         </div>
       </Card>
 
       {/* Score Breakdown Radar Chart Card */}
-      <Card className="lg:col-span-2 border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-slate-900/40 backdrop-blur-md p-6">
-        <div className="space-y-1.5 mb-2">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+      <Card className="lg:col-span-2 border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs p-6 flex flex-col justify-between">
+        <div className="space-y-1.5 mb-2 text-left">
+          <span className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase font-mono tracking-widest block leading-none">
             Intelligence Breakdown
           </span>
-          <h4 className="text-xl font-bold tracking-tight text-slate-850 dark:text-slate-100 font-display">
+          <h4 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
             Repository Capability Analysis
           </h4>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center text-left">
           <RadarAnalytics data={radarData} colorScheme="brand" height={220} />
           
           {/* Subscores details */}
-          <div className="space-y-3 pr-2">
+          <div className="space-y-3.5 pr-2 text-left">
             {[
-              { name: 'Code Quality', score: breakdown.code_quality_score, icon: Code, desc: 'Syntax clarity, standard practices compliance.' },
-              { name: 'Documentation', score: breakdown.documentation_score, icon: Award, desc: 'Readme sizes, inline comments coverage.' },
-              { name: 'Complexity', score: breakdown.complexity_score, icon: Zap, desc: 'Nesting loops logic depth control.' },
-              { name: 'Testing Compliance', score: breakdown.testing_score, icon: HelpCircle, desc: 'Assertion frameworks integration.' },
-              { name: 'Security Standards', score: breakdown.security_score, icon: ShieldCheck, desc: 'Sensitive values hiding, token safety.' }
+              { name: 'Code Quality', score: breakdown.code_quality_score, icon: Code },
+              { name: 'Documentation', score: breakdown.documentation_score, icon: Award },
+              { name: 'Complexity', score: breakdown.complexity_score, icon: Zap },
+              { name: 'Testing Compliance', score: breakdown.testing_score, icon: HelpCircle },
+              { name: 'Security Standards', score: breakdown.security_score, icon: ShieldCheck }
             ].map((sub) => {
               const SubIcon = sub.icon
               return (
-                <div key={sub.name} className="flex flex-col gap-1">
-                  <div className="flex items-center justify-between text-xs font-semibold">
-                    <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
-                      <SubIcon size={14} className="text-slate-400" />
+                <div key={sub.name} className="flex flex-col gap-1.5 text-left">
+                  <div className="flex items-center justify-between text-[11px] font-bold leading-none select-none">
+                    <span className="flex items-center gap-1.5 text-slate-750 dark:text-slate-300 leading-none">
+                      <SubIcon size={14} className="text-slate-405" />
                       {sub.name}
                     </span>
-                    <span className="text-slate-950 dark:text-slate-50 font-bold">{sub.score}%</span>
+                    <span className="text-slate-950 dark:text-slate-50 font-mono font-black leading-none">{sub.score}%</span>
                   </div>
-                  <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1">
+                  <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 border border-slate-200/50 dark:border-slate-850/50 overflow-hidden">
                     <div
-                      className="bg-brand-500 h-1 rounded-full"
+                      className="bg-brand-500 h-1.5 rounded-full"
                       style={{ width: `${sub.score}%` }}
                     />
                   </div>
@@ -145,3 +146,4 @@ export function DeveloperScoreCard({ score, breakdown }: DeveloperScoreCardProps
     </div>
   )
 }
+export default DeveloperScoreCard

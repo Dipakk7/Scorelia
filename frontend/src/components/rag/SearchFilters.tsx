@@ -1,5 +1,6 @@
 import { Card, CardContent } from '@/components/ui/Card'
 import type { CollectionResponse } from '@/types/rag'
+import { cn } from '@/lib/utils'
 
 interface SearchFiltersProps {
   collections: CollectionResponse[]
@@ -25,17 +26,17 @@ export function SearchFilters({
   setDocumentFilter
 }: SearchFiltersProps) {
   return (
-    <Card className="border-slate-200/60 dark:border-slate-800/40 bg-white/40 dark:bg-slate-900/30 backdrop-blur-md text-left">
-      <CardContent className="p-4 grid grid-cols-1 md:grid-cols-4 gap-4">
+    <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
+      <CardContent className="p-4 grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
         {/* Collection Selector */}
-        <div className="space-y-1">
-          <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-display">
+        <div className="space-y-1.5 text-left">
+          <label className="text-[9px] font-black uppercase tracking-widest text-slate-455 dark:text-slate-500 leading-none">
             Target Collection
           </label>
           <select
             value={selectedCollection}
             onChange={(e) => setSelectedCollection(e.target.value)}
-            className="w-full text-xs py-2 px-3 border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500"
+            className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-white/70 dark:bg-slate-900/50 text-slate-950 dark:text-slate-150 focus:outline-none focus:ring-1 focus:ring-brand-500 font-bold transition-colors cursor-pointer shadow-2xs"
           >
             <option value="">All Collections</option>
             {collections.map((col) => (
@@ -47,14 +48,14 @@ export function SearchFilters({
         </div>
 
         {/* Top K limit */}
-        <div className="space-y-1">
-          <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-display">
+        <div className="space-y-1.5 text-left">
+          <label className="text-[9px] font-black uppercase tracking-widest text-slate-455 dark:text-slate-500 leading-none">
             Top K Results
           </label>
           <select
             value={topK}
             onChange={(e) => setTopK(Number(e.target.value))}
-            className="w-full text-xs py-2 px-3 border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500"
+            className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-white/70 dark:bg-slate-900/50 text-slate-950 dark:text-slate-150 focus:outline-none focus:ring-1 focus:ring-brand-500 font-bold transition-colors cursor-pointer shadow-2xs"
           >
             {[3, 5, 8, 12, 15].map((k) => (
               <option key={k} value={k}>
@@ -65,12 +66,12 @@ export function SearchFilters({
         </div>
 
         {/* Relevance Score Cutoff Threshold slider */}
-        <div className="space-y-1">
+        <div className="space-y-1.5 text-left">
           <div className="flex justify-between items-center">
-            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-display">
+            <label className="text-[9px] font-black uppercase tracking-widest text-slate-455 dark:text-slate-500 leading-none">
               Relevance Cutoff
             </label>
-            <span className="text-[10px] font-extrabold text-brand-600 dark:text-brand-400 font-display">
+            <span className="text-[10px] font-extrabold text-brand-655 dark:text-brand-400 font-sans leading-none">
               {Math.round(threshold * 100)}%
             </span>
           </div>
@@ -88,8 +89,8 @@ export function SearchFilters({
         </div>
 
         {/* Target Document Filter text field */}
-        <div className="space-y-1">
-          <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-display">
+        <div className="space-y-1.5 text-left">
+          <label className="text-[9px] font-black uppercase tracking-widest text-slate-455 dark:text-slate-500 leading-none">
             Target Document ID
           </label>
           <input
@@ -97,7 +98,7 @@ export function SearchFilters({
             placeholder="Specific doc ID (optional)..."
             value={documentFilter}
             onChange={(e) => setDocumentFilter(e.target.value)}
-            className="w-full text-xs py-2 px-3 border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-brand-500"
+            className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-white/70 dark:bg-slate-900/50 text-slate-950 dark:text-slate-150 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans font-medium transition-colors shadow-2xs"
           />
         </div>
       </CardContent>

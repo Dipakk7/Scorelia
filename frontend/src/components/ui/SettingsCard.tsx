@@ -16,20 +16,21 @@ export function SettingsCard({
   className,
 }: SettingsCardProps) {
   return (
-    <Card className={cn('border-slate-200/60 dark:border-slate-800/40 bg-white/40 dark:bg-slate-900/30 backdrop-blur-md overflow-hidden text-left', className)}>
-      <CardHeader className="border-b border-slate-200/50 dark:border-slate-800/50 pb-5">
-        <CardTitle className="text-base font-bold font-display text-slate-900 dark:text-slate-50">
+    <Card className={cn('border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs flex flex-col', className)}>
+      <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-805/60 text-left select-none">
+        <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-909 dark:text-white m-0 leading-none">
           {title}
         </CardTitle>
         {description && (
-          <CardDescription className="text-xs text-slate-500 dark:text-slate-400 font-sans mt-1 leading-normal">
+          <CardDescription className="text-[9px] text-slate-405 dark:text-slate-500 font-sans block mt-1.5 leading-none">
             {description}
           </CardDescription>
         )}
       </CardHeader>
-      <CardContent className="pt-6">
+      <CardContent className="p-6 text-left">
         {children}
       </CardContent>
     </Card>
   )
 }
+export default SettingsCard

@@ -1,4 +1,5 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts'
+import { cn } from '@/lib/utils'
 
 interface LanguageItem {
   label: string
@@ -14,18 +15,20 @@ export function LanguageDistributionChart({ data, height = 240 }: LanguageDistri
   // Sort data descending to keep colors consistent
   const sortedData = [...data].sort((a, b) => b.value - a.value)
 
-  const colors = ['#4f46e5', '#7c3aed', '#ec4899', '#f59e0b', '#10b981', '#06b6d4', '#64748b']
+  const colors = ['#0F9D9A', '#6366f1', '#10b981', '#f59e0b', '#ef4444', '#00D2FF', '#64748b']
 
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-slate-900/90 dark:bg-slate-950/95 backdrop-blur-md border border-slate-800 rounded-xl p-2.5 shadow-xl text-xs font-sans text-slate-100">
-          <p className="font-bold text-slate-400 mb-0.5 text-[10px] uppercase tracking-wider">
+        <div className="rounded-xl border border-slate-205 dark:border-slate-855 bg-white/95 dark:bg-slate-950/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs text-left">
+          <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-455 m-0 mb-1 leading-none text-left">
             {payload[0].name}
           </p>
-          <p className="font-extrabold text-sm text-white">
-            Share: <span className="text-brand-400">{payload[0].value}%</span>
-          </p>
+          <div className="mt-1.5 flex items-center gap-2 font-semibold leading-none text-left">
+            <span className="h-2 w-2 rounded-full" style={{ backgroundColor: payload[0].payload.fill || colors[0] }} />
+            <span className="text-slate-555 dark:text-slate-400">Share:</span>
+            <span className="text-slate-905 dark:text-white font-mono">{payload[0].value}%</span>
+          </div>
         </div>
       )
     }
@@ -35,15 +38,15 @@ export function LanguageDistributionChart({ data, height = 240 }: LanguageDistri
   const renderLegend = (props: any) => {
     const { payload } = props
     return (
-      <ul className="flex flex-wrap gap-x-4 gap-y-1.5 justify-center mt-2 text-[11px] font-semibold text-slate-500">
+      <ul className="flex flex-wrap gap-x-4 gap-y-1.5 justify-center mt-2 text-[10px] font-bold uppercase tracking-wider text-slate-455 select-none leading-none items-center text-center">
         {payload.map((entry: any, index: number) => (
           <li key={`item-${index}`} className="flex items-center gap-1.5 hover:text-slate-700 dark:hover:text-slate-350 transition-colors">
             <span
-              className="w-2.5 h-2.5 rounded-full inline-block border border-black/5"
+              className="w-2.5 h-2.5 rounded-full inline-block border border-black/5 shrink-0"
               style={{ backgroundColor: entry.color }}
             />
             <span>
-              {entry.value}: <span className="text-slate-900 dark:text-slate-300 font-bold">{entry.payload.value}%</span>
+              {entry.value}: <span className="text-slate-900 dark:text-slate-300 font-extrabold font-mono">{entry.payload.value}%</span>
             </span>
           </li>
         ))}
@@ -52,7 +55,7 @@ export function LanguageDistributionChart({ data, height = 240 }: LanguageDistri
   }
 
   return (
-    <div style={{ width: '100%', height }}>
+    <div style={{ width: '100%', height }} className="text-left font-sans text-xs">
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
@@ -82,3 +85,4 @@ export function LanguageDistributionChart({ data, height = 240 }: LanguageDistri
     </div>
   )
 }
+export default LanguageDistributionChart

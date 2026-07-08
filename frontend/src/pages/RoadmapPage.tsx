@@ -23,6 +23,7 @@ import {
   Calendar,
   RotateCw
 } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 // Custom Components
 import { CareerDashboardCard } from '@/components/career-coach/CareerDashboardCard'
@@ -319,14 +320,14 @@ export default function RoadmapPage() {
   }
 
   return (
-    <div className="space-y-6 text-left animate-fadeIn">
+    <div className="space-y-6 text-left animate-fade-in font-sans focus:outline-none">
       {/* Header section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-extrabold font-display text-slate-900 dark:text-white m-0 tracking-tight">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 rounded-2xl border border-slate-205 dark:border-slate-855 shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+        <div className="space-y-1.5 text-left">
+          <h1 className="text-xl md:text-2xl font-black font-display text-slate-900 dark:text-white m-0 tracking-tight leading-none">
             AI Career Coach
           </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-sans leading-relaxed m-0 font-medium">
             Map out custom career pivots, audit missing skill gaps, and execute weekly learning milestones.
           </p>
         </div>
@@ -336,7 +337,7 @@ export default function RoadmapPage() {
             <select
               value={selectedRoadmapId}
               onChange={(e) => setSelectedRoadmapId(e.target.value)}
-              className="text-xs py-2 px-3 border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-semibold"
+              className="text-xs py-2 px-3 border border-slate-250 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/60 rounded-xl text-slate-855 dark:text-slate-205 focus:outline-none focus:ring-1 focus:ring-brand-500 font-bold cursor-pointer transition-colors"
             >
               {roadmaps.map((r) => (
                 <option key={r.id} value={r.id}>
@@ -347,10 +348,8 @@ export default function RoadmapPage() {
           )}
 
           <Button
-            variant="primary"
-            size="sm"
             onClick={() => setShowCreateForm(!showCreateForm)}
-            className="bg-brand-600 hover:bg-brand-700 hover:shadow-brand-500/10 text-xs font-bold flex items-center gap-1.5"
+            className="flex items-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-9.5"
           >
             <Plus size={14} />
             <span>New Roadmap</span>
@@ -360,54 +359,54 @@ export default function RoadmapPage() {
 
       {/* Creation form modal/pane */}
       {showCreateForm && (
-        <Card className="border-brand-500 bg-brand-500/5 dark:bg-brand-500/10 p-5 animate-slideDown">
-          <form onSubmit={handleGenerate} className="space-y-4">
-            <h3 className="text-sm font-extrabold font-display text-slate-900 dark:text-white m-0 flex items-center gap-2">
+        <Card className="border border-brand-500/10 bg-brand-500/5 dark:bg-brand-500/10 p-5 rounded-2xl backdrop-blur-md shadow-sm animate-slideDown text-left">
+          <form onSubmit={handleGenerate} className="space-y-5 text-left m-0">
+            <h3 className="text-sm font-black font-display text-slate-900 dark:text-white m-0 flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-850">
               <Compass className="text-brand-500" size={16} />
               <span>Map Your AI Career Plan</span>
             </h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-              <div className="space-y-1">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-display">Target Career Role *</label>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-left">
+              <div className="space-y-1.5 text-left">
+                <label className="text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest block font-display leading-none">Target Career Role *</label>
                 <input
                   type="text"
                   placeholder="e.g. Senior Machine Learning Engineer"
                   value={targetRole}
                   onChange={(e) => setTargetRole(e.target.value)}
-                  className="w-full text-xs py-2.5 px-3 border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans"
+                  className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-white/70 dark:bg-slate-900/50 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans font-medium transition-colors shadow-2xs"
                   required
                 />
               </div>
 
-              <div className="space-y-1">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-display">Current Role (Optional)</label>
+              <div className="space-y-1.5 text-left">
+                <label className="text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest block font-display leading-none">Current Role (Optional)</label>
                 <input
                   type="text"
                   placeholder="e.g. Junior Backend Developer"
                   value={currentRole}
                   onChange={(e) => setCurrentRole(e.target.value)}
-                  className="w-full text-xs py-2.5 px-3 border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans"
+                  className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-white/70 dark:bg-slate-900/50 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans font-medium transition-colors shadow-2xs"
                 />
               </div>
 
-              <div className="space-y-1">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-display">Target Industry (Optional)</label>
+              <div className="space-y-1.5 text-left">
+                <label className="text-[10px] font-black text-slate-455 dark:text-slate-500 uppercase tracking-widest block font-display leading-none">Target Industry (Optional)</label>
                 <input
                   type="text"
                   placeholder="e.g. Fintech, Healthcare"
                   value={targetIndustry}
                   onChange={(e) => setTargetIndustry(e.target.value)}
-                  className="w-full text-xs py-2.5 px-3 border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans"
+                  className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-white/70 dark:bg-slate-900/50 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans font-medium transition-colors shadow-2xs"
                 />
               </div>
 
-              <div className="space-y-1">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-display">Experience Level</label>
+              <div className="space-y-1.5 text-left">
+                <label className="text-[10px] font-black text-slate-455 dark:text-slate-505 uppercase tracking-widest block font-display leading-none">Experience Level</label>
                 <select
                   value={experienceLevel}
                   onChange={(e) => setExperienceLevel(e.target.value)}
-                  className="w-full text-xs py-2.5 px-3 border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-semibold"
+                  className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-white/70 dark:bg-slate-900/50 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-bold transition-colors cursor-pointer shadow-2xs"
                 >
                   <option value="ENTRY">Entry Level</option>
                   <option value="MID">Mid Level</option>
@@ -416,12 +415,12 @@ export default function RoadmapPage() {
                 </select>
               </div>
 
-              <div className="space-y-1">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-display">Estimated Timeline (Months)</label>
+              <div className="space-y-1.5 text-left">
+                <label className="text-[10px] font-black text-slate-455 dark:text-slate-550 block uppercase tracking-widest block font-display leading-none">Estimated Timeline</label>
                 <select
                   value={durationMonths}
                   onChange={(e) => setDurationMonths(Number(e.target.value))}
-                  className="w-full text-xs py-2.5 px-3 border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-semibold"
+                  className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-white/70 dark:bg-slate-900/50 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-bold transition-colors cursor-pointer shadow-2xs"
                 >
                   <option value="3">3 Months (Intensive Pivot)</option>
                   <option value="6">6 Months (Standard Focus)</option>
@@ -431,12 +430,12 @@ export default function RoadmapPage() {
                 </select>
               </div>
 
-              <div className="space-y-1">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-display">Associate Resume Base</label>
+              <div className="space-y-1.5 text-left">
+                <label className="text-[10px] font-black text-slate-455 dark:text-slate-550 block uppercase tracking-widest block font-display leading-none">Associate Resume Base</label>
                 <select
                   value={selectedResumeId}
                   onChange={(e) => setSelectedResumeId(e.target.value)}
-                  className="w-full text-xs py-2.5 px-3 border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-semibold"
+                  className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-white/70 dark:bg-slate-900/50 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-bold transition-colors cursor-pointer shadow-2xs"
                 >
                   <option value="">No Resume Profile (Blank baseline)</option>
                   {resumes.map((r) => (
@@ -448,12 +447,12 @@ export default function RoadmapPage() {
               </div>
             </div>
 
-            <div className="flex justify-end gap-3 pt-3 border-t border-slate-200/50 dark:border-slate-800/50">
+            <div className="flex justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-850">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setShowCreateForm(false)}
-                className="text-xs border-slate-200 dark:border-slate-800"
+                className="h-9.5 text-xs font-bold cursor-pointer rounded-xl border-slate-200 dark:border-slate-850 hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent"
               >
                 Cancel
               </Button>
@@ -462,7 +461,7 @@ export default function RoadmapPage() {
                 size="sm"
                 type="submit"
                 disabled={generateRoadmapMutation.isPending}
-                className="bg-brand-600 hover:bg-brand-700 text-xs font-bold flex items-center gap-1.5"
+                className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-9.5"
               >
                 {generateRoadmapMutation.isPending ? (
                   <>
@@ -471,7 +470,7 @@ export default function RoadmapPage() {
                   </>
                 ) : (
                   <>
-                    <Compass size={14} />
+                    <Compass size={14} className="animate-pulse" />
                     <span>Generate AI Roadmap</span>
                   </>
                 )}
@@ -489,8 +488,8 @@ export default function RoadmapPage() {
       ) : (
         <div className="space-y-6">
           {/* Navigation Tabs bar */}
-          <div className="border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4 overflow-x-auto pb-px">
-            <div className="flex gap-6">
+          <div className="border-b border-slate-200/60 dark:border-slate-850 flex items-center justify-between gap-4 overflow-x-auto pb-px">
+            <div className="flex gap-1">
               {[
                 { id: 'dashboard', label: 'Dashboard', icon: Compass },
                 { id: 'timeline', label: 'Roadmap Timeline', icon: Calendar },
@@ -504,13 +503,14 @@ export default function RoadmapPage() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id as RoadmapTab)}
-                    className={`flex items-center gap-2 pb-3 text-sm font-semibold font-display transition-all relative cursor-pointer focus:outline-none ${
+                    className={cn(
+                      'flex items-center gap-2 pb-3 px-3.5 text-xs font-bold uppercase tracking-wider transition-all relative cursor-pointer border-b-2 border-transparent bg-transparent focus:outline-none -mb-[1px]',
                       isActive
-                        ? 'text-brand-600 dark:text-brand-400 border-b-2 border-brand-600 dark:border-brand-400'
-                        : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
-                    }`}
+                        ? 'text-brand-500 border-brand-500 font-extrabold'
+                        : 'text-slate-405 hover:text-slate-800 dark:hover:text-slate-355'
+                    )}
                   >
-                    <Icon size={16} />
+                    <Icon size={14} />
                     <span>{tab.label}</span>
                   </button>
                 )
@@ -520,7 +520,7 @@ export default function RoadmapPage() {
             <div className="flex items-center gap-2 pb-2">
               <button
                 onClick={handleReload}
-                className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-450 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900 cursor-pointer transition-colors"
+                className="p-1.5 rounded-lg border border-slate-205 dark:border-slate-800 text-slate-450 hover:text-slate-900 hover:bg-slate-50/50 dark:hover:bg-slate-850/30 cursor-pointer transition-colors bg-transparent"
                 title="Sync roadmap workspace"
               >
                 <RotateCw size={14} />
@@ -528,7 +528,7 @@ export default function RoadmapPage() {
               <button
                 onClick={() => handleDelete(selectedRoadmapId)}
                 disabled={deleteRoadmapMutation.isPending}
-                className="p-1.5 rounded-lg border border-red-200 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/20 cursor-pointer transition-colors"
+                className="p-1.5 rounded-lg border border-rose-205 dark:border-rose-955 text-rose-500 hover:text-rose-600 hover:bg-rose-500/5 cursor-pointer transition-colors bg-transparent"
                 title="Delete active roadmap"
               >
                 <Trash2 size={14} />
@@ -537,7 +537,7 @@ export default function RoadmapPage() {
           </div>
 
           {/* Active Tab contents */}
-          <div className="animate-fadeIn">
+          <div className="animate-fade-in text-left">
             {activeTab === 'dashboard' && (
               <CareerDashboardCard
                 analytics={activeAnalytics}

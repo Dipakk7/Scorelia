@@ -3,6 +3,7 @@ import type { CoverLetterResponse } from '@/types/cover-letter'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
+import { cn } from '@/lib/utils'
 
 interface CoverLetterCardProps {
   coverLetter: CoverLetterResponse
@@ -27,37 +28,37 @@ export default function CoverLetterCard({
   const formattedStyle = coverLetter.writing_style.charAt(0) + coverLetter.writing_style.slice(1).toLowerCase()
 
   return (
-    <Card className="hover:shadow-md dark:bg-dark-card border-slate-200/80 dark:border-dark-border hover:border-slate-350 dark:hover:border-slate-700 transition-all duration-200 group flex flex-col justify-between">
+    <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 group flex flex-col justify-between text-left font-sans">
       <CardContent className="p-5 flex flex-col h-full justify-between">
         <div>
           {/* Header */}
           <div className="flex items-start justify-between gap-3 mb-2.5">
-            <div className="space-y-0.5">
-              <h3 className="font-semibold text-slate-900 dark:text-white font-display text-sm group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors duration-150 line-clamp-1">
+            <div className="space-y-1">
+              <h3 className="font-bold text-slate-900 dark:text-white text-sm group-hover:text-brand-500 transition-colors duration-150 line-clamp-1 m-0 leading-tight">
                 {coverLetter.job_title}
               </h3>
-              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 line-clamp-1">
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-405 line-clamp-1 m-0">
                 {coverLetter.company_name}
               </p>
             </div>
             <div className="flex flex-shrink-0 gap-1.5">
-              <Badge variant="outline" className="text-[10px] uppercase font-semibold font-sans tracking-wide">
+              <Badge variant="outline" className="text-[9px] font-black uppercase tracking-wider border-slate-200/60 dark:border-slate-800">
                 {formattedStyle}
               </Badge>
             </div>
           </div>
 
           {/* Description summary */}
-          <p className="text-xs text-slate-550 dark:text-slate-400 line-clamp-3 leading-relaxed mb-4 font-sans">
+          <p className="text-xs text-slate-550 dark:text-slate-400 line-clamp-3 leading-relaxed mb-4 font-sans font-medium">
             {coverLetter.generated_content || 'No content generated yet.'}
           </p>
         </div>
 
         {/* Footer info & action buttons */}
-        <div className="pt-3 border-t border-slate-100 dark:border-slate-800/85 mt-auto flex items-center justify-between">
+        <div className="pt-3 border-t border-slate-100 dark:border-slate-850/80 mt-auto flex items-center justify-between">
           <div className="flex items-center gap-1.5 text-slate-400 dark:text-slate-500">
-            <Calendar size={12} />
-            <span className="text-[10px] font-medium font-sans">{formattedDate}</span>
+            <Calendar size={12} className="text-slate-400" />
+            <span className="text-[10px] font-bold font-sans tracking-wide uppercase">{formattedDate}</span>
           </div>
 
           <div className="flex items-center gap-1">
@@ -65,25 +66,25 @@ export default function CoverLetterCard({
               variant="ghost"
               size="sm"
               onClick={() => onDelete(coverLetter.id)}
-              className="h-8 w-8 p-0 text-slate-400 hover:text-rose-500 cursor-pointer"
+              className="h-8 w-8 p-0 text-slate-400 dark:text-slate-500 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-slate-50/50 dark:hover:bg-slate-850/30 rounded-lg cursor-pointer transition-all flex items-center justify-center bg-transparent border-none"
               title="Delete Cover Letter"
             >
-              <Trash2 size={14} />
+              <Trash2 size={13} />
             </Button>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => onExport(coverLetter)}
-              className="h-8 w-8 p-0 text-slate-400 hover:text-brand-500 cursor-pointer"
+              className="h-8 w-8 p-0 text-slate-400 dark:text-slate-500 hover:text-brand-500 dark:hover:text-brand-400 hover:bg-slate-50/50 dark:hover:bg-slate-850/30 rounded-lg cursor-pointer transition-all flex items-center justify-center bg-transparent border-none"
               title="Export Document"
             >
-              <Download size={14} />
+              <Download size={13} />
             </Button>
             <Button
               variant="outline"
               size="sm"
               onClick={() => onSelect(coverLetter.id)}
-              className="h-8 px-2.5 text-[11px] font-semibold flex items-center gap-1 cursor-pointer"
+              className="h-8 px-2.5 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer rounded-lg border-slate-200 dark:border-slate-800 hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent"
             >
               <span>Workspace</span>
               <ExternalLink size={10} />

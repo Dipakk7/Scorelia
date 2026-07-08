@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Search, Loader2, X, History } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface RAGSearchBarProps {
   onSearch: (query: string) => void
@@ -30,8 +31,8 @@ export function RAGSearchBar({
   }
 
   return (
-    <div className="relative w-full text-left">
-      <form onSubmit={handleSubmit} className="relative flex items-center">
+    <div className="relative w-full text-left font-sans text-xs">
+      <form onSubmit={handleSubmit} className="relative flex items-center m-0">
         <span className="absolute left-4 text-slate-400">
           {isLoading ? (
             <Loader2 className="animate-spin h-5 w-5" />
@@ -59,14 +60,14 @@ export function RAGSearchBar({
             setTimeout(() => setShowHistory(false), 200)
           }}
           placeholder="Ask a career question (e.g., 'What skills are needed for a Kubernetes engineer?')..."
-          className="w-full text-sm pl-12 pr-12 py-3 border border-slate-200 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-brand-500 shadow-sm transition-all focus:shadow-md"
+          className="w-full text-xs pl-12 pr-12 py-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-slate-50/50 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder-slate-405 focus:outline-none focus:ring-1 focus:ring-brand-500 shadow-sm transition-all focus:shadow-md h-12 font-medium"
         />
 
         {query && (
           <button
             type="button"
             onClick={handleClear}
-            className="absolute right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
+            className="absolute right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer border-none bg-transparent flex items-center"
             aria-label="Clear query"
           >
             <X className="h-4 w-4" />
@@ -76,9 +77,9 @@ export function RAGSearchBar({
 
       {/* History dropdown */}
       {showHistory && recentSearches.length > 0 && (
-        <div className="absolute left-0 right-0 mt-1.5 bg-white dark:bg-slate-950 border border-slate-250/60 dark:border-slate-800 rounded-xl shadow-lg z-25 max-h-60 overflow-y-auto">
-          <div className="p-2 border-b border-slate-100 dark:border-slate-900 flex items-center gap-1.5 text-[10px] text-slate-400 uppercase tracking-widest font-bold font-display pl-3">
-            <History size={11} />
+        <div className="absolute left-0 right-0 mt-2 bg-white/95 dark:bg-slate-950/95 border border-slate-205 dark:border-slate-800 rounded-xl shadow-xl z-25 max-h-60 overflow-y-auto backdrop-blur-md text-left">
+          <div className="p-2 border-b border-slate-100 dark:border-slate-900 flex items-center gap-1.5 text-[9px] text-slate-405 dark:text-slate-500 uppercase tracking-widest font-black font-display pl-3">
+            <History size={11} className="text-slate-400" />
             <span>Recent Queries</span>
           </div>
           <div className="py-1">
@@ -92,7 +93,7 @@ export function RAGSearchBar({
                   onSearch(item)
                   setShowHistory(false)
                 }}
-                className="w-full flex items-center gap-2.5 px-4 py-2.5 text-left text-xs hover:bg-slate-50 dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300 font-sans transition-colors cursor-pointer"
+                className="w-full flex items-center gap-2.5 px-4 py-2.5 text-left text-xs hover:bg-slate-50/50 dark:hover:bg-slate-900/40 text-slate-705 dark:text-slate-300 font-sans transition-colors cursor-pointer border-none bg-transparent font-medium"
               >
                 <History size={13} className="text-slate-400" />
                 <span className="truncate">{item}</span>

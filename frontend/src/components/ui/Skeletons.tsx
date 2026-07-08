@@ -5,25 +5,30 @@ export function DashboardSkeleton() {
   return (
     <div className="space-y-6 text-left animate-fadeIn">
       {/* Welcome Banner Skeleton */}
-      <div className="relative overflow-hidden rounded-2xl bg-slate-900/5 dark:bg-slate-900/20 p-6 md:p-8 border border-slate-200 dark:border-slate-800">
+      <div className="relative overflow-hidden rounded-2xl bg-slate-900/5 dark:bg-slate-900/20 p-6 md:p-8 border border-slate-200 dark:border-slate-800 space-y-6">
         <div className="space-y-3">
           <Skeleton className="h-4 w-32" />
           <Skeleton className="h-8 w-64 md:w-96" />
           <Skeleton className="h-4 w-full max-w-xl" />
         </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton key={i} className="h-14 w-full rounded-xl" />
+          ))}
+        </div>
       </div>
 
-      {/* Stats Grid Skeleton */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {Array.from({ length: 8 }).map((_, i) => (
+      {/* Primary Stats Grid Skeleton */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {Array.from({ length: 4 }).map((_, i) => (
           <Card key={i} className="border-slate-200 dark:border-slate-800">
-            <CardContent className="p-4 space-y-2">
+            <CardContent className="p-5 space-y-4">
               <div className="flex justify-between items-center">
-                <Skeleton className="h-4 w-20" />
-                <Skeleton className="h-8 w-8 rounded-full" />
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-8 w-8 rounded-lg" />
               </div>
-              <Skeleton className="h-7 w-12" />
-              <Skeleton className="h-3 w-28" />
+              <Skeleton className="h-8 w-16" />
+              <Skeleton className="h-2 w-full" />
             </CardContent>
           </Card>
         ))}
@@ -31,16 +36,32 @@ export function DashboardSkeleton() {
 
       {/* Charts Grid Skeleton */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {Array.from({ length: 2 }).map((_, i) => (
+        {Array.from({ length: 4 }).map((_, i) => (
           <Card key={i} className="border-slate-200 dark:border-slate-800">
             <CardContent className="p-5 space-y-4">
               <Skeleton className="h-5 w-48" />
               <Skeleton className="h-4 w-72" />
-              <div className="h-64 w-full flex items-end justify-between gap-4 pt-4">
-                {Array.from({ length: 12 }).map((_, j) => (
-                  <Skeleton key={j} className="w-full" style={{ height: `${Math.random() * 80 + 20}%` }} />
+              <div className="h-56 w-full flex items-end justify-between gap-4 pt-4">
+                {Array.from({ length: 10 }).map((_, j) => (
+                  <Skeleton key={j} className="w-full" style={{ height: `${Math.random() * 60 + 20}%` }} />
                 ))}
               </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      {/* Secondary Stats Grid Skeleton */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <Card key={i} className="border-slate-200 dark:border-slate-800">
+            <CardContent className="p-5 space-y-4">
+              <div className="flex justify-between items-center">
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-8 w-8 rounded-lg" />
+              </div>
+              <Skeleton className="h-8 w-16" />
+              <Skeleton className="h-3 w-28" />
             </CardContent>
           </Card>
         ))}

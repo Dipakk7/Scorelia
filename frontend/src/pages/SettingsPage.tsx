@@ -12,6 +12,7 @@ import { Input } from '@/components/ui/Input'
 import { SettingsCard } from '@/components/ui/SettingsCard'
 import { Loader } from '@/components/ui/Loader'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/Dialog'
+import { cn } from '@/lib/utils'
 
 type TabType = 'general' | 'notifications' | 'security' | 'privacy'
 
@@ -202,19 +203,21 @@ export default function SettingsPage() {
   ]
 
   return (
-    <div className="space-y-6 text-left max-w-4xl mx-auto">
-      <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold font-display text-slate-900 dark:text-slate-50 m-0">
-          Account Settings
-        </h1>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Adjust preferences, notification configs, security settings, and backups.
-        </p>
+    <div className="space-y-6 text-left max-w-4xl mx-auto font-sans text-xs pb-12 select-none">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 rounded-2xl border border-slate-205 dark:border-slate-855 shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 flex-shrink-0">
+        <div className="space-y-1.5 text-left">
+          <h1 className="text-xl md:text-2xl font-black font-display text-slate-905 dark:text-white m-0 tracking-tight leading-none text-left">
+            Account Settings
+          </h1>
+          <p className="text-xs text-slate-550 dark:text-slate-400 font-sans leading-relaxed m-0 font-medium mt-1.5">
+            Adjust preferences, notification configs, security settings, and backups.
+          </p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-start text-left">
         {/* Tab Buttons Side Nav */}
-        <div className="md:col-span-1 flex flex-row md:flex-col gap-1 overflow-x-auto pb-2 md:pb-0 border-b md:border-b-0 border-slate-200 dark:border-slate-800">
+        <div className="md:col-span-1 flex flex-row md:flex-col gap-1.5 overflow-x-auto pb-2 md:pb-0 border-b md:border-b-0 border-slate-200 dark:border-slate-800 text-left select-none">
           {tabs.map((tab) => {
             const Icon = tab.icon
             const isActive = activeTab === tab.id
@@ -222,13 +225,14 @@ export default function SettingsPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as TabType)}
-                className={`flex items-center gap-2.5 px-4 py-3 text-sm font-semibold rounded-xl transition-all shrink-0 cursor-pointer focus:outline-none ${
+                className={cn(
+                  'flex items-center gap-2.5 px-4 py-3 text-xs font-bold uppercase tracking-wider rounded-xl transition-all shrink-0 cursor-pointer focus:outline-none border-none leading-none select-none text-left w-full h-10',
                   isActive
-                    ? 'bg-brand-600 text-white shadow-md'
-                    : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-800 dark:hover:text-slate-255'
-                }`}
+                    ? 'bg-brand-600 text-white shadow-sm font-extrabold'
+                    : 'text-slate-500 dark:text-slate-400 hover:bg-slate-105 dark:hover:bg-slate-900/50 hover:text-slate-800 dark:hover:text-slate-255 bg-transparent'
+                )}
               >
-                <Icon size={16} />
+                <Icon size={14} className="shrink-0" />
                 <span>{tab.label}</span>
               </button>
             )
@@ -236,33 +240,34 @@ export default function SettingsPage() {
         </div>
 
         {/* Active Tab Panel Content */}
-        <div className="md:col-span-3 space-y-6">
+        <div className="md:col-span-3 space-y-6 text-left">
           {/* GENERAL TABS */}
           {activeTab === 'general' && (
             <SettingsCard
               title="General Settings"
               description="Adjust language locale, timezone configs, and application display themes."
             >
-              <div className="space-y-6">
+              <div className="space-y-6 text-left">
                 {/* Theme Selector */}
-                <div className="space-y-3">
-                  <label className="text-xs font-semibold text-slate-550 dark:text-slate-400 uppercase tracking-wide">
+                <div className="space-y-3 text-left">
+                  <label className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase font-mono tracking-widest block leading-none select-none text-left">
                     Application Theme
                   </label>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-3 gap-3 text-left">
                     {['light', 'dark', 'system'].map((t) => {
                       const isActive = theme === t
                       return (
                         <button
                           key={t}
                           onClick={() => handleThemeChange(t as Theme)}
-                          className={`p-4 rounded-xl border text-sm font-bold font-display capitalize cursor-pointer focus:outline-none transition-all hover:scale-102 flex flex-col items-center gap-1 ${
+                          className={cn(
+                            'p-4 rounded-xl border text-xs font-bold font-display capitalize cursor-pointer focus:outline-none transition-all flex flex-col items-center gap-2 leading-none text-center select-none hover:scale-102 hover:border-brand-500/35 h-20 justify-center',
                             isActive
-                              ? 'border-brand-500 bg-brand-500/5 text-brand-600 dark:text-brand-400 font-bold'
-                              : 'border-slate-200 dark:border-slate-800 text-slate-655 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-slate-900/50'
-                          }`}
+                              ? 'border-brand-500 bg-brand-500/5 text-brand-655 dark:text-brand-400 font-extrabold'
+                              : 'border-slate-205 dark:border-slate-805 text-slate-655 dark:text-slate-350 hover:bg-slate-50/50 dark:hover:bg-slate-900/30 bg-transparent'
+                          )}
                         >
-                          <span className="text-xs sm:text-sm">{t} Mode</span>
+                          <span className="text-xs font-black uppercase tracking-wider">{t} Mode</span>
                         </button>
                       )
                     })}
@@ -270,15 +275,15 @@ export default function SettingsPage() {
                 </div>
 
                 {/* Dropdowns */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide block">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+                  <div className="space-y-2 text-left">
+                    <label className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase font-mono tracking-widest block leading-none select-none text-left">
                       Language
                     </label>
                     <select
                       value={language}
                       onChange={(e) => setLanguage(e.target.value)}
-                      className="w-full rounded-lg border border-slate-250 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:outline-none transition-colors"
+                      className="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 px-3 py-2 text-xs font-medium text-slate-805 dark:text-slate-205 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/30 transition-all duration-150 shadow-2xs h-9"
                     >
                       <option value="en">English (US)</option>
                       <option value="es">Español</option>
@@ -287,14 +292,14 @@ export default function SettingsPage() {
                     </select>
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide block">
+                  <div className="space-y-2 text-left">
+                    <label className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase font-mono tracking-widest block leading-none select-none text-left">
                       Timezone
                     </label>
                     <select
                       value={timezone}
                       onChange={(e) => setTimezone(e.target.value)}
-                      className="w-full rounded-lg border border-slate-250 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:outline-none transition-colors"
+                      className="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 px-3 py-2 text-xs font-medium text-slate-805 dark:text-slate-205 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/30 transition-all duration-150 shadow-2xs h-9"
                     >
                       <option value="UTC">UTC / Coordinated Universal Time</option>
                       <option value="EST">EST / Eastern Standard Time</option>
@@ -305,12 +310,12 @@ export default function SettingsPage() {
                   </div>
                 </div>
 
-                <div className="flex justify-end pt-2 border-t border-slate-200/40 dark:border-slate-800/40 mt-4">
+                <div className="flex justify-end pt-4 border-t border-slate-100 dark:border-slate-850/60 mt-4 select-none">
                   <Button
                     variant="primary"
                     onClick={handleGeneralSave}
                     isLoading={updateSettingsMutation.isPending}
-                    className="text-xs font-semibold px-4 cursor-pointer"
+                    className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 hover:from-brand-700 hover:to-indigo-700 bg-gradient-to-r from-brand-600 to-indigo-650 text-white rounded-xl shadow-xs border-none cursor-pointer leading-none select-none h-9 flex items-center justify-center"
                   >
                     Save Preferences
                   </Button>
@@ -325,52 +330,52 @@ export default function SettingsPage() {
               title="Notifications Configurations"
               description="Customize channels and types of updates you receive from the AI analysis engine."
             >
-              <div className="space-y-5">
-                <div className="flex items-center justify-between p-3 rounded-xl border border-slate-200/50 dark:border-slate-800/50 bg-slate-50/50 dark:bg-slate-900/30">
-                  <div className="space-y-0.5 text-left">
-                    <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">Email Notifications</p>
-                    <p className="text-xs text-slate-400">Receive reports, ATS analysis findings, and milestone notifications via email.</p>
+              <div className="space-y-5 text-left">
+                <div className="flex items-center justify-between p-3.5 rounded-xl border border-slate-200/50 dark:border-slate-800/50 bg-slate-55/35 dark:bg-slate-900/30 text-left">
+                  <div className="space-y-1 text-left">
+                    <p className="text-xs font-bold text-slate-805 dark:text-slate-150 leading-none">Email Notifications</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-455 leading-normal">Receive reports, ATS analysis findings, and milestone notifications via email.</p>
                   </div>
                   <input
                     type="checkbox"
                     checked={emailNotifications}
                     onChange={(e) => setEmailNotifications(e.target.checked)}
-                    className="h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer"
+                    className="h-4.5 w-4.5 rounded-lg border-slate-350 dark:border-slate-800 text-brand-655 focus:ring-brand-500/30 cursor-pointer shrink-0 transition-all duration-150"
                   />
                 </div>
 
-                <div className="flex items-center justify-between p-3 rounded-xl border border-slate-200/50 dark:border-slate-800/50 bg-slate-50/50 dark:bg-slate-900/30">
-                  <div className="space-y-0.5 text-left">
-                    <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">Push Notifications</p>
-                    <p className="text-xs text-slate-400">Enable instant browser push alerts for processed matching scores and mock reviews.</p>
+                <div className="flex items-center justify-between p-3.5 rounded-xl border border-slate-200/50 dark:border-slate-800/50 bg-slate-55/35 dark:bg-slate-900/30 text-left">
+                  <div className="space-y-1 text-left">
+                    <p className="text-xs font-bold text-slate-805 dark:text-slate-150 leading-none">Push Notifications</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-455 leading-normal">Enable instant browser push alerts for processed matching scores and mock reviews.</p>
                   </div>
                   <input
                     type="checkbox"
                     checked={pushNotifications}
                     onChange={(e) => setPushNotifications(e.target.checked)}
-                    className="h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer"
+                    className="h-4.5 w-4.5 rounded-lg border-slate-350 dark:border-slate-800 text-brand-655 focus:ring-brand-500/30 cursor-pointer shrink-0 transition-all duration-150"
                   />
                 </div>
 
-                <div className="flex items-center justify-between p-3 rounded-xl border border-slate-200/50 dark:border-slate-800/50 bg-slate-50/50 dark:bg-slate-900/30">
-                  <div className="space-y-0.5 text-left">
-                    <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">Marketing & Newsletter Emails</p>
-                    <p className="text-xs text-slate-400">Subscribe to recruitment trends, tips, and promotional product enhancements.</p>
+                <div className="flex items-center justify-between p-3.5 rounded-xl border border-slate-200/50 dark:border-slate-800/50 bg-slate-55/35 dark:bg-slate-900/30 text-left">
+                  <div className="space-y-1 text-left">
+                    <p className="text-xs font-bold text-slate-805 dark:text-slate-150 leading-none">Marketing & Newsletter Emails</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-455 leading-normal">Subscribe to recruitment trends, tips, and promotional product enhancements.</p>
                   </div>
                   <input
                     type="checkbox"
                     checked={marketingEmails}
                     onChange={(e) => setMarketingEmails(e.target.checked)}
-                    className="h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer"
+                    className="h-4.5 w-4.5 rounded-lg border-slate-350 dark:border-slate-800 text-brand-655 focus:ring-brand-500/30 cursor-pointer shrink-0 transition-all duration-150"
                   />
                 </div>
 
-                <div className="flex justify-end pt-2 border-t border-slate-200/40 dark:border-slate-800/40 mt-4">
+                <div className="flex justify-end pt-4 border-t border-slate-100 dark:border-slate-850/60 mt-4 select-none">
                   <Button
                     variant="primary"
                     onClick={handleNotificationsSave}
                     isLoading={updateSettingsMutation.isPending}
-                    className="text-xs font-semibold px-4 cursor-pointer"
+                    className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 hover:from-brand-700 hover:to-indigo-700 bg-gradient-to-r from-brand-600 to-indigo-650 text-white rounded-xl shadow-xs border-none cursor-pointer leading-none select-none h-9 flex items-center justify-center"
                   >
                     Save Preferences
                   </Button>
@@ -381,13 +386,13 @@ export default function SettingsPage() {
 
           {/* SECURITY TABS */}
           {activeTab === 'security' && (
-            <div className="space-y-6">
+            <div className="space-y-6 text-left">
               {/* Change Password */}
               <SettingsCard
                 title="Change Password"
                 description="Update current login password to maintain account integrity."
               >
-                <form onSubmit={handlePasswordChange} className="space-y-4">
+                <form onSubmit={handlePasswordChange} className="space-y-4 text-left">
                   <Input
                     type="password"
                     label="Current Password"
@@ -395,7 +400,7 @@ export default function SettingsPage() {
                     onChange={(e) => setCurrentPassword(e.target.value)}
                     required
                   />
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
                     <Input
                       type="password"
                       label="New Password"
@@ -411,12 +416,12 @@ export default function SettingsPage() {
                       required
                     />
                   </div>
-                  <div className="flex justify-end border-t border-slate-200/40 dark:border-slate-800/40 pt-4 mt-2">
+                  <div className="flex justify-end border-t border-slate-100 dark:border-slate-850/60 pt-4 mt-2 select-none">
                     <Button
                       type="submit"
                       variant="primary"
                       isLoading={passwordMutation.isPending}
-                      className="text-xs font-semibold flex items-center gap-1 bg-brand-600 hover:bg-brand-700 cursor-pointer"
+                      className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white rounded-xl shadow-sm border-none cursor-pointer h-9 flex items-center justify-center gap-1.5"
                     >
                       <Key size={14} />
                       <span>Update Password</span>
@@ -431,33 +436,33 @@ export default function SettingsPage() {
                 description="Manage active browser logins and security session tokens currently validated."
               >
                 {isSessionsLoading ? (
-                  <div className="py-8 text-center text-xs text-slate-500">Loading session metadata...</div>
+                  <div className="py-8 text-center text-xs text-slate-455 font-bold leading-none select-none">Loading session metadata...</div>
                 ) : (
-                  <div className="space-y-4">
-                    <div className="border border-slate-250 dark:border-slate-800/80 rounded-xl overflow-hidden">
-                      <table className="w-full border-collapse text-left text-xs font-sans">
-                        <thead className="bg-slate-50 dark:bg-slate-900 border-b border-slate-250 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-bold font-display uppercase tracking-wider">
-                          <tr>
-                            <th className="p-3">Device / Platform</th>
-                            <th className="p-3">IP Address</th>
-                            <th className="p-3">Last Active</th>
-                            <th className="p-3">Action</th>
+                  <div className="space-y-4 text-left">
+                    <div className="border border-slate-205 dark:border-slate-850 shadow-2xs rounded-xl overflow-x-auto text-left">
+                      <table className="w-full border-collapse text-left text-xs font-sans text-left">
+                        <thead className="bg-slate-55/35 dark:bg-slate-900 border-b border-slate-205 dark:border-slate-800 text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase tracking-widest leading-none select-none font-mono text-left">
+                          <tr className="text-left">
+                            <th className="p-3 text-left">Device / Platform</th>
+                            <th className="p-3 text-left">IP Address</th>
+                            <th className="p-3 text-left">Last Active</th>
+                            <th className="p-3 text-left">Action</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-200/50 dark:divide-slate-800/50 text-slate-700 dark:text-slate-300">
+                        <tbody className="divide-y divide-slate-100 dark:divide-slate-850 text-slate-700 dark:text-slate-300 text-left">
                           {sessions?.map((s) => (
-                            <tr key={s.id} className="hover:bg-slate-50/40 dark:hover:bg-slate-900/20">
-                              <td className="p-3 font-semibold flex items-center gap-2">
-                                <Laptop size={14} className="text-slate-400" />
+                            <tr key={s.id} className="hover:bg-slate-50/40 dark:hover:bg-slate-900/20 transition-all duration-150 border-b border-slate-100 dark:border-slate-855 text-left">
+                              <td className="p-3 font-semibold flex items-center gap-2 text-left">
+                                <Laptop size={14} className="text-slate-400 shrink-0" />
                                 <span>{s.device}</span>
                               </td>
-                              <td className="p-3 font-mono">{s.ip_address}</td>
-                              <td className="p-3">{new Date(s.last_active).toLocaleString()}</td>
-                              <td className="p-3">
+                              <td className="p-3 font-mono text-[10px] text-left">{s.ip_address}</td>
+                              <td className="p-3 text-left">{new Date(s.last_active).toLocaleString()}</td>
+                              <td className="p-3 text-left">
                                 {s.is_current ? (
-                                  <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/10 shadow-2xs">Active</span>
+                                  <span className="inline-flex items-center rounded-lg text-[9px] font-black uppercase tracking-wider border bg-emerald-500/10 text-emerald-650 dark:text-emerald-450 border-emerald-500/20 px-2 py-0.5 leading-none shrink-0">Active</span>
                                 ) : (
-                                  <span className="text-slate-400 italic">Logout Device</span>
+                                  <span className="text-slate-405 italic select-none">Logout Device</span>
                                 )}
                               </td>
                             </tr>
@@ -466,12 +471,12 @@ export default function SettingsPage() {
                       </table>
                     </div>
 
-                    <div className="flex justify-end pt-2">
+                    <div className="flex justify-end pt-2 select-none">
                       <Button
                         variant="outline"
                         onClick={() => logoutOthersMutation.mutate()}
                         isLoading={logoutOthersMutation.isPending}
-                        className="text-xs font-semibold cursor-pointer border-slate-250"
+                        className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 border border-slate-205 dark:border-slate-800 hover:bg-slate-55 dark:hover:bg-slate-800/40 text-slate-655 dark:text-slate-350 cursor-pointer leading-none select-none h-9 flex items-center justify-center bg-transparent rounded-xl disabled:opacity-40"
                       >
                         Logout Other Devices
                       </Button>
@@ -484,26 +489,26 @@ export default function SettingsPage() {
 
           {/* PRIVACY & DATA EXPORT */}
           {activeTab === 'privacy' && (
-            <div className="space-y-6">
+            <div className="space-y-6 text-left">
               {/* Backups Export */}
               <SettingsCard
                 title="Data Export"
                 description="Download a complete copy of all your records, resumes, roadmaps, and details in standard JSON backups."
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="space-y-0.5 text-left max-w-md">
-                    <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
-                      <Info size={14} className="text-slate-400" />
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left">
+                  <div className="space-y-1 text-left">
+                    <p className="text-xs font-bold text-slate-805 dark:text-slate-150 leading-none flex items-center gap-1.5 select-none">
+                      <Info size={14} className="text-slate-400 shrink-0" />
                       <span>Back Up Your Data</span>
                     </p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-normal">
+                    <p className="text-[11px] text-slate-500 dark:text-slate-455 leading-normal m-0 text-left">
                       Exporting details includes full resume parsed details, job match records, mock interview scores, and preferences.
                     </p>
                   </div>
                   <Button
                     variant="outline"
                     onClick={handleExportData}
-                    className="text-xs font-semibold flex items-center gap-1.5 shrink-0 cursor-pointer border-slate-250"
+                    className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 border border-slate-205 dark:border-slate-800 hover:bg-slate-55 dark:hover:bg-slate-800/40 text-slate-655 dark:text-slate-350 cursor-pointer leading-none select-none h-9 flex items-center justify-center bg-transparent rounded-xl shrink-0 gap-1.5"
                   >
                     <Download size={14} />
                     <span>Download JSON Backup</span>
@@ -516,19 +521,19 @@ export default function SettingsPage() {
                 title="Danger Zone: Delete Account"
                 description="Permanently erase all your details, resume database records, roadmaps, and matching data. This action is irreversible."
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-red-200/50 dark:border-red-950/20 bg-red-500/5">
-                  <div className="space-y-0.5 text-left max-w-md">
-                    <p className="text-sm font-bold text-red-655 dark:text-red-400">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-rose-250 dark:border-rose-950/20 bg-rose-500/5 text-left">
+                  <div className="space-y-1 text-left">
+                    <p className="text-xs font-bold text-rose-655 dark:text-rose-455 leading-none select-none">
                       Delete Account Permanently
                     </p>
-                    <p className="text-xs text-red-500/85 dark:text-red-400/80 leading-normal">
+                    <p className="text-[11px] text-rose-500/80 dark:text-rose-455/80 leading-normal m-0 text-left">
                       Once confirmed, all resumes, cover letters, mock transcripts, roadmap milestones, and active subscriptions will be cleared immediately from the databases.
                     </p>
                   </div>
                   <Button
                     variant="outline"
                     onClick={() => setShowDeleteModal(true)}
-                    className="text-xs font-semibold flex items-center gap-1.5 shrink-0 bg-red-600 border-red-600 hover:bg-red-700 text-white cursor-pointer hover:shadow-lg shadow-red-500/10"
+                    className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl shadow-xs border-none cursor-pointer leading-none select-none h-9 flex items-center justify-center shrink-0 gap-1.5"
                   >
                     <Trash2 size={14} />
                     <span>Delete Account</span>
@@ -542,28 +547,28 @@ export default function SettingsPage() {
 
       {/* Delete Account Warning Modal */}
       <Dialog open={showDeleteModal} onOpenChange={setShowDeleteModal}>
-        <DialogContent className="max-w-md border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-          <DialogHeader className="text-left flex flex-row gap-3 items-center">
-            <div className="h-10 w-10 shrink-0 bg-red-550/10 text-red-600 rounded-xl flex items-center justify-center border border-red-550/20">
+        <DialogContent className="max-w-md border border-slate-205 dark:border-slate-855 bg-white dark:bg-slate-900 p-6 text-left rounded-2xl">
+          <DialogHeader className="text-left flex flex-row gap-3 items-center select-none">
+            <div className="h-10 w-10 shrink-0 bg-red-500/10 text-red-655 rounded-xl flex items-center justify-center border border-red-500/20 shadow-2xs">
               <Trash2 size={20} />
             </div>
-            <div>
-              <DialogTitle className="text-slate-900 dark:text-slate-50 font-display font-bold">
+            <div className="text-left">
+              <DialogTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
                 Delete Account
               </DialogTitle>
-              <DialogDescription className="text-xs text-red-500 font-sans mt-0.5">
+              <DialogDescription className="text-[9px] text-rose-500 font-sans block mt-1.5 leading-none font-bold">
                 This action is irreversible.
               </DialogDescription>
             </div>
           </DialogHeader>
-          <div className="py-3 text-sm text-slate-650 dark:text-slate-350 font-sans leading-relaxed text-left">
-            Are you absolutely sure you want to delete your Scorelia account? All resumes, mock preparation turn logs, roadmap milestones, and profile records will be permanently erased.
+          <div className="py-4 text-xs font-medium text-slate-500 dark:text-slate-400 leading-normal text-left select-none">
+            Are you absolutely sure you want to delete your Scorelia account? All resumes, mock preparation turn logs, roadmap milestones, and profile records will be permanently erased from active databases.
           </div>
-          <DialogFooter className="flex gap-2 justify-end">
+          <DialogFooter className="flex gap-2 justify-end select-none">
             <Button
               variant="outline"
               onClick={() => setShowDeleteModal(false)}
-              className="text-xs font-semibold border-slate-250 cursor-pointer"
+              className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 border border-slate-205 dark:border-slate-805 hover:bg-slate-55 dark:hover:bg-slate-800/40 text-slate-655 dark:text-slate-350 cursor-pointer leading-none select-none h-9 flex items-center justify-center bg-transparent rounded-xl"
             >
               Cancel
             </Button>
@@ -571,7 +576,7 @@ export default function SettingsPage() {
               variant="primary"
               onClick={handleDeleteAccount}
               isLoading={deleteAccountMutation.isPending}
-              className="text-xs font-semibold bg-red-600 hover:bg-red-700 text-white cursor-pointer"
+              className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl shadow-xs border-none cursor-pointer leading-none select-none h-9 flex items-center justify-center"
             >
               Confirm Account Erasure
             </Button>
@@ -581,3 +586,4 @@ export default function SettingsPage() {
     </div>
   )
 }
+export default SettingsPage

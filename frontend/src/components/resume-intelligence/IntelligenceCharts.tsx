@@ -27,17 +27,40 @@ import type {
   ResumeOptimizationResponse,
   ResumeRewriteResponse,
 } from '@/types/resume-intelligence'
+import { ChartEmptyState } from '@/components/ui/ChartEmptyState'
+import { cn } from '@/lib/utils'
 
 interface IntelligenceChartsProps {
   reviews?: ResumeReviewResponse[]
   optimizations?: ResumeOptimizationResponse[]
   rewrites?: ResumeRewriteResponse[]
+  onAnalyze?: () => void
+  isAnalyzing?: boolean
+}
+
+function CustomTooltip({ active, payload, label }: any) {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload
+    return (
+      <div className="rounded-xl border border-slate-200 dark:border-slate-805 bg-white/95 dark:bg-slate-950/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+        <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 m-0">{label}</p>
+        <div className="mt-1.5 flex items-center gap-2 font-semibold">
+          <span className="h-2 w-2 rounded-full bg-brand-500" />
+          <span className="text-slate-500 dark:text-slate-400">{data.type || 'Value'}:</span>
+          <span className="text-slate-900 dark:text-slate-100">{payload[0].value}</span>
+        </div>
+      </div>
+    )
+  }
+  return null
 }
 
 export function IntelligenceCharts({
   reviews = [],
   optimizations = [],
   rewrites = [],
+  onAnalyze,
+  isAnalyzing = false,
 }: IntelligenceChartsProps) {
   const [activeTab, setActiveTab] = useState<'trends' | 'dimensions'>('trends')
 
@@ -82,35 +105,37 @@ export function IntelligenceCharts({
 
   // 3. Process AI Usage History (Group count by type)
   const usageData = [
-    { name: 'AI Reviews', count: reviews.length, color: '#6366f1' },
-    { name: 'AI Rewrites', count: rewrites.length, color: '#10b981' },
-    { name: 'Optimizations', count: optimizations.length, color: '#f59e0b' },
+    { name: 'AI Reviews', count: reviews.length, color: '#0F9D9A', type: 'Scans' },
+    { name: 'AI Rewrites', count: rewrites.length, color: '#aa3bff', type: 'Scans' },
+    { name: 'Optimizations', count: optimizations.length, color: '#00D2FF', type: 'Scans' },
   ]
 
   return (
-    <div className="space-y-6 text-left font-sans">
+    <div className="space-y-6 text-left font-sans animate-fade-in">
       {/* Tab Selectors */}
-      <div className="flex border-b border-slate-100 dark:border-slate-850">
+      <div className="flex border-b border-slate-105 dark:border-slate-850/80 overflow-x-auto scrollbar-none bg-slate-50/20 dark:bg-slate-900/10 rounded-t-2xl">
         <button
           onClick={() => setActiveTab('trends')}
-          className={`flex items-center gap-2 px-5 py-3 text-xs font-bold transition-all border-b-2 cursor-pointer ${
+          className={cn(
+            'flex items-center gap-2 px-5 py-3.5 text-xs font-bold whitespace-nowrap transition-all border-b-2 cursor-pointer',
             activeTab === 'trends'
-              ? 'border-brand-500 text-brand-600 dark:text-brand-450 font-extrabold'
-              : 'border-transparent text-slate-500 hover:text-slate-700'
-          }`}
+              ? 'border-brand-500 text-brand-600 dark:text-brand-400 bg-white/40 dark:bg-slate-900/20'
+              : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100/50 dark:hover:bg-slate-850/20'
+          )}
         >
-          <TrendingUp size={14} />
+          <TrendingUp size={13} className={activeTab === 'trends' ? 'text-brand-500' : 'text-slate-455'} />
           <span>Progress & Usage Trends</span>
         </button>
         <button
           onClick={() => setActiveTab('dimensions')}
-          className={`flex items-center gap-2 px-5 py-3 text-xs font-bold transition-all border-b-2 cursor-pointer ${
+          className={cn(
+            'flex items-center gap-2 px-5 py-3.5 text-xs font-bold whitespace-nowrap transition-all border-b-2 cursor-pointer',
             activeTab === 'dimensions'
-              ? 'border-brand-500 text-brand-600 dark:text-brand-450 font-extrabold'
-              : 'border-transparent text-slate-500 hover:text-slate-700'
-          }`}
+              ? 'border-brand-500 text-brand-600 dark:text-brand-400 bg-white/40 dark:bg-slate-900/20'
+              : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100/50 dark:hover:bg-slate-850/20'
+          )}
         >
-          <Activity size={14} />
+          <Activity size={13} className={activeTab === 'dimensions' ? 'text-brand-500' : 'text-slate-455'} />
           <span>Quality Dimension Breakdown</span>
         </button>
       </div>
@@ -118,82 +143,76 @@ export function IntelligenceCharts({
       {activeTab === 'trends' ? (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           {/* Quality Score Trend Timeline */}
-          <Card className="lg:col-span-2 border border-slate-200 dark:border-slate-800 bg-white dark:bg-dark-bg shadow-sm">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
-                <History size={13} className="text-brand-500" />
+          <Card className="lg:col-span-2 border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md shadow-sm rounded-2xl hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+            <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60 text-left">
+              <CardTitle className="text-xs font-black text-slate-900 dark:text-slate-200 uppercase tracking-wider flex items-center gap-1.5 m-0">
+                <History size={14} className="text-brand-500" />
                 <span>Resume Quality Score Timeline</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="h-64 pt-3">
+            <CardContent className="h-64 pt-6">
               {trendData.length > 0 ? (
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={trendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                    <defs>
-                      <linearGradient id="scoreTimelineGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#6366f1" stopOpacity={0.2} />
-                        <stop offset="95%" stopColor="#6366f1" stopOpacity={0.0} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800" />
-                    <XAxis dataKey="date" tick={{ fontSize: 10 }} stroke="#94a3b8" />
-                    <YAxis domain={[0, 100]} tick={{ fontSize: 10 }} stroke="#94a3b8" />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: '#0f172a',
-                        border: 'none',
-                        borderRadius: '8px',
-                        color: '#f8fafc',
-                        fontSize: '11px',
-                        fontFamily: 'sans-serif',
-                      }}
-                    />
-                    <Area
-                      type="monotone"
-                      dataKey="score"
-                      name="Quality Grade"
-                      stroke="#6366f1"
-                      strokeWidth={2}
-                      fillOpacity={1}
-                      fill="url(#scoreTimelineGradient)"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
+                <div className="h-full flex flex-col justify-between">
+                  <ResponsiveContainer width="100%" height={trendData.length === 1 ? '85%' : '100%'}>
+                    <AreaChart data={trendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                      <defs>
+                        <linearGradient id="scoreTimelineGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#0F9D9A" stopOpacity={0.25} />
+                          <stop offset="95%" stopColor="#0F9D9A" stopOpacity={0.0} />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/50" />
+                      <XAxis dataKey="date" tick={{ fontSize: 10 }} stroke="#94a3b8" tickLine={false} />
+                      <YAxis domain={[0, 100]} tick={{ fontSize: 10 }} stroke="#94a3b8" tickLine={false} />
+                      <Tooltip content={<CustomTooltip />} />
+                      <Area
+                        type="monotone"
+                        dataKey="score"
+                        name="Quality Grade"
+                        stroke="#0F9D9A"
+                        strokeWidth={2}
+                        fillOpacity={1}
+                        fill="url(#scoreTimelineGradient)"
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                  {trendData.length === 1 && (
+                    <p className="text-[10px] text-slate-450 dark:text-slate-500 text-center font-sans font-semibold uppercase tracking-wider m-0">
+                      Scans timeline unlocked. Run pipeline again to see progress trends.
+                    </p>
+                  )}
+                </div>
               ) : (
-                <div className="h-full flex items-center justify-center text-xs text-slate-400 italic">
-                  Run review or optimization pipeline to generate scoring trend history.
+                <div className="h-full">
+                  <ChartEmptyState
+                    message="No quality score trends recorded. Run review or optimization pipeline to generate scoring trend history."
+                    ctaText="Analyze Resume"
+                    ctaOnClick={onAnalyze}
+                  />
                 </div>
               )}
             </CardContent>
           </Card>
 
           {/* AI Feature Usage History */}
-          <Card className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-dark-bg shadow-sm">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
-                <Sparkles size={13} className="text-emerald-500" />
-                <span>AI Intelligence Usage History</span>
+          <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md shadow-sm rounded-2xl hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+            <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60 text-left">
+              <CardTitle className="text-xs font-black text-slate-900 dark:text-slate-200 uppercase tracking-wider flex items-center gap-1.5 m-0">
+                <Sparkles size={14} className="text-emerald-500" />
+                <span>AI Intelligence Usage</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="h-64 pt-3 flex flex-col justify-between">
+            <CardContent className="h-64 pt-6 flex flex-col justify-between">
               {reviews.length > 0 || rewrites.length > 0 || optimizations.length > 0 ? (
                 <>
-                  <div className="h-44 w-full">
+                  <div className="h-40 w-full">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart data={usageData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800" />
-                        <XAxis dataKey="name" tick={{ fontSize: 9 }} stroke="#94a3b8" />
-                        <YAxis tick={{ fontSize: 10 }} stroke="#94a3b8" allowDecimals={false} />
-                        <Tooltip
-                          contentStyle={{
-                            backgroundColor: '#0f172a',
-                            border: 'none',
-                            borderRadius: '8px',
-                            color: '#f8fafc',
-                            fontSize: '11px',
-                          }}
-                        />
-                        <Bar dataKey="count" name="Operations Run" radius={[4, 4, 0, 0]}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/50" />
+                        <XAxis dataKey="name" tick={{ fontSize: 9 }} stroke="#94a3b8" tickLine={false} />
+                        <YAxis tick={{ fontSize: 10 }} stroke="#94a3b8" allowDecimals={false} tickLine={false} />
+                        <Tooltip content={<CustomTooltip />} />
+                        <Bar dataKey="count" name="Operations Run" radius={[4, 4, 0, 0]} barSize={24}>
                           {usageData.map((entry, index) => (
                             <Bar key={index} dataKey="count" fill={entry.color} />
                           ))}
@@ -201,24 +220,28 @@ export function IntelligenceCharts({
                       </BarChart>
                     </ResponsiveContainer>
                   </div>
-                  <div className="grid grid-cols-3 gap-2 text-center text-[10px] text-slate-500 font-semibold border-t border-slate-100 dark:border-slate-850 pt-2">
+                  <div className="grid grid-cols-3 gap-2 text-center text-[10px] text-slate-450 dark:text-slate-500 font-bold uppercase tracking-wider border-t border-slate-100 dark:border-slate-850 pt-3">
                     <div>
-                      <span className="block text-slate-800 dark:text-slate-350 text-sm font-extrabold">{reviews.length}</span>
+                      <span className="block text-slate-900 dark:text-slate-200 text-sm font-extrabold">{reviews.length}</span>
                       Reviews
                     </div>
                     <div>
-                      <span className="block text-slate-800 dark:text-slate-350 text-sm font-extrabold">{rewrites.length}</span>
+                      <span className="block text-slate-900 dark:text-slate-200 text-sm font-extrabold">{rewrites.length}</span>
                       Rewrites
                     </div>
                     <div>
-                      <span className="block text-slate-800 dark:text-slate-350 text-sm font-extrabold">{optimizations.length}</span>
+                      <span className="block text-slate-900 dark:text-slate-200 text-sm font-extrabold">{optimizations.length}</span>
                       Optimizations
                     </div>
                   </div>
                 </>
               ) : (
-                <div className="h-full flex items-center justify-center text-xs text-slate-400 italic">
-                  No AI features run on this resume yet.
+                <div className="h-full">
+                  <ChartEmptyState
+                    message="No AI features run on this resume yet. Run the workflow pipeline to populate tools analytics."
+                    ctaText="Analyze Resume"
+                    ctaOnClick={onAnalyze}
+                  />
                 </div>
               )}
             </CardContent>
@@ -226,26 +249,26 @@ export function IntelligenceCharts({
         </div>
       ) : (
         /* Dimensions breakdown subtab (Radar Chart) */
-        <Card className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-dark-bg shadow-sm">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
-              <Activity size={13} className="text-brand-500" />
+        <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md shadow-sm rounded-2xl hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+          <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60 text-left">
+            <CardTitle className="text-xs font-black text-slate-900 dark:text-slate-200 uppercase tracking-wider flex items-center gap-1.5 m-0">
+              <Activity size={14} className="text-brand-500" />
               <span>Resume Optimization Progress Breakdown</span>
             </CardTitle>
           </CardHeader>
-          <CardContent className="h-80 pt-3">
+          <CardContent className="h-80 pt-6">
             {latestOpt ? (
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart cx="50%" cy="50%" outerRadius="80%" data={dimensionsData}>
-                  <PolarGrid stroke="#cbd5e1" className="dark:stroke-slate-800" />
+                  <PolarGrid stroke="#cbd5e1" className="dark:stroke-slate-800/50" />
                   <PolarAngleAxis dataKey="subject" tick={{ fontSize: 10, fill: '#64748b', fontWeight: 'semibold' }} />
                   <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fontSize: 8 }} />
                   <Radar
                     name="Score Level"
                     dataKey="value"
-                    stroke="#6366f1"
-                    fill="#6366f1"
-                    fillOpacity={0.3}
+                    stroke="#0F9D9A"
+                    fill="#0F9D9A"
+                    fillOpacity={0.25}
                   />
                   <Tooltip
                     contentStyle={{
@@ -259,8 +282,12 @@ export function IntelligenceCharts({
                 </RadarChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-full flex items-center justify-center text-xs text-slate-400 italic">
-                Please execute the AI Optimization scan to populate quality breakdown dimensions.
+              <div className="h-full">
+                <ChartEmptyState
+                  message="Please execute the AI Optimization scan to populate quality breakdown dimensions."
+                  ctaText="Analyze Resume"
+                  ctaOnClick={onAnalyze}
+                />
               </div>
             )}
           </CardContent>

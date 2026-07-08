@@ -14,11 +14,11 @@ import {
 import { useSystemAnalytics, useAgentsAnalytics } from '@/api/agents'
 import { AnalyticsFilterBar } from '@/components/analytics/AnalyticsFilterBar'
 import { ReportExportDialog } from '@/components/analytics/ReportExportDialog'
-import { KPIWidget } from '@/components/analytics/KPIWidget'
 import { AnalyticsCard } from '@/components/analytics/AnalyticsCard'
 import { TrendChart } from '@/components/analytics/TrendChart'
 import { RadarAnalytics } from '@/components/analytics/RadarAnalytics'
 import { LanguageDistributionChart } from '@/components/analytics/LanguageDistributionChart'
+import { StatisticCard } from '@/components/ui/StatisticCard'
 import {
   FileText,
   Scan,
@@ -34,6 +34,7 @@ import {
 } from 'lucide-react'
 import { AnalyticsSkeleton } from '@/components/ui/Skeletons'
 import { EmptyAnalyticsState } from '@/components/ui/EmptyState'
+import { cn } from '@/lib/utils'
 
 type TabType =
   | 'overview'
@@ -86,15 +87,15 @@ export default function AnalyticsPage() {
   }
 
   const tabs: { value: TabType; label: string; icon: any }[] = [
-    { value: 'overview', label: 'Summary Overview', icon: TrendingUp },
-    { value: 'resumes', label: 'Resume Profile', icon: FileText },
+    { value: 'overview', label: 'Overview', icon: TrendingUp },
+    { value: 'resumes', label: 'Resumes', icon: FileText },
     { value: 'ats', label: 'ATS Metrics', icon: Scan },
-    { value: 'jobmatch', label: 'Job Matching', icon: BrainCircuit },
-    { value: 'aicoach', label: 'AI Resume Analytics', icon: Sparkles },
-    { value: 'interviews', label: 'AI Interviews', icon: MessageSquareCode },
-    { value: 'career', label: 'Career Roadmaps', icon: Map },
+    { value: 'jobmatch', label: 'Job Matches', icon: BrainCircuit },
+    { value: 'aicoach', label: 'AI Resume Review', icon: Sparkles },
+    { value: 'interviews', label: 'AI Interview', icon: MessageSquareCode },
+    { value: 'career', label: 'Roadmap', icon: Map },
     { value: 'rag', label: 'RAG Pipeline', icon: Database },
-    { value: 'agents', label: 'Multi-Agent Workspace', icon: Bot },
+    { value: 'agents', label: 'Agent Center', icon: Bot },
   ]
 
   // Normalizing distributions for chart ingestion
@@ -161,13 +162,13 @@ export default function AnalyticsPage() {
 
   if (!dashboard.isLoading && dashboard.data?.total_resumes === 0) {
     return (
-      <div className="space-y-6 text-left">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white font-display">
+      <div className="space-y-6 text-left font-sans text-xs">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 rounded-2xl border border-slate-205 dark:border-slate-855 shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 flex-shrink-0">
+          <div className="space-y-1 text-left">
+            <h2 className="text-xl md:text-2xl font-black font-display text-slate-905 dark:text-white m-0 tracking-tight leading-none">
               Analytics Center
             </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-xs text-slate-550 dark:text-slate-400 font-sans leading-relaxed m-0 font-medium mt-1.5">
               Centralized operations intelligence dashboard across all Scorelia modules.
             </p>
           </div>
@@ -178,14 +179,14 @@ export default function AnalyticsPage() {
   }
 
   return (
-    <div className="space-y-6 font-sans select-none pb-12">
+    <div className="space-y-6 font-sans select-none pb-12 text-left text-xs">
       {/* Title Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="space-y-1">
-          <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white font-display">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 rounded-2xl border border-slate-205 dark:border-slate-855 shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 flex-shrink-0">
+        <div className="space-y-1.5 text-left">
+          <h2 className="text-xl md:text-2xl font-black font-display text-slate-905 dark:text-white m-0 tracking-tight leading-none">
             Analytics Center
           </h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-slate-550 dark:text-slate-400 font-sans leading-relaxed m-0 font-medium mt-1.5">
             Centralized operations intelligence dashboard across all Scorelia modules.
           </p>
         </div>
@@ -202,60 +203,60 @@ export default function AnalyticsPage() {
 
       {/* Global KPI Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-        <KPIWidget
-          title="Resumes Builder"
+        <StatisticCard
+          title="Total Analyses"
           value={dashboard.data?.total_resumes ?? 0}
           icon={FileText}
           description="Total Resumes Uploaded"
-          colorScheme="brand"
+          className="border-slate-205 dark:border-slate-855"
         />
-        <KPIWidget
-          title="ATS Compliance"
+        <StatisticCard
+          title="Average ATS Score"
           value={`${dashboard.data?.average_ats_score ?? 0}%`}
           icon={Scan}
           description="Average Resume ATS Score"
-          colorScheme="violet"
           trend={{ value: 4.8, isPositive: true }}
+          className="border-slate-205 dark:border-slate-855"
         />
-        <KPIWidget
-          title="Job Compatibility"
+        <StatisticCard
+          title="Job Match Success"
           value={`${dashboard.data?.average_match_score ?? 0}%`}
           icon={BrainCircuit}
           description="Average Match Alignment"
-          colorScheme="emerald"
           trend={{ value: 2.1, isPositive: true }}
+          className="border-slate-205 dark:border-slate-855"
         />
-        <KPIWidget
-          title="AI Interview Prep"
+        <StatisticCard
+          title="Interview Performance"
           value={dashboard.data?.interview_sessions ?? 0}
           icon={MessageSquareCode}
           description="Completed Prep Sessions"
-          colorScheme="amber"
+          className="border-slate-205 dark:border-slate-855"
         />
-        <KPIWidget
-          title="Career Roadmap"
+        <StatisticCard
+          title="AI Usage"
           value={`${dashboard.data?.career_progress ?? 0}%`}
           icon={Map}
           description="Milestones Achievements"
-          colorScheme="cyan"
+          className="border-slate-205 dark:border-slate-855"
         />
       </div>
 
       {/* Tabs navigation */}
-      <div className="border-b border-slate-200 dark:border-slate-800/80 overflow-x-auto scrollbar-none flex gap-6">
+      <div className="border-b border-slate-200 dark:border-slate-800/80 overflow-x-auto scrollbar-none flex gap-6 -mb-[1px]">
         {tabs.map((tab) => {
           const TabIcon = tab.icon
+          const isActive = activeTab === tab.value
           return (
             <button
               key={tab.value}
               onClick={() => setActiveTab(tab.value)}
-              className={`py-4 px-1 border-b-2 font-bold text-xs flex items-center gap-2 whitespace-nowrap cursor-pointer transition-all ${
-                activeTab === tab.value
-                  ? 'border-brand-500 text-brand-600 dark:text-brand-400'
-                  : 'border-transparent text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-350'
-              }`}
+              className={cn(
+                'py-4 px-1.5 border-b-2 font-bold text-xs flex items-center gap-2 whitespace-nowrap cursor-pointer transition-all border-transparent text-slate-405 hover:text-slate-850 dark:hover:text-slate-355 -mb-[2px]',
+                isActive && 'border-brand-500 text-brand-500 font-extrabold'
+              )}
             >
-              <TabIcon size={16} />
+              <TabIcon size={14} />
               <span>{tab.label}</span>
             </button>
           )
@@ -399,17 +400,17 @@ export default function AnalyticsPage() {
               error={ats.error}
               empty={!ats.data?.weaknesses?.top_weaknesses?.length}
             >
-              <div className="space-y-3 font-sans text-xs">
+              <div className="space-y-3 font-sans text-xs text-left">
                 {(ats.data?.weaknesses?.top_weaknesses || []).map((w, idx) => (
                   <div
                     key={idx}
-                    className="flex justify-between items-center p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/40 dark:border-slate-800/30"
+                    className="flex justify-between items-center p-3 bg-slate-55/35 dark:bg-slate-900/40 rounded-xl border border-slate-200/50 dark:border-slate-850/60 transition-all shadow-2xs hover:shadow-sm text-left"
                   >
-                    <span className="font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-2">
-                      <AlertCircle className="w-4 h-4 text-rose-500" />
+                    <span className="font-bold text-slate-805 dark:text-slate-205 flex items-center gap-2 text-left leading-none">
+                      <AlertCircle className="w-4 h-4 text-rose-500 flex-shrink-0" />
                       {w.label}
                     </span>
-                    <span className="font-bold text-slate-500">Frequency: {w.value}</span>
+                    <span className="font-mono font-black text-slate-500 dark:text-slate-400 shrink-0 leading-none">Frequency: {w.value}</span>
                   </div>
                 ))}
               </div>
@@ -422,17 +423,17 @@ export default function AnalyticsPage() {
               error={ats.error}
               empty={!ats.data?.weaknesses?.top_recommendations?.length}
             >
-              <div className="space-y-3 font-sans text-xs">
+              <div className="space-y-3 font-sans text-xs text-left">
                 {(ats.data?.weaknesses?.top_recommendations || []).map((r, idx) => (
                   <div
                     key={idx}
-                    className="flex justify-between items-center p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/40 dark:border-slate-800/30"
+                    className="flex justify-between items-center p-3 bg-slate-55/35 dark:bg-slate-900/40 rounded-xl border border-slate-200/50 dark:border-slate-850/60 transition-all shadow-2xs hover:shadow-sm text-left"
                   >
-                    <span className="font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-2">
-                      <HelpCircle className="w-4 h-4 text-emerald-500" />
+                    <span className="font-bold text-slate-855 dark:text-slate-205 flex items-center gap-2 text-left leading-none">
+                      <HelpCircle className="w-4 h-4 text-emerald-500 flex-shrink-0 animate-pulse" />
                       {r.label}
                     </span>
-                    <span className="font-bold text-slate-500">Priority: {r.value}</span>
+                    <span className="font-mono font-black text-slate-500 dark:text-slate-400 shrink-0 leading-none">Priority: {r.value}</span>
                   </div>
                 ))}
               </div>
@@ -486,28 +487,28 @@ export default function AnalyticsPage() {
               loading={jobMatch.isLoading}
               error={jobMatch.error}
             >
-              <div className="grid grid-cols-2 gap-4 font-sans text-xs py-4">
-                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/45 border border-slate-100 dark:border-slate-800/30">
-                  <div className="text-slate-400 dark:text-slate-500">Total Match Queries</div>
-                  <div className="text-xl font-bold text-slate-800 dark:text-white mt-1">
+              <div className="grid grid-cols-2 gap-4 font-sans text-xs py-4 text-left">
+                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Total Match Queries</div>
+                  <div className="text-lg font-black text-slate-800 dark:text-white mt-1 leading-none font-mono">
                     {jobMatch.data?.history.total_matches || 0}
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/45 border border-slate-100 dark:border-slate-800/30">
-                  <div className="text-slate-400 dark:text-slate-500">Avg Matches / Resume</div>
-                  <div className="text-xl font-bold text-slate-800 dark:text-white mt-1">
+                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Avg Matches / Resume</div>
+                  <div className="text-lg font-black text-slate-800 dark:text-white mt-1 leading-none font-mono">
                     {jobMatch.data?.history.average_matches_per_resume || 0}
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/45 border border-slate-100 dark:border-slate-800/30">
-                  <div className="text-slate-400 dark:text-slate-500">Duplicate Descriptions</div>
-                  <div className="text-xl font-bold text-slate-800 dark:text-white mt-1">
+                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Repeated Jobs</div>
+                  <div className="text-lg font-black text-slate-800 dark:text-white mt-1 leading-none font-mono">
                     {jobMatch.data?.history.repeated_job_descriptions || 0}
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/45 border border-slate-100 dark:border-slate-800/30">
-                  <div className="text-slate-400 dark:text-slate-500">Historical growth</div>
-                  <div className="text-xl font-bold text-slate-800 dark:text-white mt-1">
+                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Historical Growth</div>
+                  <div className="text-lg font-black text-slate-800 dark:text-white mt-1 leading-none font-mono">
                     +{jobMatch.data?.history.historical_match_growth || 0}%
                   </div>
                 </div>
@@ -524,22 +525,22 @@ export default function AnalyticsPage() {
               description="Aggregated count of resume optimizations"
               loading={dashboard.isLoading}
             >
-              <div className="grid grid-cols-3 gap-3 font-sans text-xs py-10">
-                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/45 border border-slate-100 dark:border-slate-800/30 text-center">
-                  <div className="text-slate-400 dark:text-slate-500">Cover Letters</div>
-                  <div className="text-2xl font-black text-brand-500 mt-1">
+              <div className="grid grid-cols-3 gap-3 font-sans text-xs py-8 text-left">
+                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Cover Letters</div>
+                  <div className="text-lg font-black text-brand-500 mt-1 leading-none font-mono">
                     {dashboard.data?.cover_letters_generated || 0}
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/45 border border-slate-100 dark:border-slate-800/30 text-center">
-                  <div className="text-slate-400 dark:text-slate-500">AI Interactions</div>
-                  <div className="text-2xl font-black text-violet-500 mt-1">
+                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">AI usage</div>
+                  <div className="text-lg font-black text-violet-500 mt-1 leading-none font-mono">
                     {dashboard.data?.ai_usage || 0}
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/45 border border-slate-100 dark:border-slate-800/30 text-center">
-                  <div className="text-slate-400 dark:text-slate-500">Prep Sessions</div>
-                  <div className="text-2xl font-black text-emerald-500 mt-1">
+                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Prep Loops</div>
+                  <div className="text-lg font-black text-emerald-500 mt-1 leading-none font-mono">
                     {dashboard.data?.interview_sessions || 0}
                   </div>
                 </div>
@@ -614,11 +615,11 @@ export default function AnalyticsPage() {
               description="Milestones completion progression percentage"
               loading={roadmaps.isLoading}
             >
-              <div className="flex flex-col items-center justify-center py-6 text-center">
-                <span className="text-5xl font-black text-cyan-600 dark:text-cyan-400 font-display">
+              <div className="flex flex-col items-center justify-center py-6 text-center select-none leading-none">
+                <span className="text-5xl font-black text-cyan-600 dark:text-cyan-400 font-display block">
                   {dashboard.data?.career_progress || 0}%
                 </span>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2 block font-sans">
                   Total Milestone Completion
                 </span>
               </div>
@@ -629,16 +630,16 @@ export default function AnalyticsPage() {
               description="Track details of learning milestones"
               loading={roadmaps.isLoading}
             >
-              <div className="space-y-4 py-2 font-sans text-xs">
-                <div className="flex items-center justify-between font-semibold">
+              <div className="space-y-4 py-2 font-sans text-xs text-left">
+                <div className="flex items-center justify-between font-bold leading-none select-none">
                   <span className="text-slate-500">Active Roadmaps Tracked</span>
-                  <span className="text-slate-900 dark:text-white font-bold">
+                  <span className="text-slate-900 dark:text-white font-mono text-sm leading-none">
                     {roadmaps.data?.total || 0}
                   </span>
                 </div>
-                <div className="flex items-center justify-between font-semibold">
+                <div className="flex items-center justify-between font-bold leading-none select-none">
                   <span className="text-slate-500">Milestones Completion Status</span>
-                  <span className="text-slate-900 dark:text-white font-bold">
+                  <span className="text-slate-900 dark:text-white font-mono text-sm leading-none">
                     {dashboard.data?.career_progress || 0}%
                   </span>
                 </div>
@@ -651,27 +652,27 @@ export default function AnalyticsPage() {
         {activeTab === 'rag' && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <AnalyticsCard
-              title="Response latencies"
+              title="Response Latencies"
               description="E2E document retrieval operational latency"
               loading={ragMetrics.isLoading}
               error={ragMetrics.error}
             >
-              <div className="grid grid-cols-3 gap-3 font-sans text-xs py-8">
-                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/45 border border-slate-100 dark:border-slate-800/30 text-center">
-                  <div className="text-slate-400 dark:text-slate-500">Retrieval Latency</div>
-                  <div className="text-lg font-bold text-slate-800 dark:text-white mt-1">
+              <div className="grid grid-cols-3 gap-3 font-sans text-xs py-8 text-left">
+                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-855 shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Retrieval Speed</div>
+                  <div className="text-sm font-black text-slate-805 dark:text-white mt-1 leading-none font-mono">
                     {ragMetrics.data?.average_retrieval_latency_ms?.toFixed(1) || 0}ms
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/45 border border-slate-100 dark:border-slate-800/30 text-center">
-                  <div className="text-slate-400 dark:text-slate-500">Gen Latency</div>
-                  <div className="text-lg font-bold text-slate-800 dark:text-white mt-1">
+                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-855 shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase tracking-widest leading-none mb-1.5 font-sans">Generation Speed</div>
+                  <div className="text-sm font-black text-slate-805 dark:text-white mt-1 leading-none font-mono">
                     {ragMetrics.data?.average_generation_latency_ms?.toFixed(1) || 0}ms
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/45 border border-slate-100 dark:border-slate-800/30 text-center">
-                  <div className="text-slate-400 dark:text-slate-500">Total Query E2E</div>
-                  <div className="text-lg font-bold text-slate-800 dark:text-white mt-1">
+                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-855 shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase tracking-widest leading-none mb-1.5 font-sans">E2E roundtrip</div>
+                  <div className="text-sm font-black text-slate-805 dark:text-white mt-1 leading-none font-mono">
                     {ragMetrics.data?.average_total_latency_ms?.toFixed(1) || 0}ms
                   </div>
                 </div>
@@ -684,21 +685,21 @@ export default function AnalyticsPage() {
               loading={ragMetrics.isLoading}
               error={ragMetrics.error}
             >
-              <div className="flex gap-6 items-center justify-center py-6">
+              <div className="flex gap-6 items-center justify-center py-6 select-none leading-none">
                 <div className="text-center">
-                  <span className="text-4xl font-extrabold text-emerald-600 dark:text-emerald-400 block font-display">
+                  <span className="text-4xl font-extrabold text-emerald-600 dark:text-emerald-450 block font-display leading-none">
                     {((ragMetrics.data?.cache_hit_ratio || 0) * 100).toFixed(0)}%
                   </span>
-                  <span className="text-[10px] font-bold text-slate-450 uppercase tracking-wider mt-1 block">
+                  <span className="text-[10px] font-bold text-slate-450 uppercase tracking-wider mt-2.5 block leading-none font-sans">
                     Hit Ratio
                   </span>
                 </div>
                 <div className="w-px h-10 bg-slate-200 dark:bg-slate-800" />
                 <div className="text-center">
-                  <span className="text-4xl font-extrabold text-slate-400 block font-display">
+                  <span className="text-4xl font-extrabold text-slate-400 block font-display leading-none">
                     {((ragMetrics.data?.cache_miss_ratio || 0) * 100).toFixed(0)}%
                   </span>
-                  <span className="text-[10px] font-bold text-slate-450 uppercase tracking-wider mt-1 block">
+                  <span className="text-[10px] font-bold text-slate-450 uppercase tracking-wider mt-2.5 block leading-none font-sans">
                     Miss Ratio
                   </span>
                 </div>
@@ -716,22 +717,22 @@ export default function AnalyticsPage() {
               loading={systemAgents.isLoading}
               error={systemAgents.error}
             >
-              <div className="grid grid-cols-3 gap-3 font-sans text-xs py-8">
-                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/45 border border-slate-100 dark:border-slate-800/30 text-center">
-                  <div className="text-slate-400 dark:text-slate-500">Tasks Executed</div>
-                  <div className="text-xl font-bold text-slate-800 dark:text-white mt-1">
+              <div className="grid grid-cols-3 gap-3 font-sans text-xs py-8 text-left">
+                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase tracking-widest leading-none mb-1.5 font-sans">Tasks Executed</div>
+                  <div className="text-lg font-black text-slate-800 dark:text-white mt-1 leading-none font-mono">
                     {systemAgents.data?.total_agent_executions || 0}
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/45 border border-slate-100 dark:border-slate-800/30 text-center">
-                  <div className="text-slate-400 dark:text-slate-500">Workflows Done</div>
-                  <div className="text-xl font-bold text-slate-800 dark:text-white mt-1">
+                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase tracking-widest leading-none mb-1.5 font-sans">Workflows Done</div>
+                  <div className="text-lg font-black text-slate-800 dark:text-white mt-1 leading-none font-mono">
                     {systemAgents.data?.total_workflow_executions || 0}
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/45 border border-slate-100 dark:border-slate-800/30 text-center">
-                  <div className="text-slate-400 dark:text-slate-500">Avg Loop Speed</div>
-                  <div className="text-xl font-bold text-slate-800 dark:text-white mt-1">
+                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase tracking-widest leading-none mb-1.5 font-sans">Avg Loop Speed</div>
+                  <div className="text-lg font-black text-slate-800 dark:text-white mt-1 leading-none font-mono">
                     {systemAgents.data?.average_agent_latency_ms
                       ? `${(systemAgents.data.average_agent_latency_ms / 1000).toFixed(1)}s`
                       : '0.0s'}
@@ -747,21 +748,22 @@ export default function AnalyticsPage() {
               error={agentsStats.error}
               empty={!agentsStats.data || Object.keys(agentsStats.data).length === 0}
             >
-              <div className="space-y-3 font-sans text-xs">
+              <div className="space-y-3 font-sans text-xs text-left">
                 {Object.entries(agentsStats.data || {}).map(([name, stats]) => (
                   <div
                     key={name}
-                    className="flex justify-between items-center p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/40 dark:border-slate-800/30"
+                    className="flex justify-between items-center p-3 bg-slate-55/35 dark:bg-slate-900/40 rounded-xl border border-slate-200/50 dark:border-slate-850/60 transition-all shadow-2xs hover:shadow-sm text-left"
                   >
-                    <span className="font-semibold text-slate-850 dark:text-slate-200 uppercase tracking-wide">
+                    <span className="font-bold text-slate-855 dark:text-slate-205 flex items-center gap-2 text-left leading-none uppercase tracking-wide">
                       {name.replace(/_agent/g, '').replace(/_/g, ' ')}
                     </span>
                     <span
-                      className={`font-bold px-2 py-0.5 rounded-md text-[10px] ${
+                      className={cn(
+                        'font-mono font-bold px-2 py-0.5 rounded-lg text-[9px] border leading-none shrink-0',
                         stats.success_rate >= 90
-                          ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-                          : 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
-                      }`}
+                          ? 'bg-emerald-500/10 text-emerald-650 dark:text-emerald-450 border-emerald-500/20'
+                          : 'bg-rose-500/10 text-rose-650 dark:text-rose-455 border-rose-500/20'
+                      )}
                     >
                       {stats.success_rate.toFixed(0)}% Success
                     </span>
