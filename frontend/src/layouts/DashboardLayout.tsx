@@ -21,6 +21,7 @@ import { Navbar } from '@/components/layout/Navbar'
 import { useAuth } from '@/providers/AuthProvider'
 import { cn } from '@/lib/utils'
 import { Logo } from '@/components/common/Logo'
+import { SIDEBAR_COLLAPSED_KEY } from '@/lib/constants'
 
 
 // Custom Github SVG Icon to bypass missing brand icons in this version of lucide-react
@@ -44,7 +45,15 @@ const Github = (props: React.SVGProps<SVGSVGElement> & { size?: number }) => {
 }
 
 export default function DashboardLayout() {
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsedState] = useState(() => {
+    const saved = localStorage.getItem(SIDEBAR_COLLAPSED_KEY)
+    return saved ? JSON.parse(saved) === true : false
+  })
+
+  const setCollapsed = (val: boolean) => {
+    setCollapsedState(val)
+    localStorage.setItem(SIDEBAR_COLLAPSED_KEY, JSON.stringify(val))
+  }
   const [mobileOpen, setMobileOpen] = useState(false)
   const location = useLocation()
   const { user } = useAuth()

@@ -1,4 +1,4 @@
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import {
   LayoutDashboard,
@@ -7,15 +7,13 @@ import {
   MessageSquareCode,
   Map,
   Settings,
-  ChevronLeft,
-  ChevronRight,
   Sparkles,
   MailOpen,
   Database,
   Bot,
   BarChart3,
 } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
 import { cn } from '@/lib/utils'
 import { Logo } from '@/components/common/Logo'
 
@@ -47,6 +45,26 @@ interface SidebarProps {
 }
 
 export function Sidebar({ collapsed, setCollapsed, className }: SidebarProps) {
+  const [hoveredItem, setHoveredItem] = useState<{ label: string; top: number; left: number } | null>(null)
+
+  const handleMouseEnter = (e: React.MouseEvent<HTMLAnchorElement>, label: string) => {
+    if (!collapsed) return
+    const rect = e.currentTarget.getBoundingClientRect()
+    const sidebar = e.currentTarget.closest('aside')
+    const sidebarRect = sidebar?.getBoundingClientRect()
+    if (sidebarRect) {
+      setHoveredItem({
+        label,
+        top: rect.top - sidebarRect.top + rect.height / 2,
+        left: sidebarRect.width + 8,
+      })
+    }
+  }
+
+  const handleMouseLeave = () => {
+    setHoveredItem(null)
+  }
+
   const navItems = [
     { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { to: '/resumes', label: 'Resume Builder', icon: FileText },
@@ -65,15 +83,23 @@ export function Sidebar({ collapsed, setCollapsed, className }: SidebarProps) {
   return (
     <aside
       className={cn(
-        'hidden md:flex flex-col h-screen bg-slate-900 text-slate-300 border-r border-slate-800 transition-all duration-300 relative z-30',
-        collapsed ? 'w-20' : 'w-64',
+        'hidden md:flex flex-col h-screen bg-slate-900 text-slate-300 border-r border-slate-800 transition-[width] duration-300 ease-in-out relative z-30',
+        collapsed ? 'w-[72px]' : 'w-[260px]',
         className
       )}
     >
-      <div className="h-16 flex items-center px-5 border-b border-slate-800">
-        <Link to="/dashboard" className="flex items-center gap-3 w-full focus:outline-none">
-          <Logo iconOnly={collapsed} className={cn("text-slate-100 transition-all duration-150", collapsed ? "h-8 w-8 mx-auto" : "h-7 w-auto")} />
-        </Link>
+      <div className="h-16 flex items-center px-3 border-b border-slate-800">
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          aria-expanded={!collapsed}
+          className={cn(
+            "flex items-center cursor-pointer w-full transition-all duration-300 rounded-lg hover:bg-slate-800/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-500 focus-visible:outline-offset-2 focus:outline-none",
+            collapsed ? "justify-center p-2" : "justify-start p-2 gap-3"
+          )}
+          aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+        >
+          <Logo iconOnly={collapsed} className={cn("text-slate-100 transition-all duration-300", collapsed ? "h-8 w-8" : "h-7 w-auto")} />
+        </button>
       </div>
 
       {/* Navigation Items */}
@@ -84,32 +110,51 @@ export function Sidebar({ collapsed, setCollapsed, className }: SidebarProps) {
             <NavLink
               key={item.to}
               to={item.to}
+              onMouseEnter={(e) => handleMouseEnter(e, item.label)}
+              onMouseLeave={handleMouseLeave}
               className={({ isActive }) =>
                 cn(
-                  'flex items-center gap-3.5 py-2.5 rounded-lg text-sm font-semibold font-sans transition-all duration-150 cursor-pointer group',
+                  'flex items-center py-2.5 rounded-lg text-sm font-semibold font-sans transition-all duration-300 cursor-pointer group relative px-3',
+                  collapsed ? 'justify-center' : 'justify-start',
                   isActive
-                    ? 'bg-brand-500/12 text-brand-400 border-l-2 border-brand-500 pl-2.5 pr-3 shadow-inner'
-                    : 'text-slate-400 hover:bg-slate-800/40 hover:text-slate-100 px-3'
+                    ? 'bg-brand-500/12 text-brand-400 shadow-inner'
+                    : 'text-slate-400 hover:bg-slate-800/40 hover:text-slate-100'
                 )
               }
             >
-              <Icon size={18} className="flex-shrink-0 transition-colors" />
-              {!collapsed && <span className="whitespace-nowrap tracking-wide">{item.label}</span>}
+              {({ isActive }) => (
+                <>
+                  {isActive && (
+                    <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-brand-500 rounded-l-lg" />
+                  )}
+                  <Icon size={18} className="flex-shrink-0 transition-colors" />
+                  <span
+                    className={cn(
+                      "whitespace-nowrap tracking-wide transition-all duration-300 ease-in-out overflow-hidden",
+                      collapsed ? "max-w-0 opacity-0 ml-0" : "max-w-[200px] opacity-100 ml-3.5"
+                    )}
+                  >
+                    {item.label}
+                  </span>
+                </>
+              )}
             </NavLink>
           )
         })}
       </nav>
 
-      {/* Collapse Toggle Button */}
-      <div className="p-4 border-t border-slate-800 flex justify-end">
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="p-1.5 rounded-lg bg-slate-850 border border-slate-800 hover:bg-slate-800 text-slate-400 hover:text-slate-200 cursor-pointer focus:outline-none"
-          aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+      {/* Tooltip */}
+      {collapsed && hoveredItem && (
+        <div
+          style={{ top: hoveredItem.top, left: hoveredItem.left }}
+          className="absolute -translate-y-1/2 z-50 pointer-events-none"
         >
-          {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
-        </button>
-      </div>
+          <div className="relative bg-slate-950 text-slate-100 text-xs font-semibold px-3 py-1.5 rounded-md border border-slate-800 shadow-xl whitespace-nowrap animate-fade-in flex items-center">
+            <div className="absolute -left-1 w-2 h-2 rotate-45 bg-slate-950 border-l border-b border-slate-800" />
+            <span className="relative z-10">{hoveredItem.label}</span>
+          </div>
+        </div>
+      )}
     </aside>
   )
 }
