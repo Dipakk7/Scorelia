@@ -26,6 +26,7 @@ import { ExportDialog } from '@/components/rag/ExportDialog'
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { Select } from '@/components/ui/Select'
 import { StatisticCard } from '@/components/ui/StatisticCard'
 import { RagWorkspaceSkeleton } from '@/components/ui/Skeletons'
 import { EmptyRagResultsState } from '@/components/ui/EmptyState'
@@ -397,17 +398,16 @@ export default function RAGWorkspacePage() {
                       </Button>
                     </div>
                   ) : (
-                    <select
+                    <Select
                       value={uploadCollection}
                       onChange={(e) => setUploadCollection(e.target.value)}
-                      className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-white/70 dark:bg-slate-900/50 text-slate-950 dark:text-slate-150 focus:outline-none focus:ring-1 focus:ring-brand-500 font-bold transition-colors cursor-pointer shadow-2xs"
                     >
                       {collections.map((col) => (
                         <option key={col.name} value={col.name}>
                           {col.name}
                         </option>
                       ))}
-                    </select>
+                    </Select>
                   )}
                 </div>
 

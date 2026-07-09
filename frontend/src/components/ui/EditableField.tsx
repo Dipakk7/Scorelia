@@ -1,4 +1,5 @@
 import { Input } from '@/components/ui/Input'
+import { Textarea } from '@/components/ui/Textarea'
 import { cn } from '@/lib/utils'
 
 interface EditableFieldProps {
@@ -31,17 +32,13 @@ export function EditableField({
       {isEditing ? (
         type === 'textarea' ? (
           <div>
-            <textarea
+            <Textarea
               value={value}
               onChange={(e) => onChange(e.target.value)}
               placeholder={placeholder}
               rows={4}
-              className={cn(
-                'w-full rounded-lg border border-slate-250 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:border-brand-500 dark:focus:border-brand-500 focus:outline-none transition-colors duration-150 resize-y',
-                error && 'border-rose-500 dark:border-rose-500/80 focus:border-rose-500'
-              )}
+              error={error}
             />
-            {error && <p className="text-[11px] text-rose-600 dark:text-rose-450 mt-1">{error}</p>}
           </div>
         ) : (
           <div>

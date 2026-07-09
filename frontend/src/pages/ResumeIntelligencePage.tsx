@@ -40,7 +40,6 @@ import {
   Layers,
   Zap,
 } from 'lucide-react'
-import { ChartEmptyState } from '@/components/ui/ChartEmptyState'
 import { cn } from '@/lib/utils'
 
 type DashboardTab = 'overview' | 'review' | 'rewrite' | 'optimization' | 'history'

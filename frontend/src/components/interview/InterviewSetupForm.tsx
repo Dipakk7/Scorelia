@@ -3,11 +3,11 @@ import { useQuery } from '@tanstack/react-query'
 import api from '@/api/api'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { Select } from '@/components/ui/Select'
 import { Card, CardContent } from '@/components/ui/Card'
 import type { ResumeResponse } from '@/types/resume'
 import type { InterviewSessionCreate } from '@/types/interview'
 import { Briefcase, Building, Settings, Play, Loader2 } from 'lucide-react'
-import { cn } from '@/lib/utils'
 
 interface InterviewSetupFormProps {
   onSubmit: (data: InterviewSessionCreate & { timeLimitMinutes: number }) => void
@@ -103,42 +103,32 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Interview Type */}
-            <div className="space-y-1.5">
-              <label htmlFor="type" className="block text-[10px] font-black text-slate-455 dark:text-slate-505 uppercase tracking-widest leading-none">
-                Interview Domain Category
-              </label>
-              <select
-                id="type"
-                value={interviewType}
-                onChange={(e: any) => setInterviewType(e.target.value)}
-                className="w-full text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 rounded-xl p-2.5 h-10 text-slate-855 dark:text-slate-205 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer transition-colors"
-              >
-                <option value="BEHAVIORAL">Behavioral / Leadership (STAR Method)</option>
-                <option value="TECHNICAL">Technical Coding & Concept Core</option>
-                <option value="SYSTEM_DESIGN">System Design & High Level Architecture</option>
-                <option value="RESUME_BASED">Resume-Based Experience Drill</option>
-                <option value="HR">HR Fit, Culture & General Motivation</option>
-                <option value="MIXED">Mixed Round Robin (Behavioral + Tech)</option>
-              </select>
-            </div>
+            <Select
+              id="type"
+              label="Interview Domain Category"
+              value={interviewType}
+              onChange={(e: any) => setInterviewType(e.target.value)}
+            >
+              <option value="BEHAVIORAL">Behavioral / Leadership (STAR Method)</option>
+              <option value="TECHNICAL">Technical Coding & Concept Core</option>
+              <option value="SYSTEM_DESIGN">System Design & High Level Architecture</option>
+              <option value="RESUME_BASED">Resume-Based Experience Drill</option>
+              <option value="HR">HR Fit, Culture & General Motivation</option>
+              <option value="MIXED">Mixed Round Robin (Behavioral + Tech)</option>
+            </Select>
 
             {/* Difficulty Level */}
-            <div className="space-y-1.5">
-              <label htmlFor="difficulty" className="block text-[10px] font-black text-slate-455 dark:text-slate-505 uppercase tracking-widest leading-none">
-                Difficulty Level
-              </label>
-              <select
-                id="difficulty"
-                value={difficulty}
-                onChange={(e: any) => setDifficulty(e.target.value)}
-                className="w-full text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 rounded-xl p-2.5 h-10 text-slate-855 dark:text-slate-205 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer transition-colors"
-              >
-                <option value="EASY">Easy (Screening / Fundamental Concepts)</option>
-                <option value="MEDIUM">Medium (Standard Industry Benchmarks)</option>
-                <option value="HARD">Hard (FAANG / Core Specialized Focus)</option>
-                <option value="ADAPTIVE">Adaptive (Scales based on answer score)</option>
-              </select>
-            </div>
+            <Select
+              id="difficulty"
+              label="Difficulty Level"
+              value={difficulty}
+              onChange={(e: any) => setDifficulty(e.target.value)}
+            >
+              <option value="EASY">Easy (Screening / Fundamental Concepts)</option>
+              <option value="MEDIUM">Medium (Standard Industry Benchmarks)</option>
+              <option value="HARD">Hard (FAANG / Core Specialized Focus)</option>
+              <option value="ADAPTIVE">Adaptive (Scales based on answer score)</option>
+            </Select>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -179,31 +169,31 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
             </div>
 
             {/* Resume Selection */}
-            <div className="space-y-1.5">
-              <label htmlFor="resume" className="block text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest leading-none">
-                Tailor with parsed Resume
-              </label>
-              {resumesLoading ? (
+            {resumesLoading ? (
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold font-display uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  Tailor with parsed Resume
+                </label>
                 <div className="h-10 flex items-center px-3 border border-slate-250 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/60 rounded-xl">
                   <Loader2 size={14} className="animate-spin text-slate-400 mr-2" />
                   <span className="text-[10px] text-slate-500 dark:text-slate-400">Loading resumes...</span>
                 </div>
-              ) : (
-                <select
-                  id="resume"
-                  value={resumeId}
-                  onChange={(e) => setResumeId(e.target.value)}
-                  className="w-full text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 rounded-xl p-2.5 h-10 text-slate-855 dark:text-slate-205 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer transition-colors"
-                >
-                  <option value="">-- No resume mapping (Uses general model defaults) --</option>
-                  {parsedResumes.map((r) => (
-                    <option key={r.id} value={r.id}>
-                      {r.original_filename} (Score: {r.ats_score || 'N/A'})
-                    </option>
-                  ))}
-                </select>
-              )}
-            </div>
+              </div>
+            ) : (
+              <Select
+                id="resume"
+                label="Tailor with parsed Resume"
+                value={resumeId}
+                onChange={(e) => setResumeId(e.target.value)}
+              >
+                <option value="">-- No resume mapping (Uses general model defaults) --</option>
+                {parsedResumes.map((r) => (
+                  <option key={r.id} value={r.id}>
+                    {r.original_filename} (Score: {r.ats_score || 'N/A'})
+                  </option>
+                ))}
+              </Select>
+            )}
           </div>
         </CardContent>
       </Card>

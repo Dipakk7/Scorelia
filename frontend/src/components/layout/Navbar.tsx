@@ -109,36 +109,37 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
       {/* Right side: Actions & User Dropdown */}
       <div className="flex items-center gap-2">
         {/* Notification Bell Dropdown */}
+        {/* Notification Bell Dropdown */}
         <Dropdown>
           <DropdownTrigger asChild>
             <button
-              className="p-2 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200 cursor-pointer focus:outline-none relative"
+              className="p-2 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200 cursor-pointer focus:outline-none relative transition-all duration-200 hover:scale-105 active:scale-95"
               aria-label="Notifications center"
             >
               <Bell size={18} />
               {unreadCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 h-4 min-w-4 px-1 rounded-full bg-rose-500 text-[10px] font-extrabold text-white flex items-center justify-center border border-white dark:border-slate-900 shadow-sm animate-pulse font-sans">
+                <span className="absolute top-1.5 right-1.5 h-4 min-w-4 px-1 rounded-full bg-rose-500 text-[9px] font-black text-white flex items-center justify-center border border-white dark:border-slate-900 shadow-[0_2px_6px_rgba(244,63,94,0.4)] animate-pulse font-sans">
                   {unreadCount}
                 </span>
               )}
             </button>
           </DropdownTrigger>
-          <DropdownContent className="w-80" align="end">
-            <div className="flex items-center justify-between px-3 py-2 border-b border-slate-105 dark:border-slate-800">
-              <span className="text-xs font-bold font-display text-slate-850 dark:text-slate-50 uppercase tracking-wider">
+          <DropdownContent className="w-80 border-slate-200/80 dark:border-slate-800/80 bg-white/95 dark:bg-slate-900/95 shadow-xl backdrop-blur-md" align="end">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-800/80 select-none">
+              <span className="text-[10px] font-extrabold font-display text-slate-800 dark:text-slate-200 uppercase tracking-widest">
                 Notifications
               </span>
               {unreadCount > 0 && (
                 <button
                   onClick={() => markAllReadMutation.mutate()}
-                  className="text-[10px] font-bold text-brand-600 hover:underline dark:text-brand-400 cursor-pointer"
+                  className="text-[9px] font-bold text-brand-600 hover:text-brand-700 hover:underline dark:text-brand-450 dark:hover:text-brand-400 cursor-pointer uppercase tracking-wider"
                 >
                   Mark all read
                 </button>
               )}
             </div>
 
-            <div className="max-h-72 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/60">
+            <div className="max-h-72 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/50">
               {notifications.length === 0 ? (
                 <EmptyNotificationsState />
               ) : (
@@ -146,27 +147,27 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
                   <div
                     key={n.id}
                     className={cn(
-                      'p-3 flex gap-3 text-left relative group transition-colors hover:bg-slate-50/50 dark:hover:bg-slate-900/20',
-                      !n.is_read && 'bg-brand-500/5 dark:bg-brand-500/5'
+                      'p-3.5 flex gap-3 text-left relative group transition-colors hover:bg-slate-50/70 dark:hover:bg-slate-900/20',
+                      !n.is_read && 'bg-brand-500/[0.03] dark:bg-brand-500/[0.03]'
                     )}
                   >
-                    <div className="flex-1 space-y-0.5 min-w-0 pr-8">
-                      <p className={cn('text-xs font-semibold truncate', n.is_read ? 'text-slate-700 dark:text-slate-350' : 'text-slate-950 dark:text-slate-100')}>
+                    <div className="flex-1 space-y-1 min-w-0 pr-8">
+                      <p className={cn('text-xs font-semibold tracking-tight truncate', n.is_read ? 'text-slate-700 dark:text-slate-350' : 'text-slate-950 dark:text-slate-100 font-bold')}>
                         {n.title}
                       </p>
-                      <p className="text-[10px] text-slate-500 dark:text-slate-450 line-clamp-2 leading-relaxed">
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400 font-sans line-clamp-2 leading-relaxed">
                         {n.message}
                       </p>
-                      <span className="text-[8px] font-semibold text-slate-400 dark:text-slate-500 block mt-1 uppercase tracking-wider font-sans">
+                      <span className="text-[8px] font-bold text-slate-400 dark:text-slate-550 block mt-1.5 uppercase tracking-wider font-sans">
                         {new Date(n.created_at).toLocaleDateString()}
                       </span>
                     </div>
 
-                    <div className="absolute right-2 top-2 flex gap-0.5 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                    <div className="absolute right-3 top-3.5 flex gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                       {!n.is_read && (
                         <button
                           onClick={() => markReadMutation.mutate(n.id)}
-                          className="p-1 rounded text-slate-400 hover:text-emerald-600 hover:bg-emerald-500/10 cursor-pointer"
+                          className="p-1 rounded bg-slate-50 dark:bg-slate-850 text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-500/10 cursor-pointer border border-slate-200/40 dark:border-slate-800/40 shadow-xs"
                           title="Mark read"
                         >
                           <Check size={12} />
@@ -174,7 +175,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
                       )}
                       <button
                         onClick={() => deleteNotifMutation.mutate(n.id)}
-                        className="p-1 rounded text-slate-400 hover:text-rose-600 hover:bg-rose-500/10 cursor-pointer"
+                        className="p-1 rounded bg-slate-50 dark:bg-slate-850 text-slate-400 hover:text-rose-600 dark:hover:text-rose-450 hover:bg-rose-500/10 cursor-pointer border border-slate-200/40 dark:border-slate-800/40 shadow-xs"
                         title="Delete"
                       >
                         <Trash2 size={12} />
@@ -191,7 +192,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
         <Dropdown>
           <DropdownTrigger asChild>
             <button
-              className="p-2 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200 cursor-pointer focus:outline-none"
+              className="p-2 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200 cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95"
               aria-label="Select theme"
             >
               {theme === 'light' && <Sun size={18} />}
@@ -199,16 +200,16 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
               {theme === 'system' && <Monitor size={18} />}
             </button>
           </DropdownTrigger>
-          <DropdownContent className="w-36">
-            <DropdownLabel>Appearance</DropdownLabel>
+          <DropdownContent className="w-36 border-slate-200/80 dark:border-slate-800/80 shadow-lg" align="end">
+            <DropdownLabel className="text-[10px] uppercase font-extrabold tracking-widest text-slate-400">Appearance</DropdownLabel>
             <DropdownSeparator />
-            <DropdownItem onClick={() => handleThemeChange('light')} className={cn(theme === 'light' && 'text-brand-600 dark:text-brand-400')}>
+            <DropdownItem onClick={() => handleThemeChange('light')} className={cn('cursor-pointer', theme === 'light' && 'text-brand-600 dark:text-brand-400 font-bold bg-brand-500/5 dark:bg-brand-500/10')}>
               <Sun size={14} className="mr-2" /> Light
             </DropdownItem>
-            <DropdownItem onClick={() => handleThemeChange('dark')} className={cn(theme === 'dark' && 'text-brand-600 dark:text-brand-400')}>
+            <DropdownItem onClick={() => handleThemeChange('dark')} className={cn('cursor-pointer', theme === 'dark' && 'text-brand-600 dark:text-brand-400 font-bold bg-brand-500/5 dark:bg-brand-500/10')}>
               <Moon size={14} className="mr-2" /> Dark
             </DropdownItem>
-            <DropdownItem onClick={() => handleThemeChange('system')} className={cn(theme === 'system' && 'text-brand-600 dark:text-brand-400')}>
+            <DropdownItem onClick={() => handleThemeChange('system')} className={cn('cursor-pointer', theme === 'system' && 'text-brand-600 dark:text-brand-400 font-bold bg-brand-500/5 dark:bg-brand-500/10')}>
               <Monitor size={14} className="mr-2" /> System
             </DropdownItem>
           </DropdownContent>
@@ -217,38 +218,38 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
         {/* User Account Dropdown */}
         <Dropdown>
           <DropdownTrigger asChild>
-            <button className="flex items-center gap-2 p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer focus:outline-none">
+            <button className="flex items-center gap-2 p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95">
               <Avatar
                 src={user?.profile_picture}
                 fallbackText={userDisplayName}
-                className="h-8 w-8"
+                className="h-8 w-8 ring-2 ring-transparent group-hover:ring-brand-500/20 transition-all"
               />
             </button>
           </DropdownTrigger>
-          <DropdownContent className="w-56" align="end">
-            <div className="flex flex-col px-3 py-2 text-left">
-              <span className="text-sm font-semibold font-display text-slate-800 dark:text-slate-100 truncate">
+          <DropdownContent className="w-56 border-slate-200/80 dark:border-slate-800/80 shadow-lg" align="end">
+            <div className="flex flex-col px-3.5 py-2.5 text-left select-none">
+              <span className="text-xs font-extrabold font-display text-slate-800 dark:text-slate-100 uppercase tracking-wider truncate">
                 {userDisplayName}
               </span>
-              <span className="text-xs text-slate-500 dark:text-slate-400 truncate">
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 truncate font-sans mt-0.5">
                 {user?.email}
               </span>
             </div>
             <DropdownSeparator />
             <DropdownItem asChild className="cursor-pointer">
-              <Link to="/profile" className="flex items-center w-full">
-                <UserIcon size={14} className="mr-2.5 text-slate-500" />
+              <Link to="/profile" className="flex items-center w-full py-2">
+                <UserIcon size={14} className="mr-2.5 text-slate-400 group-hover:text-slate-650" />
                 My Profile
               </Link>
             </DropdownItem>
             <DropdownItem asChild className="cursor-pointer">
-              <Link to="/settings" className="flex items-center w-full">
-                <Settings size={14} className="mr-2.5 text-slate-500" />
+              <Link to="/settings" className="flex items-center w-full py-2">
+                <Settings size={14} className="mr-2.5 text-slate-400 group-hover:text-slate-650" />
                 Account Settings
               </Link>
             </DropdownItem>
             <DropdownSeparator />
-            <DropdownItem onClick={logout} className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 cursor-pointer">
+            <DropdownItem onClick={logout} className="text-rose-600 hover:text-rose-700 dark:text-red-400 dark:hover:text-red-300 hover:bg-rose-50/50 dark:hover:bg-rose-500/10 cursor-pointer py-2 font-bold">
               <LogOut size={14} className="mr-2.5" />
               Sign Out
             </DropdownItem>

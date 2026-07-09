@@ -32,6 +32,7 @@ import {
   AlertCircle,
   HelpCircle,
 } from 'lucide-react'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/Tabs'
 import { AnalyticsSkeleton } from '@/components/ui/Skeletons'
 import { EmptyAnalyticsState } from '@/components/ui/EmptyState'
 import { cn } from '@/lib/utils'
@@ -243,25 +244,19 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Tabs navigation */}
-      <div className="border-b border-slate-200 dark:border-slate-800/80 overflow-x-auto scrollbar-none flex gap-6 -mb-[1px]">
-        {tabs.map((tab) => {
-          const TabIcon = tab.icon
-          const isActive = activeTab === tab.value
-          return (
-            <button
-              key={tab.value}
-              onClick={() => setActiveTab(tab.value)}
-              className={cn(
-                'py-4 px-1.5 border-b-2 font-bold text-xs flex items-center gap-2 whitespace-nowrap cursor-pointer transition-all border-transparent text-slate-405 hover:text-slate-850 dark:hover:text-slate-355 -mb-[2px]',
-                isActive && 'border-brand-500 text-brand-500 font-extrabold'
-              )}
-            >
-              <TabIcon size={14} />
-              <span>{tab.label}</span>
-            </button>
-          )
-        })}
-      </div>
+      <Tabs defaultValue={activeTab} value={activeTab} onValueChange={(val) => setActiveTab(val as TabType)}>
+        <TabsList className="mb-6">
+          {tabs.map((tab) => {
+            const TabIcon = tab.icon
+            return (
+              <TabsTrigger key={tab.value} value={tab.value}>
+                <TabIcon size={14} />
+                <span>{tab.label}</span>
+              </TabsTrigger>
+            )
+          })}
+        </TabsList>
+      </Tabs>
 
       {/* Tab Panels */}
       <div className="space-y-6">

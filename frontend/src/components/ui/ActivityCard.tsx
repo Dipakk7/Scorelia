@@ -66,7 +66,7 @@ export function ActivityCard({
       <CardContent>
         {items.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-10 text-center px-4">
-            <div className="p-3 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100/50 dark:border-slate-800 text-slate-400 dark:text-slate-500 mb-3 shadow-xs">
+            <div className="p-3 bg-slate-50/10 dark:bg-slate-900/5 rounded-2xl border border-slate-200/80 dark:border-slate-800/65 text-slate-400 dark:text-slate-550 mb-3 shadow-xs">
               <CheckCircle2 size={24} className="stroke-[1.5]" />
             </div>
             <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-200">No activity yet</h4>
@@ -82,7 +82,7 @@ export function ActivityCard({
         ) : (
           <div className="relative pl-1">
             {/* Timeline Vertical Track */}
-            <div className="absolute left-[17px] top-3 bottom-3 w-0.5 bg-slate-200 dark:bg-slate-850" />
+            <div className="absolute left-[17px] top-3 bottom-3 w-0.5 bg-slate-200 dark:bg-slate-800/60" />
 
             <div className="space-y-6">
               {items.map((item, idx) => {
@@ -90,7 +90,7 @@ export function ActivityCard({
                 return (
                   <div key={item.id || idx} className="relative flex gap-4 items-start text-left group pl-11">
                     {/* Timeline Node Circle */}
-                    <div className="absolute left-0 top-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 shadow-sm group-hover:scale-105 group-hover:border-brand-500/30 group-hover:text-brand-500 transition-all duration-300 z-10">
+                    <div className="absolute left-0 top-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 text-slate-500 dark:text-slate-400 shadow-sm group-hover:scale-105 group-hover:border-brand-500/40 group-hover:text-brand-500 transition-all duration-200 ease-in-out z-10">
                       {Icon ? <Icon size={16} className="stroke-[1.5]" /> : <div className="h-1.5 w-1.5 rounded-full bg-brand-500" />}
                     </div>
 
@@ -99,7 +99,7 @@ export function ActivityCard({
                         <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-slate-950 dark:group-hover:text-white transition-colors truncate">
                           {item.title}
                         </p>
-                        <span className="text-[10px] font-extrabold text-slate-400 dark:text-slate-500 shrink-0 font-sans uppercase tracking-wider">
+                        <span className="text-[10px] font-extrabold text-slate-400 dark:text-slate-550 shrink-0 font-sans uppercase tracking-wider">
                           {formatRelativeTime(item.timestamp)}
                         </span>
                       </div>

@@ -22,7 +22,7 @@ import { Button } from '@/components/ui/Button'
 
 interface ChartEmptyStateProps {
   message: string
-  ctaText: string
+  ctaText?: string
   ctaTo?: string
   ctaOnClick?: () => void
 }
@@ -36,18 +36,20 @@ export function ChartEmptyState({ message, ctaText, ctaTo, ctaOnClick }: ChartEm
       <p className="text-xs text-slate-500 dark:text-slate-400 max-w-xs font-sans leading-relaxed mb-4">
         {message}
       </p>
-      {ctaOnClick ? (
-        <Button size="sm" variant="outline" onClick={ctaOnClick} className="text-xs flex items-center gap-1.5 hover:border-brand-500/30 hover:bg-brand-500/5 group">
-          <Sparkles size={12} className="text-brand-500 group-hover:scale-110 transition-transform" />
-          <span>{ctaText}</span>
-        </Button>
-      ) : (
-        <Link to={ctaTo || '#'} className="inline-block">
-          <Button size="sm" variant="outline" className="text-xs flex items-center gap-1.5 hover:border-brand-500/30 hover:bg-brand-500/5 group">
+      {ctaText && (
+        ctaOnClick ? (
+          <Button size="sm" variant="outline" onClick={ctaOnClick} className="text-xs flex items-center gap-1.5 hover:border-brand-500/30 hover:bg-brand-500/5 group">
             <Sparkles size={12} className="text-brand-500 group-hover:scale-110 transition-transform" />
             <span>{ctaText}</span>
           </Button>
-        </Link>
+        ) : (
+          <Link to={ctaTo || '#'} className="inline-block">
+            <Button size="sm" variant="outline" className="text-xs flex items-center gap-1.5 hover:border-brand-500/30 hover:bg-brand-500/5 group">
+              <Sparkles size={12} className="text-brand-500 group-hover:scale-110 transition-transform" />
+              <span>{ctaText}</span>
+            </Button>
+          </Link>
+        )
       )}
     </div>
   )

@@ -9,7 +9,6 @@ import {
 } from '@/components/ui/Dialog'
 import { Button } from '@/components/ui/Button'
 import { Download, FileText, FileCode } from 'lucide-react'
-import type { ExportDialogProps } from '@/types/export' // Wait, RAG local props
 import toast from 'react-hot-toast'
 import { cn } from '@/lib/utils'
 

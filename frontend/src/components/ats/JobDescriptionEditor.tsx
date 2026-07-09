@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 import { Upload, Clipboard, Sparkles, Check, AlertTriangle } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import toast from 'react-hot-toast'
+import { cn } from '@/lib/utils'
 
 interface JobDescriptionEditorProps {
   value: string

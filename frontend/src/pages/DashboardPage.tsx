@@ -81,14 +81,14 @@ interface CustomTooltipProps {
 function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 p-3 shadow-xl backdrop-blur-md text-left">
-        <p className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">{label}</p>
-        <div className="mt-1.5 space-y-1">
+      <div className="rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-950/90 p-3 shadow-xl backdrop-blur-md text-left font-sans select-none">
+        <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 m-0 leading-none">{label}</p>
+        <div className="mt-2 space-y-1.5">
           {payload.map((pld: any, index: number) => (
-            <div key={index} className="flex items-center gap-2 text-xs font-semibold">
-              <span className="h-2 w-2 rounded-full" style={{ backgroundColor: pld.color || pld.stroke }} />
-              <span className="text-slate-500 dark:text-slate-400">{pld.name}:</span>
-              <span className="text-slate-900 dark:text-slate-100">{pld.value}%</span>
+            <div key={index} className="flex items-center gap-2.5 text-[11px] font-semibold leading-none">
+              <span className="h-2 w-2 rounded-full shrink-0" style={{ backgroundColor: pld.color || pld.stroke }} />
+              <span className="text-slate-500 dark:text-slate-400 font-medium">{pld.name}:</span>
+              <span className="text-slate-900 dark:text-slate-100 font-bold font-mono">{pld.value}%</span>
             </div>
           ))}
         </div>
@@ -378,22 +378,22 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6 text-left animate-fade-in">
       {/* Welcome Hero / Header */}
-      <div className="relative overflow-hidden rounded-2xl bg-slate-950 dark:bg-slate-900/20 p-6 md:p-8 text-white border border-slate-800 backdrop-blur-md shadow-xl">
+      <div className="relative overflow-hidden rounded-2xl bg-slate-950 dark:bg-slate-900/20 p-6 md:p-8 text-white border border-slate-850/80 dark:border-slate-800/80 backdrop-blur-md shadow-xl select-none">
         {/* Glow ornaments */}
         <div className="absolute right-0 top-0 -mr-16 -mt-16 w-80 h-80 bg-brand-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute left-1/4 bottom-0 -ml-16 -mb-16 w-64 h-64 bg-accent-blue/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 space-y-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/60 pb-6">
-            <div className="space-y-1.5">
-              <span className="text-xs uppercase font-extrabold tracking-widest text-brand-400 font-sans flex items-center gap-1.5">
-                <Calendar size={12} className="text-brand-400" />
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/40 pb-6">
+            <div className="space-y-2">
+              <span className="text-[10px] uppercase font-black tracking-widest text-brand-400 font-mono flex items-center gap-2">
+                <Calendar size={13} className="text-brand-400 shrink-0" />
                 {currentDate}
               </span>
-              <h1 className="text-2xl md:text-3.5xl font-black font-display text-white m-0 tracking-tight leading-none">
+              <h1 className="text-2xl md:text-3xl font-extrabold font-display text-white m-0 tracking-tight leading-none">
                 {greeting}, {userDisplayName} 👋
               </h1>
-              <p className="text-xs md:text-sm text-slate-400 max-w-2xl font-sans leading-relaxed">
+              <p className="text-xs md:text-sm text-slate-300/90 max-w-2xl font-sans leading-relaxed m-0 font-medium">
                 Welcome back to Scorelia. Track your AI-powered career journey, improve your resume, increase ATS scores, prepare for interviews, and monitor your professional growth from one place.
               </p>
             </div>
@@ -401,42 +401,42 @@ export default function DashboardPage() {
 
           {/* Hero Quick Actions Grid */}
           <div className="space-y-3">
-            <p className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Launch Copilot Services</p>
+            <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 font-mono">Launch Copilot Services</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <Link to="/resumes" className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900/50 hover:bg-slate-850 border border-slate-800 hover:border-brand-500/40 hover:shadow-[0_0_15px_rgba(15,157,154,0.15)] transition-all duration-200 group">
-                <div className="p-2 rounded-lg bg-brand-500/10 text-brand-400 group-hover:scale-105 transition-transform duration-200">
+              <Link to="/resumes" className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-900/40 hover:bg-slate-900/75 border border-slate-800/80 hover:border-brand-500/45 hover:shadow-[0_4px_20px_rgba(15,157,154,0.12)] transition-all duration-200 ease-in-out group hover:-translate-y-0.5">
+                <div className="p-2.5 rounded-xl bg-brand-500/10 text-brand-400 group-hover:scale-105 group-hover:bg-brand-500/20 transition-all duration-200 shrink-0">
                   <Upload size={16} />
                 </div>
                 <div className="text-left min-w-0">
                   <p className="text-xs font-bold text-white group-hover:text-brand-400 transition-colors">Upload Resume</p>
-                  <p className="text-[10px] text-slate-500 truncate">Import CV file</p>
+                  <p className="text-[10px] text-slate-500 group-hover:text-slate-400 transition-colors truncate mt-0.5">Import CV file</p>
                 </div>
               </Link>
-              <Link to="/ats" className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900/50 hover:bg-slate-850 border border-slate-800 hover:border-accent-blue/40 hover:shadow-[0_0_15px_rgba(0,210,255,0.15)] transition-all duration-200 group">
-                <div className="p-2 rounded-lg bg-accent-blue/10 text-accent-blue group-hover:scale-105 transition-transform duration-200">
+              <Link to="/ats" className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-900/40 hover:bg-slate-900/75 border border-slate-800/80 hover:border-accent-blue/45 hover:shadow-[0_4px_20px_rgba(0,210,255,0.12)] transition-all duration-200 ease-in-out group hover:-translate-y-0.5">
+                <div className="p-2.5 rounded-xl bg-accent-blue/10 text-accent-blue group-hover:scale-105 group-hover:bg-accent-blue/20 transition-all duration-200 shrink-0">
                   <Scan size={16} />
                 </div>
                 <div className="text-left min-w-0">
                   <p className="text-xs font-bold text-white group-hover:text-accent-blue transition-colors">Analyze ATS</p>
-                  <p className="text-[10px] text-slate-500 truncate">Scan score check</p>
+                  <p className="text-[10px] text-slate-500 group-hover:text-slate-400 transition-colors truncate mt-0.5">Scan score check</p>
                 </div>
               </Link>
-              <Link to="/cover-letter" className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900/50 hover:bg-slate-850 border border-slate-800 hover:border-accent-purple/40 hover:shadow-[0_0_15px_rgba(170,59,255,0.15)] transition-all duration-200 group">
-                <div className="p-2 rounded-lg bg-accent-purple/10 text-accent-purple group-hover:scale-105 transition-transform duration-200">
+              <Link to="/cover-letter" className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-900/40 hover:bg-slate-900/75 border border-slate-800/80 hover:border-accent-purple/45 hover:shadow-[0_4px_20px_rgba(170,59,255,0.12)] transition-all duration-200 ease-in-out group hover:-translate-y-0.5">
+                <div className="p-2.5 rounded-xl bg-accent-purple/10 text-accent-purple group-hover:scale-105 group-hover:bg-accent-purple/20 transition-all duration-200 shrink-0">
                   <Sparkles size={16} />
                 </div>
                 <div className="text-left min-w-0">
                   <p className="text-xs font-bold text-white group-hover:text-accent-purple transition-colors">Generate Cover Letter</p>
-                  <p className="text-[10px] text-slate-500 truncate">AI draft editor</p>
+                  <p className="text-[10px] text-slate-500 group-hover:text-slate-400 transition-colors truncate mt-0.5">AI draft editor</p>
                 </div>
               </Link>
-              <Link to="/interview" className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-900/50 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/40 hover:shadow-[0_0_15px_rgba(16,185,129,0.15)] transition-all duration-200 group">
-                <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 group-hover:scale-105 transition-transform duration-200">
+              <Link to="/interview" className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-900/40 hover:bg-slate-900/75 border border-slate-800/80 hover:border-emerald-500/45 hover:shadow-[0_4px_20px_rgba(16,185,129,0.12)] transition-all duration-200 ease-in-out group hover:-translate-y-0.5">
+                <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 group-hover:scale-105 group-hover:bg-emerald-500/20 transition-all duration-200 shrink-0">
                   <MessageSquareCode size={16} />
                 </div>
                 <div className="text-left min-w-0">
                   <p className="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors">Start Mock Interview</p>
-                  <p className="text-[10px] text-slate-500 truncate">Practice prep bot</p>
+                  <p className="text-[10px] text-slate-500 group-hover:text-slate-400 transition-colors truncate mt-0.5">Practice prep bot</p>
                 </div>
               </Link>
             </div>

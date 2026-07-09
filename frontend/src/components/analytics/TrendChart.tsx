@@ -46,13 +46,13 @@ export function TrendChart({
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="rounded-xl border border-slate-205 dark:border-slate-805 bg-white/95 dark:bg-slate-950/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
-          {label && <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-455 m-0 mb-1 leading-none">{label}</p>}
+        <div className="rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-950/90 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs select-none">
+          {label && <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 m-0 mb-1 leading-none">{label}</p>}
           {payload.map((entry: any, index: number) => (
             <div key={index} className="mt-1.5 flex items-center gap-2 font-semibold leading-none">
               <span className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.stroke || entry.fill || activeColor.stroke }} />
-              <span className="text-slate-555 dark:text-slate-400">Value:</span>
-              <span className="text-slate-905 dark:text-white font-mono">{valueFormatter(entry.value)}</span>
+              <span className="text-slate-500 dark:text-slate-400 font-medium">Value:</span>
+              <span className="text-slate-900 dark:text-white font-mono font-bold">{valueFormatter(entry.value)}</span>
             </div>
           ))}
         </div>

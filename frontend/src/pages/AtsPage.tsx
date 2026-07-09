@@ -43,10 +43,13 @@ import ExportDialog from '@/components/ats/ExportDialog'
 
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { Select } from '@/components/ui/Select'
 import { Loader } from '@/components/ui/Loader'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { AtsSkeleton } from '@/components/ui/Skeletons'
 import { EmptyState } from '@/components/ui/EmptyState'
+import EmptyResumeState from '@/components/ui/EmptyResumeState'
+import { Spinner } from '@/components/ui/Spinner'
 import { cn } from '@/lib/utils'
 
 type WorkspaceTab = 'ats-dashboard' | 'job-match' | 'keyword' | 'comparison'
@@ -382,29 +385,25 @@ export default function AtsPage() {
 
         {/* Selected Resume Dropdown */}
         <div className="flex flex-wrap items-center gap-3">
-          <div className="flex flex-col gap-1 min-w-[220px]">
-            <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-550 leading-none mb-1">
-              Active Resume selection
-            </label>
-            <select
-              value={selectedResumeId}
-              onChange={(e) => {
-                setSelectedResumeId(e.target.value)
-                setMatchResult(null)
-                setJobData(null)
-                setComparisonResults([])
-                setComparisonResumeIds([])
-              }}
-              className="px-3.5 py-2.5 text-xs border border-slate-250 dark:border-slate-800 rounded-xl bg-slate-50/50 dark:bg-slate-900/60 text-slate-800 dark:text-slate-100 font-sans focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer shadow-2xs min-w-[240px] transition-all"
-            >
-              <option value="">-- Select Resume --</option>
-              {resumes.map((res) => (
-                <option key={res.id} value={res.id}>
-                  {res.original_filename} (ATS: {res.ats_score || 'N/A'})
-                </option>
-              ))}
-            </select>
-          </div>
+          <Select
+            label="Active Resume selection"
+            value={selectedResumeId}
+            onChange={(e) => {
+              setSelectedResumeId(e.target.value)
+              setMatchResult(null)
+              setJobData(null)
+              setComparisonResults([])
+              setComparisonResumeIds([])
+            }}
+            containerClassName="min-w-[240px]"
+          >
+            <option value="">-- Select Resume --</option>
+            {resumes.map((res) => (
+              <option key={res.id} value={res.id}>
+                {res.original_filename} (ATS: {res.ats_score || 'N/A'})
+              </option>
+            ))}
+          </Select>
 
           {selectedResumeId && (
             <div className="flex items-end self-end pt-1">
@@ -421,7 +420,7 @@ export default function AtsPage() {
                 className="h-[36px] w-[36px] p-0 shrink-0 cursor-pointer rounded-xl hover:border-brand-500/20 hover:bg-brand-500/5 transition-all flex items-center justify-center bg-transparent border-slate-250 dark:border-slate-800"
                 title="Recalculate ATS Score"
               >
-                {scoreMutation.isPending ? <Loader size="sm" /> : <RefreshCw size={14} />}
+                {scoreMutation.isPending ? <Spinner size="sm" /> : <RefreshCw size={14} />}
               </Button>
             </div>
           )}
@@ -431,7 +430,7 @@ export default function AtsPage() {
       {/* Main Workspace */}
       {!selectedResumeId ? (
         <EmptyState
-          icon={<FileText className="text-slate-400 dark:text-slate-500" size={38} className="stroke-[1.75]" />}
+          icon={<FileText className="text-slate-400 dark:text-slate-500 stroke-[1.75]" size={38} />}
           title="No Resume Selected"
           description="Upload or choose a resume from the active selection dropdown to begin ATS scoring and keywords diagnostic checks."
           actionLabel="Select First Resume"

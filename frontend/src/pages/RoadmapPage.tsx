@@ -34,6 +34,8 @@ import { CareerAnalyticsChart } from '@/components/career-coach/CareerAnalyticsC
 
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { Input } from '@/components/ui/Input'
+import { Select } from '@/components/ui/Select'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { CareerCoachSkeleton } from '@/components/ui/Skeletons'
 import { EmptyRoadmapsState } from '@/components/ui/EmptyState'
@@ -334,17 +336,17 @@ export default function RoadmapPage() {
 
         <div className="flex items-center gap-3">
           {roadmaps.length > 0 && (
-            <select
+            <Select
               value={selectedRoadmapId}
               onChange={(e) => setSelectedRoadmapId(e.target.value)}
-              className="text-xs py-2 px-3 border border-slate-250 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/60 rounded-xl text-slate-855 dark:text-slate-205 focus:outline-none focus:ring-1 focus:ring-brand-500 font-bold cursor-pointer transition-colors"
+              containerClassName="w-60"
             >
               {roadmaps.map((r) => (
                 <option key={r.id} value={r.id}>
                   {r.target_role} ({r.experience_level})
                 </option>
               ))}
-            </select>
+            </Select>
           )}
 
           <Button
@@ -367,84 +369,63 @@ export default function RoadmapPage() {
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-left">
-              <div className="space-y-1.5 text-left">
-                <label className="text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest block font-display leading-none">Target Career Role *</label>
-                <input
-                  type="text"
-                  placeholder="e.g. Senior Machine Learning Engineer"
-                  value={targetRole}
-                  onChange={(e) => setTargetRole(e.target.value)}
-                  className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-white/70 dark:bg-slate-900/50 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans font-medium transition-colors shadow-2xs"
-                  required
-                />
-              </div>
+              <Input
+                label="Target Career Role"
+                placeholder="e.g. Senior Machine Learning Engineer"
+                value={targetRole}
+                onChange={(e) => setTargetRole(e.target.value)}
+                required
+              />
 
-              <div className="space-y-1.5 text-left">
-                <label className="text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest block font-display leading-none">Current Role (Optional)</label>
-                <input
-                  type="text"
-                  placeholder="e.g. Junior Backend Developer"
-                  value={currentRole}
-                  onChange={(e) => setCurrentRole(e.target.value)}
-                  className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-white/70 dark:bg-slate-900/50 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans font-medium transition-colors shadow-2xs"
-                />
-              </div>
+              <Input
+                label="Current Role (Optional)"
+                placeholder="e.g. Junior Backend Developer"
+                value={currentRole}
+                onChange={(e) => setCurrentRole(e.target.value)}
+              />
 
-              <div className="space-y-1.5 text-left">
-                <label className="text-[10px] font-black text-slate-455 dark:text-slate-500 uppercase tracking-widest block font-display leading-none">Target Industry (Optional)</label>
-                <input
-                  type="text"
-                  placeholder="e.g. Fintech, Healthcare"
-                  value={targetIndustry}
-                  onChange={(e) => setTargetIndustry(e.target.value)}
-                  className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-white/70 dark:bg-slate-900/50 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans font-medium transition-colors shadow-2xs"
-                />
-              </div>
+              <Input
+                label="Target Industry (Optional)"
+                placeholder="e.g. Fintech, Healthcare"
+                value={targetIndustry}
+                onChange={(e) => setTargetIndustry(e.target.value)}
+              />
 
-              <div className="space-y-1.5 text-left">
-                <label className="text-[10px] font-black text-slate-455 dark:text-slate-505 uppercase tracking-widest block font-display leading-none">Experience Level</label>
-                <select
-                  value={experienceLevel}
-                  onChange={(e) => setExperienceLevel(e.target.value)}
-                  className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-white/70 dark:bg-slate-900/50 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-bold transition-colors cursor-pointer shadow-2xs"
-                >
-                  <option value="ENTRY">Entry Level</option>
-                  <option value="MID">Mid Level</option>
-                  <option value="SENIOR">Senior Level</option>
-                  <option value="LEAD">Lead / Architect</option>
-                </select>
-              </div>
+              <Select
+                label="Experience Level"
+                value={experienceLevel}
+                onChange={(e) => setExperienceLevel(e.target.value)}
+              >
+                <option value="ENTRY">Entry Level</option>
+                <option value="MID">Mid Level</option>
+                <option value="SENIOR">Senior Level</option>
+                <option value="LEAD">Lead / Architect</option>
+              </Select>
 
-              <div className="space-y-1.5 text-left">
-                <label className="text-[10px] font-black text-slate-455 dark:text-slate-550 block uppercase tracking-widest block font-display leading-none">Estimated Timeline</label>
-                <select
-                  value={durationMonths}
-                  onChange={(e) => setDurationMonths(Number(e.target.value))}
-                  className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-white/70 dark:bg-slate-900/50 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-bold transition-colors cursor-pointer shadow-2xs"
-                >
-                  <option value="3">3 Months (Intensive Pivot)</option>
-                  <option value="6">6 Months (Standard Focus)</option>
-                  <option value="12">12 Months (Deep Reskilling)</option>
-                  <option value="18">18 Months (Long-term Mastery)</option>
-                  <option value="24">24 Months (Structural Shift)</option>
-                </select>
-              </div>
+              <Select
+                label="Estimated Timeline"
+                value={durationMonths}
+                onChange={(e) => setDurationMonths(Number(e.target.value))}
+              >
+                <option value="3">3 Months (Intensive Pivot)</option>
+                <option value="6">6 Months (Standard Focus)</option>
+                <option value="12">12 Months (Deep Reskilling)</option>
+                <option value="18">18 Months (Long-term Mastery)</option>
+                <option value="24">24 Months (Structural Shift)</option>
+              </Select>
 
-              <div className="space-y-1.5 text-left">
-                <label className="text-[10px] font-black text-slate-455 dark:text-slate-550 block uppercase tracking-widest block font-display leading-none">Associate Resume Base</label>
-                <select
-                  value={selectedResumeId}
-                  onChange={(e) => setSelectedResumeId(e.target.value)}
-                  className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-white/70 dark:bg-slate-900/50 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-brand-500 font-bold transition-colors cursor-pointer shadow-2xs"
-                >
-                  <option value="">No Resume Profile (Blank baseline)</option>
-                  {resumes.map((r) => (
-                    <option key={r.id} value={r.id}>
-                      {r.original_filename} (ATS: {r.ats_score || 'N/A'})
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <Select
+                label="Associate Resume Base"
+                value={selectedResumeId}
+                onChange={(e) => setSelectedResumeId(e.target.value)}
+              >
+                <option value="">No Resume Profile (Blank baseline)</option>
+                {resumes.map((r) => (
+                  <option key={r.id} value={r.id}>
+                    {r.original_filename} (ATS: {r.ats_score || 'N/A'})
+                  </option>
+                ))}
+              </Select>
             </div>
 
             <div className="flex justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-850">

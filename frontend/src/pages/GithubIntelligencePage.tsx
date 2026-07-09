@@ -247,4 +247,3 @@ export default function GithubIntelligencePage() {
     </div>
   )
 }
-export default GithubIntelligencePage

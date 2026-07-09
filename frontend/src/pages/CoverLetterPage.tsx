@@ -6,6 +6,8 @@ import type { ResumeResponse } from '@/types/resume'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { Select } from '@/components/ui/Select'
+import { Textarea } from '@/components/ui/Textarea'
 import { Badge } from '@/components/ui/Badge'
 import { Loader } from '@/components/ui/Loader'
 import { ErrorState } from '@/components/ui/ErrorState'
@@ -523,79 +525,60 @@ export default function CoverLetterPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {/* Resume Selection */}
-              <div className="space-y-1.5">
-                <label htmlFor="resume-id" className="block text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest leading-none">
-                  Select Source Resume
-                </label>
-                <select
-                  id="resume-id"
-                  value={resumeId}
-                  onChange={(e) => setResumeId(e.target.value)}
-                  className="w-full text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 rounded-xl p-2.5 h-10 text-slate-850 dark:text-slate-205 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer transition-colors"
-                  required
-                >
-                  <option value="">-- Choose Resume --</option>
-                  {parsedResumes.map((r) => (
-                    <option key={r.id} value={r.id}>
-                      {r.original_filename} (Score: {r.ats_score || 'N/A'})
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <Select
+                id="resume-id"
+                label="Select Source Resume"
+                value={resumeId}
+                onChange={(e) => setResumeId(e.target.value)}
+                required
+              >
+                <option value="">-- Choose Resume --</option>
+                {parsedResumes.map((r) => (
+                  <option key={r.id} value={r.id}>
+                    {r.original_filename} (Score: {r.ats_score || 'N/A'})
+                  </option>
+                ))}
+              </Select>
 
               {/* Tone Style */}
-              <div className="space-y-1.5">
-                <label htmlFor="writing-style" className="block text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest leading-none">
-                  Writing Style & Tone
-                </label>
-                <select
-                  id="writing-style"
-                  value={writingStyle}
-                  onChange={(e) => setWritingStyle(e.target.value)}
-                  className="w-full text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 rounded-xl p-2.5 h-10 text-slate-850 dark:text-slate-205 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer transition-colors"
-                >
-                  {writingStyles.map((style) => (
-                    <option key={style.value} value={style.value}>
-                      {style.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <Select
+                id="writing-style"
+                label="Writing Style & Tone"
+                value={writingStyle}
+                onChange={(e) => setWritingStyle(e.target.value)}
+              >
+                {writingStyles.map((style) => (
+                  <option key={style.value} value={style.value}>
+                    {style.label}
+                  </option>
+                ))}
+              </Select>
 
               {/* Generation Mode */}
-              <div className="space-y-1.5">
-                <label htmlFor="generation-mode" className="block text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest leading-none">
-                  Generation Detail Mode
-                </label>
-                <select
-                  id="generation-mode"
-                  value={generationMode}
-                  onChange={(e: any) => setGenerationMode(e.target.value)}
-                  className="w-full text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 rounded-xl p-2.5 h-10 text-slate-850 dark:text-slate-205 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer transition-colors"
-                >
-                  <option value="STANDARD">Standard Audit (Optimal detail)</option>
-                  <option value="FAST">Fast draft (Quick outline)</option>
-                  <option value="DETAILED">Detailed optimize (Comprehensive & rich)</option>
-                </select>
-              </div>
+              <Select
+                id="generation-mode"
+                label="Generation Detail Mode"
+                value={generationMode}
+                onChange={(e: any) => setGenerationMode(e.target.value)}
+              >
+                <option value="STANDARD">Standard Audit (Optimal detail)</option>
+                <option value="FAST">Fast draft (Quick outline)</option>
+                <option value="DETAILED">Detailed optimize (Comprehensive & rich)</option>
+              </Select>
             </div>
 
             {/* Template grid selector */}
             <TemplateSelector selectedId={experienceLevel} onChange={setExperienceLevel} />
 
             {/* Job Description */}
-            <div className="space-y-1.5">
-              <label htmlFor="job-desc" className="block text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest leading-none">
-                Target Job Description (Recommended)
-              </label>
-              <textarea
-                id="job-desc"
-                value={jobDescription}
-                onChange={(e) => setJobDescription(e.target.value)}
-                placeholder="Paste the target job description here. The AI will cross-reference this description with your resume parsing data to align keywords, tech stack, and experience."
-                className="w-full text-xs font-sans leading-relaxed text-slate-800 dark:text-slate-205 bg-slate-50/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 focus:border-brand-500 focus:outline-none rounded-xl p-4.5 resize-none min-h-[140px]"
-              />
-            </div>
+            <Textarea
+              id="job-desc"
+              label="Target Job Description (Recommended)"
+              value={jobDescription}
+              onChange={(e) => setJobDescription(e.target.value)}
+              placeholder="Paste the target job description here. The AI will cross-reference this description with your resume parsing data to align keywords, tech stack, and experience."
+              className="min-h-[140px] resize-none"
+            />
 
             {/* Form actions */}
             <div className="flex justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-850">

@@ -9,6 +9,7 @@ import { useTheme } from '@/providers/ThemeProvider'
 import type { Theme } from '@/providers/ThemeProvider'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { Select } from '@/components/ui/Select'
 import { SettingsCard } from '@/components/ui/SettingsCard'
 import { Loader } from '@/components/ui/Loader'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/Dialog'
@@ -276,38 +277,28 @@ export default function SettingsPage() {
 
                 {/* Dropdowns */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
-                  <div className="space-y-2 text-left">
-                    <label className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase font-mono tracking-widest block leading-none select-none text-left">
-                      Language
-                    </label>
-                    <select
-                      value={language}
-                      onChange={(e) => setLanguage(e.target.value)}
-                      className="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 px-3 py-2 text-xs font-medium text-slate-805 dark:text-slate-205 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/30 transition-all duration-150 shadow-2xs h-9"
-                    >
-                      <option value="en">English (US)</option>
-                      <option value="es">Español</option>
-                      <option value="fr">Français</option>
-                      <option value="de">Deutsch</option>
-                    </select>
-                  </div>
+                  <Select
+                    label="Language"
+                    value={language}
+                    onChange={(e) => setLanguage(e.target.value)}
+                  >
+                    <option value="en">English (US)</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                  </Select>
 
-                  <div className="space-y-2 text-left">
-                    <label className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase font-mono tracking-widest block leading-none select-none text-left">
-                      Timezone
-                    </label>
-                    <select
-                      value={timezone}
-                      onChange={(e) => setTimezone(e.target.value)}
-                      className="w-full rounded-xl border border-slate-250 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 px-3 py-2 text-xs font-medium text-slate-805 dark:text-slate-205 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/30 transition-all duration-150 shadow-2xs h-9"
-                    >
-                      <option value="UTC">UTC / Coordinated Universal Time</option>
-                      <option value="EST">EST / Eastern Standard Time</option>
-                      <option value="PST">PST / Pacific Standard Time</option>
-                      <option value="IST">IST / Indian Standard Time</option>
-                      <option value="GMT">GMT / Greenwich Mean Time</option>
-                    </select>
-                  </div>
+                  <Select
+                    label="Timezone"
+                    value={timezone}
+                    onChange={(e) => setTimezone(e.target.value)}
+                  >
+                    <option value="UTC">UTC / Coordinated Universal Time</option>
+                    <option value="EST">EST / Eastern Standard Time</option>
+                    <option value="PST">PST / Pacific Standard Time</option>
+                    <option value="IST">IST / Indian Standard Time</option>
+                    <option value="GMT">GMT / Greenwich Mean Time</option>
+                  </Select>
                 </div>
 
                 <div className="flex justify-end pt-4 border-t border-slate-100 dark:border-slate-850/60 mt-4 select-none">
@@ -586,4 +577,3 @@ export default function SettingsPage() {
     </div>
   )
 }
-export default SettingsPage

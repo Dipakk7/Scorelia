@@ -40,29 +40,29 @@ export function StatisticCard({
   const numericValue = typeof value === 'string' ? parseFloat(value) : value
   const isZero = zeroStateText && (isNaN(numericValue) || numericValue === 0)
 
-  // Theme color maps for active cards
+  // Theme color maps for active cards with premium subtle gradients & shadows
   const themeMap = {
     teal: {
-      shadow: 'shadow-[0_4px_20px_rgba(15,157,154,0.04)] hover:shadow-[0_10px_25px_rgba(15,157,154,0.1)]',
-      border: 'hover:border-brand-500/30 dark:hover:border-brand-500/20',
+      shadow: 'shadow-[0_4px_20px_rgba(15,157,154,0.03)] hover:shadow-[0_12px_30px_rgba(15,157,154,0.12)]',
+      border: 'hover:border-brand-500/40 dark:hover:border-brand-500/30',
       iconBg: 'bg-brand-500/8 text-brand-600 dark:text-brand-400 border-brand-500/12',
       barBg: 'bg-brand-500',
     },
     blue: {
-      shadow: 'shadow-[0_4px_20px_rgba(0,210,255,0.04)] hover:shadow-[0_10px_25px_rgba(0,210,255,0.1)]',
-      border: 'hover:border-accent-blue/30 dark:hover:border-accent-blue/20',
+      shadow: 'shadow-[0_4px_20px_rgba(0,210,255,0.03)] hover:shadow-[0_12px_30px_rgba(0,210,255,0.12)]',
+      border: 'hover:border-accent-blue/40 dark:hover:border-accent-blue/30',
       iconBg: 'bg-accent-blue/10 text-accent-blue border-accent-blue/20',
       barBg: 'bg-accent-blue',
     },
     purple: {
-      shadow: 'shadow-[0_4px_20px_rgba(170,59,255,0.04)] hover:shadow-[0_10px_25px_rgba(170,59,255,0.1)]',
-      border: 'hover:border-accent-purple/30 dark:hover:border-accent-purple/20',
+      shadow: 'shadow-[0_4px_20px_rgba(170,59,255,0.03)] hover:shadow-[0_12px_30px_rgba(170,59,255,0.12)]',
+      border: 'hover:border-accent-purple/40 dark:hover:border-accent-purple/30',
       iconBg: 'bg-accent-purple/10 text-accent-purple border-accent-purple/20',
       barBg: 'bg-accent-purple',
     },
     emerald: {
-      shadow: 'shadow-[0_4px_20px_rgba(16,185,129,0.04)] hover:shadow-[0_10px_25px_rgba(16,185,129,0.1)]',
-      border: 'hover:border-emerald-500/30 dark:hover:border-emerald-500/20',
+      shadow: 'shadow-[0_4px_20px_rgba(16,185,129,0.03)] hover:shadow-[0_12px_30px_rgba(16,185,129,0.12)]',
+      border: 'hover:border-emerald-500/40 dark:hover:border-emerald-500/30',
       iconBg: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
       barBg: 'bg-emerald-500',
     },
@@ -84,22 +84,22 @@ export function StatisticCard({
     return (
       <Card
         className={cn(
-          'overflow-hidden relative border-dashed border-2 border-slate-200/80 dark:border-slate-800 bg-slate-50/20 dark:bg-slate-900/10 transition-all hover:border-slate-350 dark:hover:border-slate-700 hover:shadow-xs group rounded-2xl',
+          'overflow-hidden relative border-dashed border-2 border-slate-200 dark:border-slate-800/80 bg-slate-50/10 dark:bg-slate-900/5 hover:bg-slate-50/30 dark:hover:bg-slate-900/10 hover:border-brand-500/40 dark:hover:border-brand-500/30 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md group rounded-2xl',
           className
         )}
       >
         <CardContent className="p-5 flex flex-col justify-between h-full min-h-[148px]">
           <div className="flex items-start justify-between gap-4">
-            <div className="space-y-1 text-left">
-              <p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+            <div className="space-y-1.5 text-left">
+              <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 font-mono">
                 {title}
               </p>
-              <h4 className="text-sm font-bold text-slate-600 dark:text-slate-350 mt-1.5 font-sans leading-snug">
+              <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-1 font-sans leading-snug">
                 {zeroStateText}
               </h4>
             </div>
-            <div className="p-2.5 bg-slate-100 dark:bg-slate-850 text-slate-400 dark:text-slate-500 rounded-xl border border-slate-200/30 dark:border-slate-750/30 shrink-0">
-              <Icon size={20} className="stroke-[1.5]" />
+            <div className="p-2.5 bg-slate-100 dark:bg-slate-850 text-slate-400 dark:text-slate-500 rounded-xl border border-slate-200/30 dark:border-slate-750/30 shrink-0 group-hover:scale-105 transition-transform duration-200">
+              <Icon size={18} className="stroke-[1.75]" />
             </div>
           </div>
 
@@ -109,18 +109,18 @@ export function StatisticCard({
                 <button
                   type="button"
                   onClick={cta.onClick}
-                  className="inline-flex items-center gap-1 text-xs font-extrabold text-slate-500 hover:text-brand-500 dark:text-slate-400 dark:hover:text-brand-400 transition-colors group/cta cursor-pointer bg-transparent border-none p-0"
+                  className="inline-flex items-center gap-1.5 text-[10px] font-black text-slate-400 hover:text-brand-500 dark:text-slate-500 dark:hover:text-brand-400 transition-colors uppercase tracking-wider group/cta cursor-pointer bg-transparent border-none p-0 font-mono"
                 >
                   <span>{cta.text}</span>
-                  <ArrowRight size={12} className="group-hover/cta:translate-x-1 transition-transform" />
+                  <ArrowRight size={12} className="group-hover/cta:translate-x-1 transition-transform duration-200" />
                 </button>
               ) : (
                 <Link
                   to={cta.to || '#'}
-                  className="inline-flex items-center gap-1 text-xs font-extrabold text-slate-500 hover:text-brand-500 dark:text-slate-400 dark:hover:text-brand-400 transition-colors group/cta"
+                  className="inline-flex items-center gap-1.5 text-[10px] font-black text-slate-400 hover:text-brand-500 dark:text-slate-500 dark:hover:text-brand-400 transition-colors uppercase tracking-wider group/cta font-mono"
                 >
                   <span>{cta.text}</span>
-                  <ArrowRight size={12} className="group-hover/cta:translate-x-1 transition-transform" />
+                  <ArrowRight size={12} className="group-hover/cta:translate-x-1 transition-transform duration-200" />
                 </Link>
               )}
             </div>
@@ -138,7 +138,7 @@ export function StatisticCard({
   return (
     <Card
       className={cn(
-        'overflow-hidden relative border-slate-200/60 dark:border-slate-800/40 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md transition-all duration-300 hover:border-slate-350 dark:hover:border-slate-700 group rounded-2xl',
+        'overflow-hidden relative border-slate-200/60 dark:border-slate-800/40 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 group rounded-2xl',
         activeTheme.shadow,
         activeTheme.border,
         className
@@ -146,11 +146,11 @@ export function StatisticCard({
     >
       <CardContent className="p-5 flex flex-col justify-between h-full">
         <div className="flex items-start justify-between gap-4">
-          <div className="space-y-1 text-left">
-            <p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+          <div className="space-y-1.5 text-left">
+            <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 font-mono">
               {title}
             </p>
-            <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex items-center gap-2 flex-wrap mt-1">
               <h3 className="text-3xl md:text-3.5xl font-black font-display text-slate-950 dark:text-slate-50 tracking-tight leading-none">
                 {displayValue}
               </h3>
@@ -161,8 +161,8 @@ export function StatisticCard({
               )}
             </div>
           </div>
-          <div className={cn('p-2.5 rounded-xl border shadow-xs transition-all duration-300 group-hover:scale-105 shrink-0', activeTheme.iconBg)}>
-            <Icon size={20} className="stroke-[1.75]" />
+          <div className={cn('p-2.5 rounded-xl border shadow-xs transition-all duration-200 group-hover:scale-105 shrink-0', activeTheme.iconBg)}>
+            <Icon size={18} className="stroke-[1.75]" />
           </div>
         </div>
 
