@@ -21,7 +21,7 @@ import { Navbar } from '@/components/layout/Navbar'
 import { useAuth } from '@/providers/AuthProvider'
 import { cn } from '@/lib/utils'
 import { Logo } from '@/components/common/Logo'
-import { SIDEBAR_COLLAPSED_KEY } from '@/lib/constants'
+import { SIDEBAR_PINNED_KEY, SIDEBAR_COLLAPSED_KEY } from '@/lib/constants'
 
 
 // Custom Github SVG Icon to bypass missing brand icons in this version of lucide-react
@@ -45,14 +45,29 @@ const Github = (props: React.SVGProps<SVGSVGElement> & { size?: number }) => {
 }
 
 export default function DashboardLayout() {
-  const [collapsed, setCollapsedState] = useState(() => {
-    const saved = localStorage.getItem(SIDEBAR_COLLAPSED_KEY)
-    return saved ? JSON.parse(saved) === true : false
+  const [pinned, setPinnedState] = useState(() => {
+    // Check if new key exists
+    const newSaved = localStorage.getItem(SIDEBAR_PINNED_KEY)
+    if (newSaved !== null) {
+      return JSON.parse(newSaved) === true
+    }
+
+    // Migrate from old collapsed key
+    const oldSaved = localStorage.getItem(SIDEBAR_COLLAPSED_KEY)
+    if (oldSaved !== null) {
+      const oldCollapsed = JSON.parse(oldSaved) === true
+      const migratedPinned = !oldCollapsed
+      localStorage.setItem(SIDEBAR_PINNED_KEY, JSON.stringify(migratedPinned))
+      localStorage.removeItem(SIDEBAR_COLLAPSED_KEY)
+      return migratedPinned
+    }
+
+    return true
   })
 
-  const setCollapsed = (val: boolean) => {
-    setCollapsedState(val)
-    localStorage.setItem(SIDEBAR_COLLAPSED_KEY, JSON.stringify(val))
+  const setPinned = (val: boolean) => {
+    setPinnedState(val)
+    localStorage.setItem(SIDEBAR_PINNED_KEY, JSON.stringify(val))
   }
   const [mobileOpen, setMobileOpen] = useState(false)
   const location = useLocation()
@@ -81,7 +96,7 @@ export default function DashboardLayout() {
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-slate-50 dark:bg-dark-bg font-sans">
       {/* Desktop Collapsible Sidebar */}
-      <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
+      <Sidebar pinned={pinned} setPinned={setPinned} />
 
       {/* Mobile Sidebar Navigation Drawer Overlay */}
       {mobileOpen && (
