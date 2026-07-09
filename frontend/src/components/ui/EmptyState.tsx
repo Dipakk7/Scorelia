@@ -7,8 +7,11 @@ import {
   Map,
   Layers,
   Cpu,
-  BellOff
+  BellOff,
+  Briefcase,
+  Search
 } from 'lucide-react'
+import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
 
@@ -49,13 +52,16 @@ export function EmptyState({
   className,
 }: EmptyStateProps) {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, scale: 0.98 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.22, ease: 'easeOut' }}
       className={cn(
         'flex flex-col items-center justify-center text-center p-8 border border-dashed border-slate-200/80 dark:border-slate-850 rounded-2xl bg-white/40 dark:bg-slate-900/20 backdrop-blur-md min-h-[300px] shadow-[0_4px_25px_rgba(0,0,0,0.01)] dark:shadow-none',
         className
       )}
     >
-      <div className="text-brand-600 dark:text-brand-400 mb-4 bg-brand-500/10 border border-brand-500/20 p-3 rounded-2xl shadow-sm">
+      <div className="text-brand-600 dark:text-brand-400 mb-4 bg-brand-500/10 border border-brand-500/20 p-3 rounded-2xl shadow-sm animate-float">
         {icon || <FolderOpen size={30} className="stroke-[1.75]" />}
       </div>
       <h3 className="text-base font-bold font-display text-slate-900 dark:text-slate-250 mb-1.5">
@@ -69,7 +75,7 @@ export function EmptyState({
           {actionLabel}
         </Button>
       )}
-    </div>
+    </motion.div>
   )
 }
 
@@ -157,10 +163,34 @@ export function EmptyGithubState({ onAction }: { onAction: () => void }) {
   )
 }
 
+export function EmptyJobsState({ onAction }: { onAction?: () => void }) {
+  return (
+    <EmptyState
+      icon={<Briefcase size={36} className="text-indigo-500" />}
+      title="No Job Matches Found"
+      description="Scorelia can dynamically evaluate match scores based on candidate profiles vs open job requirements."
+      actionLabel={onAction ? "Configure Job Target" : undefined}
+      onAction={onAction}
+    />
+  )
+}
+
+export function EmptySearchState({ onAction }: { onAction?: () => void }) {
+  return (
+    <EmptyState
+      icon={<Search size={36} className="text-sky-500" />}
+      title="No Matching Search Results"
+      description="Your semantic and keyword indexing queries yielded no documents. Try modifying keywords or clearing filters."
+      actionLabel={onAction ? "Reset Query Filters" : undefined}
+      onAction={onAction}
+    />
+  )
+}
+
 export function EmptyNotificationsState() {
   return (
     <div className="px-4 py-8 text-center text-xs text-slate-400 dark:text-slate-550 italic font-sans flex flex-col items-center justify-center gap-2">
-      <BellOff size={20} className="text-slate-350 dark:text-slate-600" />
+      <BellOff size={20} className="text-slate-350 dark:text-slate-600 animate-pulse" />
       <span>You are all caught up!</span>
     </div>
   )

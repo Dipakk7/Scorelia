@@ -5,13 +5,14 @@ import { cn } from '@/lib/utils'
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string
   error?: string
+  helperText?: string
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode
   containerClassName?: string
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type = 'text', label, error, leftIcon, rightIcon, containerClassName, id, ...props }, ref) => {
+  ({ className, type = 'text', label, error, helperText, leftIcon, rightIcon, containerClassName, id, required, ...props }, ref) => {
     const [showPassword, setShowPassword] = useState(false)
     const isPassword = type === 'password'
     
@@ -27,9 +28,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-sm font-medium text-slate-700 dark:text-slate-300"
+            className="text-xs font-semibold font-display uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1"
           >
-            {label}
+            <span>{label}</span>
+            {required && <span className="text-rose-500 font-bold">*</span>}
           </label>
         )}
         <div className="relative flex items-center">
@@ -41,13 +43,14 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           <input
             id={inputId}
             type={resolvedType}
+            required={required}
             className={cn(
-              'w-full h-10 px-3.5 py-2 border rounded-md bg-white dark:bg-slate-900 text-slate-950 dark:text-slate-50 placeholder-slate-400 focus:outline-none focus:ring-2 focus:border-brand-500 focus:ring-brand-500/20 disabled:pointer-events-none disabled:opacity-50 transition-all font-sans text-sm',
+              'w-full h-10 px-3.5 py-2 border rounded-xl bg-white dark:bg-slate-900 text-slate-950 dark:text-slate-50 placeholder-slate-400/80 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 disabled:pointer-events-none disabled:opacity-50 transition-all duration-200 font-sans text-sm shadow-sm',
               leftIcon ? 'pl-10' : '',
               rightIcon || isPassword ? 'pr-10' : '',
               error
-                ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
-                : 'border-slate-300 dark:border-slate-700 focus:ring-brand-500/20 focus:border-brand-500',
+                ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10'
+                : 'border-slate-300 dark:border-slate-700 focus:ring-brand-500/20 focus:border-brand-500 hover:border-slate-400 dark:hover:border-slate-600',
               className
             )}
             ref={ref}
@@ -76,6 +79,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             className="text-xs text-red-500 font-medium animate-fadeIn"
           >
             {error}
+          </span>
+        )}
+        {helperText && !error && (
+          <span className="text-[10px] text-slate-450 dark:text-slate-500 font-sans">
+            {helperText}
           </span>
         )}
       </div>

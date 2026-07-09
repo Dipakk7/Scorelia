@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 import {
   LayoutDashboard,
@@ -137,24 +138,27 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
                 onMouseLeave={handleMouseLeave}
                 className={({ isActive }) =>
                   cn(
-                    'flex items-center py-2.5 rounded-lg text-sm font-semibold font-sans transition-all duration-300 cursor-pointer group relative px-3',
+                    'flex items-center py-2.5 rounded-lg text-sm font-semibold font-sans transition-all duration-200 ease-in-out cursor-pointer group relative px-3',
                     expanded ? 'justify-start' : 'justify-center',
-                    isActive
-                      ? 'bg-brand-500/12 text-brand-400 shadow-inner'
-                      : 'text-slate-400 hover:bg-slate-800/40 hover:text-slate-100'
+                    !isActive && 'text-slate-400 hover:bg-slate-800/40 hover:text-slate-100'
                   )
                 }
               >
                 {({ isActive }) => (
                   <>
                     {isActive && (
-                      <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-brand-500 rounded-l-lg" />
+                      <motion.div
+                        layoutId="activeSidebarLink"
+                        className="absolute inset-0 bg-brand-500/12 rounded-lg border-l-2 border-brand-500 shadow-inner"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
                     )}
-                    <Icon size={18} className="flex-shrink-0 transition-colors" />
+                    <Icon size={18} className={cn("flex-shrink-0 transition-colors duration-200 relative z-10", isActive ? "text-brand-400" : "text-slate-400 group-hover:text-slate-100")} />
                     <span
                       className={cn(
-                        "whitespace-nowrap tracking-wide transition-all duration-300 ease-in-out overflow-hidden",
-                        expanded ? "max-w-[200px] opacity-100 ml-3.5" : "max-w-0 opacity-0 ml-0"
+                        "whitespace-nowrap tracking-wide transition-all duration-200 ease-in-out overflow-hidden relative z-10",
+                        expanded ? "max-w-[200px] opacity-100 ml-3.5" : "max-w-0 opacity-0 ml-0",
+                        isActive ? "text-brand-400 font-extrabold" : "text-slate-400 group-hover:text-slate-100"
                       )}
                     >
                       {item.label}

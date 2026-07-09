@@ -30,13 +30,33 @@
   --radius-lg: 16px;
   --radius-xl: 24px;
 
-  /* Shadow Tokens with Brand Charcoal tint */
-  --shadow-md: 0 4px 12px -2px rgba(48, 50, 35, 0.08), 0 2px 6px -1px rgba(48, 50, 35, 0.04);
-  --shadow-lg: 0 10px 25px -5px rgba(48, 50, 35, 0.1), 0 8px 16px -6px rgba(48, 50, 35, 0.05);
+  /* Premium, multi-layered soft shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 16px -2px rgba(15, 23, 42, 0.05), 0 2px 8px -1px rgba(15, 23, 42, 0.03);
+  --shadow-lg: 0 12px 32px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+  --shadow-xl: 0 20px 48px -6px rgba(15, 23, 42, 0.12), 0 8px 20px -4px rgba(15, 23, 42, 0.06);
+
+  /* Custom slate codes support for compatibility and polished aesthetics */
+  --color-slate-55: #f8fafc;
+  --color-slate-65: #f1f5f9;
+  --color-slate-75: #cbd5e1;
+  --color-slate-85: #94a3b8;
+  --color-slate-105: #f1f5f9;
+  --color-slate-205: #e2e8f0;
+  --color-slate-250: #cbd5e1;
+  --color-slate-355: #94a3b8;
+  --color-slate-405: #64748b;
+  --color-slate-455: #475569;
+  --color-slate-550: #64748b;
+  --color-slate-655: #475569;
+  --color-slate-805: #1e293b;
+  --color-slate-850: #1e293b;
+  --color-slate-855: #0f172a;
+  --color-slate-905: #0f172a;
 
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-fade-in: fade-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes float {
@@ -127,4 +147,6 @@ body {
 *:focus-visible {
   outline: 2px solid var(--color-brand-500, #0F9D9A);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(15, 157, 154, 0.15);
 }
+

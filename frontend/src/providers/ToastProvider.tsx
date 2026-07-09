@@ -10,14 +10,17 @@ export function ToastProvider() {
       toastOptions={{
         duration: 4000,
         style: {
-          background: theme === 'dark' ? '#111726' : '#ffffff',
+          background: theme === 'dark' ? 'rgba(17, 23, 38, 0.85)' : 'rgba(255, 255, 255, 0.85)',
           color: theme === 'dark' ? '#f1f5f9' : '#0f172a',
-          border: theme === 'dark' ? '1px solid #1f293d' : '1px solid #e2e8f0',
-          borderRadius: '10px',
-          padding: '12px 16px',
-          boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-          fontFamily: "'Inter', sans-serif",
+          border: theme === 'dark' ? '1px solid rgba(31, 41, 61, 0.5)' : '1px solid rgba(226, 232, 240, 0.8)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          borderRadius: '12px',
+          padding: '12px 18px',
+          boxShadow: '0 12px 30px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04)',
+          fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
           fontSize: '13px',
+          fontWeight: 600,
         },
         success: {
           iconTheme: {
