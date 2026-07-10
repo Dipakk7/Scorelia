@@ -28,7 +28,7 @@ export const ToolExecutionCard: React.FC<ToolExecutionCardProps> = ({
   return (
     <Card
       className={cn(
-        'border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs',
+        'border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs',
         !success && 'border-rose-350 dark:border-rose-950/60',
         className
       )}
@@ -42,22 +42,22 @@ export const ToolExecutionCard: React.FC<ToolExecutionCardProps> = ({
                 'h-8 w-8 rounded-xl flex items-center justify-center flex-shrink-0 border border-transparent shadow-2xs',
                 success
                   ? 'bg-slate-100 dark:bg-slate-855 text-slate-655 dark:text-slate-405'
-                  : 'bg-rose-500/10 text-rose-600 dark:text-rose-455'
+                  : 'bg-destructive/10 text-destructive'
               )}
             >
               <Wrench size={16} />
             </div>
 
             <div className="text-left">
-              <span className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase font-mono tracking-widest block leading-none">Tool Invocations</span>
-              <h5 className="font-extrabold text-xs text-slate-800 dark:text-slate-200 mt-1.5 font-mono leading-none">
+              <span className="text-muted-foreground text-[8px] font-black uppercase font-mono tracking-widest block leading-none">Tool Invocations</span>
+              <h5 className="font-extrabold text-xs text-foreground mt-1.5 font-mono leading-none">
                 {toolName}
               </h5>
             </div>
           </div>
 
           <div className="flex items-center gap-3 shrink-0">
-            <div className="flex items-center gap-1 text-slate-455 dark:text-slate-500 text-[10px] font-mono leading-none">
+            <div className="flex items-center gap-1 text-muted-foreground text-[10px] font-mono leading-none">
               <Clock size={12} className="text-slate-400" />
               <span>{durationMs.toFixed(0)}ms</span>
             </div>
@@ -78,7 +78,7 @@ export const ToolExecutionCard: React.FC<ToolExecutionCardProps> = ({
           <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-850/65 flex flex-col gap-3 font-sans text-xs text-left animate-fade-in">
             {/* Direct Tool execution errors */}
             {error && (
-              <div className="p-3 bg-rose-500/10 border border-rose-500/20 text-rose-655 dark:text-rose-455 rounded-xl flex gap-2 text-left">
+              <div className="p-3 bg-destructive/10 border border-destructive/20 text-destructive rounded-xl flex gap-2 text-left">
                 <AlertCircle size={16} className="flex-shrink-0 mt-0.5" />
                 <div className="flex flex-col gap-1 text-left">
                   <strong className="font-bold">Execution Error:</strong>
@@ -89,7 +89,7 @@ export const ToolExecutionCard: React.FC<ToolExecutionCardProps> = ({
 
             {/* Arguments */}
             <div className="flex flex-col gap-1.5 text-left">
-              <span className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase tracking-widest font-mono flex items-center gap-1.5 leading-none">
+              <span className="text-muted-foreground text-[8px] font-black uppercase tracking-widest font-mono flex items-center gap-1.5 leading-none">
                 Arguments Config:
               </span>
               <div className="p-3 bg-slate-900 dark:bg-slate-950/80 rounded-xl font-mono text-[10px] overflow-x-auto border border-slate-950/50 text-left max-h-48">
@@ -100,7 +100,7 @@ export const ToolExecutionCard: React.FC<ToolExecutionCardProps> = ({
             {/* Result payload */}
             {result !== undefined && (
               <div className="flex flex-col gap-1.5 text-left">
-                <span className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase tracking-widest font-mono flex items-center gap-1.5 leading-none">
+                <span className="text-muted-foreground text-[8px] font-black uppercase tracking-widest font-mono flex items-center gap-1.5 leading-none">
                   Output Result:
                 </span>
                 <div className="p-3 bg-slate-900 dark:bg-slate-950/80 rounded-xl font-mono text-[10px] overflow-x-auto border border-slate-950/50 max-h-48 text-left">

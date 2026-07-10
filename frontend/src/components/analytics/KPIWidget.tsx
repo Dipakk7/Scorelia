@@ -63,7 +63,7 @@ export function KPIWidget({
   return (
     <Card
       className={cn(
-        'overflow-hidden border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-slate-900/40 backdrop-blur-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 group',
+        'overflow-hidden border-slate-200/80 dark:border-slate-800/80 bg-card/60 dark:bg-slate-900/40 backdrop-blur-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 group',
         activeStyles.glow,
         className
       )}

@@ -67,8 +67,8 @@ export function ExportDialog({
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-md text-left font-sans text-xs">
-        <DialogHeader className="pb-4 border-b border-slate-100 dark:border-slate-800/60 text-left">
-          <DialogTitle className="text-base font-black font-display text-slate-900 dark:text-white flex items-center gap-2 m-0 leading-none">
+        <DialogHeader className="pb-4 border-b border-border/60 text-left">
+          <DialogTitle className="text-base font-black font-display text-foreground flex items-center gap-2 m-0 leading-none">
             <Download className="text-brand-500 h-5 w-5 animate-bounce" />
             <span>Export Answer Segment</span>
           </DialogTitle>
@@ -80,7 +80,7 @@ export function ExportDialog({
         <div className="space-y-4 py-4 text-xs text-left">
           {/* File Name input */}
           <div className="space-y-1.5 text-left">
-            <label htmlFor="filename-input" className="text-[9px] font-black text-slate-455 dark:text-slate-500 uppercase tracking-widest block font-display leading-none">
+            <label htmlFor="filename-input" className="text-[9px] font-black text-muted-foreground uppercase tracking-widest block font-display leading-none">
               File Name
             </label>
             <input
@@ -88,13 +88,13 @@ export function ExportDialog({
               type="text"
               value={fileName}
               onChange={(e) => setFileName(e.target.value)}
-              className="w-full text-xs py-2.5 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-slate-50/50 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder-slate-405 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans font-medium transition-colors shadow-2xs h-10"
+              className="w-full text-xs py-2.5 px-3 border border-border rounded-xl bg-slate-50/50 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder-slate-405 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans font-medium transition-colors shadow-2xs h-10"
             />
           </div>
 
           {/* Format selection */}
           <div className="space-y-2 text-left">
-            <label className="text-[9px] font-black text-slate-455 dark:text-slate-500 uppercase tracking-widest block font-display leading-none">
+            <label className="text-[9px] font-black text-muted-foreground uppercase tracking-widest block font-display leading-none">
               Select Format
             </label>
             <div className="grid grid-cols-2 gap-3 text-left">
@@ -110,8 +110,8 @@ export function ExportDialog({
               >
                 <FileCode size={20} className="text-brand-500 shrink-0" />
                 <div className="min-w-0">
-                  <span className="font-extrabold text-slate-800 dark:text-slate-200 block text-xs leading-none">Markdown</span>
-                  <span className="text-[9px] text-slate-405 dark:text-slate-500 block mt-1 leading-none font-bold">Styled document (.md)</span>
+                  <span className="font-extrabold text-foreground block text-xs leading-none">Markdown</span>
+                  <span className="text-[9px] text-muted-foreground block mt-1 leading-none font-bold">Styled document (.md)</span>
                 </div>
               </button>
 
@@ -127,8 +127,8 @@ export function ExportDialog({
               >
                 <FileText size={20} className="text-slate-500 shrink-0" />
                 <div className="min-w-0">
-                  <span className="font-extrabold text-slate-800 dark:text-slate-200 block text-xs leading-none">Plain Text</span>
-                  <span className="text-[9px] text-slate-405 dark:text-slate-500 block mt-1 leading-none font-bold">Raw text file (.txt)</span>
+                  <span className="font-extrabold text-foreground block text-xs leading-none">Plain Text</span>
+                  <span className="text-[9px] text-muted-foreground block mt-1 leading-none font-bold">Raw text file (.txt)</span>
                 </div>
               </button>
             </div>
@@ -148,7 +148,7 @@ export function ExportDialog({
             variant="primary"
             size="sm"
             onClick={handleExport}
-            className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-9.5"
+            className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-9.5"
           >
             Export Now
           </Button>

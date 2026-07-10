@@ -44,7 +44,7 @@ export function Breadcrumbs({ className }: BreadcrumbsProps) {
               {isLast ? (
                 <span
                   aria-current="page"
-                  className="font-extrabold text-slate-800 dark:text-slate-200 tracking-wider"
+                  className="font-extrabold text-foreground tracking-wider"
                 >
                   {label}
                 </span>

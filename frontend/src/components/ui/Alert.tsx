@@ -30,7 +30,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     }
 
     const iconColors = {
-      default: 'text-slate-500 dark:text-slate-400',
+      default: 'text-muted-foreground',
       info: 'text-blue-500 dark:text-blue-400',
       success: 'text-emerald-500 dark:text-emerald-450',
       warning: 'text-amber-550 dark:text-amber-450',

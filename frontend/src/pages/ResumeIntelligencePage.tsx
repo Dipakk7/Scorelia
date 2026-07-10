@@ -265,13 +265,13 @@ export default function ResumeIntelligencePage() {
   return (
     <div className="space-y-6 text-left max-w-7xl mx-auto font-sans focus:outline-none animate-fade-in">
       {/* Selector & Setup Header */}
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 rounded-2xl border border-slate-200/60 dark:border-slate-855 shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 bg-card/70 backdrop-blur-md p-5 rounded-2xl border border-border/60 shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
         <div className="space-y-1.5">
           <h1 className="text-xl md:text-2xl font-black text-slate-900 dark:text-slate-50 tracking-tight flex items-center gap-2 m-0 leading-none">
             <Sparkles className="text-brand-500 animate-pulse" size={22} />
             <span>AI Resume Intelligence Workspace</span>
           </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-sans leading-relaxed m-0">
+          <p className="text-xs text-muted-foreground font-sans leading-relaxed m-0">
             Audit formatting, match keywords, score readiness, and generate persona styles.
           </p>
         </div>
@@ -287,7 +287,7 @@ export default function ResumeIntelligencePage() {
               value={selectedResumeId}
               onChange={(e) => setSelectedResumeId(e.target.value)}
               disabled={pipelineMutation.isPending}
-              className="text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 rounded-xl p-2.5 text-slate-850 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer transition-colors duration-200"
+              className="text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-border rounded-xl p-2.5 text-slate-850 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer transition-colors duration-200"
             >
               {resumes.map((r) => (
                 <option key={r.id} value={r.id}>
@@ -304,7 +304,7 @@ export default function ResumeIntelligencePage() {
               size="sm"
               onClick={handleRunPipeline}
               disabled={!selectedResumeId || pipelineMutation.isPending}
-              className="flex items-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200"
+              className="flex items-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200"
             >
               <Zap size={14} className="animate-pulse" />
               <span>Run AI Pipeline</span>
@@ -315,7 +315,7 @@ export default function ResumeIntelligencePage() {
               size="sm"
               onClick={() => setIsExportOpen(true)}
               disabled={!latestReview && !latestOptimization}
-              className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-bold border-slate-250 dark:border-slate-800 cursor-pointer rounded-xl hover:border-brand-500/30 hover:bg-brand-500/5 transition-all"
+              className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-bold border-border cursor-pointer rounded-xl hover:border-brand-500/30 hover:bg-brand-500/5 transition-all"
             >
               <Download size={14} />
               <span>Export Report</span>
@@ -325,14 +325,14 @@ export default function ResumeIntelligencePage() {
       </div>
 
       {resumes.length === 0 ? (
-        <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm text-center py-16">
+        <Card className="border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm text-center py-16">
           <CardContent className="space-y-4 max-w-sm mx-auto p-0">
-            <div className="h-12 w-12 rounded-2xl bg-slate-50 dark:bg-slate-850 flex items-center justify-center mx-auto text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-800">
+            <div className="h-12 w-12 rounded-2xl bg-slate-50 dark:bg-slate-850 flex items-center justify-center mx-auto text-slate-400 dark:text-slate-500 border border-border">
               <FileText size={22} className="stroke-[1.75]" />
             </div>
             <div>
               <h3 className="text-sm font-bold text-slate-900 dark:text-slate-200 m-0">No Resumes Found</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-455 mt-1.5 leading-relaxed font-sans">
+              <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed font-sans">
                 Please upload a resume in the Resume Builder or parsed document list before initiating the AI scan.
               </p>
             </div>
@@ -409,8 +409,8 @@ export default function ResumeIntelligencePage() {
                 {/* Status and Activity history */}
                 <div className="space-y-6 col-span-1">
                   {/* Latest Review Info */}
-                  <Card className="border border-slate-200/60 dark:border-slate-850 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 rounded-2xl shadow-sm space-y-4 hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
-                    <div className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60 text-left">
+                  <Card className="border border-border/60 bg-card/70 backdrop-blur-md p-5 rounded-2xl shadow-sm space-y-4 hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+                    <div className="pb-2.5 border-b border-border/60 text-left">
                       <h4 className="text-xs font-black text-slate-900 dark:text-slate-250 uppercase tracking-wider m-0">
                         Latest Review Audit
                       </h4>
@@ -436,15 +436,15 @@ export default function ResumeIntelligencePage() {
                         </div>
                       </div>
                     ) : (
-                      <div className="text-xs text-slate-450 dark:text-slate-500 italic text-center py-6 font-sans font-medium">
+                      <div className="text-xs text-muted-foreground italic text-center py-6 font-sans font-medium">
                         No review record available. Click 'Run AI Pipeline'.
                       </div>
                     )}
                   </Card>
 
                   {/* Latest Style Rewrite Version */}
-                  <Card className="border border-slate-200/60 dark:border-slate-850 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 rounded-2xl shadow-sm space-y-4 hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
-                    <div className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60 text-left">
+                  <Card className="border border-border/60 bg-card/70 backdrop-blur-md p-5 rounded-2xl shadow-sm space-y-4 hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+                    <div className="pb-2.5 border-b border-border/60 text-left">
                       <h4 className="text-xs font-black text-slate-900 dark:text-slate-250 uppercase tracking-wider m-0">
                         Latest Style Rewrite
                       </h4>
@@ -463,15 +463,15 @@ export default function ResumeIntelligencePage() {
                         </div>
                       </div>
                     ) : (
-                      <div className="text-xs text-slate-450 dark:text-slate-500 italic text-center py-6 font-sans font-medium">
+                      <div className="text-xs text-muted-foreground italic text-center py-6 font-sans font-medium">
                         No rewritten version.
                       </div>
                     )}
                   </Card>
 
                   {/* ATS optimizations status */}
-                  <Card className="border border-slate-200/60 dark:border-slate-850 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 rounded-2xl shadow-sm space-y-4 hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
-                    <div className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60 text-left">
+                  <Card className="border border-border/60 bg-card/70 backdrop-blur-md p-5 rounded-2xl shadow-sm space-y-4 hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+                    <div className="pb-2.5 border-b border-border/60 text-left">
                       <h4 className="text-xs font-black text-slate-900 dark:text-slate-250 uppercase tracking-wider m-0">
                         ATS Diagnostic Level
                       </h4>
@@ -494,13 +494,13 @@ export default function ResumeIntelligencePage() {
                               .map((kw) => (
                                 <span
                                   key={kw}
-                                  className="text-[9px] font-bold px-2 py-0.5 rounded-lg bg-rose-500/10 text-rose-700 dark:text-rose-455 border border-rose-500/15 shadow-2xs"
+                                  className="text-[9px] font-bold px-2 py-0.5 rounded-lg bg-destructive/10 text-destructive border border-destructive/20 shadow-2xs"
                                 >
                                   {kw}
                                 </span>
                               ))}
                             {latestOptimization.ats_optimization.missing_keywords?.length > 5 && (
-                              <span className="text-[9px] text-slate-450 dark:text-slate-500 self-center font-bold">
+                              <span className="text-[9px] text-muted-foreground self-center font-bold">
                                 +{latestOptimization.ats_optimization.missing_keywords.length - 5} more
                               </span>
                             )}
@@ -508,7 +508,7 @@ export default function ResumeIntelligencePage() {
                         </div>
                       </div>
                     ) : (
-                      <div className="text-xs text-slate-455 dark:text-slate-500 italic text-center py-6 font-sans font-medium">
+                      <div className="text-xs text-muted-foreground italic text-center py-6 font-sans font-medium">
                         No optimizations found.
                       </div>
                     )}
@@ -525,16 +525,16 @@ export default function ResumeIntelligencePage() {
                   {latestReview ? (
                     <AIReviewCard review={latestReview} />
                   ) : (
-                    <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm text-center py-16">
+                    <Card className="border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm text-center py-16">
                       <CardContent className="space-y-4 max-w-sm mx-auto p-0 text-center">
-                        <div className="h-10 w-10 rounded-xl bg-slate-55/60 dark:bg-slate-850 flex items-center justify-center mx-auto text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-800">
+                        <div className="h-10 w-10 rounded-xl bg-slate-55/60 dark:bg-slate-850 flex items-center justify-center mx-auto text-slate-400 dark:text-slate-500 border border-border">
                           <AlertCircle size={18} />
                         </div>
                         <div>
                           <h4 className="text-sm font-extrabold text-slate-900 dark:text-slate-200 m-0">
                             No Review Found
                           </h4>
-                          <p className="text-xs text-slate-500 dark:text-slate-455 mt-1.5 leading-relaxed font-sans">
+                          <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed font-sans">
                             Generate diagnostic review feedback by executing the full workflow orchestrator.
                           </p>
                         </div>
@@ -551,7 +551,7 @@ export default function ResumeIntelligencePage() {
                       priorityImprovements={latestReview.priority_improvements}
                     />
                   ) : (
-                    <div className="text-xs text-slate-450 dark:text-slate-500 italic text-center py-10 font-sans font-medium">
+                    <div className="text-xs text-muted-foreground italic text-center py-10 font-sans font-medium">
                       No recommendations to show.
                     </div>
                   )}
@@ -584,16 +584,16 @@ export default function ResumeIntelligencePage() {
                     }
                   />
                 ) : (
-                  <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm text-center py-16">
+                  <Card className="border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm text-center py-16">
                     <CardContent className="space-y-4 max-w-sm mx-auto p-0 text-center">
-                      <div className="h-10 w-10 bg-slate-55/60 dark:bg-slate-850 rounded-xl flex items-center justify-center mx-auto text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-800">
+                      <div className="h-10 w-10 bg-slate-55/60 dark:bg-slate-850 rounded-xl flex items-center justify-center mx-auto text-slate-400 dark:text-slate-500 border border-border">
                         <Sparkles size={18} />
                       </div>
                       <div>
                         <h4 className="text-sm font-extrabold text-slate-900 dark:text-slate-200 m-0">
                           No Rewritten Versions
                         </h4>
-                        <p className="text-xs text-slate-500 dark:text-slate-455 mt-1.5 leading-relaxed font-sans">
+                        <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed font-sans">
                           Choose a persona style and hit 'Generate AI Rewrite' above to tailor your resume text.
                         </p>
                       </div>
@@ -609,16 +609,16 @@ export default function ResumeIntelligencePage() {
                 {latestOptimization ? (
                   <OptimizationCard optimization={latestOptimization} />
                 ) : (
-                  <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm text-center py-16">
+                  <Card className="border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm text-center py-16">
                     <CardContent className="space-y-4 max-w-sm mx-auto p-0 text-center">
-                      <div className="h-10 w-10 bg-slate-55/60 dark:bg-slate-850 rounded-xl flex items-center justify-center mx-auto text-slate-400 dark:text-slate-500 border border-slate-100 dark:border-slate-800">
+                      <div className="h-10 w-10 bg-slate-55/60 dark:bg-slate-850 rounded-xl flex items-center justify-center mx-auto text-slate-400 dark:text-slate-500 border border-border">
                         <TrendingUp size={18} />
                       </div>
                       <div>
                         <h4 className="text-sm font-extrabold text-slate-900 dark:text-slate-200 m-0">
                           No Optimization Recommendations
                         </h4>
-                        <p className="text-xs text-slate-500 dark:text-slate-455 mt-1.5 leading-relaxed font-sans">
+                        <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed font-sans">
                           Run the AI pipeline to analyze ATS keywords density and compile bullet point suggestions.
                         </p>
                       </div>
@@ -653,8 +653,8 @@ export default function ResumeIntelligencePage() {
 
                 {/* Compare view sidebar overlay */}
                 <div className="lg:col-span-1">
-                  <Card className="border border-slate-200/60 dark:border-slate-850 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 shadow-sm rounded-2xl space-y-4 hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
-                    <div className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60 text-left">
+                  <Card className="border border-border/60 bg-card/70 backdrop-blur-md p-5 shadow-sm rounded-2xl space-y-4 hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+                    <div className="pb-2.5 border-b border-border/60 text-left">
                       <h4 className="text-xs font-black text-slate-900 dark:text-slate-200 uppercase tracking-wider m-0">
                         Timeline Sandbox Comparator
                       </h4>
@@ -682,13 +682,13 @@ export default function ResumeIntelligencePage() {
                           variant="outline"
                           size="sm"
                           onClick={() => setComparisonItem(null)}
-                          className="w-full py-2 text-xs cursor-pointer rounded-xl font-bold border-slate-200 dark:border-slate-800 hover:border-brand-500/30 hover:bg-brand-500/5 transition-all"
+                          className="w-full py-2 text-xs cursor-pointer rounded-xl font-bold border-border hover:border-brand-500/30 hover:bg-brand-500/5 transition-all"
                         >
                           Clear Selection
                         </Button>
                       </div>
                     ) : (
-                      <div className="text-xs text-slate-455 dark:text-slate-500 italic text-center py-8 font-sans font-medium">
+                      <div className="text-xs text-muted-foreground italic text-center py-8 font-sans font-medium">
                         Select 'Compare' on any timeline version item to load differences.
                       </div>
                     )}

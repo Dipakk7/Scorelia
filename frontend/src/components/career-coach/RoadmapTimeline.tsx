@@ -68,7 +68,7 @@ export function RoadmapTimeline({ milestones, onUpdateStatus }: RoadmapTimelineP
   return (
     <div className="space-y-6 text-left font-sans text-xs">
       {/* Filters and Search Bar */}
-      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
         <CardContent className="p-4 flex flex-col md:flex-row gap-4 items-center justify-between">
           <div className="relative w-full md:max-w-xs text-left">
             <span className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-slate-400">
@@ -79,12 +79,12 @@ export function RoadmapTimeline({ milestones, onUpdateStatus }: RoadmapTimelineP
               placeholder="Search milestones..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full text-xs pl-9.5 pr-4 py-2 border border-slate-250 dark:border-slate-800 rounded-xl bg-slate-50/50 dark:bg-slate-900/60 text-slate-855 dark:text-slate-205 placeholder-slate-405 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans shadow-2xs transition-colors h-10"
+              className="w-full text-xs pl-9.5 pr-4 py-2 border border-border rounded-xl bg-slate-50/50 dark:bg-slate-900/60 text-slate-855 dark:text-slate-205 placeholder-slate-405 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans shadow-2xs transition-colors h-10"
             />
           </div>
 
           <div className="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
-            <span className="text-[9px] text-slate-405 dark:text-slate-500 font-black flex items-center gap-1.5 mr-2 uppercase tracking-widest leading-none">
+            <span className="text-[9px] text-muted-foreground font-black flex items-center gap-1.5 mr-2 uppercase tracking-widest leading-none">
               <ListFilter size={14} className="text-slate-400" /> Filter:
             </span>
             {['ALL', 'NOT_STARTED', 'IN_PROGRESS', 'COMPLETED'].map((status) => (
@@ -106,7 +106,7 @@ export function RoadmapTimeline({ milestones, onUpdateStatus }: RoadmapTimelineP
               variant="outline"
               size="sm"
               onClick={handleExpandAll}
-              className="h-8.5 text-[9px] uppercase tracking-wider font-bold cursor-pointer rounded-lg border-slate-200 dark:border-slate-800 hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent flex items-center gap-1.5 ml-2"
+              className="h-8.5 text-[9px] uppercase tracking-wider font-bold cursor-pointer rounded-lg border-border hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent flex items-center gap-1.5 ml-2"
             >
               {isAllExpanded ? <EyeOff size={14} /> : <Eye size={14} />}
               <span>{isAllExpanded ? 'Collapse' : 'Expand'}</span>
@@ -117,25 +117,25 @@ export function RoadmapTimeline({ milestones, onUpdateStatus }: RoadmapTimelineP
 
       {/* Timeline phases */}
       {phases.length === 0 ? (
-        <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
-          <CardContent className="py-12 text-center text-xs text-slate-500 dark:text-slate-405 italic font-medium leading-relaxed">
+        <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-primary/50 transition-all duration-300">
+          <CardContent className="py-12 text-center text-xs text-muted-foreground italic font-medium leading-relaxed">
             No milestones match the active search or filter constraints.
           </CardContent>
         </Card>
       ) : (
-        <div className="space-y-8 relative before:absolute before:inset-0 before:left-[17px] before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-200/60 dark:before:bg-slate-800/40">
+        <div className="space-y-8 relative before:absolute before:inset-0 before:left-[17px] before:top-2 before:bottom-2 before:w-[2px] before:bg-border/60">
           {phases.map((phase) => (
             <div key={phase.phaseNumber} className="space-y-4">
               {/* Phase header */}
               <div className="flex items-center gap-4 relative z-10 text-left">
-                <div className="h-9 w-9 bg-brand-500 text-white rounded-full flex items-center justify-center font-display font-extrabold text-sm border-4 border-slate-50 dark:border-dark-bg shrink-0 shadow-sm leading-none">
+                <div className="h-9 w-9 bg-brand-500 text-white rounded-full flex items-center justify-center font-display font-extrabold text-sm border-4 border-background shrink-0 shadow-sm leading-none">
                   {phase.phaseNumber}
                 </div>
                 <div className="space-y-1 text-left">
-                  <h3 className="text-sm font-extrabold font-display text-slate-900 dark:text-white m-0 leading-none">
+                  <h3 className="text-sm font-extrabold font-display text-foreground m-0 leading-none">
                     Phase {phase.phaseNumber}
                   </h3>
-                  <p className="text-[9px] text-slate-405 dark:text-slate-500 uppercase tracking-widest font-black m-0 leading-none">
+                  <p className="text-[9px] text-muted-foreground uppercase tracking-widest font-black m-0 leading-none">
                     {phase.items.length} Milestones in Phase
                   </p>
                 </div>

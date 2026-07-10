@@ -96,15 +96,15 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
   }
 
   return (
-    <Card className={cn('border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs flex flex-col', className)}>
-      <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-800/60 text-left flex flex-row items-center justify-between gap-4">
+    <Card className={cn('border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs flex flex-col', className)}>
+      <CardHeader className="pb-4 border-b border-border/60 text-left flex flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-2 text-left">
           <Terminal size={18} className="text-brand-500" />
           <div className="text-left">
-            <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
+            <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none">
               Execution Logs Console
             </CardTitle>
-            <span className="text-[9px] text-slate-405 dark:text-slate-500 font-sans block mt-1.5 leading-none">
+            <span className="text-[9px] text-muted-foreground font-sans block mt-1.5 leading-none">
               System audit events tracking task dispatcher lifecycle
             </span>
           </div>
@@ -112,7 +112,7 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
 
         <button
           onClick={handleExport}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider bg-white dark:bg-slate-900/50 hover:bg-slate-105 hover:border-brand-500/35 border border-slate-205 dark:border-slate-800 rounded-xl transition-all duration-150 cursor-pointer focus:outline-none"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider bg-card/50 hover:bg-slate-105 hover:border-brand-500/35 border border-border rounded-xl transition-all duration-150 cursor-pointer focus:outline-none"
         >
           <Download size={12} />
           <span>Export Logs</span>
@@ -132,7 +132,7 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
                 setSearch(e.target.value)
                 setCurrentPage(1)
               }}
-              className="w-full pl-9 pr-3 py-1.5 border border-slate-250 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 rounded-xl text-xs font-sans placeholder-slate-405 text-slate-750 dark:text-slate-205 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/30 transition-all duration-150 shadow-2xs h-9 font-medium"
+              className="w-full pl-9 pr-3 py-1.5 border border-border bg-white/70 dark:bg-slate-900/50 rounded-xl text-xs font-sans placeholder-slate-405 text-slate-750 dark:text-slate-205 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/30 transition-all duration-150 shadow-2xs h-9 font-medium"
             />
           </div>
 
@@ -144,7 +144,7 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
                   setEventTypeFilter(e.target.value)
                   setCurrentPage(1)
                 }}
-                className="pl-3 pr-8 py-1.5 border border-slate-250 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 rounded-xl text-xs font-sans text-slate-750 dark:text-slate-205 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/30 transition-all duration-150 appearance-none cursor-pointer shadow-2xs h-9 font-bold"
+                className="pl-3 pr-8 py-1.5 border border-border bg-white/70 dark:bg-slate-900/50 rounded-xl text-xs font-sans text-slate-750 dark:text-slate-205 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/30 transition-all duration-150 appearance-none cursor-pointer shadow-2xs h-9 font-bold"
               >
                 <option value="all">All Events</option>
                 <option value="agent_started">agent_started</option>
@@ -159,10 +159,10 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
         </div>
 
         {/* Table Container */}
-        <div className="flex-1 overflow-x-auto rounded-xl border border-slate-205 dark:border-slate-850 shadow-2xs scrollbar-thin text-left">
+        <div className="flex-1 overflow-x-auto rounded-xl border border-border shadow-2xs scrollbar-thin text-left">
           <table className="w-full text-left border-collapse min-w-[700px] text-xs font-sans select-none text-left">
             <thead>
-              <tr className="bg-slate-50/50 dark:bg-slate-900/40 text-slate-455 border-b border-slate-200 dark:border-dark-border/40 uppercase tracking-widest text-[9px] font-black text-left">
+              <tr className="bg-muted/50 text-muted-foreground border-b border-border/40 uppercase tracking-widest text-[9px] font-black text-left">
                 <th className="py-2.5 px-4 w-40 text-left">Timestamp</th>
                 <th className="py-2.5 px-4 w-36 text-left">Event Type</th>
                 <th className="py-2.5 px-4 w-40 text-left">Target Agent</th>
@@ -170,7 +170,7 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
                 <th className="py-2.5 px-4 w-12 text-left"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-dark-border/30 text-left">
+            <tbody className="divide-y divide-border/30 text-left">
               {paginatedEvents.map((evt) => {
                 const isExpanded = expandedEventId === evt.event_id
                 return (
@@ -178,22 +178,22 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
                     <tr
                       onClick={() => setExpandedEventId(isExpanded ? null : evt.event_id)}
                       className={cn(
-                        'hover:bg-slate-50/50 dark:hover:bg-slate-950/20 cursor-pointer transition-colors duration-150 text-left',
-                        isExpanded ? 'bg-slate-50/30 dark:bg-slate-950/10' : ''
+                        'hover:bg-muted/30 cursor-pointer transition-colors duration-150 text-left',
+                        isExpanded ? 'bg-muted/10' : ''
                       )}
                     >
-                      <td className="py-2.5 px-4 font-mono text-[10px] font-medium text-slate-450 text-left">
+                      <td className="py-2.5 px-4 font-mono text-[10px] font-medium text-muted-foreground text-left">
                         {new Date(evt.timestamp).toLocaleTimeString()} ({new Date(evt.timestamp).toLocaleDateString()})
                       </td>
                       <td className="py-2.5 px-4 text-left">
                         <span className={cn('px-2 py-0.5 rounded border text-[9px] uppercase tracking-wider font-mono font-bold leading-none inline-block', getBadgeClass(evt.event_type))}>
-                          {evt.event_type}
+                           {evt.event_type}
                         </span>
                       </td>
-                      <td className="py-2.5 px-4 font-mono text-[10px] font-bold text-slate-700 dark:text-slate-350 text-left">
+                      <td className="py-2.5 px-4 font-mono text-[10px] font-bold text-foreground text-left">
                         {evt.agent_id || 'orchestrator'}
                       </td>
-                      <td className="py-2.5 px-4 text-slate-600 dark:text-slate-400 font-medium text-left">
+                      <td className="py-2.5 px-4 text-muted-foreground font-medium text-left">
                         {formatSummary(evt)}
                       </td>
                       <td className="py-2.5 px-4 text-right">
@@ -202,14 +202,14 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
                     </tr>
 
                     {isExpanded && (
-                      <tr className="bg-slate-905 dark:bg-slate-950 border-y border-slate-950 text-slate-305 text-left">
+                      <tr className="bg-muted/20 border-y border-border text-foreground text-left">
                         <td colSpan={5} className="p-4 font-mono text-[10px] leading-normal select-text text-left">
                           <div className="flex flex-col gap-2 text-left">
-                            <div className="flex items-center justify-between text-slate-500 border-b border-slate-800 pb-1.5 mb-1 leading-none font-bold">
+                            <div className="flex items-center justify-between text-muted-foreground border-b border-border pb-1.5 mb-1 leading-none font-bold">
                               <span>EVENT CORRELATION: {evt.request_id}</span>
                               <span>EVENT ID: {evt.event_id}</span>
                             </div>
-                            <pre className="overflow-x-auto max-h-56 p-1.5 scrollbar-thin text-emerald-500 dark:text-emerald-450 text-left m-0 font-medium">
+                            <pre className="overflow-x-auto max-h-56 p-1.5 scrollbar-thin text-success text-left m-0 font-medium">
                               {JSON.stringify(evt.payload, null, 2)}
                             </pre>
                           </div>
@@ -222,7 +222,7 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
 
               {filteredEvents.length === 0 && (
                 <tr className="text-left">
-                  <td colSpan={5} className="py-12 text-center text-slate-455 dark:text-slate-500 text-left">
+                  <td colSpan={5} className="py-12 text-center text-muted-foreground text-left">
                     <AlertCircle size={24} className="mx-auto text-slate-350 mb-2 animate-bounce" />
                     <span className="text-xs font-bold leading-none">No events logged matching filter queries</span>
                   </td>
@@ -234,8 +234,8 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
 
         {/* Pagination footer */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-dark-border/40 text-[10px] font-bold uppercase tracking-wider text-slate-455 dark:text-slate-500 font-sans leading-none select-none">
-            <span className="text-slate-450 normal-case font-medium">
+          <div className="flex items-center justify-between pt-2 border-t border-border/40 text-[10px] font-bold uppercase tracking-wider text-muted-foreground font-sans leading-none select-none">
+            <span className="text-muted-foreground normal-case font-medium">
               Showing {(currentPage - 1) * pageSize + 1} - {Math.min(currentPage * pageSize, filteredEvents.length)} of {filteredEvents.length} logs
             </span>
 
@@ -243,7 +243,7 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
               <button
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className="px-2.5 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-805 hover:border-brand-500/35 hover:bg-brand-500/5 rounded-xl text-slate-550 dark:text-slate-400 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none transition-all font-bold select-none leading-none"
+                className="px-2.5 py-1 bg-card border border-slate-200 dark:border-slate-805 hover:border-brand-500/35 hover:bg-brand-500/5 rounded-xl text-slate-550 dark:text-slate-400 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none transition-all font-bold select-none leading-none"
               >
                 Previous
               </button>
@@ -253,7 +253,7 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
               <button
                 onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                 disabled={currentPage === totalPages}
-                className="px-2.5 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-805 hover:border-brand-500/35 hover:bg-brand-500/5 rounded-xl text-slate-550 dark:text-slate-400 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none transition-all font-bold select-none leading-none"
+                className="px-2.5 py-1 bg-card border border-slate-200 dark:border-slate-805 hover:border-brand-500/35 hover:bg-brand-500/5 rounded-xl text-slate-550 dark:text-slate-400 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none transition-all font-bold select-none leading-none"
               >
                 Next
               </button>

@@ -18,7 +18,7 @@ export function Loader({ className, fullScreen = false, label }: LoaderProps) {
     >
       <Spinner size={fullScreen ? 'lg' : 'md'} />
       {label && (
-        <span className="text-sm font-medium text-slate-500 dark:text-slate-400 font-display animate-pulse">
+        <span className="text-sm font-medium text-muted-foreground font-display animate-pulse">
           {label}
         </span>
       )}

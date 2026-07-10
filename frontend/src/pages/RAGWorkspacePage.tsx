@@ -268,18 +268,18 @@ export default function RAGWorkspacePage() {
   return (
     <div className="space-y-6 text-left animate-fade-in font-sans focus:outline-none">
       {/* Page Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 rounded-2xl border border-slate-205 dark:border-slate-855 shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-card/70 backdrop-blur-md p-5 rounded-2xl border border-border shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
         <div className="space-y-1.5 text-left">
-          <h1 className="text-xl md:text-2xl font-black font-display text-slate-900 dark:text-white m-0 tracking-tight leading-none">
+          <h1 className="text-xl md:text-2xl font-black font-display text-foreground m-0 tracking-tight leading-none">
             RAG Semantic Workspace
           </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-sans leading-relaxed m-0 font-medium">
+          <p className="text-xs text-muted-foreground font-sans leading-relaxed m-0 font-medium">
             Perform natural language queries against uploaded documents to synthesize career insights.
           </p>
         </div>
 
         {/* Database operational status indicator */}
-        <div className="flex items-center gap-2.5 bg-slate-50/50 dark:bg-slate-900/40 backdrop-blur-xs border border-slate-205 dark:border-slate-800/80 px-3.5 py-1.5 rounded-xl text-xs font-semibold select-none leading-none">
+        <div className="flex items-center gap-2.5 bg-slate-50/50 dark:bg-slate-900/40 backdrop-blur-xs border border-border/80 px-3.5 py-1.5 rounded-xl text-xs font-semibold select-none leading-none">
           <Database size={14} className="text-slate-450" />
           <div className="flex items-center gap-1.5">
             <span className="text-slate-400 dark:text-slate-500 font-sans">KB Vector DB:</span>
@@ -305,28 +305,28 @@ export default function RAGWorkspacePage() {
           value={collections.length}
           description="Active semantic workspaces"
           icon={FolderOpen}
-          className="border-slate-205 dark:border-slate-855"
+          className="border-border"
         />
         <StatisticCard
           title="Indexed Chunks"
           value={totalChunksCount}
           description="Parsed vector embeddings"
           icon={Layers}
-          className="border-slate-205 dark:border-slate-855"
+          className="border-border"
         />
         <StatisticCard
           title="Retrieval Engine"
           value={health?.status === 'healthy' ? 'Online' : 'Syncing'}
           description="ChromaDB service status"
           icon={Database}
-          className="border-slate-205 dark:border-slate-855"
+          className="border-border"
         />
         <StatisticCard
           title="Response Agent"
           value={health?.ollama?.model ? health.ollama.model.split(':')[0] : 'Llama 3'}
           description="Ollama generation model"
           icon={Sparkles}
-          className="border-slate-205 dark:border-slate-855"
+          className="border-border"
         />
       </div>
 
@@ -335,9 +335,9 @@ export default function RAGWorkspacePage() {
         {/* Left Side: Document management, Query builder, filters, history */}
         <div className="lg:col-span-1 space-y-6">
           {/* Document Uploader */}
-          <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
-            <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-800/60 text-left">
-              <CardTitle className="text-sm font-black font-display text-slate-900 dark:text-white flex items-center gap-2 m-0 leading-none">
+          <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
+            <CardHeader className="pb-4 border-b border-border/60 text-left">
+              <CardTitle className="text-sm font-black font-display text-foreground flex items-center gap-2 m-0 leading-none">
                 <Upload className="text-brand-500 h-4 w-4" />
                 <span>Knowledge Ingestion</span>
               </CardTitle>
@@ -360,14 +360,14 @@ export default function RAGWorkspacePage() {
                     <span className="font-semibold text-slate-700 dark:text-slate-355 text-xs mt-1">
                       {uploadFile ? uploadFile.name : 'Select PDF or Plain Text'}
                     </span>
-                    <span className="text-[9px] font-black uppercase tracking-widest text-slate-450 dark:text-slate-500">Maximum size 5 MB</span>
+                    <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Maximum size 5 MB</span>
                   </div>
                 </div>
 
                 {/* Target collection dropdown */}
                 <div className="space-y-1.5 text-left">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest block font-display leading-none">Target Collection</label>
+                    <label className="text-[10px] font-black text-muted-foreground uppercase tracking-widest block font-display leading-none">Target Collection</label>
                     <button
                       type="button"
                       onClick={() => setShowNewCollectionForm(!showNewCollectionForm)}
@@ -384,7 +384,7 @@ export default function RAGWorkspacePage() {
                         placeholder="New collection name..."
                         value={newCollectionName}
                         onChange={(e) => setNewCollectionName(e.target.value)}
-                        className="flex-1 text-xs py-2 px-3 border border-slate-250 dark:border-slate-800 rounded-xl bg-white dark:bg-slate-900/50 text-slate-900 dark:text-slate-100 placeholder-slate-405 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans font-medium transition-colors shadow-2xs"
+                        className="flex-1 text-xs py-2 px-3 border border-border rounded-xl bg-card/50 text-slate-900 dark:text-slate-100 placeholder-slate-405 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans font-medium transition-colors shadow-2xs"
                       />
                       <Button
                         type="button"
@@ -413,7 +413,7 @@ export default function RAGWorkspacePage() {
 
                 <Button
                   type="submit"
-                  className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs w-full h-10"
+                  className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs w-full h-10"
                   disabled={isUploading || !uploadFile}
                 >
                   {isUploading ? (
@@ -457,7 +457,7 @@ export default function RAGWorkspacePage() {
           />
 
           {/* Workspace Tabs */}
-          <div className="border-b border-slate-200/60 dark:border-slate-855 flex gap-1">
+          <div className="border-b border-border/60 flex gap-1">
             {[
               { id: 'answer', label: 'AI Answer', icon: Sparkles },
               { id: 'explorer', label: 'Explorer', icon: FolderOpen },
@@ -506,7 +506,7 @@ export default function RAGWorkspacePage() {
 
             {activeSearchTab === 'explorer' && (
               <div className="space-y-4">
-                <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none flex items-center gap-2 pl-1 text-left">
+                <h3 className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none flex items-center gap-2 pl-1 text-left">
                   <Layers size={14} className="text-brand-500" />
                   <span>Retrieved Knowledge Chunks ({retrievedChunks.length})</span>
                 </h3>

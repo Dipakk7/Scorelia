@@ -47,14 +47,14 @@ export default function ResumeCard({
   return (
     <div
       className={cn(
-        'group relative flex flex-col justify-between p-5 border border-slate-200/60 dark:border-slate-850 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-[0_4px_25px_rgba(0,0,0,0.015)] dark:shadow-none hover:border-brand-500/30 dark:hover:border-brand-500/20 hover:bg-white dark:hover:bg-slate-900/60 hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] dark:hover:shadow-none transition-all duration-300',
+        'group relative flex flex-col justify-between p-5 border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-[0_4px_25px_rgba(0,0,0,0.015)] dark:shadow-none hover:border-brand-500/30 dark:hover:border-brand-500/20 hover:bg-white dark:hover:bg-slate-900/60 hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] dark:hover:shadow-none transition-all duration-300',
         className
       )}
     >
       <div className="space-y-4">
         {/* Card Header */}
         <div className="flex items-start justify-between gap-2">
-          <div className="p-2.5 bg-slate-50 dark:bg-slate-850 rounded-xl text-slate-400 dark:text-slate-550 border border-slate-100 dark:border-slate-800/80 group-hover:scale-105 group-hover:bg-brand-500/5 group-hover:text-brand-500 group-hover:border-brand-500/10 transition-all duration-300 shadow-xs">
+          <div className="p-2.5 bg-slate-50 dark:bg-slate-850 rounded-xl text-slate-400 dark:text-slate-550 border border-border/80 group-hover:scale-105 group-hover:bg-brand-500/5 group-hover:text-brand-500 group-hover:border-brand-500/10 transition-all duration-300 shadow-xs">
             <FileText size={20} className="stroke-[1.75]" />
           </div>
           <div className="flex flex-col items-end gap-1.5">
@@ -72,14 +72,14 @@ export default function ResumeCard({
         {/* Content */}
         <div className="space-y-1.5 text-left">
           <h4
-            className="font-bold text-sm text-slate-900 dark:text-slate-100 line-clamp-1 group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors duration-200 cursor-pointer"
+            className="font-bold text-sm text-foreground line-clamp-1 group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors duration-200 cursor-pointer"
             onClick={() => onView && onView(resume.id)}
             title={resume.original_filename}
           >
             {resume.original_filename}
           </h4>
           <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 font-sans">
-            <span className="text-slate-500 dark:text-slate-400">{resume.file_type}</span>
+            <span className="text-muted-foreground">{resume.file_type}</span>
             <span className="w-1 h-1 bg-slate-350 dark:bg-slate-700 rounded-full" />
             <span>{formatFileSize(resume.file_size)}</span>
           </div>
@@ -87,8 +87,8 @@ export default function ResumeCard({
       </div>
 
       {/* Footer Info */}
-      <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between">
-        <span className="text-[10px] font-medium text-slate-450 dark:text-slate-500 font-sans">
+      <div className="mt-5 pt-3 border-t border-border/60 flex items-center justify-between">
+        <span className="text-[10px] font-medium text-muted-foreground font-sans">
           {new Date(resume.uploaded_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
         </span>
 
@@ -124,7 +124,7 @@ export default function ResumeCard({
           {onAnalyze && resume.status.toLowerCase() === 'parsed' && (
             <button
               onClick={() => onAnalyze(resume.id)}
-              className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-850 rounded-lg cursor-pointer transition-colors"
+              className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-primary dark:hover:text-brand-400 hover:bg-slate-50 dark:hover:bg-slate-850 rounded-lg cursor-pointer transition-colors"
               title="Start ATS Analysis"
             >
               <RefreshCw size={13} />

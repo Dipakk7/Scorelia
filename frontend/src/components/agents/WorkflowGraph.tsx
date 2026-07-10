@@ -24,12 +24,12 @@ export const WorkflowGraph: React.FC<WorkflowGraphProps> = ({
   className,
 }) => {
   return (
-    <Card className={cn('border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs', className)}>
-      <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-800/60 text-left">
+    <Card className={cn('border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs', className)}>
+      <CardHeader className="pb-4 border-b border-border/60 text-left">
         <div className="flex items-center justify-between text-left">
           <div className="flex items-center gap-2 text-left">
             <Layers size={18} className="text-brand-500" />
-            <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
+            <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none">
               {workflowName || 'Active Orchestrator Workflow'}
             </CardTitle>
           </div>
@@ -57,28 +57,28 @@ export const WorkflowGraph: React.FC<WorkflowGraphProps> = ({
 
             const config = {
               pending: {
-                border: 'border-slate-250 dark:border-slate-800 border-dashed',
+                border: 'border-border border-dashed',
                 bg: 'bg-slate-50/20 dark:bg-slate-900/35',
                 text: 'text-slate-400 dark:text-slate-550',
                 icon: <div className="h-2 w-2 rounded-full bg-slate-400 dark:bg-slate-655 animate-pulse" />,
               },
               running: {
-                border: 'border-amber-500 ring-2 ring-amber-500/20 animate-pulse',
-                bg: 'bg-amber-50/30 dark:bg-amber-950/20',
-                text: 'text-amber-600 dark:text-amber-450',
-                icon: <Loader2 size={16} className="animate-spin text-amber-500" />,
+                border: 'border-warning ring-2 ring-warning/20 animate-pulse',
+                bg: 'bg-warning/5 dark:bg-warning/10',
+                text: 'text-warning',
+                icon: <Loader2 size={16} className="animate-spin text-warning" />,
               },
               completed: {
-                border: 'border-emerald-500 shadow-2xs border-emerald-500/20',
-                bg: 'bg-emerald-500/10 dark:bg-emerald-950/20',
-                text: 'text-emerald-600 dark:text-emerald-450',
-                icon: <CheckCircle2 size={16} className="text-emerald-500" />,
+                border: 'border-success/20 shadow-2xs border-success/20',
+                bg: 'bg-success/10 dark:bg-success/20',
+                text: 'text-success',
+                icon: <CheckCircle2 size={16} className="text-success" />,
               },
               failed: {
-                border: 'border-rose-500 ring-2 ring-rose-500/20',
-                bg: 'bg-rose-500/10 dark:bg-rose-950/20',
-                text: 'text-rose-650 dark:text-rose-455',
-                icon: <AlertTriangle size={16} className="text-rose-500" />,
+                border: 'border-destructive ring-2 ring-destructive/20',
+                bg: 'bg-destructive/10 dark:bg-destructive/20',
+                text: 'text-destructive',
+                icon: <AlertTriangle size={16} className="text-destructive" />,
               },
             }[status]
 
@@ -99,19 +99,19 @@ export const WorkflowGraph: React.FC<WorkflowGraphProps> = ({
 
                   {/* Labels */}
                   <div className="mt-3 font-sans">
-                    <span className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase font-mono tracking-widest block leading-none">Step {idx + 1}</span>
-                    <span className="font-extrabold text-xs text-slate-805 dark:text-slate-205 block leading-tight mt-1.5 group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors duration-150">
+                    <span className="text-muted-foreground text-[8px] font-black uppercase font-mono tracking-widest block leading-none">Step {idx + 1}</span>
+                    <span className="font-extrabold text-xs text-foreground block leading-tight mt-1.5 group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors duration-150">
                       {step.name}
                     </span>
-                    <span className="text-[9px] text-slate-455 dark:text-slate-500 font-mono block mt-1.5 bg-slate-100/50 dark:bg-slate-800/80 px-2 py-0.5 rounded-lg border border-slate-200/50 dark:border-dark-border/40 truncate max-w-[120px] mx-auto leading-none font-bold">
+                    <span className="text-[9px] text-muted-foreground font-mono block mt-1.5 bg-muted px-2 py-0.5 rounded-lg border border-border/40 truncate max-w-[120px] mx-auto leading-none font-bold">
                       {step.target}
                     </span>
                   </div>
 
                   {/* Error tooltip */}
                   {status === 'failed' && error && (
-                    <div className="absolute top-14 bg-slate-905 dark:bg-slate-950 text-white text-[10px] p-2.5 rounded-xl border border-rose-500 shadow-xl max-w-[200px] z-25 text-left font-sans animate-fade-in font-medium leading-relaxed">
-                      <span className="text-rose-400 font-black uppercase tracking-wider block mb-1">Execution Failed</span>
+                    <div className="absolute top-14 bg-muted text-foreground text-[10px] p-2.5 rounded-xl border border-destructive shadow-xl max-w-[200px] z-25 text-left font-sans animate-fade-in font-medium leading-relaxed">
+                      <span className="text-destructive font-black uppercase tracking-wider block mb-1">Execution Failed</span>
                       {error}
                     </div>
                   )}
@@ -125,10 +125,10 @@ export const WorkflowGraph: React.FC<WorkflowGraphProps> = ({
                       className={cn(
                         'absolute top-[-2px] left-0 h-0.5 transition-all duration-500',
                         activeStepIndex !== null && idx < activeStepIndex
-                          ? 'w-full bg-emerald-500'
+                          ? 'w-full bg-success'
                           : activeStepIndex === idx
-                          ? 'w-1/2 bg-amber-400 animate-pulse'
-                          : 'w-0 bg-slate-200 dark:bg-slate-700'
+                          ? 'w-1/2 bg-warning animate-pulse'
+                          : 'w-0 bg-muted'
                       )}
                     />
                     

@@ -85,8 +85,8 @@ export function JobCard({ jobData, parserVersion = 'v1.0', generatedAt }: JobCar
   }, [raw_text])
 
   return (
-    <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left font-sans">
-      <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-800/60">
+    <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left font-sans">
+      <CardHeader className="pb-4 border-b border-border/60">
         <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
           <div className="space-y-1.5">
             <CardTitle className="text-base flex items-center gap-1.5 font-bold m-0 text-slate-900 dark:text-slate-100">
@@ -129,7 +129,7 @@ export function JobCard({ jobData, parserVersion = 'v1.0', generatedAt }: JobCar
             <span className="text-[9px] text-slate-400 dark:text-slate-500 uppercase tracking-widest font-black block mb-2 leading-none">
               Required Experience
             </span>
-            <div className="text-xs text-slate-655 dark:text-slate-350 leading-relaxed font-sans font-medium">
+            <div className="text-xs text-muted-foreground leading-relaxed font-sans font-medium">
               {experience.length > 0 ? (
                 <ul className="list-disc pl-4 space-y-1 m-0">
                   {experience.map((exp, idx) => <li key={idx}>{exp}</li>)}
@@ -144,7 +144,7 @@ export function JobCard({ jobData, parserVersion = 'v1.0', generatedAt }: JobCar
             <span className="text-[9px] text-slate-400 dark:text-slate-500 uppercase tracking-widest font-black block mb-2 leading-none">
               Required Education
             </span>
-            <div className="text-xs text-slate-655 dark:text-slate-350 leading-relaxed font-sans font-medium">
+            <div className="text-xs text-muted-foreground leading-relaxed font-sans font-medium">
               {education.length > 0 ? (
                 <div className="flex flex-wrap gap-1.5 mt-1">
                   {education.map((edu, idx) => (
@@ -165,7 +165,7 @@ export function JobCard({ jobData, parserVersion = 'v1.0', generatedAt }: JobCar
           <h4 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-200 m-0">Skills Breakdown</h4>
           <div className="space-y-3">
             <div>
-              <span className="text-[9px] text-slate-405 dark:text-slate-500 uppercase tracking-widest font-extrabold block mb-1.5">
+              <span className="text-[9px] text-muted-foreground uppercase tracking-widest font-extrabold block mb-1.5">
                 Required Technical Skills
               </span>
               <div className="flex flex-wrap gap-1.5">
@@ -182,7 +182,7 @@ export function JobCard({ jobData, parserVersion = 'v1.0', generatedAt }: JobCar
             </div>
 
             <div>
-              <span className="text-[9px] text-slate-405 dark:text-slate-500 uppercase tracking-widest font-extrabold block mb-1.5">
+              <span className="text-[9px] text-muted-foreground uppercase tracking-widest font-extrabold block mb-1.5">
                 Preferred/Plus Skills
               </span>
               <div className="flex flex-wrap gap-1.5">
@@ -204,7 +204,7 @@ export function JobCard({ jobData, parserVersion = 'v1.0', generatedAt }: JobCar
         {responsibilities.length > 0 && (
           <div className="space-y-2.5">
             <h4 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-200 m-0">Responsibilities</h4>
-            <ul className="text-xs text-slate-655 dark:text-slate-350 space-y-2 list-disc pl-5 font-sans leading-relaxed m-0 font-medium">
+            <ul className="text-xs text-muted-foreground space-y-2 list-disc pl-5 font-sans leading-relaxed m-0 font-medium">
               {responsibilities.map((resp, idx) => (
                 <li key={idx}>{resp}</li>
               ))}
@@ -219,14 +219,14 @@ export function JobCard({ jobData, parserVersion = 'v1.0', generatedAt }: JobCar
               <Gift size={13} className="text-emerald-500" />
               <span>Benefits & Perks</span>
             </h4>
-            <p className="text-xs text-slate-655 dark:text-slate-350 font-sans leading-relaxed m-0 font-medium">
+            <p className="text-xs text-muted-foreground font-sans leading-relaxed m-0 font-medium">
               {extractedMeta.benefits}
             </p>
           </div>
         )}
 
         {/* Metadata section */}
-        <div className="flex justify-between items-center text-[9px] text-slate-400 dark:text-slate-500 border-t border-slate-100 dark:border-slate-800/60 pt-4 font-bold uppercase tracking-wider">
+        <div className="flex justify-between items-center text-[9px] text-slate-400 dark:text-slate-500 border-t border-border/60 pt-4 font-bold uppercase tracking-wider">
           <div className="flex items-center gap-1 font-mono">
             <Settings size={12} className="text-slate-400" />
             <span>Parser: {parserVersion}</span>

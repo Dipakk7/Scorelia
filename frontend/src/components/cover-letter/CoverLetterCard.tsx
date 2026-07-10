@@ -28,13 +28,13 @@ export default function CoverLetterCard({
   const formattedStyle = coverLetter.writing_style.charAt(0) + coverLetter.writing_style.slice(1).toLowerCase()
 
   return (
-    <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 group flex flex-col justify-between text-left font-sans">
+    <Card className="border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 group flex flex-col justify-between text-left font-sans">
       <CardContent className="p-5 flex flex-col h-full justify-between">
         <div>
           {/* Header */}
           <div className="flex items-start justify-between gap-3 mb-2.5">
             <div className="space-y-1">
-              <h3 className="font-bold text-slate-900 dark:text-white text-sm group-hover:text-brand-500 transition-colors duration-150 line-clamp-1 m-0 leading-tight">
+              <h3 className="font-bold text-foreground text-sm group-hover:text-brand-500 transition-colors duration-150 line-clamp-1 m-0 leading-tight">
                 {coverLetter.job_title}
               </h3>
               <p className="text-xs font-semibold text-slate-500 dark:text-slate-405 line-clamp-1 m-0">
@@ -84,7 +84,7 @@ export default function CoverLetterCard({
               variant="outline"
               size="sm"
               onClick={() => onSelect(coverLetter.id)}
-              className="h-8 px-2.5 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer rounded-lg border-slate-200 dark:border-slate-800 hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent"
+              className="h-8 px-2.5 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer rounded-lg border-border hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent"
             >
               <span>Workspace</span>
               <ExternalLink size={10} />

@@ -65,7 +65,7 @@ export function AvatarUploader({
         <Avatar
           src={preview || undefined}
           fallbackText={fallbackName}
-          className="h-20 w-20 border-2 border-slate-200 dark:border-slate-800 shadow-md"
+          className="h-20 w-20 border-2 border-border shadow-md"
         />
         <button
           type="button"
@@ -83,7 +83,7 @@ export function AvatarUploader({
           <button
             type="button"
             onClick={triggerInput}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-250 dark:border-slate-800 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200 transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-card/50 hover:bg-slate-50 dark:hover:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200 transition-colors cursor-pointer"
           >
             <Upload size={14} />
             <span>Upload Photo</span>
@@ -92,14 +92,14 @@ export function AvatarUploader({
             <button
               type="button"
               onClick={handleRemove}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-red-200 dark:border-red-900/30 bg-white dark:bg-slate-900/50 hover:bg-red-50 dark:hover:bg-red-950/20 text-xs font-semibold text-red-600 dark:text-red-400 transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-red-200 dark:border-red-900/30 bg-card/50 hover:bg-red-50 dark:hover:bg-red-950/20 text-xs font-semibold text-red-600 dark:text-red-400 transition-colors cursor-pointer"
             >
               <Trash2 size={14} />
               <span>Remove</span>
             </button>
           )}
         </div>
-        <p className="text-[10px] text-slate-500 dark:text-slate-400 font-sans mt-1 max-w-[200px]">
+        <p className="text-[10px] text-muted-foreground font-sans mt-1 max-w-[200px]">
           Allowed formats: PNG, JPG, or GIF. Max size of 2MB.
         </p>
       </div>

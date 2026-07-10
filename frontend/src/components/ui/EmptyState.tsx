@@ -67,7 +67,7 @@ export function EmptyState({
       <h3 className="text-base font-bold font-display text-slate-900 dark:text-slate-250 mb-1.5">
         {title}
       </h3>
-      <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mb-5 font-sans leading-relaxed">
+      <p className="text-xs text-muted-foreground max-w-sm mb-5 font-sans leading-relaxed">
         {description}
       </p>
       {actionLabel && onAction && (
@@ -82,7 +82,7 @@ export function EmptyState({
 export function EmptyAnalyticsState({ onAction }: { onAction?: () => void }) {
   return (
     <EmptyState
-      icon={<BarChart2 size={36} className="text-indigo-500" />}
+      icon={<BarChart2 size={36} className="text-primary" />}
       title="No Analytics Data Available"
       description="You haven't run enough resume evaluations or mock interviews to view progress trends. Generate some files to start."
       actionLabel={onAction ? "Upload Resume" : undefined}
@@ -118,7 +118,7 @@ export function EmptyCoverLettersState({ onAction }: { onAction: () => void }) {
 export function EmptyRoadmapsState({ onAction }: { onAction: () => void }) {
   return (
     <EmptyState
-      icon={<Map size={36} className="text-indigo-550" />}
+      icon={<Map size={36} className="text-primary" />}
       title="No Career Plans Maintained"
       description="Initialize your career pivot roadmap. Our system tracks skill gaps and generates weekly milestone pathways."
       actionLabel="Initialize Career Coach"
@@ -142,7 +142,7 @@ export function EmptyRagResultsState({ onAction }: { onAction?: () => void }) {
 export function EmptyAgentHistoryState({ onAction }: { onAction?: () => void }) {
   return (
     <EmptyState
-      icon={<Cpu size={36} className="text-violet-500" />}
+      icon={<Cpu size={36} className="text-brand-500" />}
       title="No Run History"
       description="You haven't run any multi-agent coordinate workflows. Trigger a task payload to monitor results."
       actionLabel={onAction ? "New Task run" : undefined}
@@ -166,7 +166,7 @@ export function EmptyGithubState({ onAction }: { onAction: () => void }) {
 export function EmptyJobsState({ onAction }: { onAction?: () => void }) {
   return (
     <EmptyState
-      icon={<Briefcase size={36} className="text-indigo-500" />}
+      icon={<Briefcase size={36} className="text-primary" />}
       title="No Job Matches Found"
       description="Scorelia can dynamically evaluate match scores based on candidate profiles vs open job requirements."
       actionLabel={onAction ? "Configure Job Target" : undefined}

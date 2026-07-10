@@ -70,7 +70,7 @@ export default function ResumeHistory({ resumeId, onRestoreSuccess }: ResumeHist
 
   if (error) {
     return (
-      <div className="p-5 text-center border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-2xl">
+      <div className="p-5 text-center border border-border bg-card rounded-2xl">
         <p className="text-xs text-red-500 font-sans">
           Failed to load version logs: {(error as any)?.message}
         </p>
@@ -87,15 +87,15 @@ export default function ResumeHistory({ resumeId, onRestoreSuccess }: ResumeHist
     <div className="space-y-6 text-left font-sans">
       <div className="flex items-center gap-2">
         <History className="text-slate-500" size={18} />
-        <h3 className="text-sm font-bold font-display text-slate-800 dark:text-slate-100 m-0">
+        <h3 className="text-sm font-bold font-display text-foreground m-0">
           AI rewrite logs & history
         </h3>
       </div>
 
       {rewrites.length === 0 ? (
-        <div className="p-8 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl text-center">
+        <div className="p-8 border border-dashed border-border rounded-2xl text-center">
           <History className="mx-auto text-slate-350 dark:text-slate-650 mb-2" size={32} />
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-muted-foreground">
             No optimization or rewrite logs found for this resume.
           </p>
           <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1 max-w-xs mx-auto">
@@ -103,36 +103,36 @@ export default function ResumeHistory({ resumeId, onRestoreSuccess }: ResumeHist
           </p>
         </div>
       ) : (
-        <div className="relative border-l border-slate-200 dark:border-slate-800 ml-4 pl-6 space-y-6 py-2">
+        <div className="relative border-l border-border ml-4 pl-6 space-y-6 py-2">
           {rewrites.map((version) => {
             const isRestoring = restoreMutation.isPending && restoreMutation.variables === version.id
 
             return (
               <div key={version.id} className="relative group">
                 {/* Timeline Dot */}
-                <div className="absolute -left-[31px] top-1.5 p-1 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 text-slate-400 dark:text-slate-500 group-hover:border-brand-500 group-hover:text-brand-500 rounded-full transition-colors duration-300">
+                <div className="absolute -left-[31px] top-1.5 p-1 bg-card border-2 border-border text-slate-400 dark:text-slate-500 group-hover:border-brand-500 group-hover:text-brand-500 rounded-full transition-colors duration-300">
                   <Sparkles size={10} />
                 </div>
 
                 {/* Card Container */}
-                <div className="p-4 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-xl shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="p-4 border border-border bg-card rounded-xl shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="space-y-1.5 max-w-md">
                     <div className="flex items-center flex-wrap gap-2">
                       <Badge variant="default" className="text-[10px] uppercase font-semibold">
                         {version.rewrite_mode.replace('_', ' ')}
                       </Badge>
-                      <span className="text-[10px] text-slate-450 dark:text-slate-500 flex items-center gap-1">
+                      <span className="text-[10px] text-muted-foreground flex items-center gap-1">
                         <Calendar size={11} />
                         {new Date(version.created_at).toLocaleString()}
                       </span>
                     </div>
 
-                    <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                    <p className="text-xs font-semibold text-foreground">
                       AI Optimizer Run (Mode: {version.rewrite_mode})
                     </p>
 
                     {version.metadata.job_description && (
-                      <p className="text-[10px] text-slate-500 dark:text-slate-400 font-sans line-clamp-1">
+                      <p className="text-[10px] text-muted-foreground font-sans line-clamp-1">
                         Target Job: {version.metadata.job_description}
                       </p>
                     )}

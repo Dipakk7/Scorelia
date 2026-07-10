@@ -51,14 +51,14 @@ export function ProcessingStatus({
   const hasFailed = Object.values(stages).some((status) => status === 'FAILED') || !!error
 
   return (
-    <Card className="border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-dark-bg/70 backdrop-blur-md shadow-xl overflow-hidden text-left font-sans">
-      <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800">
+    <Card className="border border-border bg-background/70 backdrop-blur-md shadow-xl overflow-hidden text-left font-sans">
+      <CardHeader className="pb-3 border-b border-border">
         <div className="flex justify-between items-center">
           <div>
-            <CardTitle className="text-base font-bold text-slate-800 dark:text-slate-100">
+            <CardTitle className="text-base font-bold text-foreground">
               AI Pipeline Orchestrator
             </CardTitle>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-muted-foreground mt-0.5">
               Executing Parser → Review → Rewrite → Scoring workflow pipeline.
             </p>
           </div>
@@ -79,7 +79,7 @@ export function ProcessingStatus({
           </div>
           <div className="h-2 w-full bg-slate-150 dark:bg-slate-800 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-brand-500 to-indigo-600 dark:from-brand-400 dark:to-indigo-500 transition-all duration-500 ease-out"
+              className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-500 ease-out"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
@@ -95,11 +95,11 @@ export function ProcessingStatus({
               <div className="h-5 w-5 rounded-full border-2 border-slate-300 dark:border-slate-700 shrink-0" />
             )
             let statusClass = 'text-slate-400 dark:text-slate-600'
-            let bgClass = 'border-slate-200 dark:border-slate-800'
+            let bgClass = 'border-border'
 
             if (status === 'SUCCESS') {
               statusIcon = <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
-              statusClass = 'text-slate-800 dark:text-slate-200 font-medium'
+              statusClass = 'text-foreground font-medium'
               bgClass = 'border-emerald-500/30 bg-emerald-500/5 dark:bg-emerald-500/10'
             } else if (status === 'RUNNING') {
               statusIcon = <Loader2 className="h-5 w-5 text-brand-500 animate-spin shrink-0" />

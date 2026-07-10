@@ -117,7 +117,7 @@ export function HeatMap({
     <div className={cn('flex flex-col gap-2.5 p-1 overflow-x-auto w-full select-none scrollbar-thin text-left font-sans text-xs', className)}>
       <div className="flex gap-1.5 min-w-[720px] text-left">
         {/* Days labels */}
-        <div className="flex flex-col justify-between text-[9px] font-black uppercase font-mono tracking-widest text-slate-455 dark:text-slate-500 w-7 h-28 pr-1.5 py-1 leading-none select-none">
+        <div className="flex flex-col justify-between text-[9px] font-black uppercase font-mono tracking-widest text-muted-foreground w-7 h-28 pr-1.5 py-1 leading-none select-none">
           <span>Mon</span>
           <span>Wed</span>
           <span>Fri</span>
@@ -150,7 +150,7 @@ export function HeatMap({
       </div>
 
       {/* Months Legend Footer */}
-      <div className="flex text-[9px] font-black uppercase font-mono tracking-widest text-slate-455 dark:text-slate-500 pl-8.5 justify-between min-w-[720px] max-w-full select-none leading-none">
+      <div className="flex text-[9px] font-black uppercase font-mono tracking-widest text-muted-foreground pl-8.5 justify-between min-w-[720px] max-w-full select-none leading-none">
         {months.map((m) => (
           <span key={m} className="w-12 text-left">
             {m}

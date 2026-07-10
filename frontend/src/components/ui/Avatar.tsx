@@ -25,7 +25,7 @@ export const Avatar = React.forwardRef<
     <AvatarPrimitive.Root
       ref={ref}
       className={cn(
-        'relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800',
+        'relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full border border-border bg-slate-100 dark:bg-slate-800',
         className
       )}
       {...props}

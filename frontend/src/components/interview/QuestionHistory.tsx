@@ -48,17 +48,17 @@ export default function QuestionHistory({ sessions, onSelectSession }: QuestionH
           placeholder="Filter session history by role, company, or type..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="pl-9.5 text-xs bg-slate-55/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 rounded-xl h-10 text-slate-855 dark:text-slate-205 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans shadow-2xs transition-colors"
+          className="pl-9.5 text-xs bg-slate-55/50 dark:bg-slate-900/60 border border-border rounded-xl h-10 text-slate-855 dark:text-slate-205 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans shadow-2xs transition-colors"
         />
       </div>
 
       {/* Session list */}
       <div className="space-y-3.5">
         {filteredSessions.length === 0 ? (
-          <div className="p-8 text-center border border-dashed border-slate-205 dark:border-slate-850 rounded-2xl bg-white/70 dark:bg-slate-900/40 backdrop-blur-md space-y-2.5">
-            <Clock size={20} className="mx-auto text-slate-450 dark:text-slate-500" />
-            <h4 className="font-bold text-slate-900 dark:text-white text-xs m-0 leading-none">No matching sessions</h4>
-            <p className="text-[10px] text-slate-500 dark:text-slate-455 max-w-[220px] mx-auto leading-relaxed m-0 font-medium font-sans">
+          <div className="p-8 text-center border border-dashed border-slate-205 dark:border-slate-850 rounded-2xl bg-card/70 backdrop-blur-md space-y-2.5">
+            <Clock size={20} className="mx-auto text-muted-foreground" />
+            <h4 className="font-bold text-foreground text-xs m-0 leading-none">No matching sessions</h4>
+            <p className="text-[10px] text-muted-foreground max-w-[220px] mx-auto leading-relaxed m-0 font-medium font-sans">
               Either no sessions match your search or you haven't started any drills yet.
             </p>
           </div>
@@ -78,7 +78,7 @@ export default function QuestionHistory({ sessions, onSelectSession }: QuestionH
             return (
               <Card
                 key={session.id}
-                className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left"
+                className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left"
               >
                 <CardContent className="p-0">
                   {/* Summary Bar */}
@@ -88,7 +88,7 @@ export default function QuestionHistory({ sessions, onSelectSession }: QuestionH
                   >
                     <div className="space-y-1.5 text-left">
                       <div className="flex flex-wrap items-center gap-2">
-                        <h4 className="font-bold text-xs text-slate-900 dark:text-white font-display m-0 leading-tight">
+                        <h4 className="font-bold text-xs text-foreground font-display m-0 leading-tight">
                           {session.target_role || 'General Role'}
                         </h4>
                         <span className="text-[10px] text-slate-500 dark:text-slate-405 font-bold">at {session.company_name || 'General Company'}</span>
@@ -137,7 +137,7 @@ export default function QuestionHistory({ sessions, onSelectSession }: QuestionH
                           <Button
                             size="sm"
                             onClick={() => onSelectSession(session.id)}
-                            className="flex items-center gap-1.5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider cursor-pointer border-slate-200 dark:border-slate-800 hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent rounded-lg h-8"
+                            className="flex items-center gap-1.5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider cursor-pointer border-border hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent rounded-lg h-8"
                           >
                             <ShieldCheck size={11} />
                             <span>View Full Report Analytics</span>
@@ -152,7 +152,7 @@ export default function QuestionHistory({ sessions, onSelectSession }: QuestionH
                         </span>
 
                         {session.turns.length === 0 ? (
-                          <p className="text-[10px] text-slate-405 dark:text-slate-500 italic font-medium m-0">No questions were generated for this session.</p>
+                          <p className="text-[10px] text-muted-foreground italic font-medium m-0">No questions were generated for this session.</p>
                         ) : (
                           session.turns.map((turn) => {
                             const isAnswered = !!turn.answer_text

@@ -44,10 +44,10 @@ export default function InterviewQuestionCard({
     : 'General'
 
   return (
-    <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left flex flex-col h-full justify-between font-sans text-xs">
+    <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left flex flex-col h-full justify-between font-sans text-xs">
       <CardContent className="p-6 flex flex-col justify-between h-full space-y-6">
         {/* Header indicator */}
-        <div className="flex items-center justify-between gap-4 pb-3.5 border-b border-slate-100 dark:border-slate-800/60">
+        <div className="flex items-center justify-between gap-4 pb-3.5 border-b border-border/60">
           <div className="flex items-center gap-2">
             <span className="text-[10px] font-black uppercase tracking-widest text-brand-600 dark:text-brand-405 font-sans leading-none">
               Question {currentNumber} of {totalCount}
@@ -66,11 +66,11 @@ export default function InterviewQuestionCard({
 
         {/* Question Text */}
         <div className="space-y-2">
-          <span className="text-[9px] font-black uppercase tracking-widest text-slate-405 dark:text-slate-500 flex items-center gap-1.5 leading-none">
+          <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground flex items-center gap-1.5 leading-none">
             <BookOpen size={12} className="text-slate-400" />
             <span>Active Question Prompt</span>
           </span>
-          <p className="text-sm font-extrabold font-display text-slate-900 dark:text-white leading-relaxed m-0">
+          <p className="text-sm font-extrabold font-display text-foreground leading-relaxed m-0">
             {turn.question_text}
           </p>
         </div>
@@ -78,7 +78,7 @@ export default function InterviewQuestionCard({
         {/* Typing Form */}
         <form onSubmit={handleSubmit} className="space-y-4 flex-1 flex flex-col justify-between m-0">
           <div className="space-y-2 flex-1 flex flex-col">
-            <label htmlFor="response-text" className="block text-[9px] font-black uppercase tracking-widest text-slate-405 dark:text-slate-500 leading-none">
+            <label htmlFor="response-text" className="block text-[9px] font-black uppercase tracking-widest text-muted-foreground leading-none">
               Your Professional Answer
             </label>
             <textarea
@@ -87,16 +87,16 @@ export default function InterviewQuestionCard({
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
               placeholder="Structure your answer clearly. For behavioral questions, consider using the STAR methodology: describe the Situation, specify the Task, describe your Actions, and share the final Results..."
-              className="flex-1 w-full text-xs font-sans leading-relaxed text-slate-805 dark:text-slate-205 bg-slate-55/30 dark:bg-slate-950/20 border border-slate-250 dark:border-slate-850 focus:border-brand-500 focus:outline-none rounded-xl p-4 resize-none min-h-[160px] focus:ring-1 focus:ring-brand-500 transition-colors font-medium"
+              className="flex-1 w-full text-xs font-sans leading-relaxed text-foreground bg-slate-55/30 dark:bg-slate-950/20 border border-slate-250 dark:border-slate-850 focus:border-brand-500 focus:outline-none rounded-xl p-4 resize-none min-h-[160px] focus:ring-1 focus:ring-brand-500 transition-colors font-medium"
             />
             {/* TextArea character metrics */}
             <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-1 pt-0.5">
               <div className="flex items-center gap-3">
                 <span>
-                  Words: <strong className="font-extrabold text-slate-500 dark:text-slate-400">{wordCount}</strong>
+                  Words: <strong className="font-extrabold text-muted-foreground">{wordCount}</strong>
                 </span>
                 <span>
-                  Characters: <strong className="font-extrabold text-slate-500 dark:text-slate-400">{charCount}</strong>
+                  Characters: <strong className="font-extrabold text-muted-foreground">{charCount}</strong>
                 </span>
               </div>
               <span className="italic text-[9px] tracking-normal normal-case font-medium text-slate-405">Recommended: 150+ words for deep evaluation.</span>
@@ -133,7 +133,7 @@ export default function InterviewQuestionCard({
             <Button
               type="submit"
               disabled={isSubmitting || !answer.trim()}
-              className="flex items-center justify-center gap-1.5 px-5 py-2.5 font-bold cursor-pointer bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-9"
+              className="flex items-center justify-center gap-1.5 px-5 py-2.5 font-bold cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-9"
             >
               {isSubmitting ? (
                 <>

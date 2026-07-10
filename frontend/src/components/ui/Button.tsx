@@ -16,10 +16,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const baseStyles = 'inline-flex items-center justify-center font-semibold transition-all duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer active:scale-[0.97]'
     
     const variants = {
-      primary: 'bg-brand-500 text-white shadow-sm hover:bg-brand-600 hover:-translate-y-[1px] hover:shadow-[0_4px_20px_rgba(15,157,154,0.25)] focus-visible:ring-brand-500 active:translate-y-0',
-      secondary: 'bg-slate-100 text-slate-900 hover:bg-slate-200 hover:-translate-y-[1px] dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700/80 focus-visible:ring-slate-500/55 active:translate-y-0',
-      outline: 'border border-slate-200/85 bg-transparent text-slate-700 hover:bg-slate-50 hover:-translate-y-[1px] dark:border-slate-800/85 dark:text-slate-300 dark:hover:bg-slate-900 focus-visible:ring-slate-500/55 active:translate-y-0',
-      ghost: 'text-slate-700 hover:bg-slate-100/80 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-900/80 dark:hover:text-slate-550 focus-visible:ring-slate-500/55 active:scale-[0.98]',
+      primary: 'bg-brand-600 text-white shadow-sm hover:bg-brand-700 hover:-translate-y-[1px] hover:shadow-[0_4px_20px_rgba(12,127,125,0.25)] focus-visible:ring-brand-600 active:translate-y-0',
+      secondary: 'bg-muted text-foreground hover:bg-accent hover:text-accent-foreground hover:-translate-y-[1px] focus-visible:ring-ring active:translate-y-0',
+      outline: 'border border-border bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground hover:-translate-y-[1px] focus-visible:ring-ring active:translate-y-0',
+      ghost: 'text-muted-foreground hover:bg-muted/80 hover:text-foreground focus-visible:ring-ring active:scale-[0.98]',
       danger: 'bg-rose-600 text-white shadow-sm hover:bg-rose-700 hover:-translate-y-[1px] hover:shadow-[0_4px_20px_rgba(225,29,72,0.25)] focus-visible:ring-rose-500 active:translate-y-0',
       link: 'text-brand-500 underline-offset-4 hover:underline bg-transparent p-0 h-auto active:scale-100 focus-visible:ring-brand-500/30',
     }

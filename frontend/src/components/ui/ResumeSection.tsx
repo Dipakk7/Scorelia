@@ -28,7 +28,7 @@ export default function ResumeSection({
   return (
     <div
       className={cn(
-        'border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300',
+        'border border-border bg-card rounded-2xl overflow-hidden shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300',
         className
       )}
     >
@@ -38,11 +38,11 @@ export default function ResumeSection({
         className="p-4 flex items-center justify-between cursor-pointer select-none bg-slate-50/50 dark:bg-slate-900/30 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors"
       >
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-150 dark:border-slate-700 rounded-xl">
+          <div className="p-2 bg-white dark:bg-slate-800 text-muted-foreground border border-slate-150 dark:border-slate-700 rounded-xl">
             {icon}
           </div>
           <div className="flex items-center gap-2">
-            <h3 className="text-sm font-bold font-display text-slate-800 dark:text-slate-100 m-0">
+            <h3 className="text-sm font-bold font-display text-foreground m-0">
               {title}
             </h3>
             {badge && <div className="text-xs font-sans">{badge}</div>}

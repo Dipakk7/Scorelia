@@ -38,7 +38,7 @@ export default function InterviewTimer({
   }, [secondsLeft, onTimeUp])
 
   return (
-    <div className="flex flex-col items-center justify-center p-5 rounded-2xl bg-white/70 dark:bg-slate-900/40 backdrop-blur-md border border-slate-205 dark:border-slate-855 text-center space-y-4 hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 shadow-sm font-sans text-xs">
+    <div className="flex flex-col items-center justify-center p-5 rounded-2xl bg-card/70 backdrop-blur-md border border-border text-center space-y-4 hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 shadow-sm font-sans text-xs">
       {/* Circular Timer Visualization */}
       <div className="relative h-28 w-28 flex items-center justify-center">
         <svg className="absolute inset-0 transform -rotate-90 w-full h-full">
@@ -76,8 +76,8 @@ export default function InterviewTimer({
           <span
             className={cn(
               'text-lg font-black block tabular-nums leading-none',
-              isCritical ? 'text-rose-500 animate-pulse' : 'text-slate-900 dark:text-white',
-              isPaused && 'text-slate-450 dark:text-slate-500'
+              isCritical ? 'text-rose-500 animate-pulse' : 'text-foreground',
+              isPaused && 'text-muted-foreground'
             )}
           >
             {formattedTime}
@@ -102,7 +102,7 @@ export default function InterviewTimer({
           size="sm"
           onClick={onPauseToggle}
           className={cn(
-            'w-full h-8 text-[9px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer rounded-lg border-slate-200 dark:border-slate-800 transition-all bg-transparent',
+            'w-full h-8 text-[9px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer rounded-lg border-border transition-all bg-transparent',
             isPaused
               ? 'text-emerald-600 dark:text-emerald-450 hover:bg-emerald-500/5 hover:border-emerald-500/20'
               : 'text-slate-600 dark:text-slate-400 hover:border-brand-500/30 hover:bg-brand-500/5'

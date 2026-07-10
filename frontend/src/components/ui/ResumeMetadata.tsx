@@ -102,9 +102,9 @@ export default function ResumeMetadata({ parsedData, fileSize }: ResumeMetadataP
       {/* Overview Grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {/* Confidence Meter Card */}
-        <div className="md:col-span-2 p-5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-2xl flex flex-col justify-between">
+        <div className="md:col-span-2 p-5 border border-border bg-card rounded-2xl flex flex-col justify-between">
           <div className="flex items-center justify-between mb-2">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
               Extraction Confidence
             </h4>
             <Badge
@@ -149,7 +149,7 @@ export default function ResumeMetadata({ parsedData, fileSize }: ResumeMetadataP
               <p className="text-xs font-semibold text-slate-700 dark:text-slate-350">
                 Confidence Assessment
               </p>
-              <p className="text-[11px] leading-relaxed text-slate-450 dark:text-slate-500">
+              <p className="text-[11px] leading-relaxed text-muted-foreground">
                 Based on parsing heuristic matches, section boundary identification, and text spelling
                 integrity checks.
               </p>
@@ -158,30 +158,30 @@ export default function ResumeMetadata({ parsedData, fileSize }: ResumeMetadataP
         </div>
 
         {/* File statistics card */}
-        <div className="p-5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-2xl flex flex-col justify-between">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-left">
+        <div className="p-5 border border-border bg-card rounded-2xl flex flex-col justify-between">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground text-left">
             Document Stats
           </h4>
           <div className="space-y-2.5 py-2 text-left">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1">
+              <span className="text-muted-foreground flex items-center gap-1">
                 <Layout size={13} /> Pages
               </span>
-              <span className="font-semibold text-slate-800 dark:text-slate-200">
+              <span className="font-semibold text-foreground">
                 {statistics.page_count}
               </span>
             </div>
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1">
+              <span className="text-muted-foreground flex items-center gap-1">
                 <BookOpen size={13} /> Words
               </span>
-              <span className="font-semibold text-slate-800 dark:text-slate-200">{approxWords}</span>
+              <span className="font-semibold text-foreground">{approxWords}</span>
             </div>
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1">
+              <span className="text-muted-foreground flex items-center gap-1">
                 <PieChart size={13} /> Size
               </span>
-              <span className="font-semibold text-slate-800 dark:text-slate-200">
+              <span className="font-semibold text-foreground">
                 {formatBytes(fileSize)}
               </span>
             </div>
@@ -189,32 +189,32 @@ export default function ResumeMetadata({ parsedData, fileSize }: ResumeMetadataP
         </div>
 
         {/* Parser stats card */}
-        <div className="p-5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-2xl flex flex-col justify-between">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-left">
+        <div className="p-5 border border-border bg-card rounded-2xl flex flex-col justify-between">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground text-left">
             Analysis Stats
           </h4>
           <div className="space-y-2.5 py-2 text-left">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1">
+              <span className="text-muted-foreground flex items-center gap-1">
                 <Clock size={13} /> Latency
               </span>
-              <span className="font-semibold text-slate-800 dark:text-slate-200">
+              <span className="font-semibold text-foreground">
                 {statistics.processing_time_ms} ms
               </span>
             </div>
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1">
+              <span className="text-muted-foreground flex items-center gap-1">
                 <HelpCircle size={13} /> Missing Sec.
               </span>
-              <span className="font-semibold text-slate-800 dark:text-slate-200">
+              <span className="font-semibold text-foreground">
                 {missingSections.length}
               </span>
             </div>
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1">
+              <span className="text-muted-foreground flex items-center gap-1">
                 <FileText size={13} /> Model
               </span>
-              <span className="font-semibold text-slate-800 dark:text-slate-200 uppercase truncate max-w-[80px]">
+              <span className="font-semibold text-foreground uppercase truncate max-w-[80px]">
                 {parsedData.model.replace('_', ' ')}
               </span>
             </div>
@@ -225,8 +225,8 @@ export default function ResumeMetadata({ parsedData, fileSize }: ResumeMetadataP
       {/* Warnings & Completions Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Warnings Card */}
-        <div className="p-5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-2xl text-left space-y-4">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+        <div className="p-5 border border-border bg-card rounded-2xl text-left space-y-4">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
             <AlertTriangle className="text-amber-500" size={14} />
             <span>Parser Warning Flags ({warnings.length})</span>
           </h4>
@@ -252,8 +252,8 @@ export default function ResumeMetadata({ parsedData, fileSize }: ResumeMetadataP
         </div>
 
         {/* Complete Checklist Card */}
-        <div className="p-5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-2xl text-left space-y-4">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        <div className="p-5 border border-border bg-card rounded-2xl text-left space-y-4">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
             Section completeness check
           </h4>
 

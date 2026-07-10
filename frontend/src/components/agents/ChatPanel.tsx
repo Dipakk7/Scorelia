@@ -59,9 +59,9 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
   ]
 
   return (
-    <div className={cn('flex flex-col h-[calc(100vh-160px)] bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-205 dark:border-slate-855 overflow-hidden shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left', className)}>
+    <div className={cn('flex flex-col h-[calc(100vh-160px)] bg-card/70 backdrop-blur-md rounded-2xl border border-border overflow-hidden shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left', className)}>
       {/* Search Header Panel */}
-      <div className="px-5 py-3 border-b border-slate-100 dark:border-slate-800/60 flex items-center justify-between gap-4 bg-white/50 dark:bg-slate-900/30 backdrop-blur-xs text-left">
+      <div className="px-5 py-3 border-b border-border/60 flex items-center justify-between gap-4 bg-card/50 dark:bg-slate-900/30 backdrop-blur-xs text-left">
         <span className="text-xs font-black text-slate-700 dark:text-slate-200 font-display flex items-center gap-1.5 leading-none select-none">
           <Sparkles size={14} className="text-brand-500" />
           <span>Interactive Orchestrator Chat</span>
@@ -75,7 +75,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
             placeholder="Search chat transcript..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 border border-slate-250 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 rounded-xl text-[10px] font-sans text-slate-700 dark:text-slate-250 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/20 transition-all duration-150 shadow-2xs h-8 font-medium"
+            className="w-full pl-9 pr-3 py-1.5 border border-border bg-white/70 dark:bg-slate-900/50 rounded-xl text-[10px] font-sans text-muted-foreground focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/20 transition-all duration-150 shadow-2xs h-8 font-medium"
           />
         </div>
       </div>
@@ -92,7 +92,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
 
         {/* Loading state bubble */}
         {isSubmitting && (
-          <div className="flex gap-4 p-5 rounded-2xl border border-slate-205 dark:border-slate-850 bg-white/50 dark:bg-slate-900/30 backdrop-blur-xs shadow-xs items-center select-none font-sans text-xs text-left">
+          <div className="flex gap-4 p-5 rounded-2xl border border-slate-205 dark:border-slate-850 bg-card/50 dark:bg-slate-900/30 backdrop-blur-xs shadow-xs items-center select-none font-sans text-xs text-left">
             <div className="h-9 w-9 rounded-xl flex items-center justify-center flex-shrink-0 bg-brand-500 text-white shadow-md">
               <RefreshCw size={16} className="animate-spin" />
             </div>
@@ -100,7 +100,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
               <span className="font-bold text-slate-800 dark:text-slate-350">
                 Orchestrator Executing Task...
               </span>
-              <span className="text-[10px] text-slate-455 dark:text-slate-500 font-mono animate-pulse">
+              <span className="text-[10px] text-muted-foreground font-mono animate-pulse">
                 Parsing variables, analyzing user intent, routing sub-agents...
               </span>
             </div>
@@ -117,7 +117,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
             <h4 className="font-black text-slate-800 dark:text-slate-205 text-sm font-display m-0 leading-none">
               Orchestrate AI Agent Workflows
             </h4>
-            <p className="text-xs text-slate-455 dark:text-slate-500 max-w-sm mt-2 leading-relaxed font-sans font-medium">
+            <p className="text-xs text-muted-foreground max-w-sm mt-2 leading-relaxed font-sans font-medium">
               Enter a task description to dispatch commands autonomously to ATS, Resume, Job Match, Interview Prep, Cover Letter, Career Coach, and Learning agents.
             </p>
 
@@ -127,7 +127,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                 <button
                   key={i}
                   onClick={() => onSendMessage(prompt)}
-                  className="p-3 text-[10px] leading-relaxed font-semibold bg-white/60 dark:bg-slate-900/40 hover:bg-slate-100/20 dark:hover:bg-slate-950/30 border border-slate-205 dark:border-slate-850 hover:border-brand-500/30 rounded-xl transition-all duration-150 cursor-pointer shadow-2xs focus:outline-none text-slate-655 dark:text-slate-400 dark:hover:text-slate-200 text-left h-full"
+                  className="p-3 text-[10px] leading-relaxed font-semibold bg-card/60 dark:bg-slate-900/40 hover:bg-slate-100/20 dark:hover:bg-slate-950/30 border border-slate-205 dark:border-slate-850 hover:border-brand-500/30 rounded-xl transition-all duration-150 cursor-pointer shadow-2xs focus:outline-none text-slate-655 dark:text-slate-400 dark:hover:text-slate-200 text-left h-full"
                 >
                   {prompt}
                 </button>
@@ -140,7 +140,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
       </div>
 
       {/* Message input footer */}
-      <div className="p-4 bg-white/50 dark:bg-slate-900/30 backdrop-blur-xs border-t border-slate-100 dark:border-slate-800/65 select-none">
+      <div className="p-4 bg-card/50 dark:bg-slate-900/30 backdrop-blur-xs border-t border-border/65 select-none">
         <form onSubmit={handleSend} className="relative flex items-center m-0">
           <input
             type="text"
@@ -148,7 +148,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={isSubmitting}
-            className="w-full pl-4 pr-12 py-3 bg-white/70 dark:bg-slate-950 border border-slate-250 dark:border-slate-800 rounded-xl text-xs font-sans placeholder-slate-405 text-slate-750 dark:text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/25 transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed shadow-2xs h-11 font-medium"
+            className="w-full pl-4 pr-12 py-3 bg-white/70 dark:bg-slate-950 border border-border rounded-xl text-xs font-sans placeholder-slate-405 text-slate-750 dark:text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/25 transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed shadow-2xs h-11 font-medium"
           />
 
           <button
@@ -166,7 +166,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
           </button>
         </form>
 
-        <div className="flex items-center gap-1.5 justify-end mt-2 text-[9px] font-black uppercase tracking-wider text-slate-455 dark:text-slate-500 font-sans select-none leading-none">
+        <div className="flex items-center gap-1.5 justify-end mt-2 text-[9px] font-black uppercase tracking-wider text-muted-foreground font-sans select-none leading-none">
           <CornerDownLeft size={10} className="text-slate-400" />
           <span>Press Enter to dispatch execution request</span>
         </div>

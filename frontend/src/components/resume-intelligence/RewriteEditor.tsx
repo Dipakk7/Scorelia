@@ -112,15 +112,15 @@ export function RewriteEditor({
 
   return (
     <div className="space-y-4 text-left font-sans">
-      <Card className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-dark-bg shadow-lg overflow-hidden">
+      <Card className="border border-border bg-background shadow-lg overflow-hidden">
         {/* Editor Header / Toolbars */}
-        <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-850 bg-slate-50/50 dark:bg-slate-900/10">
+        <CardHeader className="pb-3 border-b border-border bg-muted/50">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
             <div>
-              <CardTitle className="text-sm font-bold text-slate-800 dark:text-slate-100">
+              <CardTitle className="text-sm font-bold text-foreground">
                 Rewrite Draft Evaluation
               </CardTitle>
-              <p className="text-[11px] text-slate-550 mt-0.5">
+              <p className="text-[11px] text-muted-foreground mt-0.5">
                 Mode: <span className="font-bold text-brand-600 dark:text-brand-405">{rewrite.rewrite_mode}</span>
                 {rewrite.metadata?.model && ` | Model: ${rewrite.metadata.model}`}
               </p>
@@ -199,7 +199,7 @@ export function RewriteEditor({
               size="sm"
               onClick={onReject}
               disabled={isRejecting || isPending}
-              className="flex items-center gap-1.5 py-1.5 px-4 text-xs bg-rose-50 hover:bg-rose-100 text-rose-700 dark:bg-rose-950/20 dark:text-rose-455 border-rose-200 dark:border-rose-900 cursor-pointer font-bold"
+              className="flex items-center gap-1.5 py-1.5 px-4 text-xs bg-destructive/10 hover:bg-destructive/20 text-destructive border border-destructive/20 cursor-pointer font-bold"
             >
               <X size={14} />
               <span>Reject & Rollback</span>

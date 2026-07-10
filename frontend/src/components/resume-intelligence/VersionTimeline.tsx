@@ -98,7 +98,7 @@ export function VersionTimeline({
         return {
           icon: <FileText size={14} />,
           bg: 'bg-slate-100 text-slate-655 dark:bg-slate-800 dark:text-slate-400',
-          border: 'border-slate-200 dark:border-slate-800',
+          border: 'border-border',
         }
       case 'review':
         return {
@@ -115,7 +115,7 @@ export function VersionTimeline({
       case 'optimization':
         return {
           icon: <CheckCircle2 size={14} />,
-          bg: 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-400',
+          bg: 'bg-indigo-500/10 text-primary',
           border: 'border-indigo-500/20',
         }
       default:
@@ -138,7 +138,7 @@ export function VersionTimeline({
         </h4>
       </div>
 
-      <div className="relative pl-6 space-y-6 border-l border-slate-200 dark:border-slate-800 ml-4 max-h-[500px] overflow-y-auto pr-1 py-1">
+      <div className="relative pl-6 space-y-6 border-l border-border ml-4 max-h-[500px] overflow-y-auto pr-1 py-1">
         {sortedItems.map((item) => {
           const styles = getTypeStyles(item.type)
           const formattedDate = new Date(item.timestamp).toLocaleString(undefined, {
@@ -157,13 +157,13 @@ export function VersionTimeline({
               </span>
 
               {/* Version content */}
-              <div className="p-4 border border-slate-150/80 dark:border-slate-850 rounded-xl bg-white dark:bg-dark-bg/60 hover:shadow-xs transition-shadow space-y-2">
+              <div className="p-4 border border-border rounded-xl bg-background/60 hover:shadow-xs transition-shadow space-y-2">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 leading-snug">
+                    <h4 className="text-xs font-bold text-foreground leading-snug">
                       {item.title}
                     </h4>
-                    <p className="text-[10px] text-slate-500 mt-0.5">{item.subtitle}</p>
+                    <p className="text-[10px] text-muted-foreground mt-0.5">{item.subtitle}</p>
                   </div>
                   {item.score !== undefined && (
                     <span className="text-[10px] font-extrabold bg-brand-500/10 text-brand-600 dark:text-brand-400 px-2 py-0.5 rounded-full border border-brand-500/20">
@@ -172,7 +172,7 @@ export function VersionTimeline({
                   )}
                 </div>
 
-                <div className="flex justify-between items-center text-[10px] text-slate-400 pt-1">
+                <div className="flex justify-between items-center text-[10px] text-muted-foreground pt-1">
                   <span className="flex items-center gap-1">
                     <Clock size={11} />
                     {formattedDate}
@@ -193,7 +193,7 @@ export function VersionTimeline({
                       <button
                         onClick={() => onRestore(item)}
                         disabled={isRestoring}
-                        className="text-slate-655 dark:text-slate-350 hover:text-brand-600 dark:hover:text-brand-400 flex items-center gap-0.5 font-bold disabled:opacity-40 cursor-pointer"
+                        className="text-muted-foreground hover:text-brand-600 dark:hover:text-brand-400 flex items-center gap-0.5 font-bold disabled:opacity-40 cursor-pointer"
                       >
                         <RotateCcw size={10} />
                         <span>Restore</span>

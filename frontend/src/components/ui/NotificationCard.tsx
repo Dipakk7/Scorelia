@@ -64,17 +64,17 @@ export function NotificationCard({
       {/* Content */}
       <div className="flex-1 space-y-1 min-w-0 pr-16">
         <div className="flex items-center gap-2">
-          <h4 className={cn('text-sm font-bold font-display leading-tight truncate', is_read ? 'text-slate-700 dark:text-slate-300' : 'text-slate-950 dark:text-slate-50')}>
+          <h4 className={cn('text-sm font-bold font-display leading-tight truncate', is_read ? 'text-muted-foreground' : 'text-foreground')}>
             {title}
           </h4>
           {!is_read && (
             <span className="h-2 w-2 rounded-full bg-brand-500 shrink-0" />
           )}
         </div>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-sans leading-relaxed">
+        <p className="text-xs text-muted-foreground font-sans leading-relaxed">
           {message}
         </p>
-        <span className="text-[10px] font-medium text-slate-400 dark:text-slate-500 font-sans block mt-1.5 uppercase tracking-wider">
+        <span className="text-[10px] font-medium text-muted-foreground font-sans block mt-1.5 uppercase tracking-wider">
           {formattedTime}
         </span>
       </div>

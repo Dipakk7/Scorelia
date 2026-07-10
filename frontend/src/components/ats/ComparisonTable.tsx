@@ -23,7 +23,7 @@ export function ComparisonTable({ items }: ComparisonTableProps) {
   }
 
   return (
-    <div className="overflow-x-auto border border-slate-200/60 dark:border-slate-850 rounded-2xl text-left font-sans text-xs bg-white/70 dark:bg-slate-900/40 backdrop-blur-md shadow-sm">
+    <div className="overflow-x-auto border border-border/60 rounded-2xl text-left font-sans text-xs bg-card/70 backdrop-blur-md shadow-sm">
       <table className="min-w-full divide-y divide-slate-200 dark:divide-slate-800/60">
         <thead className="bg-slate-50/20 dark:bg-slate-900/10 font-bold text-slate-700 dark:text-slate-350">
           <tr>
@@ -36,7 +36,7 @@ export function ComparisonTable({ items }: ComparisonTableProps) {
             <th className="px-6 py-3.5 text-left font-black uppercase tracking-wider text-[10px] text-slate-400 dark:text-slate-500">Status</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-100 dark:divide-slate-850/60 bg-white dark:bg-slate-900/10">
+        <tbody className="divide-y divide-slate-100 dark:divide-slate-850/60 bg-card/10">
           {rankedItems.map((item, idx) => {
             const isBestMatch = idx === 0 && rankedItems.length > 1
             return (
@@ -52,7 +52,7 @@ export function ComparisonTable({ items }: ComparisonTableProps) {
                 <td className="px-6 py-4 font-mono font-black text-slate-400 dark:text-slate-550">
                   #{idx + 1}
                 </td>
-                <td className="px-6 py-4 font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                <td className="px-6 py-4 font-extrabold text-foreground flex items-center gap-2">
                   <span>{item.name}</span>
                   {isBestMatch && (
                     <Badge variant="default" className="flex items-center gap-0.5 text-[9px] px-1.5 py-0 font-bold uppercase tracking-wider">
@@ -64,13 +64,13 @@ export function ComparisonTable({ items }: ComparisonTableProps) {
                 <td className="px-6 py-4 font-mono font-black text-brand-600 dark:text-brand-400">
                   {item.overall}%
                 </td>
-                <td className="px-6 py-4 font-mono font-bold text-slate-700 dark:text-slate-300">
+                <td className="px-6 py-4 font-mono font-bold text-muted-foreground">
                   {item.skills}%
                 </td>
-                <td className="px-6 py-4 font-mono font-bold text-slate-700 dark:text-slate-300">
+                <td className="px-6 py-4 font-mono font-bold text-muted-foreground">
                   {item.experience}%
                 </td>
-                <td className="px-6 py-4 font-mono font-bold text-slate-700 dark:text-slate-300">
+                <td className="px-6 py-4 font-mono font-bold text-muted-foreground">
                   {item.education}%
                 </td>
                 <td className="px-6 py-4">

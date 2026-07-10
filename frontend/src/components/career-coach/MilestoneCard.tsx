@@ -60,7 +60,7 @@ export function MilestoneCard({
   }
 
   return (
-    <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs hover:bg-slate-50/20 dark:hover:bg-slate-850/10">
+    <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs hover:bg-slate-50/20 dark:hover:bg-slate-850/10">
       <CardContent className="p-4">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 text-left">
@@ -84,10 +84,10 @@ export function MilestoneCard({
             </button>
             
             <div className="space-y-0.5 text-left">
-              <h4 className="text-xs font-extrabold text-slate-900 dark:text-white font-display m-0 leading-none">
+              <h4 className="text-xs font-extrabold text-foreground font-display m-0 leading-none">
                 {milestone.title}
               </h4>
-              <div className="flex items-center gap-2.5 text-[10px] text-slate-455 dark:text-slate-500 font-sans font-bold leading-none mt-1.5">
+              <div className="flex items-center gap-2.5 text-[10px] text-muted-foreground font-sans font-bold leading-none mt-1.5">
                 <span className="flex items-center gap-1">
                   <Calendar size={11} className="text-slate-400" />
                   {milestone.duration || 'Flexible'}

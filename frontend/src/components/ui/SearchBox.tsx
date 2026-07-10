@@ -29,7 +29,7 @@ export function SearchBox({ value, onChange, onClear, className, placeholder = '
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full h-10 pl-10 pr-9 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-950 dark:text-slate-50 placeholder-slate-400 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all font-sans"
+        className="w-full h-10 pl-10 pr-9 border border-slate-300 dark:border-slate-700 bg-card text-foreground placeholder-muted-foreground rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all font-sans"
         {...props}
       />
       {value && (

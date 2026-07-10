@@ -14,7 +14,7 @@ export function SkillGapCard({ skillGap, isLoading = false }: SkillGapCardProps)
     return (
       <div className="space-y-4 font-sans text-xs">
         {[1, 2, 3].map((n) => (
-          <Card key={n} className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 animate-pulse">
+          <Card key={n} className="border border-border bg-card/70 animate-pulse">
             <CardContent className="h-24 bg-slate-100/50 dark:bg-slate-900/50" />
           </Card>
         ))}
@@ -24,8 +24,8 @@ export function SkillGapCard({ skillGap, isLoading = false }: SkillGapCardProps)
 
   if (!skillGap) {
     return (
-      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 font-sans text-xs">
-        <CardContent className="py-12 text-center text-slate-455 dark:text-slate-500 italic font-medium leading-relaxed">
+      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 font-sans text-xs">
+        <CardContent className="py-12 text-center text-muted-foreground italic font-medium leading-relaxed">
           No skill gap analysis generated yet. Click "Analyze Skill Gaps" to generate.
         </CardContent>
       </Card>
@@ -59,17 +59,17 @@ export function SkillGapCard({ skillGap, isLoading = false }: SkillGapCardProps)
     return (
       <div
         key={idx}
-        className="flex flex-col md:flex-row md:items-start justify-between gap-4 p-4 rounded-2xl border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 shadow-2xs hover:shadow-sm text-left"
+        className="flex flex-col md:flex-row md:items-start justify-between gap-4 p-4 rounded-2xl border border-border bg-card/70 backdrop-blur-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 shadow-2xs hover:shadow-sm text-left"
       >
         <div className="space-y-1.5 max-w-2xl text-left">
           <div className="flex items-center gap-2">
-            <h4 className="text-xs font-extrabold text-slate-900 dark:text-white font-display m-0 leading-none">
+            <h4 className="text-xs font-extrabold text-foreground font-display m-0 leading-none">
               {item.skill}
             </h4>
             {getSeverityBadge(item.gap_severity)}
           </div>
           <p className="text-xs text-slate-655 dark:text-slate-400 leading-relaxed font-sans m-0 font-medium">
-            <strong className="text-slate-700 dark:text-slate-300 font-extrabold">Remediation Strategy:</strong> {item.remediation_action}
+            <strong className="text-muted-foreground font-extrabold">Remediation Strategy:</strong> {item.remediation_action}
           </p>
         </div>
 
@@ -119,8 +119,8 @@ export function SkillGapCard({ skillGap, isLoading = false }: SkillGapCardProps)
       </div>
 
       {sections.length === 0 ? (
-        <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
-          <CardContent className="py-12 text-center text-slate-455 dark:text-slate-500 italic font-medium leading-relaxed">
+        <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+          <CardContent className="py-12 text-center text-muted-foreground italic font-medium leading-relaxed">
             Congratulations! The AI found zero skill gaps for your target role.
           </CardContent>
         </Card>
@@ -128,7 +128,7 @@ export function SkillGapCard({ skillGap, isLoading = false }: SkillGapCardProps)
         <div className="space-y-8">
           {sections.map((sec, i) => (
             <div key={i} className="space-y-3 text-left">
-              <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none flex items-center gap-2 pl-1">
+              <h3 className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none flex items-center gap-2 pl-1">
                 <BookOpen size={14} className="text-brand-500" />
                 <span>{sec.title}</span>
               </h3>

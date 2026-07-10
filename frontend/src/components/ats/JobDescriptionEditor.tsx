@@ -181,7 +181,7 @@ export function JobDescriptionEditor({
           'relative rounded-2xl border transition-all duration-200',
           dragActive
             ? 'border-brand-500 bg-brand-500/5 ring-4 ring-brand-500/10'
-            : 'border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md shadow-2xs'
+            : 'border-border bg-card/70 backdrop-blur-md shadow-2xs'
         )}
         onDragEnter={handleDrag}
         onDragOver={handleDrag}
@@ -192,7 +192,7 @@ export function JobDescriptionEditor({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder="Paste the target job description here, or drag & drop a .txt file..."
-          className="w-full h-64 p-4 text-xs bg-transparent border-0 focus:outline-none focus:ring-0 text-slate-800 dark:text-slate-100 placeholder-slate-455 dark:placeholder-slate-500 resize-none font-sans leading-relaxed"
+          className="w-full h-64 p-4 text-xs bg-transparent border-0 focus:outline-none focus:ring-0 text-foreground placeholder-slate-455 dark:placeholder-slate-500 resize-none font-sans leading-relaxed"
         />
 
         {/* Buttons inside overlay */}
@@ -202,7 +202,7 @@ export function JobDescriptionEditor({
             variant="outline"
             size="sm"
             onClick={handlePasteFromClipboard}
-            className="flex items-center gap-1.5 h-8 text-[10px] px-2.5 bg-slate-50/80 hover:bg-slate-100 dark:bg-slate-900/80 cursor-pointer rounded-lg border-slate-200 dark:border-slate-800"
+            className="flex items-center gap-1.5 h-8 text-[10px] px-2.5 bg-slate-50/80 hover:bg-slate-100 dark:bg-slate-900/80 cursor-pointer rounded-lg border-border"
           >
             <Clipboard size={12} />
             <span>Paste Clipboard</span>
@@ -213,7 +213,7 @@ export function JobDescriptionEditor({
             variant="outline"
             size="sm"
             onClick={triggerFileInput}
-            className="flex items-center gap-1.5 h-8 text-[10px] px-2.5 bg-slate-50/80 hover:bg-slate-100 dark:bg-slate-900/80 cursor-pointer rounded-lg border-slate-200 dark:border-slate-800"
+            className="flex items-center gap-1.5 h-8 text-[10px] px-2.5 bg-slate-50/80 hover:bg-slate-100 dark:bg-slate-900/80 cursor-pointer rounded-lg border-border"
           >
             <Upload size={12} />
             <span>Upload .TXT</span>

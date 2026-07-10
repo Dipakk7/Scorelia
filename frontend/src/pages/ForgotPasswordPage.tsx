@@ -51,7 +51,7 @@ export default function ForgotPasswordPage() {
 
   return (
     <div
-      className="min-h-screen w-screen flex flex-col items-center justify-center p-4 md:p-6 bg-slate-50 dark:bg-dark-bg transition-colors relative overflow-hidden"
+      className="min-h-screen w-screen flex flex-col items-center justify-center p-4 md:p-6 bg-background transition-colors relative overflow-hidden"
       style={{
         backgroundImage: 'radial-gradient(rgba(15, 157, 154, 0.07) 1.5px, transparent 1.5px)',
         backgroundSize: '24px 24px',
@@ -64,10 +64,10 @@ export default function ForgotPasswordPage() {
       <div className="w-full max-w-md z-10">
         {/* Brand Logo header */}
         <div className="flex flex-col items-center mb-8 text-center">
-          <div className="h-16 w-16 bg-white/70 dark:bg-slate-900/50 rounded-2xl flex items-center justify-center border border-slate-200/50 dark:border-slate-800/60 shadow-lg shadow-slate-200/10 dark:shadow-none mb-4 animate-float">
+          <div className="h-16 w-16 bg-background/70 rounded-2xl flex items-center justify-center border border-border/50 shadow-lg shadow-slate-200/10 dark:shadow-none mb-4 animate-float">
             <Logo iconOnly={true} className="h-10 w-10 text-brand-600 dark:text-brand-400" />
           </div>
-          <h1 className="text-3xl font-extrabold font-display tracking-tight text-slate-900 dark:text-white m-0">
+          <h1 className="text-3xl font-extrabold font-display tracking-tight text-foreground m-0">
             Welcome to Scorelia
           </h1>
           <p className="text-xs font-bold uppercase tracking-widest text-brand-600 dark:text-brand-450 mt-2 font-display">
@@ -84,10 +84,10 @@ export default function ForgotPasswordPage() {
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.3 }}
             >
-              <Card className="glass-card shadow-2xl border-slate-200/50 dark:border-slate-800/30 rounded-2xl overflow-hidden">
+              <Card className="glass-card shadow-2xl border-border/30 rounded-2xl overflow-hidden">
                 <CardHeader className="text-center pt-8 pb-3 px-6 md:px-8">
-                  <CardTitle className="text-2xl font-bold font-display text-slate-900 dark:text-white">Reset Password</CardTitle>
-                  <CardDescription className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  <CardTitle className="text-2xl font-bold font-display text-foreground">Reset Password</CardTitle>
+                  <CardDescription className="text-xs text-muted-foreground mt-1">
                     We will send you a recovery link to restore your account access
                   </CardDescription>
                 </CardHeader>
@@ -113,10 +113,10 @@ export default function ForgotPasswordPage() {
                     </Button>
                   </form>
                 </CardContent>
-                <CardFooter className="justify-center border-t border-slate-100 dark:border-slate-800/40 py-5 bg-slate-50/50 dark:bg-slate-950/20">
+                <CardFooter className="justify-center border-t border-border/40 py-5 bg-muted/20">
                   <Link
                     to="/login"
-                    className="flex items-center text-xs font-bold text-slate-650 hover:text-brand-600 dark:text-slate-400 dark:hover:text-brand-400 transition-colors gap-2"
+                    className="flex items-center text-xs font-bold text-muted-foreground hover:text-primary transition-colors gap-2"
                   >
                     <ArrowLeft size={14} />
                     <span>Back to Sign In</span>
@@ -131,13 +131,13 @@ export default function ForgotPasswordPage() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
             >
-              <Card className="glass-card shadow-2xl border-slate-200/50 dark:border-slate-800/30 rounded-2xl overflow-hidden">
+              <Card className="glass-card shadow-2xl border-border/30 rounded-2xl overflow-hidden">
                 <CardContent className="pt-8 px-6 md:px-8 pb-6 text-center flex flex-col items-center">
-                  <CheckCircle2 size={56} className="text-emerald-500 mb-4 animate-bounce" />
+                  <CheckCircle2 size={56} className="text-success mb-4 animate-bounce" />
                   <CardTitle className="text-xl font-bold mb-2">Check Your Email</CardTitle>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mb-6 leading-relaxed font-sans">
+                  <p className="text-xs text-muted-foreground max-w-sm mb-6 leading-relaxed font-sans">
                     We have simulated sending password reset instructions to{' '}
-                    <strong className="text-slate-850 dark:text-slate-200">{submittedEmail}</strong>.
+                    <strong className="text-foreground">{submittedEmail}</strong>.
                   </p>
                   
                   {/* Developers debug simulator helper details */}

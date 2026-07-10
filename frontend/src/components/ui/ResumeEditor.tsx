@@ -344,7 +344,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
   return (
     <div className="space-y-6">
       {/* Editor Controls Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-border">
         <div className="flex items-center gap-2">
           <Button
             variant="ghost"
@@ -356,7 +356,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
             <span>Back</span>
           </Button>
           {isDirty && (
-            <span className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-450 font-sans pl-2 border-l border-slate-200 dark:border-slate-800">
+            <span className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-450 font-sans pl-2 border-l border-border">
               <AlertTriangle size={13} />
               <span>Unsaved changes</span>
             </span>
@@ -407,17 +407,17 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
         </div>
 
         {/* Right Side: Form details */}
-        <div className="lg:col-span-3 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm text-left">
+        <div className="lg:col-span-3 border border-border bg-card p-6 rounded-2xl shadow-sm text-left">
           {/* TAB 1: CONTACT */}
           {activeTab === 'contact' && (
             <div className="space-y-5">
-              <h3 className="text-base font-bold font-display text-slate-800 dark:text-slate-100">
+              <h3 className="text-base font-bold font-display text-foreground">
                 Contact Information
               </h3>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                  <label className="block text-xs font-bold text-muted-foreground mb-1.5 uppercase tracking-wider">
                     Full Name <strong className="text-red-500">*</strong>
                   </label>
                   <Input
@@ -430,7 +430,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                    <label className="block text-xs font-bold text-muted-foreground mb-1.5 uppercase tracking-wider">
                       Email Address
                     </label>
                     <Input
@@ -442,7 +442,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                    <label className="block text-xs font-bold text-muted-foreground mb-1.5 uppercase tracking-wider">
                       Phone Number
                     </label>
                     <Input
@@ -454,14 +454,14 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                  <label className="block text-xs font-bold text-muted-foreground mb-1.5 uppercase tracking-wider">
                     Professional Summary
                   </label>
                   <textarea
                     {...register('summary')}
                     rows={6}
                     placeholder="Write a professional summary statement..."
-                    className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 px-3.5 py-2.5 text-sm font-sans outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:text-slate-150"
+                    className="w-full rounded-xl border border-border bg-slate-50/50 dark:bg-slate-900/50 px-3.5 py-2.5 text-sm font-sans outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:text-slate-150"
                   />
                 </div>
               </div>
@@ -471,7 +471,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
           {/* TAB 2: SKILLS */}
           {activeTab === 'skills' && (
             <div className="space-y-5">
-              <h3 className="text-base font-bold font-display text-slate-800 dark:text-slate-100">
+              <h3 className="text-base font-bold font-display text-foreground">
                 Skills Inventory
               </h3>
 
@@ -502,7 +502,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
                     skillsWatch.map((skill, index) => (
                       <span
                         key={index}
-                        className="inline-flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs font-sans text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"
+                        className="inline-flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs font-sans text-muted-foreground border border-slate-200 dark:border-slate-700"
                       >
                         <span>{skill}</span>
                         <button
@@ -524,7 +524,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
           {activeTab === 'experience' && (
             <div className="space-y-5">
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold font-display text-slate-800 dark:text-slate-100">
+                <h3 className="text-base font-bold font-display text-foreground">
                   Work Experience
                 </h3>
                 <Button
@@ -539,7 +539,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
               </div>
 
               {expFields.length === 0 ? (
-                <div className="p-8 border border-dashed border-slate-200 dark:border-slate-800 rounded-xl text-center">
+                <div className="p-8 border border-dashed border-border rounded-xl text-center">
                   <p className="text-sm text-slate-400 italic">No experience records found.</p>
                 </div>
               ) : (
@@ -560,7 +560,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
+                          <label className="block text-xs font-bold text-muted-foreground mb-1">
                             Job Title <strong className="text-red-500">*</strong>
                           </label>
                           <Input
@@ -572,7 +572,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
                         </div>
 
                         <div>
-                          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
+                          <label className="block text-xs font-bold text-muted-foreground mb-1">
                             Company Name <strong className="text-red-500">*</strong>
                           </label>
                           <Input
@@ -585,7 +585,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
+                        <label className="block text-xs font-bold text-muted-foreground mb-1">
                           Duration & Dates
                         </label>
                         <Input
@@ -596,14 +596,14 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
+                        <label className="block text-xs font-bold text-muted-foreground mb-1">
                           Job Description / Bullet Points
                         </label>
                         <textarea
                           {...register(`experience.${index}.description` as const)}
                           rows={4}
                           placeholder="List duties, metrics achieved, and responsibilities..."
-                          className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 px-3.5 py-2.5 text-sm font-sans outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:text-slate-150"
+                          className="w-full rounded-xl border border-border bg-slate-50/50 dark:bg-slate-900/50 px-3.5 py-2.5 text-sm font-sans outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:text-slate-150"
                         />
                       </div>
                     </div>
@@ -617,7 +617,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
           {activeTab === 'education' && (
             <div className="space-y-5">
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold font-display text-slate-800 dark:text-slate-100">
+                <h3 className="text-base font-bold font-display text-foreground">
                   Education History
                 </h3>
                 <Button
@@ -632,7 +632,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
               </div>
 
               {eduFields.length === 0 ? (
-                <div className="p-8 border border-dashed border-slate-200 dark:border-slate-800 rounded-xl text-center">
+                <div className="p-8 border border-dashed border-border rounded-xl text-center">
                   <p className="text-sm text-slate-400 italic">No education records found.</p>
                 </div>
               ) : (
@@ -653,7 +653,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
+                          <label className="block text-xs font-bold text-muted-foreground mb-1">
                             Degree / Certificate <strong className="text-red-500">*</strong>
                           </label>
                           <Input
@@ -665,7 +665,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
                         </div>
 
                         <div>
-                          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
+                          <label className="block text-xs font-bold text-muted-foreground mb-1">
                             Institution Name <strong className="text-red-500">*</strong>
                           </label>
                           <Input
@@ -678,7 +678,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
+                        <label className="block text-xs font-bold text-muted-foreground mb-1">
                           Graduation Year
                         </label>
                         <Input
@@ -698,7 +698,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
           {activeTab === 'projects' && (
             <div className="space-y-5">
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold font-display text-slate-800 dark:text-slate-100">
+                <h3 className="text-base font-bold font-display text-foreground">
                   Projects History
                 </h3>
                 <Button
@@ -713,7 +713,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
               </div>
 
               {projFields.length === 0 ? (
-                <div className="p-8 border border-dashed border-slate-200 dark:border-slate-800 rounded-xl text-center">
+                <div className="p-8 border border-dashed border-border rounded-xl text-center">
                   <p className="text-sm text-slate-400 italic">No project records found.</p>
                 </div>
               ) : (
@@ -736,7 +736,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
                         </div>
 
                         <div>
-                          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
+                          <label className="block text-xs font-bold text-muted-foreground mb-1">
                             Project Name <strong className="text-red-500">*</strong>
                           </label>
                           <Input
@@ -748,7 +748,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
                         </div>
 
                         <div>
-                          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
+                          <label className="block text-xs font-bold text-muted-foreground mb-1">
                             Project Technologies
                           </label>
                           <Input
@@ -793,14 +793,14 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
                         </div>
 
                         <div>
-                          <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
+                          <label className="block text-xs font-bold text-muted-foreground mb-1">
                             Project Description
                           </label>
                           <textarea
                             {...register(`projects.${index}.description` as const)}
                             rows={3}
                             placeholder="Write a brief overview of the implementation details..."
-                            className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 px-3.5 py-2.5 text-sm font-sans outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:text-slate-150"
+                            className="w-full rounded-xl border border-border bg-slate-50/50 dark:bg-slate-900/50 px-3.5 py-2.5 text-sm font-sans outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:text-slate-150"
                           />
                         </div>
                       </div>
@@ -814,13 +814,13 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
           {/* TAB 6: ADDITIONAL */}
           {activeTab === 'additional' && (
             <div className="space-y-6">
-              <h3 className="text-base font-bold font-display text-slate-800 dark:text-slate-100">
+              <h3 className="text-base font-bold font-display text-foreground">
                 Additional Sections
               </h3>
 
               {/* Links input list */}
               <div className="space-y-3">
-                <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider">
                   Social Links & URLs
                 </label>
                 <div className="flex gap-2">
@@ -862,7 +862,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
 
               {/* Certifications input list */}
               <div className="space-y-3">
-                <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider">
                   Certifications
                 </label>
                 <div className="flex gap-2">
@@ -904,7 +904,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
 
               {/* Achievements input list */}
               <div className="space-y-3">
-                <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider">
                   Achievements & Honors
                 </label>
                 <div className="flex gap-2">
@@ -946,7 +946,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
 
               {/* Languages input list */}
               <div className="space-y-3">
-                <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider">
                   Languages Spoken
                 </label>
                 <div className="flex gap-2">
@@ -993,15 +993,15 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
       {/* Discard Warning Dialog */}
       {showDiscardWarn && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/40 dark:bg-slate-950/60 backdrop-blur-sm">
-          <div className="w-full max-w-sm border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-xl text-center space-y-4 animate-scaleUp">
+          <div className="w-full max-w-sm border border-border bg-card p-6 rounded-2xl shadow-xl text-center space-y-4 animate-scaleUp">
             <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-amber-100 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400">
               <AlertTriangle size={20} />
             </div>
             <div>
-              <h4 className="text-sm font-bold font-display text-slate-900 dark:text-white">
+              <h4 className="text-sm font-bold font-display text-foreground">
                 Unsaved changes detected!
               </h4>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-sans">
+              <p className="text-xs text-muted-foreground mt-1 font-sans">
                 You have modified your resume details. Leaving the editor now will discard all these edits.
               </p>
             </div>
@@ -1019,7 +1019,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
                   setShowDiscardWarn(false)
                   onDiscard()
                 }}
-                className="flex-1 bg-red-650 hover:bg-red-700 text-white"
+                className="flex-1 bg-destructive text-destructive-foreground hover:bg-destructive/90"
               >
                 Discard Edits
               </Button>

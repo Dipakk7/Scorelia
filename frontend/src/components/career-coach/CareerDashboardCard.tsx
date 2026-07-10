@@ -14,8 +14,8 @@ interface CareerDashboardCardProps {
 export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }: CareerDashboardCardProps) {
   if (!analytics) {
     return (
-      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left font-sans text-xs">
-        <CardContent className="py-12 text-center text-sm text-slate-450 dark:text-slate-500 italic font-medium leading-relaxed">
+      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left font-sans text-xs">
+        <CardContent className="py-12 text-center text-sm text-muted-foreground italic font-medium leading-relaxed">
           No analytics data available.
           Generate or select a roadmap to get started.
         </CardContent>
@@ -42,9 +42,9 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-sans text-xs">
       {/* Radial Score Card */}
-      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 md:col-span-1 text-left">
-        <CardHeader className="text-left pb-4 border-b border-slate-100 dark:border-slate-800/60">
-          <CardTitle className="text-sm font-black font-display text-slate-900 dark:text-white flex items-center gap-2 m-0 leading-none">
+      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 md:col-span-1 text-left">
+        <CardHeader className="text-left pb-4 border-b border-border/60">
+          <CardTitle className="text-sm font-black font-display text-foreground flex items-center gap-2 m-0 leading-none">
             <Award className="text-brand-500 h-5 w-5" />
             <span>Career Readiness Score</span>
           </CardTitle>
@@ -86,19 +86,19 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
           </div>
           
           <div className="mt-4 w-full border-t border-slate-100 dark:border-slate-850 pt-4 text-left">
-            <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-405 dark:text-slate-500 mb-2 leading-none">Readiness Breakdown</h4>
-            <div className="space-y-2 text-[10px] text-slate-500 dark:text-slate-400 font-sans">
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2 leading-none">Readiness Breakdown</h4>
+            <div className="space-y-2 text-[10px] text-muted-foreground font-sans">
               <div className="flex justify-between items-center">
-                <span className="font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest text-[9px]">ATS Optimization</span>
-                <span className="font-mono font-black text-slate-900 dark:text-white">{Math.round(readiness?.breakdown?.ats_score ?? 0)}%</span>
+                <span className="font-extrabold text-muted-foreground uppercase tracking-widest text-[9px]">ATS Optimization</span>
+                <span className="font-mono font-black text-foreground">{Math.round(readiness?.breakdown?.ats_score ?? 0)}%</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest text-[9px]">Interview Mastery</span>
-                <span className="font-mono font-black text-slate-900 dark:text-white">{Math.round(readiness?.breakdown?.interview_readiness ?? 0)}%</span>
+                <span className="font-extrabold text-muted-foreground uppercase tracking-widest text-[9px]">Interview Mastery</span>
+                <span className="font-mono font-black text-foreground">{Math.round(readiness?.breakdown?.interview_readiness ?? 0)}%</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest text-[9px]">Skill Coverage</span>
-                <span className="font-mono font-black text-slate-900 dark:text-white">{Math.round(readiness?.breakdown?.skill_gap ?? 0)}%</span>
+                <span className="font-extrabold text-muted-foreground uppercase tracking-widest text-[9px]">Skill Coverage</span>
+                <span className="font-mono font-black text-foreground">{Math.round(readiness?.breakdown?.skill_gap ?? 0)}%</span>
               </div>
             </div>
           </div>
@@ -106,15 +106,15 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
       </Card>
 
       {/* Goal & Progress Card */}
-      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 md:col-span-2 flex flex-col justify-between text-left">
-        <CardHeader className="text-left pb-4 border-b border-slate-100 dark:border-slate-800/60">
+      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 md:col-span-2 flex flex-col justify-between text-left">
+        <CardHeader className="text-left pb-4 border-b border-border/60">
           <div className="flex items-start justify-between gap-4">
             <div className="space-y-1 text-left">
-              <CardTitle className="text-sm font-black font-display text-slate-900 dark:text-white flex items-center gap-2 m-0 leading-none">
+              <CardTitle className="text-sm font-black font-display text-foreground flex items-center gap-2 m-0 leading-none">
                 <Compass className="text-brand-500 h-5 w-5" />
                 <span>Active Career Goal</span>
               </CardTitle>
-              <h3 className="text-lg font-black text-slate-905 dark:text-white mt-3 mb-0.5 leading-none">
+              <h3 className="text-lg font-black text-foreground mt-3 mb-0.5 leading-none">
                 {targetRole}
               </h3>
               <p className="text-[10px] text-slate-500 dark:text-slate-405 leading-relaxed font-sans max-w-sm m-0 font-medium">
@@ -135,42 +135,42 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
               value={completedMilestones}
               description="Tasks accomplished"
               icon={CheckCircle2}
-              className="border-slate-205 dark:border-slate-855 p-3.5"
+              className="border-border p-3.5"
             />
             <StatisticCard
               title="Upcoming Left"
               value={remainingMilestones}
               description="Awaiting completion"
               icon={Circle}
-              className="border-slate-205 dark:border-slate-855 p-3.5"
+              className="border-border p-3.5"
             />
             <StatisticCard
               title="Skills Verified"
               value={skillsCompleted}
               description="Verified in profile"
               icon={GraduationCap}
-              className="border-slate-205 dark:border-slate-855 p-3.5"
+              className="border-border p-3.5"
             />
             <StatisticCard
               title="Skills Active"
               value={skillsInProgress}
               description="Acquisitions active"
               icon={Flame}
-              className="border-slate-205 dark:border-slate-855 p-3.5"
+              className="border-border p-3.5"
             />
           </div>
 
           <div className="space-y-1.5 text-left">
             <div className="flex justify-between text-xs font-semibold text-slate-800 dark:text-slate-350">
               <span className="font-extrabold text-slate-500 dark:text-slate-450 uppercase tracking-widest text-[9px]">Overall Roadmap Completion</span>
-              <span className="font-mono font-black text-slate-905 dark:text-white">{Math.round(completionPercentage)}%</span>
+              <span className="font-mono font-black text-foreground">{Math.round(completionPercentage)}%</span>
             </div>
             <ProgressTracker value={completionPercentage} />
           </div>
 
           {/* Upcoming milestones snapshot */}
           <div className="border-t border-slate-100 dark:border-slate-850 pt-4 text-left">
-            <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-405 dark:text-slate-500 mb-2 leading-none">Upcoming Milestones</h4>
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2 leading-none">Upcoming Milestones</h4>
             {upcomingMilestones.length === 0 ? (
               <p className="text-xs text-slate-400 italic">No upcoming milestones.</p>
             ) : (

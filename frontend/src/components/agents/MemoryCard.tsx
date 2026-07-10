@@ -31,7 +31,7 @@ export const MemoryCard: React.FC<MemoryCardProps> = ({
   }
 
   return (
-    <Card className={cn('border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs', className)}>
+    <Card className={cn('border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs', className)}>
       <CardContent className="p-3.5 flex flex-col gap-2 text-left">
         {/* Key and Controls */}
         <div className="flex items-center justify-between gap-3 text-left">
@@ -81,7 +81,7 @@ export const MemoryCard: React.FC<MemoryCardProps> = ({
             )}
           </div>
         ) : (
-          <div className="p-2 bg-slate-55/40 dark:bg-slate-900/40 rounded-xl text-slate-655 dark:text-slate-350 font-mono text-[10px] break-words border border-slate-200/35 dark:border-slate-850 select-text text-left leading-normal">
+          <div className="p-2 bg-slate-55/40 dark:bg-slate-900/40 rounded-xl text-muted-foreground font-mono text-[10px] break-words border border-slate-200/35 dark:border-slate-850 select-text text-left leading-normal">
             {valueStr}
           </div>
         )}

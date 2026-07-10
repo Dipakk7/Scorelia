@@ -34,7 +34,7 @@ export function ErrorState({
       <h3 className="text-base font-bold font-display text-slate-900 dark:text-slate-200 mb-1.5">
         {title}
       </h3>
-      <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mb-6 font-sans leading-relaxed">
+      <p className="text-xs text-muted-foreground max-w-sm mb-6 font-sans leading-relaxed">
         {message}
       </p>
       {onRetry && (

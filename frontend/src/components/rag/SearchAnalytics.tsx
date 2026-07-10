@@ -15,6 +15,8 @@ import {
   Line
 } from 'recharts'
 import { cn } from '@/lib/utils'
+import { useTheme } from '@/providers/ThemeProvider'
+import { useState, useEffect } from 'react'
 
 interface QueryMetricPoint {
   query: string
@@ -28,40 +30,71 @@ interface SearchAnalyticsProps {
   metrics: QueryMetricPoint[]
 }
 
-function CustomTooltip({ active, payload, label }: any) {
-  if (active && payload && payload.length) {
-    const item = payload[0]?.payload
-    return (
-      <div className="rounded-xl border border-slate-205 dark:border-slate-805 bg-white/95 dark:bg-slate-955/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
-        {item?.query && (
-          <p className="text-[10px] font-black text-slate-805 dark:text-white max-w-[200px] truncate m-0 mb-1 leading-normal">
-            Query: "{item.query}"
-          </p>
-        )}
-        {payload.map((entry: any, index: number) => {
-          const isSec = entry.name?.toLowerCase().includes('latency')
-          const isToken = entry.name?.toLowerCase().includes('tokens')
-          return (
-            <div key={index} className="mt-1.5 flex items-center gap-2 font-semibold">
-              <span className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.stroke || entry.fill || '#0F9D9A' }} />
-              <span className="text-slate-555 dark:text-slate-400">{entry.name}:</span>
-              <span className="text-slate-905 dark:text-white font-mono">
-                {entry.value}{isSec ? 's' : isToken ? ' tk' : ''}
-              </span>
-            </div>
-          )
-        })}
-      </div>
-    )
-  }
-  return null
-}
-
 export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
+  const { theme } = useTheme()
+  const [isDark, setIsDark] = useState(false)
+
+  useEffect(() => {
+    const checkDark = () => {
+      setIsDark(document.documentElement.classList.contains('dark'))
+    }
+    checkDark()
+    const observer = new MutationObserver(checkDark)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    })
+    return () => observer.disconnect()
+  }, [])
+
+  const themeColors = {
+    primary: isDark ? '#5b9ac9' : '#2f6690',
+    success: isDark ? '#3ecf8e' : '#1b9e6f',
+    warning: isDark ? '#e0b845' : '#d99b1f',
+    destructive: 'var(--destructive)',
+    grid: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)',
+    text: 'var(--foreground)',
+    mutedText: 'var(--muted-foreground)',
+  }
+
+  const COLORS = [
+    themeColors.success,
+    themeColors.primary,
+  ]
+
+  function CustomTooltip({ active, payload, label }: any) {
+    if (active && payload && payload.length) {
+      const item = payload[0]?.payload
+      return (
+        <div className="rounded-xl border border-slate-205 dark:border-slate-805 bg-white/95 dark:bg-slate-955/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+          {item?.query && (
+            <p className="text-[10px] font-black text-slate-805 dark:text-white max-w-[200px] truncate m-0 mb-1 leading-normal">
+              Query: "{item.query}"
+            </p>
+          )}
+          {payload.map((entry: any, index: number) => {
+            const isSec = entry.name?.toLowerCase().includes('latency')
+            const isToken = entry.name?.toLowerCase().includes('tokens')
+            return (
+              <div key={index} className="mt-1.5 flex items-center gap-2 font-semibold">
+                <span className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.stroke || entry.fill || themeColors.primary }} />
+                <span className="text-slate-555 dark:text-slate-400">{entry.name}:</span>
+                <span className="text-foreground font-mono">
+                  {entry.value}{isSec ? 's' : isToken ? ' tk' : ''}
+                </span>
+              </div>
+            )
+          })}
+        </div>
+      )
+    }
+    return null
+  }
+
   if (metrics.length === 0) {
     return (
-      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 font-sans text-xs text-left">
-        <CardContent className="py-12 text-center text-slate-455 dark:text-slate-500 italic font-medium leading-relaxed">
+      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 font-sans text-xs text-left">
+        <CardContent className="py-12 text-center text-muted-foreground italic font-medium leading-relaxed">
           No query search analytics records available. Run searches to populate metrics.
         </CardContent>
       </Card>
@@ -82,7 +115,6 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
     { name: 'Cache Hit', value: hitCount },
     { name: 'Cache Miss', value: missCount }
   ]
-  const COLORS = ['#0F9D9A', '#6366f1']
 
   // 3. Tokens breakdown
   const tokenData = metrics.map((m, idx) => ({
@@ -92,35 +124,35 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
   })).filter(m => m.tokens > 0)
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left font-sans text-xs">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left font-sans text-xs bg-transparent">
       {/* Latency Chart */}
-      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left md:col-span-1">
-        <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-800/60 text-left">
-          <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
+      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left md:col-span-1">
+        <CardHeader className="pb-4 border-b border-border/60 text-left">
+          <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none">
             Query Latency
           </CardTitle>
         </CardHeader>
-        <CardContent className="h-44 pt-5">
+        <CardContent className="h-44 pt-5 bg-transparent">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={latencyData}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/20" />
-              <XAxis dataKey="name" stroke="#94a3b8" fontSize={9} tickLine={false} />
-              <YAxis stroke="#94a3b8" fontSize={9} tickLine={false} unit="s" />
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={themeColors.grid} />
+              <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={9} tickLine={false} tick={{ fill: themeColors.mutedText }} />
+              <YAxis stroke={themeColors.mutedText} fontSize={9} tickLine={false} unit="s" tick={{ fill: themeColors.mutedText }} />
               <Tooltip content={<CustomTooltip />} />
-              <Line type="monotone" dataKey="latency" stroke="#0F9D9A" strokeWidth={2} dot={{ r: 3 }} name="Latency" />
+              <Line type="monotone" dataKey="latency" stroke={themeColors.primary} strokeWidth={2} dot={{ r: 3 }} name="Latency" />
             </LineChart>
           </ResponsiveContainer>
         </CardContent>
       </Card>
 
       {/* Cache Status Pie Chart */}
-      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left md:col-span-1">
-        <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-800/60 text-left">
-          <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
+      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left md:col-span-1">
+        <CardHeader className="pb-4 border-b border-border/60 text-left">
+          <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none">
             Cache Efficiency
           </CardTitle>
         </CardHeader>
-        <CardContent className="h-44 pt-5">
+        <CardContent className="h-44 pt-5 bg-transparent">
           {hitCount === 0 && missCount === 0 ? (
             <div className="h-full flex items-center justify-center text-xs text-slate-400 italic font-medium leading-none">Loading...</div>
           ) : (
@@ -140,7 +172,7 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
                   ))}
                 </Pie>
                 <Tooltip content={<CustomTooltip />} />
-                <Legend verticalAlign="bottom" height={24} iconType="circle" wrapperStyle={{ fontSize: '9px' }} />
+                <Legend verticalAlign="bottom" height={24} iconType="circle" wrapperStyle={{ fontSize: '9px', fill: themeColors.mutedText }} />
               </PieChart>
             </ResponsiveContainer>
           )}
@@ -148,25 +180,25 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
       </Card>
 
       {/* Token Distribution */}
-      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left md:col-span-1">
-        <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-800/60 text-left">
-          <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
+      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left md:col-span-1">
+        <CardHeader className="pb-4 border-b border-border/60 text-left">
+          <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none">
             Token Usage
           </CardTitle>
         </CardHeader>
-        <CardContent className="h-44 pt-5">
+        <CardContent className="h-44 pt-5 bg-transparent">
           {tokenData.length === 0 ? (
-            <div className="h-full flex items-center justify-center text-xs text-slate-455 dark:text-slate-500 italic font-medium leading-relaxed">
+            <div className="h-full flex items-center justify-center text-xs text-muted-foreground italic font-medium leading-relaxed">
               Token statistics not available.
             </div>
           ) : (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={tokenData}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/20" />
-                <XAxis dataKey="name" stroke="#94a3b8" fontSize={9} tickLine={false} />
-                <YAxis stroke="#94a3b8" fontSize={9} tickLine={false} />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={themeColors.grid} />
+                <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={9} tickLine={false} tick={{ fill: themeColors.mutedText }} />
+                <YAxis stroke={themeColors.mutedText} fontSize={9} tickLine={false} tick={{ fill: themeColors.mutedText }} />
                 <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="tokens" fill="#0F9D9A" radius={[3, 3, 0, 0]} name="Tokens" maxBarSize={30} />
+                <Bar dataKey="tokens" fill={themeColors.primary} radius={[3, 3, 0, 0]} name="Tokens" maxBarSize={30} />
               </BarChart>
             </ResponsiveContainer>
           )}

@@ -20,7 +20,7 @@ export default function InterviewDashboardCard({ stats, isLoading }: InterviewDa
         {Array(6)
           .fill(0)
           .map((_, i) => (
-            <div key={i} className="h-28 rounded-2xl bg-slate-100/50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800" />
+            <div key={i} className="h-28 rounded-2xl bg-slate-100/50 dark:bg-slate-900/40 border border-border" />
           ))}
       </div>
     )
@@ -83,7 +83,7 @@ export default function InterviewDashboardCard({ stats, isLoading }: InterviewDa
           value={item.value}
           description={item.desc}
           icon={item.icon}
-          className="border-slate-205 dark:border-slate-855"
+          className="border-border"
         />
       ))}
     </div>

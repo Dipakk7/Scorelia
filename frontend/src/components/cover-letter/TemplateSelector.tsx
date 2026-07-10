@@ -50,7 +50,7 @@ const TEMPLATE_OPTIONS: TemplateOption[] = [
     name: 'Career Change',
     description: 'Focuses on transferable skills, adaptable expertise, and your motivation for shifting domains.',
     icon: RefreshCw,
-    tagColor: 'bg-rose-500/10 text-rose-700 dark:text-rose-455 border-rose-500/20',
+    tagColor: 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-500/20',
   },
 ]
 
@@ -63,7 +63,7 @@ interface TemplateSelectorProps {
 export default function TemplateSelector({ selectedId, onChange, disabled }: TemplateSelectorProps) {
   return (
     <div className="space-y-3 font-sans">
-      <label className="block text-[10px] font-black uppercase tracking-widest text-slate-455 dark:text-slate-500 mb-1 leading-none">
+      <label className="block text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1 leading-none">
         Select Letter Style / Template
       </label>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -78,10 +78,10 @@ export default function TemplateSelector({ selectedId, onChange, disabled }: Tem
               disabled={disabled}
               onClick={() => onChange(template.id)}
               className={cn(
-                'group relative text-left p-5 rounded-2xl border transition-all duration-300 cursor-pointer focus:outline-none flex flex-col justify-between h-full bg-white/70 dark:bg-slate-900/40 backdrop-blur-md hover:scale-[1.01]',
+                'group relative text-left p-5 rounded-2xl border transition-all duration-300 cursor-pointer focus:outline-none flex flex-col justify-between h-full bg-card/70 backdrop-blur-md hover:scale-[1.01]',
                 isSelected
                   ? 'border-brand-500 ring-2 ring-brand-500/10 shadow-sm'
-                  : 'border-slate-205 dark:border-slate-855 hover:border-slate-350 dark:hover:border-slate-750 shadow-2xs',
+                  : 'border-border hover:border-slate-350 dark:hover:border-slate-750 shadow-2xs',
                 disabled && 'opacity-65 cursor-not-allowed hover:scale-100'
               )}
             >
@@ -91,7 +91,7 @@ export default function TemplateSelector({ selectedId, onChange, disabled }: Tem
                     'p-3 rounded-xl border flex-shrink-0 transition-all duration-200',
                     isSelected
                       ? 'bg-brand-500 border-brand-500 text-white'
-                      : 'bg-slate-50/50 dark:bg-slate-955/20 border-slate-200/60 dark:border-slate-850 text-slate-500 dark:text-slate-400 group-hover:text-brand-500 dark:group-hover:text-brand-400'
+                      : 'bg-slate-50/50 dark:bg-slate-955/20 border-border/60 text-muted-foreground group-hover:text-brand-500 dark:group-hover:text-brand-400'
                   )}
                 >
                   <Icon size={18} />

@@ -281,9 +281,9 @@ export default function MultiAgentWorkspacePage() {
   return (
     <div className="flex flex-col gap-5 h-[calc(100vh-100px)] overflow-hidden font-sans text-xs text-left">
       {/* Top Console Operations Header Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 rounded-2xl border border-slate-205 dark:border-slate-855 shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 flex-shrink-0">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-card/70 backdrop-blur-md p-5 rounded-2xl border border-border shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 flex-shrink-0">
         <div className="space-y-1.5 text-left">
-          <h1 className="text-xl md:text-2xl font-black font-display text-slate-905 dark:text-white m-0 tracking-tight leading-none">
+          <h1 className="text-xl md:text-2xl font-black font-display text-foreground m-0 tracking-tight leading-none">
             Multi-Agent Operations Console
           </h1>
           <p className="text-xs text-slate-550 dark:text-slate-400 font-sans leading-relaxed m-0 font-medium">
@@ -295,7 +295,7 @@ export default function MultiAgentWorkspacePage() {
         <div className="flex items-center gap-2 select-none">
           <button
             onClick={() => setLeftCollapsed(!leftCollapsed)}
-            className="p-1.5 rounded-xl border border-slate-205 dark:border-slate-800 bg-white/50 hover:bg-slate-100/50 hover:border-brand-500/30 text-slate-405 hover:text-slate-700 cursor-pointer focus:outline-none dark:bg-transparent transition-all flex items-center justify-center"
+            className="p-1.5 rounded-xl border border-border bg-card/50 hover:bg-slate-100/50 hover:border-brand-500/30 text-slate-405 hover:text-slate-700 cursor-pointer focus:outline-none dark:bg-transparent transition-all flex items-center justify-center"
             title={leftCollapsed ? 'Expand registry' : 'Collapse registry'}
           >
             {leftCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
@@ -303,7 +303,7 @@ export default function MultiAgentWorkspacePage() {
           <span className="text-slate-250 dark:text-slate-800">|</span>
           <button
             onClick={() => setRightCollapsed(!rightCollapsed)}
-            className="p-1.5 rounded-xl border border-slate-205 dark:border-slate-800 bg-white/50 hover:bg-slate-100/50 hover:border-brand-500/30 text-slate-405 hover:text-slate-700 cursor-pointer focus:outline-none dark:bg-transparent transition-all flex items-center justify-center"
+            className="p-1.5 rounded-xl border border-border bg-card/50 hover:bg-slate-100/50 hover:border-brand-500/30 text-slate-405 hover:text-slate-700 cursor-pointer focus:outline-none dark:bg-transparent transition-all flex items-center justify-center"
             title={rightCollapsed ? 'Expand tools/logs' : 'Collapse tools/logs'}
           >
             {rightCollapsed ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
@@ -318,28 +318,28 @@ export default function MultiAgentWorkspacePage() {
           value={agents.length}
           description="Orchestrators running online"
           icon={Cpu}
-          className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40"
+          className="border border-border bg-card/70"
         />
         <StatisticCard
           title="Active Tasks"
           value={messages.filter(m => m.role === 'user').length}
           description="Submitted task requests"
           icon={Activity}
-          className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40"
+          className="border border-border bg-card/70"
         />
         <StatisticCard
           title="Context Size"
           value={Object.keys(sessionMemory).length > 0 ? `${(JSON.stringify(sessionMemory).length / 1024).toFixed(2)} KB` : '0.00 KB'}
           description="Session variables allocated"
           icon={Database}
-          className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40"
+          className="border border-border bg-card/70"
         />
         <StatisticCard
           title="Success Rate"
           value="98.5%"
           description="Agent validation rating"
           icon={Compass}
-          className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40"
+          className="border border-border bg-card/70"
         />
       </div>
 
@@ -348,13 +348,13 @@ export default function MultiAgentWorkspacePage() {
         {/* Panel 1: Left Agent Registry */}
         <div
           className={cn(
-            'flex flex-col bg-white/70 dark:bg-slate-900/40 backdrop-blur-md border border-slate-205 dark:border-slate-855 overflow-y-auto px-4 py-5 select-none transition-all duration-300 rounded-2xl text-left',
+            'flex flex-col bg-card/70 backdrop-blur-md border border-border overflow-y-auto px-4 py-5 select-none transition-all duration-300 rounded-2xl text-left',
             leftCollapsed ? 'w-0 p-0 overflow-hidden border-none' : ''
           )}
           style={{ width: leftCollapsed ? '0px' : `${leftWidth}%` }}
         >
           <div className="flex flex-col gap-4 min-w-[220px] text-left">
-            <span className="text-[9px] font-black uppercase tracking-widest text-slate-455 dark:text-slate-500 font-mono text-left leading-none">
+            <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground font-mono text-left leading-none">
               Agent Registry
             </span>
             <AgentSelector
@@ -426,21 +426,21 @@ export default function MultiAgentWorkspacePage() {
         {/* Panel 3: Right Tabs (Shared Memory, logs, analytics, context) */}
         <div
           className={cn(
-            'flex flex-col bg-white/70 dark:bg-slate-900/40 backdrop-blur-md border border-slate-205 dark:border-slate-855 overflow-hidden transition-all duration-300 rounded-2xl text-left',
+            'flex flex-col bg-card/70 backdrop-blur-md border border-border overflow-hidden transition-all duration-300 rounded-2xl text-left',
             rightCollapsed ? 'w-0 p-0 overflow-hidden border-none' : 'p-4'
           )}
           style={{ width: rightCollapsed ? '0px' : `${rightWidth}%` }}
         >
           <div className="flex flex-col gap-4 h-full min-w-[260px] text-left">
             {/* Tabs Control Row */}
-            <div className="grid grid-cols-4 gap-1 p-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-dark-border/80 rounded-xl select-none leading-none items-center text-center">
+            <div className="grid grid-cols-4 gap-1 p-1 bg-muted border border-border/80 rounded-xl select-none leading-none items-center text-center">
               <button
                 onClick={() => setRightTab('memory')}
                 className={cn(
                   'py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer border-none bg-transparent flex flex-col items-center justify-center gap-1',
                   rightTab === 'memory'
-                    ? 'bg-white dark:bg-slate-950 text-brand-500 shadow-xs border border-slate-200 dark:border-slate-800'
-                    : 'text-slate-500 hover:text-slate-750 dark:hover:text-slate-350'
+                    ? 'bg-card text-brand-500 shadow-xs border border-border'
+                    : 'text-muted-foreground hover:text-foreground'
                 )}
                 title="Shared Session Memory Space"
               >
@@ -453,8 +453,8 @@ export default function MultiAgentWorkspacePage() {
                 className={cn(
                   'py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer border-none bg-transparent flex flex-col items-center justify-center gap-1',
                   rightTab === 'logs'
-                    ? 'bg-white dark:bg-slate-950 text-brand-500 shadow-xs border border-slate-200 dark:border-slate-800'
-                    : 'text-slate-500 hover:text-slate-750 dark:hover:text-slate-350'
+                    ? 'bg-card text-brand-500 shadow-xs border border-border'
+                    : 'text-muted-foreground hover:text-foreground'
                 )}
                 title="System Audit events"
               >
@@ -467,8 +467,8 @@ export default function MultiAgentWorkspacePage() {
                 className={cn(
                   'py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer border-none bg-transparent flex flex-col items-center justify-center gap-1',
                   rightTab === 'analytics'
-                    ? 'bg-white dark:bg-slate-950 text-brand-500 shadow-xs border border-slate-200 dark:border-slate-800'
-                    : 'text-slate-500 hover:text-slate-750 dark:hover:text-slate-350'
+                    ? 'bg-card text-brand-500 shadow-xs border border-border'
+                    : 'text-muted-foreground hover:text-foreground'
                 )}
                 title="Telemetry Analytics Dashboard"
               >
@@ -481,8 +481,8 @@ export default function MultiAgentWorkspacePage() {
                 className={cn(
                   'py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer border-none bg-transparent flex flex-col items-center justify-center gap-1',
                   rightTab === 'context'
-                    ? 'bg-white dark:bg-slate-950 text-brand-500 shadow-xs border border-slate-200 dark:border-slate-800'
-                    : 'text-slate-500 hover:text-slate-750 dark:hover:text-slate-350'
+                    ? 'bg-card text-brand-500 shadow-xs border border-border'
+                    : 'text-muted-foreground hover:text-foreground'
                 )}
                 title="Active runtime contexts"
               >

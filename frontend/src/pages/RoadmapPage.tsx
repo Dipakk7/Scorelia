@@ -324,12 +324,12 @@ export default function RoadmapPage() {
   return (
     <div className="space-y-6 text-left animate-fade-in font-sans focus:outline-none">
       {/* Header section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 rounded-2xl border border-slate-205 dark:border-slate-855 shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-card/70 backdrop-blur-md p-5 rounded-2xl border border-border shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
         <div className="space-y-1.5 text-left">
-          <h1 className="text-xl md:text-2xl font-black font-display text-slate-900 dark:text-white m-0 tracking-tight leading-none">
+          <h1 className="text-xl md:text-2xl font-black font-display text-foreground m-0 tracking-tight leading-none">
             AI Career Coach
           </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-sans leading-relaxed m-0 font-medium">
+          <p className="text-xs text-muted-foreground font-sans leading-relaxed m-0 font-medium">
             Map out custom career pivots, audit missing skill gaps, and execute weekly learning milestones.
           </p>
         </div>
@@ -351,7 +351,7 @@ export default function RoadmapPage() {
 
           <Button
             onClick={() => setShowCreateForm(!showCreateForm)}
-            className="flex items-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-9.5"
+            className="flex items-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-9.5"
           >
             <Plus size={14} />
             <span>New Roadmap</span>
@@ -363,7 +363,7 @@ export default function RoadmapPage() {
       {showCreateForm && (
         <Card className="border border-brand-500/10 bg-brand-500/5 dark:bg-brand-500/10 p-5 rounded-2xl backdrop-blur-md shadow-sm animate-slideDown text-left">
           <form onSubmit={handleGenerate} className="space-y-5 text-left m-0">
-            <h3 className="text-sm font-black font-display text-slate-900 dark:text-white m-0 flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-850">
+            <h3 className="text-sm font-black font-display text-foreground m-0 flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-850">
               <Compass className="text-brand-500" size={16} />
               <span>Map Your AI Career Plan</span>
             </h3>
@@ -442,7 +442,7 @@ export default function RoadmapPage() {
                 size="sm"
                 type="submit"
                 disabled={generateRoadmapMutation.isPending}
-                className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-9.5"
+                className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-9.5"
               >
                 {generateRoadmapMutation.isPending ? (
                   <>
@@ -469,7 +469,7 @@ export default function RoadmapPage() {
       ) : (
         <div className="space-y-6">
           {/* Navigation Tabs bar */}
-          <div className="border-b border-slate-200/60 dark:border-slate-850 flex items-center justify-between gap-4 overflow-x-auto pb-px">
+          <div className="border-b border-border/60 flex items-center justify-between gap-4 overflow-x-auto pb-px">
             <div className="flex gap-1">
               {[
                 { id: 'dashboard', label: 'Dashboard', icon: Compass },
@@ -501,7 +501,7 @@ export default function RoadmapPage() {
             <div className="flex items-center gap-2 pb-2">
               <button
                 onClick={handleReload}
-                className="p-1.5 rounded-lg border border-slate-205 dark:border-slate-800 text-slate-450 hover:text-slate-900 hover:bg-slate-50/50 dark:hover:bg-slate-850/30 cursor-pointer transition-colors bg-transparent"
+                className="p-1.5 rounded-lg border border-border text-slate-450 hover:text-slate-900 hover:bg-slate-50/50 dark:hover:bg-slate-850/30 cursor-pointer transition-colors bg-transparent"
                 title="Sync roadmap workspace"
               >
                 <RotateCw size={14} />
@@ -509,7 +509,7 @@ export default function RoadmapPage() {
               <button
                 onClick={() => handleDelete(selectedRoadmapId)}
                 disabled={deleteRoadmapMutation.isPending}
-                className="p-1.5 rounded-lg border border-rose-205 dark:border-rose-955 text-rose-500 hover:text-rose-600 hover:bg-rose-500/5 cursor-pointer transition-colors bg-transparent"
+                className="p-1.5 rounded-lg border border-destructive/20 hover:border-destructive/40 text-destructive hover:bg-destructive/10 cursor-pointer transition-colors bg-transparent"
                 title="Delete active roadmap"
               >
                 <Trash2 size={14} />

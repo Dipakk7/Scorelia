@@ -8,7 +8,7 @@ export default function ForbiddenPage() {
       <div className="text-red-500 mb-6 bg-red-50 dark:bg-red-950/60 p-4 rounded-full border border-red-100 dark:border-red-900/50 animate-pulse">
         <ShieldAlert size={48} />
       </div>
-      <h1 className="text-3xl font-extrabold font-display text-slate-900 dark:text-white tracking-tight mb-2">
+      <h1 className="text-3xl font-extrabold font-display text-foreground tracking-tight mb-2">
         403 Access Denied
       </h1>
       <p className="text-base text-slate-500 dark:text-slate-450 max-w-md mb-8 leading-relaxed">

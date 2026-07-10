@@ -77,7 +77,7 @@ export default function RegisterPage() {
 
   return (
     <div
-      className="min-h-screen w-screen flex flex-col items-center justify-center p-4 md:p-6 bg-slate-50 dark:bg-dark-bg transition-colors relative overflow-hidden"
+      className="min-h-screen w-screen flex flex-col items-center justify-center p-4 md:p-6 bg-background transition-colors relative overflow-hidden"
       style={{
         backgroundImage: 'radial-gradient(rgba(15, 157, 154, 0.07) 1.5px, transparent 1.5px)',
         backgroundSize: '24px 24px',
@@ -95,10 +95,10 @@ export default function RegisterPage() {
       >
         {/* Brand Logo header */}
         <div className="flex flex-col items-center mb-8 text-center">
-          <div className="h-16 w-16 bg-white/70 dark:bg-slate-900/50 rounded-2xl flex items-center justify-center border border-slate-200/50 dark:border-slate-800/60 shadow-lg shadow-slate-200/10 dark:shadow-none mb-4 animate-float">
+          <div className="h-16 w-16 bg-background/70 rounded-2xl flex items-center justify-center border border-border/50 shadow-lg shadow-slate-200/10 dark:shadow-none mb-4 animate-float">
             <Logo iconOnly={true} className="h-10 w-10 text-brand-600 dark:text-brand-400" />
           </div>
-          <h1 className="text-3xl font-extrabold font-display tracking-tight text-slate-900 dark:text-white m-0">
+          <h1 className="text-3xl font-extrabold font-display tracking-tight text-foreground m-0">
             Welcome to Scorelia
           </h1>
           <p className="text-xs font-bold uppercase tracking-widest text-brand-600 dark:text-brand-450 mt-2 font-display">
@@ -107,10 +107,10 @@ export default function RegisterPage() {
         </div>
 
         {/* Register Card */}
-        <Card className="glass-card shadow-2xl border-slate-200/50 dark:border-slate-800/30 rounded-2xl overflow-hidden">
+        <Card className="glass-card shadow-2xl border-border/30 rounded-2xl overflow-hidden">
           <CardHeader className="text-center pt-8 pb-3 px-6 md:px-8">
-            <CardTitle className="text-2xl font-bold font-display text-slate-900 dark:text-white">Create Account</CardTitle>
-            <CardDescription className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            <CardTitle className="text-2xl font-bold font-display text-foreground">Create Account</CardTitle>
+            <CardDescription className="text-xs text-muted-foreground mt-1">
               Sign up today and optimize your career trajectory
             </CardDescription>
           </CardHeader>
@@ -166,12 +166,12 @@ export default function RegisterPage() {
               </Button>
             </form>
           </CardContent>
-          <CardFooter className="justify-center border-t border-slate-100 dark:border-slate-800/40 py-5 bg-slate-50/50 dark:bg-slate-950/20">
-            <p className="text-xs text-slate-500 dark:text-slate-450 font-medium">
+          <CardFooter className="justify-center border-t border-border/40 py-5 bg-muted/20">
+            <p className="text-xs text-muted-foreground font-medium">
               Already have an account?{' '}
               <Link
                 to="/login"
-                className="font-bold text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-350 transition-colors"
+                className="font-bold text-primary hover:text-primary/80 transition-colors"
               >
                 Sign In
               </Link>

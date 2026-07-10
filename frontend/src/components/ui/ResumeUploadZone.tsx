@@ -182,7 +182,7 @@ export default function ResumeUploadZone({ onUploadSuccess, maxSizeMB = 5 }: Res
           'relative border-2 border-dashed rounded-lg p-10 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 min-h-[220px] group shadow-xs hover:shadow-md hover:border-brand-500/60 dark:hover:border-brand-500/50',
           isDragActive
             ? 'border-brand-500 bg-brand-500/8 dark:border-brand-500 dark:bg-brand-950/10'
-            : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 backdrop-blur-md'
+            : 'border-border bg-card/40 backdrop-blur-md'
         )}
       >
         <input
@@ -198,10 +198,10 @@ export default function ResumeUploadZone({ onUploadSuccess, maxSizeMB = 5 }: Res
           <Upload size={28} className="transition-transform" />
         </div>
 
-        <h3 className="text-base font-bold font-display text-slate-800 dark:text-slate-100 mb-1.5">
+        <h3 className="text-base font-bold font-display text-foreground mb-1.5">
           Drag and drop your resume here
         </h3>
-        <p className="text-sm text-slate-500 dark:text-slate-400 font-sans mb-4 text-center leading-relaxed">
+        <p className="text-sm text-muted-foreground font-sans mb-4 text-center leading-relaxed">
           Or click to browse from your device
         </p>
 
@@ -214,9 +214,9 @@ export default function ResumeUploadZone({ onUploadSuccess, maxSizeMB = 5 }: Res
 
       {/* Upload History / Progress Queue */}
       {uploadQueue.length > 0 && (
-        <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900/50">
-          <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-display">
+        <div className="border border-border rounded-xl overflow-hidden bg-card/50">
+          <div className="p-4 border-b border-border flex items-center justify-between">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground font-display">
               Upload History & Activities
             </h4>
             <button
@@ -238,10 +238,10 @@ export default function ResumeUploadZone({ onUploadSuccess, maxSizeMB = 5 }: Res
                 {/* Info & Progress */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1.5">
-                    <p className="text-sm font-semibold font-sans text-slate-800 dark:text-slate-200 truncate pr-4 text-left">
+                    <p className="text-sm font-semibold font-sans text-foreground truncate pr-4 text-left">
                       {item.file.name}
                     </p>
-                    <span className="text-xs font-sans text-slate-500 dark:text-slate-400">
+                    <span className="text-xs font-sans text-muted-foreground">
                       {(item.file.size / 1024).toFixed(0)} KB
                     </span>
                   </div>

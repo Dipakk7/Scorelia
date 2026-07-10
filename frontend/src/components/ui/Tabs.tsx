@@ -43,7 +43,7 @@ export function TabsList({ className, children, ...props }: TabsListProps) {
   return (
     <div
       className={cn(
-        'inline-flex items-center justify-start border-b border-slate-200 dark:border-slate-800/80 w-full overflow-x-auto scrollbar-none gap-6',
+        'inline-flex items-center justify-start border-b border-border/80 w-full overflow-x-auto scrollbar-none gap-6',
         className
       )}
       {...props}
@@ -70,7 +70,7 @@ export function TabsTrigger({ value, className, children, ...props }: TabsTrigge
       aria-selected={isActive}
       onClick={() => context.onValueChange(value)}
       className={cn(
-        'py-3.5 px-1 border-b-2 font-bold font-display text-xs flex items-center gap-2 whitespace-nowrap cursor-pointer transition-all border-transparent text-slate-400 hover:text-slate-800 dark:hover:text-slate-205 -mb-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/30 focus-visible:ring-offset-2',
+        'py-3.5 px-1 border-b-2 font-bold font-display text-xs flex items-center gap-2 whitespace-nowrap cursor-pointer transition-all border-transparent text-muted-foreground hover:text-foreground -mb-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/30 focus-visible:ring-offset-2',
         isActive && 'border-brand-500 text-brand-600 dark:text-brand-400 font-extrabold',
         className
       )}

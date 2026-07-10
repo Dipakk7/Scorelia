@@ -107,7 +107,7 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
           }
         }}
         className={cn(
-          'flex flex-col h-full bg-slate-900 text-slate-300 border-r border-slate-800 transition-[width] duration-300 ease-in-out absolute top-0 left-0 z-30',
+          'flex flex-col h-full bg-slate-900 text-sidebar-foreground border-r border-slate-800 transition-[width] duration-300 ease-in-out absolute top-0 left-0 z-30',
           expanded ? 'w-[260px]' : 'w-[72px]',
           (!pinned && expanded) && 'shadow-2xl'
         )}
@@ -140,7 +140,7 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
                   cn(
                     'flex items-center py-2.5 rounded-lg text-sm font-semibold font-sans transition-all duration-200 ease-in-out cursor-pointer group relative px-3',
                     expanded ? 'justify-start' : 'justify-center',
-                    !isActive && 'text-slate-400 hover:bg-slate-800/40 hover:text-slate-100'
+                    !isActive && 'text-sidebar-muted-foreground hover:bg-slate-800/40 hover:text-sidebar-active-foreground'
                   )
                 }
               >
@@ -153,12 +153,12 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                       />
                     )}
-                    <Icon size={18} className={cn("flex-shrink-0 transition-colors duration-200 relative z-10", isActive ? "text-brand-400" : "text-slate-400 group-hover:text-slate-100")} />
+                    <Icon size={18} className={cn("flex-shrink-0 transition-colors duration-200 relative z-10", isActive ? "text-brand-400" : "text-sidebar-muted-foreground group-hover:text-sidebar-active-foreground")} />
                     <span
                       className={cn(
                         "whitespace-nowrap tracking-wide transition-all duration-200 ease-in-out overflow-hidden relative z-10",
                         expanded ? "max-w-[200px] opacity-100 ml-3.5" : "max-w-0 opacity-0 ml-0",
-                        isActive ? "text-brand-400 font-extrabold" : "text-slate-400 group-hover:text-slate-100"
+                        isActive ? "text-brand-400 font-extrabold" : "text-sidebar-muted-foreground group-hover:text-sidebar-active-foreground"
                       )}
                     >
                       {item.label}

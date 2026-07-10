@@ -18,7 +18,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         {label && (
           <label
             htmlFor={selectId}
-            className="text-xs font-semibold font-display uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1"
+            className="text-xs font-semibold font-display uppercase tracking-wider text-muted-foreground flex items-center gap-1"
           >
             <span>{label}</span>
             {required && <span className="text-rose-500 font-bold">*</span>}
@@ -29,7 +29,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             id={selectId}
             required={required}
             className={cn(
-              'w-full h-10 pl-3.5 pr-10 border rounded-xl bg-white dark:bg-slate-900 text-slate-950 dark:text-slate-50 placeholder-slate-400/80 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 disabled:pointer-events-none disabled:opacity-50 transition-all duration-200 font-sans text-sm appearance-none cursor-pointer shadow-sm',
+              'w-full h-10 pl-3.5 pr-10 border rounded-xl bg-card text-foreground placeholder-muted-foreground/80 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 disabled:pointer-events-none disabled:opacity-50 transition-all duration-200 font-sans text-sm appearance-none cursor-pointer shadow-sm',
               error
                 ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10'
                 : 'border-slate-300 dark:border-slate-700 focus:ring-brand-500/20 focus:border-brand-500 hover:border-slate-400 dark:hover:border-slate-600',
@@ -55,7 +55,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           </span>
         )}
         {helperText && !error && (
-          <span className="text-[10px] text-slate-450 dark:text-slate-500 font-sans">
+          <span className="text-[10px] text-muted-foreground font-sans">
             {helperText}
           </span>
         )}

@@ -22,7 +22,6 @@ import {
   FileText,
   Plus,
   Play,
-  Hammer,
   LayoutDashboard,
   ListFilter,
   Upload,
@@ -43,11 +42,11 @@ import { cn } from '@/lib/utils'
 function CustomTooltip({ active, payload, label }: any) {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+      <div className="rounded-xl border border-border bg-card/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
         <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400">{label}</p>
         <div className="mt-1.5 flex items-center gap-2 font-semibold">
           <span className="h-2 w-2 rounded-full bg-brand-500" />
-          <span className="text-slate-500 dark:text-slate-400">Uploads:</span>
+          <span className="text-muted-foreground">Uploads:</span>
           <span className="text-slate-900 dark:text-slate-100">{payload[0].value}</span>
         </div>
       </div>
@@ -281,24 +280,13 @@ export default function ResumesPage() {
 
   return (
     <div className="space-y-6 text-left animate-fade-in font-sans">
-      {/* Workspace Banner */}
-      <div className="p-4 bg-amber-500/5 dark:bg-amber-500/8 border border-amber-500/20 text-amber-800 dark:text-amber-300 rounded-2xl flex items-start gap-3 shadow-xs">
-        <Hammer className="shrink-0 mt-0.5 text-amber-550 dark:text-amber-400" size={20} />
-        <div>
-          <strong className="block font-semibold font-display text-sm">Resume Management Live</strong>
-          <p className="text-xs mt-0.5 leading-relaxed font-sans">
-            Phase 14 Part 3 Resume Workspace is fully configured. You can upload, parse using spaCy models, edit extraction structures, view histories, compute ATS scores, and audit file details.
-          </p>
-        </div>
-      </div>
-
       {/* Main Page Headers & Action Buttons */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-black font-display text-slate-900 dark:text-white m-0 tracking-tight leading-none">
+          <h1 className="text-2xl md:text-3xl font-black font-display text-foreground m-0 tracking-tight leading-none">
             Resume Workspace
           </h1>
-          <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1.5 font-sans leading-relaxed">
+          <p className="text-xs md:text-sm text-muted-foreground mt-1.5 font-sans leading-relaxed">
             Build, optimize, parse, and review your professional profiles.
           </p>
         </div>
@@ -312,8 +300,8 @@ export default function ResumesPage() {
               className={cn(
                 'flex items-center gap-1.5 text-xs font-bold cursor-pointer rounded-xl transition-all duration-250 px-3 py-1.5',
                 currentView === 'dashboard'
-                  ? 'bg-brand-600 hover:bg-brand-700 text-white shadow-xs'
-                  : 'text-slate-500 hover:text-slate-950 dark:hover:text-slate-150 hover:bg-slate-100/50 dark:hover:bg-slate-850/60'
+                  ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-xs'
+                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
               )}
             >
               <LayoutDashboard size={13} />
@@ -326,8 +314,8 @@ export default function ResumesPage() {
               className={cn(
                 'flex items-center gap-1.5 text-xs font-bold cursor-pointer rounded-xl transition-all duration-250 px-3 py-1.5',
                 currentView === 'list'
-                  ? 'bg-brand-600 hover:bg-brand-700 text-white shadow-xs'
-                  : 'text-slate-500 hover:text-slate-950 dark:hover:text-slate-150 hover:bg-slate-100/50 dark:hover:bg-slate-850/60'
+                  ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-xs'
+                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
               )}
             >
               <ListFilter size={13} />
@@ -340,8 +328,8 @@ export default function ResumesPage() {
               className={cn(
                 'flex items-center gap-1.5 text-xs font-bold cursor-pointer rounded-xl transition-all duration-250 px-3 py-1.5',
                 currentView === 'upload'
-                  ? 'bg-brand-600 hover:bg-brand-700 text-white shadow-xs'
-                  : 'text-slate-500 hover:text-slate-950 dark:hover:text-slate-150 hover:bg-slate-100/50 dark:hover:bg-slate-850/60'
+                  ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-xs'
+                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
               )}
             >
               <Upload size={13} />
@@ -405,8 +393,8 @@ export default function ResumesPage() {
           {/* Quick Dashboard Activity and Actions */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Chart: Upload Activity */}
-            <Card className="lg:col-span-2 p-5 border border-slate-200/60 dark:border-slate-850 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm flex flex-col justify-between hover:border-slate-350 dark:hover:border-slate-700 transition-all duration-300">
-              <div className="flex items-center gap-2 mb-4 text-left border-b border-slate-100 dark:border-slate-800/60 pb-2.5">
+            <Card className="lg:col-span-2 p-5 border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm flex flex-col justify-between hover:border-slate-350 dark:hover:border-slate-700 transition-all duration-300">
+              <div className="flex items-center gap-2 mb-4 text-left border-b border-border/60 pb-2.5">
                 <Activity className="text-brand-500" size={16} />
                 <h3 className="text-sm font-bold font-display text-slate-900 dark:text-slate-100 m-0">
                   Upload Activity History
@@ -444,8 +432,8 @@ export default function ResumesPage() {
             <div className="space-y-6 lg:col-span-1">
               {/* Latest Uploaded Resume Summary */}
               {latestResume && (
-                <Card className="p-5 border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm text-left">
-                  <div className="flex items-center gap-2 text-slate-400 dark:text-slate-555 mb-3 pb-2.5 border-b border-slate-100 dark:border-slate-800/60">
+                <Card className="p-5 border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm text-left">
+                  <div className="flex items-center gap-2 text-slate-400 dark:text-slate-555 mb-3 pb-2.5 border-b border-border/60">
                     <Activity size={15} className="text-brand-500" />
                     <h3 className="text-xs font-extrabold uppercase tracking-wider font-display m-0">
                       Latest Activity
@@ -461,7 +449,7 @@ export default function ResumesPage() {
                     </div>
 
                     <div className="space-y-1">
-                      <p className="text-xs font-bold text-slate-900 dark:text-slate-150 truncate max-w-[220px]" title={latestResume.original_filename}>
+                      <p className="text-xs font-bold text-foreground truncate max-w-[220px]" title={latestResume.original_filename}>
                         {latestResume.original_filename}
                       </p>
                       <p className="text-[10px] text-slate-500 font-medium">
@@ -470,7 +458,7 @@ export default function ResumesPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/60">
+                  <div className="flex items-center gap-2 pt-3 mt-4 border-t border-border/60">
                     <Button
                       variant="secondary"
                       size="sm"
@@ -497,34 +485,34 @@ export default function ResumesPage() {
               )}
 
               {/* General Quick Actions list */}
-              <Card className="p-5 border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm space-y-3.5 text-left font-sans animate-fadeIn">
+              <Card className="p-5 border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm space-y-3.5 text-left font-sans animate-fadeIn">
                 <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-550 font-display m-0">
                   Quick Actions
                 </h3>
                 <div className="flex flex-col gap-2">
                   <button
                     onClick={() => setCurrentView('upload')}
-                    className="flex items-center gap-3 p-3 w-full bg-slate-50 dark:bg-slate-850/30 hover:bg-brand-500/5 hover:border-brand-500/20 border border-slate-150 dark:border-slate-800/80 rounded-xl font-bold text-xs text-slate-750 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 group cursor-pointer"
+                    className="flex items-center gap-3 p-3 w-full bg-slate-50 dark:bg-slate-850/30 hover:bg-brand-500/5 hover:border-brand-500/20 border border-border rounded-xl font-bold text-xs text-foreground hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 group cursor-pointer"
                   >
                     <div className="p-1.5 rounded-lg bg-brand-500/10 text-brand-500 group-hover:scale-105 transition-transform duration-200 shrink-0">
                       <Plus size={14} className="stroke-[2.5]" />
                     </div>
                     <div className="text-left">
                       <p className="font-bold m-0 leading-tight">Upload New Resume</p>
-                      <p className="text-[9px] text-slate-450 dark:text-slate-500 mt-0.5 leading-none">Import PDF/DOCX profiles</p>
+                      <p className="text-[9px] text-muted-foreground mt-0.5 leading-none">Import PDF/DOCX profiles</p>
                     </div>
                   </button>
 
                   <button
                     onClick={() => setCurrentView('list')}
-                    className="flex items-center gap-3 p-3 w-full bg-slate-50 dark:bg-slate-850/30 hover:bg-brand-500/5 hover:border-brand-500/20 border border-slate-150 dark:border-slate-800/80 rounded-xl font-bold text-xs text-slate-750 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 group cursor-pointer"
+                    className="flex items-center gap-3 p-3 w-full bg-slate-50 dark:bg-slate-850/30 hover:bg-brand-500/5 hover:border-brand-500/20 border border-border rounded-xl font-bold text-xs text-foreground hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 group cursor-pointer"
                   >
                     <div className="p-1.5 rounded-lg bg-brand-500/10 text-brand-500 group-hover:scale-105 transition-transform duration-200 shrink-0">
                       <ListFilter size={14} className="stroke-[2.5]" />
                     </div>
                     <div className="text-left">
                       <p className="font-bold m-0 leading-tight">View Resume Inventory</p>
-                      <p className="text-[9px] text-slate-450 dark:text-slate-500 mt-0.5 leading-none">Manage parsed profiles list</p>
+                      <p className="text-[9px] text-muted-foreground mt-0.5 leading-none">Manage parsed profiles list</p>
                     </div>
                   </button>
                 </div>
@@ -576,7 +564,7 @@ export default function ResumesPage() {
 
       {/* ==================== VIEW 3: UPLOAD ZONE ==================== */}
       {currentView === 'upload' && (
-        <Card className="p-6 border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm">
+        <Card className="p-6 border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm">
           <ResumeUploadZone onUploadSuccess={() => queryClient.invalidateQueries({ queryKey: ['resumesList'] })} />
         </Card>
       )}
@@ -585,7 +573,7 @@ export default function ResumesPage() {
       {currentView === 'workspace' && selectedResumeId && (
         <div className="space-y-6">
           {/* Workspace Sub Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm">
             <div className="flex items-center gap-3">
               <Button
                 variant="ghost"
@@ -632,9 +620,9 @@ export default function ResumesPage() {
                     size="sm"
                     onClick={() => scoreMutation.mutate(selectedResume.id)}
                     disabled={scoreMutation.isPending}
-                    className="flex items-center gap-1 text-xs text-indigo-650 hover:bg-indigo-50 border border-indigo-100 dark:text-indigo-400 dark:hover:bg-indigo-950/20 dark:border-indigo-900/30 cursor-pointer"
+                    className="flex items-center gap-1 text-xs text-primary hover:bg-primary/10 border border-primary/20 cursor-pointer"
                   >
-                    {scoreMutation.isPending ? <Spinner size="sm" className="text-indigo-650 dark:text-indigo-400" /> : <Play size={12} />}
+                    {scoreMutation.isPending ? <Spinner size="sm" className="text-primary" /> : <Play size={12} />}
                     <span>Calculate ATS</span>
                   </Button>
                 )}
@@ -655,7 +643,7 @@ export default function ResumesPage() {
                       deleteMutation.mutate(selectedResume.id)
                     }
                   }}
-                  className="flex items-center gap-1 text-xs font-semibold py-1 px-3 rounded-lg cursor-pointer bg-red-650 hover:bg-red-700 text-white"
+                  className="flex items-center gap-1 text-xs font-semibold py-1 px-3 rounded-lg cursor-pointer bg-destructive text-destructive-foreground hover:bg-destructive/90"
                 >
                   <Trash2 size={12} />
                   <span>Delete</span>
@@ -665,7 +653,7 @@ export default function ResumesPage() {
           </div>
 
           {/* Tab switches */}
-          <div className="flex border-b border-slate-200 dark:border-slate-800 gap-1 font-sans">
+          <div className="flex border-b border-border gap-1 font-sans">
             <button
               onClick={() => setWorkspaceTab('viewer')}
               className={`px-4 py-2 text-xs font-semibold border-b-2 cursor-pointer transition-colors ${

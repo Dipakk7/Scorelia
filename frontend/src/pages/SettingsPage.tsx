@@ -205,9 +205,9 @@ export default function SettingsPage() {
 
   return (
     <div className="space-y-6 text-left max-w-4xl mx-auto font-sans text-xs pb-12 select-none">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md p-5 rounded-2xl border border-slate-205 dark:border-slate-855 shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 flex-shrink-0">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-card/70 backdrop-blur-md p-5 rounded-2xl border border-border shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 flex-shrink-0">
         <div className="space-y-1.5 text-left">
-          <h1 className="text-xl md:text-2xl font-black font-display text-slate-905 dark:text-white m-0 tracking-tight leading-none text-left">
+          <h1 className="text-xl md:text-2xl font-black font-display text-foreground m-0 tracking-tight leading-none text-left">
             Account Settings
           </h1>
           <p className="text-xs text-slate-550 dark:text-slate-400 font-sans leading-relaxed m-0 font-medium mt-1.5">
@@ -218,7 +218,7 @@ export default function SettingsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-start text-left">
         {/* Tab Buttons Side Nav */}
-        <div className="md:col-span-1 flex flex-row md:flex-col gap-1.5 overflow-x-auto pb-2 md:pb-0 border-b md:border-b-0 border-slate-200 dark:border-slate-800 text-left select-none">
+        <div className="md:col-span-1 flex flex-row md:flex-col gap-1.5 overflow-x-auto pb-2 md:pb-0 border-b md:border-b-0 border-border text-left select-none">
           {tabs.map((tab) => {
             const Icon = tab.icon
             const isActive = activeTab === tab.id
@@ -230,7 +230,7 @@ export default function SettingsPage() {
                   'flex items-center gap-2.5 px-4 py-3 text-xs font-bold uppercase tracking-wider rounded-xl transition-all shrink-0 cursor-pointer focus:outline-none border-none leading-none select-none text-left w-full h-10',
                   isActive
                     ? 'bg-brand-600 text-white shadow-sm font-extrabold'
-                    : 'text-slate-500 dark:text-slate-400 hover:bg-slate-105 dark:hover:bg-slate-900/50 hover:text-slate-800 dark:hover:text-slate-255 bg-transparent'
+                    : 'text-muted-foreground hover:bg-slate-105 dark:hover:bg-slate-900/50 hover:text-slate-800 dark:hover:text-slate-255 bg-transparent'
                 )}
               >
                 <Icon size={14} className="shrink-0" />
@@ -251,7 +251,7 @@ export default function SettingsPage() {
               <div className="space-y-6 text-left">
                 {/* Theme Selector */}
                 <div className="space-y-3 text-left">
-                  <label className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase font-mono tracking-widest block leading-none select-none text-left">
+                  <label className="text-muted-foreground text-[8px] font-black uppercase font-mono tracking-widest block leading-none select-none text-left">
                     Application Theme
                   </label>
                   <div className="grid grid-cols-3 gap-3 text-left">
@@ -265,7 +265,7 @@ export default function SettingsPage() {
                             'p-4 rounded-xl border text-xs font-bold font-display capitalize cursor-pointer focus:outline-none transition-all flex flex-col items-center gap-2 leading-none text-center select-none hover:scale-102 hover:border-brand-500/35 h-20 justify-center',
                             isActive
                               ? 'border-brand-500 bg-brand-500/5 text-brand-655 dark:text-brand-400 font-extrabold'
-                              : 'border-slate-205 dark:border-slate-805 text-slate-655 dark:text-slate-350 hover:bg-slate-50/50 dark:hover:bg-slate-900/30 bg-transparent'
+                              : 'border-slate-205 dark:border-slate-805 text-muted-foreground hover:bg-slate-50/50 dark:hover:bg-slate-900/30 bg-transparent'
                           )}
                         >
                           <span className="text-xs font-black uppercase tracking-wider">{t} Mode</span>
@@ -306,7 +306,7 @@ export default function SettingsPage() {
                     variant="primary"
                     onClick={handleGeneralSave}
                     isLoading={updateSettingsMutation.isPending}
-                    className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 hover:from-brand-700 hover:to-indigo-700 bg-gradient-to-r from-brand-600 to-indigo-650 text-white rounded-xl shadow-xs border-none cursor-pointer leading-none select-none h-9 flex items-center justify-center"
+                    className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl shadow-xs border-none cursor-pointer leading-none select-none h-9 flex items-center justify-center"
                   >
                     Save Preferences
                   </Button>
@@ -322,10 +322,10 @@ export default function SettingsPage() {
               description="Customize channels and types of updates you receive from the AI analysis engine."
             >
               <div className="space-y-5 text-left">
-                <div className="flex items-center justify-between p-3.5 rounded-xl border border-slate-200/50 dark:border-slate-800/50 bg-slate-55/35 dark:bg-slate-900/30 text-left">
+                <div className="flex items-center justify-between p-3.5 rounded-xl border border-border/50 bg-slate-55/35 dark:bg-slate-900/30 text-left">
                   <div className="space-y-1 text-left">
-                    <p className="text-xs font-bold text-slate-805 dark:text-slate-150 leading-none">Email Notifications</p>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-455 leading-normal">Receive reports, ATS analysis findings, and milestone notifications via email.</p>
+                    <p className="text-xs font-bold text-foreground leading-none">Email Notifications</p>
+                    <p className="text-[11px] text-muted-foreground leading-normal">Receive reports, ATS analysis findings, and milestone notifications via email.</p>
                   </div>
                   <input
                     type="checkbox"
@@ -335,10 +335,10 @@ export default function SettingsPage() {
                   />
                 </div>
 
-                <div className="flex items-center justify-between p-3.5 rounded-xl border border-slate-200/50 dark:border-slate-800/50 bg-slate-55/35 dark:bg-slate-900/30 text-left">
+                <div className="flex items-center justify-between p-3.5 rounded-xl border border-border/50 bg-slate-55/35 dark:bg-slate-900/30 text-left">
                   <div className="space-y-1 text-left">
-                    <p className="text-xs font-bold text-slate-805 dark:text-slate-150 leading-none">Push Notifications</p>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-455 leading-normal">Enable instant browser push alerts for processed matching scores and mock reviews.</p>
+                    <p className="text-xs font-bold text-foreground leading-none">Push Notifications</p>
+                    <p className="text-[11px] text-muted-foreground leading-normal">Enable instant browser push alerts for processed matching scores and mock reviews.</p>
                   </div>
                   <input
                     type="checkbox"
@@ -348,10 +348,10 @@ export default function SettingsPage() {
                   />
                 </div>
 
-                <div className="flex items-center justify-between p-3.5 rounded-xl border border-slate-200/50 dark:border-slate-800/50 bg-slate-55/35 dark:bg-slate-900/30 text-left">
+                <div className="flex items-center justify-between p-3.5 rounded-xl border border-border/50 bg-slate-55/35 dark:bg-slate-900/30 text-left">
                   <div className="space-y-1 text-left">
-                    <p className="text-xs font-bold text-slate-805 dark:text-slate-150 leading-none">Marketing & Newsletter Emails</p>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-455 leading-normal">Subscribe to recruitment trends, tips, and promotional product enhancements.</p>
+                    <p className="text-xs font-bold text-foreground leading-none">Marketing & Newsletter Emails</p>
+                    <p className="text-[11px] text-muted-foreground leading-normal">Subscribe to recruitment trends, tips, and promotional product enhancements.</p>
                   </div>
                   <input
                     type="checkbox"
@@ -366,7 +366,7 @@ export default function SettingsPage() {
                     variant="primary"
                     onClick={handleNotificationsSave}
                     isLoading={updateSettingsMutation.isPending}
-                    className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 hover:from-brand-700 hover:to-indigo-700 bg-gradient-to-r from-brand-600 to-indigo-650 text-white rounded-xl shadow-xs border-none cursor-pointer leading-none select-none h-9 flex items-center justify-center"
+                    className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl shadow-xs border-none cursor-pointer leading-none select-none h-9 flex items-center justify-center"
                   >
                     Save Preferences
                   </Button>
@@ -412,7 +412,7 @@ export default function SettingsPage() {
                       type="submit"
                       variant="primary"
                       isLoading={passwordMutation.isPending}
-                      className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white rounded-xl shadow-sm border-none cursor-pointer h-9 flex items-center justify-center gap-1.5"
+                      className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl shadow-sm border-none cursor-pointer h-9 flex items-center justify-center gap-1.5"
                     >
                       <Key size={14} />
                       <span>Update Password</span>
@@ -432,7 +432,7 @@ export default function SettingsPage() {
                   <div className="space-y-4 text-left">
                     <div className="border border-slate-205 dark:border-slate-850 shadow-2xs rounded-xl overflow-x-auto text-left">
                       <table className="w-full border-collapse text-left text-xs font-sans text-left">
-                        <thead className="bg-slate-55/35 dark:bg-slate-900 border-b border-slate-205 dark:border-slate-800 text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase tracking-widest leading-none select-none font-mono text-left">
+                        <thead className="bg-slate-55/35 dark:bg-slate-900 border-b border-border text-muted-foreground text-[9px] font-black uppercase tracking-widest leading-none select-none font-mono text-left">
                           <tr className="text-left">
                             <th className="p-3 text-left">Device / Platform</th>
                             <th className="p-3 text-left">IP Address</th>
@@ -440,7 +440,7 @@ export default function SettingsPage() {
                             <th className="p-3 text-left">Action</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100 dark:divide-slate-850 text-slate-700 dark:text-slate-300 text-left">
+                        <tbody className="divide-y divide-slate-100 dark:divide-slate-850 text-muted-foreground text-left">
                           {sessions?.map((s) => (
                             <tr key={s.id} className="hover:bg-slate-50/40 dark:hover:bg-slate-900/20 transition-all duration-150 border-b border-slate-100 dark:border-slate-855 text-left">
                               <td className="p-3 font-semibold flex items-center gap-2 text-left">
@@ -451,7 +451,7 @@ export default function SettingsPage() {
                               <td className="p-3 text-left">{new Date(s.last_active).toLocaleString()}</td>
                               <td className="p-3 text-left">
                                 {s.is_current ? (
-                                  <span className="inline-flex items-center rounded-lg text-[9px] font-black uppercase tracking-wider border bg-emerald-500/10 text-emerald-650 dark:text-emerald-450 border-emerald-500/20 px-2 py-0.5 leading-none shrink-0">Active</span>
+                                  <span className="inline-flex items-center rounded-lg text-[9px] font-black uppercase tracking-wider border bg-success/10 text-success border-success/20 px-2 py-0.5 leading-none shrink-0">Active</span>
                                 ) : (
                                   <span className="text-slate-405 italic select-none">Logout Device</span>
                                 )}
@@ -467,7 +467,7 @@ export default function SettingsPage() {
                         variant="outline"
                         onClick={() => logoutOthersMutation.mutate()}
                         isLoading={logoutOthersMutation.isPending}
-                        className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 border border-slate-205 dark:border-slate-800 hover:bg-slate-55 dark:hover:bg-slate-800/40 text-slate-655 dark:text-slate-350 cursor-pointer leading-none select-none h-9 flex items-center justify-center bg-transparent rounded-xl disabled:opacity-40"
+                        className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 border border-border hover:bg-slate-55 dark:hover:bg-slate-800/40 text-muted-foreground cursor-pointer leading-none select-none h-9 flex items-center justify-center bg-transparent rounded-xl disabled:opacity-40"
                       >
                         Logout Other Devices
                       </Button>
@@ -488,18 +488,18 @@ export default function SettingsPage() {
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left">
                   <div className="space-y-1 text-left">
-                    <p className="text-xs font-bold text-slate-805 dark:text-slate-150 leading-none flex items-center gap-1.5 select-none">
+                    <p className="text-xs font-bold text-foreground leading-none flex items-center gap-1.5 select-none">
                       <Info size={14} className="text-slate-400 shrink-0" />
                       <span>Back Up Your Data</span>
                     </p>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-455 leading-normal m-0 text-left">
+                    <p className="text-[11px] text-muted-foreground leading-normal m-0 text-left">
                       Exporting details includes full resume parsed details, job match records, mock interview scores, and preferences.
                     </p>
                   </div>
                   <Button
                     variant="outline"
                     onClick={handleExportData}
-                    className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 border border-slate-205 dark:border-slate-800 hover:bg-slate-55 dark:hover:bg-slate-800/40 text-slate-655 dark:text-slate-350 cursor-pointer leading-none select-none h-9 flex items-center justify-center bg-transparent rounded-xl shrink-0 gap-1.5"
+                    className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 border border-border hover:bg-slate-55 dark:hover:bg-slate-800/40 text-muted-foreground cursor-pointer leading-none select-none h-9 flex items-center justify-center bg-transparent rounded-xl shrink-0 gap-1.5"
                   >
                     <Download size={14} />
                     <span>Download JSON Backup</span>
@@ -512,19 +512,19 @@ export default function SettingsPage() {
                 title="Danger Zone: Delete Account"
                 description="Permanently erase all your details, resume database records, roadmaps, and matching data. This action is irreversible."
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-rose-250 dark:border-rose-950/20 bg-rose-500/5 text-left">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-destructive/20 bg-destructive/5 text-left">
                   <div className="space-y-1 text-left">
-                    <p className="text-xs font-bold text-rose-655 dark:text-rose-455 leading-none select-none">
+                    <p className="text-xs font-bold text-destructive leading-none select-none">
                       Delete Account Permanently
                     </p>
-                    <p className="text-[11px] text-rose-500/80 dark:text-rose-455/80 leading-normal m-0 text-left">
+                    <p className="text-[11px] text-destructive/80 leading-normal m-0 text-left">
                       Once confirmed, all resumes, cover letters, mock transcripts, roadmap milestones, and active subscriptions will be cleared immediately from the databases.
                     </p>
                   </div>
                   <Button
                     variant="outline"
                     onClick={() => setShowDeleteModal(true)}
-                    className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl shadow-xs border-none cursor-pointer leading-none select-none h-9 flex items-center justify-center shrink-0 gap-1.5"
+                    className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-xl shadow-xs border-none cursor-pointer leading-none select-none h-9 flex items-center justify-center shrink-0 gap-1.5"
                   >
                     <Trash2 size={14} />
                     <span>Delete Account</span>
@@ -538,13 +538,13 @@ export default function SettingsPage() {
 
       {/* Delete Account Warning Modal */}
       <Dialog open={showDeleteModal} onOpenChange={setShowDeleteModal}>
-        <DialogContent className="max-w-md border border-slate-205 dark:border-slate-855 bg-white dark:bg-slate-900 p-6 text-left rounded-2xl">
+        <DialogContent className="max-w-md border border-border bg-card p-6 text-left rounded-2xl">
           <DialogHeader className="text-left flex flex-row gap-3 items-center select-none">
             <div className="h-10 w-10 shrink-0 bg-red-500/10 text-red-655 rounded-xl flex items-center justify-center border border-red-500/20 shadow-2xs">
               <Trash2 size={20} />
             </div>
             <div className="text-left">
-              <DialogTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
+              <DialogTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none">
                 Delete Account
               </DialogTitle>
               <DialogDescription className="text-[9px] text-rose-500 font-sans block mt-1.5 leading-none font-bold">
@@ -552,14 +552,14 @@ export default function SettingsPage() {
               </DialogDescription>
             </div>
           </DialogHeader>
-          <div className="py-4 text-xs font-medium text-slate-500 dark:text-slate-400 leading-normal text-left select-none">
+          <div className="py-4 text-xs font-medium text-muted-foreground leading-normal text-left select-none">
             Are you absolutely sure you want to delete your Scorelia account? All resumes, mock preparation turn logs, roadmap milestones, and profile records will be permanently erased from active databases.
           </div>
           <DialogFooter className="flex gap-2 justify-end select-none">
             <Button
               variant="outline"
               onClick={() => setShowDeleteModal(false)}
-              className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 border border-slate-205 dark:border-slate-805 hover:bg-slate-55 dark:hover:bg-slate-800/40 text-slate-655 dark:text-slate-350 cursor-pointer leading-none select-none h-9 flex items-center justify-center bg-transparent rounded-xl"
+              className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 border border-slate-205 dark:border-slate-805 hover:bg-slate-55 dark:hover:bg-slate-800/40 text-muted-foreground cursor-pointer leading-none select-none h-9 flex items-center justify-center bg-transparent rounded-xl"
             >
               Cancel
             </Button>
@@ -567,7 +567,7 @@ export default function SettingsPage() {
               variant="primary"
               onClick={handleDeleteAccount}
               isLoading={deleteAccountMutation.isPending}
-              className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl shadow-xs border-none cursor-pointer leading-none select-none h-9 flex items-center justify-center"
+              className="text-[10px] font-bold uppercase tracking-wider px-4 py-2 bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-xl shadow-xs border-none cursor-pointer leading-none select-none h-9 flex items-center justify-center"
             >
               Confirm Account Erasure
             </Button>

@@ -28,7 +28,7 @@ export const AgentSelector: React.FC<AgentSelectorProps> = ({
   return (
     <div className={cn('flex flex-col gap-4', className)}>
       {/* Mode Switcher Header */}
-      <div className="flex items-center justify-between p-1 bg-slate-100 dark:bg-slate-900 border border-slate-205 dark:border-slate-855 rounded-xl">
+      <div className="flex items-center justify-between p-1 bg-muted border border-border rounded-xl">
         <button
           onClick={() => {
             onChangeMode('auto')
@@ -37,8 +37,8 @@ export const AgentSelector: React.FC<AgentSelectorProps> = ({
           className={cn(
             'flex-1 flex items-center justify-center gap-2 py-2 px-3 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer focus:outline-none border-none bg-transparent',
             orchestrationMode === 'auto'
-              ? 'bg-white dark:bg-dark-card text-brand-500 shadow-xs border border-slate-200 dark:border-slate-800'
-              : 'text-slate-500 hover:text-slate-855 dark:hover:text-slate-350'
+              ? 'bg-card text-brand-500 shadow-xs border border-border'
+              : 'text-muted-foreground hover:text-foreground'
           )}
         >
           <Cpu size={14} />
@@ -50,8 +50,8 @@ export const AgentSelector: React.FC<AgentSelectorProps> = ({
           className={cn(
             'flex-1 flex items-center justify-center gap-2 py-2 px-3 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer focus:outline-none border-none bg-transparent',
             orchestrationMode === 'manual'
-              ? 'bg-white dark:bg-dark-card text-brand-500 shadow-xs border border-slate-200 dark:border-slate-800'
-              : 'text-slate-500 hover:text-slate-855 dark:hover:text-slate-355'
+              ? 'bg-card text-brand-500 shadow-xs border border-border'
+              : 'text-muted-foreground hover:text-foreground'
           )}
         >
           <Settings size={14} />
@@ -60,7 +60,7 @@ export const AgentSelector: React.FC<AgentSelectorProps> = ({
       </div>
 
       {/* Mode Details Context Banner */}
-      <div className="text-[10px] p-3 rounded-xl bg-brand-500/5 dark:bg-brand-500/10 border border-brand-500/10 dark:border-brand-500/10 text-slate-550 dark:text-slate-400 leading-normal font-sans font-medium text-left select-none">
+      <div className="text-[10px] p-3 rounded-xl bg-brand-500/5 dark:bg-brand-500/10 border border-brand-500/10 dark:border-brand-500/10 text-muted-foreground leading-normal font-sans font-medium text-left select-none">
         {orchestrationMode === 'auto' ? (
           <p className="m-0 leading-relaxed">
             <strong className="text-brand-600 dark:text-brand-405 font-black uppercase tracking-wider block mb-1">Autonomous Planning Mode</strong> The multi-agent orchestrator dynamically parses your task request, creates a Directed Acyclic Graph (DAG) workflow, and dispatches tasks to appropriate sub-agents in sequential or parallel mode.
@@ -96,7 +96,7 @@ export const AgentSelector: React.FC<AgentSelectorProps> = ({
         )}
 
         {agents.length === 0 && (
-          <div className="flex flex-col items-center justify-center p-8 border border-dashed border-slate-205 dark:border-slate-850 rounded-2xl text-slate-455 dark:text-slate-500 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md">
+          <div className="flex flex-col items-center justify-center p-8 border border-dashed border-border rounded-2xl text-muted-foreground bg-card/70 backdrop-blur-md">
             <ShieldAlert size={24} className="text-slate-400 mb-2 animate-bounce" />
             <span className="text-xs font-bold leading-none">No registered agents detected</span>
           </div>

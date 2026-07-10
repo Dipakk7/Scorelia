@@ -358,12 +358,12 @@ export function ReportExportDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-855 rounded-2xl shadow-2xl p-6 text-left">
+      <DialogContent className="max-w-md bg-card border border-border rounded-2xl shadow-2xl p-6 text-left">
         <DialogHeader className="space-y-1.5 text-left select-none">
-          <DialogTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
+          <DialogTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none">
             Export Intelligence Report
           </DialogTitle>
-          <DialogDescription className="text-[9px] text-slate-405 dark:text-slate-500 font-sans block mt-1.5 leading-none">
+          <DialogDescription className="text-[9px] text-muted-foreground font-sans block mt-1.5 leading-none">
             Generate custom data exports from your Scorelia modules.
           </DialogDescription>
         </DialogHeader>
@@ -371,7 +371,7 @@ export function ReportExportDialog({
         <div className="space-y-4 py-4 font-sans text-xs text-left">
           {/* Report Category Select */}
           <div className="space-y-1.5 text-left">
-            <label className="font-black text-slate-455 dark:text-slate-500 uppercase tracking-widest text-[8px] font-mono leading-none">
+            <label className="font-black text-muted-foreground uppercase tracking-widest text-[8px] font-mono leading-none">
               1. Select Report Category
             </label>
             <div className="grid grid-cols-2 gap-2 text-left">
@@ -392,7 +392,7 @@ export function ReportExportDialog({
                       'p-2.5 rounded-xl border text-left font-bold transition-all cursor-pointer flex items-center justify-between leading-none text-xs',
                       isSelected
                         ? 'border-brand-500 bg-brand-500/5 text-brand-655 dark:text-brand-400 font-extrabold'
-                        : 'border-slate-200 dark:border-slate-800 hover:border-brand-500/35 hover:bg-brand-500/5 text-slate-600 dark:text-slate-400 bg-transparent'
+                        : 'border-border hover:border-brand-500/35 hover:bg-brand-500/5 text-slate-600 dark:text-slate-400 bg-transparent'
                     )}
                   >
                     <span>{item.label}</span>
@@ -406,7 +406,7 @@ export function ReportExportDialog({
           {/* GitHub Input */}
           {reportType === 'github' && (
             <div className="space-y-1.5 animate-slide-down text-left">
-              <label className="font-black text-slate-455 dark:text-slate-500 uppercase tracking-widest text-[8px] font-mono leading-none">
+              <label className="font-black text-muted-foreground uppercase tracking-widest text-[8px] font-mono leading-none">
                 Enter GitHub Username
               </label>
               <input
@@ -414,14 +414,14 @@ export function ReportExportDialog({
                 value={githubUsername}
                 onChange={(e) => setGithubUsername(e.target.value)}
                 placeholder="e.g. torvalds"
-                className="w-full p-2.5 rounded-xl border border-slate-205 dark:border-slate-800 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-405 focus:outline-none focus:ring-1 focus:ring-brand-500 font-semibold"
+                className="w-full p-2.5 rounded-xl border border-border bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-405 focus:outline-none focus:ring-1 focus:ring-brand-500 font-semibold"
               />
             </div>
           )}
 
           {/* Format Selection */}
           <div className="space-y-1.5 text-left">
-            <label className="font-black text-slate-455 dark:text-slate-500 uppercase tracking-widest text-[8px] font-mono leading-none">
+            <label className="font-black text-muted-foreground uppercase tracking-widest text-[8px] font-mono leading-none">
               2. Choose File Format
             </label>
             <div className="grid grid-cols-3 gap-2 text-left">
@@ -440,7 +440,7 @@ export function ReportExportDialog({
                       'p-3 rounded-xl border text-center font-black transition-all cursor-pointer flex flex-col items-center justify-center gap-1.5 leading-none text-xs',
                       isSelected
                         ? 'border-brand-500 bg-brand-500/5 text-brand-655 dark:text-brand-400'
-                        : 'border-slate-200 dark:border-slate-800 hover:border-brand-500/35 hover:bg-brand-500/5 text-slate-600 dark:text-slate-400 bg-transparent'
+                        : 'border-border hover:border-brand-500/35 hover:bg-brand-500/5 text-slate-600 dark:text-slate-400 bg-transparent'
                     )}
                   >
                     <ItemIcon size={18} className="shrink-0" />
@@ -456,14 +456,14 @@ export function ReportExportDialog({
           <Button
             variant="outline"
             onClick={() => onOpenChange(false)}
-            className="flex-1 font-bold rounded-xl border border-slate-205 dark:border-slate-800 hover:bg-slate-55 dark:hover:bg-slate-800/40 text-slate-600 dark:text-slate-350 cursor-pointer text-xs p-2.5 bg-transparent h-10 select-none leading-none uppercase tracking-wider text-[10px] flex items-center justify-center"
+            className="flex-1 font-bold rounded-xl border border-border hover:bg-slate-55 dark:hover:bg-slate-800/40 text-slate-600 dark:text-slate-350 cursor-pointer text-xs p-2.5 bg-transparent h-10 select-none leading-none uppercase tracking-wider text-[10px] flex items-center justify-center"
           >
             Cancel
           </Button>
           <Button
             onClick={handleExport}
             disabled={exporting}
-            className="flex-1 font-bold rounded-xl bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white cursor-pointer shadow-md text-xs p-2.5 flex items-center justify-center gap-1.5 border-none h-10 select-none leading-none uppercase tracking-wider text-[10px]"
+            className="flex-1 font-bold rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer shadow-md text-xs p-2.5 flex items-center justify-center gap-1.5 border-none h-10 select-none leading-none uppercase tracking-wider text-[10px]"
           >
             {exporting ? (
               <>

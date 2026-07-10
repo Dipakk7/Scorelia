@@ -81,13 +81,13 @@ interface CustomTooltipProps {
 function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-white/90 dark:bg-slate-950/90 p-3 shadow-xl backdrop-blur-md text-left font-sans select-none">
+      <div className="rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-card/90 p-3 shadow-xl backdrop-blur-md text-left font-sans select-none">
         <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 m-0 leading-none">{label}</p>
         <div className="mt-2 space-y-1.5">
           {payload.map((pld: any, index: number) => (
             <div key={index} className="flex items-center gap-2.5 text-[11px] font-semibold leading-none">
               <span className="h-2 w-2 rounded-full shrink-0" style={{ backgroundColor: pld.color || pld.stroke }} />
-              <span className="text-slate-500 dark:text-slate-400 font-medium">{pld.name}:</span>
+              <span className="text-muted-foreground font-medium">{pld.name}:</span>
               <span className="text-slate-900 dark:text-slate-100 font-bold font-mono">{pld.value}%</span>
             </div>
           ))}
@@ -480,7 +480,7 @@ export default function DashboardPage() {
           ) : (
             <div className="h-full flex flex-col justify-between">
               <ResponsiveContainer width="100%" height={chart1Points === 1 ? '85%' : '100%'}>
-                <AreaChart>
+                <AreaChart data={scoreTrend && scoreTrend.length > 0 ? scoreTrend : (atsTrend || [])}>
                   <defs>
                     <linearGradient id="scoreColor" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#0F9D9A" stopOpacity={0.2}/>
@@ -521,7 +521,7 @@ export default function DashboardPage() {
           ) : (
             <div className="h-full flex flex-col justify-between">
               <ResponsiveContainer width="100%" height={chart2Points === 1 ? '85%' : '100%'}>
-                <LineChart>
+                <LineChart data={matchTrend && matchTrend.length > 0 ? matchTrend : (interviewTrend || [])}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
                   <XAxis dataKey="label" stroke="#94a3b8" fontSize={11} tickLine={false} />
                   <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} domain={[0, 100]} />
@@ -614,12 +614,12 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Side: Quick Navigation & Timeline */}
         <div className="lg:col-span-1 space-y-6">
-          <Card className="border-slate-200/60 dark:border-slate-850 bg-white/40 dark:bg-slate-900/30 backdrop-blur-md rounded-2xl">
+          <Card className="border-border/60 bg-card/40 backdrop-blur-md rounded-2xl">
             <CardHeader className="text-left pb-4">
               <CardTitle className="text-lg font-bold font-display text-slate-900 dark:text-slate-50">
                 Quick Navigation
               </CardTitle>
-              <CardDescription className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              <CardDescription className="text-xs text-muted-foreground leading-relaxed">
                 Launch copilot tools to build resume drafts and prepare for applications.
               </CardDescription>
             </CardHeader>
@@ -645,8 +645,8 @@ export default function DashboardPage() {
                 description="Track phases and milestones"
                 icon={Map}
                 to="/roadmap"
-                bgColor="bg-purple-500/10"
-                iconColor="text-purple-600 dark:text-purple-400"
+                bgColor="bg-accent-purple/10"
+                iconColor="text-accent-purple"
               />
             </CardContent>
           </Card>
@@ -660,14 +660,14 @@ export default function DashboardPage() {
         </div>
 
         {/* Right Side: Resumes List Table */}
-        <Card className="lg:col-span-2 border-slate-200/60 dark:border-slate-850 bg-white/40 dark:bg-slate-900/30 backdrop-blur-md rounded-2xl">
+        <Card className="lg:col-span-2 border-border/60 bg-card/40 backdrop-blur-md rounded-2xl">
           <CardHeader className="pb-4 text-left">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <CardTitle className="text-lg font-bold font-display text-slate-900 dark:text-slate-50">
                   Resumes List
                 </CardTitle>
-                <CardDescription className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                <CardDescription className="text-xs text-muted-foreground leading-relaxed">
                   Chronological record of your uploaded credentials and computed ATS levels.
                 </CardDescription>
               </div>
@@ -675,14 +675,14 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             {resumes.length === 0 ? (
-              <div className="py-12 text-center text-xs text-slate-500 dark:text-slate-400 font-sans italic border border-dashed border-slate-200 dark:border-slate-800 rounded-xl">
+              <div className="py-12 text-center text-xs text-muted-foreground font-sans italic border border-dashed border-border rounded-xl">
                 No resumes uploaded yet. Click "Upload Resume" in the Copilot launch grid to get started.
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <Table>
                   <TableHeader>
-                    <TableRow className="border-slate-100 dark:border-slate-800">
+                    <TableRow className="border-border">
                       <TableHead className="font-bold text-[10px] uppercase tracking-wider text-slate-400">File Name</TableHead>
                       <TableHead className="font-bold text-[10px] uppercase tracking-wider text-slate-400">Uploaded</TableHead>
                       <TableHead className="font-bold text-[10px] uppercase tracking-wider text-slate-400">ATS Score</TableHead>
@@ -691,7 +691,7 @@ export default function DashboardPage() {
                   </TableHeader>
                   <TableBody>
                     {resumes.slice(0, 5).map((resume) => (
-                      <TableRow key={resume.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-900/10 transition-colors border-slate-100 dark:border-slate-800">
+                      <TableRow key={resume.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-900/10 transition-colors border-border">
                         <TableCell className="font-bold text-slate-900 dark:text-slate-200 truncate max-w-[200px] text-left">
                           {resume.original_filename}
                         </TableCell>

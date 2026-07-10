@@ -34,7 +34,7 @@ export const AnalyticsCard = React.forwardRef<HTMLDivElement, AnalyticsCardProps
       <Card
         ref={ref}
         className={cn(
-          'border border-slate-200/60 dark:border-slate-800/40 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-800/80 transition-all duration-200 overflow-hidden text-left font-sans text-xs relative group',
+          'border border-slate-200/60 dark:border-slate-800/40 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-800/80 transition-all duration-200 overflow-hidden text-left font-sans text-xs relative group',
           className
         )}
         {...props}
@@ -42,13 +42,13 @@ export const AnalyticsCard = React.forwardRef<HTMLDivElement, AnalyticsCardProps
         {/* Glow accent bar on hover */}
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-linear-to-r from-brand-500 via-violet-500 to-fuchsia-500 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
         
-        <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-800/60 text-left mb-4 flex flex-row items-center justify-between space-y-0 select-none">
+        <CardHeader className="pb-4 border-b border-border/60 text-left mb-4 flex flex-row items-center justify-between space-y-0 select-none">
           <div className="space-y-1.5 text-left">
-            <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
+            <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none">
               {title}
             </CardTitle>
             {description && (
-              <CardDescription className="text-[9px] text-slate-500 dark:text-slate-400 font-sans block mt-1.5 leading-none">
+              <CardDescription className="text-[9px] text-muted-foreground font-sans block mt-1.5 leading-none">
                 {description}
               </CardDescription>
             )}
@@ -65,12 +65,12 @@ export const AnalyticsCard = React.forwardRef<HTMLDivElement, AnalyticsCardProps
             <div className="flex flex-col items-center justify-center text-center p-6 text-rose-600 dark:text-rose-400 gap-2.5">
               <AlertCircle className="h-10 w-10 stroke-[1.5] animate-bounce" />
               <p className="text-sm font-bold leading-none m-0">Failed to load analytics</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-normal m-0">
+              <p className="text-xs text-muted-foreground leading-normal m-0">
                 {error.message || 'An unexpected server error occurred.'}
               </p>
             </div>
           ) : empty ? (
-            <div className="flex flex-col items-center justify-center text-center p-6 text-slate-500 dark:text-slate-400 gap-2 font-sans font-medium text-xs">
+            <div className="flex flex-col items-center justify-center text-center p-6 text-muted-foreground gap-2 font-sans font-medium text-xs">
               <p className="m-0 leading-relaxed">{emptyMessage}</p>
             </div>
           ) : (

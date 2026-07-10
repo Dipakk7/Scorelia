@@ -29,7 +29,7 @@ export function AIReviewCard({ review }: AIReviewCardProps) {
   ] as const
 
   return (
-    <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md shadow-sm overflow-hidden font-sans rounded-2xl hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left">
+    <Card className="border border-border/60 bg-card/70 backdrop-blur-md shadow-sm overflow-hidden font-sans rounded-2xl hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left">
       {/* Navigation Tabs */}
       <div className="flex border-b border-slate-105 dark:border-slate-850/80 overflow-x-auto scrollbar-none bg-slate-50/20 dark:bg-slate-900/10">
         {tabItems.map((tab) => {
@@ -62,7 +62,7 @@ export function AIReviewCard({ review }: AIReviewCardProps) {
               <span className="text-[10px] text-slate-400 dark:text-slate-500 font-extrabold uppercase tracking-widest block">
                 Executive Assessment
               </span>
-              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed bg-slate-50/30 dark:bg-slate-955/20 p-4 rounded-xl border border-slate-200/50 dark:border-slate-850 font-sans m-0">
+              <p className="text-xs text-muted-foreground leading-relaxed bg-slate-50/30 dark:bg-slate-955/20 p-4 rounded-xl border border-slate-200/50 dark:border-slate-850 font-sans m-0">
                 {review.overall_summary || 'No review summary generated yet.'}
               </p>
             </div>
@@ -80,7 +80,7 @@ export function AIReviewCard({ review }: AIReviewCardProps) {
                     review.strengths.map((str, idx) => (
                       <li
                         key={idx}
-                        className="text-xs text-slate-655 dark:text-slate-350 bg-emerald-500/5 dark:bg-emerald-500/10 border border-emerald-500/10 dark:border-emerald-500/20 p-3 rounded-xl flex items-start gap-2.5 list-none"
+                        className="text-xs text-muted-foreground bg-emerald-500/5 dark:bg-emerald-500/10 border border-emerald-500/10 dark:border-emerald-500/20 p-3 rounded-xl flex items-start gap-2.5 list-none"
                       >
                         <span className="h-1.5 w-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0 animate-pulse" />
                         <span>{str}</span>
@@ -94,7 +94,7 @@ export function AIReviewCard({ review }: AIReviewCardProps) {
 
               {/* Weaknesses */}
               <div className="space-y-3">
-                <div className="flex items-center gap-1.5 text-rose-500 dark:text-rose-455">
+                <div className="flex items-center gap-1.5 text-destructive">
                   <ThumbsDown size={14} className="stroke-[2]" />
                   <h4 className="text-xs font-black uppercase tracking-wider m-0">Areas for Improvement</h4>
                 </div>
@@ -103,9 +103,9 @@ export function AIReviewCard({ review }: AIReviewCardProps) {
                     review.weaknesses.map((weak, idx) => (
                       <li
                         key={idx}
-                        className="text-xs text-slate-655 dark:text-slate-350 bg-rose-500/5 dark:bg-rose-500/10 border border-rose-500/10 dark:border-rose-500/20 p-3 rounded-xl flex items-start gap-2.5 list-none"
+                        className="text-xs text-muted-foreground bg-destructive/5 border border-destructive/10 dark:border-destructive/20 p-3 rounded-xl flex items-start gap-2.5 list-none"
                       >
-                        <span className="h-1.5 w-1.5 bg-rose-500 rounded-full mt-1.5 shrink-0" />
+                        <span className="h-1.5 w-1.5 bg-destructive rounded-full mt-1.5 shrink-0" />
                         <span>{weak}</span>
                       </li>
                     ))
@@ -118,13 +118,13 @@ export function AIReviewCard({ review }: AIReviewCardProps) {
 
             {/* Missing Sections warning */}
             {review.missing_sections && review.missing_sections.length > 0 && (
-              <div className="p-4 border border-amber-500/20 bg-amber-500/5 rounded-xl flex gap-3 shadow-2xs">
-                <AlertTriangle size={18} className="text-amber-600 dark:text-amber-505 shrink-0 mt-0.5" />
+              <div className="p-4 border border-warning/20 bg-warning/5 rounded-xl flex gap-3 shadow-2xs">
+                <AlertTriangle size={18} className="text-warning shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-xs font-black text-amber-700 dark:text-amber-400 m-0">
+                  <h4 className="text-xs font-black text-warning m-0">
                     Missing Resume Sections ({review.missing_sections.length})
                   </h4>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 m-0">
+                  <p className="text-xs text-muted-foreground mt-1 m-0">
                     We noticed these key sections are missing or couldn't be parsed:
                   </p>
                   <div className="flex flex-wrap gap-1.5 mt-2">
@@ -149,7 +149,7 @@ export function AIReviewCard({ review }: AIReviewCardProps) {
             <span className="text-[10px] text-slate-400 dark:text-slate-505 font-extrabold uppercase tracking-widest block">
               Grammatical & Format Review
             </span>
-            <div className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed bg-slate-50/30 dark:bg-slate-955/20 p-4 rounded-xl border border-slate-205 dark:border-slate-850 font-sans whitespace-pre-line m-0">
+            <div className="text-xs text-muted-foreground leading-relaxed bg-slate-50/30 dark:bg-slate-955/20 p-4 rounded-xl border border-slate-205 dark:border-slate-850 font-sans whitespace-pre-line m-0">
               {review.grammar_feedback || 'No specific grammatical feedback generated.'}
             </div>
           </div>
@@ -161,7 +161,7 @@ export function AIReviewCard({ review }: AIReviewCardProps) {
             <span className="text-[10px] text-slate-400 dark:text-slate-505 font-extrabold uppercase tracking-widest block">
               ATS Compatibility Assessment
             </span>
-            <div className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed bg-slate-50/30 dark:bg-slate-955/20 p-4 rounded-xl border border-slate-205 dark:border-slate-850 font-sans whitespace-pre-line m-0">
+            <div className="text-xs text-muted-foreground leading-relaxed bg-slate-50/30 dark:bg-slate-955/20 p-4 rounded-xl border border-slate-205 dark:border-slate-850 font-sans whitespace-pre-line m-0">
               {review.ats_feedback || 'No specific ATS recommendations generated.'}
             </div>
           </div>
@@ -173,7 +173,7 @@ export function AIReviewCard({ review }: AIReviewCardProps) {
             <span className="text-[10px] text-slate-400 dark:text-slate-555 font-extrabold uppercase tracking-widest block">
               Technical Skill Presentation
             </span>
-            <div className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed bg-slate-50/30 dark:bg-slate-955/20 p-4 rounded-xl border border-slate-205 dark:border-slate-850 font-sans whitespace-pre-line m-0">
+            <div className="text-xs text-muted-foreground leading-relaxed bg-slate-50/30 dark:bg-slate-955/20 p-4 rounded-xl border border-slate-205 dark:border-slate-850 font-sans whitespace-pre-line m-0">
               {review.technical_feedback || 'No specific technical feedback available.'}
             </div>
           </div>
@@ -185,7 +185,7 @@ export function AIReviewCard({ review }: AIReviewCardProps) {
             <span className="text-[10px] text-slate-400 dark:text-slate-555 font-extrabold uppercase tracking-widest block">
               Career Path Suitability
             </span>
-            <div className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed bg-slate-50/30 dark:bg-slate-955/20 p-4 rounded-xl border border-slate-205 dark:border-slate-850 font-sans whitespace-pre-line m-0">
+            <div className="text-xs text-muted-foreground leading-relaxed bg-slate-50/30 dark:bg-slate-955/20 p-4 rounded-xl border border-slate-205 dark:border-slate-850 font-sans whitespace-pre-line m-0">
               {review.career_feedback || 'No specific career feedback available.'}
             </div>
           </div>

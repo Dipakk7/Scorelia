@@ -26,12 +26,12 @@ export function QuickActionCard({
     <Link
       to={to}
       className={cn(
-        'flex items-center justify-between p-4 rounded-2xl border border-slate-200/60 dark:border-slate-800/40 bg-white/45 dark:bg-slate-900/30 backdrop-blur-md hover:border-brand-500/40 dark:hover:border-brand-500/30 hover:bg-white/80 dark:hover:bg-slate-900/60 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 group cursor-pointer text-left',
+        'flex items-center justify-between p-4 rounded-2xl border border-slate-200/60 dark:border-slate-800/40 bg-white/45 dark:bg-slate-900/30 backdrop-blur-md hover:border-brand-500/40 dark:hover:border-brand-500/30 hover:bg-card/80 dark:hover:bg-slate-900/60 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 group cursor-pointer text-left',
         className
       )}
     >
       <div className="flex items-center gap-4 min-w-0">
-        <div className={cn('p-2.5 rounded-xl shrink-0 border border-slate-100 dark:border-slate-800 shadow-xs group-hover:scale-105 transition-transform duration-200', bgColor, iconColor)}>
+        <div className={cn('p-2.5 rounded-xl shrink-0 border border-border shadow-xs group-hover:scale-105 transition-transform duration-200', bgColor, iconColor)}>
           <Icon size={18} className="stroke-[1.75]" />
         </div>
         <div className="min-w-0">

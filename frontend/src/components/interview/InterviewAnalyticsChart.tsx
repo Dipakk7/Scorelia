@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   TrendingUp,
   Activity,
@@ -27,6 +27,7 @@ import {
   Legend,
 } from 'recharts'
 import { cn } from '@/lib/utils'
+import { useTheme } from '@/providers/ThemeProvider'
 
 interface InterviewAnalyticsChartProps {
   scoreTrend?: { date: string; score: number }[]
@@ -37,40 +38,6 @@ interface InterviewAnalyticsChartProps {
 
 type ChartTab = 'scores' | 'dimensions' | 'activity'
 
-function CustomTooltip({ active, payload, label }: any) {
-  if (active && payload && payload.length) {
-    return (
-      <div className="rounded-xl border border-slate-205 dark:border-slate-805 bg-white/95 dark:bg-slate-950/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
-        <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 m-0">{label}</p>
-        {payload.map((entry: any, index: number) => (
-          <div key={index} className="mt-1.5 flex items-center gap-2 font-semibold">
-            <span className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.stroke || entry.fill }} />
-            <span className="text-slate-555 dark:text-slate-400">{entry.name}:</span>
-            <span className="text-slate-905 dark:text-white font-mono">{entry.value}%</span>
-          </div>
-        ))}
-      </div>
-    )
-  }
-  return null
-}
-
-function ActivityTooltip({ active, payload, label }: any) {
-  if (active && payload && payload.length) {
-    return (
-      <div className="rounded-xl border border-slate-205 dark:border-slate-805 bg-white/95 dark:bg-slate-950/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
-        <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 m-0">{label}</p>
-        <div className="mt-1.5 flex items-center gap-2 font-semibold">
-          <span className="h-2 w-2 rounded-full bg-brand-500" />
-          <span className="text-slate-555 dark:text-slate-405">Sessions:</span>
-          <span className="text-slate-900 dark:text-white font-mono">{payload[0].value} rounds</span>
-        </div>
-      </div>
-    )
-  }
-  return null
-}
-
 export default function InterviewAnalyticsChart({
   scoreTrend = [],
   starScores,
@@ -79,13 +46,71 @@ export default function InterviewAnalyticsChart({
 }: InterviewAnalyticsChartProps) {
   const [activeTab, setActiveTab] = useState<ChartTab>('scores')
 
-  // 1. Process overall score trend data
+  const { theme } = useTheme()
+  const [isDark, setIsDark] = useState(false)
+
+  useEffect(() => {
+    const checkDark = () => {
+      setIsDark(document.documentElement.classList.contains('dark'))
+    }
+    checkDark()
+    const observer = new MutationObserver(checkDark)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    })
+    return () => observer.disconnect()
+  }, [])
+
+  const themeColors = {
+    primary: isDark ? '#5b9ac9' : '#2f6690',
+    success: isDark ? '#3ecf8e' : '#1b9e6f',
+    warning: isDark ? '#e0b845' : '#d99b1f',
+    destructive: 'var(--destructive)',
+    grid: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)',
+    text: 'var(--foreground)',
+    mutedText: 'var(--muted-foreground)',
+  }
+
+  function CustomTooltip({ active, payload, label }: any) {
+    if (active && payload && payload.length) {
+      return (
+        <div className="rounded-xl border border-slate-205 dark:border-slate-805 bg-card/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+          {label && <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 m-0">{label}</p>}
+          {payload.map((entry: any, index: number) => (
+            <div key={index} className="mt-1.5 flex items-center gap-2 font-semibold">
+              <span className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.stroke || entry.fill }} />
+              <span className="text-slate-555 dark:text-slate-400">{entry.name}:</span>
+              <span className="text-foreground font-mono">{entry.value}%</span>
+            </div>
+          ))}
+        </div>
+      )
+    }
+    return null
+  }
+
+  function ActivityTooltip({ active, payload, label }: any) {
+    if (active && payload && payload.length) {
+      return (
+        <div className="rounded-xl border border-slate-205 dark:border-slate-805 bg-card/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+          <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 m-0">{label}</p>
+          <div className="mt-1.5 flex items-center gap-2 font-semibold">
+            <span className="h-2 w-2 rounded-full" style={{ backgroundColor: themeColors.primary }} />
+            <span className="text-slate-555 dark:text-slate-405">Sessions:</span>
+            <span className="text-foreground font-mono">{payload[0].value} rounds</span>
+          </div>
+        </div>
+      )
+    }
+    return null
+  }
+
   const overallTrendData = scoreTrend.map((pt) => ({
     name: pt.date,
     Score: pt.score,
   }))
 
-  // 2. Process STAR radar dimensions data
   const radarData = starScores
     ? [
         { subject: 'Situation', A: starScores.Situation, fullMark: 100 },
@@ -100,14 +125,12 @@ export default function InterviewAnalyticsChart({
         { subject: 'Result', A: 65, fullMark: 100 },
       ]
 
-  // 3. Process Tech vs Comm data
   const techCommData = techVsComm.map((pt) => ({
     name: pt.date,
     Technical: pt.technical,
     Communication: pt.communication,
   }))
 
-  // 4. Process Activity (weekly & monthly count)
   const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   const weeklyData = weekDays.map((day) => ({
     name: day,
@@ -115,9 +138,8 @@ export default function InterviewAnalyticsChart({
   }))
 
   return (
-    <div className="space-y-4 text-left font-sans text-xs">
-      {/* Chart controls */}
-      <div className="flex border-b border-slate-200/60 dark:border-slate-850 gap-1">
+    <div className="space-y-4 text-left font-sans text-xs bg-transparent">
+      <div className="flex border-b border-border/60 gap-1 bg-transparent">
         {(['scores', 'dimensions', 'activity'] as ChartTab[]).map((tab) => (
           <button
             key={tab}
@@ -126,7 +148,7 @@ export default function InterviewAnalyticsChart({
               'pb-2.5 px-3.5 text-[10px] font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer focus:outline-none -mb-[2px] bg-transparent border-none',
               activeTab === tab
                 ? 'border-brand-500 text-brand-500 font-extrabold'
-                : 'border-transparent text-slate-405 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-355'
+                : 'border-transparent text-muted-foreground hover:text-slate-800 dark:hover:text-slate-355'
             )}
           >
             {tab === 'scores' && 'Performance Trends'}
@@ -136,33 +158,31 @@ export default function InterviewAnalyticsChart({
         ))}
       </div>
 
-      {/* Render selected chart */}
-      <div>
+      <div className="bg-transparent">
         {activeTab === 'scores' && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {/* Chart 1: Score progress area */}
-            <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
-              <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60">
-                <CardTitle className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5 m-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 bg-transparent">
+            <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden">
+              <CardHeader className="pb-2.5 border-b border-border/60">
+                <CardTitle className="text-xs font-black text-foreground uppercase tracking-wider flex items-center gap-1.5 m-0">
                   <TrendingUp size={14} className="text-brand-500" />
                   <span>Interview Score Progression</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="h-64 pt-6">
+              <CardContent className="h-64 pt-6 bg-transparent">
                 {overallTrendData.length > 0 ? (
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={overallTrendData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
                       <defs>
                         <linearGradient id="scoreColor" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#0F9D9A" stopOpacity={0.2} />
-                          <stop offset="95%" stopColor="#0F9D9A" stopOpacity={0.0} />
+                          <stop offset="5%" stopColor={themeColors.primary} stopOpacity={0.2} />
+                          <stop offset="95%" stopColor={themeColors.primary} stopOpacity={0.0} />
                         </linearGradient>
                       </defs>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/20" />
-                      <XAxis dataKey="name" stroke="#94a3b8" fontSize={9} tickLine={false} axisLine={false} />
-                      <YAxis stroke="#94a3b8" fontSize={9} tickLine={false} axisLine={false} domain={[0, 100]} />
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={themeColors.grid} />
+                      <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={9} tickLine={false} axisLine={false} tick={{ fill: themeColors.mutedText }} />
+                      <YAxis stroke={themeColors.mutedText} fontSize={9} tickLine={false} axisLine={false} domain={[0, 100]} tick={{ fill: themeColors.mutedText }} />
                       <Tooltip content={<CustomTooltip />} />
-                      <Area type="monotone" dataKey="Score" stroke="#0F9D9A" strokeWidth={2} fillOpacity={1} fill="url(#scoreColor)" />
+                      <Area type="monotone" dataKey="Score" stroke={themeColors.primary} strokeWidth={2} fillOpacity={1} fill="url(#scoreColor)" />
                     </AreaChart>
                   </ResponsiveContainer>
                 ) : (
@@ -173,25 +193,24 @@ export default function InterviewAnalyticsChart({
               </CardContent>
             </Card>
 
-            {/* Chart 2: Tech vs Comm Line */}
-            <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
-              <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60">
-                <CardTitle className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5 m-0">
+            <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden">
+              <CardHeader className="pb-2.5 border-b border-border/60">
+                <CardTitle className="text-xs font-black text-foreground uppercase tracking-wider flex items-center gap-1.5 m-0">
                   <Activity size={14} className="text-blue-500" />
                   <span>Technical vs. Communication Skill</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="h-64 pt-6">
+              <CardContent className="h-64 pt-6 bg-transparent">
                 {techCommData.length > 0 ? (
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={techCommData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/20" />
-                      <XAxis dataKey="name" stroke="#94a3b8" fontSize={9} tickLine={false} axisLine={false} />
-                      <YAxis stroke="#94a3b8" fontSize={9} tickLine={false} axisLine={false} domain={[0, 100]} />
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={themeColors.grid} />
+                      <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={9} tickLine={false} axisLine={false} tick={{ fill: themeColors.mutedText }} />
+                      <YAxis stroke={themeColors.mutedText} fontSize={9} tickLine={false} axisLine={false} domain={[0, 100]} tick={{ fill: themeColors.mutedText }} />
                       <Tooltip content={<CustomTooltip />} />
-                      <Legend wrapperStyle={{ fontSize: '9px', marginTop: '5px' }} />
-                      <Line type="monotone" dataKey="Technical" stroke="#0F9D9A" strokeWidth={2} activeDot={{ r: 4 }} />
-                      <Line type="monotone" dataKey="Communication" stroke="#00D2FF" strokeWidth={2} activeDot={{ r: 4 }} />
+                      <Legend wrapperStyle={{ fontSize: '9px', marginTop: '5px', fill: themeColors.mutedText }} />
+                      <Line type="monotone" dataKey="Technical" stroke={themeColors.primary} strokeWidth={2} activeDot={{ r: 4 }} />
+                      <Line type="monotone" dataKey="Communication" stroke={themeColors.success} strokeWidth={2} activeDot={{ r: 4 }} />
                     </LineChart>
                   </ResponsiveContainer>
                 ) : (
@@ -205,32 +224,30 @@ export default function InterviewAnalyticsChart({
         )}
 
         {activeTab === 'dimensions' && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {/* Chart 3: Radar Chart */}
-            <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
-              <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60">
-                <CardTitle className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5 m-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 bg-transparent">
+            <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden">
+              <CardHeader className="pb-2.5 border-b border-border/60">
+                <CardTitle className="text-xs font-black text-foreground uppercase tracking-wider flex items-center gap-1.5 m-0">
                   <Layers size={14} className="text-purple-500" />
                   <span>STAR Dimensions Coverage</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="h-64 flex justify-center items-center">
+              <CardContent className="h-64 flex justify-center items-center bg-transparent">
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
-                    <PolarGrid stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
-                    <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 'bold' }} />
-                    <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fill: '#94a3b8', fontSize: 8 }} />
-                    <Radar name="Candidate" dataKey="A" stroke="#0F9D9A" fill="#0F9D9A" fillOpacity={0.2} />
+                    <PolarGrid stroke={themeColors.grid} />
+                    <PolarAngleAxis dataKey="subject" tick={{ fill: themeColors.mutedText, fontSize: 10, fontWeight: 'bold' }} />
+                    <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fill: themeColors.mutedText, fontSize: 8 }} />
+                    <Radar name="Candidate" dataKey="A" stroke={themeColors.primary} fill={themeColors.primary} fillOpacity={0.2} />
                     <Tooltip content={<CustomTooltip />} />
                   </RadarChart>
                 </ResponsiveContainer>
               </CardContent>
             </Card>
 
-            {/* Visual Guide explanation */}
-            <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
-              <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60">
-                <CardTitle className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5 m-0">
+            <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden">
+              <CardHeader className="pb-2.5 border-b border-border/60">
+                <CardTitle className="text-xs font-black text-foreground uppercase tracking-wider flex items-center gap-1.5 m-0">
                   <Compass size={14} className="text-emerald-500" />
                   <span>STAR Methodology Scoring Blueprint</span>
                 </CardTitle>
@@ -241,16 +258,16 @@ export default function InterviewAnalyticsChart({
                 </p>
                 <ul className="space-y-2 m-0 p-0 pl-4 list-disc leading-relaxed">
                   <li>
-                    <strong className="text-blue-500">Situation (S)</strong>: Explaining the problem background clearly, setting context, timeframe, and scale.
+                    <strong className="text-primary">Situation (S)</strong>: Explaining the problem background clearly, setting context, timeframe, and scale.
                   </li>
                   <li>
-                    <strong className="text-amber-500">Task (T)</strong>: Defining your specific role, target goals, constraints, and business outcomes.
+                    <strong className="text-warning">Task (T)</strong>: Defining your specific role, target goals, constraints, and business outcomes.
                   </li>
                   <li>
-                    <strong className="text-purple-500">Action (A)</strong>: Detailing the technical steps, reasoning, leadership, and tools you utilized.
+                    <strong className="text-accent-purple">Action (A)</strong>: Detailing the technical steps, reasoning, leadership, and tools you utilized.
                   </li>
                   <li>
-                    <strong className="text-emerald-500">Result (R)</strong>: Quantifying metrics, project benefits, business values, and takeaways.
+                    <strong className="text-success">Result (R)</strong>: Quantifying metrics, project benefits, business values, and takeaways.
                   </li>
                 </ul>
               </CardContent>
@@ -259,23 +276,22 @@ export default function InterviewAnalyticsChart({
         )}
 
         {activeTab === 'activity' && (
-          <div className="grid grid-cols-1 gap-4">
-            {/* Chart 4: Activity Weekly Count */}
-            <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
-              <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60">
-                <CardTitle className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5 m-0">
+          <div className="grid grid-cols-1 gap-4 bg-transparent">
+            <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden">
+              <CardHeader className="pb-2.5 border-b border-border/60">
+                <CardTitle className="text-xs font-black text-foreground uppercase tracking-wider flex items-center gap-1.5 m-0">
                   <Map size={14} className="text-emerald-500" />
                   <span>Weekly Simulated Drills Activity</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="h-64 pt-6">
+              <CardContent className="h-64 pt-6 bg-transparent">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={weeklyData} margin={{ top: 10, right: 10, left: -30, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/20" />
-                    <XAxis dataKey="name" stroke="#94a3b8" fontSize={9} tickLine={false} axisLine={false} />
-                    <YAxis stroke="#94a3b8" fontSize={9} tickLine={false} axisLine={false} allowDecimals={false} />
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={themeColors.grid} />
+                    <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={9} tickLine={false} axisLine={false} tick={{ fill: themeColors.mutedText }} />
+                    <YAxis stroke={themeColors.mutedText} fontSize={9} tickLine={false} axisLine={false} allowDecimals={false} tick={{ fill: themeColors.mutedText }} />
                     <Tooltip content={<ActivityTooltip />} />
-                    <Bar dataKey="Sessions" fill="#0F9D9A" radius={[4, 4, 0, 0]} maxBarSize={30} />
+                    <Bar dataKey="Sessions" fill={themeColors.primary} radius={[4, 4, 0, 0]} maxBarSize={30} />
                   </BarChart>
                 </ResponsiveContainer>
               </CardContent>

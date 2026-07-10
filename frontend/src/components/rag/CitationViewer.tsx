@@ -18,8 +18,8 @@ export function CitationViewer({
 
   if (citations.length === 0) {
     return (
-      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
-        <CardContent className="py-8 text-center text-slate-455 dark:text-slate-500 italic font-medium leading-relaxed">
+      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
+        <CardContent className="py-8 text-center text-muted-foreground italic font-medium leading-relaxed">
           No citations referenced in this response.
         </CardContent>
       </Card>
@@ -37,9 +37,9 @@ export function CitationViewer({
   }
 
   return (
-    <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
-      <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-800/60 text-left">
-        <CardTitle className="text-sm font-black font-display text-slate-900 dark:text-white flex items-center gap-2 m-0 leading-none">
+    <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
+      <CardHeader className="pb-4 border-b border-border/60 text-left">
+        <CardTitle className="text-sm font-black font-display text-foreground flex items-center gap-2 m-0 leading-none">
           <BookOpen className="text-brand-500 h-4 w-4" />
           <span>Source Attributions & Citations</span>
         </CardTitle>
@@ -58,7 +58,7 @@ export function CitationViewer({
                   'p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 shadow-2xs hover:shadow-sm text-left',
                   isSelected
                     ? 'border-brand-500 bg-brand-500/5 dark:bg-brand-500/10'
-                    : 'border-slate-205 dark:border-slate-850 bg-white/50 dark:bg-slate-900/30 hover:border-slate-300 dark:hover:border-slate-750'
+                    : 'border-slate-205 dark:border-slate-850 bg-card/50 dark:bg-slate-900/30 hover:border-slate-300 dark:hover:border-slate-750'
                 )}
               >
                 <div className="flex items-center gap-2.5 min-w-0 text-left">
@@ -69,10 +69,10 @@ export function CitationViewer({
                     {idx + 1}
                   </div>
                   <div className="min-w-0 text-left">
-                    <div className="text-xs font-extrabold text-slate-800 dark:text-slate-200 truncate pr-1">
+                    <div className="text-xs font-extrabold text-foreground truncate pr-1">
                       {cit.source_file || 'retrieved_chunk'}
                     </div>
-                    <div className="text-[10px] text-slate-455 dark:text-slate-500 font-bold uppercase mt-0.5 leading-none">
+                    <div className="text-[10px] text-muted-foreground font-bold uppercase mt-0.5 leading-none">
                       {cit.collection || 'KB Collection'} {cit.page_number !== undefined ? `• Page ${cit.page_number}` : ''}
                     </div>
                   </div>
@@ -84,7 +84,7 @@ export function CitationViewer({
                     className={cn(
                       'text-[9px] font-black uppercase tracking-wider py-0.5 px-2 rounded-lg leading-none shrink-0 border',
                       matchScore >= 80
-                        ? 'bg-emerald-500/10 text-emerald-650 dark:text-emerald-450 border-emerald-500/20'
+                        ? 'bg-success/10 text-success border-success/20'
                         : 'bg-brand-500/10 text-brand-655 dark:text-brand-400 border-brand-500/20'
                     )}
                   >

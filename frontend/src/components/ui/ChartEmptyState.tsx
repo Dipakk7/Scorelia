@@ -29,11 +29,11 @@ interface ChartEmptyStateProps {
 
 export function ChartEmptyState({ message, ctaText, ctaTo, ctaOnClick }: ChartEmptyStateProps) {
   return (
-    <div className="h-full min-h-[220px] flex flex-col items-center justify-center text-center p-6 bg-slate-50/30 dark:bg-slate-900/10 rounded-xl border border-dashed border-slate-200 dark:border-slate-800 transition-colors duration-200">
+    <div className="h-full min-h-[220px] flex flex-col items-center justify-center text-center p-6 bg-slate-50/30 dark:bg-slate-900/10 rounded-xl border border-dashed border-border transition-colors duration-200">
       <div className="p-3 bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 rounded-2xl mb-3 shadow-xs border border-slate-200/40 dark:border-slate-705/45">
         <LineChart size={24} className="stroke-[1.5]" />
       </div>
-      <p className="text-xs text-slate-500 dark:text-slate-400 max-w-xs font-sans leading-relaxed mb-4">
+      <p className="text-xs text-muted-foreground max-w-xs font-sans leading-relaxed mb-4">
         {message}
       </p>
       {ctaText && (

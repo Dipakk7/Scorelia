@@ -6,7 +6,7 @@ export const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
     <div
       ref={ref}
       className={cn(
-        'rounded-2xl border border-slate-200/60 dark:border-slate-800/40 bg-white/80 dark:bg-slate-900/50 shadow-md text-slate-950 dark:text-slate-50 transition-all duration-200 ease-in-out backdrop-blur-md',
+        'rounded-2xl border border-slate-200/60 dark:border-slate-800/40 bg-card/80 dark:bg-slate-900/50 shadow-md text-card-foreground transition-all duration-200 ease-in-out backdrop-blur-md',
         className?.includes('cursor-pointer') && 'hover:-translate-y-[2px] active:translate-y-0 hover:shadow-lg hover:border-brand-500/35 dark:hover:border-brand-500/25',
         className
       )}
@@ -31,7 +31,7 @@ export const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttrib
   ({ className, ...props }, ref) => (
     <h3
       ref={ref}
-      className={cn('text-xl font-bold leading-none tracking-tight font-display text-slate-900 dark:text-slate-100', className)}
+      className={cn('text-xl font-bold leading-none tracking-tight font-display text-card-foreground', className)}
       {...props}
     />
   )
@@ -42,7 +42,7 @@ export const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTML
   ({ className, ...props }, ref) => (
     <p
       ref={ref}
-      className={cn('text-sm text-slate-500 dark:text-slate-400', className)}
+      className={cn('text-sm text-muted-foreground', className)}
       {...props}
     />
   )
@@ -60,7 +60,7 @@ export const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('flex items-center p-6 pt-0 border-t border-slate-100 dark:border-slate-800/40 mt-4 justify-between', className)}
+      className={cn('flex items-center p-6 pt-0 border-t border-border/40 mt-4 justify-between', className)}
       {...props}
     />
   )

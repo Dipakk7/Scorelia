@@ -56,9 +56,9 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 text-left font-sans text-xs">
-      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm overflow-hidden hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm overflow-hidden hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
         <CardContent className="p-6 space-y-6">
-          <h3 className="font-display font-black text-sm text-slate-900 dark:text-white flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-800 m-0">
+          <h3 className="font-display font-black text-sm text-foreground flex items-center gap-2 pb-3 border-b border-border m-0">
             <Settings size={16} className="text-brand-500" />
             <span>Mock Interview Configuration Wizard</span>
           </h3>
@@ -66,7 +66,7 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Target Role */}
             <div className="space-y-1.5">
-              <label htmlFor="role" className="block text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest leading-none">
+              <label htmlFor="role" className="block text-[10px] font-black text-muted-foreground uppercase tracking-widest leading-none">
                 Target Job Title / Role
               </label>
               <div className="relative">
@@ -76,7 +76,7 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
                   value={targetRole}
                   onChange={(e) => setTargetRole(e.target.value)}
                   placeholder="e.g. Frontend Engineer, Product Manager"
-                  className="pl-10 text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 rounded-xl p-2.5 h-10 text-slate-850 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500 transition-colors"
+                  className="pl-10 text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-border rounded-xl p-2.5 h-10 text-slate-850 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500 transition-colors"
                   required
                 />
               </div>
@@ -84,7 +84,7 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
 
             {/* Company Name */}
             <div className="space-y-1.5">
-              <label htmlFor="company" className="block text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest leading-none">
+              <label htmlFor="company" className="block text-[10px] font-black text-muted-foreground uppercase tracking-widest leading-none">
                 Target Company Name
               </label>
               <div className="relative">
@@ -94,7 +94,7 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
                   placeholder="e.g. Google, Netflix, Stripe"
-                  className="pl-10 text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 rounded-xl p-2.5 h-10 text-slate-850 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500 transition-colors"
+                  className="pl-10 text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-border rounded-xl p-2.5 h-10 text-slate-850 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500 transition-colors"
                   required
                 />
               </div>
@@ -134,7 +134,7 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {/* Question count */}
             <div className="space-y-1.5">
-              <label htmlFor="questions" className="block text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest leading-none">
+              <label htmlFor="questions" className="block text-[10px] font-black text-muted-foreground uppercase tracking-widest leading-none">
                 Total Question Count ({totalQuestions})
               </label>
               <input
@@ -147,12 +147,12 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
                 onChange={(e) => setTotalQuestions(parseInt(e.target.value))}
                 className="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-600 mt-2"
               />
-              <span className="text-[10px] text-slate-450 dark:text-slate-500 block text-right mt-1 font-bold">{totalQuestions} questions</span>
+              <span className="text-[10px] text-muted-foreground block text-right mt-1 font-bold">{totalQuestions} questions</span>
             </div>
 
             {/* Time limit */}
             <div className="space-y-1.5">
-              <label htmlFor="time" className="block text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest leading-none">
+              <label htmlFor="time" className="block text-[10px] font-black text-muted-foreground uppercase tracking-widest leading-none">
                 Timer Limit: {timeLimitMinutes} min ({timeLimitMinutes * 60}s)
               </label>
               <input
@@ -165,18 +165,18 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
                 onChange={(e) => setTimeLimitMinutes(parseInt(e.target.value))}
                 className="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-600 mt-2"
               />
-              <span className="text-[10px] text-slate-450 dark:text-slate-500 block text-right mt-1 font-bold">{timeLimitMinutes} minutes total</span>
+              <span className="text-[10px] text-muted-foreground block text-right mt-1 font-bold">{timeLimitMinutes} minutes total</span>
             </div>
 
             {/* Resume Selection */}
             {resumesLoading ? (
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold font-display uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                <label className="text-xs font-semibold font-display uppercase tracking-wider text-muted-foreground">
                   Tailor with parsed Resume
                 </label>
-                <div className="h-10 flex items-center px-3 border border-slate-250 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/60 rounded-xl">
+                <div className="h-10 flex items-center px-3 border border-border bg-slate-50/50 dark:bg-slate-900/60 rounded-xl">
                   <Loader2 size={14} className="animate-spin text-slate-400 mr-2" />
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400">Loading resumes...</span>
+                  <span className="text-[10px] text-muted-foreground">Loading resumes...</span>
                 </div>
               </div>
             ) : (
@@ -202,7 +202,7 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
         <Button
           type="submit"
           disabled={isSubmitting || resumesLoading}
-          className="flex items-center justify-center gap-1.5 px-5 py-2.5 font-bold cursor-pointer bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-10"
+          className="flex items-center justify-center gap-1.5 px-5 py-2.5 font-bold cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-10"
         >
           {isSubmitting ? (
             <>

@@ -18,12 +18,12 @@ export const ContextViewer: React.FC<ContextViewerProps> = ({
   const { user } = useAuth()
 
   return (
-    <Card className={cn('border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs flex flex-col', className)}>
-      <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-800/60 text-left">
+    <Card className={cn('border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs flex flex-col', className)}>
+      <CardHeader className="pb-4 border-b border-border/60 text-left">
         <div className="flex items-center gap-2 text-left">
           <Compass size={18} className="text-brand-500 animate-pulse" />
           <div className="text-left">
-            <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
+            <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none">
               Operations Context Panel
             </CardTitle>
             <span className="text-[9px] text-slate-400 dark:text-slate-500 font-sans block mt-1.5 leading-none">
@@ -36,25 +36,25 @@ export const ContextViewer: React.FC<ContextViewerProps> = ({
       <CardContent className="p-4 flex flex-col gap-4 font-sans text-xs text-left">
         {/* User Context */}
         <div className="flex flex-col gap-2 text-left">
-          <span className="text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase font-mono tracking-widest flex items-center gap-1.5 border-b border-slate-100 dark:border-slate-850 pb-1.5 leading-none">
+          <span className="text-muted-foreground text-[9px] font-black uppercase font-mono tracking-widest flex items-center gap-1.5 border-b border-slate-100 dark:border-slate-850 pb-1.5 leading-none">
             <User size={12} className="text-slate-400" />
             <span>Authenticated User Context</span>
           </span>
           <div className="grid grid-cols-2 gap-2 text-slate-655 dark:text-slate-400 font-sans text-left">
             <div className="text-left">
               <span className="text-slate-400 text-[9px] uppercase font-bold tracking-wider block">Email:</span>
-              <span className="font-semibold block truncate text-slate-800 dark:text-slate-200 mt-1 leading-normal">{user?.email || 'unknown'}</span>
+              <span className="font-semibold block truncate text-foreground mt-1 leading-normal">{user?.email || 'unknown'}</span>
             </div>
             <div className="text-left">
               <span className="text-slate-400 text-[9px] uppercase font-bold tracking-wider block">User ID:</span>
-              <span className="font-mono font-semibold block truncate text-slate-800 dark:text-slate-200 mt-1 leading-normal">{user?.id || 'unknown'}</span>
+              <span className="font-mono font-semibold block truncate text-foreground mt-1 leading-normal">{user?.id || 'unknown'}</span>
             </div>
           </div>
         </div>
 
         {/* System Constraints */}
         <div className="flex flex-col gap-2 text-left">
-          <span className="text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase font-mono tracking-widest flex items-center gap-1.5 border-b border-slate-100 dark:border-slate-850 pb-1.5 leading-none">
+          <span className="text-muted-foreground text-[9px] font-black uppercase font-mono tracking-widest flex items-center gap-1.5 border-b border-slate-100 dark:border-slate-850 pb-1.5 leading-none">
             <Settings size={12} className="text-slate-400" />
             <span>Orchestrator Config Settings</span>
           </span>
@@ -84,7 +84,7 @@ export const ContextViewer: React.FC<ContextViewerProps> = ({
 
         {/* Correlation Context */}
         <div className="flex flex-col gap-2 text-left">
-          <span className="text-slate-455 dark:text-slate-500 text-[9px] font-black uppercase font-mono tracking-widest flex items-center gap-1.5 border-b border-slate-100 dark:border-slate-855 pb-1.5 leading-none">
+          <span className="text-muted-foreground text-[9px] font-black uppercase font-mono tracking-widest flex items-center gap-1.5 border-b border-slate-100 dark:border-slate-855 pb-1.5 leading-none">
             <Key size={12} className="text-slate-400" />
             <span>Correlation Context</span>
           </span>
@@ -106,7 +106,7 @@ export const ContextViewer: React.FC<ContextViewerProps> = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-wider text-slate-455 dark:text-slate-500 font-sans mt-1 p-2.5 rounded-xl border border-slate-200/50 dark:border-slate-850 bg-slate-50/50 dark:bg-slate-900/10 leading-none select-none">
+        <div className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-wider text-muted-foreground font-sans mt-1 p-2.5 rounded-xl border border-slate-200/50 dark:border-slate-850 bg-slate-50/50 dark:bg-slate-900/10 leading-none select-none">
           <Cpu size={12} className="text-slate-400 flex-shrink-0" />
           <span>FastAPI backend orchestrator version 1.0 (v1/router)</span>
         </div>

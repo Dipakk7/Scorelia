@@ -71,13 +71,13 @@ export const SharedMemoryPanel: React.FC<SharedMemoryPanelProps> = ({
   }
 
   return (
-    <Card className={cn('border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs flex flex-col', className)}>
+    <Card className={cn('border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs flex flex-col', className)}>
       {/* Header */}
-      <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-800/60 text-left flex flex-row items-center justify-between gap-4">
+      <CardHeader className="pb-4 border-b border-border/60 text-left flex flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-2 text-left">
           <Database size={18} className="text-brand-500" />
           <div className="text-left">
-            <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-905 dark:text-white m-0 leading-none">
+            <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none">
               Shared Memory Viewer
             </CardTitle>
             <span className="text-[9px] text-slate-400 dark:text-slate-500 font-sans block mt-1.5 leading-none">
@@ -110,7 +110,7 @@ export const SharedMemoryPanel: React.FC<SharedMemoryPanelProps> = ({
               placeholder="Search keys or values..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 border border-slate-250 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 rounded-xl text-xs font-sans placeholder-slate-405 text-slate-700 dark:text-slate-205 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/30 transition-all duration-150 shadow-2xs h-9 font-medium"
+              className="w-full pl-9 pr-3 py-1.5 border border-border bg-white/70 dark:bg-slate-900/50 rounded-xl text-xs font-sans placeholder-slate-405 text-slate-700 dark:text-slate-205 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/30 transition-all duration-150 shadow-2xs h-9 font-medium"
             />
           </div>
 
@@ -120,7 +120,7 @@ export const SharedMemoryPanel: React.FC<SharedMemoryPanelProps> = ({
               <select
                 value={selectedNamespace}
                 onChange={(e) => setSelectedNamespace(e.target.value)}
-                className="pl-3 pr-8 py-1.5 border border-slate-250 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 rounded-xl text-xs font-sans text-slate-750 dark:text-slate-205 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/30 transition-all duration-150 appearance-none cursor-pointer shadow-2xs h-9 font-bold"
+                className="pl-3 pr-8 py-1.5 border border-border bg-white/70 dark:bg-slate-900/50 rounded-xl text-xs font-sans text-slate-750 dark:text-slate-205 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/30 transition-all duration-150 appearance-none cursor-pointer shadow-2xs h-9 font-bold"
               >
                 <option value="all">All Namespaces</option>
                 {namespaces.map((ns) => (
@@ -146,7 +146,7 @@ export const SharedMemoryPanel: React.FC<SharedMemoryPanelProps> = ({
                 <span className="text-[10px] font-black uppercase font-mono tracking-wider text-brand-655 dark:text-brand-400">
                   Namespace: {ns}
                 </span>
-                <span className="text-[9px] font-mono text-slate-455 dark:text-slate-500 font-bold leading-none">
+                <span className="text-[9px] font-mono text-muted-foreground font-bold leading-none">
                   {Object.keys(filteredMemory[ns]).length} variables
                 </span>
               </div>
@@ -167,10 +167,10 @@ export const SharedMemoryPanel: React.FC<SharedMemoryPanelProps> = ({
 
           {/* Empty state */}
           {Object.keys(filteredMemory).length === 0 && (
-            <div className="flex flex-col items-center justify-center py-12 px-6 border border-dashed border-slate-205 dark:border-slate-850 rounded-2xl text-slate-455 dark:text-slate-500 text-center bg-white/70 dark:bg-slate-900/40 backdrop-blur-md">
+            <div className="flex flex-col items-center justify-center py-12 px-6 border border-dashed border-slate-205 dark:border-slate-850 rounded-2xl text-muted-foreground text-center bg-card/70 backdrop-blur-md">
               <AlertCircle size={24} className="text-slate-400 mb-2 animate-bounce" />
               <span className="text-xs font-bold leading-none">No memory entries found</span>
-              <p className="text-[10px] text-slate-455 dark:text-slate-500 max-w-[200px] mt-2 leading-relaxed font-sans font-medium">
+              <p className="text-[10px] text-muted-foreground max-w-[200px] mt-2 leading-relaxed font-sans font-medium">
                 {search
                   ? 'No entries match your search criteria'
                   : 'Start executing tasks to allocate shared memory entries'}
@@ -180,7 +180,7 @@ export const SharedMemoryPanel: React.FC<SharedMemoryPanelProps> = ({
         </div>
 
         {/* Footer Statistics */}
-        <div className="mt-2 pt-3 border-t border-slate-100 dark:border-slate-850/65 flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-slate-455 dark:text-slate-500 font-sans select-none leading-none">
+        <div className="mt-2 pt-3 border-t border-slate-100 dark:border-slate-850/65 flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-muted-foreground font-sans select-none leading-none">
           <span>Namespaces: {namespaces.length}</span>
           <span>Entries: {totalEntries}</span>
         </div>

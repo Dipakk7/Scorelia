@@ -25,7 +25,7 @@ export function EditableField({
 }: EditableFieldProps) {
   return (
     <div className={cn('space-y-1.5 text-left', className)}>
-      <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 font-sans uppercase tracking-wider">
+      <label className="text-xs font-semibold text-muted-foreground font-sans uppercase tracking-wider">
         {label}
       </label>
 
@@ -52,14 +52,14 @@ export function EditableField({
           </div>
         )
       ) : (
-        <div className="text-sm font-medium text-slate-900 dark:text-slate-100 font-sans break-all">
+        <div className="text-sm font-medium text-foreground font-sans break-all">
           {value ? (
             type === 'url' ? (
               <a
                 href={value.startsWith('http') ? value : `https://${value}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 underline cursor-pointer"
+                className="text-primary hover:text-primary/80 dark:text-brand-400 dark:hover:text-brand-300 underline cursor-pointer"
               >
                 {value}
               </a>

@@ -202,7 +202,7 @@ export default function ResumeTable({
   return (
     <div className="space-y-4">
       {/* Filters & Search Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-slate-900 p-4 border border-slate-200 dark:border-slate-800 rounded-xl">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-card p-4 border border-border rounded-xl">
         <div className="w-full md:max-w-md">
           <SearchBox
             value={searchQuery}
@@ -262,7 +262,7 @@ export default function ResumeTable({
             variant="danger"
             size="sm"
             onClick={() => setIsBulkDeleteDialogOpen(true)}
-            className="flex items-center gap-1.5 bg-red-650 hover:bg-red-700 text-white font-semibold py-1 px-3 text-xs rounded-lg cursor-pointer"
+            className="flex items-center gap-1.5 bg-destructive text-destructive-foreground hover:bg-destructive/90 font-semibold py-1 px-3 text-xs rounded-lg cursor-pointer"
           >
             <Trash2 size={13} />
             <span>Delete Selected</span>
@@ -272,17 +272,17 @@ export default function ResumeTable({
 
       {/* Main Table */}
       {filteredAndSortedResumes.length === 0 ? (
-        <div className="flex flex-col items-center justify-center p-12 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl min-h-[260px]">
+        <div className="flex flex-col items-center justify-center p-12 bg-card border border-border rounded-xl min-h-[260px]">
           <AlertCircle className="text-slate-400 dark:text-slate-650 mb-3" size={32} />
-          <h4 className="text-sm font-semibold font-display text-slate-800 dark:text-slate-200">
+          <h4 className="text-sm font-semibold font-display text-foreground">
             No matches found
           </h4>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-xs text-center font-sans">
+          <p className="text-xs text-muted-foreground mt-1 max-w-xs text-center font-sans">
             Try adjusting your search queries or clearing active status and format filters.
           </p>
         </div>
       ) : (
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+        <div className="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
           <Table>
             <TableHeader>
               <TableRow>
@@ -291,7 +291,7 @@ export default function ResumeTable({
                     type="checkbox"
                     checked={allPageItemsSelected}
                     onChange={(e) => handleSelectAll(e.target.checked, paginatedResumes)}
-                    className="h-4 w-4 rounded border-slate-350 text-brand-600 focus:ring-brand-500 cursor-pointer"
+                    className="h-4 w-4 rounded border-input text-brand-600 focus:ring-brand-500 cursor-pointer"
                   />
                 </TableHead>
                 <TableHead className="cursor-pointer select-none" onClick={() => handleSort('name')}>
@@ -336,12 +336,12 @@ export default function ResumeTable({
                         type="checkbox"
                         checked={isSelected}
                         onChange={(e) => handleSelectRow(resume.id, e.target.checked)}
-                        className="h-4 w-4 rounded border-slate-350 text-brand-600 focus:ring-brand-500 cursor-pointer"
+                        className="h-4 w-4 rounded border-input text-brand-600 focus:ring-brand-500 cursor-pointer"
                       />
                     </TableCell>
 
                     {/* File Name (Inline Rename support) */}
-                    <TableCell className="font-semibold text-slate-900 dark:text-slate-100 max-w-[240px] truncate">
+                    <TableCell className="font-semibold text-foreground max-w-[240px] truncate">
                       {isRenaming ? (
                         <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
                           <Input
@@ -391,7 +391,7 @@ export default function ResumeTable({
                     </TableCell>
 
                     {/* Upload date */}
-                    <TableCell className="text-slate-500 dark:text-slate-400 text-xs">
+                    <TableCell className="text-muted-foreground text-xs">
                       {new Date(resume.uploaded_at).toLocaleString()}
                     </TableCell>
 
@@ -456,7 +456,7 @@ export default function ResumeTable({
                                 onClick={() => onAnalyze(resume.id)}
                                 className="flex items-center gap-2 cursor-pointer text-xs"
                               >
-                                <Play size={12} className="text-indigo-500" />
+                                <Play size={12} className="text-primary" />
                                 <span>Analyze ATS</span>
                               </DropdownItem>
                             )}
@@ -491,7 +491,7 @@ export default function ResumeTable({
           {/* Table Footer / Pagination */}
           {totalPages > 1 && (
             <div className="p-4 border-t border-slate-150 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex justify-between items-center">
-              <span className="text-xs font-sans text-slate-500 dark:text-slate-400">
+              <span className="text-xs font-sans text-muted-foreground">
                 Showing {paginatedResumes.length} of {filteredAndSortedResumes.length} resumes
               </span>
               <Pagination

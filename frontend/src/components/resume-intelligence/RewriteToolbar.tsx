@@ -32,13 +32,13 @@ export function RewriteToolbar({ onRewrite, isPending }: RewriteToolbarProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="border border-slate-200 dark:border-slate-800 rounded-xl p-5 bg-white dark:bg-dark-bg shadow-sm text-left font-sans space-y-4"
+      className="border border-border rounded-xl p-5 bg-background shadow-sm text-left font-sans space-y-4"
     >
-      <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-850">
+      <div className="flex items-center gap-2 pb-2 border-b border-border">
         <span className="p-1 rounded-md bg-brand-500/10 text-brand-600 dark:text-brand-400">
           <Sparkles size={15} />
         </span>
-        <h4 className="text-xs font-bold text-slate-850 dark:text-slate-200">
+        <h4 className="text-xs font-bold text-foreground">
           AI Resume Rewrite Panel
         </h4>
       </div>
@@ -53,7 +53,7 @@ export function RewriteToolbar({ onRewrite, isPending }: RewriteToolbarProps) {
             value={selectedMode}
             onChange={(e) => setSelectedMode(e.target.value)}
             disabled={isPending}
-            className="w-full text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-2.5 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500"
+            className="w-full text-xs bg-slate-50 dark:bg-slate-900 border border-border rounded-lg p-2.5 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500"
           >
             {REWRITE_MODES.map((mode) => (
               <option key={mode.value} value={mode.value}>
@@ -78,7 +78,7 @@ export function RewriteToolbar({ onRewrite, isPending }: RewriteToolbarProps) {
             disabled={isPending}
             placeholder="Paste the target job description here to align the resume language with standard requirements..."
             rows={3}
-            className="w-full text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-2.5 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500 placeholder-slate-400 leading-normal"
+            className="w-full text-xs bg-slate-50 dark:bg-slate-900 border border-border rounded-lg p-2.5 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500 placeholder-slate-400 leading-normal"
           />
         </div>
       </div>

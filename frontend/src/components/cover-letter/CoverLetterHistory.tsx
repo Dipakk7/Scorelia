@@ -80,7 +80,7 @@ export function CoverLetterHistory({
   return (
     <div className="space-y-4 text-left font-sans text-xs">
       <div className="flex items-center justify-between">
-        <h4 className="font-display font-black text-xs uppercase text-slate-455 dark:text-slate-500 tracking-widest m-0 leading-none">
+        <h4 className="font-display font-black text-xs uppercase text-muted-foreground tracking-widest m-0 leading-none">
           Revision Version History
         </h4>
         <Button
@@ -105,10 +105,10 @@ export function CoverLetterHistory({
           <span>{error}</span>
         </div>
       ) : optimizations.length === 0 ? (
-        <div className="p-6 rounded-2xl border border-dashed border-slate-205 dark:border-slate-850 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md text-center space-y-2.5">
+        <div className="p-6 rounded-2xl border border-dashed border-slate-205 dark:border-slate-850 bg-card/70 backdrop-blur-md text-center space-y-2.5">
           <Clock size={20} className="mx-auto text-slate-400 dark:text-slate-500" />
-          <h5 className="font-bold text-slate-900 dark:text-white text-xs m-0">Initial Draft Active</h5>
-          <p className="text-[10px] text-slate-500 dark:text-slate-455 max-w-[200px] mx-auto leading-relaxed font-sans font-medium m-0">
+          <h5 className="font-bold text-foreground text-xs m-0">Initial Draft Active</h5>
+          <p className="text-[10px] text-muted-foreground max-w-[200px] mx-auto leading-relaxed font-sans font-medium m-0">
             Only the initial generated version exists. Use AI audits to rewrite and build revisions.
           </p>
         </div>
@@ -125,17 +125,17 @@ export function CoverLetterHistory({
                     'absolute left-[-31px] top-1.5 h-3.5 w-3.5 rounded-full border-2 transition-all duration-200 flex items-center justify-center',
                     isRestored
                       ? 'bg-brand-500 border-brand-500 ring-4 ring-brand-500/10'
-                      : 'bg-white dark:bg-slate-950 border-slate-350 dark:border-slate-705'
+                      : 'bg-card border-slate-350 dark:border-slate-705'
                   )}
                 />
 
                 <div className="space-y-2 text-left">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-[11px] font-extrabold text-slate-900 dark:text-white font-sans uppercase">
+                    <span className="text-[11px] font-extrabold text-foreground font-sans uppercase">
                       {formatTimestamp(opt.created_at)}
                     </span>
                     <div className="flex items-center gap-1.5 shrink-0">
-                      <Badge variant="outline" className="text-[9px] font-bold uppercase tracking-wider py-0 px-1.5 border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400">
+                      <Badge variant="outline" className="text-[9px] font-bold uppercase tracking-wider py-0 px-1.5 border-border text-muted-foreground">
                         Score: {opt.quality_score.overall_score}/100
                       </Badge>
                       {opt.version_comparison.estimated_quality_gain > 0 && (

@@ -148,10 +148,10 @@ export default function ExportDialog({
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-md dark:bg-slate-900 dark:border-slate-855 rounded-2xl p-6 font-sans">
         <DialogHeader className="text-left">
-          <DialogTitle className="font-display font-black text-lg text-slate-900 dark:text-white m-0">
+          <DialogTitle className="font-display font-black text-lg text-foreground m-0">
             Export Cover Letter
           </DialogTitle>
-          <DialogDescription className="text-slate-500 dark:text-slate-400 text-xs mt-1 leading-relaxed">
+          <DialogDescription className="text-muted-foreground text-xs mt-1 leading-relaxed">
             Choose a format to save your tailored cover letter for {companyName}.
           </DialogDescription>
         </DialogHeader>
@@ -159,7 +159,7 @@ export default function ExportDialog({
         <div className="space-y-4 py-3 text-left">
           {/* Format selection */}
           <div className="space-y-2.5">
-            <span className="block text-[10px] font-black text-slate-455 dark:text-slate-500 uppercase tracking-widest leading-none">
+            <span className="block text-[10px] font-black text-muted-foreground uppercase tracking-widest leading-none">
               Choose File Format
             </span>
             <div className="space-y-2">
@@ -172,10 +172,10 @@ export default function ExportDialog({
                     type="button"
                     onClick={() => setSelectedFormat(fmt.id)}
                     className={cn(
-                      'w-full flex items-start gap-3 p-3 rounded-xl border text-left cursor-pointer transition-all duration-300 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md hover:scale-[1.01]',
+                      'w-full flex items-start gap-3 p-3 rounded-xl border text-left cursor-pointer transition-all duration-300 bg-card/70 backdrop-blur-md hover:scale-[1.01]',
                       isSelected
                         ? 'border-brand-500 bg-brand-500/5 dark:bg-brand-500/10 ring-1 ring-brand-500/10'
-                        : 'border-slate-205 dark:border-slate-855 hover:border-slate-350 dark:hover:border-slate-750 bg-transparent'
+                        : 'border-border hover:border-slate-350 dark:hover:border-slate-750 bg-transparent'
                     )}
                   >
                     <div
@@ -183,13 +183,13 @@ export default function ExportDialog({
                         'p-2 rounded-lg border shrink-0 transition-all duration-200',
                         isSelected
                           ? 'bg-brand-500 border-brand-500 text-white'
-                          : 'bg-slate-50/50 dark:bg-slate-955/20 border-slate-200/60 dark:border-slate-850 text-slate-400 dark:text-slate-500'
+                          : 'bg-slate-50/50 dark:bg-slate-955/20 border-border/60 text-slate-400 dark:text-slate-500'
                       )}
                     >
                       <Icon size={16} />
                     </div>
                     <div>
-                      <span className="block font-bold text-xs text-slate-900 dark:text-white leading-tight">
+                      <span className="block font-bold text-xs text-foreground leading-tight">
                         {fmt.label}
                       </span>
                       <span className="block text-[10px] text-slate-500 dark:text-slate-405 leading-relaxed mt-1 font-medium">
@@ -207,7 +207,7 @@ export default function ExportDialog({
             <div className="space-y-1.5 pt-1 text-left">
               <label
                 htmlFor="export-template"
-                className="flex items-center gap-1.5 text-[10px] font-black text-slate-455 dark:text-slate-500 uppercase tracking-widest leading-none"
+                className="flex items-center gap-1.5 text-[10px] font-black text-muted-foreground uppercase tracking-widest leading-none"
               >
                 <Settings size={12} className="text-slate-400" />
                 <span>Visual Template Theme</span>
@@ -216,7 +216,7 @@ export default function ExportDialog({
                 id="export-template"
                 value={templateName}
                 onChange={(e) => setTemplateName(e.target.value)}
-                className="w-full text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-slate-250 dark:border-slate-800 rounded-xl p-2.5 h-10 text-slate-855 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer"
+                className="w-full text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-border rounded-xl p-2.5 h-10 text-slate-855 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer"
               >
                 <option value="Standard">Standard (Modern Minimalist)</option>
                 <option value="Classic">Classic (Formal Times)</option>
@@ -239,7 +239,7 @@ export default function ExportDialog({
           <Button
             onClick={handleExport}
             disabled={isExporting}
-            className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-gradient-to-r from-brand-600 to-indigo-650 hover:from-brand-700 hover:to-indigo-700 text-white shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-10"
+            className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-10"
           >
             {isExporting ? (
               <>

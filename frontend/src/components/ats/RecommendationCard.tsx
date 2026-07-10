@@ -59,21 +59,21 @@ export function RecommendationCard({ recommendation }: RecommendationCardProps) 
   }
 
   return (
-    <div className="border border-slate-200/60 dark:border-slate-850 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl overflow-hidden shadow-xs hover:border-slate-350 dark:hover:border-slate-750 transition-colors duration-200 text-left">
+    <div className="border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl overflow-hidden shadow-xs hover:border-slate-350 dark:hover:border-slate-750 transition-colors duration-200 text-left">
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between p-4 focus:outline-none cursor-pointer bg-transparent border-none"
       >
         <div className="flex items-center gap-3.5 min-w-0 pr-4">
-          <div className="p-2 bg-slate-50/50 dark:bg-slate-850 border border-slate-100 dark:border-slate-800 rounded-xl shrink-0">
+          <div className="p-2 bg-slate-50/50 dark:bg-slate-850 border border-border rounded-xl shrink-0">
             {getCategoryIcon(category)}
           </div>
           <div className="min-w-0 text-left">
             <p className="text-sm font-bold text-slate-900 dark:text-slate-100 truncate pr-2 m-0 leading-tight">
               {message}
             </p>
-            <p className="text-[10px] text-slate-450 dark:text-slate-500 font-semibold uppercase tracking-wider mt-1 m-0">Category: {category}</p>
+            <p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider mt-1 m-0">Category: {category}</p>
           </div>
         </div>
         <div className="flex items-center gap-3 shrink-0">
@@ -83,18 +83,18 @@ export function RecommendationCard({ recommendation }: RecommendationCardProps) 
       </button>
 
       {isOpen && (
-        <div className="p-4 pt-0 border-t border-slate-150/40 dark:border-slate-850/40 bg-white/50 dark:bg-dark-bg/20 text-xs text-slate-655 dark:text-slate-350 leading-relaxed space-y-2.5 animate-fadeIn">
+        <div className="p-4 pt-0 border-t border-border/40 bg-background/20 text-xs text-muted-foreground leading-relaxed space-y-2.5 animate-fadeIn">
           <div className="flex items-start gap-2.5 mt-3">
-            <CheckCircle size={14} className="text-emerald-500 shrink-0 mt-0.5" />
+            <CheckCircle size={14} className="text-success shrink-0 mt-0.5" />
             <div className="font-medium">
-              <span className="font-bold text-slate-900 dark:text-slate-200">Action Plan: </span>
+              <span className="font-bold text-foreground">Action Plan: </span>
               {getActionPlan(category)}
             </div>
           </div>
           <div className="flex items-start gap-2.5">
             <HelpCircle size={14} className="text-brand-500 shrink-0 mt-0.5" />
             <div className="font-medium">
-              <span className="font-bold text-slate-900 dark:text-slate-200">Why this matters: </span>
+              <span className="font-bold text-foreground">Why this matters: </span>
               ATS filters parse specific categories to grade suitability. Missing terms or structures reduce overall scanner scoring by up to 25%.
             </div>
           </div>

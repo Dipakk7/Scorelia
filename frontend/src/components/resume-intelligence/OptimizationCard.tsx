@@ -33,9 +33,9 @@ export function OptimizationCard({ optimization }: OptimizationCardProps) {
   const getPriorityColor = (priority: string) => {
     switch (priority?.toUpperCase()) {
       case 'HIGH':
-        return 'bg-rose-500/10 text-rose-700 dark:text-rose-455 border-rose-500/20'
+        return 'bg-destructive/10 text-destructive border-destructive/20'
       case 'MEDIUM':
-        return 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20'
+        return 'bg-warning/10 text-warning border-warning/20'
       default:
         return 'bg-slate-100 dark:bg-slate-800 text-slate-655 dark:text-slate-400 border-slate-300/30'
     }
@@ -46,14 +46,14 @@ export function OptimizationCard({ optimization }: OptimizationCardProps) {
       case 'HARD':
         return 'bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/20'
       case 'MEDIUM':
-        return 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border-indigo-500/20'
+        return 'bg-indigo-500/10 text-primary border-indigo-500/20'
       default:
         return 'bg-teal-500/10 text-teal-700 dark:text-teal-400 border-teal-500/20'
     }
   }
 
   return (
-    <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md shadow-sm overflow-hidden font-sans rounded-2xl hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left">
+    <Card className="border border-border/60 bg-card/70 backdrop-blur-md shadow-sm overflow-hidden font-sans rounded-2xl hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left">
       {/* Sub tabs */}
       <div className="flex border-b border-slate-105 dark:border-slate-850/80 overflow-x-auto scrollbar-none bg-slate-50/20 dark:bg-slate-900/10">
         {tabItems.map((item) => {
@@ -83,7 +83,7 @@ export function OptimizationCard({ optimization }: OptimizationCardProps) {
           <div className="space-y-6">
             {/* ATS Overview */}
             {optimization.ats_optimization && (
-              <div className="p-4 bg-slate-50/30 dark:bg-slate-900/20 border border-slate-200/60 dark:border-slate-850 rounded-2xl grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+              <div className="p-4 bg-slate-50/30 dark:bg-slate-900/20 border border-border/60 rounded-2xl grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
                 <div className="md:col-span-3 space-y-1.5">
                   <h4 className="text-xs font-black text-slate-900 dark:text-slate-200 flex items-center gap-1.5 m-0 uppercase tracking-wider">
                     <Search size={14} className="text-brand-500" />
@@ -95,13 +95,13 @@ export function OptimizationCard({ optimization }: OptimizationCardProps) {
                   </p>
                 </div>
                 <div className="bg-brand-500/5 border border-brand-500/10 rounded-xl p-3.5 text-center flex flex-col justify-center h-full">
-                  <span className="text-[9px] text-slate-450 dark:text-slate-500 font-extrabold uppercase tracking-wider">
+                  <span className="text-[9px] text-muted-foreground font-extrabold uppercase tracking-wider">
                     Expected Increase
                   </span>
                   <span className="text-xl font-black text-brand-600 dark:text-brand-400 mt-0.5">
                     +{optimization.ats_optimization.expected_improvement || 0} pts
                   </span>
-                  <span className="text-[9px] text-slate-500 dark:text-slate-455 leading-tight mt-1 font-semibold uppercase tracking-wider">
+                  <span className="text-[9px] text-muted-foreground leading-tight mt-1 font-semibold uppercase tracking-wider">
                     With recommended fixes
                   </span>
                 </div>
@@ -127,29 +127,29 @@ export function OptimizationCard({ optimization }: OptimizationCardProps) {
                   ))}
                   {(!optimization.keyword_optimization?.matched_keywords ||
                     optimization.keyword_optimization.matched_keywords.length === 0) && (
-                    <span className="text-xs text-slate-450 dark:text-slate-500 italic">None matched.</span>
+                    <span className="text-xs text-muted-foreground italic">None matched.</span>
                   )}
                 </div>
               </div>
 
               {/* Missing Keywords */}
-              <div className="space-y-3.5 p-4 bg-rose-500/5 dark:bg-rose-500/10 border border-rose-500/10 dark:border-rose-500/20 rounded-2xl text-left">
-                <h4 className="text-xs font-black text-rose-700 dark:text-rose-455 flex items-center gap-1.5 uppercase tracking-wider m-0">
-                  <AlertCircle size={14} className="text-rose-500" />
+              <div className="space-y-3.5 p-4 bg-destructive/5 border border-destructive/10 dark:border-destructive/20 rounded-2xl text-left">
+                <h4 className="text-xs font-black text-destructive flex items-center gap-1.5 uppercase tracking-wider m-0">
+                  <AlertCircle size={14} className="text-destructive" />
                   <span>Missing Keywords ({optimization.keyword_optimization?.missing_keywords?.length || 0})</span>
                 </h4>
                 <div className="flex flex-wrap gap-1.5 max-h-[160px] overflow-y-auto pr-1 scrollbar-none">
                   {optimization.keyword_optimization?.missing_keywords?.map((kw) => (
                     <span
                       key={kw}
-                      className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-500/15"
+                      className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-destructive/10 text-destructive border border-destructive/20"
                     >
                       {kw}
                     </span>
                   ))}
                   {(!optimization.keyword_optimization?.missing_keywords ||
                     optimization.keyword_optimization.missing_keywords.length === 0) && (
-                    <span className="text-xs text-slate-450 dark:text-slate-500 italic">No missing keywords!</span>
+                    <span className="text-xs text-muted-foreground italic">No missing keywords!</span>
                   )}
                 </div>
               </div>
@@ -171,7 +171,7 @@ export function OptimizationCard({ optimization }: OptimizationCardProps) {
                   ))}
                   {(!optimization.keyword_optimization?.strong_action_verbs ||
                     optimization.keyword_optimization.strong_action_verbs.length === 0) && (
-                    <span className="text-xs text-slate-455 dark:text-slate-500 italic">None found.</span>
+                    <span className="text-xs text-muted-foreground italic">None found.</span>
                   )}
                 </div>
               </div>
@@ -190,7 +190,7 @@ export function OptimizationCard({ optimization }: OptimizationCardProps) {
                 optimization.achievement_optimization.map((bullet, idx) => (
                   <div
                     key={idx}
-                    className="p-4 border border-slate-200/80 dark:border-slate-800 bg-white/30 dark:bg-slate-900/10 rounded-2xl space-y-3.5 hover:border-brand-500/10 transition-colors duration-200"
+                    className="p-4 border border-slate-200/80 dark:border-slate-800 bg-card/30 dark:bg-slate-900/10 rounded-2xl space-y-3.5 hover:border-brand-500/10 transition-colors duration-200"
                   >
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* Original */}
@@ -208,20 +208,20 @@ export function OptimizationCard({ optimization }: OptimizationCardProps) {
                         <span className="text-[9px] font-bold text-brand-500 uppercase tracking-wider block">
                           AI Suggested Optimization
                         </span>
-                        <p className="text-xs text-slate-800 dark:text-slate-200 bg-emerald-500/5 p-3 rounded-xl border border-emerald-500/15 leading-relaxed font-semibold font-sans m-0">
+                        <p className="text-xs text-foreground bg-emerald-500/5 p-3 rounded-xl border border-emerald-500/15 leading-relaxed font-semibold font-sans m-0">
                           {bullet.suggested_bullet}
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3.5 border-t border-dashed border-slate-200 dark:border-slate-800">
+                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3.5 border-t border-dashed border-border">
                       <div className="flex flex-wrap gap-2 text-[9px] font-black uppercase tracking-wider">
                         <span
                           className={cn(
                             'px-2 py-0.5 rounded-lg border',
                             bullet.missing_metrics
-                              ? 'bg-rose-500/10 text-rose-700 dark:text-rose-455 border-rose-500/20'
-                              : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20'
+                              ? 'bg-destructive/10 text-destructive border-destructive/20'
+                              : 'bg-success/10 text-success border-success/20'
                           )}
                         >
                           {bullet.missing_metrics ? '✗ Missing Metrics' : '✓ Has Metrics'}
@@ -230,8 +230,8 @@ export function OptimizationCard({ optimization }: OptimizationCardProps) {
                           className={cn(
                             'px-2 py-0.5 rounded-lg border',
                             bullet.missing_impact
-                              ? 'bg-rose-500/10 text-rose-700 dark:text-rose-455 border-rose-500/20'
-                              : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20'
+                              ? 'bg-destructive/10 text-destructive border-destructive/20'
+                              : 'bg-success/10 text-success border-success/20'
                           )}
                         >
                           {bullet.missing_impact ? '✗ Missing Impact' : '✓ Has Impact'}
@@ -240,14 +240,14 @@ export function OptimizationCard({ optimization }: OptimizationCardProps) {
                           className={cn(
                             'px-2 py-0.5 rounded-lg border',
                             bullet.missing_business_value
-                              ? 'bg-rose-500/10 text-rose-700 dark:text-rose-455 border-rose-500/20'
-                              : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20'
+                              ? 'bg-destructive/10 text-destructive border-destructive/20'
+                              : 'bg-success/10 text-success border-success/20'
                           )}
                         >
                           {bullet.missing_business_value ? '✗ Missing Business Value' : '✓ Has Value'}
                         </span>
                       </div>
-                      <div className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">
+                      <div className="text-[10px] text-muted-foreground font-medium">
                         <span className="font-bold text-brand-655 dark:text-brand-400">Reason:</span> {bullet.reason}
                       </div>
                     </div>
@@ -289,12 +289,12 @@ export function OptimizationCard({ optimization }: OptimizationCardProps) {
                       </div>
                     </div>
 
-                    <p className="text-slate-655 dark:text-slate-350 leading-relaxed font-medium m-0">
+                    <p className="text-muted-foreground leading-relaxed font-medium m-0">
                       {item.why_it_matters}
                     </p>
 
                     <div className="pt-3 border-t border-slate-150/40 dark:border-slate-800/80 space-y-2">
-                      <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-455 font-bold text-[9px] uppercase tracking-wider">
+                      <div className="flex items-center gap-1.5 text-muted-foreground font-bold text-[9px] uppercase tracking-wider">
                         <Clock size={11} className="text-brand-500" />
                         <span>Est. time to learn: {item.estimated_time || 'N/A'}</span>
                       </div>
@@ -363,7 +363,7 @@ export function OptimizationCard({ optimization }: OptimizationCardProps) {
                           <h5 className="font-extrabold text-slate-905 dark:text-slate-200 m-0">
                             {tier.label}
                           </h5>
-                          <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-2 leading-relaxed line-clamp-3 font-medium">
+                          <p className="text-[10px] text-muted-foreground mt-2 leading-relaxed line-clamp-3 font-medium">
                             {info?.reasoning || 'No details analyzed.'}
                           </p>
                         </div>
@@ -371,8 +371,8 @@ export function OptimizationCard({ optimization }: OptimizationCardProps) {
                           className={cn(
                             'text-[9px] font-black uppercase tracking-wider self-end px-2.5 py-0.5 rounded-lg border',
                             isReady
-                              ? 'bg-emerald-100 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-450 border-emerald-250/20'
-                              : 'bg-rose-100 dark:bg-rose-950/50 text-rose-700 dark:text-rose-455 border-rose-250/20'
+                              ? 'bg-success/10 text-success border-success/20'
+                              : 'bg-destructive/10 text-destructive border-destructive/20'
                           )}
                         >
                           {isReady ? 'Qualified' : 'Requires Focus'}

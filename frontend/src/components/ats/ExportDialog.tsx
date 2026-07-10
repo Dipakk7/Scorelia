@@ -141,7 +141,7 @@ export function ExportDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md font-sans text-left dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+      <DialogContent className="max-w-md font-sans text-left dark:bg-slate-900 border border-border">
         <DialogHeader>
           <DialogTitle className="text-lg font-bold">Export ATS & Matching Reports</DialogTitle>
           <DialogDescription className="text-xs text-slate-500">
@@ -169,14 +169,14 @@ export function ExportDialog({
                   className={`flex items-start gap-3 p-3 border rounded-xl transition-all cursor-pointer text-left w-full disabled:opacity-40 disabled:cursor-not-allowed ${
                     selectedReports[opt.key as keyof typeof selectedReports] && !opt.disabled
                       ? 'border-brand-500 bg-brand-500/5 dark:bg-brand-500/10'
-                      : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50/50 dark:hover:bg-slate-900'
+                      : 'border-border hover:bg-slate-50/50 dark:hover:bg-slate-900'
                   }`}
                 >
                   <div
                     className={`h-4 w-4 rounded border mt-0.5 flex items-center justify-center shrink-0 ${
                       selectedReports[opt.key as keyof typeof selectedReports] && !opt.disabled
                         ? 'bg-brand-600 border-brand-600 text-white'
-                        : 'border-slate-350 bg-white dark:bg-slate-900'
+                        : 'border-slate-350 bg-card'
                     }`}
                   >
                     {selectedReports[opt.key as keyof typeof selectedReports] && !opt.disabled && (
@@ -184,10 +184,10 @@ export function ExportDialog({
                     )}
                   </div>
                   <div>
-                    <h4 className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                    <h4 className="text-xs font-semibold text-foreground">
                       {opt.label}
                     </h4>
-                    <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">
+                    <p className="text-[10px] text-muted-foreground leading-tight">
                       {opt.desc}
                     </p>
                   </div>
@@ -214,7 +214,7 @@ export function ExportDialog({
                     className={`flex-1 flex flex-col items-center p-3 border rounded-xl transition-all cursor-pointer ${
                       format === f.key
                         ? 'border-brand-500 bg-brand-500/5 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400'
-                        : 'border-slate-250 dark:border-slate-800 hover:bg-slate-50/50 dark:hover:bg-slate-900'
+                        : 'border-border hover:bg-slate-50/50 dark:hover:bg-slate-900'
                     }`}
                   >
                     <Icon size={18} className="mb-1" />

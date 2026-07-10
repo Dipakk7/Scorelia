@@ -18,7 +18,7 @@ export const ExecutionStepCard: React.FC<ExecutionStepCardProps> = ({ step, inde
   return (
     <Card
       className={cn(
-        'border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs',
+        'border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs',
         !isSuccess && 'border-rose-350 dark:border-rose-950/60',
         className
       )}
@@ -32,16 +32,16 @@ export const ExecutionStepCard: React.FC<ExecutionStepCardProps> = ({ step, inde
               className={cn(
                 'h-7 w-7 rounded-xl text-xs font-black font-mono flex items-center justify-center flex-shrink-0 leading-none shadow-2xs border border-transparent',
                 isSuccess
-                  ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-450 border-emerald-500/10'
-                  : 'bg-rose-500/10 text-rose-650 dark:text-rose-455 border-rose-500/10'
+                  ? 'bg-success/10 text-success border-success/20'
+                  : 'bg-destructive/10 text-destructive border-destructive/20'
               )}
             >
               {index + 1}
             </div>
 
             <div className="text-left">
-              <span className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase font-mono tracking-widest block leading-none">Agent Execution Step</span>
-              <h5 className="font-extrabold text-xs text-slate-800 dark:text-slate-200 font-sans mt-1.5 leading-none">
+              <span className="text-muted-foreground text-[8px] font-black uppercase font-mono tracking-widest block leading-none">Agent Execution Step</span>
+              <h5 className="font-extrabold text-xs text-foreground font-sans mt-1.5 leading-none">
                 {step.agent_id.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
               </h5>
             </div>
@@ -49,7 +49,7 @@ export const ExecutionStepCard: React.FC<ExecutionStepCardProps> = ({ step, inde
 
           <div className="flex items-center gap-3 shrink-0">
             {/* Time metric */}
-            <div className="flex items-center gap-1 text-slate-455 dark:text-slate-500 text-[10px] font-mono leading-none">
+            <div className="flex items-center gap-1 text-muted-foreground text-[10px] font-mono leading-none">
               <Clock size={12} className="text-slate-400" />
               <span>{step.execution_time_ms.toFixed(0)}ms</span>
             </div>
@@ -72,7 +72,7 @@ export const ExecutionStepCard: React.FC<ExecutionStepCardProps> = ({ step, inde
           <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-850/65 flex flex-col gap-3 font-sans text-xs text-left animate-fade-in">
             {/* Errors display */}
             {step.errors && step.errors.length > 0 && (
-              <div className="p-3 bg-rose-500/10 border border-rose-500/20 text-rose-650 dark:text-rose-455 rounded-xl flex gap-2 text-left">
+              <div className="p-3 bg-destructive/10 border border-destructive/20 text-destructive rounded-xl flex gap-2 text-left">
                 <AlertCircle size={16} className="flex-shrink-0 mt-0.5" />
                 <div className="flex flex-col gap-1 text-left">
                   <strong className="font-bold">Errors:</strong>
@@ -87,7 +87,7 @@ export const ExecutionStepCard: React.FC<ExecutionStepCardProps> = ({ step, inde
 
             {/* Step Output */}
             <div className="flex flex-col gap-1.5 text-left">
-              <span className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase tracking-widest font-mono flex items-center gap-1.5 leading-none">
+              <span className="text-muted-foreground text-[8px] font-black uppercase tracking-widest font-mono flex items-center gap-1.5 leading-none">
                 <FileCode size={12} className="text-slate-400" />
                 <span>Step Output Payload</span>
               </span>

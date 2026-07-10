@@ -45,9 +45,9 @@ export default function ResumeViewer({ parsedData, originalFilename }: ResumeVie
 
   if (!parsedData) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl min-h-[300px] text-center">
+      <div className="flex flex-col items-center justify-center p-12 bg-card border border-border rounded-2xl min-h-[300px] text-center">
         <FileText className="text-slate-300 dark:text-slate-650 mb-3 animate-pulse" size={40} />
-        <h3 className="text-base font-bold font-display text-slate-800 dark:text-slate-200">
+        <h3 className="text-base font-bold font-display text-foreground">
           No parsed content available
         </h3>
         <p className="text-sm font-sans text-slate-550 dark:text-slate-400 mt-1 max-w-sm">
@@ -206,7 +206,7 @@ export default function ResumeViewer({ parsedData, originalFilename }: ResumeVie
   return (
     <div className="space-y-6">
       {/* Top Bar Controls */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-border">
         <div className="flex items-center gap-2">
           <Button
             variant="ghost"
@@ -417,13 +417,13 @@ export default function ResumeViewer({ parsedData, originalFilename }: ResumeVie
             {data.experience?.value && data.experience.value.length > 0 ? (
               <div className="space-y-6 text-left">
                 {data.experience.value.map((exp, idx) => (
-                  <div key={idx} className="relative pl-5 border-l border-slate-200 dark:border-slate-800 space-y-1">
+                  <div key={idx} className="relative pl-5 border-l border-border space-y-1">
                     <div className="absolute -left-1.5 top-1.5 w-3 h-3 bg-brand-600 dark:bg-brand-500 rounded-full border border-white dark:border-slate-900" />
                     <div className="flex flex-wrap items-start justify-between gap-1">
-                      <h4 className="font-semibold text-sm text-slate-850 dark:text-slate-100">
+                      <h4 className="font-semibold text-sm text-foreground">
                         {exp.title || 'Role Name'}
                       </h4>
-                      <span className="text-xs text-slate-450 dark:text-slate-500">{exp.duration}</span>
+                      <span className="text-xs text-muted-foreground">{exp.duration}</span>
                     </div>
                     <p className="text-xs font-semibold text-brand-650 dark:text-brand-450">
                       {exp.company || 'Company'}
@@ -456,10 +456,10 @@ export default function ResumeViewer({ parsedData, originalFilename }: ResumeVie
                 {data.education.value.map((edu, idx) => (
                   <div key={idx} className="space-y-0.5">
                     <div className="flex flex-wrap items-start justify-between gap-1">
-                      <h4 className="font-semibold text-sm text-slate-850 dark:text-slate-100">
+                      <h4 className="font-semibold text-sm text-foreground">
                         {edu.degree || 'Degree'}
                       </h4>
-                      <span className="text-xs text-slate-450 dark:text-slate-500">{edu.year}</span>
+                      <span className="text-xs text-muted-foreground">{edu.year}</span>
                     </div>
                     <p className="text-xs text-slate-550 dark:text-slate-450">{edu.institution}</p>
                   </div>
@@ -484,7 +484,7 @@ export default function ResumeViewer({ parsedData, originalFilename }: ResumeVie
               <div className="space-y-5 text-left">
                 {data.projects.value.map((proj, idx) => (
                   <div key={idx} className="space-y-2">
-                    <h4 className="font-semibold text-sm text-slate-850 dark:text-slate-100">
+                    <h4 className="font-semibold text-sm text-foreground">
                       {proj.name || 'Project Name'}
                     </h4>
                     {proj.technologies && proj.technologies.length > 0 && (

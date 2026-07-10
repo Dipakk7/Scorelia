@@ -120,19 +120,19 @@ export function RecommendationPanel({
 
                 {/* Recommendation Details */}
                 {isOpen && (
-                  <div className="px-4 pb-4 pt-0 border-t border-slate-150/40 dark:border-slate-850/40 mt-0 bg-white/50 dark:bg-dark-bg/20 space-y-3.5">
+                  <div className="px-4 pb-4 pt-0 border-t border-border/40 mt-0 bg-background/20 space-y-3.5">
                     {/* Reason */}
                     <div className="space-y-1 mt-3">
                       <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 block">
                         Issue Found
                       </span>
-                      <p className="text-xs text-slate-655 dark:text-slate-350 leading-relaxed font-medium m-0">
+                      <p className="text-xs text-muted-foreground leading-relaxed font-medium m-0">
                         {rec.reason}
                       </p>
                     </div>
 
                     {/* Impact / Estimations */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-3 border-t border-dashed border-slate-150/40 dark:border-slate-850/40">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-3 border-t border-dashed border-border/40">
                       <div className="space-y-0.5">
                         <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 block">
                           Impact Analysis

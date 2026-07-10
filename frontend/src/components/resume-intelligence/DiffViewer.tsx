@@ -52,19 +52,19 @@ export function DiffViewer({ originalText = '', newText = '', title }: DiffViewe
   const diffResult = diffWords(originalText, newText)
 
   return (
-    <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-dark-bg font-sans text-left">
+    <div className="border border-border rounded-xl overflow-hidden bg-background font-sans text-left">
       {/* Control Header */}
-      <div className="flex justify-between items-center px-4 py-3 bg-slate-50 dark:bg-slate-900/30 border-b border-slate-100 dark:border-slate-850">
-        <span className="text-xs font-bold text-slate-700 dark:text-slate-200">
+      <div className="flex justify-between items-center px-4 py-3 bg-muted/30 border-b border-border">
+        <span className="text-xs font-bold text-foreground">
           {title || 'Resume Diff Analysis'}
         </span>
-        <div className="flex bg-slate-200/60 dark:bg-slate-800 p-0.5 rounded-lg">
+        <div className="flex bg-muted p-0.5 rounded-lg">
           <button
             onClick={() => setViewMode('inline')}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[10px] font-bold transition-all cursor-pointer ${
               viewMode === 'inline'
-                ? 'bg-white dark:bg-dark-bg text-slate-800 dark:text-slate-100 shadow-xs'
-                : 'text-slate-500 hover:text-slate-700'
+                ? 'bg-background text-foreground shadow-xs'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             <Eye size={12} />
@@ -74,8 +74,8 @@ export function DiffViewer({ originalText = '', newText = '', title }: DiffViewe
             onClick={() => setViewMode('side-by-side')}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[10px] font-bold transition-all cursor-pointer ${
               viewMode === 'side-by-side'
-                ? 'bg-white dark:bg-dark-bg text-slate-800 dark:text-slate-100 shadow-xs'
-                : 'text-slate-500 hover:text-slate-700'
+                ? 'bg-background text-foreground shadow-xs'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             <Columns size={12} />
@@ -94,7 +94,7 @@ export function DiffViewer({ originalText = '', newText = '', title }: DiffViewe
                 return (
                   <ins
                     key={idx}
-                    className="bg-emerald-500/15 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-400 no-underline px-0.5 rounded-sm font-semibold"
+                    className="bg-success/15 text-success no-underline px-0.5 rounded-sm font-semibold"
                   >
                     {chunk.value}
                   </ins>
@@ -104,7 +104,7 @@ export function DiffViewer({ originalText = '', newText = '', title }: DiffViewe
                 return (
                   <del
                     key={idx}
-                    className="bg-rose-500/15 dark:bg-rose-500/20 text-rose-800 dark:text-rose-455 line-through px-0.5 rounded-sm"
+                    className="bg-destructive/15 text-destructive line-through px-0.5 rounded-sm"
                   >
                     {chunk.value}
                   </del>

@@ -18,7 +18,7 @@ interface GitHubCardProps {
 export function GitHubCard({ repositories }: GitHubCardProps) {
   if (!repositories || repositories.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-8 text-slate-455 dark:text-slate-500 text-xs font-bold leading-none select-none text-center">
+      <div className="flex flex-col items-center justify-center py-8 text-muted-foreground text-xs font-bold leading-none select-none text-center">
         No repositories found.
       </div>
     )
@@ -29,7 +29,7 @@ export function GitHubCard({ repositories }: GitHubCardProps) {
       {repositories.map((repo) => (
         <Card
           key={repo.name}
-          className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs group flex flex-col justify-between h-full"
+          className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs group flex flex-col justify-between h-full"
         >
           <CardContent className="p-5 flex flex-col justify-between h-full gap-4 text-left">
             <div className="space-y-2 text-left">
@@ -50,7 +50,7 @@ export function GitHubCard({ repositories }: GitHubCardProps) {
                   <ExternalLink size={14} />
                 </a>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-455 line-clamp-2 min-h-[2rem] leading-normal text-left">
+              <p className="text-xs text-muted-foreground line-clamp-2 min-h-[2rem] leading-normal text-left">
                 {repo.description || 'No description provided.'}
               </p>
             </div>

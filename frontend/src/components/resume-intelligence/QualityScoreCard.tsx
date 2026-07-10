@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/Button'
 import { Spinner } from '@/components/ui/Spinner'
 import { ResponsiveContainer, AreaChart, Area, XAxis } from 'recharts'
 import { cn } from '@/lib/utils'
+import { useTheme } from '@/providers/ThemeProvider'
+import { useState, useEffect } from 'react'
 
 interface QualityScoreCardProps {
   qualityScore: number
@@ -22,6 +24,34 @@ export function QualityScoreCard({
   onAnalyze,
   isAnalyzing = false,
 }: QualityScoreCardProps) {
+  const { theme } = useTheme()
+  const [isDark, setIsDark] = useState(false)
+
+  useEffect(() => {
+    const checkDark = () => {
+      setIsDark(document.documentElement.classList.contains('dark'))
+    }
+    checkDark()
+    const observer = new MutationObserver(checkDark)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    })
+    return () => observer.disconnect()
+  }, [])
+
+  const themeColors = {
+    primary: isDark ? '#5b9ac9' : '#2f6690',
+    primaryDark: isDark ? '#3e7fae' : '#1e4b6d',
+    success: isDark ? '#3ecf8e' : '#1b9e6f',
+    successDark: isDark ? '#26b876' : '#107c54',
+    warning: isDark ? '#e0b845' : '#d99b1f',
+    warningDark: isDark ? '#cca32b' : '#b27a11',
+    grid: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)',
+    text: 'var(--foreground)',
+    mutedText: 'var(--muted-foreground)',
+  }
+
   const isZeroState = qualityScore === 0 && readinessScore === 0 && improvementScore === 0
 
   // Circular progress helper
@@ -38,7 +68,7 @@ export function QualityScoreCard({
     const strokeDashoffset = circumference - (value / 100) * circumference
 
     return (
-      <div className="flex flex-col items-center text-center p-5 bg-white/30 dark:bg-slate-900/20 backdrop-blur-md rounded-2xl border border-slate-205 dark:border-slate-800/80 shadow-xs relative overflow-hidden group hover:scale-[1.01] hover:border-brand-500/20 dark:hover:border-brand-500/10 transition-all duration-300">
+      <div className="flex flex-col items-center text-center p-5 bg-card/30 dark:bg-slate-900/20 backdrop-blur-md rounded-2xl border border-border/80 shadow-xs relative overflow-hidden group hover:scale-[1.01] hover:border-brand-500/20 dark:hover:border-brand-500/10 transition-all duration-300">
         <svg className="w-24 h-24 transform -rotate-90">
           <defs>
             <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
@@ -79,10 +109,10 @@ export function QualityScoreCard({
         </div>
 
         <div className="mt-4">
-          <h4 className="text-xs font-black text-slate-700 dark:text-slate-300 tracking-wide uppercase">
+          <h4 className="text-xs font-black text-muted-foreground tracking-wide uppercase">
             {label}
           </h4>
-          <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1 leading-tight font-medium">{subtext}</p>
+          <p className="text-[10px] text-muted-foreground mt-1 leading-tight font-medium">{subtext}</p>
         </div>
       </div>
     )
@@ -90,17 +120,17 @@ export function QualityScoreCard({
 
   // Calculate rating tier
   const getScoreTier = (score: number) => {
-    if (score >= 85) return { label: 'Excellent', color: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20' }
+    if (score >= 85) return { label: 'Excellent', color: 'bg-success/10 text-success border-success/20' }
     if (score >= 70) return { label: 'Good', color: 'bg-brand-500/10 text-brand-600 dark:text-brand-400 border-brand-500/20' }
     if (score >= 50) return { label: 'Fair', color: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20' }
-    return { label: 'Needs Focus', color: 'bg-rose-500/10 text-rose-600 dark:text-rose-455 border-rose-500/20' }
+    return { label: 'Needs Focus', color: 'bg-destructive/10 text-destructive border-destructive/20' }
   }
 
   const tier = getScoreTier(qualityScore)
 
   return (
-    <Card className="border border-slate-200/60 dark:border-slate-850 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md shadow-sm overflow-hidden font-sans rounded-2xl hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
-      <div className="p-6 pb-4 flex justify-between items-center border-b border-slate-100 dark:border-slate-800/60">
+    <Card className="border border-border/60 bg-card/70 backdrop-blur-md shadow-sm overflow-hidden font-sans rounded-2xl hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+      <div className="p-6 pb-4 flex justify-between items-center border-b border-border/60 bg-transparent">
         <div className="text-left">
           <div className="flex items-center gap-2">
             <span className="p-1.5 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/15">
@@ -110,7 +140,7 @@ export function QualityScoreCard({
               AI Scoring Center
             </h3>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5">
+          <p className="text-xs text-muted-foreground mt-1.5">
             Real-time quality grading, career suitability index, and optimization history metrics.
           </p>
         </div>
@@ -121,16 +151,16 @@ export function QualityScoreCard({
         )}
       </div>
 
-      <CardContent className="pt-6 space-y-6">
+      <CardContent className="pt-6 space-y-6 bg-transparent">
         {isZeroState ? (
           <div className="flex flex-col items-center justify-center text-center p-8 border border-dashed border-slate-200/80 dark:border-slate-800 rounded-2xl bg-slate-50/20 dark:bg-slate-900/10 min-h-[220px]">
             <div className="p-3 bg-brand-500/10 border border-brand-500/20 rounded-2xl mb-3.5 text-brand-500 shadow-xs">
               <Sparkles size={22} className="stroke-[1.75]" />
             </div>
-            <h4 className="text-sm font-extrabold text-slate-800 dark:text-slate-200 m-0">
+            <h4 className="text-sm font-extrabold text-foreground m-0">
               No AI analysis available
             </h4>
-            <p className="text-xs text-slate-500 dark:text-slate-450 mt-1 max-w-xs leading-relaxed">
+            <p className="text-xs text-slate-555 dark:text-slate-450 mt-1 max-w-xs leading-relaxed">
               Analyze your active resume selection to unlock intelligent ratings and ATS diagnostic scores.
             </p>
             {onAnalyze && (
@@ -149,38 +179,38 @@ export function QualityScoreCard({
         ) : (
           <>
             {/* Metric Gauges Grid */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-4 bg-transparent">
               {renderCircularGauge(
                 qualityScore,
                 'Quality Score',
                 'gradQuality',
-                '#0F9D9A',
-                '#0c7f7d',
+                themeColors.primary,
+                themeColors.primaryDark,
                 'Weighted evaluation'
               )}
               {renderCircularGauge(
                 readinessScore,
                 'Career Readiness',
                 'gradReady',
-                '#aa3bff',
-                '#7d1edb',
+                themeColors.success,
+                themeColors.successDark,
                 'Industry suitability'
               )}
               {renderCircularGauge(
                 improvementScore,
                 'ATS Grade',
                 'gradImprove',
-                '#00D2FF',
-                '#00a2cc',
+                themeColors.warning,
+                themeColors.warningDark,
                 'Keyword compliance'
               )}
             </div>
 
             {/* Small trend graph inside */}
             {history && history.length > 1 && (
-              <div className="p-4 bg-slate-50/30 dark:bg-slate-900/20 border border-slate-100 dark:border-slate-800 rounded-2xl space-y-3 text-left">
+              <div className="p-4 bg-slate-50/30 dark:bg-slate-900/20 border border-border rounded-2xl space-y-3 text-left">
                 <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+                  <div className="flex items-center gap-1.5 text-muted-foreground">
                     <TrendingUp size={14} className="text-brand-500" />
                     <span className="text-[10px] font-bold uppercase tracking-wider">
                       Quality Score Trend
@@ -190,19 +220,19 @@ export function QualityScoreCard({
                     Last {history.length} scans
                   </span>
                 </div>
-                <div className="h-16 w-full opacity-95">
+                <div className="h-16 w-full opacity-95 bg-transparent">
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={history} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
                       <defs>
                         <linearGradient id="scoreSpark" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#0F9D9A" stopOpacity={0.25} />
-                          <stop offset="95%" stopColor="#0F9D9A" stopOpacity={0.0} />
+                          <stop offset="5%" stopColor={themeColors.primary} stopOpacity={0.25} />
+                          <stop offset="95%" stopColor={themeColors.primary} stopOpacity={0.0} />
                         </linearGradient>
                       </defs>
                       <Area
                         type="monotone"
                         dataKey="score"
-                        stroke="#0F9D9A"
+                        stroke={themeColors.primary}
                         strokeWidth={2}
                         fillOpacity={1}
                         fill="url(#scoreSpark)"

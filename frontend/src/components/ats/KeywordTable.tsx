@@ -88,7 +88,7 @@ export function KeywordTable({ items }: KeywordTableProps) {
             placeholder="Search keywords..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 text-xs border border-slate-250 dark:border-slate-800 rounded-xl bg-slate-50/50 dark:bg-slate-900/60 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans shadow-2xs transition-colors"
+            className="w-full pl-9 pr-4 py-2.5 text-xs border border-border rounded-xl bg-slate-50/50 dark:bg-slate-900/60 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans shadow-2xs transition-colors"
           />
         </div>
 
@@ -102,7 +102,7 @@ export function KeywordTable({ items }: KeywordTableProps) {
                 className={cn(
                   'px-3 py-1.5 rounded-xl font-bold capitalize cursor-pointer transition-colors text-xs border-none bg-transparent',
                   statusFilter === tab
-                    ? 'bg-white dark:bg-slate-950 text-slate-950 dark:text-white shadow-2xs font-extrabold'
+                    ? 'bg-card text-slate-950 dark:text-white shadow-2xs font-extrabold'
                     : 'text-slate-500 hover:text-slate-955 dark:text-slate-400 dark:hover:text-slate-150 hover:bg-slate-100/50 dark:hover:bg-slate-850/20'
                 )}
               >
@@ -115,7 +115,7 @@ export function KeywordTable({ items }: KeywordTableProps) {
             variant="outline"
             size="sm"
             onClick={handleExportCSV}
-            className="flex items-center justify-center gap-1.5 text-xs h-9 cursor-pointer rounded-xl hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent border-slate-250 dark:border-slate-800"
+            className="flex items-center justify-center gap-1.5 text-xs h-9 cursor-pointer rounded-xl hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent border-border"
           >
             <Download size={13} />
             <span>Export CSV</span>
@@ -124,7 +124,7 @@ export function KeywordTable({ items }: KeywordTableProps) {
       </div>
 
       {/* Responsive Table */}
-      <div className="overflow-x-auto border border-slate-200/60 dark:border-slate-855 rounded-2xl bg-white/70 dark:bg-slate-900/40 backdrop-blur-md shadow-sm">
+      <div className="overflow-x-auto border border-border/60 rounded-2xl bg-card/70 backdrop-blur-md shadow-sm">
         <table className="min-w-full divide-y divide-slate-200 dark:divide-slate-800/60 text-left text-xs font-sans">
           <thead className="bg-slate-50/20 dark:bg-slate-900/10 font-bold text-slate-700 dark:text-slate-350">
             <tr>
@@ -158,7 +158,7 @@ export function KeywordTable({ items }: KeywordTableProps) {
               <th className="px-6 py-3.5 font-black uppercase tracking-wider text-[10px] text-slate-400 dark:text-slate-550">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 dark:divide-slate-850/60 bg-white dark:bg-slate-900/10">
+          <tbody className="divide-y divide-slate-100 dark:divide-slate-850/60 bg-card/10">
             {processedItems.length === 0 ? (
               <tr>
                 <td colSpan={4} className="px-6 py-10 text-center text-slate-400 dark:text-slate-500 font-sans italic">
@@ -174,10 +174,10 @@ export function KeywordTable({ items }: KeywordTableProps) {
                   <td className="px-6 py-3.5 font-extrabold text-slate-900 dark:text-slate-200">
                     {item.keyword}
                   </td>
-                  <td className="px-6 py-3.5 font-mono font-bold text-slate-700 dark:text-slate-300 text-[11px]">
+                  <td className="px-6 py-3.5 font-mono font-bold text-muted-foreground text-[11px]">
                     {item.frequency}
                   </td>
-                  <td className="px-6 py-3.5 font-mono font-bold text-slate-700 dark:text-slate-300 text-[11px]">
+                  <td className="px-6 py-3.5 font-mono font-bold text-muted-foreground text-[11px]">
                     {item.density.toFixed(2)}%
                   </td>
                   <td className="px-6 py-3.5">

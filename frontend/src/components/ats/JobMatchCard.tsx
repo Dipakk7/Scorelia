@@ -11,6 +11,8 @@ import {
   Tooltip,
 } from 'recharts'
 import { cn } from '@/lib/utils'
+import { useTheme } from '@/providers/ThemeProvider'
+import { useState, useEffect } from 'react'
 
 interface MatchBreakdown {
   skills: number
@@ -45,22 +47,6 @@ interface JobMatchCardProps {
   matchData: JobMatchData
 }
 
-function CustomTooltip({ active, payload, label }: any) {
-  if (active && payload && payload.length) {
-    return (
-      <div className="rounded-xl border border-slate-200 dark:border-slate-805 bg-white/95 dark:bg-slate-955/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
-        <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 m-0">{label}</p>
-        <div className="mt-1.5 flex items-center gap-2 font-semibold">
-          <span className="h-2 w-2 rounded-full bg-brand-500" />
-          <span className="text-slate-500 dark:text-slate-400">Match:</span>
-          <span className="text-slate-900 dark:text-white">{payload[0].value}%</span>
-        </div>
-      </div>
-    )
-  }
-  return null
-}
-
 export function JobMatchCard({ matchData }: JobMatchCardProps) {
   const {
     match_score,
@@ -70,6 +56,48 @@ export function JobMatchCard({ matchData }: JobMatchCardProps) {
     missing_skills = [],
     extra_skills = [],
   } = matchData
+
+  const { theme } = useTheme()
+  const [isDark, setIsDark] = useState(false)
+
+  useEffect(() => {
+    const checkDark = () => {
+      setIsDark(document.documentElement.classList.contains('dark'))
+    }
+    checkDark()
+    const observer = new MutationObserver(checkDark)
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    })
+    return () => observer.disconnect()
+  }, [])
+
+  const themeColors = {
+    primary: isDark ? '#5b9ac9' : '#2f6690',
+    success: isDark ? '#3ecf8e' : '#1b9e6f',
+    warning: isDark ? '#e0b845' : '#d99b1f',
+    destructive: 'var(--destructive)',
+    grid: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)',
+    text: 'var(--foreground)',
+    mutedText: 'var(--muted-foreground)',
+  }
+
+  function CustomTooltip({ active, payload, label }: any) {
+    if (active && payload && payload.length) {
+      return (
+        <div className="rounded-xl border border-slate-200 dark:border-slate-805 bg-card/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+          <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 m-0">{label}</p>
+          <div className="mt-1.5 flex items-center gap-2 font-semibold">
+            <span className="h-2 w-2 rounded-full" style={{ backgroundColor: themeColors.primary }} />
+            <span className="text-muted-foreground">Match:</span>
+            <span className="text-foreground">{payload[0].value}%</span>
+          </div>
+        </div>
+      )
+    }
+    return null
+  }
 
   // Format breakdown data for Recharts Radar
   const chartData = [
@@ -86,12 +114,12 @@ export function JobMatchCard({ matchData }: JobMatchCardProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-left font-sans">
       {/* Gauge and Radar Card */}
-      <Card className="lg:col-span-2 border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left">
-        <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60">
+      <Card className="lg:col-span-2 border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left">
+        <CardHeader className="pb-2.5 border-b border-border/60">
           <CardTitle className="text-sm font-black uppercase tracking-wider text-slate-900 dark:text-slate-150 m-0">Job Match Scoring Breakdown</CardTitle>
         </CardHeader>
-        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 items-center">
-          <div className="flex flex-col items-center">
+        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 items-center bg-transparent">
+          <div className="flex flex-col items-center bg-transparent">
             <ATSGauge score={match_score} label="Match Score" grade={grade} size={180} />
             <div className="mt-2.5 text-center">
               <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider block">
@@ -103,24 +131,24 @@ export function JobMatchCard({ matchData }: JobMatchCardProps) {
             </div>
           </div>
 
-          <div className="h-56 w-full">
+          <div className="h-56 w-full bg-transparent">
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart cx="50%" cy="50%" outerRadius="70%" data={chartData}>
-                <PolarGrid stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
+                <PolarGrid stroke={themeColors.grid} />
                 <PolarAngleAxis
                   dataKey="subject"
-                  tick={{ fill: '#64748b', fontSize: 10, fontWeight: 600, fontFamily: 'Inter' }}
+                  tick={{ fill: themeColors.mutedText, fontSize: 10, fontWeight: 600, fontFamily: 'Inter' }}
                 />
                 <PolarRadiusAxis
                   angle={30}
                   domain={[0, 100]}
-                  tick={{ fill: '#94a3b8', fontSize: 8 }}
+                  tick={{ fill: themeColors.mutedText, fontSize: 8 }}
                 />
                 <Radar
                   name="Score"
                   dataKey="value"
-                  stroke="#0F9D9A"
-                  fill="#0F9D9A"
+                  stroke={themeColors.primary}
+                  fill={themeColors.primary}
                   fillOpacity={0.25}
                 />
                 <Tooltip content={<CustomTooltip />} />
@@ -131,8 +159,8 @@ export function JobMatchCard({ matchData }: JobMatchCardProps) {
       </Card>
 
       {/* Quick Summary list */}
-      <Card className="border border-slate-200/60 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 flex flex-col justify-between text-left">
-        <CardHeader className="pb-2.5 border-b border-slate-100 dark:border-slate-800/60">
+      <Card className="border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 flex flex-col justify-between text-left">
+        <CardHeader className="pb-2.5 border-b border-border/60">
           <CardTitle className="text-sm font-black uppercase tracking-wider text-slate-900 dark:text-slate-150 m-0">Skills Matching Metrics</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4 pt-6 text-xs font-sans">
@@ -173,7 +201,7 @@ export function JobMatchCard({ matchData }: JobMatchCardProps) {
                 missing_skills.map((skill, idx) => (
                   <span
                     key={idx}
-                    className="text-[9px] font-bold px-2 py-0.5 rounded-lg bg-rose-500/10 text-rose-700 dark:text-rose-455 border border-rose-500/15"
+                    className="text-[9px] font-bold px-2 py-0.5 rounded-lg bg-destructive/10 text-destructive border border-destructive/20"
                   >
                     {skill}
                   </span>

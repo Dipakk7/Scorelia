@@ -13,7 +13,7 @@ export default function EmptyResumeState({ onUploadClick }: EmptyResumeStateProp
       description="Upload your resume in PDF or DOCX format. Scorelia will parse your experience and skills to match you with suitable jobs."
       actionLabel="Upload Resume"
       onAction={onUploadClick}
-      className="border-slate-200 dark:border-slate-800"
+      className="border-border"
     />
   )
 }

@@ -118,21 +118,21 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
             >
               <Bell size={18} />
               {unreadCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 h-4 min-w-4 px-1 rounded-full bg-rose-500 text-[9px] font-black text-white flex items-center justify-center border border-white dark:border-slate-900 shadow-[0_2px_6px_rgba(244,63,94,0.4)] animate-pulse font-sans">
+                <span className="absolute top-1.5 right-1.5 h-4 min-w-4 px-1 rounded-full bg-destructive text-[9px] font-black text-destructive-foreground flex items-center justify-center border border-background shadow-[0_2px_6px_rgba(244,63,94,0.4)] animate-pulse font-sans">
                   {unreadCount}
                 </span>
               )}
             </button>
           </DropdownTrigger>
-          <DropdownContent className="w-80 border-slate-200/80 dark:border-slate-800/80 bg-white/95 dark:bg-slate-900/95 shadow-xl backdrop-blur-md" align="end">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-800/80 select-none">
-              <span className="text-[10px] font-extrabold font-display text-slate-800 dark:text-slate-200 uppercase tracking-widest">
+          <DropdownContent className="w-80 border-border/80 bg-card/95 shadow-xl backdrop-blur-md" align="end">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border/80 select-none">
+              <span className="text-[10px] font-extrabold font-display text-foreground uppercase tracking-widest">
                 Notifications
               </span>
               {unreadCount > 0 && (
                 <button
                   onClick={() => markAllReadMutation.mutate()}
-                  className="text-[9px] font-bold text-brand-600 hover:text-brand-700 hover:underline dark:text-brand-450 dark:hover:text-brand-400 cursor-pointer uppercase tracking-wider"
+                  className="text-[9px] font-bold text-primary hover:text-primary/80 hover:underline dark:text-brand-450 dark:hover:text-brand-400 cursor-pointer uppercase tracking-wider"
                 >
                   Mark all read
                 </button>
@@ -152,10 +152,10 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
                     )}
                   >
                     <div className="flex-1 space-y-1 min-w-0 pr-8">
-                      <p className={cn('text-xs font-semibold tracking-tight truncate', n.is_read ? 'text-slate-700 dark:text-slate-350' : 'text-slate-950 dark:text-slate-100 font-bold')}>
+                      <p className={cn('text-xs font-semibold tracking-tight truncate', n.is_read ? 'text-muted-foreground' : 'text-foreground font-bold')}>
                         {n.title}
                       </p>
-                      <p className="text-[10px] text-slate-500 dark:text-slate-400 font-sans line-clamp-2 leading-relaxed">
+                      <p className="text-[10px] text-muted-foreground font-sans line-clamp-2 leading-relaxed">
                         {n.message}
                       </p>
                       <span className="text-[8px] font-bold text-slate-400 dark:text-slate-550 block mt-1.5 uppercase tracking-wider font-sans">
@@ -167,7 +167,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
                       {!n.is_read && (
                         <button
                           onClick={() => markReadMutation.mutate(n.id)}
-                          className="p-1 rounded bg-slate-50 dark:bg-slate-850 text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-500/10 cursor-pointer border border-slate-200/40 dark:border-slate-800/40 shadow-xs"
+                          className="p-1 rounded bg-muted text-slate-400 hover:text-success hover:bg-success/10 cursor-pointer border border-border/40 shadow-xs"
                           title="Mark read"
                         >
                           <Check size={12} />
@@ -175,7 +175,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
                       )}
                       <button
                         onClick={() => deleteNotifMutation.mutate(n.id)}
-                        className="p-1 rounded bg-slate-50 dark:bg-slate-850 text-slate-400 hover:text-rose-600 dark:hover:text-rose-450 hover:bg-rose-500/10 cursor-pointer border border-slate-200/40 dark:border-slate-800/40 shadow-xs"
+                          className="p-1 rounded bg-muted text-slate-400 hover:text-destructive hover:bg-destructive/10 cursor-pointer border border-border/40 shadow-xs"
                         title="Delete"
                       >
                         <Trash2 size={12} />
@@ -200,7 +200,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
               {theme === 'system' && <Monitor size={18} />}
             </button>
           </DropdownTrigger>
-          <DropdownContent className="w-36 border-slate-200/80 dark:border-slate-800/80 shadow-lg" align="end">
+          <DropdownContent className="w-36 border-border/80 shadow-lg" align="end">
             <DropdownLabel className="text-[10px] uppercase font-extrabold tracking-widest text-slate-400">Appearance</DropdownLabel>
             <DropdownSeparator />
             <DropdownItem onClick={() => handleThemeChange('light')} className={cn('cursor-pointer', theme === 'light' && 'text-brand-600 dark:text-brand-400 font-bold bg-brand-500/5 dark:bg-brand-500/10')}>
@@ -226,12 +226,12 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
               />
             </button>
           </DropdownTrigger>
-          <DropdownContent className="w-56 border-slate-200/80 dark:border-slate-800/80 shadow-lg" align="end">
+          <DropdownContent className="w-56 border-border/80 shadow-lg" align="end">
             <div className="flex flex-col px-3.5 py-2.5 text-left select-none">
-              <span className="text-xs font-extrabold font-display text-slate-800 dark:text-slate-100 uppercase tracking-wider truncate">
+              <span className="text-xs font-extrabold font-display text-foreground uppercase tracking-wider truncate">
                 {userDisplayName}
               </span>
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 truncate font-sans mt-0.5">
+              <span className="text-[10px] text-muted-foreground truncate font-sans mt-0.5">
                 {user?.email}
               </span>
             </div>
@@ -249,7 +249,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
               </Link>
             </DropdownItem>
             <DropdownSeparator />
-            <DropdownItem onClick={logout} className="text-rose-600 hover:text-rose-700 dark:text-red-400 dark:hover:text-red-300 hover:bg-rose-50/50 dark:hover:bg-rose-500/10 cursor-pointer py-2 font-bold">
+            <DropdownItem onClick={logout} className="text-destructive hover:text-destructive/80 hover:bg-destructive/10 cursor-pointer py-2 font-bold">
               <LogOut size={14} className="mr-2.5" />
               Sign Out
             </DropdownItem>

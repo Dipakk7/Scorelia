@@ -84,17 +84,17 @@ export function StatisticCard({
     return (
       <Card
         className={cn(
-          'overflow-hidden relative border-dashed border-2 border-slate-200 dark:border-slate-800/80 bg-slate-50/10 dark:bg-slate-900/5 hover:bg-slate-50/30 dark:hover:bg-slate-900/10 hover:border-brand-500/40 dark:hover:border-brand-500/30 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md group rounded-2xl',
+          'overflow-hidden relative border-dashed border-2 border-border/80 bg-slate-50/10 dark:bg-slate-900/5 hover:bg-slate-50/30 dark:hover:bg-slate-900/10 hover:border-brand-500/40 dark:hover:border-brand-500/30 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md group rounded-2xl',
           className
         )}
       >
         <CardContent className="p-5 flex flex-col justify-between h-full min-h-[148px]">
           <div className="flex items-start justify-between gap-4">
             <div className="space-y-1.5 text-left">
-              <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 font-mono">
+              <p className="text-[9px] font-black uppercase tracking-wider text-muted-foreground font-mono">
                 {title}
               </p>
-              <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-1 font-sans leading-snug">
+              <h4 className="text-xs font-bold text-muted-foreground mt-1 font-sans leading-snug">
                 {zeroStateText}
               </h4>
             </div>
@@ -132,13 +132,14 @@ export function StatisticCard({
 
   const displayValue = metricType === 'percentage' ? `${Math.round(numericValue)}%` : value
 
-  const showAtsStatus = title === 'Avg ATS Score' && numericValue > 0
+  const isAtsTitle = title === 'Avg ATS Score' || title === 'Avg. ATS Score' || title === 'Average ATS Score'
+  const showAtsStatus = isAtsTitle && numericValue > 0
   const statusLabel = showAtsStatus ? getAtsStatus(numericValue) : ''
 
   return (
     <Card
       className={cn(
-        'overflow-hidden relative border-slate-200/60 dark:border-slate-800/40 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 group rounded-2xl',
+        'overflow-hidden relative border-slate-200/60 dark:border-slate-800/40 bg-card/70 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 group rounded-2xl',
         activeTheme.shadow,
         activeTheme.border,
         className
@@ -147,11 +148,11 @@ export function StatisticCard({
       <CardContent className="p-5 flex flex-col justify-between h-full">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1.5 text-left">
-            <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 font-mono">
+            <p className="text-[9px] font-black uppercase tracking-wider text-muted-foreground font-mono">
               {title}
             </p>
             <div className="flex items-center gap-2 flex-wrap mt-1">
-              <h3 className="text-3xl md:text-3.5xl font-black font-display text-slate-950 dark:text-slate-50 tracking-tight leading-none">
+              <h3 className="text-3xl md:text-3.5xl font-black font-display text-foreground tracking-tight leading-none">
                 {displayValue}
               </h3>
               {showAtsStatus && statusLabel && (
@@ -168,7 +169,7 @@ export function StatisticCard({
 
         {metricType === 'percentage' && (
           <div className="mt-4 space-y-1.5 text-left">
-            <div className="flex justify-between items-center text-[9px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+            <div className="flex justify-between items-center text-[9px] font-extrabold uppercase tracking-wider text-muted-foreground">
               <span>Completion Progress</span>
               <span>{Math.round(numericValue)}%</span>
             </div>
@@ -197,7 +198,7 @@ export function StatisticCard({
               </span>
             )}
             {description && (
-              <span className="text-slate-500 dark:text-slate-400 text-[11px] font-medium">
+              <span className="text-muted-foreground text-[11px] font-medium">
                 {description}
               </span>
             )}

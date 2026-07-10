@@ -28,10 +28,10 @@ export function DeveloperScoreCard({ score, breakdown }: DeveloperScoreCardProps
 
   // Determine rank based on score
   const getRank = (val: number) => {
-    if (val >= 90) return { label: 'Elite Architect', color: 'text-emerald-650 bg-emerald-500/10 border-emerald-500/20' }
+    if (val >= 90) return { label: 'Elite Architect', color: 'text-success bg-success/10 border-success/20' }
     if (val >= 75) return { label: 'Senior Engineer', color: 'text-brand-655 bg-brand-500/10 border-brand-500/20' }
-    if (val >= 50) return { label: 'Intermediate Developer', color: 'text-amber-600 bg-amber-500/10 border-amber-500/20' }
-    return { label: 'Junior Developer', color: 'text-rose-650 bg-rose-500/10 border-rose-500/20' }
+    if (val >= 50) return { label: 'Intermediate Developer', color: 'text-warning bg-warning/10 border-warning/20' }
+    return { label: 'Junior Developer', color: 'text-destructive bg-destructive/10 border-destructive/20' }
   }
 
   const rank = getRank(score)
@@ -39,12 +39,12 @@ export function DeveloperScoreCard({ score, breakdown }: DeveloperScoreCardProps
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-left font-sans text-xs select-none">
       {/* Overall Score Gauge Card */}
-      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs flex flex-col justify-between p-6">
+      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs flex flex-col justify-between p-6">
         <div className="space-y-1.5 text-left">
-          <span className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase font-mono tracking-widest block leading-none">
+          <span className="text-muted-foreground text-[8px] font-black uppercase font-mono tracking-widest block leading-none">
             Developer Index
           </span>
-          <h4 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
+          <h4 className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none">
             Overall Developer Score
           </h4>
         </div>
@@ -87,7 +87,7 @@ export function DeveloperScoreCard({ score, breakdown }: DeveloperScoreCardProps
             <span className="text-4xl font-black font-display tracking-tighter bg-gradient-to-r from-brand-500 via-cyan-500 to-emerald-500 bg-clip-text text-transparent leading-none block">
               {score}
             </span>
-            <span className="text-[10px] font-bold text-slate-450 dark:text-slate-500 uppercase tracking-widest mt-1 block">
+            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-1 block">
               / 100
             </span>
           </div>
@@ -100,12 +100,12 @@ export function DeveloperScoreCard({ score, breakdown }: DeveloperScoreCardProps
       </Card>
 
       {/* Score Breakdown Radar Chart Card */}
-      <Card className="lg:col-span-2 border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs p-6 flex flex-col justify-between">
+      <Card className="lg:col-span-2 border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs p-6 flex flex-col justify-between">
         <div className="space-y-1.5 mb-2 text-left">
-          <span className="text-slate-455 dark:text-slate-500 text-[8px] font-black uppercase font-mono tracking-widest block leading-none">
+          <span className="text-muted-foreground text-[8px] font-black uppercase font-mono tracking-widest block leading-none">
             Intelligence Breakdown
           </span>
-          <h4 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none">
+          <h4 className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none">
             Repository Capability Analysis
           </h4>
         </div>

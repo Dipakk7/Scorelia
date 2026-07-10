@@ -11,14 +11,14 @@ export const AgentStatusBadge: React.FC<AgentStatusBadgeProps> = ({ status, clas
 
   const config = {
     healthy: {
-      bg: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-450 border-emerald-500/20',
+      bg: 'bg-success/10 text-success border-success/20',
       label: 'Healthy',
-      dot: 'bg-emerald-500 animate-pulse',
+      dot: 'bg-success animate-pulse',
     },
     unhealthy: {
-      bg: 'bg-rose-500/10 text-rose-650 dark:text-rose-455 border-rose-500/20',
+      bg: 'bg-destructive/10 text-destructive border-destructive/20',
       label: 'Degraded',
-      dot: 'bg-rose-500',
+      dot: 'bg-destructive',
     },
     active: {
       bg: 'bg-brand-500/10 text-brand-655 dark:text-brand-400 border-brand-500/20',
@@ -26,9 +26,9 @@ export const AgentStatusBadge: React.FC<AgentStatusBadgeProps> = ({ status, clas
       dot: 'bg-brand-500 animate-ping',
     },
     running: {
-      bg: 'bg-amber-500/10 text-amber-600 dark:text-amber-450 border-amber-500/20',
+      bg: 'bg-warning/10 text-warning border-warning/20',
       label: 'Running',
-      dot: 'bg-amber-500 animate-pulse',
+      dot: 'bg-warning animate-pulse',
     },
     idle: {
       bg: 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20',

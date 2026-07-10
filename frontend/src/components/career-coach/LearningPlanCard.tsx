@@ -50,7 +50,7 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
     return (
       <div className="space-y-4 font-sans text-xs">
         {[1, 2, 3].map((n) => (
-          <Card key={n} className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 animate-pulse">
+          <Card key={n} className="border border-border bg-card/70 animate-pulse">
             <CardContent className="h-32 bg-slate-100/50 dark:bg-slate-900/50" />
           </Card>
         ))}
@@ -60,8 +60,8 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
 
   if (!learningPlan) {
     return (
-      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 font-sans text-xs">
-        <CardContent className="py-12 text-center text-slate-455 dark:text-slate-500 italic font-medium leading-relaxed">
+      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 font-sans text-xs">
+        <CardContent className="py-12 text-center text-muted-foreground italic font-medium leading-relaxed">
           No learning plan generated yet. Generate or select a roadmap to get started.
         </CardContent>
       </Card>
@@ -113,16 +113,16 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
   return (
     <div className="space-y-6 font-sans text-xs">
       {/* Learning Plan header & Progress tracker */}
-      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 p-5 text-slate-805 dark:text-white text-left">
+      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 p-5 text-slate-805 dark:text-white text-left">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 text-left">
           <div className="space-y-1.5 text-left">
-            <h3 className="text-sm font-black font-display text-slate-905 dark:text-white m-0 leading-none">Learning Progress</h3>
+            <h3 className="text-sm font-black font-display text-foreground m-0 leading-none">Learning Progress</h3>
             <p className="text-xs text-slate-500 dark:text-slate-405 font-sans m-0 font-medium mt-1.5">
               Track courses, books, project milestones, and certifications.
             </p>
           </div>
           <div className="w-full md:max-w-xs space-y-1.5 shrink-0 text-left">
-            <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-slate-455 dark:text-slate-500">
+            <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-muted-foreground">
               <span>Tasks Completed: {completedTasksCount}/{totalTasks}</span>
               <span className="font-mono">{Math.round(progressPercent)}%</span>
             </div>
@@ -135,7 +135,7 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-left">
         {/* Weekly plan (2/3 width) */}
         <div className="lg:col-span-2 space-y-6">
-          <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none flex items-center gap-2 pl-1">
+          <h3 className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none flex items-center gap-2 pl-1">
             <Calendar size={14} className="text-brand-500 animate-pulse" />
             <span>Weekly Learning Schedule</span>
           </h3>
@@ -145,7 +145,7 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
               <p className="text-xs text-slate-400 italic">No weekly schedule generated.</p>
             ) : (
               learningPlan.weekly_plan?.map((week) => (
-                <Card key={week.week_number} className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
+                <Card key={week.week_number} className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
                   <CardHeader className="pb-3 text-left border-b border-slate-100 dark:border-slate-855/60">
                     <div className="flex justify-between items-start gap-4">
                       <div className="space-y-1 text-left">
@@ -162,7 +162,7 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
                     {/* Objectives list */}
                     {week.objectives && week.objectives.length > 0 && (
                       <div className="bg-slate-50/30 dark:bg-slate-950/10 p-3.5 rounded-xl border border-slate-100 dark:border-slate-850/60 text-left">
-                        <h5 className="text-[9px] font-black uppercase tracking-widest text-slate-405 dark:text-slate-500 mb-1.5 leading-none">Weekly Objectives</h5>
+                        <h5 className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mb-1.5 leading-none">Weekly Objectives</h5>
                         <ul className="list-disc pl-4 space-y-1.5 m-0">
                           {week.objectives.map((obj, oIdx) => (
                             <li key={oIdx} className="text-xs text-slate-655 dark:text-slate-400 font-sans leading-relaxed font-medium">
@@ -214,7 +214,7 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
 
         {/* Recommended Resources (1/3 width) */}
         <div className="space-y-6 text-left">
-          <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none flex items-center gap-2 pl-1">
+          <h3 className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none flex items-center gap-2 pl-1">
             <Layers size={14} className="text-purple-500" />
             <span>Recommended Assets</span>
           </h3>
@@ -222,7 +222,7 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
           <div className="space-y-5">
             {/* Courses section */}
             {learningPlan.courses && learningPlan.courses.length > 0 && (
-              <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
+              <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
                 <CardHeader className="pb-3 text-left border-b border-slate-100 dark:border-slate-855/60">
                   <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-1.5 m-0 leading-none">
                     <PlayCircle size={14} className="text-blue-500" />
@@ -252,7 +252,7 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
 
             {/* Books section */}
             {learningPlan.books && learningPlan.books.length > 0 && (
-              <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
+              <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
                 <CardHeader className="pb-3 text-left border-b border-slate-100 dark:border-slate-855/60">
                   <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-1.5 m-0 leading-none">
                     <Book size={14} className="text-emerald-500" />
@@ -282,7 +282,7 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
 
             {/* Practice Projects section */}
             {learningPlan.hands_on_projects && learningPlan.hands_on_projects.length > 0 && (
-              <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
+              <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
                 <CardHeader className="pb-3 text-left border-b border-slate-100 dark:border-slate-855/60">
                   <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-1.5 m-0 leading-none">
                     <Terminal size={14} className="text-amber-500" />
@@ -312,7 +312,7 @@ export function LearningPlanCard({ learningPlan, roadmapId, isLoading = false }:
 
             {/* Certifications section */}
             {learningPlan.certification_suggestions && learningPlan.certification_suggestions.length > 0 && (
-              <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
+              <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
                 <CardHeader className="pb-3 text-left border-b border-slate-100 dark:border-slate-855/60">
                   <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-1.5 m-0 leading-none">
                     <Award size={14} className="text-purple-500" />

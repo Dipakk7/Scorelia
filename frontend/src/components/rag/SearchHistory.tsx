@@ -22,9 +22,9 @@ export function SearchHistory({
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left font-sans text-xs">
       {/* Recent Searches */}
-      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
-        <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-800/60 text-left flex flex-row items-center justify-between gap-4">
-          <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none flex items-center gap-2">
+      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
+        <CardHeader className="pb-4 border-b border-border/60 text-left flex flex-row items-center justify-between gap-4">
+          <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none flex items-center gap-2">
             <Clock className="text-slate-400 h-4 w-4" />
             <span>Recent Queries</span>
           </CardTitle>
@@ -39,7 +39,7 @@ export function SearchHistory({
         </CardHeader>
         <CardContent className="space-y-2 pt-4 text-left">
           {recentSearches.length === 0 ? (
-            <p className="text-xs text-slate-455 dark:text-slate-500 italic py-4 m-0">No recent queries found.</p>
+            <p className="text-xs text-muted-foreground italic py-4 m-0">No recent queries found.</p>
           ) : (
             recentSearches.map((item, idx) => {
               const isSaved = savedSearches.includes(item)
@@ -84,16 +84,16 @@ export function SearchHistory({
       </Card>
 
       {/* Saved Searches */}
-      <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
-        <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-800/60 text-left flex flex-row items-center justify-between gap-4">
-          <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white m-0 leading-none flex items-center gap-2">
+      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
+        <CardHeader className="pb-4 border-b border-border/60 text-left flex flex-row items-center justify-between gap-4">
+          <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none flex items-center gap-2">
             <Bookmark className="text-brand-500 h-4 w-4 animate-pulse" />
             <span>Saved Searches</span>
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 pt-4 text-left">
           {savedSearches.length === 0 ? (
-            <p className="text-xs text-slate-455 dark:text-slate-500 italic py-4 m-0">No bookmarked searches yet.</p>
+            <p className="text-xs text-muted-foreground italic py-4 m-0">No bookmarked searches yet.</p>
           ) : (
             savedSearches.map((item, idx) => (
               <div

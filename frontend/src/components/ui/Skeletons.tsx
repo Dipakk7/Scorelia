@@ -5,7 +5,7 @@ export function DashboardSkeleton() {
   return (
     <div className="space-y-6 text-left animate-fadeIn">
       {/* Welcome Banner Skeleton */}
-      <div className="relative overflow-hidden rounded-2xl bg-slate-900/5 dark:bg-slate-900/20 p-6 md:p-8 border border-slate-200 dark:border-slate-800 space-y-6">
+      <div className="relative overflow-hidden rounded-2xl bg-slate-900/5 dark:bg-slate-900/20 p-6 md:p-8 border border-border space-y-6">
         <div className="space-y-3">
           <Skeleton className="h-4 w-32" />
           <Skeleton className="h-8 w-64 md:w-96" />
@@ -21,7 +21,7 @@ export function DashboardSkeleton() {
       {/* Primary Stats Grid Skeleton */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {Array.from({ length: 4 }).map((_, i) => (
-          <Card key={i} className="border-slate-200 dark:border-slate-800">
+          <Card key={i} className="border-border">
             <CardContent className="p-5 space-y-4">
               <div className="flex justify-between items-center">
                 <Skeleton className="h-4 w-24" />
@@ -37,7 +37,7 @@ export function DashboardSkeleton() {
       {/* Charts Grid Skeleton */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {Array.from({ length: 4 }).map((_, i) => (
-          <Card key={i} className="border-slate-200 dark:border-slate-800">
+          <Card key={i} className="border-border">
             <CardContent className="p-5 space-y-4">
               <Skeleton className="h-5 w-48" />
               <Skeleton className="h-4 w-72" />
@@ -54,7 +54,7 @@ export function DashboardSkeleton() {
       {/* Secondary Stats Grid Skeleton */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {Array.from({ length: 4 }).map((_, i) => (
-          <Card key={i} className="border-slate-200 dark:border-slate-800">
+          <Card key={i} className="border-border">
             <CardContent className="p-5 space-y-4">
               <div className="flex justify-between items-center">
                 <Skeleton className="h-4 w-24" />
@@ -87,7 +87,7 @@ export function ResumesSkeleton() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {Array.from({ length: 3 }).map((_, i) => (
-          <Card key={i} className="border-slate-200 dark:border-slate-800">
+          <Card key={i} className="border-border">
             <CardContent className="p-5 space-y-4">
               <div className="flex items-center gap-3">
                 <Skeleton className="h-10 w-10 rounded-lg" />
@@ -120,11 +120,11 @@ export function AtsSkeleton() {
         <Skeleton className="h-10 w-48" />
       </div>
 
-      <Card className="border-slate-200 dark:border-slate-800">
+      <Card className="border-border">
         <CardContent className="p-6 space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center border border-slate-200 dark:border-slate-800 rounded-2xl p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center border border-border rounded-2xl p-6">
                 <div className="flex flex-col items-center space-y-3">
                   <Skeleton className="h-32 w-32 rounded-full" />
                   <Skeleton className="h-4 w-32" />
@@ -140,7 +140,7 @@ export function AtsSkeleton() {
               <Skeleton className="h-5 w-32" />
               <div className="space-y-3">
                 {Array.from({ length: 4 }).map((_, i) => (
-                  <div key={i} className="flex justify-between items-center p-3 border border-slate-100 dark:border-slate-800 rounded-lg">
+                  <div key={i} className="flex justify-between items-center p-3 border border-border rounded-lg">
                     <Skeleton className="h-4 w-24" />
                     <Skeleton className="h-4 w-12" />
                   </div>
@@ -159,14 +159,14 @@ export function JobMatchingSkeleton() {
     <div className="space-y-6 text-left animate-fadeIn">
       <Skeleton className="h-8 w-48" />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="border-slate-200 dark:border-slate-800">
+        <Card className="border-border">
           <CardContent className="p-5 space-y-4">
             <Skeleton className="h-5 w-40" />
             <Skeleton className="h-32 w-full rounded-lg" />
             <Skeleton className="h-10 w-full" />
           </CardContent>
         </Card>
-        <Card className="border-slate-200 dark:border-slate-800">
+        <Card className="border-border">
           <CardContent className="p-5 space-y-4">
             <Skeleton className="h-5 w-40" />
             <div className="space-y-3">
@@ -190,7 +190,7 @@ export function AiResumeSkeleton() {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-8 space-y-4">
-          <Card className="border-slate-200 dark:border-slate-800">
+          <Card className="border-border">
             <CardContent className="p-6 space-y-4">
               <Skeleton className="h-6 w-48" />
               {Array.from({ length: 5 }).map((_, i) => (
@@ -203,7 +203,7 @@ export function AiResumeSkeleton() {
           </Card>
         </div>
         <div className="lg:col-span-4 space-y-4">
-          <Card className="border-slate-200 dark:border-slate-800">
+          <Card className="border-border">
             <CardContent className="p-5 space-y-3">
               <Skeleton className="h-5 w-32" />
               <Skeleton className="h-4 w-full" />
@@ -229,7 +229,7 @@ export function CoverLetterSkeleton() {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-5">
-          <Card className="border-slate-200 dark:border-slate-800">
+          <Card className="border-border">
             <CardContent className="p-5 space-y-4">
               <Skeleton className="h-5 w-32" />
               <Skeleton className="h-10 w-full" />
@@ -240,7 +240,7 @@ export function CoverLetterSkeleton() {
           </Card>
         </div>
         <div className="lg:col-span-7">
-          <Card className="border-slate-200 dark:border-slate-800">
+          <Card className="border-border">
             <CardContent className="p-5 space-y-4">
               <Skeleton className="h-5 w-32" />
               <div className="space-y-2">
@@ -269,7 +269,7 @@ export function InterviewSkeleton() {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-8 space-y-4">
-          <Card className="border-slate-200 dark:border-slate-800">
+          <Card className="border-border">
             <CardContent className="p-6 space-y-4">
               <Skeleton className="h-5 w-40" />
               <Skeleton className="h-20 w-full" />
@@ -282,7 +282,7 @@ export function InterviewSkeleton() {
           </Card>
         </div>
         <div className="lg:col-span-4 space-y-4">
-          <Card className="border-slate-200 dark:border-slate-800">
+          <Card className="border-border">
             <CardContent className="p-5 space-y-4">
               <Skeleton className="h-6 w-32" />
               <Skeleton className="h-12 w-full rounded-full" />
@@ -307,13 +307,13 @@ export function CareerCoachSkeleton() {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          <Card className="border-slate-200 dark:border-slate-800">
+          <Card className="border-border">
             <CardContent className="p-6 space-y-6">
               <Skeleton className="h-6 w-48" />
-              <div className="relative pl-6 border-l border-slate-200 dark:border-slate-800 space-y-8">
+              <div className="relative pl-6 border-l border-border space-y-8">
                 {Array.from({ length: 3 }).map((_, i) => (
                   <div key={i} className="relative space-y-2">
-                    <div className="absolute -left-[30px] top-1 h-4 w-4 rounded-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900" />
+                    <div className="absolute -left-[30px] top-1 h-4 w-4 rounded-full border border-border bg-card" />
                     <Skeleton className="h-4 w-32" />
                     <Skeleton className="h-3 w-56" />
                   </div>
@@ -323,7 +323,7 @@ export function CareerCoachSkeleton() {
           </Card>
         </div>
         <div className="space-y-6">
-          <Card className="border-slate-200 dark:border-slate-800">
+          <Card className="border-border">
             <CardContent className="p-5 space-y-4">
               <Skeleton className="h-5 w-28" />
               <Skeleton className="h-4 w-full" />
@@ -348,7 +348,7 @@ export function RagWorkspaceSkeleton() {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div>
-          <Card className="border-slate-200 dark:border-slate-800">
+          <Card className="border-border">
             <CardContent className="p-5 space-y-4">
               <Skeleton className="h-5 w-32" />
               <Skeleton className="h-28 w-full rounded-xl" />
@@ -358,7 +358,7 @@ export function RagWorkspaceSkeleton() {
         </div>
         <div className="lg:col-span-2 space-y-4">
           <Skeleton className="h-10 w-full" />
-          <Card className="border-slate-200 dark:border-slate-800">
+          <Card className="border-border">
             <CardContent className="p-5 space-y-4">
               <Skeleton className="h-5 w-40" />
               <div className="space-y-2">
@@ -386,7 +386,7 @@ export function MultiAgentWorkspaceSkeleton() {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         <div className="lg:col-span-4">
-          <Card className="border-slate-200 dark:border-slate-800 h-96">
+          <Card className="border-border h-96">
             <CardContent className="p-4 space-y-4">
               <Skeleton className="h-5 w-24" />
               <div className="space-y-3">
@@ -401,7 +401,7 @@ export function MultiAgentWorkspaceSkeleton() {
           </Card>
         </div>
         <div className="lg:col-span-8">
-          <Card className="border-slate-200 dark:border-slate-800 h-96 flex flex-col justify-between">
+          <Card className="border-border h-96 flex flex-col justify-between">
             <CardContent className="p-5 space-y-4 flex-1">
               <Skeleton className="h-5 w-32" />
               <div className="space-y-2 pt-4">
@@ -409,7 +409,7 @@ export function MultiAgentWorkspaceSkeleton() {
                 <Skeleton className="h-4 w-2/3" />
               </div>
             </CardContent>
-            <div className="p-4 border-t border-slate-100 dark:border-slate-800">
+            <div className="p-4 border-t border-border">
               <Skeleton className="h-10 w-full" />
             </div>
           </Card>
@@ -431,7 +431,7 @@ export function AnalyticsSkeleton() {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {Array.from({ length: 3 }).map((_, i) => (
-          <Card key={i} className="border-slate-200 dark:border-slate-800">
+          <Card key={i} className="border-border">
             <CardContent className="p-5 space-y-3">
               <Skeleton className="h-4 w-24" />
               <Skeleton className="h-8 w-16" />
@@ -442,7 +442,7 @@ export function AnalyticsSkeleton() {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {Array.from({ length: 2 }).map((_, i) => (
-          <Card key={i} className="border-slate-200 dark:border-slate-800">
+          <Card key={i} className="border-border">
             <CardContent className="p-5 space-y-4">
               <Skeleton className="h-5 w-40" />
               <div className="h-60 w-full pt-4">
@@ -467,7 +467,7 @@ export function GithubIntelligenceSkeleton() {
         <Skeleton className="h-9 w-36" />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card className="border-slate-200 dark:border-slate-800">
+        <Card className="border-border">
           <CardContent className="p-5 space-y-4">
             <Skeleton className="h-5 w-36" />
             <Skeleton className="h-10 w-full" />
@@ -475,7 +475,7 @@ export function GithubIntelligenceSkeleton() {
           </CardContent>
         </Card>
         <div className="lg:col-span-2 space-y-6">
-          <Card className="border-slate-200 dark:border-slate-800">
+          <Card className="border-border">
             <CardContent className="p-5 space-y-4">
               <Skeleton className="h-5 w-48" />
               <div className="space-y-3">

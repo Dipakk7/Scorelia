@@ -91,12 +91,12 @@ export default function STARScoreCard({ starScore, answerText, starAnalysis }: S
   ]
 
   return (
-    <Card className="border border-slate-205 dark:border-slate-855 bg-white/70 dark:bg-slate-900/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left space-y-5 font-sans text-xs">
+    <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left space-y-5 font-sans text-xs">
       <CardContent className="p-6 space-y-6">
         {/* Header Title */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800/60">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-border/60">
           <div className="space-y-1.5">
-            <h3 className="font-display font-black text-sm text-slate-900 dark:text-white flex items-center gap-1.5 m-0 leading-none">
+            <h3 className="font-display font-black text-sm text-foreground flex items-center gap-1.5 m-0 leading-none">
               <ShieldCheck size={16} className="text-brand-500" />
               <span>STAR Structure Audit</span>
             </h3>
@@ -108,7 +108,7 @@ export default function STARScoreCard({ starScore, answerText, starAnalysis }: S
             <span className="text-[9px] uppercase font-black text-brand-655 dark:text-brand-400 tracking-wider">
               STAR SCORE:
             </span>
-            <span className="text-sm font-black text-slate-900 dark:text-white font-mono">{starScore}%</span>
+            <span className="text-sm font-black text-foreground font-mono">{starScore}%</span>
           </div>
         </div>
 
@@ -120,10 +120,10 @@ export default function STARScoreCard({ starScore, answerText, starAnalysis }: S
 
             const ratingClass =
               step.score >= 85
-                ? 'text-emerald-650 dark:text-emerald-450 font-bold uppercase tracking-wider text-[9px]'
+                ? 'text-success font-bold uppercase tracking-wider text-[9px]'
                 : step.score >= 60
                 ? 'text-brand-650 dark:text-brand-400 font-bold uppercase tracking-wider text-[9px]'
-                : 'text-amber-650 dark:text-amber-450 font-bold uppercase tracking-wider text-[9px]'
+                : 'text-warning font-bold uppercase tracking-wider text-[9px]'
 
             return (
               <div
@@ -141,7 +141,7 @@ export default function STARScoreCard({ starScore, answerText, starAnalysis }: S
                     {step.key}
                   </div>
                   <div className="md:hidden">
-                    <h4 className="font-extrabold text-xs text-slate-900 dark:text-white font-display m-0 leading-none">
+                    <h4 className="font-extrabold text-xs text-foreground font-display m-0 leading-none">
                       {step.title}
                     </h4>
                     <span className="text-[10px] font-sans text-slate-400 dark:text-slate-500 font-bold mt-1.5 block leading-none">
@@ -152,7 +152,7 @@ export default function STARScoreCard({ starScore, answerText, starAnalysis }: S
 
                 <div className="flex-1 space-y-2.5 w-full">
                   <div className="hidden md:flex items-center justify-between">
-                    <h4 className="font-extrabold text-slate-905 dark:text-white font-display m-0 leading-none">
+                    <h4 className="font-extrabold text-foreground font-display m-0 leading-none">
                       {step.title}
                     </h4>
                     <div className="flex items-center gap-2 text-[10px] font-sans">

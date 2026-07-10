@@ -182,7 +182,7 @@ export default function ProfilePage() {
           <h1 className="text-2xl sm:text-3xl font-extrabold font-display text-slate-900 dark:text-slate-50 m-0">
             Professional Profile
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-xs sm:text-sm text-muted-foreground">
             Customize details and credentials analyzed by Scorelia.
           </p>
         </div>
@@ -227,7 +227,7 @@ export default function ProfilePage() {
           {profile && <ProfileCard user={profile} />}
 
           {/* Stats Grid Card */}
-          <Card className="border-slate-200/60 dark:border-slate-800/40 bg-white/40 dark:bg-slate-900/30 backdrop-blur-md">
+          <Card className="border-slate-200/60 dark:border-slate-800/40 bg-card/40 backdrop-blur-md">
             <CardHeader className="pb-4">
               <CardTitle className="text-sm font-bold font-display text-slate-900 dark:text-slate-50 uppercase tracking-wider text-left">
                 Copilot Summary
@@ -235,25 +235,25 @@ export default function ProfilePage() {
             </CardHeader>
             <CardContent className="grid grid-cols-2 gap-4">
               <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200/40 dark:border-slate-800/40 text-center">
-                <p className="text-[10px] uppercase font-bold text-slate-450 dark:text-slate-500">Resumes</p>
+                <p className="text-[10px] uppercase font-bold text-muted-foreground">Resumes</p>
                 <p className="text-xl font-bold font-display text-slate-850 dark:text-slate-100 mt-1">
                   {stats?.resume_count ?? 0}
                 </p>
               </div>
               <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200/40 dark:border-slate-800/40 text-center">
-                <p className="text-[10px] uppercase font-bold text-slate-450 dark:text-slate-500">Avg ATS</p>
+                <p className="text-[10px] uppercase font-bold text-muted-foreground">Avg ATS</p>
                 <p className="text-xl font-bold font-display text-slate-850 dark:text-slate-100 mt-1">
                   {stats?.ats_average ? `${Math.round(stats.ats_average)}%` : '0%'}
                 </p>
               </div>
               <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200/40 dark:border-slate-800/40 text-center">
-                <p className="text-[10px] uppercase font-bold text-slate-450 dark:text-slate-500">Interview</p>
+                <p className="text-[10px] uppercase font-bold text-muted-foreground">Interview</p>
                 <p className="text-xl font-bold font-display text-slate-850 dark:text-slate-100 mt-1">
                   {stats?.interview_score ? `${Math.round(stats.interview_score)}%` : '0%'}
                 </p>
               </div>
               <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200/40 dark:border-slate-800/40 text-center">
-                <p className="text-[10px] uppercase font-bold text-slate-450 dark:text-slate-500">Roadmap</p>
+                <p className="text-[10px] uppercase font-bold text-muted-foreground">Roadmap</p>
                 <p className="text-xl font-bold font-display text-slate-850 dark:text-slate-100 mt-1">
                   {stats?.career_progress ? `${Math.round(stats.career_progress)}%` : '0%'}
                 </p>
@@ -264,7 +264,7 @@ export default function ProfilePage() {
 
         {/* Right Side: Profile Details form / display */}
         <div className="lg:col-span-2 space-y-6">
-          <Card className="border-slate-200/60 dark:border-slate-800/40 bg-white/40 dark:bg-slate-900/30 backdrop-blur-md text-left">
+          <Card className="border-slate-200/60 dark:border-slate-800/40 bg-card/40 backdrop-blur-md text-left">
             <CardHeader className="border-b border-slate-200/40 dark:border-slate-800/40 pb-5">
               <CardTitle className="text-base font-bold font-display text-slate-900 dark:text-slate-50">
                 {isEditing ? 'Modify Profile Details' : 'Identity & Links'}
@@ -274,7 +274,7 @@ export default function ProfilePage() {
               {/* Picture Upload in editing mode */}
               {isEditing && (
                 <div className="pb-2">
-                  <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 font-sans uppercase tracking-wider block mb-2">
+                  <label className="text-xs font-semibold text-muted-foreground font-sans uppercase tracking-wider block mb-2">
                     Profile Photo
                   </label>
                   <AvatarUploader
@@ -344,7 +344,7 @@ export default function ProfilePage() {
           </Card>
 
           {/* Skills Card */}
-          <Card className="border-slate-200/60 dark:border-slate-800/40 bg-white/40 dark:bg-slate-900/30 backdrop-blur-md text-left">
+          <Card className="border-slate-200/60 dark:border-slate-800/40 bg-card/40 backdrop-blur-md text-left">
             <CardHeader className="pb-4">
               <CardTitle className="text-base font-bold font-display text-slate-900 dark:text-slate-50">
                 Expertise & Skills
@@ -361,7 +361,7 @@ export default function ProfilePage() {
                     value={newSkill}
                     onChange={(e) => setNewSkill(e.target.value)}
                     placeholder="Add a skill e.g. React"
-                    className="flex-1 rounded-lg border border-slate-250 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-1.5 text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:outline-none transition-colors"
+                    className="flex-1 rounded-lg border border-border bg-card px-3 py-1.5 text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:outline-none transition-colors"
                   />
                   <Button
                     type="submit"
@@ -396,7 +396,7 @@ export default function ProfilePage() {
 
       {/* Navigation Blocker dialog */}
       <Dialog open={showBlockerModal} onOpenChange={() => blocker.reset?.()}>
-        <DialogContent className="max-w-md border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+        <DialogContent className="max-w-md border-border bg-card">
           <DialogHeader className="text-left flex flex-row gap-3 items-center">
             <div className="h-10 w-10 shrink-0 bg-amber-500/10 text-amber-600 rounded-xl flex items-center justify-center border border-amber-500/20">
               <ShieldAlert size={20} />
@@ -405,7 +405,7 @@ export default function ProfilePage() {
               <DialogTitle className="text-slate-900 dark:text-slate-50 font-display font-bold">
                 Unsaved Changes
               </DialogTitle>
-              <DialogDescription className="text-xs text-slate-500 dark:text-slate-400 font-sans mt-0.5">
+              <DialogDescription className="text-xs text-muted-foreground font-sans mt-0.5">
                 You have modified your profile settings.
               </DialogDescription>
             </div>
