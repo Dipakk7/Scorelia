@@ -1,34 +1,51 @@
 <div align="center">
 
-# ✨ Scorelia
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=220&section=header&text=Scorelia&fontSize=70&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=The%20Intelligent%20Career%20Copilot&descAlignY=58&descSize=20" width="100%"/>
 
-### The Intelligent Career Copilot
+<br/>
 
-**AI-powered resume intelligence, ATS scoring, and interview prep — 100% local, 100% free.**
+<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=20&duration=3000&pause=800&color=38BDF8&center=true&vCenter=true&width=680&lines=Parse+resumes+with+local+AI;Score+ATS+compatibility+instantly;Match+jobs+with+semantic+search;100%25+private+%E2%80%A2+100%25+local+%E2%80%A2+100%25+free" alt="Typing SVG" />
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
-[![React](https://img.shields.io/badge/Frontend-React%2019-black?style=flat-square&logo=react)](https://react.dev/)
-[![Vite](https://img.shields.io/badge/Build-Vite-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![TypeScript](https://img.shields.io/badge/Language-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind%20CSS-38bdf8?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![Ollama](https://img.shields.io/badge/AI%20Engine-Ollama-1a1a1a?style=flat-square)](https://ollama.com/)
+<br/><br/>
 
-[Overview](#-overview) • [Features](#-key-features) • [Tech Stack](#%EF%B8%8F-technology-stack) • [Architecture](#-system-architecture) • [Setup](#%EF%B8%8F-installation--setup) • [Docs](#-documentation)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+[![React](https://img.shields.io/badge/React_19-black?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Ollama](https://img.shields.io/badge/Ollama-1a1a1a?style=for-the-badge&logo=ollama&logoColor=white)](https://ollama.com/)
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=3&width=1000" width="100%"/>
+
+<br/>
+
+<a href="#-overview"><img src="https://img.shields.io/badge/Overview-black?style=flat-square&logo=googledocs&logoColor=white" /></a>
+<a href="#-key-features"><img src="https://img.shields.io/badge/Features-black?style=flat-square&logo=sparkfun&logoColor=white" /></a>
+<a href="#%EF%B8%8F-technology-stack"><img src="https://img.shields.io/badge/Tech%20Stack-black?style=flat-square&logo=techcrunch&logoColor=white" /></a>
+<a href="#-system-architecture"><img src="https://img.shields.io/badge/Architecture-black?style=flat-square&logo=diagramsdotnet&logoColor=white" /></a>
+<a href="#%EF%B8%8F-installation--setup"><img src="https://img.shields.io/badge/Setup-black?style=flat-square&logo=gitbook&logoColor=white" /></a>
+<a href="#-documentation"><img src="https://img.shields.io/badge/Docs-black?style=flat-square&logo=readthedocs&logoColor=white" /></a>
+
+<br/><br/>
+
+<img src="https://img.shields.io/github/last-commit/Dipakk7/Scorelia?style=flat-square&color=6366f1&label=last%20commit" />
+<img src="https://img.shields.io/github/languages/top/Dipakk7/Scorelia?style=flat-square&color=38bdf8" />
+<img src="https://komarev.com/ghpvc/?username=Dipakk7&repo=Scorelia&style=flat-square&color=blue&label=repo+views" />
+<img src="https://img.shields.io/badge/status-actively%20developed-brightgreen?style=flat-square" />
 
 </div>
 
----
+<br/>
 
 ## 📌 Overview
 
-**Scorelia** is a full-stack AI career intelligence platform that helps job seekers analyze resumes, check ATS compatibility, semantically match resumes against job descriptions, prepare for interviews, and get personalized career guidance — all powered by open-source AI running entirely on your own machine.
-
-No external API costs. No data leaving your device. Just a private, local AI career copilot.
+> **Scorelia** is a full-stack AI career intelligence platform that helps job seekers analyze resumes, check ATS compatibility, semantically match resumes against job descriptions, prepare for interviews, and get personalized career guidance — powered entirely by open-source AI running on your own machine.
+>
+> No external API costs. No data leaving your device. Just a private, local AI career copilot.
 
 <div align="center">
 
-|  |  |
+| | |
 |:---:|:---|
 | 🔒 | **Privacy-first** — resumes, credentials, and chat history never leave your device |
 | 💸 | **Zero cost** — no licensing fees, no external API bills |
@@ -37,23 +54,54 @@ No external API costs. No data leaving your device. Just a private, local AI car
 
 </div>
 
----
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=2&width=1000" width="100%"/>
 
 ## 🚀 Key Features
 
-- **📄 Resume Intelligence & Parsing** — Extracts skills, experience, and education from PDF/Word resumes using NLP.
-- **✅ ATS Resume Analysis** — Deep compliance checks against applicant tracking systems, with formatting and keyword feedback.
-- **🎯 Vector-Based Job Matching** — Semantic alignment scoring between resumes and job descriptions using local embeddings — beyond simple keyword matching.
-- **🧠 Skill Gap Analysis** — Identifies missing skills for a target role and recommends a learning path to close the gap.
-- **✍️ AI-Powered Resume Optimizer** — Interactive, LLM-driven rewriting to maximize resume impact.
-- **🎤 Interactive Interview Preparation** — Real-time mock interviews with job-specific questions and constructive AI feedback.
-- **🗺️ Dynamic Career Roadmap** — AI-generated, step-by-step career paths with milestones and certifications.
-- **💬 AI Career Assistant (RAG)** — A persistent, context-aware chatbot that queries your resumes, job descriptions, and company data using ChromaDB + Ollama.
-- **📊 Analytics Dashboard** — Visual tracking of ATS scores, skill progress, and interview performance over time.
+<table>
+<tr>
+<td width="50%" valign="top">
 
----
+### 📄 Resume Intelligence
+Extracts skills, experience, and education from PDF/Word resumes using NLP-driven parsing.
+
+### ✅ ATS Resume Analysis
+Deep compliance checks against applicant tracking systems, with formatting and keyword feedback.
+
+### 🎯 Vector-Based Job Matching
+Semantic alignment scoring between resumes and job descriptions using local embeddings — beyond simple keyword matching.
+
+### 🧠 Skill Gap Analysis
+Identifies missing skills for a target role and recommends a learning path to close the gap.
+
+</td>
+<td width="50%" valign="top">
+
+### ✍️ AI-Powered Resume Optimizer
+Interactive, LLM-driven rewriting to maximize resume impact, sentence by sentence.
+
+### 🎤 Interactive Interview Prep
+Real-time mock interviews with job-specific questions and constructive AI feedback.
+
+### 🗺️ Dynamic Career Roadmap
+AI-generated, step-by-step career paths with milestones and certifications.
+
+### 💬 AI Career Assistant (RAG)
+A persistent, context-aware chatbot that queries your resumes and job data using ChromaDB + Ollama.
+
+</td>
+</tr>
+</table>
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=2&width=1000" width="100%"/>
 
 ## 🛠️ Technology Stack
+
+<div align="center">
+
+<img src="https://skillicons.dev/icons?i=react,vite,ts,tailwind,fastapi,py,postgres,docker,githubactions,nginx" />
+
+</div>
 
 | Layer | Technology | Details |
 |:--|:--|:--|
@@ -72,7 +120,7 @@ No external API costs. No data leaving your device. Just a private, local AI car
 | **Testing** | Pytest, ESLint, Oxlint | Backend unit/integration tests and frontend type/lint checks |
 | **Deployment** | Docker, Docker Compose, Nginx, GitHub Actions | Containerized production deployment with CI/CD pipeline |
 
----
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=2&width=1000" width="100%"/>
 
 ## 📐 System Architecture
 
@@ -127,7 +175,7 @@ graph TD
     API --> DB[(PostgreSQL)]
 ```
 
----
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=2&width=1000" width="100%"/>
 
 ## 📂 Folder Structure
 
@@ -152,7 +200,7 @@ Scorelia/
 └── README.md                       # Project overview and setup guide
 ```
 
----
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=2&width=1000" width="100%"/>
 
 ## 📖 Documentation
 
@@ -173,7 +221,25 @@ Detailed architecture and planning documents live in the [`docs/`](docs) directo
 | [Frontend Architecture](FRONTEND_ARCHITECTURE.md) | Frontend structure, component design, and state management decisions |
 | [Production Readiness Report](PRODUCTION_READINESS_REPORT.md) | Deployment checklist and production audit findings |
 
----
+<details>
+<summary><b>📚 More docs (multi-agent system, prompt management, per-feature specs)</b></summary>
+<br/>
+
+| Document | Description |
+|:--|:--|
+| [Multi-Agent Architecture](docs/MULTI_AGENT_ARCHITECTURE.md) | Agent orchestration, shared memory, and tool-calling design |
+| [Prompt Management](docs/PROMPT_MANAGEMENT.md) | Prompt registry structure and versioning strategy |
+| [AI Resume Review](docs/AI_RESUME_REVIEW.md) | Resume review agent design and scoring logic |
+| [AI Resume Rewrite](docs/AI_RESUME_REWRITE.md) | Rewrite engine prompt flow and output formatting |
+| [AI Resume Optimization](docs/AI_RESUME_OPTIMIZATION.md) | Optimization pipeline and impact scoring |
+| [AI Interview](docs/AI_INTERVIEW.md) | Mock interview generation and feedback scoring |
+| [AI Cover Letter](docs/AI_COVER_LETTER.md) | Cover letter generation workflow |
+| [AI Career Roadmap](docs/AI_CAREER_ROADMAP.md) | Roadmap generation and milestone planning |
+| [Analytics (Phase 7)](docs/PHASE7_ANALYTICS.md) | Analytics dashboard design and metrics |
+
+</details>
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=2&width=1000" width="100%"/>
 
 ## 📸 Screenshots
 
@@ -185,25 +251,35 @@ Detailed architecture and planning documents live in the [`docs/`](docs) directo
 | Job Matching | *coming soon* |
 | AI Assistant | *coming soon* |
 
----
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=2&width=1000" width="100%"/>
 
 ## ⚙️ Installation & Setup
 
-### Prerequisites
+<details open>
+<summary><b>Prerequisites</b></summary>
+<br/>
 
 - Python 3.12+
 - Node.js 18+ & npm
 - PostgreSQL 15+
 - [Ollama](https://ollama.com) (installed and running as a background service)
 
-### 1. Clone the repository
+</details>
+
+<details open>
+<summary><b>1. Clone the repository</b></summary>
+<br/>
 
 ```bash
 git clone https://github.com/Dipakk7/Scorelia.git
 cd Scorelia
 ```
 
-### 2. Backend setup
+</details>
+
+<details>
+<summary><b>2. Backend setup</b></summary>
+<br/>
 
 ```bash
 cd backend
@@ -213,14 +289,22 @@ pip install -r requirements.txt
 python -m spacy download en_core_web_sm
 ```
 
-### 3. Frontend setup
+</details>
+
+<details>
+<summary><b>3. Frontend setup</b></summary>
+<br/>
 
 ```bash
 cd frontend
 npm install
 ```
 
-### 4. PostgreSQL setup
+</details>
+
+<details>
+<summary><b>4. PostgreSQL setup</b></summary>
+<br/>
 
 Create a local database:
 
@@ -230,7 +314,11 @@ CREATE DATABASE scorelia_db;
 
 Configure credentials in `backend/.env` (default: `postgres/postgres@localhost:5432`).
 
-### 5. Ollama setup
+</details>
+
+<details>
+<summary><b>5. Ollama setup</b></summary>
+<br/>
 
 Download and run [Ollama](https://ollama.com), then pull the required models:
 
@@ -239,11 +327,19 @@ ollama pull qwen2.5:3b
 ollama pull nomic-embed-text
 ```
 
-### 6. ChromaDB setup
+</details>
+
+<details>
+<summary><b>6. ChromaDB setup</b></summary>
+<br/>
 
 ChromaDB runs locally in-process with the backend — no extra setup required. Storage paths are defined in `backend/app/core/config.py` and auto-initialized at `backend/storage/chromadb`.
 
-### 7. Environment variables
+</details>
+
+<details>
+<summary><b>7. Environment variables</b></summary>
+<br/>
 
 **Backend:**
 
@@ -261,7 +357,11 @@ cp config/frontend.env.example frontend/.env.development
 
 Set `VITE_API_URL=http://localhost:8000/api/v1`.
 
-### 8. Run locally
+</details>
+
+<details open>
+<summary><b>8. Run locally</b></summary>
+<br/>
 
 **Backend:**
 
@@ -280,13 +380,15 @@ npm run dev
 
 The app will be available at `http://localhost:5173` (frontend) and `http://localhost:8000` (API).
 
----
+</details>
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=2&width=1000" width="100%"/>
 
 ## 📄 License
 
 Distributed under the MIT License. See [LICENSE](LICENSE) for details.
 
----
+<br/>
 
 <div align="center">
 
@@ -296,6 +398,20 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for details.
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Dipak%20Khandagale-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/dipakkhandagale/)
 [![Portfolio](https://img.shields.io/badge/Portfolio-Visit%20Site-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://dipakkhandagale.vercel.app/)
 
-⭐ If you find Scorelia useful, consider starring the repo!
+<br/>
+
+### ⭐ If you find Scorelia useful, consider starring the repo!
+
+<a href="https://star-history.com/#Dipakk7/Scorelia&Date">
+  <img src="https://api.star-history.com/svg?repos=Dipakk7/Scorelia&type=Date" width="600"/>
+</a>
+
+<br/><br/>
+
+<a href="#scorelia">
+  <img src="https://img.shields.io/badge/⬆-Back%20to%20Top-black?style=for-the-badge" />
+</a>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer" width="100%"/>
 
 </div>
