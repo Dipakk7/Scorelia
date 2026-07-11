@@ -402,9 +402,7 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ### ⭐ If you find Scorelia useful, consider starring the repo!
 
-<a href="https://star-history.com/#Dipakk7/Scorelia&Date">
-  <img src="https://api.star-history.com/svg?repos=Dipakk7/Scorelia&type=Date" width="600"/>
-</a>
+[![Star on GitHub](https://img.shields.io/github/stars/Dipakk7/Scorelia?style=for-the-badge&color=gold&logo=github)](https://github.com/Dipakk7/Scorelia/stargazers)
 
 <br/><br/>
 
