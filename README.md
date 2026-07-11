@@ -378,8 +378,6 @@ cd frontend
 npm run dev
 ```
 
-The app will be available at `http://localhost:5173` (frontend) and `http://localhost:8000` (API).
-
 </details>
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=2&width=1000" width="100%"/>
