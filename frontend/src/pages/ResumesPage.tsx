@@ -12,7 +12,7 @@ import ResumeHistory from '@/components/ui/ResumeHistory'
 import EmptyResumeState from '@/components/ui/EmptyResumeState'
 import { Loader } from '@/components/ui/Loader'
 import { ErrorState } from '@/components/ui/ErrorState'
-import { ResumesSkeleton } from '@/components/ui/Skeletons'
+import { ResumesSkeleton, AiResumeSkeleton } from '@/components/ui/Skeletons'
 import { Button } from '@/components/ui/Button'
 import { StatisticCard } from '@/components/ui/StatisticCard'
 import { Card } from '@/components/ui/Card'
@@ -42,12 +42,12 @@ import { cn } from '@/lib/utils'
 function CustomTooltip({ active, payload, label }: any) {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-xl border border-border bg-card/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
-        <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400">{label}</p>
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)]/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+        <p className="text-[9px] font-extrabold uppercase tracking-wider text-[var(--muted)]">{label}</p>
         <div className="mt-1.5 flex items-center gap-2 font-semibold">
-          <span className="h-2 w-2 rounded-full bg-brand-500" />
-          <span className="text-muted-foreground">Uploads:</span>
-          <span className="text-slate-900 dark:text-slate-100">{payload[0].value}</span>
+          <span className="h-2 w-2 rounded-full bg-[var(--primary)]" />
+          <span className="text-[var(--muted)]">Uploads:</span>
+          <span className="text-[var(--heading)]">{payload[0].value}</span>
         </div>
       </div>
     )
@@ -393,10 +393,10 @@ export default function ResumesPage() {
           {/* Quick Dashboard Activity and Actions */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Chart: Upload Activity */}
-            <Card className="lg:col-span-2 p-5 border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm flex flex-col justify-between hover:border-slate-350 dark:hover:border-slate-700 transition-all duration-300">
-              <div className="flex items-center gap-2 mb-4 text-left border-b border-border/60 pb-2.5">
-                <Activity className="text-brand-500" size={16} />
-                <h3 className="text-sm font-bold font-display text-slate-900 dark:text-slate-100 m-0">
+            <Card className="lg:col-span-2 p-5 border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] flex flex-col justify-between hover:border-[var(--primary)]/40 hover:shadow-[var(--shadow-md)] transition-all duration-300">
+              <div className="flex items-center gap-2 mb-4 text-left border-b border-[var(--border)]/60 pb-2.5">
+                <Activity className="text-[var(--primary)]" size={16} />
+                <h3 className="text-sm font-bold font-display text-[var(--heading)] m-0">
                   Upload Activity History
                 </h3>
               </div>
@@ -411,15 +411,15 @@ export default function ResumesPage() {
                   <div className="h-full flex flex-col justify-between">
                     <ResponsiveContainer width="100%" height={uploadActivityData.length === 1 ? '85%' : '100%'}>
                       <BarChart data={uploadActivityData}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
-                        <XAxis dataKey="date" stroke="#94a3b8" tickLine={false} fontSize={11} />
-                        <YAxis allowDecimals={false} stroke="#94a3b8" tickLine={false} fontSize={11} />
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--divider)" className="dark:stroke-slate-800/40" />
+                        <XAxis dataKey="date" stroke="var(--muted)" tickLine={false} fontSize={11} />
+                        <YAxis allowDecimals={false} stroke="var(--muted)" tickLine={false} fontSize={11} />
                         <Tooltip content={<CustomTooltip />} />
-                        <Bar dataKey="count" fill="#0F9D9A" radius={[6, 6, 0, 0]} barSize={32} />
+                        <Bar dataKey="count" fill="var(--primary)" radius={[6, 6, 0, 0]} barSize={32} />
                       </BarChart>
                     </ResponsiveContainer>
                     {uploadActivityData.length === 1 && (
-                      <p className="text-[10px] text-slate-400 dark:text-slate-500 text-center font-sans font-semibold uppercase tracking-wider">
+                      <p className="text-[10px] text-[var(--muted)] text-center font-sans font-semibold uppercase tracking-wider">
                         Activity tracking enabled. Upload more files to build a rich historical record.
                       </p>
                     )}
@@ -432,9 +432,9 @@ export default function ResumesPage() {
             <div className="space-y-6 lg:col-span-1">
               {/* Latest Uploaded Resume Summary */}
               {latestResume && (
-                <Card className="p-5 border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm text-left">
-                  <div className="flex items-center gap-2 text-slate-400 dark:text-slate-555 mb-3 pb-2.5 border-b border-border/60">
-                    <Activity size={15} className="text-brand-500" />
+                <Card className="p-5 border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/45 transition-all duration-300 text-left">
+                  <div className="flex items-center gap-2 text-[var(--muted)] mb-3 pb-2.5 border-b border-[var(--border)]/60">
+                    <Activity size={15} className="text-[var(--primary)]" />
                     <h3 className="text-xs font-extrabold uppercase tracking-wider font-display m-0">
                       Latest Activity
                     </h3>
@@ -442,28 +442,28 @@ export default function ResumesPage() {
 
                   <div className="relative pl-7 py-0.5 text-left">
                     {/* Mini Timeline Line */}
-                    <div className="absolute left-[9px] top-4 bottom-2 w-0.5 bg-slate-250 dark:bg-slate-800" />
+                    <div className="absolute left-[9px] top-4 bottom-2 w-0.5 bg-[var(--border)]" />
                     {/* Mini Timeline Node */}
-                    <div className="absolute left-0 top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand-500/10 text-brand-500 border border-brand-500/20 z-10">
+                    <div className="absolute left-0 top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--primary)]/10 text-[var(--primary)] border border-[var(--primary)]/20 z-10">
                       <FileText size={10} />
                     </div>
 
                     <div className="space-y-1">
-                      <p className="text-xs font-bold text-foreground truncate max-w-[220px]" title={latestResume.original_filename}>
+                      <p className="text-xs font-bold text-[var(--heading)] truncate max-w-[220px]" title={latestResume.original_filename}>
                         {latestResume.original_filename}
                       </p>
-                      <p className="text-[10px] text-slate-500 font-medium">
+                      <p className="text-[10px] text-[var(--muted)] font-medium">
                         Uploaded {new Date(latestResume.uploaded_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 pt-3 mt-4 border-t border-border/60">
+                  <div className="flex items-center gap-2 pt-3 mt-4 border-t border-[var(--border)]/60">
                     <Button
                       variant="secondary"
                       size="sm"
                       onClick={() => handleViewDetails(latestResume.id)}
-                      className="text-[11px] py-1.5 px-3 flex-1 flex items-center justify-center gap-1.5 cursor-pointer rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors font-bold"
+                      className="text-[11px] py-1.5 px-3 flex-1 flex items-center justify-center gap-1.5 cursor-pointer rounded-xl hover:bg-[var(--surface-hover)] transition-colors font-bold"
                     >
                       <Eye size={12} />
                       <span>View Details</span>
@@ -474,7 +474,7 @@ export default function ResumesPage() {
                         size="sm"
                         onClick={() => scoreMutation.mutate(latestResume.id)}
                         disabled={scoreMutation.isPending}
-                        className="text-[11px] py-1.5 px-3 flex-1 flex items-center justify-center gap-1.5 cursor-pointer rounded-xl font-bold bg-brand-600 hover:bg-brand-700 transition-colors"
+                        className="text-[11px] py-1.5 px-3 flex-1 flex items-center justify-center gap-1.5 cursor-pointer rounded-xl font-bold bg-[var(--primary)] hover:bg-[var(--primary-hover)] transition-colors text-white border-none"
                       >
                         {scoreMutation.isPending ? <Spinner size="sm" className="text-white" /> : <Play size={12} />}
                         <span>ATS Analysis</span>
@@ -485,34 +485,34 @@ export default function ResumesPage() {
               )}
 
               {/* General Quick Actions list */}
-              <Card className="p-5 border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm space-y-3.5 text-left font-sans animate-fadeIn">
-                <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-550 font-display m-0">
+              <Card className="p-5 border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/45 transition-all duration-300 space-y-3.5 text-left font-sans animate-fadeIn">
+                <h3 className="text-xs font-extrabold uppercase tracking-wider text-[var(--muted)] font-display m-0">
                   Quick Actions
                 </h3>
                 <div className="flex flex-col gap-2">
                   <button
                     onClick={() => setCurrentView('upload')}
-                    className="flex items-center gap-3 p-3 w-full bg-slate-50 dark:bg-slate-850/30 hover:bg-brand-500/5 hover:border-brand-500/20 border border-border rounded-xl font-bold text-xs text-foreground hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 group cursor-pointer"
+                    className="flex items-center gap-3 p-3 w-full bg-[var(--surface-hover)] hover:bg-[var(--primary)]/5 hover:border-[var(--primary)]/20 border border-[var(--border)] rounded-xl font-bold text-xs text-[var(--body)] hover:text-[var(--primary)] transition-all duration-200 group cursor-pointer"
                   >
-                    <div className="p-1.5 rounded-lg bg-brand-500/10 text-brand-500 group-hover:scale-105 transition-transform duration-200 shrink-0">
+                    <div className="p-1.5 rounded-lg bg-[var(--primary)]/10 text-[var(--primary)] group-hover:scale-105 transition-transform duration-200 shrink-0">
                       <Plus size={14} className="stroke-[2.5]" />
                     </div>
                     <div className="text-left">
                       <p className="font-bold m-0 leading-tight">Upload New Resume</p>
-                      <p className="text-[9px] text-muted-foreground mt-0.5 leading-none">Import PDF/DOCX profiles</p>
+                      <p className="text-[9px] text-[var(--muted)] mt-0.5 leading-none">Import PDF/DOCX profiles</p>
                     </div>
                   </button>
 
                   <button
                     onClick={() => setCurrentView('list')}
-                    className="flex items-center gap-3 p-3 w-full bg-slate-50 dark:bg-slate-850/30 hover:bg-brand-500/5 hover:border-brand-500/20 border border-border rounded-xl font-bold text-xs text-foreground hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 group cursor-pointer"
+                    className="flex items-center gap-3 p-3 w-full bg-[var(--surface-hover)] hover:bg-[var(--primary)]/5 hover:border-[var(--primary)]/20 border border-[var(--border)] rounded-xl font-bold text-xs text-[var(--body)] hover:text-[var(--primary)] transition-all duration-200 group cursor-pointer"
                   >
-                    <div className="p-1.5 rounded-lg bg-brand-500/10 text-brand-500 group-hover:scale-105 transition-transform duration-200 shrink-0">
+                    <div className="p-1.5 rounded-lg bg-[var(--primary)]/10 text-[var(--primary)] group-hover:scale-105 transition-transform duration-200 shrink-0">
                       <ListFilter size={14} className="stroke-[2.5]" />
                     </div>
                     <div className="text-left">
                       <p className="font-bold m-0 leading-tight">View Resume Inventory</p>
-                      <p className="text-[9px] text-muted-foreground mt-0.5 leading-none">Manage parsed profiles list</p>
+                      <p className="text-[9px] text-[var(--muted)] mt-0.5 leading-none">Manage parsed profiles list</p>
                     </div>
                   </button>
                 </div>
@@ -522,7 +522,7 @@ export default function ResumesPage() {
 
           {/* Grid Layout of resumes */}
           <div className="space-y-4">
-            <h3 className="text-sm font-bold font-display text-slate-900 dark:text-slate-100 text-left">
+             <h3 className="text-sm font-bold font-display text-[var(--heading)] text-left">
               Recent Uploads
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -564,7 +564,7 @@ export default function ResumesPage() {
 
       {/* ==================== VIEW 3: UPLOAD ZONE ==================== */}
       {currentView === 'upload' && (
-        <Card className="p-6 border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm">
+        <Card className="p-6 border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)]">
           <ResumeUploadZone onUploadSuccess={() => queryClient.invalidateQueries({ queryKey: ['resumesList'] })} />
         </Card>
       )}
@@ -573,7 +573,7 @@ export default function ResumesPage() {
       {currentView === 'workspace' && selectedResumeId && (
         <div className="space-y-6">
           {/* Workspace Sub Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)]">
             <div className="flex items-center gap-3">
               <Button
                 variant="ghost"
@@ -582,15 +582,15 @@ export default function ResumesPage() {
                   setSelectedResumeId(null)
                   setCurrentView('list')
                 }}
-                className="p-2 text-slate-500 hover:text-slate-800 dark:hover:text-slate-205 hover:bg-slate-100 dark:hover:bg-slate-850 rounded-xl cursor-pointer"
+                className="p-2 text-[var(--muted)] hover:text-[var(--heading)] hover:bg-[var(--surface-hover)] rounded-xl cursor-pointer"
               >
                 <ArrowLeft size={16} />
               </Button>
               <div className="text-left">
-                <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-slate-400 dark:text-slate-555">
+                <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[var(--muted)]">
                   Workspace Profile
                 </span>
-                <h2 className="text-sm font-bold font-display text-slate-800 dark:text-white truncate max-w-sm m-0">
+                <h2 className="text-sm font-bold font-display text-[var(--heading)] truncate max-w-sm m-0">
                   {selectedResume?.original_filename || 'Loading file...'}
                 </h2>
               </div>
@@ -608,9 +608,9 @@ export default function ResumesPage() {
                     size="sm"
                     onClick={() => parseMutation.mutate(selectedResume.id)}
                     disabled={parseMutation.isPending}
-                    className="flex items-center gap-1 text-xs text-brand-650 hover:bg-brand-50 border border-brand-100 dark:text-brand-400 dark:hover:bg-brand-950/20 dark:border-brand-900/30 cursor-pointer"
+                    className="flex items-center gap-1 text-xs text-[var(--primary)] hover:bg-[var(--primary)]/10 border border-[var(--primary)]/20 cursor-pointer"
                   >
-                    {parseMutation.isPending ? <Spinner size="sm" className="text-brand-650 dark:text-brand-400" /> : <Sparkles size={12} />}
+                    {parseMutation.isPending ? <Spinner size="sm" className="text-[var(--primary)]" /> : <Sparkles size={12} />}
                     <span>Parse Resume</span>
                   </Button>
                 )}
@@ -620,9 +620,9 @@ export default function ResumesPage() {
                     size="sm"
                     onClick={() => scoreMutation.mutate(selectedResume.id)}
                     disabled={scoreMutation.isPending}
-                    className="flex items-center gap-1 text-xs text-primary hover:bg-primary/10 border border-primary/20 cursor-pointer"
+                    className="flex items-center gap-1 text-xs text-[var(--primary)] hover:bg-[var(--primary)]/10 border border-[var(--primary)]/20 cursor-pointer"
                   >
-                    {scoreMutation.isPending ? <Spinner size="sm" className="text-primary" /> : <Play size={12} />}
+                    {scoreMutation.isPending ? <Spinner size="sm" className="text-[var(--primary)]" /> : <Play size={12} />}
                     <span>Calculate ATS</span>
                   </Button>
                 )}
@@ -630,7 +630,7 @@ export default function ResumesPage() {
                   variant="ghost"
                   size="sm"
                   onClick={() => handleDownload(selectedResume.id)}
-                  className="flex items-center gap-1 text-xs text-slate-650 hover:bg-slate-100 border border-slate-200 dark:text-slate-350 dark:hover:bg-slate-800 dark:border-slate-850 cursor-pointer"
+                  className="flex items-center gap-1 text-xs text-[var(--body)] hover:bg-[var(--surface-hover)] border border-[var(--border)] cursor-pointer"
                 >
                   <Download size={12} />
                   <span>Download</span>
@@ -643,7 +643,7 @@ export default function ResumesPage() {
                       deleteMutation.mutate(selectedResume.id)
                     }
                   }}
-                  className="flex items-center gap-1 text-xs font-semibold py-1 px-3 rounded-lg cursor-pointer bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                  className="flex items-center gap-1 text-xs font-semibold py-1 px-3 rounded-lg cursor-pointer bg-[var(--danger)] text-white hover:bg-[var(--danger)]/90 border-none"
                 >
                   <Trash2 size={12} />
                   <span>Delete</span>
@@ -653,13 +653,13 @@ export default function ResumesPage() {
           </div>
 
           {/* Tab switches */}
-          <div className="flex border-b border-border gap-1 font-sans">
+          <div className="flex border-b border-[var(--border)] gap-1 font-sans">
             <button
               onClick={() => setWorkspaceTab('viewer')}
               className={`px-4 py-2 text-xs font-semibold border-b-2 cursor-pointer transition-colors ${
                 workspaceTab === 'viewer'
-                  ? 'border-brand-600 text-brand-650 dark:border-brand-500 dark:text-brand-400'
-                  : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                  ? 'border-[var(--primary)] text-[var(--heading)] font-bold'
+                  : 'border-transparent text-[var(--muted)] hover:text-[var(--heading)]'
               }`}
             >
               Resume Viewer
@@ -668,8 +668,8 @@ export default function ResumesPage() {
               onClick={() => setWorkspaceTab('editor')}
               className={`px-4 py-2 text-xs font-semibold border-b-2 cursor-pointer transition-colors ${
                 workspaceTab === 'editor'
-                  ? 'border-brand-600 text-brand-650 dark:border-brand-500 dark:text-brand-400'
-                  : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                  ? 'border-[var(--primary)] text-[var(--heading)] font-bold'
+                  : 'border-transparent text-[var(--muted)] hover:text-[var(--heading)]'
               }`}
             >
               Parse Editor
@@ -678,8 +678,8 @@ export default function ResumesPage() {
               onClick={() => setWorkspaceTab('metadata')}
               className={`px-4 py-2 text-xs font-semibold border-b-2 cursor-pointer transition-colors ${
                 workspaceTab === 'metadata'
-                  ? 'border-brand-600 text-brand-650 dark:border-brand-500 dark:text-brand-400'
-                  : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                  ? 'border-[var(--primary)] text-[var(--heading)] font-bold'
+                  : 'border-transparent text-[var(--muted)] hover:text-[var(--heading)]'
               }`}
             >
               Parser Analytics
@@ -688,8 +688,8 @@ export default function ResumesPage() {
               onClick={() => setWorkspaceTab('history')}
               className={`px-4 py-2 text-xs font-semibold border-b-2 cursor-pointer transition-colors ${
                 workspaceTab === 'history'
-                  ? 'border-brand-600 text-brand-650 dark:border-brand-500 dark:text-brand-400'
-                  : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                  ? 'border-[var(--primary)] text-[var(--heading)] font-bold'
+                  : 'border-transparent text-[var(--muted)] hover:text-[var(--heading)]'
               }`}
             >
               Version Logs
@@ -698,7 +698,7 @@ export default function ResumesPage() {
 
           {/* Selected Resume Loading State */}
           {isSelectedLoading ? (
-            <Loader label="Synchronizing profile parsed data..." />
+            <AiResumeSkeleton />
           ) : (
             <div>
               {workspaceTab === 'viewer' && selectedResume && (

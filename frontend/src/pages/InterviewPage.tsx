@@ -320,12 +320,12 @@ export default function InterviewPage() {
   return (
     <div className="space-y-6 text-left animate-fade-in font-sans focus:outline-none">
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-card/70 backdrop-blur-md p-5 rounded-2xl border border-border shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300">
         <div className="space-y-1.5">
-          <h1 className="text-xl md:text-2xl font-black font-display text-foreground m-0 tracking-tight leading-none">
+          <h1 className="text-xl md:text-2xl font-black font-display text-[var(--heading)] m-0 tracking-tight leading-none">
             AI Interview Prep Coach
           </h1>
-          <p className="text-xs text-muted-foreground font-sans leading-relaxed m-0 font-medium">
+          <p className="text-xs text-[var(--muted)] font-sans leading-relaxed m-0 font-medium">
             Refine your technical stack and STAR structured storytelling skills with real-time feedback.
           </p>
         </div>
@@ -333,7 +333,7 @@ export default function InterviewPage() {
         {currentView === 'dashboard' && (
           <Button
             onClick={() => setCurrentView('setup')}
-            className="flex items-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs"
+            className="flex items-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white border-none rounded-xl transition-all duration-200 text-xs"
           >
             <Plus size={14} />
             <span>Configure Mock Round</span>
@@ -348,7 +348,7 @@ export default function InterviewPage() {
               setSelectedSessionId(null)
               setActiveSession(null)
             }}
-            className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-bold border-border cursor-pointer rounded-xl hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent"
+            className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-bold border-[var(--border)] cursor-pointer rounded-xl hover:border-[var(--primary)]/30 hover:bg-[var(--primary)]/5 transition-all text-[var(--body)] bg-transparent"
           >
             <ArrowLeft size={14} />
             <span>Back to Dashboard</span>
@@ -365,7 +365,7 @@ export default function InterviewPage() {
           {/* Interactive Trends charts */}
           {analyticsData && (
             <div className="space-y-3.5">
-              <h3 className="font-display font-black text-sm text-foreground m-0">Performance Metrics Analysis</h3>
+              <h3 className="font-display font-black text-sm text-[var(--heading)] m-0">Performance Metrics Analysis</h3>
               <InterviewAnalyticsChart
                 scoreTrend={analyticsData.score_trend}
                 weeklyActivity={analyticsData.weekly_completion_count}
@@ -375,7 +375,7 @@ export default function InterviewPage() {
 
           {/* Session history listings */}
           <div className="space-y-3.5">
-            <h3 className="font-display font-black text-sm text-foreground m-0">Simulated Mock Round History</h3>
+            <h3 className="font-display font-black text-sm text-[var(--heading)] m-0">Simulated Mock Round History</h3>
             {sessions.length === 0 ? (
               <EmptyInterviewsState onAction={() => setCurrentView('setup')} />
             ) : (
@@ -407,7 +407,7 @@ export default function InterviewPage() {
                   <Button
                     onClick={handleNextQuestion}
                     disabled={advanceNextMutation.isPending || completeSessionMutation.isPending}
-                    className="flex items-center justify-center gap-1.5 px-5 py-2.5 font-bold cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-10"
+                    className="flex items-center justify-center gap-1.5 px-5 py-2.5 font-bold cursor-pointer bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] border-none rounded-xl transition-all duration-200 text-xs h-10"
                   >
                     {turnIndex + 1 >= activeSession.total_questions ? (
                       <>
@@ -446,8 +446,8 @@ export default function InterviewPage() {
               onTimeUp={handleCompleteInterview}
             />
 
-            <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left">
-              <CardContent className="p-5 text-xs text-slate-655 dark:text-slate-400 font-sans space-y-3 leading-relaxed font-medium">
+            <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300 text-left">
+              <CardContent className="p-5 text-xs text-[var(--muted)] font-sans space-y-3 leading-relaxed font-medium">
                 <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground block mb-1 leading-none">
                   Active Simulator Controls
                 </span>
@@ -484,16 +484,16 @@ export default function InterviewPage() {
             <div className="space-y-6 text-left">
               {/* Summary Grade Header */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-                <Card className="md:col-span-2 border border-brand-500/10 bg-brand-500/5 dark:bg-brand-500/10 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 flex flex-col justify-between text-left">
+                <Card className="md:col-span-2 border border-[var(--border)] bg-[var(--surface-hover)]/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--accent)]/45 transition-all duration-300 flex flex-col justify-between text-left">
                   <CardContent className="p-6 flex flex-col justify-between h-full space-y-4">
                     <div className="space-y-1.5 text-left">
-                      <span className="text-[9px] font-black text-brand-600 dark:text-brand-400 uppercase tracking-widest block leading-none">
+                      <span className="text-[9px] font-black text-[var(--accent)] uppercase tracking-widest block leading-none">
                         Final Score Report Card
                       </span>
-                      <h2 className="text-lg font-extrabold text-foreground line-clamp-1 m-0 leading-tight">
+                      <h2 className="text-lg font-extrabold text-[var(--heading)] line-clamp-1 m-0 leading-tight">
                         Round complete! AI Score Assessment
                       </h2>
-                      <p className="text-[11px] text-slate-555 dark:text-slate-400 leading-relaxed font-sans mt-2.5 font-medium m-0">
+                      <p className="text-[11px] text-[var(--muted)] leading-relaxed font-sans mt-2.5 font-medium m-0">
                         {reportData.summary}
                       </p>
                     </div>
@@ -501,7 +501,7 @@ export default function InterviewPage() {
                       <Button
                         variant="outline"
                         onClick={() => setCurrentView('dashboard')}
-                        className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer rounded-xl border-border hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent text-xs h-9.5"
+                        className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer rounded-xl border-[var(--border)] hover:border-[var(--primary)]/30 hover:bg-[var(--primary)]/5 transition-all bg-transparent text-xs h-9.5"
                       >
                         Return to Dashboard
                       </Button>
@@ -510,15 +510,15 @@ export default function InterviewPage() {
                 </Card>
 
                 {/* Score Dial Card */}
-                <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 flex flex-col justify-center items-center text-center p-6">
+                <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 flex flex-col justify-center items-center text-center p-6">
                   <CardContent className="p-0 text-center space-y-3.5 flex flex-col items-center">
-                    <div className="h-24 w-24 bg-brand-500 text-white rounded-full flex flex-col items-center justify-center border-4 border-brand-500/10 shadow-lg font-black font-mono shrink-0">
+                    <div className="h-24 w-24 bg-[var(--primary)] text-white rounded-full flex flex-col items-center justify-center border-4 border-[var(--primary)]/10 shadow-[var(--shadow-md)] font-black font-mono shrink-0">
                       <span className="text-3xl font-black leading-none">{reportData.overall_score}</span>
                       <span className="text-[8px] font-bold uppercase tracking-wider mt-1 leading-none">/100</span>
                     </div>
                     <div className="space-y-1">
-                      <h4 className="font-extrabold text-foreground text-xs m-0">Averaged Competency Rate</h4>
-                      <p className="text-[10px] text-muted-foreground font-sans font-bold m-0 leading-none">Across all completed questions</p>
+                      <h4 className="font-extrabold text-[var(--heading)] text-xs m-0">Averaged Competency Rate</h4>
+                      <p className="text-[10px] text-[var(--muted)] font-sans font-bold m-0 leading-none">Across all completed questions</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -527,9 +527,9 @@ export default function InterviewPage() {
               {/* Competency breakdown */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {/* Stats scores grid */}
-                <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left">
-                  <CardHeader className="pb-2.5 border-b border-border/60">
-                    <CardTitle className="text-xs font-black text-foreground uppercase tracking-wider m-0">
+                <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 text-left">
+                  <CardHeader className="pb-2.5 border-b border-[var(--border)]/60">
+                    <CardTitle className="text-xs font-black text-[var(--heading)] uppercase tracking-wider m-0">
                       Turn Score Breakdowns
                     </CardTitle>
                   </CardHeader>
@@ -543,10 +543,10 @@ export default function InterviewPage() {
                     ].map((m, i) => (
                       <div key={i} className="space-y-1">
                         <div className="flex items-center justify-between text-[10px] font-sans">
-                          <span className="font-extrabold text-muted-foreground uppercase tracking-widest text-[9px]">{m.label}</span>
-                          <span className="font-mono font-black text-foreground">{m.value}%</span>
+                          <span className="font-extrabold text-[var(--muted)] uppercase tracking-widest text-[9px]">{m.label}</span>
+                          <span className="font-mono font-black text-[var(--heading)]">{m.value}%</span>
                         </div>
-                        <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-850 rounded-full overflow-hidden">
+                        <div className="h-1.5 w-full bg-[var(--surface-hover)] rounded-full overflow-hidden">
                           <div className={cn('h-full rounded-full', m.color)} style={{ width: `${m.value}%` }} />
                         </div>
                       </div>
@@ -555,17 +555,17 @@ export default function InterviewPage() {
                 </Card>
 
                 {/* Strengths */}
-                <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left">
-                  <CardHeader className="pb-2.5 border-b border-border/60">
-                    <CardTitle className="text-xs font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-500 flex items-center gap-1.5 m-0">
-                      <ThumbsUp size={14} className="text-emerald-500" />
+                <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 text-left">
+                  <CardHeader className="pb-2.5 border-b border-[var(--border)]/60">
+                    <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--success)] flex items-center gap-1.5 m-0">
+                      <ThumbsUp size={14} className="text-[var(--success)]" />
                       <span>Round Strengths</span>
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-5 space-y-2.5 overflow-y-auto max-h-[220px] text-left">
                     {reportData.strengths.map((str, i) => (
-                      <div key={i} className="flex items-start gap-2 text-[10px] text-slate-655 dark:text-slate-400 font-sans leading-relaxed font-medium">
-                        <CheckCircle size={12} className="text-emerald-500 shrink-0 mt-0.5" />
+                      <div key={i} className="flex items-start gap-2 text-[10px] text-[var(--body)] font-sans leading-relaxed font-medium">
+                        <CheckCircle size={12} className="text-[var(--success)] shrink-0 mt-0.5" />
                         <span>{str}</span>
                       </div>
                     ))}
@@ -573,17 +573,17 @@ export default function InterviewPage() {
                 </Card>
 
                 {/* Weaknesses */}
-                <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left">
-                  <CardHeader className="pb-2.5 border-b border-border/60">
-                    <CardTitle className="text-xs font-black uppercase tracking-wider text-rose-500 flex items-center gap-1.5 m-0">
-                      <ThumbsDown size={14} className="text-rose-500" />
+                <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 text-left">
+                  <CardHeader className="pb-2.5 border-b border-[var(--border)]/60">
+                    <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--danger)] flex items-center gap-1.5 m-0">
+                      <ThumbsDown size={14} className="text-[var(--danger)]" />
                       <span>Delivery Weaknesses</span>
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-5 space-y-2.5 overflow-y-auto max-h-[220px] text-left">
                     {reportData.weaknesses.map((weak, i) => (
-                      <div key={i} className="flex items-start gap-2 text-[10px] text-slate-655 dark:text-slate-400 font-sans leading-relaxed font-medium">
-                        <AlertTriangle size={12} className="text-rose-500 shrink-0 mt-0.5" />
+                      <div key={i} className="flex items-start gap-2 text-[10px] text-[var(--body)] font-sans leading-relaxed font-medium">
+                        <AlertTriangle size={12} className="text-[var(--danger)] shrink-0 mt-0.5" />
                         <span>{weak}</span>
                       </div>
                     ))}
@@ -605,19 +605,19 @@ export default function InterviewPage() {
                 </div>
 
                 {/* Recommendations */}
-                <Card className="lg:col-span-4 border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left">
-                  <CardHeader className="pb-2.5 border-b border-border/60">
-                    <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0">
+                <Card className="lg:col-span-4 border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 text-left">
+                  <CardHeader className="pb-2.5 border-b border-[var(--border)]/60">
+                    <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--heading)] m-0">
                       Study & Coaching Plan
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-5 space-y-4 text-[10px] overflow-y-auto max-h-[300px] text-left">
                     {reportData.recommendations.practice_topics.length > 0 && (
                       <div className="space-y-1.5 text-left">
-                        <strong className="text-muted-foreground block uppercase tracking-widest text-[9px] font-black leading-none">Practice Topics</strong>
+                        <strong className="text-[var(--muted)] block uppercase tracking-widest text-[9px] font-black leading-none">Practice Topics</strong>
                         <div className="flex flex-wrap gap-1.5 pt-0.5">
                           {reportData.recommendations.practice_topics.map((t, i) => (
-                            <Badge key={i} variant="outline" className="bg-brand-500/5 text-brand-655 border-brand-500/15 text-[9px] font-bold py-0.5 px-2 rounded-lg">
+                            <Badge key={i} variant="outline" className="bg-[var(--primary)]/5 text-[var(--primary)] border-[var(--primary)]/15 text-[9px] font-bold py-0.5 px-2 rounded-lg">
                               {t}
                             </Badge>
                           ))}
@@ -625,9 +625,9 @@ export default function InterviewPage() {
                       </div>
                     )}
                     {reportData.recommendations.learning_recommendations.length > 0 && (
-                      <div className="space-y-1.5 text-left border-t border-slate-100 dark:border-slate-850 pt-3 mt-1">
-                        <strong className="text-muted-foreground block uppercase tracking-widest text-[9px] font-black leading-none">Coaching Advices</strong>
-                        <ul className="space-y-1.5 pl-4 list-disc text-slate-655 dark:text-slate-400 font-sans leading-relaxed font-medium">
+                      <div className="space-y-1.5 text-left border-t border-[var(--border)] pt-3 mt-1">
+                        <strong className="text-[var(--muted)] block uppercase tracking-widest text-[9px] font-black leading-none">Coaching Advices</strong>
+                        <ul className="space-y-1.5 pl-4 list-disc text-[var(--body)] font-sans leading-relaxed font-medium">
                           {reportData.recommendations.learning_recommendations.map((rec, i) => (
                             <li key={i}>{rec}</li>
                           ))}
@@ -640,14 +640,14 @@ export default function InterviewPage() {
 
               {/* Complete turns logging list */}
               {reportSessionData && (
-                <div className="space-y-3.5">
-                  <h3 className="font-display font-black text-sm text-foreground m-0">Review Detailed Response Logs</h3>
+                <div className="space-y-3.5 text-left">
+                  <h3 className="font-display font-black text-sm text-[var(--heading)] m-0">Review Detailed Response Logs</h3>
                   <QuestionHistory sessions={[reportSessionData]} />
                 </div>
               )}
             </div>
           ) : (
-            <div className="p-8 text-center text-slate-500 border border-slate-205 rounded-2xl dark:border-slate-855 dark:bg-slate-900/40 backdrop-blur-md italic font-medium">
+            <div className="p-8 text-center text-[var(--muted)] border border-[var(--border)] rounded-2xl bg-[var(--surface-hover)]/40 backdrop-blur-md italic font-medium">
               AI analytics report could not be fetched. If the session was completed just now, please refresh.
             </div>
           )}

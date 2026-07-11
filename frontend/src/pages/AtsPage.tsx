@@ -57,12 +57,12 @@ type WorkspaceTab = 'ats-dashboard' | 'job-match' | 'keyword' | 'comparison'
 function CustomTooltip({ active, payload, label }: any) {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-xl border border-slate-200 dark:border-slate-805 bg-card/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
-        <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 m-0">{label}</p>
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)]/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+        <p className="text-[9px] font-extrabold uppercase tracking-wider text-[var(--muted)] m-0">{label}</p>
         <div className="mt-1.5 flex items-center gap-2 font-semibold">
-          <span className="h-2 w-2 rounded-full bg-brand-500" />
-          <span className="text-muted-foreground">Rating:</span>
-          <span className="text-foreground">{payload[0].value}%</span>
+          <span className="h-2 w-2 rounded-full bg-[var(--primary)]" />
+          <span className="text-[var(--muted)]">Rating:</span>
+          <span className="text-[var(--heading)]">{payload[0].value}%</span>
         </div>
       </div>
     )
@@ -372,13 +372,13 @@ export default function AtsPage() {
   return (
     <div className="space-y-6 text-left max-w-7xl mx-auto animate-fade-in pb-12 font-sans focus:outline-none">
       {/* Header bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-card/70 backdrop-blur-md p-5 rounded-2xl border border-border/60 shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
-        <div className="space-y-1.5">
-          <h1 className="text-xl md:text-2xl font-black font-display text-foreground m-0 flex items-center gap-2 tracking-tight leading-none">
-            <Scan className="text-brand-500" size={22} />
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-2xl border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300">
+        <div className="space-y-1.5 text-left">
+          <h1 className="text-xl md:text-2xl font-black font-display text-[var(--heading)] m-0 flex items-center gap-2 tracking-tight leading-none">
+            <Scan className="text-[var(--success)]" size={22} />
             <span>ATS Scanner & Job Matcher</span>
           </h1>
-          <p className="text-xs text-muted-foreground m-0 font-sans leading-relaxed">
+          <p className="text-xs text-[var(--muted)] m-0 font-sans leading-relaxed">
             Evaluate overall resume score, check keyword matches, and run semantic skill gap analysis.
           </p>
         </div>
@@ -417,7 +417,7 @@ export default function AtsPage() {
                     scoreMutation.mutate(selectedResumeId)
                   }
                 }}
-                className="h-[36px] w-[36px] p-0 shrink-0 cursor-pointer rounded-xl hover:border-brand-500/20 hover:bg-brand-500/5 transition-all flex items-center justify-center bg-transparent border-border"
+                className="h-[36px] w-[36px] p-0 shrink-0 cursor-pointer rounded-xl hover:border-[var(--primary)]/20 hover:bg-[var(--primary)]/5 transition-all flex items-center justify-center bg-transparent border-[var(--border)]"
                 title="Recalculate ATS Score"
               >
                 {scoreMutation.isPending ? <Spinner size="sm" /> : <RefreshCw size={14} />}
@@ -430,7 +430,7 @@ export default function AtsPage() {
       {/* Main Workspace */}
       {!selectedResumeId ? (
         <EmptyState
-          icon={<FileText className="text-slate-400 dark:text-slate-500 stroke-[1.75]" size={38} />}
+          icon={<FileText className="text-[var(--muted)] stroke-[1.75]" size={38} />}
           title="No Resume Selected"
           description="Upload or choose a resume from the active selection dropdown to begin ATS scoring and keywords diagnostic checks."
           actionLabel="Select First Resume"
@@ -439,13 +439,13 @@ export default function AtsPage() {
               setSelectedResumeId(resumes[0].id)
             }
           }}
-          className="border-slate-205 dark:border-slate-850"
+          className="border-[var(--border)]"
         />
       ) : (
         <div className="space-y-6">
           {/* Sub Navigation Tabs & Export Trigger */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-850/80 pb-3">
-            <div className="flex bg-slate-100/50 dark:bg-slate-900/40 p-1 rounded-2xl border border-slate-200/50 dark:border-slate-800/80 text-xs w-full sm:w-auto overflow-x-auto gap-1">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-[var(--border)] pb-3">
+            <div className="flex bg-[var(--surface-hover)]/40 p-1 rounded-2xl border border-[var(--border)] text-xs w-full sm:w-auto overflow-x-auto gap-1">
               {[
                 { id: 'ats-dashboard', label: 'ATS Score & Analysis', icon: TrendingUp },
                 { id: 'job-match', label: 'Job Matching & Gap', icon: BookOpen },
@@ -461,11 +461,11 @@ export default function AtsPage() {
                     className={cn(
                       'flex items-center gap-1.5 px-4 py-2 rounded-xl font-bold transition-all duration-200 shrink-0 cursor-pointer text-xs border-none bg-transparent',
                        isActive
-                        ? 'bg-card text-foreground shadow-2xs font-extrabold'
-                        : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                        ? 'bg-[var(--surface)] text-[var(--heading)] shadow-[var(--shadow-sm)] font-extrabold'
+                        : 'text-[var(--muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--heading)]'
                     )}
                   >
-                    <Icon size={13} className={isActive ? 'text-brand-500' : 'text-muted-foreground'} />
+                    <Icon size={13} className={isActive ? 'text-[var(--primary)]' : 'text-[var(--muted)]'} />
                     <span>{tab.label}</span>
                   </button>
                 )
@@ -476,7 +476,7 @@ export default function AtsPage() {
               variant="outline"
               size="sm"
               onClick={() => setIsExportOpen(true)}
-              className="flex items-center justify-center gap-1.5 text-xs h-9 cursor-pointer w-full sm:w-auto rounded-xl hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent border-border"
+              className="flex items-center justify-center gap-1.5 text-xs h-9 cursor-pointer w-full sm:w-auto rounded-xl hover:border-[var(--primary)]/30 hover:bg-[var(--primary)]/5 transition-all bg-transparent border-[var(--border)]"
             >
               <Download size={13} />
               <span>Export Report Suite</span>
@@ -489,13 +489,11 @@ export default function AtsPage() {
           {activeTab === 'ats-dashboard' && (
             <div className="space-y-6">
               {isResumeDetailLoading || isAtsLoading ? (
-                <div className="py-12 flex justify-center">
-                  <Loader label="Computing ATS metrics..." />
-                </div>
+                <AtsSkeleton />
               ) : selectedResume?.status !== 'parsed' ? (
-                <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm p-8 text-center">
+                <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm p-8 text-center">
                   <CardContent className="space-y-4 p-0">
-                    <p className="text-sm text-slate-600 dark:text-slate-400 font-sans font-semibold leading-relaxed m-0">
+                    <p className="text-sm text-[var(--body)] font-sans font-semibold leading-relaxed m-0">
                       This resume must be parsed before scoring. Go to the Resume Builder dashboard to parse this file.
                     </p>
                   </CardContent>
@@ -504,14 +502,14 @@ export default function AtsPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                   {/* Gauge Card & breakdown */}
                   <div className="lg:col-span-2 space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center bg-card/70 backdrop-blur-md border border-border/60 rounded-2xl p-6 shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center bg-[var(--surface)]/70 backdrop-blur-md border border-[var(--border)]/60 rounded-2xl p-6 shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300">
                       <div className="flex flex-col items-center">
                         <ATSGauge
                           score={atsScoreData?.overall_score || 0}
                           grade={atsScoreData?.grade}
                           label="Overall ATS Score"
                         />
-                        <p className="text-[11px] text-muted-foreground mt-3.5 italic text-center leading-relaxed max-w-[200px] m-0 font-medium">
+                        <p className="text-[11px] text-[var(--muted)] mt-3.5 italic text-center leading-relaxed max-w-[200px] m-0 font-medium">
                           "{atsScoreData?.grade_summary || 'No score generated yet.'}"
                         </p>
                       </div>
@@ -520,21 +518,21 @@ export default function AtsPage() {
                       <div className="h-60 w-full">
                         <ResponsiveContainer width="100%" height="100%">
                           <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarChartData}>
-                            <PolarGrid stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
+                            <PolarGrid stroke="var(--divider)" />
                             <PolarAngleAxis
                               dataKey="subject"
-                              tick={{ fill: '#64748b', fontSize: 10, fontWeight: 600, fontFamily: 'Inter' }}
+                              tick={{ fill: 'var(--muted)', fontSize: 10, fontWeight: 600, fontFamily: 'Inter' }}
                             />
                             <PolarRadiusAxis
                               angle={30}
                               domain={[0, 100]}
-                              tick={{ fill: '#94a3b8', fontSize: 8 }}
+                              tick={{ fill: 'var(--muted)', fontSize: 8 }}
                             />
                             <Radar
                               name="ATS Core"
                               dataKey="value"
-                              stroke="#0F9D9A"
-                              fill="#0F9D9A"
+                              stroke="var(--success)"
+                              fill="var(--success)"
                               fillOpacity={0.25}
                             />
                             <Tooltip content={<CustomTooltip />} />
@@ -556,43 +554,43 @@ export default function AtsPage() {
                   {/* Strengths, Weaknesses, Recommendations Column */}
                   <div className="space-y-6 lg:col-span-1 text-left">
                     {/* Strengths & Weaknesses */}
-                    <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
-                      <CardHeader className="pb-3 border-b border-border/60">
-                        <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-slate-100 m-0">Quick Assessment</CardTitle>
+                    <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300">
+                      <CardHeader className="pb-3 border-b border-[var(--border)]/60">
+                        <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--heading)] m-0">Quick Assessment</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4 pt-4 text-xs font-sans">
                         {/* Strengths */}
-                        <div className="space-y-2">
-                          <span className="font-extrabold uppercase text-[9px] tracking-widest text-emerald-600 dark:text-emerald-400 block font-display">
+                        <div className="space-y-2 text-left">
+                          <span className="font-extrabold uppercase text-[9px] tracking-widest text-[var(--success)] block font-display">
                             Core Strengths
                           </span>
-                          <ul className="p-0 m-0 space-y-2 text-muted-foreground leading-relaxed font-sans font-medium">
+                          <ul className="p-0 m-0 space-y-2 text-[var(--body)] leading-relaxed font-sans font-medium">
                             {atsScoreData?.strengths?.map((str: string, idx: number) => (
-                              <li key={idx} className="flex items-start gap-2 text-xs bg-emerald-500/5 dark:bg-emerald-500/10 border border-emerald-500/10 dark:border-emerald-500/20 p-2.5 rounded-xl list-none">
-                                <span className="h-1.5 w-1.5 bg-emerald-500 rounded-full mt-1.5 shrink-0" />
+                              <li key={idx} className="flex items-start gap-2 text-xs bg-[var(--success)]/5 dark:bg-[var(--success)]/10 border border-[var(--success)]/10 dark:border-[var(--success)]/20 p-2.5 rounded-xl list-none">
+                                <span className="h-1.5 w-1.5 bg-[var(--success)] rounded-full mt-1.5 shrink-0" />
                                 <span>{str}</span>
                               </li>
                             ))}
                             {(!atsScoreData?.strengths || atsScoreData.strengths.length === 0) && (
-                              <li className="text-slate-450 italic list-none">No notable strengths identified.</li>
+                              <li className="text-[var(--muted)] italic list-none">No notable strengths identified.</li>
                             )}
                           </ul>
                         </div>
 
                         {/* Weaknesses */}
-                        <div className="space-y-2 border-t border-border/40 dark:border-slate-800/60 pt-4">
-                          <span className="font-extrabold uppercase text-[9px] tracking-widest text-destructive block font-display">
+                        <div className="space-y-2 border-t border-[var(--border)]/40 pt-4 text-left">
+                          <span className="font-extrabold uppercase text-[9px] tracking-widest text-[var(--danger)] block font-display">
                             Vulnerabilities
                           </span>
-                          <ul className="p-0 m-0 space-y-2 text-muted-foreground leading-relaxed font-sans font-medium">
+                          <ul className="p-0 m-0 space-y-2 text-[var(--body)] leading-relaxed font-sans font-medium">
                             {atsScoreData?.weaknesses?.map((w: string, idx: number) => (
-                              <li key={idx} className="flex items-start gap-2 text-xs bg-rose-500/5 dark:bg-rose-500/10 border border-rose-500/10 dark:border-rose-500/20 p-2.5 rounded-xl list-none">
-                                <span className="h-1.5 w-1.5 bg-rose-500 rounded-full mt-1.5 shrink-0" />
+                              <li key={idx} className="flex items-start gap-2 text-xs bg-[var(--danger)]/5 dark:bg-[var(--danger)]/10 border border-[var(--danger)]/10 dark:border-[var(--danger)]/20 p-2.5 rounded-xl list-none">
+                                <span className="h-1.5 w-1.5 bg-[var(--danger)] rounded-full mt-1.5 shrink-0" />
                                 <span>{w}</span>
                               </li>
                             ))}
                             {(!atsScoreData?.weaknesses || atsScoreData.weaknesses.length === 0) && (
-                              <li className="text-slate-450 italic list-none">No vulnerabilities identified.</li>
+                              <li className="text-[var(--muted)] italic list-none">No vulnerabilities identified.</li>
                             )}
                           </ul>
                         </div>
@@ -601,7 +599,7 @@ export default function AtsPage() {
 
                     {/* Actionable recommendations list */}
                     <div className="space-y-3.5">
-                      <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-550 font-display m-0">
+                      <h3 className="text-xs font-extrabold uppercase tracking-wider text-[var(--muted)] font-display m-0">
                         Priority Recommendations
                       </h3>
                       {atsScoreData?.recommendations && atsScoreData.recommendations.length > 0 ? (
@@ -609,7 +607,7 @@ export default function AtsPage() {
                           <RecommendationCard key={idx} recommendation={rec} />
                         ))
                       ) : (
-                        <div className="p-4 border border-dashed border-border rounded-2xl text-center text-xs text-muted-foreground italic">
+                        <div className="p-4 border border-dashed border-[var(--border)] rounded-2xl text-center text-xs text-muted-foreground italic">
                           No recommendations recorded.
                         </div>
                       )}
@@ -624,7 +622,7 @@ export default function AtsPage() {
           {activeTab === 'job-match' && (
             <div className="space-y-6">
               {/* JD Upload/Editor Card */}
-              <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm overflow-hidden hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+              <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm overflow-hidden hover:border-[var(--primary)]/40 transition-all duration-300">
                 <CardContent className="p-6">
                   <JobDescriptionEditor
                     value={jobDescriptionText}
@@ -650,9 +648,9 @@ export default function AtsPage() {
                     />
 
                     {/* Match Recommendations */}
-                    <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left">
-                      <CardHeader className="pb-3 border-b border-border/60">
-                        <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0">Match Recommendations</CardTitle>
+                    <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 text-left">
+                      <CardHeader className="pb-3 border-b border-[var(--border)]/60">
+                        <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--heading)] m-0">Match Recommendations</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-3.5 pt-4 text-xs font-sans">
                         {matchResult.recommendations && matchResult.recommendations.length > 0 ? (
@@ -660,7 +658,7 @@ export default function AtsPage() {
                             <RecommendationCard key={idx} recommendation={rec} />
                           ))
                         ) : (
-                          <p className="text-xs text-muted-foreground italic m-0">No matching suggestions.</p>
+                          <p className="text-xs text-[var(--muted)] italic m-0">No matching suggestions.</p>
                         )}
                       </CardContent>
                     </Card>
@@ -676,14 +674,14 @@ export default function AtsPage() {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-left">
                 {/* Tag cloud display */}
                 <div className="lg:col-span-1 space-y-4">
-                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-550 m-0 font-display">
+                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-[var(--muted)] m-0 font-display">
                     Keyword Cloud
                   </h3>
                   <KeywordCloud keywords={keywordCloudItems} />
-                  <Card className="border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-sm text-xs p-4 hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+                  <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm text-xs p-4 hover:border-[var(--primary)]/40 transition-all duration-300">
                     <CardContent className="p-0 space-y-2">
-                      <h4 className="font-extrabold text-slate-900 dark:text-slate-200 m-0 text-[11px] uppercase tracking-wider">Keyword Density Tip</h4>
-                      <p className="text-muted-foreground leading-relaxed font-sans m-0 font-medium text-xs">
+                      <h4 className="font-extrabold text-[var(--heading)] m-0 text-[11px] uppercase tracking-wider">Keyword Density Tip</h4>
+                      <p className="text-[var(--muted)] leading-relaxed font-sans m-0 font-medium text-xs">
                         Ideally, target keywords should have a density of <strong>1% to 2.5%</strong> inside your resume. Repeating a keyword too many times (over 5%) triggers keyword stuffing alerts, which reduces score grade rating.
                       </p>
                     </CardContent>
@@ -692,7 +690,7 @@ export default function AtsPage() {
 
                 {/* Searchable Density table */}
                 <div className="lg:col-span-2 space-y-4">
-                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-550 m-0 font-display">
+                  <h3 className="text-xs font-extrabold uppercase tracking-wider text-[var(--muted)] m-0 font-display">
                     Density Report Table
                   </h3>
                   <KeywordTable items={keywordItems} />
@@ -704,17 +702,17 @@ export default function AtsPage() {
           {/* TAB 4: RESUME COMPARISON */}
           {activeTab === 'comparison' && (
             <div className="space-y-6">
-              <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left">
-                <CardHeader className="pb-3 border-b border-border/60">
-                  <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0">Compare Resumes Against Target Job</CardTitle>
-                  <CardDescription className="text-xs text-slate-455 mt-1 leading-normal font-sans">
+              <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 text-left">
+                <CardHeader className="pb-3 border-b border-[var(--border)]/60">
+                  <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--heading)] m-0">Compare Resumes Against Target Job</CardTitle>
+                  <CardDescription className="text-xs text-[var(--muted)] mt-1 leading-normal font-sans">
                     Select additional resumes from your repository to compare suitability side-by-side.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-5 pt-4 text-xs text-left">
                   {/* Selector list of other resumes */}
                   <div className="space-y-2">
-                    <span className="font-extrabold text-[9px] uppercase tracking-widest text-slate-400 dark:text-slate-500 block font-display">
+                    <span className="font-extrabold text-[9px] uppercase tracking-widest text-[var(--muted)] block font-display">
                       Select Resumes to Compare
                     </span>
                     <div className="flex flex-wrap gap-2.5">
@@ -729,16 +727,16 @@ export default function AtsPage() {
                               className={cn(
                                 'px-3 py-2 border rounded-xl flex items-center gap-2 cursor-pointer font-sans transition-all duration-200 text-xs font-semibold',
                                 isSelected
-                                  ? 'border-brand-500 bg-brand-500/10 text-brand-600 dark:text-brand-400 font-bold'
-                                  : 'border-border bg-card/50 dark:bg-slate-900/40 text-slate-655 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-slate-850/60'
+                                  ? 'border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--primary)] font-bold'
+                                  : 'border-[var(--border)] bg-[var(--surface)]/50 text-[var(--muted)] hover:bg-[var(--surface-hover)]'
                               )}
                             >
                               <div
                                 className={cn(
                                   'h-3 w-3 rounded-full flex items-center justify-center shrink-0 border transition-all',
                                   isSelected
-                                    ? 'bg-brand-500 border-brand-500'
-                                    : 'border-slate-350 dark:border-slate-600 bg-transparent'
+                                    ? 'bg-[var(--primary)] border-[var(--primary)]'
+                                    : 'border-[var(--border)] bg-transparent'
                                 )}
                               />
                               <span>{res.original_filename}</span>
@@ -768,15 +766,15 @@ export default function AtsPage() {
               {comparisonResults.length > 0 && (
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in text-left">
                   {/* Recharts Comparison Chart */}
-                  <Card className="lg:col-span-2 border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
-                    <CardHeader className="pb-3 border-b border-border/60">
-                      <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0">Visual Comparison Matrix</CardTitle>
+                  <Card className="lg:col-span-2 border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300">
+                    <CardHeader className="pb-3 border-b border-[var(--border)]/60">
+                      <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--heading)] m-0">Visual Comparison Matrix</CardTitle>
                     </CardHeader>
                     <CardContent className="pt-4">
-                      <div className="flex bg-slate-100/50 dark:bg-slate-900/60 p-1 border border-border/50 rounded-xl text-xs w-36 mb-4">
+                      <div className="flex bg-[var(--surface-hover)]/60 p-1 border border-[var(--border)]/50 rounded-xl text-xs w-36 mb-4">
                         <button
                           onClick={() => {}}
-                          className="flex-1 px-2.5 py-1.5 rounded-lg font-bold bg-card text-slate-950 dark:text-white shadow-2xs cursor-default border-none"
+                          className="flex-1 px-2.5 py-1.5 rounded-lg font-bold bg-[var(--surface)] text-[var(--heading)] shadow-[var(--shadow-sm)] cursor-default border-none"
                         >
                           Match Metrics
                         </button>
@@ -787,7 +785,7 @@ export default function AtsPage() {
 
                   {/* Ranking table card */}
                   <div className="lg:col-span-3 space-y-4">
-                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-550 m-0 font-display">
+                    <h3 className="text-xs font-extrabold uppercase tracking-wider text-[var(--muted)] m-0 font-display">
                       Match Suitability Ranking
                     </h3>
                     <ComparisonTable items={comparisonResults} />

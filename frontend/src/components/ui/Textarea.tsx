@@ -17,20 +17,20 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         {label && (
           <label
             htmlFor={textareaId}
-            className="text-xs font-semibold font-display uppercase tracking-wider text-muted-foreground flex items-center gap-1"
+            className="text-label text-[var(--muted)] flex items-center gap-1"
           >
             <span>{label}</span>
-            {required && <span className="text-rose-500 font-bold">*</span>}
+            {required && <span className="text-[var(--danger)] font-bold">*</span>}
           </label>
         )}
         <textarea
           id={textareaId}
           required={required}
           className={cn(
-            'w-full min-h-[100px] px-3.5 py-2.5 border rounded-xl bg-card text-foreground placeholder-muted-foreground/80 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 disabled:pointer-events-none disabled:opacity-50 transition-all duration-200 font-sans text-sm resize-y shadow-sm',
+            'w-full min-h-[100px] px-3.5 py-2.5 border rounded-[var(--radius-input)] bg-[var(--surface)] text-[var(--body)] placeholder-[var(--muted)]/80 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)] disabled:pointer-events-none disabled:opacity-[var(--opacity-disabled)] transition-all duration-[var(--duration-normal)] font-sans text-sm resize-y shadow-[var(--shadow-sm)]',
             error
-              ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10'
-              : 'border-slate-300 dark:border-slate-700 focus:ring-brand-500/20 focus:border-brand-500 hover:border-slate-400 dark:hover:border-slate-600',
+              ? 'border-[var(--danger)] focus:border-[var(--danger)] focus:ring-[var(--danger)]/10'
+              : 'border-[var(--border)] focus:ring-[var(--primary)]/20 focus:border-[var(--primary)] hover:border-[var(--primary)]/50',
             className
           )}
           ref={ref}
@@ -41,13 +41,13 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         {error && (
           <span
             id={`${textareaId}-error`}
-            className="text-xs text-red-500 font-medium animate-fadeIn"
+            className="text-caption text-[var(--danger)] font-medium animate-fade-in"
           >
             {error}
           </span>
         )}
         {helperText && !error && (
-          <span className="text-[10px] text-muted-foreground font-sans">
+          <span className="text-caption text-[var(--muted)] font-sans">
             {helperText}
           </span>
         )}

@@ -164,12 +164,12 @@ export default function AnalyticsPage() {
   if (!dashboard.isLoading && dashboard.data?.total_resumes === 0) {
     return (
       <div className="space-y-6 text-left font-sans text-xs">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-card/70 backdrop-blur-md p-5 rounded-2xl border border-border shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 flex-shrink-0">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 hover:shadow-[var(--shadow-md)] transition-all duration-300 flex-shrink-0">
           <div className="space-y-1 text-left">
-            <h2 className="text-xl md:text-2xl font-black font-display text-foreground m-0 tracking-tight leading-none">
+            <h2 className="text-xl md:text-2xl font-black font-display text-[var(--heading)] m-0 tracking-tight leading-none">
               Analytics Center
             </h2>
-            <p className="text-xs text-slate-550 dark:text-slate-400 font-sans leading-relaxed m-0 font-medium mt-1.5">
+            <p className="text-xs text-[var(--body)] font-sans leading-relaxed m-0 font-medium mt-1.5">
               Centralized operations intelligence dashboard across all Scorelia modules.
             </p>
           </div>
@@ -182,12 +182,12 @@ export default function AnalyticsPage() {
   return (
     <div className="space-y-6 font-sans select-none pb-12 text-left text-xs">
       {/* Title Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-card/70 backdrop-blur-md p-5 rounded-2xl border border-border shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 flex-shrink-0">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 hover:shadow-[var(--shadow-md)] transition-all duration-300 flex-shrink-0">
         <div className="space-y-1.5 text-left">
-          <h2 className="text-xl md:text-2xl font-black font-display text-foreground m-0 tracking-tight leading-none">
+          <h2 className="text-xl md:text-2xl font-black font-display text-[var(--heading)] m-0 tracking-tight leading-none">
             Analytics Center
           </h2>
-          <p className="text-xs text-slate-550 dark:text-slate-400 font-sans leading-relaxed m-0 font-medium mt-1.5">
+          <p className="text-xs text-[var(--body)] font-sans leading-relaxed m-0 font-medium mt-1.5">
             Centralized operations intelligence dashboard across all Scorelia modules.
           </p>
         </div>
@@ -209,7 +209,7 @@ export default function AnalyticsPage() {
           value={dashboard.data?.total_resumes ?? 0}
           icon={FileText}
           description="Total Resumes Uploaded"
-          className="border-border"
+          className="border-[var(--border)] bg-[var(--surface)]/70"
         />
         <StatisticCard
           title="Average ATS Score"
@@ -217,7 +217,7 @@ export default function AnalyticsPage() {
           icon={Scan}
           description="Average Resume ATS Score"
           trend={{ value: 4.8, isPositive: true }}
-          className="border-border"
+          className="border-[var(--border)] bg-[var(--surface)]/70"
         />
         <StatisticCard
           title="Job Match Success"
@@ -225,21 +225,21 @@ export default function AnalyticsPage() {
           icon={BrainCircuit}
           description="Average Match Alignment"
           trend={{ value: 2.1, isPositive: true }}
-          className="border-border"
+          className="border-[var(--border)] bg-[var(--surface)]/70"
         />
         <StatisticCard
           title="Interview Performance"
           value={dashboard.data?.interview_sessions ?? 0}
           icon={MessageSquareCode}
           description="Completed Prep Sessions"
-          className="border-border"
+          className="border-[var(--border)] bg-[var(--surface)]/70"
         />
         <StatisticCard
           title="AI Usage"
           value={`${dashboard.data?.career_progress ?? 0}%`}
           icon={Map}
           description="Milestones Achievements"
-          className="border-border"
+          className="border-[var(--border)] bg-[var(--surface)]/70"
         />
       </div>
 
@@ -399,13 +399,13 @@ export default function AnalyticsPage() {
                 {(ats.data?.weaknesses?.top_weaknesses || []).map((w, idx) => (
                   <div
                     key={idx}
-                    className="flex justify-between items-center p-3 bg-slate-55/35 dark:bg-slate-900/40 rounded-xl border border-slate-200/50 dark:border-slate-850/60 transition-all shadow-2xs hover:shadow-sm text-left"
+                    className="flex justify-between items-center p-3 bg-[var(--surface-hover)] border border-[var(--border)] rounded-[var(--radius-card)] transition-all shadow-2xs hover:shadow-sm text-left"
                   >
-                    <span className="font-bold text-foreground flex items-center gap-2 text-left leading-none">
-                      <AlertCircle className="w-4 h-4 text-rose-500 flex-shrink-0" />
+                    <span className="font-bold text-[var(--heading)] flex items-center gap-2 text-left leading-none">
+                      <AlertCircle className="w-4 h-4 text-[var(--danger)] flex-shrink-0" />
                       {w.label}
                     </span>
-                    <span className="font-mono font-black text-muted-foreground shrink-0 leading-none">Frequency: {w.value}</span>
+                    <span className="font-mono font-black text-[var(--muted)] shrink-0 leading-none">Frequency: {w.value}</span>
                   </div>
                 ))}
               </div>
@@ -422,13 +422,13 @@ export default function AnalyticsPage() {
                 {(ats.data?.weaknesses?.top_recommendations || []).map((r, idx) => (
                   <div
                     key={idx}
-                    className="flex justify-between items-center p-3 bg-slate-55/35 dark:bg-slate-900/40 rounded-xl border border-slate-200/50 dark:border-slate-850/60 transition-all shadow-2xs hover:shadow-sm text-left"
+                    className="flex justify-between items-center p-3 bg-[var(--surface-hover)] border border-[var(--border)] rounded-[var(--radius-card)] transition-all shadow-2xs hover:shadow-sm text-left"
                   >
-                    <span className="font-bold text-slate-855 dark:text-slate-205 flex items-center gap-2 text-left leading-none">
-                      <HelpCircle className="w-4 h-4 text-emerald-500 flex-shrink-0 animate-pulse" />
+                    <span className="font-bold text-[var(--heading)] flex items-center gap-2 text-left leading-none">
+                      <HelpCircle className="w-4 h-4 text-[var(--success)] flex-shrink-0 animate-pulse" />
                       {r.label}
                     </span>
-                    <span className="font-mono font-black text-muted-foreground shrink-0 leading-none">Priority: {r.value}</span>
+                    <span className="font-mono font-black text-[var(--muted)] shrink-0 leading-none">Priority: {r.value}</span>
                   </div>
                 ))}
               </div>
@@ -483,27 +483,27 @@ export default function AnalyticsPage() {
               error={jobMatch.error}
             >
               <div className="grid grid-cols-2 gap-4 font-sans text-xs py-4 text-left">
-                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-muted-foreground text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Total Match Queries</div>
-                  <div className="text-lg font-black text-slate-800 dark:text-white mt-1 leading-none font-mono">
+                <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Total Match Queries</div>
+                  <div className="text-lg font-black text-[var(--heading)] mt-1 leading-none font-mono">
                     {jobMatch.data?.history.total_matches || 0}
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-muted-foreground text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Avg Matches / Resume</div>
-                  <div className="text-lg font-black text-slate-800 dark:text-white mt-1 leading-none font-mono">
+                <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Avg Matches / Resume</div>
+                  <div className="text-lg font-black text-[var(--heading)] mt-1 leading-none font-mono">
                     {jobMatch.data?.history.average_matches_per_resume || 0}
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-muted-foreground text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Repeated Jobs</div>
-                  <div className="text-lg font-black text-slate-800 dark:text-white mt-1 leading-none font-mono">
+                <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Repeated Jobs</div>
+                  <div className="text-lg font-black text-[var(--heading)] mt-1 leading-none font-mono">
                     {jobMatch.data?.history.repeated_job_descriptions || 0}
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-muted-foreground text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Historical Growth</div>
-                  <div className="text-lg font-black text-slate-800 dark:text-white mt-1 leading-none font-mono">
+                <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Historical Growth</div>
+                  <div className="text-lg font-black text-[var(--heading)] mt-1 leading-none font-mono">
                     +{jobMatch.data?.history.historical_match_growth || 0}%
                   </div>
                 </div>
@@ -521,21 +521,21 @@ export default function AnalyticsPage() {
               loading={dashboard.isLoading}
             >
               <div className="grid grid-cols-3 gap-3 font-sans text-xs py-8 text-left">
-                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-muted-foreground text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Cover Letters</div>
-                  <div className="text-lg font-black text-brand-500 mt-1 leading-none font-mono">
+                <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Cover Letters</div>
+                  <div className="text-lg font-black text-[var(--primary)] mt-1 leading-none font-mono">
                     {dashboard.data?.cover_letters_generated || 0}
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-muted-foreground text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">AI usage</div>
-                  <div className="text-lg font-black text-violet-500 mt-1 leading-none font-mono">
+                <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">AI usage</div>
+                  <div className="text-lg font-black text-[var(--analytics)] mt-1 leading-none font-mono">
                     {dashboard.data?.ai_usage || 0}
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-muted-foreground text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Prep Loops</div>
-                  <div className="text-lg font-black text-emerald-500 mt-1 leading-none font-mono">
+                <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Prep Loops</div>
+                  <div className="text-lg font-black text-[var(--success)] mt-1 leading-none font-mono">
                     {dashboard.data?.interview_sessions || 0}
                   </div>
                 </div>
@@ -611,10 +611,10 @@ export default function AnalyticsPage() {
               loading={roadmaps.isLoading}
             >
               <div className="flex flex-col items-center justify-center py-6 text-center select-none leading-none">
-                <span className="text-5xl font-black text-cyan-600 dark:text-cyan-400 font-display block">
+                <span className="text-5xl font-black text-[var(--primary)] font-display block">
                   {dashboard.data?.career_progress || 0}%
                 </span>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2 block font-sans">
+                <span className="text-[10px] font-bold text-[var(--muted)] uppercase tracking-widest mt-2 block font-sans">
                   Total Milestone Completion
                 </span>
               </div>
@@ -627,14 +627,14 @@ export default function AnalyticsPage() {
             >
               <div className="space-y-4 py-2 font-sans text-xs text-left">
                 <div className="flex items-center justify-between font-bold leading-none select-none">
-                  <span className="text-slate-500">Active Roadmaps Tracked</span>
-                  <span className="text-foreground font-mono text-sm leading-none">
+                  <span className="text-[var(--body)]">Active Roadmaps Tracked</span>
+                  <span className="text-[var(--heading)] font-mono text-sm leading-none">
                     {roadmaps.data?.total || 0}
                   </span>
                 </div>
                 <div className="flex items-center justify-between font-bold leading-none select-none">
-                  <span className="text-slate-500">Milestones Completion Status</span>
-                  <span className="text-foreground font-mono text-sm leading-none">
+                  <span className="text-[var(--body)]">Milestones Completion Status</span>
+                  <span className="text-[var(--heading)] font-mono text-sm leading-none">
                     {dashboard.data?.career_progress || 0}%
                   </span>
                 </div>
@@ -653,21 +653,21 @@ export default function AnalyticsPage() {
               error={ragMetrics.error}
             >
               <div className="grid grid-cols-3 gap-3 font-sans text-xs py-8 text-left">
-                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-855 shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-muted-foreground text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Retrieval Speed</div>
-                  <div className="text-sm font-black text-slate-805 dark:text-white mt-1 leading-none font-mono">
+                <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Retrieval Speed</div>
+                  <div className="text-sm font-black text-[var(--heading)] mt-1 leading-none font-mono">
                     {ragMetrics.data?.average_retrieval_latency_ms?.toFixed(1) || 0}ms
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-855 shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-muted-foreground text-[9px] font-black uppercase tracking-widest leading-none mb-1.5 font-sans">Generation Speed</div>
-                  <div className="text-sm font-black text-slate-805 dark:text-white mt-1 leading-none font-mono">
+                <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5 font-sans">Generation Speed</div>
+                  <div className="text-sm font-black text-[var(--heading)] mt-1 leading-none font-mono">
                     {ragMetrics.data?.average_generation_latency_ms?.toFixed(1) || 0}ms
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-855 shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-muted-foreground text-[9px] font-black uppercase tracking-widest leading-none mb-1.5 font-sans">E2E roundtrip</div>
-                  <div className="text-sm font-black text-slate-805 dark:text-white mt-1 leading-none font-mono">
+                <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5 font-sans">E2E roundtrip</div>
+                  <div className="text-sm font-black text-[var(--heading)] mt-1 leading-none font-mono">
                     {ragMetrics.data?.average_total_latency_ms?.toFixed(1) || 0}ms
                   </div>
                 </div>
@@ -682,19 +682,19 @@ export default function AnalyticsPage() {
             >
               <div className="flex gap-6 items-center justify-center py-6 select-none leading-none">
                 <div className="text-center">
-                  <span className="text-4xl font-extrabold text-emerald-600 dark:text-emerald-450 block font-display leading-none">
+                  <span className="text-4xl font-extrabold text-[var(--success)] block font-display leading-none">
                     {((ragMetrics.data?.cache_hit_ratio || 0) * 100).toFixed(0)}%
                   </span>
-                  <span className="text-[10px] font-bold text-slate-450 uppercase tracking-wider mt-2.5 block leading-none font-sans">
+                  <span className="text-[10px] font-bold text-[var(--muted)] uppercase tracking-wider mt-2.5 block leading-none font-sans">
                     Hit Ratio
                   </span>
                 </div>
-                <div className="w-px h-10 bg-slate-200 dark:bg-slate-800" />
+                <div className="w-px h-10 bg-[var(--border)]" />
                 <div className="text-center">
-                  <span className="text-4xl font-extrabold text-slate-400 block font-display leading-none">
+                  <span className="text-4xl font-extrabold text-[var(--muted)] block font-display leading-none">
                     {((ragMetrics.data?.cache_miss_ratio || 0) * 100).toFixed(0)}%
                   </span>
-                  <span className="text-[10px] font-bold text-slate-450 uppercase tracking-wider mt-2.5 block leading-none font-sans">
+                  <span className="text-[10px] font-bold text-[var(--muted)] uppercase tracking-wider mt-2.5 block leading-none font-sans">
                     Miss Ratio
                   </span>
                 </div>
@@ -713,21 +713,21 @@ export default function AnalyticsPage() {
               error={systemAgents.error}
             >
               <div className="grid grid-cols-3 gap-3 font-sans text-xs py-8 text-left">
-                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-muted-foreground text-[9px] font-black uppercase tracking-widest leading-none mb-1.5 font-sans">Tasks Executed</div>
-                  <div className="text-lg font-black text-slate-800 dark:text-white mt-1 leading-none font-mono">
+                <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5 font-sans">Tasks Executed</div>
+                  <div className="text-lg font-black text-[var(--heading)] mt-1 leading-none font-mono">
                     {systemAgents.data?.total_agent_executions || 0}
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-muted-foreground text-[9px] font-black uppercase tracking-widest leading-none mb-1.5 font-sans">Workflows Done</div>
-                  <div className="text-lg font-black text-slate-800 dark:text-white mt-1 leading-none font-mono">
+                <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5 font-sans">Workflows Done</div>
+                  <div className="text-lg font-black text-[var(--heading)] mt-1 leading-none font-mono">
                     {systemAgents.data?.total_workflow_executions || 0}
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-55/30 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-850/60 shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-muted-foreground text-[9px] font-black uppercase tracking-widest leading-none mb-1.5 font-sans">Avg Loop Speed</div>
-                  <div className="text-lg font-black text-slate-800 dark:text-white mt-1 leading-none font-mono">
+                <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
+                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5 font-sans">Avg Loop Speed</div>
+                  <div className="text-lg font-black text-[var(--heading)] mt-1 leading-none font-mono">
                     {systemAgents.data?.average_agent_latency_ms
                       ? `${(systemAgents.data.average_agent_latency_ms / 1000).toFixed(1)}s`
                       : '0.0s'}
@@ -747,17 +747,17 @@ export default function AnalyticsPage() {
                 {Object.entries(agentsStats.data || {}).map(([name, stats]) => (
                   <div
                     key={name}
-                    className="flex justify-between items-center p-3 bg-slate-55/35 dark:bg-slate-900/40 rounded-xl border border-slate-200/50 dark:border-slate-850/60 transition-all shadow-2xs hover:shadow-sm text-left"
+                    className="flex justify-between items-center p-3 bg-[var(--surface-hover)] border border-[var(--border)] rounded-[var(--radius-card)] transition-all shadow-2xs hover:shadow-sm text-left"
                   >
-                    <span className="font-bold text-slate-855 dark:text-slate-205 flex items-center gap-2 text-left leading-none uppercase tracking-wide">
+                    <span className="font-bold text-[var(--heading)] flex items-center gap-2 text-left leading-none uppercase tracking-wide">
                       {name.replace(/_agent/g, '').replace(/_/g, ' ')}
                     </span>
                     <span
                       className={cn(
                         'font-mono font-bold px-2 py-0.5 rounded-lg text-[9px] border leading-none shrink-0',
                         stats.success_rate >= 90
-                          ? 'bg-success/10 text-success border-success/20'
-                          : 'bg-destructive/10 text-destructive border-destructive/20'
+                          ? 'bg-[var(--success)]/10 text-[var(--success)] border-[var(--success)]/20'
+                          : 'bg-[var(--danger)]/10 text-[var(--danger)] border-[var(--danger)]/20'
                       )}
                     >
                       {stats.success_rate.toFixed(0)}% Success

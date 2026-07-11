@@ -41,15 +41,17 @@ export function QualityScoreCard({
   }, [])
 
   const themeColors = {
-    primary: isDark ? '#5b9ac9' : '#2f6690',
-    primaryDark: isDark ? '#3e7fae' : '#1e4b6d',
-    success: isDark ? '#3ecf8e' : '#1b9e6f',
-    successDark: isDark ? '#26b876' : '#107c54',
-    warning: isDark ? '#e0b845' : '#d99b1f',
-    warningDark: isDark ? '#cca32b' : '#b27a11',
-    grid: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)',
-    text: 'var(--foreground)',
-    mutedText: 'var(--muted-foreground)',
+    primary: 'var(--primary)',      // Resume Score -> Blue
+    primaryDark: 'var(--primary-hover)',
+    success: 'var(--success)',      // ATS -> Green
+    successDark: 'var(--success)',
+    warning: 'var(--accent)',       // Interview -> Orange
+    warningDark: 'var(--accent-hover)',
+    purple: 'var(--analytics)',     // Career -> Purple
+    purpleDark: 'var(--analytics)',
+    grid: 'var(--divider)',
+    text: 'var(--heading)',
+    mutedText: 'var(--muted)',
   }
 
   const isZeroState = qualityScore === 0 && readinessScore === 0 && improvementScore === 0
@@ -192,31 +194,31 @@ export function QualityScoreCard({
                 readinessScore,
                 'Career Readiness',
                 'gradReady',
-                themeColors.success,
-                themeColors.successDark,
+                themeColors.purple,
+                themeColors.purpleDark,
                 'Industry suitability'
               )}
               {renderCircularGauge(
                 improvementScore,
                 'ATS Grade',
                 'gradImprove',
-                themeColors.warning,
-                themeColors.warningDark,
+                themeColors.success,
+                themeColors.successDark,
                 'Keyword compliance'
               )}
             </div>
 
             {/* Small trend graph inside */}
             {history && history.length > 1 && (
-              <div className="p-4 bg-slate-50/30 dark:bg-slate-900/20 border border-border rounded-2xl space-y-3 text-left">
+              <div className="p-4 bg-[var(--surface-hover)]/30 border border-[var(--border)] rounded-2xl space-y-3 text-left">
                 <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-1.5 text-muted-foreground">
-                    <TrendingUp size={14} className="text-brand-500" />
+                  <div className="flex items-center gap-1.5 text-[var(--muted)] font-medium">
+                    <TrendingUp size={14} className="text-[var(--primary)]" />
                     <span className="text-[10px] font-bold uppercase tracking-wider">
                       Quality Score Trend
                     </span>
                   </div>
-                  <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+                  <span className="text-[10px] text-[var(--muted)] font-semibold uppercase tracking-wider">
                     Last {history.length} scans
                   </span>
                 </div>

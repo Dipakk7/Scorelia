@@ -22,19 +22,19 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     const Icon = icons[variant]
 
     const variants = {
-      default: 'bg-slate-50 border-slate-200 text-slate-800 dark:bg-slate-900/30 dark:border-slate-800 dark:text-slate-200',
-      info: 'bg-blue-50/50 border-blue-200 text-blue-800 dark:bg-blue-950/10 dark:border-blue-900/30 dark:text-blue-300',
-      success: 'bg-emerald-50/50 border-emerald-200 text-emerald-800 dark:bg-emerald-950/10 dark:border-emerald-900/30 dark:text-emerald-300',
-      warning: 'bg-amber-50/50 border-amber-200 text-amber-900 dark:bg-amber-950/10 dark:border-amber-900/30 dark:text-amber-300',
-      error: 'bg-rose-50/50 border-rose-200 text-rose-800 dark:bg-rose-950/10 dark:border-rose-900/30 dark:text-rose-350',
+      default: 'bg-[var(--surface)] border-[var(--border)] text-[var(--body)]',
+      info: 'bg-[var(--primary)]/5 border-[var(--primary)]/20 text-[var(--primary)]',
+      success: 'bg-[var(--success)]/5 border-[var(--success)]/20 text-[var(--success)]',
+      warning: 'bg-[var(--warning)]/5 border-[var(--warning)]/20 text-[var(--warning)]',
+      error: 'bg-[var(--danger)]/5 border-[var(--danger)]/20 text-[var(--danger)]',
     }
 
     const iconColors = {
-      default: 'text-muted-foreground',
-      info: 'text-blue-500 dark:text-blue-400',
-      success: 'text-emerald-500 dark:text-emerald-450',
-      warning: 'text-amber-550 dark:text-amber-450',
-      error: 'text-rose-500 dark:text-rose-450',
+      default: 'text-[var(--muted)]',
+      info: 'text-[var(--primary)]',
+      success: 'text-[var(--success)]',
+      warning: 'text-[var(--warning)]',
+      error: 'text-[var(--danger)]',
     }
 
     return (
@@ -42,7 +42,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
         ref={ref}
         role="alert"
         className={cn(
-          'relative w-full rounded-xl border p-4 flex gap-3 text-sm transition-all duration-200 ease-in-out',
+          'relative w-full rounded-[var(--radius-card)] border p-4 flex gap-3 text-body-sm transition-all duration-[var(--duration-normal)] ease-in-out',
           variants[variant],
           className
         )}
@@ -50,9 +50,9 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
       >
         <Icon className={cn('h-5 w-5 shrink-0', iconColors[variant])} />
         <div className="flex-1 space-y-1 text-left">
-          {title && <h5 className="font-bold leading-none tracking-tight font-display">{title}</h5>}
-          {description && <div className="text-xs opacity-90 leading-relaxed font-sans">{description}</div>}
-          {children && <div className="text-xs opacity-90 leading-relaxed font-sans">{children}</div>}
+          {title && <h5 className="text-body-sm font-bold leading-none tracking-tight font-display">{title}</h5>}
+          {description && <div className="text-caption opacity-90 leading-relaxed font-sans">{description}</div>}
+          {children && <div className="text-caption opacity-90 leading-relaxed font-sans">{children}</div>}
         </div>
         {onClose && (
           <button

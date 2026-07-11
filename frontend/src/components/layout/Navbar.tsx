@@ -96,7 +96,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
       <div className="flex items-center gap-3">
         <button
           onClick={onMenuToggle}
-          className="p-2 -ml-2 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200 md:hidden cursor-pointer focus:outline-none"
+          className="p-2 -ml-2 rounded-lg text-[var(--muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--heading)] md:hidden cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
           aria-label="Toggle navigation menu"
         >
           <Menu size={20} />
@@ -109,37 +109,36 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
       {/* Right side: Actions & User Dropdown */}
       <div className="flex items-center gap-2">
         {/* Notification Bell Dropdown */}
-        {/* Notification Bell Dropdown */}
         <Dropdown>
           <DropdownTrigger asChild>
             <button
-              className="p-2 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200 cursor-pointer focus:outline-none relative transition-all duration-200 hover:scale-105 active:scale-95"
+              className="p-2 rounded-lg text-[var(--muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--heading)] cursor-pointer focus:outline-none relative transition-all duration-200 hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
               aria-label="Notifications center"
             >
               <Bell size={18} />
               {unreadCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 h-4 min-w-4 px-1 rounded-full bg-destructive text-[9px] font-black text-destructive-foreground flex items-center justify-center border border-background shadow-[0_2px_6px_rgba(244,63,94,0.4)] animate-pulse font-sans">
+                <span className="absolute top-1.5 right-1.5 h-4 min-w-4 px-1 rounded-full bg-[var(--danger)] text-[9px] font-black text-white flex items-center justify-center border border-[var(--surface)] shadow-md animate-pulse font-sans">
                   {unreadCount}
                 </span>
               )}
             </button>
           </DropdownTrigger>
-          <DropdownContent className="w-80 border-border/80 bg-card/95 shadow-xl backdrop-blur-md" align="end">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-border/80 select-none">
-              <span className="text-[10px] font-extrabold font-display text-foreground uppercase tracking-widest">
+          <DropdownContent className="w-80 border-[var(--border)]/80 bg-[var(--surface)]/95 shadow-[var(--shadow-lg)] backdrop-blur-md" align="end">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border)]/80 select-none">
+              <span className="text-[10px] font-extrabold font-display text-[var(--heading)] uppercase tracking-widest">
                 Notifications
               </span>
               {unreadCount > 0 && (
                 <button
                   onClick={() => markAllReadMutation.mutate()}
-                  className="text-[9px] font-bold text-primary hover:text-primary/80 hover:underline dark:text-brand-450 dark:hover:text-brand-400 cursor-pointer uppercase tracking-wider"
+                  className="text-[9px] font-bold text-[var(--primary)] hover:text-[var(--primary-hover)] hover:underline cursor-pointer uppercase tracking-wider bg-transparent border-none p-0"
                 >
                   Mark all read
                 </button>
               )}
             </div>
 
-            <div className="max-h-72 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/50">
+            <div className="max-h-72 overflow-y-auto divide-y divide-[var(--border)]/50">
               {notifications.length === 0 ? (
                 <EmptyNotificationsState />
               ) : (
@@ -147,18 +146,18 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
                   <div
                     key={n.id}
                     className={cn(
-                      'p-3.5 flex gap-3 text-left relative group transition-colors hover:bg-slate-50/70 dark:hover:bg-slate-900/20',
-                      !n.is_read && 'bg-brand-500/[0.03] dark:bg-brand-500/[0.03]'
+                      'p-3.5 flex gap-3 text-left relative group transition-colors hover:bg-[var(--surface-hover)]/70',
+                      !n.is_read && 'bg-[var(--primary)]/[0.03]'
                     )}
                   >
                     <div className="flex-1 space-y-1 min-w-0 pr-8">
-                      <p className={cn('text-xs font-semibold tracking-tight truncate', n.is_read ? 'text-muted-foreground' : 'text-foreground font-bold')}>
+                      <p className={cn('text-xs font-semibold tracking-tight truncate', n.is_read ? 'text-[var(--muted)]' : 'text-[var(--heading)] font-bold')}>
                         {n.title}
                       </p>
-                      <p className="text-[10px] text-muted-foreground font-sans line-clamp-2 leading-relaxed">
+                      <p className="text-[10px] text-[var(--body)] font-sans line-clamp-2 leading-relaxed">
                         {n.message}
                       </p>
-                      <span className="text-[8px] font-bold text-slate-400 dark:text-slate-550 block mt-1.5 uppercase tracking-wider font-sans">
+                      <span className="text-[8px] font-bold text-[var(--muted)] block mt-1.5 uppercase tracking-wider font-sans">
                         {new Date(n.created_at).toLocaleDateString()}
                       </span>
                     </div>
@@ -167,7 +166,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
                       {!n.is_read && (
                         <button
                           onClick={() => markReadMutation.mutate(n.id)}
-                          className="p-1 rounded bg-muted text-slate-400 hover:text-success hover:bg-success/10 cursor-pointer border border-border/40 shadow-xs"
+                          className="p-1 rounded bg-[var(--surface)] text-[var(--muted)] hover:text-[var(--success)] hover:bg-[var(--success)]/10 cursor-pointer border border-[var(--border)]/40 shadow-xs"
                           title="Mark read"
                         >
                           <Check size={12} />
@@ -175,7 +174,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
                       )}
                       <button
                         onClick={() => deleteNotifMutation.mutate(n.id)}
-                          className="p-1 rounded bg-muted text-slate-400 hover:text-destructive hover:bg-destructive/10 cursor-pointer border border-border/40 shadow-xs"
+                        className="p-1 rounded bg-[var(--surface)] text-[var(--muted)] hover:text-[var(--danger)] hover:bg-[var(--danger)]/10 cursor-pointer border border-[var(--border)]/40 shadow-xs"
                         title="Delete"
                       >
                         <Trash2 size={12} />
@@ -192,7 +191,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
         <Dropdown>
           <DropdownTrigger asChild>
             <button
-              className="p-2 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200 cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95"
+              className="p-2 rounded-lg text-[var(--muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--heading)] cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
               aria-label="Select theme"
             >
               {theme === 'light' && <Sun size={18} />}
@@ -200,16 +199,16 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
               {theme === 'system' && <Monitor size={18} />}
             </button>
           </DropdownTrigger>
-          <DropdownContent className="w-36 border-border/80 shadow-lg" align="end">
-            <DropdownLabel className="text-[10px] uppercase font-extrabold tracking-widest text-slate-400">Appearance</DropdownLabel>
+          <DropdownContent className="w-36 border-[var(--border)]/80 bg-[var(--surface)] shadow-[var(--shadow-md)]" align="end">
+            <DropdownLabel className="text-[10px] uppercase font-extrabold tracking-widest text-[var(--muted)]">Appearance</DropdownLabel>
             <DropdownSeparator />
-            <DropdownItem onClick={() => handleThemeChange('light')} className={cn('cursor-pointer', theme === 'light' && 'text-brand-600 dark:text-brand-400 font-bold bg-brand-500/5 dark:bg-brand-500/10')}>
+            <DropdownItem onClick={() => handleThemeChange('light')} className={cn('cursor-pointer rounded-md m-0.5', theme === 'light' && 'text-[var(--primary)] font-bold bg-[var(--primary)]/5')}>
               <Sun size={14} className="mr-2" /> Light
             </DropdownItem>
-            <DropdownItem onClick={() => handleThemeChange('dark')} className={cn('cursor-pointer', theme === 'dark' && 'text-brand-600 dark:text-brand-400 font-bold bg-brand-500/5 dark:bg-brand-500/10')}>
+            <DropdownItem onClick={() => handleThemeChange('dark')} className={cn('cursor-pointer rounded-md m-0.5', theme === 'dark' && 'text-[var(--primary)] font-bold bg-[var(--primary)]/10')}>
               <Moon size={14} className="mr-2" /> Dark
             </DropdownItem>
-            <DropdownItem onClick={() => handleThemeChange('system')} className={cn('cursor-pointer', theme === 'system' && 'text-brand-600 dark:text-brand-400 font-bold bg-brand-500/5 dark:bg-brand-500/10')}>
+            <DropdownItem onClick={() => handleThemeChange('system')} className={cn('cursor-pointer rounded-md m-0.5', theme === 'system' && 'text-[var(--primary)] font-bold bg-[var(--primary)]/10')}>
               <Monitor size={14} className="mr-2" /> System
             </DropdownItem>
           </DropdownContent>
@@ -218,38 +217,38 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
         {/* User Account Dropdown */}
         <Dropdown>
           <DropdownTrigger asChild>
-            <button className="flex items-center gap-2 p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95">
+            <button className="flex items-center gap-2 p-1 rounded-full hover:bg-[var(--surface-hover)] cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-[var(--primary)]">
               <Avatar
                 src={user?.profile_picture}
                 fallbackText={userDisplayName}
-                className="h-8 w-8 ring-2 ring-transparent group-hover:ring-brand-500/20 transition-all"
+                className="h-8 w-8 ring-2 ring-transparent hover:ring-[var(--primary)]/20 transition-all"
               />
             </button>
           </DropdownTrigger>
-          <DropdownContent className="w-56 border-border/80 shadow-lg" align="end">
+          <DropdownContent className="w-56 border-[var(--border)]/80 bg-[var(--surface)] shadow-[var(--shadow-lg)]" align="end">
             <div className="flex flex-col px-3.5 py-2.5 text-left select-none">
-              <span className="text-xs font-extrabold font-display text-foreground uppercase tracking-wider truncate">
+              <span className="text-xs font-extrabold font-display text-[var(--heading)] uppercase tracking-wider truncate">
                 {userDisplayName}
               </span>
-              <span className="text-[10px] text-muted-foreground truncate font-sans mt-0.5">
+              <span className="text-[10px] text-[var(--muted)] truncate font-sans mt-0.5">
                 {user?.email}
               </span>
             </div>
             <DropdownSeparator />
-            <DropdownItem asChild className="cursor-pointer">
+            <DropdownItem asChild className="cursor-pointer rounded-md m-0.5">
               <Link to="/profile" className="flex items-center w-full py-2">
-                <UserIcon size={14} className="mr-2.5 text-slate-400 group-hover:text-slate-650" />
+                <UserIcon size={14} className="mr-2.5 text-[var(--muted)]" />
                 My Profile
               </Link>
             </DropdownItem>
-            <DropdownItem asChild className="cursor-pointer">
+            <DropdownItem asChild className="cursor-pointer rounded-md m-0.5">
               <Link to="/settings" className="flex items-center w-full py-2">
-                <Settings size={14} className="mr-2.5 text-slate-400 group-hover:text-slate-650" />
+                <Settings size={14} className="mr-2.5 text-[var(--muted)]" />
                 Account Settings
               </Link>
             </DropdownItem>
             <DropdownSeparator />
-            <DropdownItem onClick={logout} className="text-destructive hover:text-destructive/80 hover:bg-destructive/10 cursor-pointer py-2 font-bold">
+            <DropdownItem onClick={logout} className="text-[var(--danger)] hover:text-[var(--danger)]/80 hover:bg-[var(--danger)]/10 cursor-pointer py-2 font-bold rounded-md m-0.5">
               <LogOut size={14} className="mr-2.5" />
               Sign Out
             </DropdownItem>

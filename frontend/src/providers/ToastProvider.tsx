@@ -7,28 +7,28 @@ export function ToastProvider() {
       toastOptions={{
         duration: 4000,
         style: {
-          background: 'hsl(var(--card) / 0.9)',
-          color: 'var(--color-foreground)',
-          border: '1px solid var(--color-border)',
+          background: 'var(--surface)',
+          color: 'var(--heading)',
+          border: '1px solid var(--border)',
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
-          borderRadius: '12px',
+          borderRadius: 'var(--radius-md)',
           padding: '12px 18px',
-          boxShadow: 'var(--shadow-lg)',
+          boxShadow: 'var(--shadow-md)',
           fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
           fontSize: '13px',
           fontWeight: 600,
         },
         success: {
           iconTheme: {
-            primary: 'var(--color-success)',
-            secondary: 'var(--color-primary-foreground)',
+            primary: 'var(--success)',
+            secondary: 'var(--surface)',
           },
         },
         error: {
           iconTheme: {
-            primary: 'var(--color-destructive)',
-            secondary: 'var(--color-primary-foreground)',
+            primary: 'var(--danger)',
+            secondary: 'var(--surface)',
           },
         },
       }}

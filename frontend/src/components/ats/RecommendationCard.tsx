@@ -28,7 +28,7 @@ export function RecommendationCard({ recommendation }: RecommendationCardProps) 
     const c = cat.toLowerCase()
     switch (c) {
       case 'skills':
-        return <Sparkles className="text-brand-500 h-5 w-5 shrink-0" />
+        return <Sparkles className="text-[var(--primary)] h-5 w-5 shrink-0" />
       case 'experience':
         return <Briefcase className="text-blue-500 h-5 w-5 shrink-0" />
       case 'education':
@@ -36,7 +36,7 @@ export function RecommendationCard({ recommendation }: RecommendationCardProps) 
       case 'keywords':
         return <Key className="text-amber-500 h-5 w-5 shrink-0" />
       default:
-        return <AlertCircle className="text-slate-500 h-5 w-5 shrink-0" />
+        return <AlertCircle className="text-[var(--muted)] h-5 w-5 shrink-0" />
     }
   }
 
@@ -59,42 +59,42 @@ export function RecommendationCard({ recommendation }: RecommendationCardProps) 
   }
 
   return (
-    <div className="border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl overflow-hidden shadow-xs hover:border-slate-350 dark:hover:border-slate-750 transition-colors duration-200 text-left">
+    <div className="border border-[var(--primary)]/20 bg-[var(--primary)]/5 backdrop-blur-md rounded-[var(--radius-card)] overflow-hidden shadow-xs hover:border-[var(--primary)]/45 transition-colors duration-200 text-left">
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between p-4 focus:outline-none cursor-pointer bg-transparent border-none"
       >
         <div className="flex items-center gap-3.5 min-w-0 pr-4">
-          <div className="p-2 bg-slate-50/50 dark:bg-slate-850 border border-border rounded-xl shrink-0">
+          <div className="p-2 bg-[var(--surface-hover)] border border-[var(--border)] rounded-xl shrink-0">
             {getCategoryIcon(category)}
           </div>
           <div className="min-w-0 text-left">
-            <p className="text-sm font-bold text-slate-900 dark:text-slate-100 truncate pr-2 m-0 leading-tight">
+            <p className="text-sm font-bold text-[var(--heading)] truncate pr-2 m-0 leading-tight">
               {message}
             </p>
-            <p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider mt-1 m-0">Category: {category}</p>
+            <p className="text-[10px] text-[var(--muted)] font-semibold uppercase tracking-wider mt-1 m-0">Category: {category}</p>
           </div>
         </div>
         <div className="flex items-center gap-3 shrink-0">
           {getPriorityBadge(priority)}
-          {isOpen ? <ChevronUp size={15} className="text-slate-400" /> : <ChevronDown size={15} className="text-slate-400" />}
+          {isOpen ? <ChevronUp size={15} className="text-[var(--muted)]" /> : <ChevronDown size={15} className="text-[var(--muted)]" />}
         </div>
       </button>
 
       {isOpen && (
-        <div className="p-4 pt-0 border-t border-border/40 bg-background/20 text-xs text-muted-foreground leading-relaxed space-y-2.5 animate-fadeIn">
+        <div className="p-4 pt-0 border-t border-[var(--border)]/40 bg-[var(--surface-hover)]/20 text-xs text-[var(--muted)] leading-relaxed space-y-2.5 animate-fadeIn">
           <div className="flex items-start gap-2.5 mt-3">
-            <CheckCircle size={14} className="text-success shrink-0 mt-0.5" />
+            <CheckCircle size={14} className="text-[var(--success)] shrink-0 mt-0.5" />
             <div className="font-medium">
-              <span className="font-bold text-foreground">Action Plan: </span>
+              <span className="font-bold text-[var(--heading)]">Action Plan: </span>
               {getActionPlan(category)}
             </div>
           </div>
           <div className="flex items-start gap-2.5">
-            <HelpCircle size={14} className="text-brand-500 shrink-0 mt-0.5" />
+            <HelpCircle size={14} className="text-[var(--primary)] shrink-0 mt-0.5" />
             <div className="font-medium">
-              <span className="font-bold text-foreground">Why this matters: </span>
+              <span className="font-bold text-[var(--heading)]">Why this matters: </span>
               ATS filters parse specific categories to grade suitability. Missing terms or structures reduce overall scanner scoring by up to 25%.
             </div>
           </div>

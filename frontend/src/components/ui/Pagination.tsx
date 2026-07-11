@@ -53,7 +53,7 @@ export function Pagination({ currentPage, totalPages, onPageChange, className }:
             return (
               <span
                 key={`ellipsis-${index}`}
-                className="px-3 py-1.5 text-sm text-slate-400 select-none font-sans"
+                className="px-3 py-1.5 text-sm text-[var(--muted)] select-none font-sans"
               >
                 ...
               </span>
@@ -70,8 +70,8 @@ export function Pagination({ currentPage, totalPages, onPageChange, className }:
               className={cn(
                 'w-9 h-9 p-0 font-display text-sm',
                 currentPage === pageNum
-                  ? 'bg-brand-600 text-white border-brand-600'
-                  : 'hover:bg-slate-100 dark:hover:bg-slate-800'
+                  ? 'bg-[var(--primary)] text-white border-[var(--primary)]'
+                  : 'hover:bg-[var(--surface-hover)]'
               )}
             >
               {pageNum}

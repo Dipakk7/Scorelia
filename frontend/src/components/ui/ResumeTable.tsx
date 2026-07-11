@@ -202,7 +202,7 @@ export default function ResumeTable({
   return (
     <div className="space-y-4">
       {/* Filters & Search Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-card p-4 border border-border rounded-xl">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[var(--surface)] p-4 border border-[var(--border)] rounded-[var(--radius-card)] shadow-[var(--shadow-sm)]">
         <div className="w-full md:max-w-md">
           <SearchBox
             value={searchQuery}
@@ -213,7 +213,7 @@ export default function ResumeTable({
 
         <div className="flex flex-wrap items-center gap-3 font-sans">
           {/* Status Filter */}
-          <div className="flex items-center gap-1.5 text-xs text-slate-550 dark:text-slate-400">
+          <div className="flex items-center gap-1.5 text-xs text-[var(--muted)]">
             <Filter size={14} />
             <span>Status:</span>
             <select
@@ -222,7 +222,7 @@ export default function ResumeTable({
                 setStatusFilter(e.target.value)
                 setCurrentPage(1)
               }}
-              className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-750 px-2 py-1 rounded-lg outline-none cursor-pointer focus:border-brand-500"
+              className="bg-[var(--surface-hover)] border border-[var(--border)] px-2 py-1 rounded-lg outline-none cursor-pointer focus:border-[var(--primary)] text-[var(--body)]"
             >
               <option value="all">All Statuses</option>
               <option value="parsed">Parsed</option>
@@ -234,7 +234,7 @@ export default function ResumeTable({
           </div>
 
           {/* Type Filter */}
-          <div className="flex items-center gap-1.5 text-xs text-slate-550 dark:text-slate-400">
+          <div className="flex items-center gap-1.5 text-xs text-[var(--muted)]">
             <span>Type:</span>
             <select
               value={typeFilter}
@@ -242,7 +242,7 @@ export default function ResumeTable({
                 setTypeFilter(e.target.value)
                 setCurrentPage(1)
               }}
-              className="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-750 px-2 py-1 rounded-lg outline-none cursor-pointer focus:border-brand-500"
+              className="bg-[var(--surface-hover)] border border-[var(--border)] px-2 py-1 rounded-lg outline-none cursor-pointer focus:border-[var(--primary)] text-[var(--body)]"
             >
               <option value="all">All Formats</option>
               <option value="pdf">PDF</option>
@@ -254,15 +254,15 @@ export default function ResumeTable({
 
       {/* Bulk actions bar */}
       {selectedIds.size > 0 && (
-        <div className="flex items-center justify-between p-3 bg-brand-50/50 dark:bg-brand-950/20 border border-brand-100 dark:border-brand-900/30 rounded-xl font-sans animate-slideIn">
-          <span className="text-xs text-brand-850 dark:text-brand-300 font-semibold pl-1">
+        <div className="flex items-center justify-between p-3 bg-[var(--primary)]/10 border border-[var(--primary)]/20 rounded-[var(--radius-card)] font-sans animate-slideIn">
+          <span className="text-xs text-[var(--primary)] font-semibold pl-1">
             {selectedIds.size} {selectedIds.size === 1 ? 'resume' : 'resumes'} selected
           </span>
           <Button
             variant="danger"
             size="sm"
             onClick={() => setIsBulkDeleteDialogOpen(true)}
-            className="flex items-center gap-1.5 bg-destructive text-destructive-foreground hover:bg-destructive/90 font-semibold py-1 px-3 text-xs rounded-lg cursor-pointer"
+            className="flex items-center gap-1.5 bg-[var(--danger)] text-white hover:bg-[var(--danger)]/90 font-semibold py-1 px-3 text-xs rounded-lg cursor-pointer border-none"
           >
             <Trash2 size={13} />
             <span>Delete Selected</span>
@@ -272,17 +272,17 @@ export default function ResumeTable({
 
       {/* Main Table */}
       {filteredAndSortedResumes.length === 0 ? (
-        <div className="flex flex-col items-center justify-center p-12 bg-card border border-border rounded-xl min-h-[260px]">
+        <div className="flex flex-col items-center justify-center p-12 bg-[var(--surface)] border border-[var(--border)] rounded-[var(--radius-card)] min-h-[260px] shadow-[var(--shadow-sm)]">
           <AlertCircle className="text-slate-400 dark:text-slate-650 mb-3" size={32} />
-          <h4 className="text-sm font-semibold font-display text-foreground">
+          <h4 className="text-sm font-semibold font-display text-[var(--heading)]">
             No matches found
           </h4>
-          <p className="text-xs text-muted-foreground mt-1 max-w-xs text-center font-sans">
+          <p className="text-xs text-[var(--muted)] mt-1 max-w-xs text-center font-sans">
             Try adjusting your search queries or clearing active status and format filters.
           </p>
         </div>
       ) : (
-        <div className="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
+        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-[var(--radius-card)] overflow-hidden shadow-[var(--shadow-sm)]">
           <Table>
             <TableHeader>
               <TableRow>
@@ -291,32 +291,32 @@ export default function ResumeTable({
                     type="checkbox"
                     checked={allPageItemsSelected}
                     onChange={(e) => handleSelectAll(e.target.checked, paginatedResumes)}
-                    className="h-4 w-4 rounded border-input text-brand-600 focus:ring-brand-500 cursor-pointer"
+                    className="h-4 w-4 rounded border-input text-[var(--primary)] focus:ring-[var(--primary)] cursor-pointer"
                   />
                 </TableHead>
                 <TableHead className="cursor-pointer select-none" onClick={() => handleSort('name')}>
                   <div className="flex items-center gap-1">
                     <span>File Name</span>
-                    <ArrowUpDown size={12} className="text-slate-400" />
+                    <ArrowUpDown size={12} className="text-[var(--muted)]" />
                   </div>
                 </TableHead>
                 <TableHead className="cursor-pointer select-none" onClick={() => handleSort('size')}>
                   <div className="flex items-center gap-1">
                     <span>Size</span>
-                    <ArrowUpDown size={12} className="text-slate-400" />
+                    <ArrowUpDown size={12} className="text-[var(--muted)]" />
                   </div>
                 </TableHead>
                 <TableHead className="uppercase">Type</TableHead>
                 <TableHead className="cursor-pointer select-none" onClick={() => handleSort('date')}>
                   <div className="flex items-center gap-1">
                     <span>Uploaded At</span>
-                    <ArrowUpDown size={12} className="text-slate-400" />
+                    <ArrowUpDown size={12} className="text-[var(--muted)]" />
                   </div>
                 </TableHead>
                 <TableHead className="cursor-pointer select-none" onClick={() => handleSort('score')}>
                   <div className="flex items-center gap-1">
                     <span>ATS Score</span>
-                    <ArrowUpDown size={12} className="text-slate-400" />
+                    <ArrowUpDown size={12} className="text-[var(--muted)]" />
                   </div>
                 </TableHead>
                 <TableHead>Status</TableHead>
@@ -329,19 +329,19 @@ export default function ResumeTable({
                 const isRenaming = renamingId === resume.id
 
                 return (
-                  <TableRow key={resume.id} className={isSelected ? 'bg-slate-50/70 dark:bg-slate-850/30' : ''}>
+                  <TableRow key={resume.id} className={isSelected ? 'bg-[var(--surface-hover)]' : ''}>
                     {/* Selection Checkbox */}
                     <TableCell className="text-center pl-4">
                       <input
                         type="checkbox"
                         checked={isSelected}
                         onChange={(e) => handleSelectRow(resume.id, e.target.checked)}
-                        className="h-4 w-4 rounded border-input text-brand-600 focus:ring-brand-500 cursor-pointer"
+                        className="h-4 w-4 rounded border-input text-[var(--primary)] focus:ring-[var(--primary)] cursor-pointer"
                       />
                     </TableCell>
 
                     {/* File Name (Inline Rename support) */}
-                    <TableCell className="font-semibold text-foreground max-w-[240px] truncate">
+                    <TableCell className="font-semibold text-[var(--heading)] max-w-[240px] truncate">
                       {isRenaming ? (
                         <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
                           <Input
@@ -356,20 +356,20 @@ export default function ResumeTable({
                           />
                           <button
                             onClick={() => submitRename(resume.id)}
-                            className="p-1 bg-brand-50 text-brand-650 hover:bg-brand-100 dark:bg-brand-950 dark:text-brand-300 rounded cursor-pointer"
+                            className="p-1 bg-[var(--primary)]/10 text-[var(--primary)] hover:bg-[var(--primary)]/20 rounded cursor-pointer border-none"
                           >
                             <Check size={12} />
                           </button>
                           <button
                             onClick={() => setRenamingId(null)}
-                            className="p-1 bg-slate-50 text-slate-500 hover:bg-slate-100 dark:bg-slate-800 dark:text-slate-400 rounded cursor-pointer"
+                            className="p-1 bg-[var(--surface-hover)] text-[var(--muted)] hover:bg-[var(--surface-hover)] rounded cursor-pointer border-none"
                           >
                             <X size={12} />
                           </button>
                         </div>
                       ) : (
                         <span
-                          className="hover:text-brand-650 dark:hover:text-brand-450 cursor-pointer transition-colors"
+                          className="hover:text-[var(--primary)] cursor-pointer transition-colors"
                           onClick={() => onView(resume.id)}
                           onDoubleClick={() => {
                             setRenamingId(resume.id)
@@ -391,18 +391,18 @@ export default function ResumeTable({
                     </TableCell>
 
                     {/* Upload date */}
-                    <TableCell className="text-muted-foreground text-xs">
+                    <TableCell className="text-muted-foreground text-xs text-[var(--muted)]">
                       {new Date(resume.uploaded_at).toLocaleString()}
                     </TableCell>
 
                     {/* ATS score badge */}
                     <TableCell>
                       {resume.ats_score !== null ? (
-                        <span className="font-bold font-display text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/45 px-2 py-0.5 rounded-lg border border-brand-100 dark:border-brand-900/30">
+                        <span className="font-bold font-display text-[var(--primary)] bg-[var(--primary)]/10 px-2 py-0.5 rounded-lg border border-[var(--primary)]/20">
                           {resume.ats_score}/100
                         </span>
                       ) : (
-                        <span className="text-slate-400 font-sans">-</span>
+                        <span className="text-[var(--muted)] font-sans">-</span>
                       )}
                     </TableCell>
 
@@ -418,14 +418,14 @@ export default function ResumeTable({
                       <div className="flex justify-end items-center gap-1">
                         <button
                           onClick={() => onView(resume.id)}
-                          className="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg cursor-pointer"
+                          className="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-[var(--surface-hover)] rounded-lg cursor-pointer border-none"
                           title="Quick View"
                         >
                           <Eye size={14} />
                         </button>
                         <Dropdown>
                           <DropdownTrigger asChild>
-                            <button className="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg cursor-pointer">
+                            <button className="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-[var(--surface-hover)] rounded-lg cursor-pointer border-none">
                               <MoreVertical size={14} />
                             </button>
                           </DropdownTrigger>
@@ -473,7 +473,7 @@ export default function ResumeTable({
 
                             <DropdownItem
                               onClick={() => setDeleteTargetId(resume.id)}
-                              className="flex items-center gap-2 cursor-pointer text-xs text-red-650 hover:bg-red-50 hover:text-red-700 dark:text-red-400 dark:hover:bg-red-950/20 font-semibold animate-fadeIn"
+                              className="flex items-center gap-2 cursor-pointer text-xs text-[var(--danger)] hover:bg-[var(--danger)]/10 font-semibold animate-fadeIn"
                             >
                               <Trash2 size={12} />
                               <span>Delete</span>
@@ -490,8 +490,8 @@ export default function ResumeTable({
 
           {/* Table Footer / Pagination */}
           {totalPages > 1 && (
-            <div className="p-4 border-t border-slate-150 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex justify-between items-center">
-              <span className="text-xs font-sans text-muted-foreground">
+            <div className="p-4 border-t border-[var(--border)] bg-[var(--surface-hover)] flex justify-between items-center">
+              <span className="text-xs font-sans text-muted-foreground text-[var(--muted)]">
                 Showing {paginatedResumes.length} of {filteredAndSortedResumes.length} resumes
               </span>
               <Pagination

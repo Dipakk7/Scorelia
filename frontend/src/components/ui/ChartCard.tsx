@@ -18,14 +18,14 @@ export function ChartCard({
   headerActions,
 }: ChartCardProps) {
   return (
-    <Card className={cn('border-slate-200/60 dark:border-slate-800/40 bg-card/40 backdrop-blur-md transition-all hover:shadow-lg rounded-2xl overflow-hidden', className)}>
+    <Card className={cn('border-[var(--border)]/60 bg-[var(--surface)]/40 backdrop-blur-md transition-all hover:shadow-[var(--shadow-md)] rounded-2xl overflow-hidden', className)}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pt-7 pb-5 px-6 md:px-8">
         <div className="space-y-1.5 text-left">
-          <CardTitle className="text-lg font-bold font-display text-slate-900 dark:text-slate-50">
+          <CardTitle className="text-lg font-bold font-display text-[var(--heading)]">
             {title}
           </CardTitle>
           {description && (
-            <CardDescription className="text-xs text-muted-foreground font-sans leading-relaxed">
+            <CardDescription className="text-xs text-[var(--muted)] font-sans leading-relaxed">
               {description}
             </CardDescription>
           )}

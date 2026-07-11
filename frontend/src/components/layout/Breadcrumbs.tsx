@@ -19,11 +19,11 @@ export function Breadcrumbs({ className }: BreadcrumbsProps) {
 
   return (
     <nav aria-label="Breadcrumb" className={cn('flex items-center text-[10px] font-bold uppercase tracking-widest font-display', className)}>
-      <ol className="flex items-center gap-2 text-slate-400 dark:text-slate-500">
+      <ol className="flex items-center gap-2 text-[var(--muted)]">
         <li className="flex items-center">
           <Link
             to="/dashboard"
-            className="hover:text-brand-600 dark:hover:text-brand-400 flex items-center transition-colors"
+            className="hover:text-[var(--primary)] flex items-center transition-colors focus-visible:ring-1 focus-visible:ring-[var(--primary)] rounded"
           >
             <Home size={13} />
             <span className="sr-only">Home</span>
@@ -40,18 +40,18 @@ export function Breadcrumbs({ className }: BreadcrumbsProps) {
 
           return (
             <li key={to} className="flex items-center gap-2">
-              <ChevronRight size={11} className="text-slate-300 dark:text-slate-750" />
+              <ChevronRight size={11} className="text-[var(--border)]" />
               {isLast ? (
                 <span
                   aria-current="page"
-                  className="font-extrabold text-foreground tracking-wider"
+                  className="font-extrabold text-[var(--heading)] tracking-wider"
                 >
                   {label}
                 </span>
               ) : (
                 <Link
                   to={to}
-                  className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                  className="hover:text-[var(--primary)] transition-colors focus-visible:ring-1 focus-visible:ring-[var(--primary)] rounded"
                 >
                   {label}
                 </Link>

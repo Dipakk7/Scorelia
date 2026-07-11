@@ -45,27 +45,27 @@ export function CareerAnalyticsChart({ analytics }: CareerAnalyticsChartProps) {
   }, [])
 
   const themeColors = {
-    primary: isDark ? '#5b9ac9' : '#2f6690',
-    success: isDark ? '#3ecf8e' : '#1b9e6f',
-    warning: isDark ? '#e0b845' : '#d99b1f',
-    destructive: 'var(--destructive)',
-    grid: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)',
-    text: 'var(--foreground)',
-    mutedText: 'var(--muted-foreground)',
+    primary: 'var(--analytics)',     // Career -> Purple
+    success: 'var(--success)',
+    warning: 'var(--warning)',
+    destructive: 'var(--danger)',
+    grid: 'var(--divider)',
+    text: 'var(--heading)',
+    mutedText: 'var(--muted)',
   }
 
   const COLORS = [
-    themeColors.primary,
-    themeColors.success,
-    themeColors.warning,
-    themeColors.destructive,
+    'var(--analytics)',
+    'var(--success)',
+    'var(--warning)',
+    'var(--danger)',
   ]
 
   function CustomTooltip({ active, payload, label }: any) {
     if (active && payload && payload.length) {
       return (
-        <div className="rounded-xl border border-slate-205 dark:border-slate-805 bg-card/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
-          {label && <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 m-0">{label}</p>}
+        <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)]/95 p-3 shadow-[var(--shadow-lg)] backdrop-blur-md text-left font-sans text-xs select-none">
+          {label && <p className="text-[9px] font-extrabold uppercase tracking-wider text-[var(--muted)] m-0">{label}</p>}
           {payload.map((entry: any, index: number) => {
             const isPercent =
               entry.name?.toLowerCase().includes('percent') ||
@@ -74,10 +74,10 @@ export function CareerAnalyticsChart({ analytics }: CareerAnalyticsChartProps) {
               entry.dataKey === 'percentage' ||
               (entry.dataKey === 'value' && entry.name === 'Mastery Rating')
             return (
-              <div key={index} className="mt-1.5 flex items-center gap-2 font-semibold">
+              <div key={index} className="mt-1.5 flex items-center gap-2 font-semibold text-xs leading-none">
                 <span className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.stroke || entry.fill || themeColors.primary }} />
-                <span className="text-slate-555 dark:text-slate-400">{entry.name}:</span>
-                <span className="text-foreground font-mono">
+                <span className="text-[var(--muted)] font-medium">{entry.name}:</span>
+                <span className="text-[var(--heading)] font-mono font-bold">
                   {entry.value}{isPercent ? '%' : ''}
                 </span>
               </div>

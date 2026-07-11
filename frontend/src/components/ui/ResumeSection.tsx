@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface ResumeSectionProps {
   title: string
@@ -28,7 +29,7 @@ export default function ResumeSection({
   return (
     <div
       className={cn(
-        'border border-border bg-card rounded-2xl overflow-hidden shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300',
+        'border border-border bg-card rounded-2xl overflow-hidden shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300',
         className
       )}
     >
@@ -55,11 +56,21 @@ export default function ResumeSection({
       </div>
 
       {/* Content */}
-      {isExpanded && (
-        <div className="p-5 border-t border-slate-100 dark:border-slate-850 font-sans animate-fadeIn">
-          {children}
-        </div>
-      )}
+      <AnimatePresence initial={false}>
+        {isExpanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
+            className="overflow-hidden"
+          >
+            <div className="p-5 border-t border-[var(--border)] font-sans">
+              {children}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

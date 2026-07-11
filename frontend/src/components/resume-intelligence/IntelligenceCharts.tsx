@@ -66,25 +66,25 @@ export function IntelligenceCharts({
   }, [])
 
   const themeColors = {
-    primary: isDark ? '#5b9ac9' : '#2f6690',
-    success: isDark ? '#3ecf8e' : '#1b9e6f',
-    warning: isDark ? '#e0b845' : '#d99b1f',
-    destructive: 'var(--destructive)',
-    grid: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)',
-    text: 'var(--foreground)',
-    mutedText: 'var(--muted-foreground)',
+    primary: 'var(--primary)',      // Resume Score -> Blue
+    success: 'var(--success)',
+    warning: 'var(--accent)',       // Interview -> Orange
+    destructive: 'var(--danger)',
+    grid: 'var(--divider)',
+    text: 'var(--heading)',
+    mutedText: 'var(--muted)',
   }
 
   function CustomTooltip({ active, payload, label }: any) {
     if (active && payload && payload.length) {
       const data = payload[0].payload
       return (
-        <div className="rounded-xl border border-slate-200 dark:border-slate-805 bg-card/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
-          <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 m-0">{label}</p>
-          <div className="mt-1.5 flex items-center gap-2 font-semibold">
+        <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)]/95 p-3 shadow-[var(--shadow-lg)] backdrop-blur-md text-left font-sans text-xs select-none">
+          <p className="text-[9px] font-extrabold uppercase tracking-wider text-[var(--muted)] m-0">{label}</p>
+          <div className="mt-1.5 flex items-center gap-2 font-semibold text-xs leading-none">
             <span className="h-2 w-2 rounded-full" style={{ backgroundColor: payload[0].fill || themeColors.primary }} />
-            <span className="text-muted-foreground">{data.type || 'Value'}:</span>
-            <span className="text-slate-900 dark:text-slate-100">{payload[0].value}</span>
+            <span className="text-[var(--muted)] font-medium">{data.type || 'Value'}:</span>
+            <span className="text-[var(--heading)] font-mono font-bold">{payload[0].value}</span>
           </div>
         </div>
       )
@@ -141,29 +141,29 @@ export function IntelligenceCharts({
   return (
     <div className="space-y-6 text-left font-sans animate-fade-in bg-transparent">
       {/* Tab Selectors */}
-      <div className="flex border-b border-slate-105 dark:border-slate-850/80 overflow-x-auto scrollbar-none bg-slate-50/20 dark:bg-slate-900/10 rounded-t-2xl">
+      <div className="flex border-b border-[var(--border)] overflow-x-auto scrollbar-none bg-[var(--surface-hover)]/30 rounded-t-2xl">
         <button
           onClick={() => setActiveTab('trends')}
           className={cn(
-            'flex items-center gap-2 px-5 py-3.5 text-xs font-bold whitespace-nowrap transition-all border-b-2 cursor-pointer',
+            'flex items-center gap-2 px-5 py-3.5 text-xs font-bold whitespace-nowrap transition-all border-b-2 cursor-pointer border-none bg-transparent',
             activeTab === 'trends'
-              ? 'border-brand-500 text-brand-600 dark:text-brand-400 bg-white/40 dark:bg-slate-900/20'
-              : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100/50 dark:hover:bg-slate-850/20'
+              ? 'border-b-2 border-[var(--primary)] text-[var(--primary)] font-extrabold bg-[var(--surface)]/40'
+              : 'text-[var(--muted)] hover:text-[var(--heading)] hover:bg-[var(--surface-hover)]'
           )}
         >
-          <TrendingUp size={13} className={activeTab === 'trends' ? 'text-brand-500' : 'text-slate-455'} />
+          <TrendingUp size={13} className={activeTab === 'trends' ? 'text-[var(--primary)]' : 'text-[var(--muted)]'} />
           <span>Progress & Usage Trends</span>
         </button>
         <button
           onClick={() => setActiveTab('dimensions')}
           className={cn(
-            'flex items-center gap-2 px-5 py-3.5 text-xs font-bold whitespace-nowrap transition-all border-b-2 cursor-pointer',
+            'flex items-center gap-2 px-5 py-3.5 text-xs font-bold whitespace-nowrap transition-all border-b-2 cursor-pointer border-none bg-transparent',
             activeTab === 'dimensions'
-              ? 'border-brand-500 text-brand-600 dark:text-brand-400 bg-white/40 dark:bg-slate-900/20'
-              : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100/50 dark:hover:bg-slate-850/20'
+              ? 'border-b-2 border-[var(--primary)] text-[var(--primary)] font-extrabold bg-[var(--surface)]/40'
+              : 'text-[var(--muted)] hover:text-[var(--heading)] hover:bg-[var(--surface-hover)]'
           )}
         >
-          <Activity size={13} className={activeTab === 'dimensions' ? 'text-brand-500' : 'text-slate-455'} />
+          <Activity size={13} className={activeTab === 'dimensions' ? 'text-[var(--primary)]' : 'text-[var(--muted)]'} />
           <span>Quality Dimension Breakdown</span>
         </button>
       </div>
@@ -171,10 +171,10 @@ export function IntelligenceCharts({
       {activeTab === 'trends' ? (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 bg-transparent">
           {/* Quality Score Trend Timeline */}
-          <Card className="lg:col-span-2 border border-border/60 bg-card/70 backdrop-blur-md shadow-sm rounded-2xl hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden">
-            <CardHeader className="pb-2.5 border-b border-border/60 text-left">
-              <CardTitle className="text-xs font-black text-slate-900 dark:text-slate-200 uppercase tracking-wider flex items-center gap-1.5 m-0">
-                <History size={14} className="text-brand-500" />
+          <Card className="lg:col-span-2 border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md shadow-sm rounded-2xl hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden">
+            <CardHeader className="pb-2.5 border-b border-[var(--border)]/60 text-left">
+              <CardTitle className="text-xs font-black text-[var(--heading)] uppercase tracking-wider flex items-center gap-1.5 m-0">
+                <History size={14} className="text-[var(--primary)]" />
                 <span>Resume Quality Score Timeline</span>
               </CardTitle>
             </CardHeader>
@@ -223,10 +223,10 @@ export function IntelligenceCharts({
           </Card>
 
           {/* AI Feature Usage History */}
-          <Card className="border border-border/60 bg-card/70 backdrop-blur-md shadow-sm rounded-2xl hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden">
-            <CardHeader className="pb-2.5 border-b border-border/60 text-left">
-              <CardTitle className="text-xs font-black text-slate-900 dark:text-slate-200 uppercase tracking-wider flex items-center gap-1.5 m-0">
-                <Sparkles size={14} className="text-emerald-500" />
+          <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md shadow-sm rounded-2xl hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden">
+            <CardHeader className="pb-2.5 border-b border-[var(--border)]/60 text-left">
+              <CardTitle className="text-xs font-black text-[var(--heading)] uppercase tracking-wider flex items-center gap-1.5 m-0">
+                <Sparkles size={14} className="text-[var(--success)]" />
                 <span>AI Intelligence Usage</span>
               </CardTitle>
             </CardHeader>
@@ -248,17 +248,17 @@ export function IntelligenceCharts({
                       </BarChart>
                     </ResponsiveContainer>
                   </div>
-                  <div className="grid grid-cols-3 gap-2 text-center text-[10px] text-muted-foreground font-bold uppercase tracking-wider border-t border-slate-100 dark:border-slate-850 pt-3">
+                  <div className="grid grid-cols-3 gap-2 text-center text-[10px] text-muted-foreground font-bold uppercase tracking-wider border-t border-[var(--divider)] pt-3">
                     <div>
-                      <span className="block text-slate-900 dark:text-slate-200 text-sm font-extrabold">{reviews.length}</span>
+                      <span className="block text-[var(--heading)] text-sm font-extrabold">{reviews.length}</span>
                       Reviews
                     </div>
                     <div>
-                      <span className="block text-slate-900 dark:text-slate-200 text-sm font-extrabold">{rewrites.length}</span>
+                      <span className="block text-[var(--heading)] text-sm font-extrabold">{rewrites.length}</span>
                       Rewrites
                     </div>
                     <div>
-                      <span className="block text-slate-900 dark:text-slate-200 text-sm font-extrabold">{optimizations.length}</span>
+                      <span className="block text-[var(--heading)] text-sm font-extrabold">{optimizations.length}</span>
                       Optimizations
                     </div>
                   </div>
@@ -277,10 +277,10 @@ export function IntelligenceCharts({
         </div>
       ) : (
         /* Dimensions breakdown subtab (Radar Chart) */
-        <Card className="border border-border/60 bg-card/70 backdrop-blur-md shadow-sm rounded-2xl hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden">
-          <CardHeader className="pb-2.5 border-b border-border/60 text-left">
-            <CardTitle className="text-xs font-black text-slate-900 dark:text-slate-200 uppercase tracking-wider flex items-center gap-1.5 m-0">
-              <Activity size={14} className="text-brand-500" />
+        <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md shadow-sm rounded-2xl hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden">
+          <CardHeader className="pb-2.5 border-b border-[var(--border)]/60 text-left">
+            <CardTitle className="text-xs font-black text-[var(--heading)] uppercase tracking-wider flex items-center gap-1.5 m-0">
+              <Activity size={14} className="text-[var(--primary)]" />
               <span>Resume Optimization Progress Breakdown</span>
             </CardTitle>
           </CardHeader>

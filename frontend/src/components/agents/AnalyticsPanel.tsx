@@ -59,34 +59,34 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({ className }) => 
   }, [])
 
   const themeColors = {
-    primary: isDark ? '#5b9ac9' : '#2f6690',
-    success: isDark ? '#3ecf8e' : '#1b9e6f',
-    warning: isDark ? '#e0b845' : '#d99b1f',
-    destructive: 'var(--destructive)',
-    grid: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)',
-    text: 'var(--foreground)',
-    mutedText: 'var(--muted-foreground)',
+    primary: 'var(--primary)',
+    success: 'var(--success)',
+    warning: 'var(--warning)',
+    destructive: 'var(--danger)',
+    grid: 'var(--divider)',
+    text: 'var(--heading)',
+    mutedText: 'var(--muted)',
   }
 
   const COLORS = [
-    themeColors.primary,
-    themeColors.success,
-    themeColors.warning,
-    themeColors.destructive,
+    'var(--primary)',
+    'var(--success)',
+    'var(--warning)',
+    'var(--danger)',
   ]
 
   function CustomTooltip({ active, payload, label }: any) {
     if (active && payload && payload.length) {
       return (
-        <div className="rounded-xl border border-slate-205 dark:border-slate-805 bg-card/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
-          {label && <p className="text-[10px] font-black text-slate-800 dark:text-white m-0 mb-1 leading-normal">{label}</p>}
+        <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)]/95 p-3 shadow-[var(--shadow-lg)] backdrop-blur-md text-left font-sans text-xs select-none">
+          {label && <p className="text-[10px] font-black text-[var(--heading)] m-0 mb-1 leading-normal">{label}</p>}
           {payload.map((entry: any, index: number) => {
             const isMs = entry.name?.toLowerCase().includes('latency') || entry.name?.toLowerCase().includes('time') || entry.unit === 'ms'
             return (
-              <div key={index} className="mt-1.5 flex items-center gap-2 font-semibold">
+              <div key={index} className="mt-1.5 flex items-center gap-2 font-semibold text-xs leading-none">
                 <span className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.stroke || entry.fill || themeColors.primary }} />
-                <span className="text-slate-555 dark:text-slate-400">{entry.name}:</span>
-                <span className="text-foreground font-mono">
+                <span className="text-[var(--muted)] font-medium">{entry.name}:</span>
+                <span className="text-[var(--heading)] font-mono font-bold">
                   {entry.value}{isMs ? 'ms' : ''}
                 </span>
               </div>
@@ -151,8 +151,8 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({ className }) => 
       {/* Analytics Action Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 select-none bg-transparent">
         <div className="flex items-center gap-2">
-          <Activity size={20} className="text-brand-500" />
-          <h3 className="font-black text-xs uppercase tracking-wider text-foreground font-display m-0 leading-none">
+          <Activity size={20} className="text-[var(--primary)]" />
+          <h3 className="font-black text-xs uppercase tracking-wider text-[var(--heading)] font-display m-0 leading-none">
             Agent Analytics Board
           </h3>
         </div>
@@ -160,7 +160,7 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({ className }) => 
         <button
           onClick={handleCleanup}
           disabled={cleanupMutation.isPending}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider bg-card hover:bg-muted hover:border-primary/30 border border-border rounded-xl transition-all duration-150 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none h-8 select-none leading-none"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider bg-[var(--surface)] hover:bg-[var(--surface-hover)] hover:border-[var(--primary)]/30 border border-[var(--border)] rounded-xl transition-all duration-150 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none h-8 select-none leading-none"
         >
           <RotateCcw size={13} className={cn(cleanupMutation.isPending && 'animate-spin')} />
           <span>Release Memory Buffers</span>
@@ -174,33 +174,33 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({ className }) => 
           value={summary?.total_agent_executions ?? 0}
           description="Consolidated task requests"
           icon={Cpu}
-          className="border border-border bg-card/70"
+          className="border border-[var(--border)] bg-[var(--surface)]/70"
         />
         <StatisticCard
           title="Consolidated Success"
           value={`${((summary?.overall_agent_success_rate ?? 0.985) * 100).toFixed(1)}%`}
           description="Target success KPI: 95%"
           icon={CheckCircle}
-          className="border border-border bg-card/70"
+          className="border border-[var(--border)] bg-[var(--surface)]/70"
         />
         <StatisticCard
           title="Average Latency"
           value={`${(summary?.average_agent_latency_ms ?? 245).toFixed(0)}ms`}
           description="Pipeline roundtrip delay"
           icon={Clock}
-          className="border border-border bg-card/70"
+          className="border border-[var(--border)] bg-[var(--surface)]/70"
         />
         <StatisticCard
           title="LLM Tokens Consumed"
           value={summary?.total_tokens_consumed ?? 0}
           description="Total tokens allocated"
           icon={Zap}
-          className="border border-border bg-card/70"
+          className="border border-[var(--border)] bg-[var(--surface)]/70"
         />
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 border-b border-border pb-px select-none text-left bg-transparent">
+      <div className="flex gap-2 border-b border-[var(--border)] pb-px select-none text-left bg-transparent">
         {[
           { id: 'system', label: 'System Health & Success' },
           { id: 'agents', label: 'Agent Executions & Latency' },
@@ -212,8 +212,8 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({ className }) => 
             className={cn(
               'px-4 py-2 text-[10px] font-bold uppercase tracking-wider border-b-2 transition-all duration-200 cursor-pointer focus:outline-none bg-transparent -mb-[2px]',
               activeTab === tab.id
-                ? 'border-brand-500 text-brand-500 font-extrabold'
-                : 'border-transparent text-muted-foreground hover:text-foreground'
+                ? 'border-[var(--primary)] text-[var(--primary)] font-extrabold'
+                : 'text-[var(--muted)] hover:text-[var(--heading)]'
             )}
           >
             {tab.label}
@@ -252,34 +252,34 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({ className }) => 
             <ChartCard title="System Diagnostics" description="Operational resource status check">
               <div className="flex flex-col gap-4 font-sans text-xs pt-2 text-left bg-transparent">
                 <div className="grid grid-cols-2 gap-4 text-left bg-transparent">
-                  <div className="p-3 bg-slate-50/50 dark:bg-slate-900/40 rounded-xl border border-slate-205 dark:border-slate-850/60 text-left">
-                    <span className="text-slate-455 dark:text-slate-550 text-[8px] block uppercase font-black tracking-wider leading-none">Server Status</span>
-                    <span className="font-mono font-black text-xs text-emerald-600 dark:text-emerald-450 block mt-1.5 leading-none uppercase">
+                  <div className="p-3 bg-[var(--surface-hover)]/40 rounded-xl border border-[var(--border)] text-left">
+                    <span className="text-[var(--muted)] text-[8px] block uppercase font-black tracking-wider leading-none">Server Status</span>
+                    <span className="font-mono font-black text-xs text-[var(--success)] block mt-1.5 leading-none uppercase">
                       {health?.status || 'HEALTHY'}
                     </span>
                   </div>
-                  <div className="p-3 bg-slate-50/50 dark:bg-slate-900/40 rounded-xl border border-slate-205 dark:border-slate-850/60 text-left">
-                    <span className="text-slate-455 dark:text-slate-550 text-[8px] block uppercase font-black tracking-wider leading-none">System Uptime</span>
-                    <span className="font-mono font-black text-xs text-foreground block mt-1.5 leading-none">
+                  <div className="p-3 bg-[var(--surface-hover)]/40 rounded-xl border border-[var(--border)] text-left">
+                    <span className="text-[var(--muted)] text-[8px] block uppercase font-black tracking-wider leading-none">System Uptime</span>
+                    <span className="font-mono font-black text-xs text-[var(--heading)] block mt-1.5 leading-none">
                       {uptimeHours} hours
                     </span>
                   </div>
-                  <div className="p-3 bg-slate-50/50 dark:bg-slate-900/40 rounded-xl border border-slate-205 dark:border-slate-850/60 text-left">
-                    <span className="text-slate-455 dark:text-slate-550 text-[8px] block uppercase font-black tracking-wider leading-none">Memory Sessions</span>
-                    <span className="font-mono font-black text-xs text-foreground block mt-1.5 leading-none">
+                  <div className="p-3 bg-[var(--surface-hover)]/40 rounded-xl border border-[var(--border)] text-left">
+                    <span className="text-[var(--muted)] text-[8px] block uppercase font-black tracking-wider leading-none">Memory Sessions</span>
+                    <span className="font-mono font-black text-xs text-[var(--heading)] block mt-1.5 leading-none">
                       {health?.memory_store_sessions_count ?? 0} sessions
                     </span>
                   </div>
-                  <div className="p-3 bg-slate-50/50 dark:bg-slate-900/40 rounded-xl border border-slate-205 dark:border-slate-850/60 text-left">
-                    <span className="text-slate-455 dark:text-slate-550 text-[8px] block uppercase font-black tracking-wider leading-none">Active Queue Length</span>
-                    <span className="font-mono font-black text-xs text-foreground block mt-1.5 leading-none">
+                  <div className="p-3 bg-[var(--surface-hover)]/40 rounded-xl border border-[var(--border)] text-left">
+                    <span className="text-[var(--muted)] text-[8px] block uppercase font-black tracking-wider leading-none">Active Queue Length</span>
+                    <span className="font-mono font-black text-xs text-[var(--heading)] block mt-1.5 leading-none">
                       {health?.queue_length ?? 0} tasks
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 mt-2 p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-450 text-[10px] font-medium leading-normal">
-                  <Sparkles size={16} className="text-emerald-500 flex-shrink-0" />
+                <div className="flex items-center gap-2 mt-2 p-2.5 rounded-xl bg-[var(--success)]/10 border border-[var(--success)]/20 text-[var(--success)] text-[10px] font-medium leading-normal">
+                  <Sparkles size={16} className="text-[var(--success)] flex-shrink-0" />
                   <span>Production security checks & input sanitizers validated.</span>
                 </div>
               </div>
@@ -359,8 +359,8 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({ className }) => 
                     </PieChart>
                   </ResponsiveContainer>
                 ) : (
-                  <div className="flex flex-col items-center justify-center h-full text-muted-foreground font-sans text-xs italic bg-transparent">
-                    <Wrench size={24} className="mb-2 text-slate-350 animate-bounce" />
+                  <div className="flex flex-col items-center justify-center h-full text-[var(--muted)] font-sans text-xs italic bg-transparent">
+                    <Wrench size={24} className="mb-2 text-[var(--muted)] animate-bounce" />
                     <span className="font-medium leading-none">No tool audits executed yet</span>
                   </div>
                 )}

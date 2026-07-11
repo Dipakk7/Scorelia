@@ -47,14 +47,14 @@ export default function ResumeCard({
   return (
     <div
       className={cn(
-        'group relative flex flex-col justify-between p-5 border border-border/60 bg-card/70 backdrop-blur-md rounded-2xl shadow-[0_4px_25px_rgba(0,0,0,0.015)] dark:shadow-none hover:border-brand-500/30 dark:hover:border-brand-500/20 hover:bg-white dark:hover:bg-slate-900/60 hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] dark:hover:shadow-none transition-all duration-300',
+        'group relative flex flex-col justify-between p-5 border border-[var(--border)] bg-[var(--surface)]/75 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/35 dark:hover:border-[var(--primary)]/20 hover:bg-[var(--surface-hover)] hover:shadow-[var(--shadow-md)] transition-all duration-300',
         className
       )}
     >
       <div className="space-y-4">
         {/* Card Header */}
         <div className="flex items-start justify-between gap-2">
-          <div className="p-2.5 bg-slate-50 dark:bg-slate-850 rounded-xl text-slate-400 dark:text-slate-550 border border-border/80 group-hover:scale-105 group-hover:bg-brand-500/5 group-hover:text-brand-500 group-hover:border-brand-500/10 transition-all duration-300 shadow-xs">
+          <div className="p-2.5 bg-[var(--surface-hover)] rounded-xl text-[var(--muted)] border border-[var(--border)] group-hover:scale-105 group-hover:bg-[var(--primary)]/5 group-hover:text-[var(--primary)] group-hover:border-[var(--primary)]/10 transition-all duration-300 shadow-xs">
             <FileText size={20} className="stroke-[1.75]" />
           </div>
           <div className="flex flex-col items-end gap-1.5">
@@ -62,7 +62,7 @@ export default function ResumeCard({
               {resume.status}
             </Badge>
             {resume.ats_score !== null && (
-              <span className="text-[10px] font-black font-display text-brand-600 dark:text-brand-400 bg-brand-50/50 dark:bg-brand-950/30 px-2 py-0.5 rounded-lg border border-brand-100/50 dark:border-brand-900/20 shadow-2xs">
+              <span className="text-[10px] font-black font-display text-[var(--primary)] bg-[var(--primary)]/10 px-2 py-0.5 rounded-lg border border-[var(--primary)]/20 shadow-2xs">
                 ATS: {resume.ats_score}/100
               </span>
             )}
@@ -72,23 +72,23 @@ export default function ResumeCard({
         {/* Content */}
         <div className="space-y-1.5 text-left">
           <h4
-            className="font-bold text-sm text-foreground line-clamp-1 group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors duration-200 cursor-pointer"
+            className="font-bold text-sm text-[var(--heading)] line-clamp-1 group-hover:text-[var(--primary)] transition-colors duration-200 cursor-pointer"
             onClick={() => onView && onView(resume.id)}
             title={resume.original_filename}
           >
             {resume.original_filename}
           </h4>
-          <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 font-sans">
+          <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-[var(--muted)] font-sans">
             <span className="text-muted-foreground">{resume.file_type}</span>
-            <span className="w-1 h-1 bg-slate-350 dark:bg-slate-700 rounded-full" />
+            <span className="w-1 h-1 bg-[var(--border)] rounded-full" />
             <span>{formatFileSize(resume.file_size)}</span>
           </div>
         </div>
       </div>
 
       {/* Footer Info */}
-      <div className="mt-5 pt-3 border-t border-border/60 flex items-center justify-between">
-        <span className="text-[10px] font-medium text-muted-foreground font-sans">
+      <div className="mt-5 pt-3 border-t border-[var(--border)] flex items-center justify-between">
+        <span className="text-[10px] font-medium text-[var(--muted)] font-sans">
           {new Date(resume.uploaded_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
         </span>
 
@@ -97,7 +97,7 @@ export default function ResumeCard({
           {onView && (
             <button
               onClick={() => onView(resume.id)}
-              className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-brand-500 dark:hover:text-brand-400 hover:bg-slate-50 dark:hover:bg-slate-850 rounded-lg cursor-pointer transition-colors"
+              className="p-1.5 text-[var(--muted)] hover:text-[var(--primary)] hover:bg-[var(--surface-hover)] rounded-lg cursor-pointer transition-colors"
               title="View Parsed Content"
             >
               <Eye size={13} />
@@ -106,7 +106,7 @@ export default function ResumeCard({
           {onEdit && resume.status.toLowerCase() !== 'failed' && (
             <button
               onClick={() => onEdit(resume.id)}
-              className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-850 rounded-lg cursor-pointer transition-colors"
+              className="p-1.5 text-[var(--muted)] hover:text-[var(--primary)] hover:bg-[var(--surface-hover)] rounded-lg cursor-pointer transition-colors"
               title="Edit Resume Sections"
             >
               <Edit3 size={13} />
@@ -115,7 +115,7 @@ export default function ResumeCard({
           {onDownload && (
             <button
               onClick={() => onDownload(resume.id)}
-              className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-emerald-500 dark:hover:text-emerald-450 hover:bg-slate-50 dark:hover:bg-slate-850 rounded-lg cursor-pointer transition-colors"
+              className="p-1.5 text-[var(--muted)] hover:text-[var(--success)] hover:bg-[var(--surface-hover)] rounded-lg cursor-pointer transition-colors"
               title="Download File"
             >
               <Download size={13} />
@@ -124,7 +124,7 @@ export default function ResumeCard({
           {onAnalyze && resume.status.toLowerCase() === 'parsed' && (
             <button
               onClick={() => onAnalyze(resume.id)}
-              className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-primary dark:hover:text-brand-400 hover:bg-slate-50 dark:hover:bg-slate-850 rounded-lg cursor-pointer transition-colors"
+              className="p-1.5 text-[var(--muted)] hover:text-[var(--primary)] hover:bg-[var(--surface-hover)] rounded-lg cursor-pointer transition-colors"
               title="Start ATS Analysis"
             >
               <RefreshCw size={13} />
@@ -133,7 +133,7 @@ export default function ResumeCard({
           {onDelete && (
             <button
               onClick={() => onDelete(resume.id)}
-              className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-red-500 dark:hover:text-red-400 hover:bg-slate-50 dark:hover:bg-slate-850 rounded-lg cursor-pointer transition-colors"
+              className="p-1.5 text-[var(--muted)] hover:text-[var(--danger)] hover:bg-[var(--surface-hover)] rounded-lg cursor-pointer transition-colors"
               title="Delete Resume"
             >
               <Trash2 size={13} />

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Outlet, NavLink, useLocation, Link } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 
 import {
   LayoutDashboard,
@@ -46,6 +46,7 @@ const Github = (props: React.SVGProps<SVGSVGElement> & { size?: number }) => {
 }
 
 export default function DashboardLayout() {
+  const shouldReduceMotion = useReducedMotion()
   const [pinned, setPinnedState] = useState(() => {
     // Check if new key exists
     const newSaved = localStorage.getItem(SIDEBAR_PINNED_KEY)
@@ -164,10 +165,10 @@ export default function DashboardLayout() {
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.18, ease: 'easeInOut' }}
+              initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+              animate={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+              exit={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 }}
+              transition={shouldReduceMotion ? { duration: 0.01 } : { duration: 0.18, ease: 'easeInOut' }}
               className="h-full w-full"
             >
               <Outlet />

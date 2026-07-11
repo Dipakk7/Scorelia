@@ -67,7 +67,7 @@ export default function LoginPage() {
       }}
     >
       {/* Background gradients for WOW factor */}
-      <div className="absolute top-1/4 left-1/4 w-[450px] h-[450px] bg-brand-500/8 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-[450px] h-[450px] bg-[var(--primary)]/8 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[450px] h-[450px] bg-accent-blue/5 rounded-full blur-3xl pointer-events-none" />
 
       <motion.div
@@ -79,12 +79,12 @@ export default function LoginPage() {
         {/* Brand Logo header */}
         <div className="flex flex-col items-center mb-8 text-center">
           <div className="h-16 w-16 bg-background/70 rounded-2xl flex items-center justify-center border border-border/50 shadow-lg shadow-slate-200/10 dark:shadow-none mb-4 animate-float">
-            <Logo iconOnly={true} className="h-10 w-10 text-brand-600 dark:text-brand-400" />
+            <Logo iconOnly={true} className="h-10 w-10 text-[var(--primary)]" />
           </div>
           <h1 className="text-3xl font-extrabold font-display tracking-tight text-foreground m-0">
             Welcome to Scorelia
           </h1>
-          <p className="text-xs font-bold uppercase tracking-widest text-brand-600 dark:text-brand-450 mt-2 font-display">
+          <p className="text-xs font-bold uppercase tracking-widest text-[var(--primary)] mt-2 font-display">
             AI-powered Career Intelligence Platform
           </p>
         </div>

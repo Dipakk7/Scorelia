@@ -490,3 +490,71 @@ export function GithubIntelligenceSkeleton() {
     </div>
   )
 }
+
+export function SettingsSkeleton() {
+  return (
+    <div className="space-y-6 text-left max-w-4xl mx-auto font-sans animate-fadeIn">
+      {/* Header Banner Skeleton */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md shadow-[var(--shadow-sm)]">
+        <div className="space-y-2">
+          <Skeleton className="h-7 w-48" />
+          <Skeleton className="h-4 w-96 max-w-full" />
+        </div>
+      </div>
+
+      {/* Main Grid Layout Skeleton */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-start">
+        {/* Left Settings Tabs Navigation Skeleton */}
+        <Card className="border-border md:col-span-1">
+          <CardContent className="p-3 space-y-1">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <Skeleton key={i} className="h-9 w-full rounded-lg" />
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Right Settings Configuration Details Card Skeleton */}
+        <div className="md:col-span-3 space-y-6">
+          <Card className="border-border">
+            <CardContent className="p-6 space-y-6">
+              <div className="space-y-2 border-b border-[var(--divider)] pb-4">
+                <Skeleton className="h-5 w-40" />
+                <Skeleton className="h-3 w-72 max-w-full" />
+              </div>
+
+              {/* Form Input fields Skeletons */}
+              <div className="space-y-4 pt-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Skeleton className="h-3 w-16" />
+                    <Skeleton className="h-10 w-full rounded-[var(--radius-input)]" />
+                  </div>
+                  <div className="space-y-2">
+                    <Skeleton className="h-3 w-20" />
+                    <Skeleton className="h-10 w-full rounded-[var(--radius-input)]" />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Skeleton className="h-3 w-12" />
+                  <Skeleton className="h-10 w-full rounded-[var(--radius-input)]" />
+                </div>
+
+                <div className="space-y-2">
+                  <Skeleton className="h-3 w-24" />
+                  <Skeleton className="h-20 w-full rounded-[var(--radius-input)]" />
+                </div>
+              </div>
+
+              {/* Action buttons */}
+              <div className="flex justify-end gap-3 border-t border-[var(--divider)] pt-4 mt-4">
+                <Skeleton className="h-10 w-24 rounded-[var(--radius-button)]" />
+                <Skeleton className="h-10 w-32 rounded-[var(--radius-button)]" />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  )
+}

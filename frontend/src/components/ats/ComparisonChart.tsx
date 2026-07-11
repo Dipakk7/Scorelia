@@ -34,14 +34,14 @@ interface ComparisonChartProps {
 function CustomTooltip({ active, payload, label }: any) {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-xl border border-slate-205 dark:border-slate-805 bg-card/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
-        <p className="text-[10px] font-black uppercase tracking-wider text-slate-900 dark:text-slate-100 m-0 truncate max-w-[200px]">{label}</p>
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)]/95 p-3 shadow-[var(--shadow-lg)] backdrop-blur-md text-left font-sans text-xs select-none">
+        <p className="text-[10px] font-black uppercase tracking-wider text-[var(--heading)] m-0 truncate max-w-[200px]">{label}</p>
         <div className="mt-2 space-y-1">
           {payload.map((p: any, idx: number) => (
-            <div key={idx} className="flex items-center gap-2 font-medium">
+            <div key={idx} className="flex items-center gap-2 font-semibold text-xs">
               <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: p.fill }} />
-              <span className="text-muted-foreground">{p.name}:</span>
-              <span className="text-foreground font-bold">{p.value}%</span>
+              <span className="text-[var(--muted)]">{p.name}:</span>
+              <span className="text-[var(--heading)] font-bold">{p.value}%</span>
             </div>
           ))}
         </div>
@@ -69,13 +69,13 @@ export function ComparisonChart({ data, type = 'bar' }: ComparisonChartProps) {
   }, [])
 
   const themeColors = {
-    primary: isDark ? '#5b9ac9' : '#2f6690',
-    success: isDark ? '#3ecf8e' : '#1b9e6f',
-    warning: isDark ? '#e0b845' : '#d99b1f',
-    destructive: 'var(--destructive)',
-    grid: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)',
-    text: 'var(--foreground)',
-    mutedText: 'var(--muted-foreground)',
+    primary: 'var(--primary)',      // Resume Score -> Blue
+    success: 'var(--success)',      // ATS -> Green
+    warning: 'var(--accent)',       // Interview -> Orange
+    destructive: 'var(--danger)',
+    grid: 'var(--divider)',
+    text: 'var(--heading)',
+    mutedText: 'var(--muted)',
   }
 
   if (!data || data.length === 0) {
@@ -90,10 +90,10 @@ export function ComparisonChart({ data, type = 'bar' }: ComparisonChartProps) {
 
   // Define colors to assign dynamically to different compared items
   const colors = [
-    themeColors.primary,
-    themeColors.success,
-    themeColors.warning,
-    themeColors.destructive,
+    'var(--primary)',
+    'var(--success)',
+    'var(--accent)',
+    'var(--danger)',
   ]
 
   // If radar comparison, we need to restructure the data format:

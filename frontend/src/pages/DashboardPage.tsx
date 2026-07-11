@@ -81,14 +81,14 @@ interface CustomTooltipProps {
 function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-card/90 p-3 shadow-xl backdrop-blur-md text-left font-sans select-none">
-        <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 m-0 leading-none">{label}</p>
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)]/90 p-3 shadow-xl backdrop-blur-md text-left font-sans select-none">
+        <p className="text-[9px] font-black uppercase tracking-wider text-[var(--muted)] m-0 leading-none">{label}</p>
         <div className="mt-2 space-y-1.5">
           {payload.map((pld: any, index: number) => (
             <div key={index} className="flex items-center gap-2.5 text-[11px] font-semibold leading-none">
               <span className="h-2 w-2 rounded-full shrink-0" style={{ backgroundColor: pld.color || pld.stroke }} />
-              <span className="text-muted-foreground font-medium">{pld.name}:</span>
-              <span className="text-slate-900 dark:text-slate-100 font-bold font-mono">{pld.value}%</span>
+              <span className="text-[var(--muted)] font-medium">{pld.name}:</span>
+              <span className="text-[var(--heading)] font-bold font-mono">{pld.value}%</span>
             </div>
           ))}
         </div>
@@ -378,22 +378,22 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6 text-left animate-fade-in">
       {/* Welcome Hero / Header */}
-      <div className="relative overflow-hidden rounded-2xl bg-slate-950 dark:bg-slate-900/20 p-6 md:p-8 text-white border border-slate-850/80 dark:border-slate-800/80 backdrop-blur-md shadow-xl select-none">
+      <div className="relative overflow-hidden rounded-[var(--radius-card)] bg-[var(--surface)] border border-[var(--border)] backdrop-blur-md shadow-[var(--shadow-md)] select-none p-6 md:p-8 text-[var(--heading)]">
         {/* Glow ornaments */}
-        <div className="absolute right-0 top-0 -mr-16 -mt-16 w-80 h-80 bg-brand-500/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute left-1/4 bottom-0 -ml-16 -mb-16 w-64 h-64 bg-accent-blue/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute right-0 top-0 -mr-16 -mt-16 w-80 h-80 bg-[var(--primary)]/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute left-1/4 bottom-0 -ml-16 -mb-16 w-64 h-64 bg-[var(--primary)]/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 space-y-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/40 pb-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--border)] pb-6">
             <div className="space-y-2">
-              <span className="text-[10px] uppercase font-black tracking-widest text-brand-400 font-mono flex items-center gap-2">
-                <Calendar size={13} className="text-brand-400 shrink-0" />
+              <span className="text-[10px] uppercase font-black tracking-widest text-[var(--primary)] font-mono flex items-center gap-2">
+                <Calendar size={13} className="text-[var(--primary)] shrink-0" />
                 {currentDate}
               </span>
-              <h1 className="text-2xl md:text-3xl font-extrabold font-display text-white m-0 tracking-tight leading-none">
+              <h1 className="text-2xl md:text-3xl font-extrabold font-display text-[var(--heading)] m-0 tracking-tight leading-none">
                 {greeting}, {userDisplayName} 👋
               </h1>
-              <p className="text-xs md:text-sm text-slate-300/90 max-w-2xl font-sans leading-relaxed m-0 font-medium">
+              <p className="text-xs md:text-sm text-[var(--body)] max-w-2xl font-sans leading-relaxed m-0 font-medium">
                 Welcome back to Scorelia. Track your AI-powered career journey, improve your resume, increase ATS scores, prepare for interviews, and monitor your professional growth from one place.
               </p>
             </div>
@@ -401,42 +401,42 @@ export default function DashboardPage() {
 
           {/* Hero Quick Actions Grid */}
           <div className="space-y-3">
-            <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 font-mono">Launch Copilot Services</p>
+            <p className="text-[9px] font-black uppercase tracking-wider text-[var(--muted)] font-mono">Launch Copilot Services</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <Link to="/resumes" className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-900/40 hover:bg-slate-900/75 border border-slate-800/80 hover:border-brand-500/45 hover:shadow-[0_4px_20px_rgba(15,157,154,0.12)] transition-all duration-200 ease-in-out group hover:-translate-y-0.5">
-                <div className="p-2.5 rounded-xl bg-brand-500/10 text-brand-400 group-hover:scale-105 group-hover:bg-brand-500/20 transition-all duration-200 shrink-0">
+              <Link to="/resumes" className="flex items-center gap-3 p-3.5 rounded-xl bg-[var(--surface)] hover:bg-[var(--surface-hover)] border border-[var(--border)] hover:border-[var(--primary)]/45 hover:shadow-[var(--shadow-md)] transition-all duration-200 ease-in-out group hover:-translate-y-0.5">
+                <div className="p-2.5 rounded-xl bg-[var(--primary)]/10 text-[var(--primary)] group-hover:scale-105 group-hover:bg-[var(--primary)]/20 transition-all duration-200 shrink-0">
                   <Upload size={16} />
                 </div>
                 <div className="text-left min-w-0">
-                  <p className="text-xs font-bold text-white group-hover:text-brand-400 transition-colors">Upload Resume</p>
-                  <p className="text-[10px] text-slate-500 group-hover:text-slate-400 transition-colors truncate mt-0.5">Import CV file</p>
+                  <p className="text-xs font-bold text-[var(--heading)] group-hover:text-[var(--primary)] transition-colors">Upload Resume</p>
+                  <p className="text-[10px] text-[var(--muted)] group-hover:text-[var(--heading)] transition-colors truncate mt-0.5">Import CV file</p>
                 </div>
               </Link>
-              <Link to="/ats" className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-900/40 hover:bg-slate-900/75 border border-slate-800/80 hover:border-accent-blue/45 hover:shadow-[0_4px_20px_rgba(0,210,255,0.12)] transition-all duration-200 ease-in-out group hover:-translate-y-0.5">
-                <div className="p-2.5 rounded-xl bg-accent-blue/10 text-accent-blue group-hover:scale-105 group-hover:bg-accent-blue/20 transition-all duration-200 shrink-0">
+              <Link to="/ats" className="flex items-center gap-3 p-3.5 rounded-xl bg-[var(--surface)] hover:bg-[var(--surface-hover)] border border-[var(--border)] hover:border-[var(--primary)]/45 hover:shadow-[var(--shadow-md)] transition-all duration-200 ease-in-out group hover:-translate-y-0.5">
+                <div className="p-2.5 rounded-xl bg-[var(--primary)]/10 text-[var(--primary)] group-hover:scale-105 group-hover:bg-[var(--primary)]/20 transition-all duration-200 shrink-0">
                   <Scan size={16} />
                 </div>
                 <div className="text-left min-w-0">
-                  <p className="text-xs font-bold text-white group-hover:text-accent-blue transition-colors">Analyze ATS</p>
-                  <p className="text-[10px] text-slate-500 group-hover:text-slate-400 transition-colors truncate mt-0.5">Scan score check</p>
+                  <p className="text-xs font-bold text-[var(--heading)] group-hover:text-[var(--primary)] transition-colors">Analyze ATS</p>
+                  <p className="text-[10px] text-[var(--muted)] group-hover:text-[var(--heading)] transition-colors truncate mt-0.5">Scan score check</p>
                 </div>
               </Link>
-              <Link to="/cover-letter" className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-900/40 hover:bg-slate-900/75 border border-slate-800/80 hover:border-accent-purple/45 hover:shadow-[0_4px_20px_rgba(170,59,255,0.12)] transition-all duration-200 ease-in-out group hover:-translate-y-0.5">
-                <div className="p-2.5 rounded-xl bg-accent-purple/10 text-accent-purple group-hover:scale-105 group-hover:bg-accent-purple/20 transition-all duration-200 shrink-0">
+              <Link to="/cover-letter" className="flex items-center gap-3 p-3.5 rounded-xl bg-[var(--surface)] hover:bg-[var(--surface-hover)] border border-[var(--border)] hover:border-[var(--accent)]/45 hover:shadow-[var(--shadow-md)] transition-all duration-200 ease-in-out group hover:-translate-y-0.5">
+                <div className="p-2.5 rounded-xl bg-[var(--accent)]/10 text-[var(--accent)] group-hover:scale-105 group-hover:bg-[var(--accent)]/20 transition-all duration-200 shrink-0">
                   <Sparkles size={16} />
                 </div>
                 <div className="text-left min-w-0">
-                  <p className="text-xs font-bold text-white group-hover:text-accent-purple transition-colors">Generate Cover Letter</p>
-                  <p className="text-[10px] text-slate-500 group-hover:text-slate-400 transition-colors truncate mt-0.5">AI draft editor</p>
+                  <p className="text-xs font-bold text-[var(--heading)] group-hover:text-[var(--accent)] transition-colors">Generate Cover Letter</p>
+                  <p className="text-[10px] text-[var(--muted)] group-hover:text-[var(--heading)] transition-colors truncate mt-0.5">AI draft editor</p>
                 </div>
               </Link>
-              <Link to="/interview" className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-900/40 hover:bg-slate-900/75 border border-slate-800/80 hover:border-emerald-500/45 hover:shadow-[0_4px_20px_rgba(16,185,129,0.12)] transition-all duration-200 ease-in-out group hover:-translate-y-0.5">
-                <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 group-hover:scale-105 group-hover:bg-emerald-500/20 transition-all duration-200 shrink-0">
+              <Link to="/interview" className="flex items-center gap-3 p-3.5 rounded-xl bg-[var(--surface)] hover:bg-[var(--surface-hover)] border border-[var(--border)] hover:border-[var(--success)]/45 hover:shadow-[var(--shadow-md)] transition-all duration-200 ease-in-out group hover:-translate-y-0.5">
+                <div className="p-2.5 rounded-xl bg-[var(--success)]/10 text-[var(--success)] group-hover:scale-105 group-hover:bg-[var(--success)]/20 transition-all duration-200 shrink-0">
                   <MessageSquareCode size={16} />
                 </div>
                 <div className="text-left min-w-0">
-                  <p className="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors">Start Mock Interview</p>
-                  <p className="text-[10px] text-slate-500 group-hover:text-slate-400 transition-colors truncate mt-0.5">Practice prep bot</p>
+                  <p className="text-xs font-bold text-[var(--heading)] group-hover:text-[var(--success)] transition-colors">Start Mock Interview</p>
+                  <p className="text-[10px] text-[var(--muted)] group-hover:text-[var(--heading)] transition-colors truncate mt-0.5">Practice prep bot</p>
                 </div>
               </Link>
             </div>
@@ -470,7 +470,7 @@ export default function DashboardPage() {
           description="Timeline progression of your resume review ratings and ATS evaluations."
         >
           {scoreLoading || atsLoading ? (
-            <div className="h-full flex items-center justify-center text-xs text-slate-400 animate-pulse">Loading chart records...</div>
+            <div className="h-full flex items-center justify-center text-xs text-[var(--muted)] animate-pulse">Loading chart records...</div>
           ) : chart1Points === 0 ? (
             <ChartEmptyState
               message="No historical data available. Analyze your first resume to unlock performance trends."
@@ -483,21 +483,21 @@ export default function DashboardPage() {
                 <AreaChart data={scoreTrend && scoreTrend.length > 0 ? scoreTrend : (atsTrend || [])}>
                   <defs>
                     <linearGradient id="scoreColor" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#0F9D9A" stopOpacity={0.2}/>
-                      <stop offset="95%" stopColor="#0F9D9A" stopOpacity={0}/>
+                      <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.2}/>
+                      <stop offset="95%" stopColor="var(--primary)" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
-                  <XAxis dataKey="label" stroke="#94a3b8" fontSize={11} tickLine={false} />
-                  <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} domain={[0, 100]} />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--divider)" />
+                  <XAxis dataKey="label" stroke="var(--muted)" fontSize={11} tickLine={false} />
+                  <YAxis stroke="var(--muted)" fontSize={11} tickLine={false} domain={[0, 100]} />
                   <Tooltip content={<CustomTooltip />} />
                   <Legend verticalAlign="top" height={36} iconType="circle" />
-                  <Area type="monotone" data={scoreTrend || []} dataKey="value" stroke="#0F9D9A" fillOpacity={1} fill="url(#scoreColor)" name="Resume Score" strokeWidth={2.5} animationDuration={400} />
-                  <Area type="monotone" data={atsTrend || []} dataKey="value" stroke="#00D2FF" fillOpacity={0} name="ATS Progress" strokeWidth={2} animationDuration={400} />
+                  <Area type="monotone" data={scoreTrend || []} dataKey="value" stroke="var(--primary)" fillOpacity={1} fill="url(#scoreColor)" name="Resume Score" strokeWidth={2.5} animationDuration={400} />
+                  <Area type="monotone" data={atsTrend || []} dataKey="value" stroke="var(--success)" fillOpacity={0} name="ATS Progress" strokeWidth={2} animationDuration={400} />
                 </AreaChart>
               </ResponsiveContainer>
               {chart1Points === 1 && (
-                <p className="text-[10px] text-slate-400 dark:text-slate-500 text-center font-sans font-semibold uppercase tracking-wider">
+                <p className="text-[10px] text-[var(--muted)] text-center font-sans font-semibold uppercase tracking-wider">
                   Trend line unlocks after your second analysis.
                 </p>
               )}
@@ -511,7 +511,7 @@ export default function DashboardPage() {
           description="Comparison of job match scoring percentages against mock interview turns."
         >
           {matchLoading || interviewLoading ? (
-            <div className="h-full flex items-center justify-center text-xs text-slate-400 animate-pulse">Loading chart records...</div>
+            <div className="h-full flex items-center justify-center text-xs text-[var(--muted)] animate-pulse">Loading chart records...</div>
           ) : chart2Points === 0 ? (
             <ChartEmptyState
               message="No historical data available. Perform job match scans or interview prep to see performance trends."
@@ -522,17 +522,17 @@ export default function DashboardPage() {
             <div className="h-full flex flex-col justify-between">
               <ResponsiveContainer width="100%" height={chart2Points === 1 ? '85%' : '100%'}>
                 <LineChart data={matchTrend && matchTrend.length > 0 ? matchTrend : (interviewTrend || [])}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
-                  <XAxis dataKey="label" stroke="#94a3b8" fontSize={11} tickLine={false} />
-                  <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} domain={[0, 100]} />
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--divider)" />
+                  <XAxis dataKey="label" stroke="var(--muted)" fontSize={11} tickLine={false} />
+                  <YAxis stroke="var(--muted)" fontSize={11} tickLine={false} domain={[0, 100]} />
                   <Tooltip content={<CustomTooltip />} />
                   <Legend verticalAlign="top" height={36} iconType="circle" />
-                  <Line type="monotone" data={matchTrend || []} dataKey="value" stroke="#0F9D9A" name="Match Score" strokeWidth={2.5} activeDot={{ r: 6 }} animationDuration={400} />
-                  <Line type="monotone" data={interviewTrend || []} dataKey="value" stroke="#00D2FF" name="Interview Prep" strokeWidth={2} animationDuration={400} />
+                  <Line type="monotone" data={matchTrend || []} dataKey="value" stroke="var(--primary)" name="Match Score" strokeWidth={2.5} activeDot={{ r: 6 }} animationDuration={400} />
+                  <Line type="monotone" data={interviewTrend || []} dataKey="value" stroke="var(--success)" name="Interview Prep" strokeWidth={2} animationDuration={400} />
                 </LineChart>
               </ResponsiveContainer>
               {chart2Points === 1 && (
-                <p className="text-[10px] text-slate-400 dark:text-slate-500 text-center font-sans font-semibold uppercase tracking-wider">
+                <p className="text-[10px] text-[var(--muted)] text-center font-sans font-semibold uppercase tracking-wider">
                   Trend line unlocks after your second analysis.
                 </p>
               )}
@@ -546,7 +546,7 @@ export default function DashboardPage() {
           description="Aggregated user events and AI analyses completed over the past 7 days."
         >
           {weeklyLoading ? (
-            <div className="h-full flex items-center justify-center text-xs text-slate-400 animate-pulse">Loading chart records...</div>
+            <div className="h-full flex items-center justify-center text-xs text-[var(--muted)] animate-pulse">Loading chart records...</div>
           ) : !hasWeeklyActivity ? (
             <ChartEmptyState
               message="No weekly activity recorded. Perform actions in the workspace to build stats."
@@ -556,11 +556,11 @@ export default function DashboardPage() {
           ) : (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={weeklyTrend || []}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
-                <XAxis dataKey="label" stroke="#94a3b8" fontSize={11} tickLine={false} />
-                <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} allowDecimals={false} />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--divider)" />
+                <XAxis dataKey="label" stroke="var(--muted)" fontSize={11} tickLine={false} />
+                <YAxis stroke="var(--muted)" fontSize={11} tickLine={false} allowDecimals={false} />
                 <Tooltip />
-                <Bar dataKey="value" fill="#0F9D9A" radius={[6, 6, 0, 0]} name="Actions" maxBarSize={32} animationDuration={400} />
+                <Bar dataKey="value" fill="var(--primary)" radius={[6, 6, 0, 0]} name="Actions" maxBarSize={32} animationDuration={400} />
               </BarChart>
             </ResponsiveContainer>
           )}
@@ -572,7 +572,7 @@ export default function DashboardPage() {
           description="Chronological aggregate counts of actions completed throughout the current year."
         >
           {monthlyLoading ? (
-            <div className="h-full flex items-center justify-center text-xs text-slate-400 animate-pulse">Loading chart records...</div>
+            <div className="h-full flex items-center justify-center text-xs text-[var(--muted)] animate-pulse">Loading chart records...</div>
           ) : !hasMonthlyActivity ? (
             <ChartEmptyState
               message="No monthly activity recorded. Perform actions in the workspace to build stats."
@@ -582,11 +582,11 @@ export default function DashboardPage() {
           ) : (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={monthlyTrend || []}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800/40" />
-                <XAxis dataKey="label" stroke="#94a3b8" fontSize={11} tickLine={false} />
-                <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} allowDecimals={false} />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--divider)" />
+                <XAxis dataKey="label" stroke="var(--muted)" fontSize={11} tickLine={false} />
+                <YAxis stroke="var(--muted)" fontSize={11} tickLine={false} allowDecimals={false} />
                 <Tooltip />
-                <Bar dataKey="value" fill="#0F9D9A" radius={[6, 6, 0, 0]} name="Actions" maxBarSize={32} animationDuration={400} />
+                <Bar dataKey="value" fill="var(--primary)" radius={[6, 6, 0, 0]} name="Actions" maxBarSize={32} animationDuration={400} />
               </BarChart>
             </ResponsiveContainer>
           )}
@@ -614,12 +614,12 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Side: Quick Navigation & Timeline */}
         <div className="lg:col-span-1 space-y-6">
-          <Card className="border-border/60 bg-card/40 backdrop-blur-md rounded-2xl">
+          <Card className="border border-[var(--border)] bg-[var(--surface)]/40 backdrop-blur-md rounded-2xl">
             <CardHeader className="text-left pb-4">
-              <CardTitle className="text-lg font-bold font-display text-slate-900 dark:text-slate-50">
+              <CardTitle className="text-lg font-bold font-display text-[var(--heading)]">
                 Quick Navigation
               </CardTitle>
-              <CardDescription className="text-xs text-muted-foreground leading-relaxed">
+              <CardDescription className="text-xs text-[var(--muted)] leading-relaxed">
                 Launch copilot tools to build resume drafts and prepare for applications.
               </CardDescription>
             </CardHeader>
@@ -660,14 +660,14 @@ export default function DashboardPage() {
         </div>
 
         {/* Right Side: Resumes List Table */}
-        <Card className="lg:col-span-2 border-border/60 bg-card/40 backdrop-blur-md rounded-2xl">
+        <Card className="lg:col-span-2 border border-[var(--border)] bg-[var(--surface)]/40 backdrop-blur-md rounded-2xl">
           <CardHeader className="pb-4 text-left">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <CardTitle className="text-lg font-bold font-display text-slate-900 dark:text-slate-50">
+                <CardTitle className="text-lg font-bold font-display text-[var(--heading)]">
                   Resumes List
                 </CardTitle>
-                <CardDescription className="text-xs text-muted-foreground leading-relaxed">
+                <CardDescription className="text-xs text-[var(--muted)] leading-relaxed">
                   Chronological record of your uploaded credentials and computed ATS levels.
                 </CardDescription>
               </div>
@@ -675,27 +675,27 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             {resumes.length === 0 ? (
-              <div className="py-12 text-center text-xs text-muted-foreground font-sans italic border border-dashed border-border rounded-xl">
+              <div className="py-12 text-center text-xs text-[var(--muted)] font-sans italic border border-dashed border-[var(--border)] rounded-xl">
                 No resumes uploaded yet. Click "Upload Resume" in the Copilot launch grid to get started.
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <Table>
                   <TableHeader>
-                    <TableRow className="border-border">
-                      <TableHead className="font-bold text-[10px] uppercase tracking-wider text-slate-400">File Name</TableHead>
-                      <TableHead className="font-bold text-[10px] uppercase tracking-wider text-slate-400">Uploaded</TableHead>
-                      <TableHead className="font-bold text-[10px] uppercase tracking-wider text-slate-400">ATS Score</TableHead>
-                      <TableHead className="font-bold text-[10px] uppercase tracking-wider text-slate-400">Status</TableHead>
+                    <TableRow className="border-[var(--border)]">
+                      <TableHead className="font-bold text-[10px] uppercase tracking-wider text-[var(--muted)]">File Name</TableHead>
+                      <TableHead className="font-bold text-[10px] uppercase tracking-wider text-[var(--muted)]">Uploaded</TableHead>
+                      <TableHead className="font-bold text-[10px] uppercase tracking-wider text-[var(--muted)]">ATS Score</TableHead>
+                      <TableHead className="font-bold text-[10px] uppercase tracking-wider text-[var(--muted)]">Status</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {resumes.slice(0, 5).map((resume) => (
-                      <TableRow key={resume.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-900/10 transition-colors border-border">
-                        <TableCell className="font-bold text-slate-900 dark:text-slate-200 truncate max-w-[200px] text-left">
+                      <TableRow key={resume.id} className="hover:bg-[var(--surface-hover)] transition-colors border-[var(--border)]">
+                        <TableCell className="font-bold text-[var(--heading)] truncate max-w-[200px] text-left">
                           {resume.original_filename}
                         </TableCell>
-                        <TableCell className="text-slate-550 dark:text-slate-400 font-medium text-left">
+                        <TableCell className="text-[var(--body)] font-medium text-left">
                           {new Date(resume.uploaded_at).toLocaleDateString()}
                         </TableCell>
                         <TableCell className="text-left">
@@ -703,13 +703,13 @@ export default function DashboardPage() {
                             <span
                               className={cn(
                                 'font-black font-display text-sm',
-                                resume.ats_score >= 80 ? 'text-emerald-500' : 'text-amber-500'
+                                resume.ats_score >= 80 ? 'text-[var(--success)]' : 'text-[var(--warning)]'
                               )}
                             >
                               {resume.ats_score}/100
                             </span>
                           ) : (
-                            <span className="text-slate-400 font-sans font-semibold">N/A</span>
+                            <span className="text-[var(--muted)] font-sans font-semibold">N/A</span>
                           )}
                         </TableCell>
                         <TableCell className="text-left">

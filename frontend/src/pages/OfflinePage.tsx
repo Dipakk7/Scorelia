@@ -30,13 +30,13 @@ export default function OfflinePage() {
 
   return (
     <div className="min-h-screen w-screen flex flex-col items-center justify-center p-6 text-center bg-background font-sans">
-      <div className="text-muted-foreground mb-6 bg-muted p-4 rounded-full border border-border animate-pulse">
+      <div className="text-[var(--muted)] mb-6 bg-[var(--divider)] p-4 rounded-full border border-[var(--border)] animate-pulse">
         <WifiOff size={48} />
       </div>
-      <h1 className="text-3xl font-extrabold font-display text-foreground tracking-tight mb-2">
+      <h1 className="text-heading-xl text-[var(--heading)] tracking-tight mb-2">
         You are offline
       </h1>
-      <p className="text-base text-muted-foreground max-w-sm mb-8 leading-relaxed">
+      <p className="text-body-md text-[var(--muted)] max-w-sm mb-8 leading-relaxed">
         Scorelia cannot reach the services. Please inspect your connection status and select refresh.
       </p>
       <Button

@@ -178,11 +178,11 @@ export default function ProfilePage() {
     <div className="space-y-6 text-left max-w-6xl mx-auto">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
-        <div className="space-y-1">
-          <h1 className="text-2xl sm:text-3xl font-extrabold font-display text-slate-900 dark:text-slate-50 m-0">
+        <div className="space-y-1 text-left">
+          <h1 className="text-2xl sm:text-3xl font-extrabold font-display text-[var(--heading)] m-0">
             Professional Profile
           </h1>
-          <p className="text-xs sm:text-sm text-muted-foreground">
+          <p className="text-xs sm:text-sm text-[var(--muted)]">
             Customize details and credentials analyzed by Scorelia.
           </p>
         </div>
@@ -202,7 +202,7 @@ export default function ProfilePage() {
                 variant="primary"
                 onClick={handleSave}
                 isLoading={updateMutation.isPending}
-                className="flex items-center gap-1.5 bg-brand-600 hover:bg-brand-700 cursor-pointer"
+                className="flex items-center gap-1.5 bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white border-none cursor-pointer"
               >
                 <Save size={16} />
                 <span>Save Changes</span>
@@ -227,34 +227,34 @@ export default function ProfilePage() {
           {profile && <ProfileCard user={profile} />}
 
           {/* Stats Grid Card */}
-          <Card className="border-slate-200/60 dark:border-slate-800/40 bg-card/40 backdrop-blur-md">
+          <Card className="border-[var(--border)] bg-[var(--surface)]/40 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)]">
             <CardHeader className="pb-4">
-              <CardTitle className="text-sm font-bold font-display text-slate-900 dark:text-slate-50 uppercase tracking-wider text-left">
+              <CardTitle className="text-sm font-bold font-display text-[var(--heading)] uppercase tracking-wider text-left">
                 Copilot Summary
               </CardTitle>
             </CardHeader>
             <CardContent className="grid grid-cols-2 gap-4">
-              <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200/40 dark:border-slate-800/40 text-center">
-                <p className="text-[10px] uppercase font-bold text-muted-foreground">Resumes</p>
-                <p className="text-xl font-bold font-display text-slate-850 dark:text-slate-100 mt-1">
+              <div className="p-4 bg-[var(--surface-hover)] rounded-xl border border-[var(--border)]/40 text-center">
+                <p className="text-[10px] uppercase font-bold text-[var(--muted)]">Resumes</p>
+                <p className="text-xl font-bold font-display text-[var(--heading)] mt-1">
                   {stats?.resume_count ?? 0}
                 </p>
               </div>
-              <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200/40 dark:border-slate-800/40 text-center">
-                <p className="text-[10px] uppercase font-bold text-muted-foreground">Avg ATS</p>
-                <p className="text-xl font-bold font-display text-slate-850 dark:text-slate-100 mt-1">
+              <div className="p-4 bg-[var(--surface-hover)] rounded-xl border border-[var(--border)]/40 text-center">
+                <p className="text-[10px] uppercase font-bold text-[var(--muted)]">Avg ATS</p>
+                <p className="text-xl font-bold font-display text-[var(--heading)] mt-1">
                   {stats?.ats_average ? `${Math.round(stats.ats_average)}%` : '0%'}
                 </p>
               </div>
-              <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200/40 dark:border-slate-800/40 text-center">
-                <p className="text-[10px] uppercase font-bold text-muted-foreground">Interview</p>
-                <p className="text-xl font-bold font-display text-slate-850 dark:text-slate-100 mt-1">
+              <div className="p-4 bg-[var(--surface-hover)] rounded-xl border border-[var(--border)]/40 text-center">
+                <p className="text-[10px] uppercase font-bold text-[var(--muted)]">Interview</p>
+                <p className="text-xl font-bold font-display text-[var(--heading)] mt-1">
                   {stats?.interview_score ? `${Math.round(stats.interview_score)}%` : '0%'}
                 </p>
               </div>
-              <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200/40 dark:border-slate-800/40 text-center">
-                <p className="text-[10px] uppercase font-bold text-muted-foreground">Roadmap</p>
-                <p className="text-xl font-bold font-display text-slate-850 dark:text-slate-100 mt-1">
+              <div className="p-4 bg-[var(--surface-hover)] rounded-xl border border-[var(--border)]/40 text-center">
+                <p className="text-[10px] uppercase font-bold text-[var(--muted)]">Roadmap</p>
+                <p className="text-xl font-bold font-display text-[var(--heading)] mt-1">
                   {stats?.career_progress ? `${Math.round(stats.career_progress)}%` : '0%'}
                 </p>
               </div>
@@ -264,9 +264,9 @@ export default function ProfilePage() {
 
         {/* Right Side: Profile Details form / display */}
         <div className="lg:col-span-2 space-y-6">
-          <Card className="border-slate-200/60 dark:border-slate-800/40 bg-card/40 backdrop-blur-md text-left">
-            <CardHeader className="border-b border-slate-200/40 dark:border-slate-800/40 pb-5">
-              <CardTitle className="text-base font-bold font-display text-slate-900 dark:text-slate-50">
+          <Card className="border-[var(--border)] bg-[var(--surface)]/40 backdrop-blur-md text-left rounded-[var(--radius-card)] shadow-[var(--shadow-sm)]">
+            <CardHeader className="border-b border-[var(--border)]/40 pb-5">
+              <CardTitle className="text-base font-bold font-display text-[var(--heading)]">
                 {isEditing ? 'Modify Profile Details' : 'Identity & Links'}
               </CardTitle>
             </CardHeader>
@@ -274,7 +274,7 @@ export default function ProfilePage() {
               {/* Picture Upload in editing mode */}
               {isEditing && (
                 <div className="pb-2">
-                  <label className="text-xs font-semibold text-muted-foreground font-sans uppercase tracking-wider block mb-2">
+                  <label className="text-xs font-semibold text-[var(--muted)] font-sans uppercase tracking-wider block mb-2">
                     Profile Photo
                   </label>
                   <AvatarUploader
@@ -344,12 +344,12 @@ export default function ProfilePage() {
           </Card>
 
           {/* Skills Card */}
-          <Card className="border-slate-200/60 dark:border-slate-800/40 bg-card/40 backdrop-blur-md text-left">
+          <Card className="border-[var(--border)] bg-[var(--surface)]/40 backdrop-blur-md text-left rounded-[var(--radius-card)] shadow-[var(--shadow-sm)]">
             <CardHeader className="pb-4">
-              <CardTitle className="text-base font-bold font-display text-slate-900 dark:text-slate-50">
+              <CardTitle className="text-base font-bold font-display text-[var(--heading)]">
                 Expertise & Skills
               </CardTitle>
-              <CardDescription className="text-xs text-slate-500">
+              <CardDescription className="text-xs text-[var(--muted)]">
                 Skills tags used by the AI engine to evaluate matching and milestones.
               </CardDescription>
             </CardHeader>
@@ -361,7 +361,7 @@ export default function ProfilePage() {
                     value={newSkill}
                     onChange={(e) => setNewSkill(e.target.value)}
                     placeholder="Add a skill e.g. React"
-                    className="flex-1 rounded-lg border border-border bg-card px-3 py-1.5 text-xs text-slate-900 dark:text-slate-100 focus:border-brand-500 focus:outline-none transition-colors"
+                    className="flex-1 rounded-lg border border-[var(--border)] bg-[var(--surface-hover)] px-3 py-1.5 text-xs text-[var(--heading)] focus:border-[var(--primary)] focus:outline-none transition-colors"
                   />
                   <Button
                     type="submit"
@@ -375,7 +375,7 @@ export default function ProfilePage() {
               )}
 
               {skills.length === 0 ? (
-                <div className="py-4 text-center text-xs text-slate-400 dark:text-slate-500 italic font-sans">
+                <div className="py-4 text-center text-xs text-[var(--muted)] italic font-sans">
                   No skills listed yet.
                 </div>
               ) : (
@@ -396,35 +396,35 @@ export default function ProfilePage() {
 
       {/* Navigation Blocker dialog */}
       <Dialog open={showBlockerModal} onOpenChange={() => blocker.reset?.()}>
-        <DialogContent className="max-w-md border-border bg-card">
+        <DialogContent className="max-w-md border-[var(--border)] bg-[var(--surface)]">
           <DialogHeader className="text-left flex flex-row gap-3 items-center">
             <div className="h-10 w-10 shrink-0 bg-amber-500/10 text-amber-600 rounded-xl flex items-center justify-center border border-amber-500/20">
               <ShieldAlert size={20} />
             </div>
             <div>
-              <DialogTitle className="text-slate-900 dark:text-slate-50 font-display font-bold">
+              <DialogTitle className="text-[var(--heading)] font-display font-bold">
                 Unsaved Changes
               </DialogTitle>
-              <DialogDescription className="text-xs text-muted-foreground font-sans mt-0.5">
+              <DialogDescription className="text-xs text-[var(--muted)] font-sans mt-0.5">
                 You have modified your profile settings.
               </DialogDescription>
             </div>
           </DialogHeader>
-          <div className="py-3 text-sm text-slate-600 dark:text-slate-350 font-sans leading-relaxed text-left">
+          <div className="py-3 text-sm text-[var(--body)] font-sans leading-relaxed text-left">
             Are you sure you want to discard your edits and leave? Any unsaved adjustments will be lost permanently.
           </div>
           <DialogFooter className="flex gap-2 justify-end">
             <Button
               variant="outline"
               onClick={() => blocker.reset?.()}
-              className="text-xs font-semibold border-slate-250 cursor-pointer"
+              className="text-xs font-semibold border-[var(--border)] bg-transparent cursor-pointer"
             >
               Keep Editing
             </Button>
             <Button
               variant="primary"
               onClick={() => blocker.proceed?.()}
-              className="text-xs font-semibold bg-red-600 hover:bg-red-700 text-white cursor-pointer"
+              className="text-xs font-semibold bg-[var(--danger)] hover:bg-[var(--danger-hover)] text-white border-none cursor-pointer"
             >
               Discard & Leave
             </Button>

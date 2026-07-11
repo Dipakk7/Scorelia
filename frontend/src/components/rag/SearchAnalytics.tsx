@@ -48,27 +48,27 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
   }, [])
 
   const themeColors = {
-    primary: isDark ? '#5b9ac9' : '#2f6690',
-    success: isDark ? '#3ecf8e' : '#1b9e6f',
-    warning: isDark ? '#e0b845' : '#d99b1f',
-    destructive: 'var(--destructive)',
-    grid: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)',
-    text: 'var(--foreground)',
-    mutedText: 'var(--muted-foreground)',
+    primary: 'var(--primary)',
+    success: 'var(--success)',
+    warning: 'var(--warning)',
+    destructive: 'var(--danger)',
+    grid: 'var(--divider)',
+    text: 'var(--heading)',
+    mutedText: 'var(--muted)',
   }
 
   const COLORS = [
-    themeColors.success,
-    themeColors.primary,
+    'var(--success)',
+    'var(--primary)',
   ]
 
   function CustomTooltip({ active, payload, label }: any) {
     if (active && payload && payload.length) {
       const item = payload[0]?.payload
       return (
-        <div className="rounded-xl border border-slate-205 dark:border-slate-805 bg-white/95 dark:bg-slate-955/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+        <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)]/95 p-3 shadow-[var(--shadow-lg)] backdrop-blur-md text-left font-sans text-xs select-none">
           {item?.query && (
-            <p className="text-[10px] font-black text-slate-805 dark:text-white max-w-[200px] truncate m-0 mb-1 leading-normal">
+            <p className="text-[10px] font-black text-[var(--heading)] max-w-[200px] truncate m-0 mb-1 leading-normal">
               Query: "{item.query}"
             </p>
           )}
@@ -76,10 +76,10 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
             const isSec = entry.name?.toLowerCase().includes('latency')
             const isToken = entry.name?.toLowerCase().includes('tokens')
             return (
-              <div key={index} className="mt-1.5 flex items-center gap-2 font-semibold">
+              <div key={index} className="mt-1.5 flex items-center gap-2 font-semibold text-xs leading-none">
                 <span className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.stroke || entry.fill || themeColors.primary }} />
-                <span className="text-slate-555 dark:text-slate-400">{entry.name}:</span>
-                <span className="text-foreground font-mono">
+                <span className="text-[var(--muted)] font-medium">{entry.name}:</span>
+                <span className="text-[var(--heading)] font-mono font-bold">
                   {entry.value}{isSec ? 's' : isToken ? ' tk' : ''}
                 </span>
               </div>
@@ -93,8 +93,8 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
 
   if (metrics.length === 0) {
     return (
-      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 font-sans text-xs text-left">
-        <CardContent className="py-12 text-center text-muted-foreground italic font-medium leading-relaxed">
+      <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 font-sans text-xs text-left">
+        <CardContent className="py-12 text-center text-[var(--muted)] italic font-medium leading-relaxed">
           No query search analytics records available. Run searches to populate metrics.
         </CardContent>
       </Card>
@@ -126,9 +126,9 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left font-sans text-xs bg-transparent">
       {/* Latency Chart */}
-      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left md:col-span-1">
-        <CardHeader className="pb-4 border-b border-border/60 text-left">
-          <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none">
+      <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left md:col-span-1">
+        <CardHeader className="pb-4 border-b border-[var(--border)]/60 text-left">
+          <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--heading)] m-0 leading-none">
             Query Latency
           </CardTitle>
         </CardHeader>
@@ -146,15 +146,15 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
       </Card>
 
       {/* Cache Status Pie Chart */}
-      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left md:col-span-1">
-        <CardHeader className="pb-4 border-b border-border/60 text-left">
-          <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none">
+      <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left md:col-span-1">
+        <CardHeader className="pb-4 border-b border-[var(--border)]/60 text-left">
+          <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--heading)] m-0 leading-none">
             Cache Efficiency
           </CardTitle>
         </CardHeader>
         <CardContent className="h-44 pt-5 bg-transparent">
           {hitCount === 0 && missCount === 0 ? (
-            <div className="h-full flex items-center justify-center text-xs text-slate-400 italic font-medium leading-none">Loading...</div>
+            <div className="h-full flex items-center justify-center text-xs text-[var(--muted)] italic font-medium leading-none">Loading...</div>
           ) : (
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -180,15 +180,15 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
       </Card>
 
       {/* Token Distribution */}
-      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left md:col-span-1">
-        <CardHeader className="pb-4 border-b border-border/60 text-left">
-          <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none">
+      <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left md:col-span-1">
+        <CardHeader className="pb-4 border-b border-[var(--border)]/60 text-left">
+          <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--heading)] m-0 leading-none">
             Token Usage
           </CardTitle>
         </CardHeader>
         <CardContent className="h-44 pt-5 bg-transparent">
           {tokenData.length === 0 ? (
-            <div className="h-full flex items-center justify-center text-xs text-muted-foreground italic font-medium leading-relaxed">
+            <div className="h-full flex items-center justify-center text-xs text-[var(--muted)] italic font-medium leading-relaxed">
               Token statistics not available.
             </div>
           ) : (

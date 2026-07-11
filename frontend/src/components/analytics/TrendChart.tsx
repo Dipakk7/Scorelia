@@ -17,7 +17,7 @@ import { useState, useEffect } from 'react'
 interface TrendChartProps {
   data: { label: string; value: number | string }[]
   type?: 'area' | 'line' | 'bar'
-  colorScheme?: 'brand' | 'violet' | 'emerald' | 'amber' | 'rose' | 'cyan'
+  colorScheme?: 'brand' | 'violet' | 'emerald' | 'amber' | 'rose' | 'cyan' | 'indigo'
   height?: number
   xAxisKey?: string
   yAxisKey?: string
@@ -50,22 +50,23 @@ export function TrendChart({
   }, [])
 
   const colors = {
-    primary: isDark ? '#5b9ac9' : '#2f6690',
-    success: isDark ? '#3ecf8e' : '#1b9e6f',
-    warning: isDark ? '#e0b845' : '#d99b1f',
-    destructive: 'var(--destructive)',
-    grid: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)',
-    text: 'var(--foreground)',
-    mutedText: 'var(--muted-foreground)',
+    primary: 'var(--primary)',
+    success: 'var(--success)',
+    warning: 'var(--warning)',
+    destructive: 'var(--danger)',
+    grid: 'var(--divider)',
+    text: 'var(--heading)',
+    mutedText: 'var(--muted)',
   }
 
   const colorsMap = {
-    brand: colors.primary,
-    violet: colors.primary,
-    emerald: colors.success,
-    amber: colors.warning,
-    rose: colors.destructive,
-    cyan: colors.primary,
+    brand: 'var(--primary)',
+    violet: 'var(--analytics)',     // Career -> Purple
+    emerald: 'var(--success)',      // ATS -> Green
+    amber: 'var(--accent)',         // Interview -> Orange
+    rose: 'var(--danger)',
+    cyan: 'var(--github)',          // GitHub -> Cyan
+    indigo: 'var(--indigo)',        // Analytics -> Indigo
   }
 
   const activeColor = colorsMap[colorScheme] || colors.primary
@@ -74,13 +75,13 @@ export function TrendChart({
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-card/90 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs select-none">
-          {label && <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 m-0 mb-1 leading-none">{label}</p>}
+        <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)]/95 p-3 shadow-[var(--shadow-lg)] backdrop-blur-md text-left font-sans text-xs select-none">
+          {label && <p className="text-[9px] font-black uppercase tracking-wider text-[var(--muted)] m-0 mb-1 leading-none">{label}</p>}
           {payload.map((entry: any, index: number) => (
-            <div key={index} className="mt-1.5 flex items-center gap-2 font-semibold leading-none">
+            <div key={index} className="mt-1.5 flex items-center gap-2 font-semibold leading-none text-xs">
               <span className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.stroke || entry.fill || activeColor }} />
-              <span className="text-muted-foreground font-medium">Value:</span>
-              <span className="text-foreground font-mono font-bold">{valueFormatter(entry.value)}</span>
+              <span className="text-[var(--muted)] font-medium">Value:</span>
+              <span className="text-[var(--heading)] font-mono font-bold">{valueFormatter(entry.value)}</span>
             </div>
           ))}
         </div>

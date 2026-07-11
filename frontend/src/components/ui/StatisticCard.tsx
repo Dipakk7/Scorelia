@@ -43,28 +43,28 @@ export function StatisticCard({
   // Theme color maps for active cards with premium subtle gradients & shadows
   const themeMap = {
     teal: {
-      shadow: 'shadow-[0_4px_20px_rgba(15,157,154,0.03)] hover:shadow-[0_12px_30px_rgba(15,157,154,0.12)]',
-      border: 'hover:border-brand-500/40 dark:hover:border-brand-500/30',
-      iconBg: 'bg-brand-500/8 text-brand-600 dark:text-brand-400 border-brand-500/12',
-      barBg: 'bg-brand-500',
+      shadow: 'shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)]',
+      border: 'hover:border-[var(--primary)]/40',
+      iconBg: 'bg-[var(--primary)]/8 text-[var(--primary)] border-[var(--primary)]/12',
+      barBg: 'bg-[var(--primary)]',
     },
     blue: {
-      shadow: 'shadow-[0_4px_20px_rgba(0,210,255,0.03)] hover:shadow-[0_12px_30px_rgba(0,210,255,0.12)]',
-      border: 'hover:border-accent-blue/40 dark:hover:border-accent-blue/30',
-      iconBg: 'bg-accent-blue/10 text-accent-blue border-accent-blue/20',
-      barBg: 'bg-accent-blue',
+      shadow: 'shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)]',
+      border: 'hover:border-[var(--primary)]/40',
+      iconBg: 'bg-[var(--primary)]/10 text-[var(--primary)] border-[var(--primary)]/20',
+      barBg: 'bg-[var(--primary)]',
     },
     purple: {
-      shadow: 'shadow-[0_4px_20px_rgba(170,59,255,0.03)] hover:shadow-[0_12px_30px_rgba(170,59,255,0.12)]',
-      border: 'hover:border-accent-purple/40 dark:hover:border-accent-purple/30',
-      iconBg: 'bg-accent-purple/10 text-accent-purple border-accent-purple/20',
-      barBg: 'bg-accent-purple',
+      shadow: 'shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)]',
+      border: 'hover:border-[var(--analytics)]/40',
+      iconBg: 'bg-[var(--analytics)]/10 text-[var(--analytics)] border-[var(--analytics)]/20',
+      barBg: 'bg-[var(--analytics)]',
     },
     emerald: {
-      shadow: 'shadow-[0_4px_20px_rgba(16,185,129,0.03)] hover:shadow-[0_12px_30px_rgba(16,185,129,0.12)]',
-      border: 'hover:border-emerald-500/40 dark:hover:border-emerald-500/30',
-      iconBg: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
-      barBg: 'bg-emerald-500',
+      shadow: 'shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)]',
+      border: 'hover:border-[var(--career)]/40',
+      iconBg: 'bg-[var(--career)]/10 text-[var(--career)] border-[var(--career)]/20',
+      barBg: 'bg-[var(--career)]',
     },
   }
 
@@ -84,21 +84,21 @@ export function StatisticCard({
     return (
       <Card
         className={cn(
-          'overflow-hidden relative border-dashed border-2 border-border/80 bg-slate-50/10 dark:bg-slate-900/5 hover:bg-slate-50/30 dark:hover:bg-slate-900/10 hover:border-brand-500/40 dark:hover:border-brand-500/30 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md group rounded-2xl',
+          'overflow-hidden relative border-dashed border-2 border-[var(--border)]/80 bg-[var(--surface-hover)]/10 hover:bg-[var(--surface-hover)]/30 hover:border-[var(--primary)]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] group rounded-2xl',
           className
         )}
       >
         <CardContent className="p-5 flex flex-col justify-between h-full min-h-[148px]">
           <div className="flex items-start justify-between gap-4">
             <div className="space-y-1.5 text-left">
-              <p className="text-[9px] font-black uppercase tracking-wider text-muted-foreground font-mono">
+              <p className="text-[9px] font-black uppercase tracking-wider text-[var(--muted)] font-mono">
                 {title}
               </p>
-              <h4 className="text-xs font-bold text-muted-foreground mt-1 font-sans leading-snug">
+              <h4 className="text-xs font-bold text-[var(--muted)] mt-1 font-sans leading-snug">
                 {zeroStateText}
               </h4>
             </div>
-            <div className="p-2.5 bg-slate-100 dark:bg-slate-850 text-slate-400 dark:text-slate-500 rounded-xl border border-slate-200/30 dark:border-slate-750/30 shrink-0 group-hover:scale-105 transition-transform duration-200">
+            <div className="p-2.5 bg-[var(--divider)] text-[var(--muted)] rounded-xl border border-[var(--border)]/30 shrink-0 group-hover:scale-105 transition-transform duration-200">
               <Icon size={18} className="stroke-[1.75]" />
             </div>
           </div>
@@ -109,7 +109,7 @@ export function StatisticCard({
                 <button
                   type="button"
                   onClick={cta.onClick}
-                  className="inline-flex items-center gap-1.5 text-[10px] font-black text-slate-400 hover:text-brand-500 dark:text-slate-500 dark:hover:text-brand-400 transition-colors uppercase tracking-wider group/cta cursor-pointer bg-transparent border-none p-0 font-mono"
+                  className="inline-flex items-center gap-1.5 text-[10px] font-black text-[var(--muted)] hover:text-[var(--primary)] transition-colors uppercase tracking-wider group/cta cursor-pointer bg-transparent border-none p-0 font-mono"
                 >
                   <span>{cta.text}</span>
                   <ArrowRight size={12} className="group-hover/cta:translate-x-1 transition-transform duration-200" />
@@ -117,7 +117,7 @@ export function StatisticCard({
               ) : (
                 <Link
                   to={cta.to || '#'}
-                  className="inline-flex items-center gap-1.5 text-[10px] font-black text-slate-400 hover:text-brand-500 dark:text-slate-500 dark:hover:text-brand-400 transition-colors uppercase tracking-wider group/cta font-mono"
+                  className="inline-flex items-center gap-1.5 text-[10px] font-black text-[var(--muted)] hover:text-[var(--primary)] transition-colors uppercase tracking-wider group/cta font-mono"
                 >
                   <span>{cta.text}</span>
                   <ArrowRight size={12} className="group-hover/cta:translate-x-1 transition-transform duration-200" />
@@ -139,7 +139,7 @@ export function StatisticCard({
   return (
     <Card
       className={cn(
-        'overflow-hidden relative border-slate-200/60 dark:border-slate-800/40 bg-card/70 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 group rounded-2xl',
+        'overflow-hidden relative border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 group rounded-2xl',
         activeTheme.shadow,
         activeTheme.border,
         className
@@ -148,15 +148,15 @@ export function StatisticCard({
       <CardContent className="p-5 flex flex-col justify-between h-full">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1.5 text-left">
-            <p className="text-[9px] font-black uppercase tracking-wider text-muted-foreground font-mono">
+            <p className="text-[9px] font-black uppercase tracking-wider text-[var(--muted)] font-mono">
               {title}
             </p>
             <div className="flex items-center gap-2 flex-wrap mt-1">
-              <h3 className="text-3xl md:text-3.5xl font-black font-display text-foreground tracking-tight leading-none">
+              <h3 className="text-3xl md:text-3.5xl font-black font-display text-[var(--heading)] tracking-tight leading-none">
                 {displayValue}
               </h3>
               {showAtsStatus && statusLabel && (
-                <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 border border-emerald-500/10">
+                <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-[var(--success)]/10 text-[var(--success)] border border-[var(--success)]/10">
                   {statusLabel}
                 </span>
               )}
@@ -169,11 +169,11 @@ export function StatisticCard({
 
         {metricType === 'percentage' && (
           <div className="mt-4 space-y-1.5 text-left">
-            <div className="flex justify-between items-center text-[9px] font-extrabold uppercase tracking-wider text-muted-foreground">
+            <div className="flex justify-between items-center text-[9px] font-extrabold uppercase tracking-wider text-[var(--muted)]">
               <span>Completion Progress</span>
               <span>{Math.round(numericValue)}%</span>
             </div>
-            <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+            <div className="w-full bg-[var(--divider)] rounded-full h-1.5 overflow-hidden">
               <div
                 className={cn('h-full rounded-full transition-all duration-500 ease-out', activeTheme.barBg)}
                 style={{ width: `${Math.min(100, Math.max(0, numericValue))}%` }}
@@ -189,8 +189,8 @@ export function StatisticCard({
                 className={cn(
                   'px-2 py-0.5 rounded-full text-[10px] font-bold flex items-center gap-0.5',
                   trend.isPositive
-                    ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-                    : 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
+                    ? 'bg-[var(--success)]/10 text-[var(--success)]'
+                    : 'bg-[var(--danger)]/10 text-[var(--danger)]'
                 )}
               >
                 {trend.isPositive ? '+' : '-'}
@@ -198,7 +198,7 @@ export function StatisticCard({
               </span>
             )}
             {description && (
-              <span className="text-muted-foreground text-[11px] font-medium">
+              <span className="text-[var(--muted)] text-[11px] font-medium">
                 {description}
               </span>
             )}

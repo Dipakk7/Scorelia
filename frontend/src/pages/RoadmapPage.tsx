@@ -324,12 +324,12 @@ export default function RoadmapPage() {
   return (
     <div className="space-y-6 text-left animate-fade-in font-sans focus:outline-none">
       {/* Header section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-card/70 backdrop-blur-md p-5 rounded-2xl border border-border shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300">
         <div className="space-y-1.5 text-left">
-          <h1 className="text-xl md:text-2xl font-black font-display text-foreground m-0 tracking-tight leading-none">
+          <h1 className="text-xl md:text-2xl font-black font-display text-[var(--heading)] m-0 tracking-tight leading-none">
             AI Career Coach
           </h1>
-          <p className="text-xs text-muted-foreground font-sans leading-relaxed m-0 font-medium">
+          <p className="text-xs text-[var(--muted)] font-sans leading-relaxed m-0 font-medium">
             Map out custom career pivots, audit missing skill gaps, and execute weekly learning milestones.
           </p>
         </div>
@@ -351,7 +351,7 @@ export default function RoadmapPage() {
 
           <Button
             onClick={() => setShowCreateForm(!showCreateForm)}
-            className="flex items-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-9.5"
+            className="flex items-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white border-none rounded-xl transition-all duration-200 text-xs h-9.5"
           >
             <Plus size={14} />
             <span>New Roadmap</span>
@@ -361,10 +361,10 @@ export default function RoadmapPage() {
 
       {/* Creation form modal/pane */}
       {showCreateForm && (
-        <Card className="border border-brand-500/10 bg-brand-500/5 dark:bg-brand-500/10 p-5 rounded-2xl backdrop-blur-md shadow-sm animate-slideDown text-left">
+        <Card className="border border-[var(--primary)]/20 bg-[var(--surface-hover)] p-5 rounded-[var(--radius-card)] backdrop-blur-md shadow-sm animate-slideDown text-left">
           <form onSubmit={handleGenerate} className="space-y-5 text-left m-0">
-            <h3 className="text-sm font-black font-display text-foreground m-0 flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-850">
-              <Compass className="text-brand-500" size={16} />
+            <h3 className="text-sm font-black font-display text-[var(--heading)] m-0 flex items-center gap-2 pb-3 border-b border-[var(--border)]">
+              <Compass className="text-[var(--primary)]" size={16} />
               <span>Map Your AI Career Plan</span>
             </h3>
 
@@ -428,12 +428,12 @@ export default function RoadmapPage() {
               </Select>
             </div>
 
-            <div className="flex justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-850">
+            <div className="flex justify-end gap-3 pt-4 border-t border-[var(--border)]">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setShowCreateForm(false)}
-                className="h-9.5 text-xs font-bold cursor-pointer rounded-xl border-slate-200 dark:border-slate-850 hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent"
+                className="h-9.5 text-xs font-bold cursor-pointer rounded-xl border-[var(--border)] hover:border-[var(--primary)]/30 hover:bg-[var(--primary)]/5 transition-all text-[var(--body)] bg-transparent"
               >
                 Cancel
               </Button>
@@ -442,7 +442,7 @@ export default function RoadmapPage() {
                 size="sm"
                 type="submit"
                 disabled={generateRoadmapMutation.isPending}
-                className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-9.5"
+                className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white border-none rounded-xl transition-all duration-200 text-xs h-9.5"
               >
                 {generateRoadmapMutation.isPending ? (
                   <>
@@ -469,7 +469,7 @@ export default function RoadmapPage() {
       ) : (
         <div className="space-y-6">
           {/* Navigation Tabs bar */}
-          <div className="border-b border-border/60 flex items-center justify-between gap-4 overflow-x-auto pb-px">
+          <div className="border-b border-[var(--border)] flex items-center justify-between gap-4 overflow-x-auto pb-px">
             <div className="flex gap-1">
               {[
                 { id: 'dashboard', label: 'Dashboard', icon: Compass },
@@ -487,8 +487,8 @@ export default function RoadmapPage() {
                     className={cn(
                       'flex items-center gap-2 pb-3 px-3.5 text-xs font-bold uppercase tracking-wider transition-all relative cursor-pointer border-b-2 border-transparent bg-transparent focus:outline-none -mb-[1px]',
                       isActive
-                        ? 'text-brand-500 border-brand-500 font-extrabold'
-                        : 'text-slate-405 hover:text-slate-800 dark:hover:text-slate-355'
+                        ? 'text-[var(--primary)] border-[var(--primary)] font-extrabold'
+                        : 'text-[var(--muted)] hover:text-[var(--heading)]'
                     )}
                   >
                     <Icon size={14} />
@@ -501,7 +501,7 @@ export default function RoadmapPage() {
             <div className="flex items-center gap-2 pb-2">
               <button
                 onClick={handleReload}
-                className="p-1.5 rounded-lg border border-border text-slate-450 hover:text-slate-900 hover:bg-slate-50/50 dark:hover:bg-slate-850/30 cursor-pointer transition-colors bg-transparent"
+                className="p-1.5 rounded-lg border border-[var(--border)] text-[var(--muted)] hover:text-[var(--heading)] hover:bg-[var(--surface-hover)] cursor-pointer transition-colors bg-transparent animate-duration-150"
                 title="Sync roadmap workspace"
               >
                 <RotateCw size={14} />
@@ -509,7 +509,7 @@ export default function RoadmapPage() {
               <button
                 onClick={() => handleDelete(selectedRoadmapId)}
                 disabled={deleteRoadmapMutation.isPending}
-                className="p-1.5 rounded-lg border border-destructive/20 hover:border-destructive/40 text-destructive hover:bg-destructive/10 cursor-pointer transition-colors bg-transparent"
+                className="p-1.5 rounded-lg border border-[var(--danger)]/25 hover:border-[var(--danger)]/40 text-[var(--danger)] hover:bg-[var(--danger)]/10 cursor-pointer transition-colors bg-transparent animate-duration-150"
                 title="Delete active roadmap"
               >
                 <Trash2 size={14} />

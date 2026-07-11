@@ -268,29 +268,29 @@ export default function RAGWorkspacePage() {
   return (
     <div className="space-y-6 text-left animate-fade-in font-sans focus:outline-none">
       {/* Page Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-card/70 backdrop-blur-md p-5 rounded-2xl border border-border shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300">
         <div className="space-y-1.5 text-left">
-          <h1 className="text-xl md:text-2xl font-black font-display text-foreground m-0 tracking-tight leading-none">
+          <h1 className="text-xl md:text-2xl font-black font-display text-[var(--heading)] m-0 tracking-tight leading-none">
             RAG Semantic Workspace
           </h1>
-          <p className="text-xs text-muted-foreground font-sans leading-relaxed m-0 font-medium">
+          <p className="text-xs text-[var(--muted)] font-sans leading-relaxed m-0 font-medium">
             Perform natural language queries against uploaded documents to synthesize career insights.
           </p>
         </div>
 
         {/* Database operational status indicator */}
-        <div className="flex items-center gap-2.5 bg-slate-50/50 dark:bg-slate-900/40 backdrop-blur-xs border border-border/80 px-3.5 py-1.5 rounded-xl text-xs font-semibold select-none leading-none">
-          <Database size={14} className="text-slate-450" />
+        <div className="flex items-center gap-2.5 bg-[var(--surface-hover)] border border-[var(--border)]/80 px-3.5 py-1.5 rounded-xl text-xs font-semibold select-none leading-none">
+          <Database size={14} className="text-[var(--muted)]" />
           <div className="flex items-center gap-1.5">
-            <span className="text-slate-400 dark:text-slate-500 font-sans">KB Vector DB:</span>
+            <span className="text-[var(--muted)] font-sans">KB Vector DB:</span>
             {health?.status === 'healthy' ? (
-              <span className="text-emerald-500 flex items-center gap-1 font-bold">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 inline-block animate-pulse" />
+              <span className="text-[var(--success)] flex items-center gap-1 font-bold">
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--success)] inline-block animate-pulse" />
                 Online
               </span>
             ) : (
-              <span className="text-amber-500 flex items-center gap-1 font-bold">
-                <span className="h-1.5 w-1.5 rounded-full bg-amber-500 inline-block animate-pulse" />
+              <span className="text-[var(--warning)] flex items-center gap-1 font-bold">
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--warning)] inline-block animate-pulse" />
                 Offline
               </span>
             )}
@@ -305,28 +305,28 @@ export default function RAGWorkspacePage() {
           value={collections.length}
           description="Active semantic workspaces"
           icon={FolderOpen}
-          className="border-border"
+          className="border-[var(--border)]"
         />
         <StatisticCard
           title="Indexed Chunks"
           value={totalChunksCount}
           description="Parsed vector embeddings"
           icon={Layers}
-          className="border-border"
+          className="border-[var(--border)]"
         />
         <StatisticCard
           title="Retrieval Engine"
           value={health?.status === 'healthy' ? 'Online' : 'Syncing'}
           description="ChromaDB service status"
           icon={Database}
-          className="border-border"
+          className="border-[var(--border)]"
         />
         <StatisticCard
           title="Response Agent"
           value={health?.ollama?.model ? health.ollama.model.split(':')[0] : 'Llama 3'}
           description="Ollama generation model"
           icon={Sparkles}
-          className="border-border"
+          className="border-[var(--border)]"
         />
       </div>
 
@@ -335,20 +335,20 @@ export default function RAGWorkspacePage() {
         {/* Left Side: Document management, Query builder, filters, history */}
         <div className="lg:col-span-1 space-y-6">
           {/* Document Uploader */}
-          <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
-            <CardHeader className="pb-4 border-b border-border/60 text-left">
-              <CardTitle className="text-sm font-black font-display text-foreground flex items-center gap-2 m-0 leading-none">
-                <Upload className="text-brand-500 h-4 w-4" />
+          <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
+            <CardHeader className="pb-4 border-b border-[var(--border)]/60 text-left">
+              <CardTitle className="text-sm font-black font-display text-[var(--heading)] flex items-center gap-2 m-0 leading-none">
+                <Upload className="text-[var(--primary)] h-4 w-4" />
                 <span>Knowledge Ingestion</span>
               </CardTitle>
-              <CardDescription className="text-[10px] text-slate-500 dark:text-slate-405 leading-relaxed font-sans max-w-sm m-0 mt-1.5 font-medium">
+              <CardDescription className="text-[10px] text-[var(--muted)] leading-relaxed font-sans max-w-sm m-0 mt-1.5 font-medium">
                 Load PDF or TXT files directly to your semantic indexes.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4 pt-5 pb-5">
               <form onSubmit={handleUploadAndIndex} className="space-y-3.5 text-xs m-0 text-left">
                 {/* File input drag area */}
-                <div className="border-2 border-dashed border-slate-205 dark:border-slate-850 hover:border-brand-500 rounded-2xl p-6 text-center cursor-pointer transition-colors relative bg-slate-50/20 dark:bg-slate-950/10 hover:bg-slate-100/10">
+                <div className="border-2 border-dashed border-[var(--border)] hover:border-[var(--primary)] rounded-[var(--radius-card)] p-6 text-center cursor-pointer transition-colors relative bg-[var(--surface-hover)]">
                   <input
                     type="file"
                     accept=".pdf,.txt"
@@ -356,22 +356,22 @@ export default function RAGWorkspacePage() {
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                   />
                   <div className="flex flex-col items-center justify-center gap-1.5 select-none">
-                    <FileText className="text-slate-400 h-8 w-8" />
-                    <span className="font-semibold text-slate-700 dark:text-slate-355 text-xs mt-1">
+                    <FileText className="text-[var(--muted)] h-8 w-8" />
+                    <span className="font-semibold text-[var(--heading)] text-xs mt-1">
                       {uploadFile ? uploadFile.name : 'Select PDF or Plain Text'}
                     </span>
-                    <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Maximum size 5 MB</span>
+                    <span className="text-[9px] font-black uppercase tracking-widest text-[var(--muted)]">Maximum size 5 MB</span>
                   </div>
                 </div>
 
                 {/* Target collection dropdown */}
                 <div className="space-y-1.5 text-left">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] font-black text-muted-foreground uppercase tracking-widest block font-display leading-none">Target Collection</label>
+                    <label className="text-[10px] font-black text-[var(--muted)] uppercase tracking-widest block font-display leading-none">Target Collection</label>
                     <button
                       type="button"
                       onClick={() => setShowNewCollectionForm(!showNewCollectionForm)}
-                      className="text-[9px] font-black text-brand-655 hover:text-brand-700 uppercase tracking-wider cursor-pointer border-none bg-transparent p-0 leading-none"
+                      className="text-[9px] font-black text-[var(--primary)] hover:text-[var(--primary-hover)] uppercase tracking-wider cursor-pointer border-none bg-transparent p-0 leading-none"
                     >
                       {showNewCollectionForm ? 'Select Existing' : 'Create New'}
                     </button>
@@ -384,7 +384,7 @@ export default function RAGWorkspacePage() {
                         placeholder="New collection name..."
                         value={newCollectionName}
                         onChange={(e) => setNewCollectionName(e.target.value)}
-                        className="flex-1 text-xs py-2 px-3 border border-border rounded-xl bg-card/50 text-slate-900 dark:text-slate-100 placeholder-slate-405 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans font-medium transition-colors shadow-2xs"
+                        className="flex-1 text-xs py-2 px-3 border border-[var(--border)] rounded-xl bg-[var(--surface)] text-[var(--heading)] placeholder-[var(--muted)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)] font-sans font-medium transition-colors shadow-2xs"
                       />
                       <Button
                         type="button"
@@ -413,7 +413,7 @@ export default function RAGWorkspacePage() {
 
                 <Button
                   type="submit"
-                  className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs w-full h-10"
+                  className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] border-none rounded-xl transition-all duration-200 text-xs w-full h-10"
                   disabled={isUploading || !uploadFile}
                 >
                   {isUploading ? (
@@ -457,7 +457,7 @@ export default function RAGWorkspacePage() {
           />
 
           {/* Workspace Tabs */}
-          <div className="border-b border-border/60 flex gap-1">
+          <div className="border-b border-[var(--border)] flex gap-1">
             {[
               { id: 'answer', label: 'AI Answer', icon: Sparkles },
               { id: 'explorer', label: 'Explorer', icon: FolderOpen },
@@ -473,8 +473,8 @@ export default function RAGWorkspacePage() {
                   className={cn(
                     'flex items-center gap-2 pb-3 px-3.5 text-xs font-bold uppercase tracking-wider transition-all relative cursor-pointer border-b-2 border-transparent bg-transparent focus:outline-none -mb-[1px]',
                     isActive
-                      ? 'text-brand-500 border-brand-500 font-extrabold'
-                      : 'text-slate-405 hover:text-slate-805 dark:hover:text-slate-355'
+                      ? 'text-[var(--primary)] border-[var(--primary)] font-extrabold'
+                      : 'text-[var(--muted)] hover:text-[var(--heading)]'
                   )}
                 >
                   <Icon size={14} />
@@ -497,8 +497,8 @@ export default function RAGWorkspacePage() {
                 
                 {queryRagMutation.data && (
                   <CitationViewer
-                    citations={queryRagMutation.data.citations}
-                    contextDocuments={queryRagMutation.data.context_documents}
+                     citations={queryRagMutation.data.citations}
+                     contextDocuments={queryRagMutation.data.context_documents}
                   />
                 )}
               </div>
@@ -506,8 +506,8 @@ export default function RAGWorkspacePage() {
 
             {activeSearchTab === 'explorer' && (
               <div className="space-y-4">
-                <h3 className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none flex items-center gap-2 pl-1 text-left">
-                  <Layers size={14} className="text-brand-500" />
+                <h3 className="text-xs font-black uppercase tracking-wider text-[var(--heading)] m-0 leading-none flex items-center gap-2 pl-1 text-left">
+                  <Layers size={14} className="text-[var(--primary)]" />
                   <span>Retrieved Knowledge Chunks ({retrievedChunks.length})</span>
                 </h3>
                 {retrievedChunks.length === 0 ? (

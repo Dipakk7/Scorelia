@@ -63,25 +63,25 @@ export default function InterviewAnalyticsChart({
   }, [])
 
   const themeColors = {
-    primary: isDark ? '#5b9ac9' : '#2f6690',
-    success: isDark ? '#3ecf8e' : '#1b9e6f',
-    warning: isDark ? '#e0b845' : '#d99b1f',
-    destructive: 'var(--destructive)',
-    grid: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)',
-    text: 'var(--foreground)',
-    mutedText: 'var(--muted-foreground)',
+    primary: 'var(--accent)',        // Interview -> Orange
+    success: 'var(--success)',
+    warning: 'var(--warning)',
+    destructive: 'var(--danger)',
+    grid: 'var(--divider)',
+    text: 'var(--heading)',
+    mutedText: 'var(--muted)',
   }
 
   function CustomTooltip({ active, payload, label }: any) {
     if (active && payload && payload.length) {
       return (
-        <div className="rounded-xl border border-slate-205 dark:border-slate-805 bg-card/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
-          {label && <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 m-0">{label}</p>}
+        <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)]/95 p-3 shadow-[var(--shadow-lg)] backdrop-blur-md text-left font-sans text-xs select-none">
+          {label && <p className="text-[9px] font-extrabold uppercase tracking-wider text-[var(--muted)] m-0">{label}</p>}
           {payload.map((entry: any, index: number) => (
-            <div key={index} className="mt-1.5 flex items-center gap-2 font-semibold">
+            <div key={index} className="mt-1.5 flex items-center gap-2 font-semibold text-xs leading-none">
               <span className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.stroke || entry.fill }} />
-              <span className="text-slate-555 dark:text-slate-400">{entry.name}:</span>
-              <span className="text-foreground font-mono">{entry.value}%</span>
+              <span className="text-[var(--muted)] font-medium">{entry.name}:</span>
+              <span className="text-[var(--heading)] font-mono font-bold">{entry.value}%</span>
             </div>
           ))}
         </div>
@@ -93,12 +93,12 @@ export default function InterviewAnalyticsChart({
   function ActivityTooltip({ active, payload, label }: any) {
     if (active && payload && payload.length) {
       return (
-        <div className="rounded-xl border border-slate-205 dark:border-slate-805 bg-card/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
-          <p className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 m-0">{label}</p>
-          <div className="mt-1.5 flex items-center gap-2 font-semibold">
+        <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)]/95 p-3 shadow-[var(--shadow-lg)] backdrop-blur-md text-left font-sans text-xs select-none">
+          <p className="text-[9px] font-extrabold uppercase tracking-wider text-[var(--muted)] m-0">{label}</p>
+          <div className="mt-1.5 flex items-center gap-2 font-semibold text-xs leading-none">
             <span className="h-2 w-2 rounded-full" style={{ backgroundColor: themeColors.primary }} />
-            <span className="text-slate-555 dark:text-slate-405">Sessions:</span>
-            <span className="text-foreground font-mono">{payload[0].value} rounds</span>
+            <span className="text-[var(--muted)] font-medium">Sessions:</span>
+            <span className="text-[var(--heading)] font-mono font-bold">{payload[0].value} rounds</span>
           </div>
         </div>
       )
@@ -161,10 +161,10 @@ export default function InterviewAnalyticsChart({
       <div className="bg-transparent">
         {activeTab === 'scores' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 bg-transparent">
-            <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden">
-              <CardHeader className="pb-2.5 border-b border-border/60">
-                <CardTitle className="text-xs font-black text-foreground uppercase tracking-wider flex items-center gap-1.5 m-0">
-                  <TrendingUp size={14} className="text-brand-500" />
+            <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden">
+              <CardHeader className="pb-2.5 border-b border-[var(--border)]/60">
+                <CardTitle className="text-xs font-black text-[var(--heading)] uppercase tracking-wider flex items-center gap-1.5 m-0">
+                  <TrendingUp size={14} className="text-[var(--accent)]" />
                   <span>Interview Score Progression</span>
                 </CardTitle>
               </CardHeader>
@@ -186,17 +186,17 @@ export default function InterviewAnalyticsChart({
                     </AreaChart>
                   </ResponsiveContainer>
                 ) : (
-                  <div className="h-full flex flex-col items-center justify-center text-slate-400 text-xs italic">
+                  <div className="h-full flex flex-col items-center justify-center text-[var(--muted)] text-xs italic">
                     Not enough session logs. Complete interviews to track trends.
                   </div>
                 )}
               </CardContent>
             </Card>
 
-            <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden">
-              <CardHeader className="pb-2.5 border-b border-border/60">
-                <CardTitle className="text-xs font-black text-foreground uppercase tracking-wider flex items-center gap-1.5 m-0">
-                  <Activity size={14} className="text-blue-500" />
+            <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden">
+              <CardHeader className="pb-2.5 border-b border-[var(--border)]/60">
+                <CardTitle className="text-xs font-black text-[var(--heading)] uppercase tracking-wider flex items-center gap-1.5 m-0">
+                  <Activity size={14} className="text-[var(--primary)]" />
                   <span>Technical vs. Communication Skill</span>
                 </CardTitle>
               </CardHeader>
@@ -214,7 +214,7 @@ export default function InterviewAnalyticsChart({
                     </LineChart>
                   </ResponsiveContainer>
                 ) : (
-                  <div className="h-full flex flex-col items-center justify-center text-slate-400 text-xs italic">
+                  <div className="h-full flex flex-col items-center justify-center text-[var(--muted)] text-xs italic">
                     Not enough session logs. Complete interviews to track trends.
                   </div>
                 )}
@@ -225,10 +225,10 @@ export default function InterviewAnalyticsChart({
 
         {activeTab === 'dimensions' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 bg-transparent">
-            <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden">
-              <CardHeader className="pb-2.5 border-b border-border/60">
-                <CardTitle className="text-xs font-black text-foreground uppercase tracking-wider flex items-center gap-1.5 m-0">
-                  <Layers size={14} className="text-purple-500" />
+            <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden">
+              <CardHeader className="pb-2.5 border-b border-[var(--border)]/60">
+                <CardTitle className="text-xs font-black text-[var(--heading)] uppercase tracking-wider flex items-center gap-1.5 m-0">
+                  <Layers size={14} className="text-[var(--analytics)]" />
                   <span>STAR Dimensions Coverage</span>
                 </CardTitle>
               </CardHeader>
@@ -245,29 +245,29 @@ export default function InterviewAnalyticsChart({
               </CardContent>
             </Card>
 
-            <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden">
-              <CardHeader className="pb-2.5 border-b border-border/60">
-                <CardTitle className="text-xs font-black text-foreground uppercase tracking-wider flex items-center gap-1.5 m-0">
-                  <Compass size={14} className="text-emerald-500" />
+            <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden">
+              <CardHeader className="pb-2.5 border-b border-[var(--border)]/60">
+                <CardTitle className="text-xs font-black text-[var(--heading)] uppercase tracking-wider flex items-center gap-1.5 m-0">
+                  <Compass size={14} className="text-[var(--success)]" />
                   <span>STAR Methodology Scoring Blueprint</span>
                 </CardTitle>
               </CardHeader>
-              <CardContent className="p-5 text-xs text-slate-655 dark:text-slate-400 font-sans space-y-3 leading-relaxed font-medium">
+              <CardContent className="p-5 text-xs text-[var(--body)] font-sans space-y-3 leading-relaxed font-medium">
                 <p className="m-0 leading-relaxed">
                   Behavioral performance is calculated by examining responses against the four pillars of structured storytelling:
                 </p>
                 <ul className="space-y-2 m-0 p-0 pl-4 list-disc leading-relaxed">
                   <li>
-                    <strong className="text-primary">Situation (S)</strong>: Explaining the problem background clearly, setting context, timeframe, and scale.
+                    <strong className="text-[var(--primary)]">Situation (S)</strong>: Explaining the problem background clearly, setting context, timeframe, and scale.
                   </li>
                   <li>
-                    <strong className="text-warning">Task (T)</strong>: Defining your specific role, target goals, constraints, and business outcomes.
+                    <strong className="text-[var(--warning)]">Task (T)</strong>: Defining your specific role, target goals, constraints, and business outcomes.
                   </li>
                   <li>
-                    <strong className="text-accent-purple">Action (A)</strong>: Detailing the technical steps, reasoning, leadership, and tools you utilized.
+                    <strong className="text-[var(--analytics)]">Action (A)</strong>: Detailing the technical steps, reasoning, leadership, and tools you utilized.
                   </li>
                   <li>
-                    <strong className="text-success">Result (R)</strong>: Quantifying metrics, project benefits, business values, and takeaways.
+                    <strong className="text-[var(--success)]">Result (R)</strong>: Quantifying metrics, project benefits, business values, and takeaways.
                   </li>
                 </ul>
               </CardContent>
@@ -277,10 +277,10 @@ export default function InterviewAnalyticsChart({
 
         {activeTab === 'activity' && (
           <div className="grid grid-cols-1 gap-4 bg-transparent">
-            <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden">
-              <CardHeader className="pb-2.5 border-b border-border/60">
-                <CardTitle className="text-xs font-black text-foreground uppercase tracking-wider flex items-center gap-1.5 m-0">
-                  <Map size={14} className="text-emerald-500" />
+            <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden">
+              <CardHeader className="pb-2.5 border-b border-[var(--border)]/60">
+                <CardTitle className="text-xs font-black text-[var(--heading)] uppercase tracking-wider flex items-center gap-1.5 m-0">
+                  <Map size={14} className="text-[var(--success)]" />
                   <span>Weekly Simulated Drills Activity</span>
                 </CardTitle>
               </CardHeader>

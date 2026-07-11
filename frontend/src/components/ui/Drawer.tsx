@@ -3,12 +3,12 @@ import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-export const Dialog = DialogPrimitive.Root
-export const DialogTrigger = DialogPrimitive.Trigger
-export const DialogClose = DialogPrimitive.Close
-export const DialogPortal = DialogPrimitive.Portal
+export const Drawer = DialogPrimitive.Root
+export const DrawerTrigger = DialogPrimitive.Trigger
+export const DrawerClose = DialogPrimitive.Close
+export const DrawerPortal = DialogPrimitive.Portal
 
-export const DialogOverlay = React.forwardRef<
+export const DrawerOverlay = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
@@ -21,18 +21,18 @@ export const DialogOverlay = React.forwardRef<
     {...props}
   />
 ))
-DialogOverlay.displayName = 'DialogOverlay'
+DrawerOverlay.displayName = 'DrawerOverlay'
 
-export const DialogContent = React.forwardRef<
+export const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
-  <DialogPortal>
-    <DialogOverlay />
+  <DrawerPortal>
+    <DrawerOverlay />
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-xl)] dialog-content-anim sm:rounded-[var(--radius-card)]',
+        'fixed top-0 right-0 z-50 h-full w-full max-w-md border-l border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-xl)] drawer-content-anim',
         className
       )}
       {...props}
@@ -43,11 +43,11 @@ export const DialogContent = React.forwardRef<
         <span className="sr-only">Close</span>
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>
-  </DialogPortal>
+  </DrawerPortal>
 ))
-DialogContent.displayName = 'DialogContent'
+DrawerContent.displayName = 'DrawerContent'
 
-export const DialogHeader = ({
+export const DrawerHeader = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
@@ -59,23 +59,23 @@ export const DialogHeader = ({
     {...props}
   />
 )
-DialogHeader.displayName = 'DialogHeader'
+DrawerHeader.displayName = 'DrawerHeader'
 
-export const DialogFooter = ({
+export const DrawerFooter = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2',
+      'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 mt-auto',
       className
     )}
     {...props}
   />
 )
-DialogFooter.displayName = 'DialogFooter'
+DrawerFooter.displayName = 'DrawerFooter'
 
-export const DialogTitle = React.forwardRef<
+export const DrawerTitle = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >(({ className, ...props }, ref) => (
@@ -88,9 +88,9 @@ export const DialogTitle = React.forwardRef<
     {...props}
   />
 ))
-DialogTitle.displayName = 'DialogTitle'
+DrawerTitle.displayName = 'DrawerTitle'
 
-export const DialogDescription = React.forwardRef<
+export const DrawerDescription = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >(({ className, ...props }, ref) => (
@@ -103,4 +103,4 @@ export const DialogDescription = React.forwardRef<
     {...props}
   />
 ))
-DialogDescription.displayName = 'DialogDescription'
+DrawerDescription.displayName = 'DrawerDescription'
