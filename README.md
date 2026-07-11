@@ -1,44 +1,62 @@
-# Scorelia
+<div align="center">
 
-### *The Intelligent Career Copilot*
+# ✨ Scorelia
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![React](https://img.shields.io/badge/Frontend-React%2019-black?style=flat&logo=react)](https://react.dev/)
-[![Vite](https://img.shields.io/badge/Build-Vite-646CFF?style=flat&logo=vite)](https://vitejs.dev/)
-[![TypeScript](https://img.shields.io/badge/Language-TypeScript-blue?style=flat&logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind%20CSS-38bdf8?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
-[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=flat&logo=fastapi)](https://fastapi.tiangolo.com/)
-[![Ollama](https://img.shields.io/badge/AI%20Engine-Ollama-blue?style=flat)](https://ollama.com/)
+### The Intelligent Career Copilot
 
-Scorelia is a full-stack AI-powered career intelligence platform that helps users analyze resumes, evaluate ATS compatibility, match resumes with job descriptions using semantic search, prepare for interviews, and receive personalized career guidance—all while running completely locally using open-source AI.
+**AI-powered resume intelligence, ATS scoring, and interview prep — 100% local, 100% free.**
 
-## ⭐ Why Scorelia?
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
+[![React](https://img.shields.io/badge/Frontend-React%2019-black?style=flat-square&logo=react)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Build-Vite-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![TypeScript](https://img.shields.io/badge/Language-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind%20CSS-38bdf8?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Ollama](https://img.shields.io/badge/AI%20Engine-Ollama-1a1a1a?style=flat-square)](https://ollama.com/)
 
-*   **100% Free & Open Source:** Zero licensing fees, zero external API costs, and runs completely locally or on free cloud tiers.
-*   **Privacy-first Local AI using Ollama:** Your resume, credentials, and conversation history never leave your device.
-*   **End-to-End Career Intelligence Platform:** Replaces fragmented workflows with a single environment for resume optimization, ATS checks, mock interviews, and roadmap design.
-*   **Enterprise-grade Modular Architecture:** Clean, decoupled design using FastAPI, Next.js, and PostgreSQL for maximum performance and scalable code maintainability.
+[Overview](#-overview) • [Features](#-key-features) • [Tech Stack](#%EF%B8%8F-technology-stack) • [Architecture](#-system-architecture) • [Setup](#%EF%B8%8F-installation--setup) • [Docs](#-documentation)
+
+</div>
+
+---
+
+## 📌 Overview
+
+**Scorelia** is a full-stack AI career intelligence platform that helps job seekers analyze resumes, check ATS compatibility, semantically match resumes against job descriptions, prepare for interviews, and get personalized career guidance — all powered by open-source AI running entirely on your own machine.
+
+No external API costs. No data leaving your device. Just a private, local AI career copilot.
+
+<div align="center">
+
+|  |  |
+|:---:|:---|
+| 🔒 | **Privacy-first** — resumes, credentials, and chat history never leave your device |
+| 💸 | **Zero cost** — no licensing fees, no external API bills |
+| 🧩 | **End-to-end platform** — resume optimization, ATS checks, job matching, mock interviews, and roadmaps in one place |
+| 🏗️ | **Modular architecture** — clean separation between FastAPI backend, React frontend, and a multi-agent AI orchestration layer |
+
+</div>
 
 ---
 
 ## 🚀 Key Features
 
-*   **Resume Intelligence & Parsing:** Direct extraction of skills, experience, and education from PDF/Word documents using advanced natural language processing.
-*   **ATS Resume Analysis:** Deep compliance checks against applicant tracking systems (ATS) with specific alignment, formatting, and keyword suggestions.
-*   **Vector-Based Job Matching:** Semantic alignment scores between resumes and job descriptions using local sentence embeddings, moving beyond simple keyword matching.
-*   **Skill Gap Analysis:** Targeted detection of missing skills required for target job descriptions, coupled with structured learning recommendations.
-*   **AI-Powered Resume Optimizer:** Interactive resume editing powered by local LLM feedback to automatically rewrite descriptions for maximum impact.
-*   **Interactive Interview Preparation:** Real-time mock interview simulator that generates job-specific questions and scores user responses with constructive feedback.
-*   **Dynamic Career Roadmap:** Custom step-by-step career path visuals generated by AI, defining transition milestones, certifications, and target roles.
-*   **AI Career Assistant & RAG Platform:** Persistent, context-aware chatbot querying local document collections (resumes, job descriptions, company profiles) using ChromaDB and Ollama for factual, context-aware answers.
-*   **Analytics Dashboard:** Visual performance indicators including ATS match history, skill acquisition progress, and interview preparation analytics.
+- **📄 Resume Intelligence & Parsing** — Extracts skills, experience, and education from PDF/Word resumes using NLP.
+- **✅ ATS Resume Analysis** — Deep compliance checks against applicant tracking systems, with formatting and keyword feedback.
+- **🎯 Vector-Based Job Matching** — Semantic alignment scoring between resumes and job descriptions using local embeddings — beyond simple keyword matching.
+- **🧠 Skill Gap Analysis** — Identifies missing skills for a target role and recommends a learning path to close the gap.
+- **✍️ AI-Powered Resume Optimizer** — Interactive, LLM-driven rewriting to maximize resume impact.
+- **🎤 Interactive Interview Preparation** — Real-time mock interviews with job-specific questions and constructive AI feedback.
+- **🗺️ Dynamic Career Roadmap** — AI-generated, step-by-step career paths with milestones and certifications.
+- **💬 AI Career Assistant (RAG)** — A persistent, context-aware chatbot that queries your resumes, job descriptions, and company data using ChromaDB + Ollama.
+- **📊 Analytics Dashboard** — Visual tracking of ATS scores, skill progress, and interview performance over time.
 
 ---
 
 ## 🛠️ Technology Stack
 
 | Layer | Technology | Details |
-| :--- | :--- | :--- |
+|:--|:--|:--|
 | **Frontend** | React 19, Vite, TypeScript | Fast dev/build tooling, client-side routing via React Router |
 | **Styling & UI** | Tailwind CSS, Lucide React, Sonner | Utility-first styling, iconography, and toast notifications |
 | **Forms & Validation** | React Hook Form, Zod, React Dropzone | Type-safe form handling and file upload validation |
@@ -50,13 +68,13 @@ Scorelia is a full-stack AI-powered career intelligence platform that helps user
 | **AI LLM Engine** | Ollama (Qwen 2.5 3B Instruct) | Low-latency local model inference for content generation |
 | **Embedding Engine** | Ollama (nomic-embed-text) | Local normalized 768-dimensional text embedding generation |
 | **NLP & Vectors** | spaCy, Sentence Transformers, scikit-learn | Entity extraction (NER), semantic cosine similarity, vectorization |
-| **Multi-Agent System** | Agent Orchestrator, Shared Memory, Tool Calling | Specialized agents (Resume, ATS, Job Match, Interview, Career Coach, Learning) |
+| **Multi-Agent System** | Agent Orchestrator, Shared Memory, Tool Calling | Specialized agents — Resume, ATS, Job Match, Interview, Career Coach, Learning |
 | **Testing** | Pytest, ESLint, Oxlint | Backend unit/integration tests and frontend type/lint checks |
 | **Deployment** | Docker, Docker Compose, Nginx, GitHub Actions | Containerized production deployment with CI/CD pipeline |
 
 ---
 
-## 📐 System Architecture Overview
+## 📐 System Architecture
 
 Scorelia follows a clean, decoupled client-server architecture designed to run efficiently on commodity developer hardware without external API expenses.
 
@@ -109,146 +127,175 @@ graph TD
     API --> DB[(PostgreSQL)]
 ```
 
-
 ---
 
 ## 📂 Folder Structure
 
-The project code is organized to enforce strict separation of concerns, modular testability, and clean architecture practices.
-
 ```
 Scorelia/
-├── .github/                            # CI/CD Workflows & Templates
-├── assets/                             # Brand assets & resume templates
-├── backend/                            # FastAPI Server & Python ML/LLM services
-├── config/                             # Setup and environment configs
-├── database/                           # Relational migrations and seeds
-├── docs/                               # Architecture, DB Schema, and API specifications
-├── frontend/                           # Next.js SPA Client (App Router)
-├── screenshots/                        # Documentation images
-├── scripts/                            # One-click installers & downloader utilities
-├── tests/                              # Dual-stack unit, integration, and E2E tests
-├── CHANGELOG.md                        # Version history and release notes
-├── LICENSE                             # MIT License
-└── README.md                           # Project overview and setup guide
+├── .github/                        # CI/CD workflows & templates
+├── assets/                         # Brand assets & resume templates
+├── backend/                        # FastAPI server & Python ML/LLM services
+├── config/                         # Setup and environment configs
+├── database/                       # Relational migrations and seeds
+├── docs/                           # Architecture, DB schema, and API specifications
+├── frontend/                       # React + Vite SPA client
+├── screenshots/                    # Documentation images
+├── scripts/                        # One-click installers & downloader utilities
+├── tests/                          # Backend & frontend unit, integration, and E2E tests
+├── CHANGELOG.md                    # Version history and release notes
+├── FRONTEND_ARCHITECTURE.md        # Frontend structure and design decisions
+├── GITHUB_RELEASE_REPORT.md        # Release audit and readiness report
+├── PRODUCTION_READINESS_REPORT.md  # Production deployment checklist
+├── RELEASE_NOTES.md                # Per-release notes
+├── LICENSE                         # MIT License
+└── README.md                       # Project overview and setup guide
 ```
 
 ---
 
-## 📖 Documentation Index
+## 📖 Documentation
 
-To explore the architecture and planning documents created during Phase 1, refer to the following specifications in the `docs/` directory:
+Detailed architecture and planning documents live in the [`docs/`](docs) directory:
 
-*   [Project Requirements Document (PRD)](docs/PROJECT_REQUIREMENTS.md) — Product requirements, functional constraints, and persona descriptions.
-*   [Software Architecture Document (SAD)](docs/SOFTWARE_ARCHITECTURE.md) — Clean architecture layers, data sequence flow diagrams, and design justifications.
-*   [Database Design Specification](docs/DATABASE_DESIGN.md) — PostgreSQL schemas, index models, constraints, and GIN/JSONB details.
-*   [API Specification Contract](docs/API_SPECIFICATION.md) — RESTful API endpoint structures, HTTP statuses, cookies auth, and JSON mock payloads.
-*   [UI/UX Style & Design Guide](docs/UI_UX_GUIDE.md) — Obsidian-glassmorphism styling parameters, grid values, layout mockups, and Framer Motion dynamics.
-*   [Module Breakdown Specification](docs/MODULE_BREAKDOWN.md) — Responsibilities, inputs, outputs, database tables, and dependencies of all 12 modules.
-*   [System Workflow Specification](docs/SYSTEM_WORKFLOW.md) — Detailed user journey mappings, Mermaid charts, and systems error handling flows.
-*   [Development Roadmap Specification](docs/DEVELOPMENT_ROADMAP.md) — Detailed implementation roadmap including milestones, testing strategy and Git workflow.
-*   [RAG Architecture Specification](docs/RAG_ARCHITECTURE.md) — Comprehensive design of the Retrieval-Augmented Generation platform, indexing pipeline, and vector storage.
-*   [RAG Production Guide](docs/RAG_PRODUCTION_GUIDE.md) — Production configuration, tuning, monitoring, caching, and troubleshooting guidelines.
+| Document | Description |
+|:--|:--|
+| [Project Requirements (PRD)](docs/PROJECT_REQUIREMENTS.md) | Product requirements, functional constraints, and persona descriptions |
+| [Software Architecture (SAD)](docs/SOFTWARE_ARCHITECTURE.md) | Clean architecture layers, data sequence flows, and design justifications |
+| [Database Design](docs/DATABASE_DESIGN.md) | PostgreSQL schemas, index models, constraints, and GIN/JSONB details |
+| [API Specification](docs/API_SPECIFICATION.md) | RESTful endpoint structures, HTTP statuses, cookie auth, and JSON payloads |
+| [UI/UX Style Guide](docs/UI_UX_GUIDE.md) | Obsidian-glassmorphism styling, grid values, and Framer Motion dynamics |
+| [Module Breakdown](docs/MODULE_BREAKDOWN.md) | Responsibilities, inputs/outputs, and dependencies of all 12 modules |
+| [System Workflow](docs/SYSTEM_WORKFLOW.md) | User journey mappings, Mermaid charts, and error-handling flows |
+| [Development Roadmap](docs/DEVELOPMENT_ROADMAP.md) | Implementation milestones, testing strategy, and Git workflow |
+| [RAG Architecture](docs/RAG_ARCHITECTURE.md) | Retrieval-augmented generation design, indexing pipeline, vector storage |
+| [RAG Production Guide](docs/RAG_PRODUCTION_GUIDE.md) | Production tuning, monitoring, caching, and troubleshooting |
+| [Frontend Architecture](FRONTEND_ARCHITECTURE.md) | Frontend structure, component design, and state management decisions |
+| [Production Readiness Report](PRODUCTION_READINESS_REPORT.md) | Deployment checklist and production audit findings |
 
 ---
 
 ## 📸 Screenshots
 
-| Feature       | Preview     |
-| ------------- | ----------- |
-| Dashboard     | —  |
-| Resume Parser | —  |
-| ATS Analysis  | —  |
-| Job Matching  | —  |
-| AI Assistant  | —  |
+| Feature | Preview |
+|:--|:--:|
+| Dashboard | *coming soon* |
+| Resume Parser | *coming soon* |
+| ATS Analysis | *coming soon* |
+| Job Matching | *coming soon* |
+| AI Assistant | *coming soon* |
 
 ---
 
 ## ⚙️ Installation & Setup
 
-Detailed step-by-step instructions for running the stack locally in development mode:
-
 ### Prerequisites
-*   Python 3.12+
-*   Node.js 18+ & npm
-*   PostgreSQL 15+
-*   Ollama (installed and running background service)
 
-### Backend Setup
-Initialize the Python virtual environment and dependencies:
+- Python 3.12+
+- Node.js 18+ & npm
+- PostgreSQL 15+
+- [Ollama](https://ollama.com) (installed and running as a background service)
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Dipakk7/Scorelia.git
+cd Scorelia
+```
+
+### 2. Backend setup
+
 ```bash
 cd backend
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate      # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 python -m spacy download en_core_web_sm
 ```
 
-### Frontend Setup
-Initialize Node packages:
+### 3. Frontend setup
+
 ```bash
 cd frontend
 npm install
 ```
 
-### PostgreSQL Setup
-1. Create a local PostgreSQL database named `scorelia_db`:
-   ```sql
-   CREATE DATABASE scorelia_db;
-   ```
-2. Configure credentials in backend `.env` (default connection string is postgres/postgres@localhost:5432).
+### 4. PostgreSQL setup
 
-### Ollama Setup
-1. Download and run Ollama from [ollama.com](https://ollama.com).
-2. Pull the target LLM and embedding models:
-   ```bash
-   ollama pull qwen2.5:3b
-   ollama pull nomic-embed-text
-   ```
+Create a local database:
 
-### ChromaDB Setup
-1. ChromaDB runs locally in-process with the backend.
-2. The storage paths are defined in backend config (`backend/app/core/config.py`) and are automatically initialized in `backend/storage/chromadb`.
+```sql
+CREATE DATABASE scorelia_db;
+```
 
-### Environment Variables
-#### Backend Environment Configuration
-Create a `.env` file under `backend/` from the example template:
+Configure credentials in `backend/.env` (default: `postgres/postgres@localhost:5432`).
+
+### 5. Ollama setup
+
+Download and run [Ollama](https://ollama.com), then pull the required models:
+
+```bash
+ollama pull qwen2.5:3b
+ollama pull nomic-embed-text
+```
+
+### 6. ChromaDB setup
+
+ChromaDB runs locally in-process with the backend — no extra setup required. Storage paths are defined in `backend/app/core/config.py` and auto-initialized at `backend/storage/chromadb`.
+
+### 7. Environment variables
+
+**Backend:**
+
 ```bash
 cp config/backend.env.example backend/.env
 ```
-Ensure variables such as `DATABASE_URL` and `JWT_SECRET_KEY` are defined.
 
-#### Frontend Environment Configuration
-Create a `.env.development` file under `frontend/` from the example template:
+Ensure `DATABASE_URL` and `JWT_SECRET_KEY` are set.
+
+**Frontend:**
+
 ```bash
 cp config/frontend.env.example frontend/.env.development
 ```
-Set `VITE_API_URL` to `http://localhost:8000/api/v1`.
 
-### Running Locally
-To start the entire application in development mode:
-#### 1. Run the Backend FastAPI Server
+Set `VITE_API_URL=http://localhost:8000/api/v1`.
+
+### 8. Run locally
+
+**Backend:**
+
 ```bash
 cd backend
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate      # On Windows: venv\Scripts\activate
 uvicorn app.main:app --reload
 ```
-#### 2. Run the Frontend Vite Dev Server
+
+**Frontend:**
+
 ```bash
 cd frontend
 npm run dev
 ```
 
+The app will be available at `http://localhost:5173` (frontend) and `http://localhost:8000` (API).
+
 ---
 
 ## 📄 License
 
-Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
+Distributed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ---
+
+<div align="center">
 
 ## 👨‍💻 Connect With Me
 
 [![GitHub](https://img.shields.io/badge/GitHub-Dipakk7-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Dipakk7)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Dipak%20Khandagale-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/dipakkhandagale/)
 [![Portfolio](https://img.shields.io/badge/Portfolio-Visit%20Site-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://dipakkhandagale.vercel.app/)
+
+⭐ If you find Scorelia useful, consider starring the repo!
+
+</div>
