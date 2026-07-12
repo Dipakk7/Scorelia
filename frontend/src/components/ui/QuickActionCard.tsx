@@ -18,32 +18,32 @@ export function QuickActionCard({
   description,
   icon: Icon,
   to,
-  iconColor = 'text-brand-650 dark:text-brand-400',
-  bgColor = 'bg-brand-500/10',
+  iconColor = 'text-primary',
+  bgColor = 'bg-primary/10',
   className,
 }: QuickActionCardProps) {
   return (
     <Link
       to={to}
       className={cn(
-        'flex items-center justify-between p-4 rounded-2xl border border-slate-200/60 dark:border-slate-800/40 bg-white/45 dark:bg-slate-900/30 backdrop-blur-md hover:border-brand-500/40 dark:hover:border-brand-500/30 hover:bg-card/80 dark:hover:bg-slate-900/60 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 group cursor-pointer text-left',
+        'flex items-center justify-between p-4 rounded-2xl border border-border bg-surface hover:border-primary/40 hover:bg-surface-hover hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 group cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none',
         className
       )}
     >
       <div className="flex items-center gap-4 min-w-0">
-        <div className={cn('p-2.5 rounded-xl shrink-0 border border-border shadow-xs group-hover:scale-105 transition-transform duration-200', bgColor, iconColor)}>
+        <div className={cn('p-2.5 rounded-xl shrink-0 border border-border/50 shadow-xs group-hover:scale-105 transition-transform duration-200 motion-reduce:transition-none', bgColor, iconColor)}>
           <Icon size={18} className="stroke-[1.75]" />
         </div>
         <div className="min-w-0">
-          <h4 className="text-sm font-bold font-display text-slate-900 dark:text-slate-200 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+          <h4 className="text-sm font-bold font-display text-heading group-hover:text-primary transition-colors">
             {title}
           </h4>
-          <p className="text-xs text-slate-550 dark:text-slate-400 font-sans truncate mt-0.5 leading-relaxed">
+          <p className="text-xs text-body font-sans truncate mt-0.5 leading-relaxed">
             {description}
           </p>
         </div>
       </div>
-      <ArrowRight size={14} className="text-slate-400 dark:text-slate-555 group-hover:translate-x-1 transition-transform duration-200 shrink-0 ml-2" />
+      <ArrowRight size={14} className="text-muted group-hover:translate-x-1 transition-transform duration-200 motion-reduce:transition-none shrink-0 ml-2" />
     </Link>
   )
 }

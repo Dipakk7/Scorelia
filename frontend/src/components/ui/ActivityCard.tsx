@@ -58,23 +58,23 @@ export function ActivityCard({
   className,
 }: ActivityCardProps) {
   return (
-    <Card className={cn('border-slate-200/60 dark:border-slate-800/40 bg-card/40 backdrop-blur-md rounded-2xl', className)}>
+    <Card className={cn('border-border bg-surface rounded-2xl shadow-sm', className)}>
       <CardHeader className="text-left pb-4">
-        <CardTitle className="text-lg font-bold font-display text-foreground">{title}</CardTitle>
-        {description && <CardDescription className="text-xs text-muted-foreground">{description}</CardDescription>}
+        <CardTitle className="text-lg font-bold font-display text-heading">{title}</CardTitle>
+        {description && <CardDescription className="text-xs text-muted leading-relaxed font-sans">{description}</CardDescription>}
       </CardHeader>
       <CardContent>
         {items.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-10 text-center px-4">
-            <div className="p-3 bg-slate-50/10 dark:bg-slate-900/5 rounded-2xl border border-slate-200/80 dark:border-slate-800/65 text-slate-400 dark:text-slate-550 mb-3 shadow-xs">
+            <div className="p-3 bg-divider rounded-2xl border border-border text-muted mb-3 shadow-xs">
               <CheckCircle2 size={24} className="stroke-[1.5]" />
             </div>
-            <h4 className="text-sm font-semibold text-foreground">No activity yet</h4>
-            <p className="text-xs text-muted-foreground mt-1 max-w-[200px] leading-relaxed">
+            <h4 className="text-sm font-semibold text-heading">No activity yet</h4>
+            <p className="text-xs text-body mt-1 max-w-[200px] leading-relaxed font-sans">
               Your recent system events and analyses will appear here.
             </p>
             <Link to="/resumes" className="mt-4">
-              <Button size="sm" variant="outline" className="text-xs hover:border-brand-500/30 hover:bg-brand-500/5">
+              <Button size="sm" variant="outline" className="text-xs hover:border-primary/30 hover:bg-primary/5">
                 Upload Resume
               </Button>
             </Link>
@@ -82,7 +82,7 @@ export function ActivityCard({
         ) : (
           <div className="relative pl-1">
             {/* Timeline Vertical Track */}
-            <div className="absolute left-[17px] top-3 bottom-3 w-0.5 bg-slate-200 dark:bg-slate-800/60" />
+            <div className="absolute left-[17px] top-3 bottom-3 w-0.5 bg-divider" />
 
             <div className="space-y-6">
               {items.map((item, idx) => {
@@ -90,25 +90,25 @@ export function ActivityCard({
                 return (
                   <div key={item.id || idx} className="relative flex gap-4 items-start text-left group pl-11">
                     {/* Timeline Node Circle */}
-                    <div className="absolute left-0 top-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-card border border-slate-200/80 dark:border-slate-800 text-muted-foreground shadow-sm group-hover:scale-105 group-hover:border-brand-500/40 group-hover:text-brand-500 transition-all duration-200 ease-in-out z-10">
-                      {Icon ? <Icon size={16} className="stroke-[1.5]" /> : <div className="h-1.5 w-1.5 rounded-full bg-brand-500" />}
+                    <div className="absolute left-0 top-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-surface border border-border text-muted shadow-sm group-hover:scale-105 group-hover:border-primary/40 group-hover:text-primary transition-all duration-200 ease-in-out motion-reduce:transition-none z-10">
+                      {Icon ? <Icon size={16} className="stroke-[1.5]" /> : <div className="h-1.5 w-1.5 rounded-full bg-primary" />}
                     </div>
 
                     <div className="flex-1 space-y-1 min-w-0">
                       <div className="flex items-center justify-between gap-2">
-                        <p className="text-sm font-semibold text-foreground group-hover:text-foreground/90 transition-colors truncate">
+                        <p className="text-sm font-semibold text-heading group-hover:text-primary transition-colors truncate">
                           {item.title}
                         </p>
-                        <span className="text-[10px] font-extrabold text-muted-foreground shrink-0 font-sans uppercase tracking-wider">
+                        <span className="text-[10px] font-extrabold text-muted shrink-0 font-mono uppercase tracking-wider">
                           {formatRelativeTime(item.timestamp)}
                         </span>
                       </div>
-                      <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                      <p className="text-xs text-body line-clamp-2 leading-relaxed">
                         {item.description}
                       </p>
                       {item.badgeText && (
                         <div className="pt-1 flex">
-                          <Badge variant={item.badgeVariant || 'default'} className="text-[9px] px-2 py-0">
+                          <Badge variant={item.badgeVariant || 'default'} className="text-[9px] px-2 py-0 border-border">
                             {item.badgeText}
                           </Badge>
                         </div>
