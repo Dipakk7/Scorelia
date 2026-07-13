@@ -1267,7 +1267,7 @@ export default function DashboardPage() {
                   {currentDate}
                 </span>
               </div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-muted/70 block mt-3">
+              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground block mt-3">
                 {greeting} 👋
               </span>
               <h1 className="text-4xl md:text-5xl font-black text-heading tracking-tight mt-1 font-sans leading-none">
