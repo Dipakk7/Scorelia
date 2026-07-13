@@ -11,34 +11,34 @@ export const AgentStatusBadge: React.FC<AgentStatusBadgeProps> = ({ status, clas
 
   const config = {
     healthy: {
-      bg: 'bg-success/10 text-success border-success/20',
+      bg: 'bg-[var(--success)]/10 text-[var(--success)] border-[var(--success)]/20',
       label: 'Healthy',
-      dot: 'bg-success animate-pulse',
+      dot: 'bg-[var(--success)] animate-pulse',
     },
     unhealthy: {
-      bg: 'bg-destructive/10 text-destructive border-destructive/20',
+      bg: 'bg-[var(--danger)]/10 text-[var(--danger)] border-[var(--danger)]/20',
       label: 'Degraded',
-      dot: 'bg-destructive',
+      dot: 'bg-[var(--danger)]',
     },
     active: {
-      bg: 'bg-brand-500/10 text-brand-655 dark:text-brand-400 border-brand-500/20',
+      bg: 'bg-[var(--primary)]/10 text-[var(--primary)] border-[var(--primary)]/20',
       label: 'Active',
-      dot: 'bg-brand-500 animate-ping',
+      dot: 'bg-[var(--primary)] animate-ping',
     },
     running: {
-      bg: 'bg-warning/10 text-warning border-warning/20',
+      bg: 'bg-[var(--warning)]/10 text-[var(--warning)] border-[var(--warning)]/20',
       label: 'Running',
-      dot: 'bg-warning animate-pulse',
+      dot: 'bg-[var(--warning)] animate-pulse',
     },
     idle: {
-      bg: 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20',
+      bg: 'bg-muted text-muted-foreground border-[var(--border)]/40',
       label: 'Idle',
-      dot: 'bg-slate-400',
+      dot: 'bg-muted-foreground',
     },
   }[normStatus as 'healthy' | 'unhealthy' | 'active' | 'running' | 'idle'] || {
-    bg: 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20',
+    bg: 'bg-muted text-muted-foreground border-[var(--border)]/40',
     label: status,
-    dot: 'bg-slate-400',
+    dot: 'bg-muted-foreground',
   }
 
   return (

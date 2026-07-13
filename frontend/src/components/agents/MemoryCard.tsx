@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Card, CardContent } from '@/components/ui/Card'
 import { Tag, Copy, Check, ChevronDown, ChevronUp } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { cn } from '@/lib/utils'
@@ -31,34 +30,34 @@ export const MemoryCard: React.FC<MemoryCardProps> = ({
   }
 
   return (
-    <Card className={cn('border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs', className)}>
-      <CardContent className="p-3.5 flex flex-col gap-2 text-left">
+    <div className={cn('border border-[var(--border)]/65 bg-[var(--surface)] hover:border-[var(--primary)]/45 transition-all duration-200 rounded-xl overflow-hidden text-left font-sans text-xs', className)}>
+      <div className="p-3 flex flex-col gap-2 text-left">
         {/* Key and Controls */}
         <div className="flex items-center justify-between gap-3 text-left">
-          <div className="flex items-center gap-2 truncate text-left">
-            <Tag size={12} className="text-brand-500 flex-shrink-0" />
-            <span className="font-mono font-semibold text-slate-855 dark:text-slate-200 truncate">
+          <div className="flex items-center gap-1.5 truncate text-left min-w-0">
+            <Tag size={11} className="text-[var(--primary)] flex-shrink-0" />
+            <span className="font-mono font-bold text-[var(--heading)] truncate">
               {memoryKey}
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 flex-shrink-0">
+          <div className="flex items-center gap-1 flex-shrink-0 select-none">
             {/* Copy button */}
             <button
               onClick={handleCopy}
-              className="p-1 rounded text-slate-455 hover:bg-slate-100/50 dark:hover:bg-slate-900 hover:text-slate-700 cursor-pointer focus:outline-none border-none bg-transparent flex items-center"
+              className="p-1 rounded text-[var(--muted)] hover:bg-[var(--background)] hover:text-[var(--heading)] cursor-pointer focus:outline-none border-none bg-transparent flex items-center"
               title="Copy to clipboard"
             >
-              {copied ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
+              {copied ? <Check size={11} className="text-emerald-500" /> : <Copy size={11} />}
             </button>
 
             {/* Expand object details */}
             {isObject && (
               <button
                 onClick={() => setExpanded(!expanded)}
-                className="p-1 rounded text-slate-455 hover:bg-slate-100/50 dark:hover:bg-slate-900 hover:text-slate-700 cursor-pointer focus:outline-none border-none bg-transparent flex items-center"
+                className="p-1 rounded text-[var(--muted)] hover:bg-[var(--background)] hover:text-[var(--heading)] cursor-pointer focus:outline-none border-none bg-transparent flex items-center"
               >
-                {expanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+                {expanded ? <ChevronUp size={11} /> : <ChevronDown size={11} />}
               </button>
             )}
           </div>
@@ -68,25 +67,25 @@ export const MemoryCard: React.FC<MemoryCardProps> = ({
         {isObject ? (
           <div className="text-left">
             {expanded ? (
-              <div className="p-2.5 bg-slate-900 text-slate-350 dark:bg-slate-950/80 rounded-xl border border-slate-950/50 font-mono text-[10px] overflow-x-auto max-h-48 mt-1 text-left">
-                <pre className="m-0 leading-normal">{valueStr}</pre>
+              <div className="p-2.5 bg-slate-905 dark:bg-slate-950 text-[var(--body)] rounded-lg border border-[var(--border)]/55 font-mono text-[9px] overflow-x-auto max-h-48 mt-1 text-left leading-normal scrollbar-thin select-text">
+                <pre className="m-0">{valueStr}</pre>
               </div>
             ) : (
               <div
                 onClick={() => setExpanded(true)}
-                className="p-2 bg-slate-50/50 dark:bg-slate-900/60 rounded-xl text-[10px] text-slate-500 dark:text-slate-405 font-mono cursor-pointer hover:bg-slate-100/20 border border-slate-200/50 dark:border-slate-850 truncate text-left leading-normal"
+                className="p-2 bg-[var(--background)] rounded-lg text-[9px] text-[var(--muted)] font-mono cursor-pointer hover:bg-[var(--surface-hover)] border border-[var(--border)]/40 truncate text-left leading-normal"
               >
                 {Array.isArray(value) ? `Array [${value.length}]` : `Object {${Object.keys(value).join(', ')}}`}
               </div>
             )}
           </div>
         ) : (
-          <div className="p-2 bg-slate-55/40 dark:bg-slate-900/40 rounded-xl text-muted-foreground font-mono text-[10px] break-words border border-slate-200/35 dark:border-slate-850 select-text text-left leading-normal">
+          <div className="p-2 bg-[var(--background)] rounded-lg text-[9px] text-[var(--body)] font-mono break-words border border-[var(--border)]/40 select-text text-left leading-normal">
             {valueStr}
           </div>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   )
 }
 export default MemoryCard

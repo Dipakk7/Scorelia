@@ -59,7 +59,7 @@ export default function MultiAgentWorkspacePage() {
 
   // Resizable Panel states
   const [leftWidth, setLeftWidth] = useState(22) // % width of left sidebar
-  const [rightWidth, setRightWidth] = useState(28) // % width of right sidebar
+  const [rightWidth, setRightWidth] = useState(25) // % width of right sidebar
   const [leftCollapsed, setLeftCollapsed] = useState(false)
   const [rightCollapsed, setRightCollapsed] = useState(false)
   const workspaceContainerRef = useRef<HTMLDivElement>(null)
@@ -105,8 +105,9 @@ export default function MultiAgentWorkspacePage() {
     e.preventDefault()
     const handleMouseMove = (moveEvent: MouseEvent) => {
       if (!workspaceContainerRef.current) return
-      const containerWidth = workspaceContainerRef.current.clientWidth
-      const newWidth = (moveEvent.clientX / containerWidth) * 100
+      const rect = workspaceContainerRef.current.getBoundingClientRect()
+      const containerWidth = rect.width
+      const newWidth = ((moveEvent.clientX - rect.left) / containerWidth) * 100
       if (newWidth > 15 && newWidth < 40) {
         setLeftWidth(newWidth)
       }
@@ -123,8 +124,9 @@ export default function MultiAgentWorkspacePage() {
     e.preventDefault()
     const handleMouseMove = (moveEvent: MouseEvent) => {
       if (!workspaceContainerRef.current) return
-      const containerWidth = workspaceContainerRef.current.clientWidth
-      const newWidth = ((containerWidth - moveEvent.clientX) / containerWidth) * 100
+      const rect = workspaceContainerRef.current.getBoundingClientRect()
+      const containerWidth = rect.width
+      const newWidth = ((rect.right - moveEvent.clientX) / containerWidth) * 100
       if (newWidth > 15 && newWidth < 45) {
         setRightWidth(newWidth)
       }
@@ -288,89 +290,71 @@ export default function MultiAgentWorkspacePage() {
   const latestExecutionSteps: AgentResponse[] = executeTaskMutation.data?.steps || []
 
   return (
-    <div className="flex flex-col gap-5 h-[calc(100vh-100px)] overflow-hidden font-sans text-xs text-left">
+    <div className="flex flex-col h-[calc(100vh-140px)] md:h-[calc(100vh-160px)] overflow-hidden font-sans text-xs text-left bg-[var(--surface)] border border-[var(--border)] rounded-2xl shadow-sm">
       {/* Top Console Operations Header Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300 flex-shrink-0">
-        <div className="space-y-1.5 text-left">
-          <h1 className="text-xl md:text-2xl font-black font-display text-[var(--heading)] m-0 tracking-tight leading-none">
-            Multi-Agent Operations Console
-          </h1>
-          <p className="text-xs text-[var(--body)] font-sans leading-relaxed m-0 font-medium">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 border-b border-[var(--border)]/75 bg-[var(--surface-hover)]/35 flex-shrink-0 select-none">
+        <div className="space-y-1.5 text-left flex-1">
+          <div className="flex flex-col md:flex-row md:items-center gap-3">
+            <h1 className="text-lg font-bold font-sans text-[var(--heading)] m-0 tracking-tight leading-none">
+              Multi-Agent Operations Console
+            </h1>
+            {/* Inline Stats tags instead of huge cards */}
+            <div className="flex items-center gap-1.5 flex-wrap text-[9px] font-bold text-[var(--muted)] uppercase font-mono tracking-wider select-none leading-none pt-0.5">
+              <span className="px-2 py-0.5 rounded bg-[var(--background)] border border-[var(--border)] text-[var(--primary)] font-extrabold">{agents.length} Agents</span>
+              <span className="text-[var(--border)]">|</span>
+              <span className="px-2 py-0.5 rounded bg-[var(--background)] border border-[var(--border)] text-[var(--heading)]">{messages.filter(m => m.role === 'user').length} Tasks</span>
+              <span className="text-[var(--border)]">|</span>
+              <span className="px-2 py-0.5 rounded bg-[var(--background)] border border-[var(--border)] text-[var(--heading)]">
+                {Object.keys(sessionMemory).length > 0 ? `${(JSON.stringify(sessionMemory).length / 1024).toFixed(1)} KB` : '0.0 KB'} Context
+              </span>
+              <span className="text-[var(--border)]">|</span>
+              <span className="px-2 py-0.5 rounded bg-[var(--success)]/10 text-[var(--success)] border border-[var(--success)]/20">98.5% Success</span>
+            </div>
+          </div>
+          <p className="text-[11px] text-[var(--body)] font-sans leading-relaxed m-0 font-medium">
             Secure Control Center for autonomous intent parsing, sub-agent routing, and validation audits.
           </p>
         </div>
 
         {/* Layout Collapsers */}
-        <div className="flex items-center gap-2 select-none">
+        <div className="flex items-center gap-1.5 select-none">
           <button
             onClick={() => setLeftCollapsed(!leftCollapsed)}
-            className="p-1.5 rounded-xl border border-[var(--border)] bg-[var(--surface-hover)] hover:bg-[var(--surface-hover)] hover:border-[var(--primary)]/30 text-[var(--muted)] hover:text-[var(--heading)] cursor-pointer focus:outline-none dark:bg-transparent transition-all flex items-center justify-center"
+            className="p-1 rounded-md border border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--surface-hover)] hover:border-[var(--primary)]/30 text-[var(--muted)] hover:text-[var(--heading)] cursor-pointer focus:outline-none transition-all flex items-center justify-center h-7 w-7"
             title={leftCollapsed ? 'Expand registry' : 'Collapse registry'}
           >
-            {leftCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+            {leftCollapsed ? <ChevronRight size={13} /> : <ChevronLeft size={13} />}
           </button>
           <span className="text-[var(--border)]">|</span>
           <button
             onClick={() => setRightCollapsed(!rightCollapsed)}
-            className="p-1.5 rounded-xl border border-[var(--border)] bg-[var(--surface-hover)] hover:bg-[var(--surface-hover)] hover:border-[var(--primary)]/30 text-[var(--muted)] hover:text-[var(--heading)] cursor-pointer focus:outline-none dark:bg-transparent transition-all flex items-center justify-center"
+            className="p-1 rounded-md border border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--surface-hover)] hover:border-[var(--primary)]/30 text-[var(--muted)] hover:text-[var(--heading)] cursor-pointer focus:outline-none transition-all flex items-center justify-center h-7 w-7"
             title={rightCollapsed ? 'Expand tools/logs' : 'Collapse tools/logs'}
           >
-            {rightCollapsed ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
+            {rightCollapsed ? <ChevronLeft size={13} /> : <ChevronRight size={13} />}
           </button>
         </div>
-      </div>
-
-      {/* Agent Overview Statistics Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 flex-shrink-0">
-        <StatisticCard
-          title="Active Agents"
-          value={agents.length}
-          description="Orchestrators running online"
-          icon={Cpu}
-          className="border border-[var(--border)] bg-[var(--surface)]/70"
-        />
-        <StatisticCard
-          title="Active Tasks"
-          value={messages.filter(m => m.role === 'user').length}
-          description="Submitted task requests"
-          icon={Activity}
-          className="border border-[var(--border)] bg-[var(--surface)]/70"
-        />
-        <StatisticCard
-          title="Context Size"
-          value={Object.keys(sessionMemory).length > 0 ? `${(JSON.stringify(sessionMemory).length / 1024).toFixed(2)} KB` : '0.00 KB'}
-          description="Session variables allocated"
-          icon={Database}
-          className="border border-[var(--border)] bg-[var(--surface)]/70"
-        />
-        <StatisticCard
-          title="Success Rate"
-          value="98.5%"
-          description="Agent validation rating"
-          icon={Compass}
-          className="border border-[var(--border)] bg-[var(--surface)]/70"
-        />
       </div>
 
       {/* Main Workspace split screen */}
       <div 
         ref={workspaceContainerRef} 
         className={cn(
-          "flex-1 w-full relative items-stretch gap-4",
-          isDesktop ? "flex overflow-hidden gap-1" : "flex flex-col overflow-y-auto"
+          "flex-grow w-full relative items-stretch min-h-0",
+          isDesktop ? "flex overflow-hidden" : "flex flex-col overflow-y-auto"
         )}
       >
         {/* Panel 1: Left Agent Registry */}
         <div
           className={cn(
-            'flex flex-col bg-[var(--surface)]/70 backdrop-blur-md border border-[var(--border)] overflow-y-auto px-4 py-5 select-none transition-all duration-300 rounded-2xl text-left w-full',
+            'flex flex-col bg-[var(--surface)] border-r border-[var(--border)]/75 overflow-hidden p-4 select-none transition-all duration-300 text-left w-full',
             leftCollapsed ? 'hidden border-none' : '',
-            isDesktop ? 'w-auto' : ''
+            isDesktop ? 'w-auto h-full' : ''
           )}
           style={{ width: isDesktop && !leftCollapsed ? `${leftWidth}%` : undefined }}
         >
-          <div className="flex flex-col gap-4 min-w-[220px] text-left">
-            <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground font-mono text-left leading-none">
+          <div className="flex flex-col gap-3 min-w-[220px] text-left h-full min-h-0">
+            <span className="text-[9px] font-black uppercase tracking-widest text-[var(--muted)] font-mono text-left leading-none flex-shrink-0">
               Agent Registry
             </span>
             <AgentSelector
@@ -381,6 +365,7 @@ export default function MultiAgentWorkspacePage() {
               onSelectAgent={setSelectedAgentId}
               orchestrationMode={orchestrationMode}
               onChangeMode={setOrchestrationMode}
+              className="flex-grow min-h-0"
             />
           </div>
         </div>
@@ -389,12 +374,12 @@ export default function MultiAgentWorkspacePage() {
         {!leftCollapsed && isDesktop && (
           <div
             onMouseDown={handleLeftResizeMouseDown}
-            className="w-1 cursor-col-resize hover:bg-brand-500/40 bg-transparent transition-colors duration-200 z-20 flex-shrink-0"
+            className="w-1 cursor-col-resize hover:bg-[var(--primary)]/30 bg-transparent transition-colors duration-200 z-20 flex-shrink-0"
           />
         )}
 
         {/* Panel 2: Center Chat Console & SVG Workflow Step Pipeline */}
-        <div className={cn("flex-1 flex flex-col gap-4 px-1 pb-4 items-stretch text-left", isDesktop ? "overflow-y-auto" : "h-auto w-full")}>
+        <div className={cn("flex-1 flex flex-col gap-3.5 p-4 items-stretch text-left bg-[var(--background)]/20 min-h-0", isDesktop ? "overflow-y-auto scrollbar-thin" : "h-auto w-full")}>
           {/* Workflow progress SVG Graph */}
           {(messages.length > 0 || executeTaskMutation.isPending) && (
             <WorkflowGraph
@@ -407,7 +392,6 @@ export default function MultiAgentWorkspacePage() {
               activeStepIndex={activeStepIndex}
               stepStatusMap={stepStatusMap}
               stepErrorsMap={stepErrorsMap}
-              executionMode={orchestrationMode === 'auto' ? 'auto_orchestrated' : 'manual_override'}
               className="flex-shrink-0"
             />
           )}
@@ -418,7 +402,7 @@ export default function MultiAgentWorkspacePage() {
             onSendMessage={handleSendMessage}
             onRegenerate={handleRegenerate}
             isSubmitting={executeTaskMutation.isPending}
-            className="flex-1"
+            className="flex-grow min-h-0"
           />
 
           {/* Execution steps details list shown after success */}
@@ -426,7 +410,7 @@ export default function MultiAgentWorkspacePage() {
             <WorkflowTimeline
               steps={latestExecutionSteps}
               totalDurationMs={executeTaskMutation.data?.execution_time_ms}
-              className="mt-2 flex-shrink-0"
+              className="mt-1 flex-shrink-0"
             />
           )}
         </div>
@@ -435,113 +419,111 @@ export default function MultiAgentWorkspacePage() {
         {!rightCollapsed && isDesktop && (
           <div
             onMouseDown={handleRightResizeMouseDown}
-            className="w-1 cursor-col-resize hover:bg-brand-500/40 bg-transparent transition-colors duration-200 z-20 flex-shrink-0"
+            className="w-1 cursor-col-resize hover:bg-[var(--primary)]/30 bg-transparent transition-colors duration-200 z-20 flex-shrink-0"
           />
         )}
 
         {/* Panel 3: Right Tabs (Shared Memory, logs, analytics, context) */}
         <div
           className={cn(
-            'flex flex-col bg-[var(--surface)]/70 backdrop-blur-md border border-[var(--border)] overflow-hidden transition-all duration-300 rounded-2xl text-left w-full',
-            rightCollapsed ? 'hidden border-none' : 'p-4',
+            'flex flex-col bg-[var(--surface)] border-l border-[var(--border)]/75 overflow-hidden transition-all duration-300 text-left w-full h-full p-4',
+            rightCollapsed ? 'hidden border-none' : '',
             isDesktop ? 'w-auto' : ''
           )}
           style={{ width: isDesktop && !rightCollapsed ? `${rightWidth}%` : undefined }}
         >
-          <div className="flex flex-col gap-4 h-full min-w-[260px] text-left">
+          <div className="flex flex-col gap-3.5 h-full min-w-[240px] text-left">
             {/* Tabs Control Row */}
-            <div className="grid grid-cols-4 gap-1 p-1 bg-[var(--surface-hover)] border border-[var(--border)]/80 rounded-xl select-none leading-none items-center text-center">
+            <div className="grid grid-cols-4 gap-1 p-1 bg-[var(--background)] border border-[var(--border)]/65 rounded-lg select-none leading-none items-center text-center flex-shrink-0">
               <button
                 onClick={() => setRightTab('memory')}
                 className={cn(
-                  'py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer border-none bg-transparent flex flex-col items-center justify-center gap-1',
+                  'py-1.5 text-[9px] font-bold uppercase tracking-wider rounded-md transition-all duration-200 cursor-pointer bg-transparent flex flex-col items-center justify-center gap-1 border border-transparent focus-visible:ring-1 focus-visible:ring-[var(--primary)]/30',
                   rightTab === 'memory'
-                    ? 'bg-[var(--surface)] text-[var(--primary)] shadow-[var(--shadow-sm)] border border-[var(--border)]'
+                    ? 'bg-[var(--surface)] text-[var(--primary)] shadow-sm border-[var(--border)]'
                     : 'text-[var(--muted)] hover:text-[var(--heading)]'
                 )}
                 title="Shared Session Memory Space"
               >
-                <Database size={12} />
+                <Database size={11} />
                 <span className="hidden xl:inline">Memory</span>
               </button>
 
               <button
                 onClick={() => setRightTab('logs')}
                 className={cn(
-                  'py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer border-none bg-transparent flex flex-col items-center justify-center gap-1',
+                  'py-1.5 text-[9px] font-bold uppercase tracking-wider rounded-md transition-all duration-200 cursor-pointer bg-transparent flex flex-col items-center justify-center gap-1 border border-transparent focus-visible:ring-1 focus-visible:ring-[var(--primary)]/30',
                   rightTab === 'logs'
-                    ? 'bg-[var(--surface)] text-[var(--primary)] shadow-[var(--shadow-sm)] border border-[var(--border)]'
+                    ? 'bg-[var(--surface)] text-[var(--primary)] shadow-sm border-[var(--border)]'
                     : 'text-[var(--muted)] hover:text-[var(--heading)]'
                 )}
                 title="System Audit events"
               >
-                <Terminal size={12} />
+                <Terminal size={11} />
                 <span className="hidden xl:inline">Logs</span>
               </button>
 
               <button
                 onClick={() => setRightTab('analytics')}
                 className={cn(
-                  'py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer border-none bg-transparent flex flex-col items-center justify-center gap-1',
+                  'py-1.5 text-[9px] font-bold uppercase tracking-wider rounded-md transition-all duration-200 cursor-pointer bg-transparent flex flex-col items-center justify-center gap-1 border border-transparent focus-visible:ring-1 focus-visible:ring-[var(--primary)]/30',
                   rightTab === 'analytics'
-                    ? 'bg-[var(--surface)] text-[var(--primary)] shadow-[var(--shadow-sm)] border border-[var(--border)]'
+                    ? 'bg-[var(--surface)] text-[var(--primary)] shadow-sm border-[var(--border)]'
                     : 'text-[var(--muted)] hover:text-[var(--heading)]'
                 )}
                 title="Telemetry Analytics Dashboard"
               >
-                <Activity size={12} />
+                <Activity size={11} />
                 <span className="hidden xl:inline">Charts</span>
               </button>
 
               <button
                 onClick={() => setRightTab('context')}
                 className={cn(
-                  'py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer border-none bg-transparent flex flex-col items-center justify-center gap-1',
+                  'py-1.5 text-[9px] font-bold uppercase tracking-wider rounded-md transition-all duration-200 cursor-pointer bg-transparent flex flex-col items-center justify-center gap-1 border border-transparent focus-visible:ring-1 focus-visible:ring-[var(--primary)]/30',
                   rightTab === 'context'
-                    ? 'bg-[var(--surface)] text-[var(--primary)] shadow-[var(--shadow-sm)] border border-[var(--border)]'
+                    ? 'bg-[var(--surface)] text-[var(--primary)] shadow-sm border-[var(--border)]'
                     : 'text-[var(--muted)] hover:text-[var(--heading)]'
                 )}
                 title="Active runtime contexts"
               >
-                <Compass size={12} />
+                <Compass size={11} />
                 <span className="hidden xl:inline">Context</span>
               </button>
             </div>
 
             {/* Tab panel rendering */}
-            <div className="flex-1 overflow-hidden text-left">
+            <div className="flex-grow overflow-hidden text-left min-h-0">
               {rightTab === 'memory' && (
                 <SharedMemoryPanel
                   sessionId={sessionId}
                   memory={sessionMemory}
-                  className="h-full border-0 shadow-none bg-transparent dark:bg-transparent"
+                  className="h-full"
                 />
               )}
 
               {rightTab === 'logs' && (
                 eventLogs.length === 0 ? (
-                  <div className="h-full flex items-center justify-center p-4">
+                  <div className="h-full flex items-center justify-center p-4 border border-[var(--border)]/65 rounded-xl bg-[var(--surface-hover)]">
                     <EmptyAgentHistoryState />
                   </div>
                 ) : (
                   <ExecutionLogTable
                     events={eventLogs}
-                    className="h-full border-0 shadow-none bg-transparent dark:bg-transparent"
+                    className="h-full"
                   />
                 )
               )}
 
               {rightTab === 'analytics' && (
-                <div className="h-full overflow-y-auto pr-1">
-                  <AnalyticsPanel className="pb-4" />
-                </div>
+                <AnalyticsPanel className="h-full" />
               )}
 
               {rightTab === 'context' && (
                 <ContextViewer
                   sessionId={sessionId}
                   correlationId={correlationId}
-                  className="h-full border-0 shadow-none bg-transparent dark:bg-transparent"
+                  className="h-full"
                 />
               )}
             </div>

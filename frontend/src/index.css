@@ -19,10 +19,12 @@
   --color-destructive: var(--danger);
   --color-heading: var(--heading);
   --color-body: var(--body);
-  --color-muted: var(--muted);
+  --color-muted: var(--divider);
   --color-border: var(--border);
   --color-divider: var(--divider);
   --color-input: var(--border);
+  --color-foreground: var(--heading);
+  --color-muted-foreground: var(--muted);
 
   --color-analytics: var(--analytics);
   --color-github: var(--github);
@@ -162,8 +164,8 @@
   --danger: #E36B6B;
   --heading: #171717;
   --body: #525866;
-  --muted: #6C737F;
-  --border: #E7EAF0;
+  --muted: #5E6470;
+  --border: #DFE2E9;
   --divider: #EEF1F4;
 
   /* Legacy variable mappings */
@@ -255,9 +257,9 @@
   --danger: #F08787;
   --heading: #F5F6F7;
   --body: #C6CCD4;
-  --muted: #8D95A0;
-  --border: #313840;
-  --divider: #272D34;
+  --muted: #9CA3AF;
+  --border: #373F48;
+  --divider: #2B323B;
 
   /* Legacy variable mappings */
   --dark-bg: var(--background);
@@ -556,3 +558,14 @@ html {
 [data-state="closed"].dropdown-content-anim {
   animation: dropdownOut var(--duration-fast) cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* Card Header + Content spacing normalization */
+.card-header + .card-content {
+  padding-top: 0 !important;
+}
+
+/* Ensure text-muted uses the text gray color variable, not the background-color variable */
+.text-muted {
+  color: var(--muted) !important;
+}
+

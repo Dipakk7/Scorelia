@@ -32,7 +32,7 @@ export function ChartCard({
         </div>
         {headerActions && <div className="shrink-0">{headerActions}</div>}
       </CardHeader>
-      <CardContent className="h-72 w-full px-6 md:px-8 pb-6 pt-0">
+      <CardContent className="w-full px-6 md:px-8 pb-6 pt-0">
         {children}
       </CardContent>
     </Card>

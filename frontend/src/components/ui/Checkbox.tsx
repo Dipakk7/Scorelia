@@ -28,15 +28,15 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             />
             <div
               className={cn(
-                'h-5 w-5 rounded-[4px] border border-[var(--border)] bg-[var(--surface)] text-white flex items-center justify-center transition-all duration-[var(--duration-normal)] ease-in-out peer-checked:bg-[var(--primary)] peer-checked:border-[var(--primary)] group-hover:border-[var(--primary)] peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--primary)] peer-focus-visible:ring-offset-2 peer-disabled:opacity-[var(--opacity-disabled)] peer-disabled:cursor-not-allowed shadow-[var(--shadow-sm)]',
+                'h-5 w-5 rounded-[4px] border border-[var(--border)] bg-[var(--surface)] text-white flex items-center justify-center transition-all duration-[var(--duration-normal)] ease-in-out peer-checked:bg-[var(--primary)] peer-checked:border-[var(--primary)] group-hover:border-[var(--primary)] peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--primary)] peer-focus-visible:ring-offset-2 peer-disabled:opacity-[var(--opacity-disabled)] peer-disabled:cursor-not-allowed shadow-[var(--shadow-sm)] [&_svg]:scale-0 peer-checked:[&_svg]:scale-100',
                 error && 'border-[var(--danger)] group-hover:border-[var(--danger)]'
               )}
             >
               <Check
                 size={14}
-                className="stroke-[3] transition-transform duration-[var(--duration-normal)] scale-0 peer-checked:group-[]:scale-100"
+                className="stroke-[3] transition-transform duration-[var(--duration-normal)]"
                 style={{
-                  transform: checked ? 'scale(1)' : 'scale(0)'
+                  transform: checked === undefined ? undefined : (checked ? 'scale(1)' : 'scale(0)')
                 }}
               />
             </div>

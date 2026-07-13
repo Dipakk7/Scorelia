@@ -41,6 +41,7 @@ export interface EmptyStateProps {
   actionLabel?: string
   onAction?: () => void
   className?: string
+  variant?: 'primary' | 'success' | 'warning' | 'accent' | 'muted'
 }
 
 export function EmptyState({
@@ -50,7 +51,18 @@ export function EmptyState({
   actionLabel,
   onAction,
   className,
+  variant = 'primary',
 }: EmptyStateProps) {
+  const variantStyles = {
+    primary: 'text-[var(--primary)] bg-[var(--primary)]/8 border-[var(--primary)]/15',
+    success: 'text-[var(--success)] bg-[var(--success)]/8 border-[var(--success)]/15',
+    warning: 'text-[var(--warning)] bg-[var(--warning)]/8 border-[var(--warning)]/15',
+    accent: 'text-[var(--accent)] bg-[var(--accent)]/8 border-[var(--accent)]/15',
+    muted: 'text-[var(--muted)] bg-[var(--divider)] border-[var(--border)]',
+  }
+
+  const activeStyles = variantStyles[variant] || variantStyles.primary
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.98 }}
@@ -61,7 +73,7 @@ export function EmptyState({
         className
       )}
     >
-      <div className="text-[var(--primary)] mb-4 bg-[var(--primary)]/10 border border-[var(--primary)]/20 p-3 rounded-[var(--radius-md)] shadow-[var(--shadow-sm)] animate-float">
+      <div className={cn('mb-4 border p-3 rounded-[var(--radius-md)] shadow-[var(--shadow-sm)] animate-float flex items-center justify-center', activeStyles)}>
         {icon || <FolderOpen size={30} className="stroke-[1.75]" />}
       </div>
       <h3 className="text-base font-bold font-display text-[var(--heading)] mb-1.5">
@@ -82,7 +94,8 @@ export function EmptyState({
 export function EmptyAnalyticsState({ onAction }: { onAction?: () => void }) {
   return (
     <EmptyState
-      icon={<BarChart2 size={36} className="text-[var(--primary)]" />}
+      variant="primary"
+      icon={<BarChart2 size={36} />}
       title="No Analytics Data Available"
       description="You haven't run enough resume evaluations or mock interviews to view progress trends. Generate some files to start."
       actionLabel={onAction ? "Upload Resume" : undefined}
@@ -94,7 +107,8 @@ export function EmptyAnalyticsState({ onAction }: { onAction?: () => void }) {
 export function EmptyInterviewsState({ onAction }: { onAction: () => void }) {
   return (
     <EmptyState
-      icon={<Mic size={36} className="text-[var(--success)] animate-float" />}
+      variant="success"
+      icon={<Mic size={36} className="animate-float" />}
       title="No Mock Sessions Yet"
       description="Refine your STAR structured storytelling skill set. Create a custom technical or behavioral mock drill today."
       actionLabel="Configure Mock Round"
@@ -106,7 +120,8 @@ export function EmptyInterviewsState({ onAction }: { onAction: () => void }) {
 export function EmptyCoverLettersState({ onAction }: { onAction: () => void }) {
   return (
     <EmptyState
-      icon={<Sparkles size={36} className="text-[var(--accent)]" />}
+      variant="accent"
+      icon={<Sparkles size={36} />}
       title="No Cover Letters Found"
       description="Select an analyzed resume and paste target job descriptions to synthesize customized cover letter drafts."
       actionLabel="Generate Cover Letter"
@@ -118,7 +133,8 @@ export function EmptyCoverLettersState({ onAction }: { onAction: () => void }) {
 export function EmptyRoadmapsState({ onAction }: { onAction: () => void }) {
   return (
     <EmptyState
-      icon={<Map size={36} className="text-[var(--primary)]" />}
+      variant="primary"
+      icon={<Map size={36} />}
       title="No Career Plans Maintained"
       description="Initialize your career pivot roadmap. Our system tracks skill gaps and generates weekly milestone pathways."
       actionLabel="Initialize Career Coach"
@@ -130,7 +146,8 @@ export function EmptyRoadmapsState({ onAction }: { onAction: () => void }) {
 export function EmptyRagResultsState({ onAction }: { onAction?: () => void }) {
   return (
     <EmptyState
-      icon={<Layers size={36} className="text-[var(--primary)]" />}
+      variant="primary"
+      icon={<Layers size={36} />}
       title="No Context Chunks Found"
       description="Semantic index query returned no context chunks. Verify collection name and documents ingest status."
       actionLabel={onAction ? "Ingest Document" : undefined}
@@ -142,7 +159,8 @@ export function EmptyRagResultsState({ onAction }: { onAction?: () => void }) {
 export function EmptyAgentHistoryState({ onAction }: { onAction?: () => void }) {
   return (
     <EmptyState
-      icon={<Cpu size={36} className="text-[var(--primary)]" />}
+      variant="primary"
+      icon={<Cpu size={36} />}
       title="No Run History"
       description="You haven't run any multi-agent coordinate workflows. Trigger a task payload to monitor results."
       actionLabel={onAction ? "New Task run" : undefined}
@@ -154,7 +172,8 @@ export function EmptyAgentHistoryState({ onAction }: { onAction?: () => void }) 
 export function EmptyGithubState({ onAction }: { onAction: () => void }) {
   return (
     <EmptyState
-      icon={<Github size={36} className="text-[var(--muted)]" />}
+      variant="muted"
+      icon={<Github size={36} />}
       title="No GitHub Repository Connected"
       description="Connect your GitHub account to unlock AI-powered code insights."
       actionLabel="Connect GitHub"
@@ -166,7 +185,8 @@ export function EmptyGithubState({ onAction }: { onAction: () => void }) {
 export function EmptyJobsState({ onAction }: { onAction?: () => void }) {
   return (
     <EmptyState
-      icon={<Briefcase size={36} className="text-[var(--primary)]" />}
+      variant="primary"
+      icon={<Briefcase size={36} />}
       title="No Job Matches Found"
       description="Scorelia can dynamically evaluate match scores based on candidate profiles vs open job requirements."
       actionLabel={onAction ? "Configure Job Target" : undefined}
@@ -178,7 +198,8 @@ export function EmptyJobsState({ onAction }: { onAction?: () => void }) {
 export function EmptySearchState({ onAction }: { onAction?: () => void }) {
   return (
     <EmptyState
-      icon={<Search size={36} className="text-[var(--primary)]" />}
+      variant="primary"
+      icon={<Search size={36} />}
       title="No Matching Search Results"
       description="Your semantic and keyword indexing queries yielded no documents. Try modifying keywords or clearing filters."
       actionLabel={onAction ? "Reset Query Filters" : undefined}

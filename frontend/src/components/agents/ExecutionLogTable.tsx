@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Terminal, Search, Filter, Download, ChevronDown, ChevronUp, AlertCircle } from 'lucide-react'
 import type { AgentEvent } from '@/types/agent'
 import { cn } from '@/lib/utils'
@@ -64,17 +63,17 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
   const getBadgeClass = (type: string) => {
     switch (type) {
       case 'agent_started':
-        return 'bg-blue-500/10 text-blue-600 dark:text-blue-450 border-blue-500/20'
+        return 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20'
       case 'agent_finished':
-        return 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-450 border-emerald-500/20'
+        return 'bg-[var(--success)]/10 text-[var(--success)] border-[var(--success)]/20'
       case 'agent_failed':
-        return 'bg-rose-500/10 text-rose-650 dark:text-rose-450 border-rose-500/20'
+        return 'bg-[var(--danger)]/10 text-[var(--danger)] border-[var(--danger)]/20'
       case 'tool_called':
-        return 'bg-purple-500/10 text-purple-600 dark:text-purple-450 border-purple-500/20'
+        return 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20'
       case 'workflow_completed':
-        return 'bg-amber-500/10 text-amber-600 dark:text-amber-450 border-amber-500/20'
+        return 'bg-[var(--accent)]/10 text-[var(--accent)] border-[var(--accent)]/20'
       default:
-        return 'bg-slate-500/10 text-slate-655 dark:text-slate-400 border-slate-500/20'
+        return 'bg-muted text-muted-foreground border-[var(--border)]/40'
     }
   }
 
@@ -96,15 +95,16 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
   }
 
   return (
-    <Card className={cn('border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs flex flex-col', className)}>
-      <CardHeader className="pb-4 border-b border-border/60 text-left flex flex-row items-center justify-between gap-4">
+    <div className={cn('flex flex-col h-full text-left font-sans text-xs bg-transparent', className)}>
+      {/* Header Panel */}
+      <div className="pb-3 border-b border-[var(--border)]/60 flex items-center justify-between gap-4 flex-shrink-0 select-none">
         <div className="flex items-center gap-2 text-left">
-          <Terminal size={18} className="text-brand-500" />
+          <Terminal size={15} className="text-[var(--primary)] animate-pulse" />
           <div className="text-left">
-            <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none">
+            <h4 className="text-[10px] font-black uppercase tracking-wider text-[var(--heading)] m-0 leading-none">
               Execution Logs Console
-            </CardTitle>
-            <span className="text-[9px] text-muted-foreground font-sans block mt-1.5 leading-none">
+            </h4>
+            <span className="text-[8px] text-[var(--muted)] font-sans block mt-1.5 leading-none">
               System audit events tracking task dispatcher lifecycle
             </span>
           </div>
@@ -112,18 +112,18 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
 
         <button
           onClick={handleExport}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider bg-card/50 hover:bg-slate-105 hover:border-brand-500/35 border border-border rounded-xl transition-all duration-150 cursor-pointer focus:outline-none"
+          className="flex items-center gap-1.5 px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-wider bg-[var(--surface)] hover:bg-[var(--surface-hover)] border border-[var(--border)] rounded-lg transition-all duration-150 cursor-pointer focus:outline-none"
         >
-          <Download size={12} />
+          <Download size={11} />
           <span>Export Logs</span>
         </button>
-      </CardHeader>
+      </div>
 
-      <CardContent className="p-4 flex flex-col gap-4 flex-1 overflow-hidden text-left">
+      <div className="flex flex-col gap-3.5 flex-grow overflow-hidden mt-4 text-left min-h-0">
         {/* Filters */}
-        <div className="flex flex-col sm:flex-row gap-3 text-left">
+        <div className="flex gap-2 text-left select-none">
           <div className="relative flex-1 text-left">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--muted)]" />
             <input
               type="text"
               placeholder="Search logs summary, payloads, agent id..."
@@ -132,45 +132,43 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
                 setSearch(e.target.value)
                 setCurrentPage(1)
               }}
-              className="w-full pl-9 pr-3 py-1.5 border border-border bg-white/70 dark:bg-slate-900/50 rounded-xl text-xs font-sans placeholder-slate-405 text-slate-750 dark:text-slate-205 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/30 transition-all duration-150 shadow-2xs h-9 font-medium"
+              className="w-full pl-8 pr-3 py-1.5 border border-[var(--border)] bg-[var(--background)]/60 rounded-lg text-xs font-sans placeholder-[var(--muted)] text-[var(--heading)] focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)]/20 transition-all duration-150 h-8 font-medium"
             />
           </div>
 
-          <div className="flex gap-2 text-left">
-            <div className="relative text-left">
-              <select
-                value={eventTypeFilter}
-                onChange={(e) => {
-                  setEventTypeFilter(e.target.value)
-                  setCurrentPage(1)
-                }}
-                className="pl-3 pr-8 py-1.5 border border-border bg-white/70 dark:bg-slate-900/50 rounded-xl text-xs font-sans text-slate-750 dark:text-slate-205 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/30 transition-all duration-150 appearance-none cursor-pointer shadow-2xs h-9 font-bold"
-              >
-                <option value="all">All Events</option>
-                <option value="agent_started">agent_started</option>
-                <option value="agent_finished">agent_finished</option>
-                <option value="agent_failed">agent_failed</option>
-                <option value="tool_called">tool_called</option>
-                <option value="workflow_completed">workflow_completed</option>
-              </select>
-              <Filter size={12} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-            </div>
+          <div className="relative text-left">
+            <select
+              value={eventTypeFilter}
+              onChange={(e) => {
+                setEventTypeFilter(e.target.value)
+                setCurrentPage(1)
+              }}
+              className="pl-3 pr-7 py-1.5 border border-[var(--border)] bg-[var(--background)]/60 rounded-lg text-xs font-sans text-[var(--heading)] focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)]/20 transition-all duration-150 appearance-none cursor-pointer h-8 font-bold"
+            >
+              <option value="all">All Events</option>
+              <option value="agent_started">agent_started</option>
+              <option value="agent_finished">agent_finished</option>
+              <option value="agent_failed">agent_failed</option>
+              <option value="tool_called">tool_called</option>
+              <option value="workflow_completed">workflow_completed</option>
+            </select>
+            <Filter size={11} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[var(--muted)] pointer-events-none" />
           </div>
         </div>
 
         {/* Table Container */}
-        <div className="flex-1 overflow-x-auto rounded-xl border border-border shadow-2xs scrollbar-thin text-left">
-          <table className="w-full text-left border-collapse min-w-[700px] text-xs font-sans select-none text-left">
+        <div className="flex-1 overflow-auto rounded-lg border border-[var(--border)]/65 scrollbar-thin text-left">
+          <table className="w-full text-left border-collapse min-w-[500px] text-[11px] font-sans select-none">
             <thead>
-              <tr className="bg-muted/50 text-muted-foreground border-b border-border/40 uppercase tracking-widest text-[9px] font-black text-left">
-                <th className="py-2.5 px-4 w-40 text-left">Timestamp</th>
-                <th className="py-2.5 px-4 w-36 text-left">Event Type</th>
-                <th className="py-2.5 px-4 w-40 text-left">Target Agent</th>
-                <th className="py-2.5 px-4 text-left">Summary</th>
-                <th className="py-2.5 px-4 w-12 text-left"></th>
+              <tr className="bg-[var(--surface-hover)] text-[var(--muted)] border-b border-[var(--border)]/55 uppercase tracking-widest text-[8px] font-black text-left">
+                <th className="py-2 px-3 w-32 text-left">Timestamp</th>
+                <th className="py-2 px-3 w-28 text-left">Event Type</th>
+                <th className="py-2 px-3 w-28 text-left">Target</th>
+                <th className="py-2 px-3 text-left">Summary</th>
+                <th className="py-2 px-3 w-8 text-left"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border/30 text-left">
+            <tbody className="divide-y divide-[var(--border)]/30 text-left bg-[var(--surface)]/30">
               {paginatedEvents.map((evt) => {
                 const isExpanded = expandedEventId === evt.event_id
                 return (
@@ -178,38 +176,38 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
                     <tr
                       onClick={() => setExpandedEventId(isExpanded ? null : evt.event_id)}
                       className={cn(
-                        'hover:bg-muted/30 cursor-pointer transition-colors duration-150 text-left',
-                        isExpanded ? 'bg-muted/10' : ''
+                        'hover:bg-[var(--surface-hover)]/60 cursor-pointer transition-colors duration-150 text-left',
+                        isExpanded ? 'bg-[var(--surface-hover)]' : ''
                       )}
                     >
-                      <td className="py-2.5 px-4 font-mono text-[10px] font-medium text-muted-foreground text-left">
-                        {new Date(evt.timestamp).toLocaleTimeString()} ({new Date(evt.timestamp).toLocaleDateString()})
+                      <td className="py-2 px-3 font-mono text-[9px] text-[var(--muted)] text-left">
+                        {new Date(evt.timestamp).toLocaleTimeString()}
                       </td>
-                      <td className="py-2.5 px-4 text-left">
-                        <span className={cn('px-2 py-0.5 rounded border text-[9px] uppercase tracking-wider font-mono font-bold leading-none inline-block', getBadgeClass(evt.event_type))}>
-                           {evt.event_type}
+                      <td className="py-2 px-3 text-left">
+                        <span className={cn('px-1.5 py-0.5 rounded border text-[8px] uppercase tracking-wider font-mono font-bold leading-none inline-block', getBadgeClass(evt.event_type))}>
+                           {evt.event_type.replace('agent_', '')}
                         </span>
                       </td>
-                      <td className="py-2.5 px-4 font-mono text-[10px] font-bold text-foreground text-left">
+                      <td className="py-2 px-3 font-mono text-[9px] font-bold text-[var(--heading)] text-left truncate max-w-[90px]">
                         {evt.agent_id || 'orchestrator'}
                       </td>
-                      <td className="py-2.5 px-4 text-muted-foreground font-medium text-left">
+                      <td className="py-2 px-3 text-[var(--body)] font-medium text-left leading-relaxed">
                         {formatSummary(evt)}
                       </td>
-                      <td className="py-2.5 px-4 text-right">
-                        {isExpanded ? <ChevronUp size={14} className="text-slate-400 inline" /> : <ChevronDown size={14} className="text-slate-400 inline" />}
+                      <td className="py-2 px-3 text-right text-[var(--muted)]">
+                        {isExpanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
                       </td>
                     </tr>
 
                     {isExpanded && (
-                      <tr className="bg-muted/20 border-y border-border text-foreground text-left">
-                        <td colSpan={5} className="p-4 font-mono text-[10px] leading-normal select-text text-left">
+                      <tr className="bg-[var(--background)] border-y border-[var(--border)]/40 text-[var(--body)] text-left">
+                        <td colSpan={5} className="p-3 font-mono text-[9px] leading-normal select-text text-left">
                           <div className="flex flex-col gap-2 text-left">
-                            <div className="flex items-center justify-between text-muted-foreground border-b border-border pb-1.5 mb-1 leading-none font-bold">
-                              <span>EVENT CORRELATION: {evt.request_id}</span>
-                              <span>EVENT ID: {evt.event_id}</span>
+                            <div className="flex items-center justify-between text-[var(--muted)] border-b border-[var(--border)]/35 pb-1 mb-1 leading-none font-bold">
+                              <span>CORRELATION: {evt.request_id}</span>
+                              <span>ID: {evt.event_id}</span>
                             </div>
-                            <pre className="overflow-x-auto max-h-56 p-1.5 scrollbar-thin text-success text-left m-0 font-medium">
+                            <pre className="overflow-x-auto max-h-56 p-1.5 scrollbar-thin text-emerald-600 dark:text-[var(--success)] text-left m-0 font-medium">
                               {JSON.stringify(evt.payload, null, 2)}
                             </pre>
                           </div>
@@ -222,8 +220,8 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
 
               {filteredEvents.length === 0 && (
                 <tr className="text-left">
-                  <td colSpan={5} className="py-12 text-center text-muted-foreground text-left">
-                    <AlertCircle size={24} className="mx-auto text-slate-350 mb-2 animate-bounce" />
+                  <td colSpan={5} className="py-12 text-center text-[var(--muted)]">
+                    <AlertCircle size={22} className="mx-auto text-[var(--muted)]/60 mb-2 animate-pulse" />
                     <span className="text-xs font-bold leading-none">No events logged matching filter queries</span>
                   </td>
                 </tr>
@@ -234,8 +232,8 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
 
         {/* Pagination footer */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between pt-2 border-t border-border/40 text-[10px] font-bold uppercase tracking-wider text-muted-foreground font-sans leading-none select-none">
-            <span className="text-muted-foreground normal-case font-medium">
+          <div className="flex items-center justify-between pt-2 border-t border-[var(--border)]/50 text-[9px] font-bold uppercase tracking-wider text-[var(--muted)] font-sans leading-none select-none flex-shrink-0">
+            <span className="text-[var(--muted)] normal-case font-medium">
               Showing {(currentPage - 1) * pageSize + 1} - {Math.min(currentPage * pageSize, filteredEvents.length)} of {filteredEvents.length} logs
             </span>
 
@@ -243,25 +241,25 @@ export const ExecutionLogTable: React.FC<ExecutionLogTableProps> = ({ events, cl
               <button
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className="px-2.5 py-1 bg-card border border-slate-200 dark:border-slate-805 hover:border-brand-500/35 hover:bg-brand-500/5 rounded-xl text-slate-550 dark:text-slate-400 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none transition-all font-bold select-none leading-none"
+                className="px-2 py-1 bg-[var(--surface)] border border-[var(--border)]/60 hover:bg-[var(--surface-hover)] rounded-md text-[var(--body)] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none transition-all font-bold leading-none"
               >
-                Previous
+                Prev
               </button>
-              <span className="px-3 py-1 font-mono text-slate-655 normal-case font-extrabold">
-                Page {currentPage} of {totalPages}
+              <span className="px-2.5 py-1 font-mono text-[var(--heading)] normal-case font-bold">
+                {currentPage} / {totalPages}
               </span>
               <button
                 onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                 disabled={currentPage === totalPages}
-                className="px-2.5 py-1 bg-card border border-slate-200 dark:border-slate-805 hover:border-brand-500/35 hover:bg-brand-500/5 rounded-xl text-slate-550 dark:text-slate-400 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none transition-all font-bold select-none leading-none"
+                className="px-2 py-1 bg-[var(--surface)] border border-[var(--border)]/60 hover:bg-[var(--surface-hover)] rounded-md text-[var(--body)] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none transition-all font-bold leading-none"
               >
                 Next
               </button>
             </div>
           </div>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   )
 }
 export default ExecutionLogTable

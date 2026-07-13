@@ -45,7 +45,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             type={resolvedType}
             required={required}
             className={cn(
-              'w-full h-10 px-3.5 py-2 border rounded-[var(--radius-input)] bg-[var(--surface)] text-[var(--body)] placeholder-[var(--muted)]/80 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)] disabled:pointer-events-none disabled:opacity-[var(--opacity-disabled)] transition-all duration-[var(--duration-normal)] font-sans text-body-sm shadow-[var(--shadow-sm)]',
+              'w-full h-10 px-3.5 py-2 border rounded-[var(--radius-input)] bg-[var(--surface)] text-[var(--body)] placeholder-[var(--muted)]/60 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)] disabled:pointer-events-none disabled:opacity-[var(--opacity-disabled)] transition-all duration-[var(--duration-normal)] font-sans text-body-sm shadow-[var(--shadow-sm)]',
               leftIcon ? 'pl-10' : '',
               rightIcon || isPassword ? 'pr-10' : '',
               error

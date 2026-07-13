@@ -230,7 +230,7 @@ export default function SettingsPage() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as TabType)}
                 className={cn(
-                  'flex items-center gap-2.5 px-4 py-3 text-xs font-bold uppercase tracking-wider rounded-xl transition-all shrink-0 cursor-pointer focus:outline-none border-none leading-none select-none text-left w-auto md:w-full h-10',
+                  'flex items-center gap-2.5 px-4 py-3 text-xs font-bold uppercase tracking-wider rounded-xl transition-all shrink-0 cursor-pointer focus:outline-none border-none leading-none select-none text-left w-auto md:w-full h-10 focus-visible:ring-2 focus-visible:ring-[var(--primary)]/30 focus-visible:ring-offset-2',
                   isActive
                     ? 'bg-[var(--primary)] text-white shadow-[var(--shadow-sm)] font-extrabold'
                     : 'text-[var(--muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--heading)] bg-transparent'

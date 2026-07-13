@@ -28,17 +28,17 @@ export const AgentSelector: React.FC<AgentSelectorProps> = ({
   return (
     <div className={cn('flex flex-col gap-4', className)}>
       {/* Mode Switcher Header */}
-      <div className="flex items-center justify-between p-1 bg-muted border border-border rounded-xl">
+      <div className="flex items-center justify-between p-1 bg-muted border border-[var(--border)] rounded-xl">
         <button
           onClick={() => {
             onChangeMode('auto')
             onSelectAgent(null)
           }}
           className={cn(
-            'flex-1 flex items-center justify-center gap-2 py-2 px-3 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer focus:outline-none border-none bg-transparent',
+            'flex-1 flex items-center justify-center gap-2 py-2 px-3 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer focus:outline-none bg-transparent border border-transparent focus-visible:ring-2 focus-visible:ring-[var(--primary)]/30 focus-visible:ring-offset-2',
             orchestrationMode === 'auto'
-              ? 'bg-card text-brand-500 shadow-xs border border-border'
-              : 'text-muted-foreground hover:text-foreground'
+              ? 'bg-[var(--surface)] text-[var(--primary)] shadow-sm border-[var(--border)]'
+              : 'text-[var(--muted)] hover:text-[var(--heading)]'
           )}
         >
           <Cpu size={14} />
@@ -48,10 +48,10 @@ export const AgentSelector: React.FC<AgentSelectorProps> = ({
         <button
           onClick={() => onChangeMode('manual')}
           className={cn(
-            'flex-1 flex items-center justify-center gap-2 py-2 px-3 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer focus:outline-none border-none bg-transparent',
+            'flex-1 flex items-center justify-center gap-2 py-2 px-3 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer focus:outline-none bg-transparent border border-transparent focus-visible:ring-2 focus-visible:ring-[var(--primary)]/30 focus-visible:ring-offset-2',
             orchestrationMode === 'manual'
-              ? 'bg-card text-brand-500 shadow-xs border border-border'
-              : 'text-muted-foreground hover:text-foreground'
+              ? 'bg-[var(--surface)] text-[var(--primary)] shadow-sm border-[var(--border)]'
+              : 'text-[var(--muted)] hover:text-[var(--heading)]'
           )}
         >
           <Settings size={14} />
@@ -73,7 +73,7 @@ export const AgentSelector: React.FC<AgentSelectorProps> = ({
       </div>
 
       {/* Agents Card List */}
-      <div className="flex flex-col gap-3 overflow-y-auto pr-1 max-h-[calc(100vh-320px)]">
+      <div className="flex-grow flex flex-col overflow-y-auto pr-1 min-h-0 border border-[var(--border)]/65 rounded-xl divide-y divide-[var(--border)]/40 bg-[var(--surface)] dark:bg-[var(--surface)]/30">
         {agents.map((agent) => {
           const isSelected = orchestrationMode === 'manual' && selectedAgentId === agent.agent_id
           const health = healthMap[agent.agent_id]
@@ -85,7 +85,7 @@ export const AgentSelector: React.FC<AgentSelectorProps> = ({
               agent={agent}
               health={health}
               stats={stats}
-              isActive={isSelected || (orchestrationMode === 'auto')}
+              isActive={isSelected}
               onClick={() => {
                 if (orchestrationMode === 'manual') {
                   onSelectAgent(isSelected ? null : agent.agent_id)
@@ -96,8 +96,8 @@ export const AgentSelector: React.FC<AgentSelectorProps> = ({
         )}
 
         {agents.length === 0 && (
-          <div className="flex flex-col items-center justify-center p-8 border border-dashed border-border rounded-2xl text-muted-foreground bg-card/70 backdrop-blur-md">
-            <ShieldAlert size={24} className="text-slate-400 mb-2 animate-bounce" />
+          <div className="flex flex-col items-center justify-center p-8 border border-dashed border-[var(--border)] rounded-2xl text-muted-foreground bg-[var(--surface)]/50 backdrop-blur-md">
+            <ShieldAlert size={24} className="text-slate-400 mb-2 animate-pulse" />
             <span className="text-xs font-bold leading-none">No registered agents detected</span>
           </div>
         )}

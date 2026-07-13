@@ -27,14 +27,14 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
             />
             <div
               className={cn(
-                'w-9 h-5 rounded-full bg-[var(--border)] transition-colors duration-[var(--duration-normal)] ease-in-out peer-checked:bg-[var(--primary)] group-hover:opacity-95 peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--primary)] peer-focus-visible:ring-offset-2 peer-disabled:opacity-[var(--opacity-disabled)] peer-disabled:cursor-not-allowed shadow-inner relative flex items-center px-0.5',
+                'w-9 h-5 rounded-full bg-[var(--border)] transition-colors duration-[var(--duration-normal)] ease-in-out peer-checked:bg-[var(--primary)] group-hover:opacity-95 peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--primary)] peer-focus-visible:ring-offset-2 peer-disabled:opacity-[var(--opacity-disabled)] peer-disabled:cursor-not-allowed shadow-inner relative flex items-center px-0.5 peer-checked:[&>div]:translate-x-4',
                 error && 'border border-[var(--danger)]'
               )}
             >
               <div
                 className={cn(
                   'h-4 w-4 rounded-full bg-white shadow-[var(--shadow-sm)] transition-transform duration-[var(--duration-normal)] ease-in-out transform',
-                  checked ? 'translate-x-4' : 'translate-x-0'
+                  checked === undefined ? 'translate-x-0' : (checked ? 'translate-x-4' : 'translate-x-0')
                 )}
               />
             </div>

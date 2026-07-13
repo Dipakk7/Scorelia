@@ -27,14 +27,14 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
             />
             <div
               className={cn(
-                'h-5 w-5 rounded-full border border-[var(--border)] bg-[var(--surface)] flex items-center justify-center transition-all duration-[var(--duration-normal)] ease-in-out peer-checked:border-[var(--primary)] group-hover:border-[var(--primary)] peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--primary)] peer-focus-visible:ring-offset-2 peer-disabled:opacity-[var(--opacity-disabled)] peer-disabled:cursor-not-allowed shadow-[var(--shadow-sm)]',
+                'h-5 w-5 rounded-full border border-[var(--border)] bg-[var(--surface)] flex items-center justify-center transition-all duration-[var(--duration-normal)] ease-in-out peer-checked:border-[var(--primary)] group-hover:border-[var(--primary)] peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--primary)] peer-focus-visible:ring-offset-2 peer-disabled:opacity-[var(--opacity-disabled)] peer-disabled:cursor-not-allowed shadow-[var(--shadow-sm)] peer-checked:[&>div]:scale-100',
                 error && 'border-[var(--danger)] group-hover:border-[var(--danger)]'
               )}
             >
               <div
                 className={cn(
-                  'h-2.5 w-2.5 rounded-full bg-[var(--primary)] transition-transform duration-[var(--duration-normal)] ease-in-out',
-                  checked ? 'scale-100' : 'scale-0'
+                  'h-2.5 w-2.5 rounded-full bg-[var(--primary)] transition-transform duration-[var(--duration-normal)] ease-in-out transform',
+                  checked === undefined ? 'scale-0' : (checked ? 'scale-100' : 'scale-0')
                 )}
               />
             </div>

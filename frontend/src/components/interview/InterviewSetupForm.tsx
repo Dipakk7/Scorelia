@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Select } from '@/components/ui/Select'
 import { Card, CardContent } from '@/components/ui/Card'
+import { Slider } from '@/components/ui/Slider'
 import type { ResumeResponse } from '@/types/resume'
 import type { InterviewSessionCreate } from '@/types/interview'
 import { Briefcase, Building, Settings, Play, Loader2 } from 'lucide-react'
@@ -65,40 +66,26 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Target Role */}
-            <div className="space-y-1.5">
-              <label htmlFor="role" className="block text-[10px] font-black text-muted-foreground uppercase tracking-widest leading-none">
-                Target Job Title / Role
-              </label>
-              <div className="relative">
-                <Briefcase className="absolute left-3.5 top-3 h-4.5 w-4.5 text-slate-400" />
-                <Input
-                  id="role"
-                  value={targetRole}
-                  onChange={(e) => setTargetRole(e.target.value)}
-                  placeholder="e.g. Frontend Engineer, Product Manager"
-                  className="pl-10 text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-border rounded-xl p-2.5 h-10 text-slate-850 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500 transition-colors"
-                  required
-                />
-              </div>
-            </div>
+            <Input
+              id="role"
+              label="Target Job Title / Role"
+              leftIcon={<Briefcase size={16} />}
+              value={targetRole}
+              onChange={(e) => setTargetRole(e.target.value)}
+              placeholder="e.g. Frontend Engineer, Product Manager"
+              required
+            />
 
             {/* Company Name */}
-            <div className="space-y-1.5">
-              <label htmlFor="company" className="block text-[10px] font-black text-muted-foreground uppercase tracking-widest leading-none">
-                Target Company Name
-              </label>
-              <div className="relative">
-                <Building className="absolute left-3.5 top-3 h-4.5 w-4.5 text-slate-400" />
-                <Input
-                  id="company"
-                  value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
-                  placeholder="e.g. Google, Netflix, Stripe"
-                  className="pl-10 text-xs bg-slate-50/50 dark:bg-slate-900/60 border border-border rounded-xl p-2.5 h-10 text-slate-850 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500 transition-colors"
-                  required
-                />
-              </div>
-            </div>
+            <Input
+              id="company"
+              label="Target Company Name"
+              leftIcon={<Building size={16} />}
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
+              placeholder="e.g. Google, Netflix, Stripe"
+              required
+            />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -133,40 +120,26 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {/* Question count */}
-            <div className="space-y-1.5">
-              <label htmlFor="questions" className="block text-[10px] font-black text-muted-foreground uppercase tracking-widest leading-none">
-                Total Question Count ({totalQuestions})
-              </label>
-              <input
-                id="questions"
-                type="range"
-                min="3"
-                max="10"
-                step="1"
-                value={totalQuestions}
-                onChange={(e) => setTotalQuestions(parseInt(e.target.value))}
-                className="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-600 mt-2"
-              />
-              <span className="text-[10px] text-muted-foreground block text-right mt-1 font-bold">{totalQuestions} questions</span>
-            </div>
+            <Slider
+              id="questions"
+              label="Total Questions"
+              min={3}
+              max={10}
+              step={1}
+              value={totalQuestions}
+              onChange={(e) => setTotalQuestions(parseInt(e.target.value))}
+            />
 
             {/* Time limit */}
-            <div className="space-y-1.5">
-              <label htmlFor="time" className="block text-[10px] font-black text-muted-foreground uppercase tracking-widest leading-none">
-                Timer Limit: {timeLimitMinutes} min ({timeLimitMinutes * 60}s)
-              </label>
-              <input
-                id="time"
-                type="range"
-                min="2"
-                max="15"
-                step="1"
-                value={timeLimitMinutes}
-                onChange={(e) => setTimeLimitMinutes(parseInt(e.target.value))}
-                className="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-600 mt-2"
-              />
-              <span className="text-[10px] text-muted-foreground block text-right mt-1 font-bold">{timeLimitMinutes} minutes total</span>
-            </div>
+            <Slider
+              id="time"
+              label="Timer Limit (Minutes)"
+              min={2}
+              max={15}
+              step={1}
+              value={timeLimitMinutes}
+              onChange={(e) => setTimeLimitMinutes(parseInt(e.target.value))}
+            />
 
             {/* Resume Selection */}
             {resumesLoading ? (

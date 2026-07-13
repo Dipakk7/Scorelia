@@ -59,23 +59,23 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
   ]
 
   return (
-    <div className={cn('flex flex-col h-[calc(100vh-160px)] bg-card/70 backdrop-blur-md rounded-2xl border border-border overflow-hidden shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left', className)}>
+    <div className={cn('flex flex-col flex-grow min-h-0 bg-[var(--surface)]/50 backdrop-blur-md rounded-2xl border border-[var(--border)] overflow-hidden shadow-sm transition-all duration-300 text-left', className)}>
       {/* Search Header Panel */}
-      <div className="px-5 py-3 border-b border-border/60 flex items-center justify-between gap-4 bg-card/50 dark:bg-slate-900/30 backdrop-blur-xs text-left">
-        <span className="text-xs font-black text-slate-700 dark:text-slate-200 font-display flex items-center gap-1.5 leading-none select-none">
-          <Sparkles size={14} className="text-brand-500" />
-          <span>Interactive Orchestrator Chat</span>
+      <div className="px-5 py-3 border-b border-[var(--border)]/60 flex items-center justify-between gap-4 bg-[var(--surface)]/50 backdrop-blur-md text-left select-none">
+        <span className="text-xs font-bold text-[var(--heading)] font-sans flex items-center gap-1.5 leading-none">
+          <Sparkles size={13} className="text-[var(--primary)]" />
+          <span>Interactive Orchestrator Console</span>
         </span>
 
         {/* Local Searchbox */}
-        <div className="relative w-48 sm:w-64 select-none">
-          <Search size={12} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+        <div className="relative w-48 sm:w-64">
+          <Search size={12} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--muted)]" />
           <input
             type="text"
             placeholder="Search chat transcript..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 border border-border bg-white/70 dark:bg-slate-900/50 rounded-xl text-[10px] font-sans text-muted-foreground focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/20 transition-all duration-150 shadow-2xs h-8 font-medium"
+            className="w-full pl-8 pr-3 py-1.5 border border-[var(--border)] bg-[var(--background)]/60 rounded-lg text-[10px] font-sans text-[var(--body)] placeholder-[var(--muted)] focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)]/20 transition-all duration-150 h-8 font-medium"
           />
         </div>
       </div>
@@ -92,15 +92,15 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
 
         {/* Loading state bubble */}
         {isSubmitting && (
-          <div className="flex gap-4 p-5 rounded-2xl border border-slate-205 dark:border-slate-850 bg-card/50 dark:bg-slate-900/30 backdrop-blur-xs shadow-xs items-center select-none font-sans text-xs text-left">
-            <div className="h-9 w-9 rounded-xl flex items-center justify-center flex-shrink-0 bg-brand-500 text-white shadow-md">
-              <RefreshCw size={16} className="animate-spin" />
+          <div className="flex gap-4 p-4 rounded-xl border border-[var(--border)] bg-[var(--surface-hover)] items-center select-none font-sans text-xs text-left">
+            <div className="h-8 w-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-[var(--primary)]/10 text-[var(--primary)] border border-[var(--primary)]/20">
+              <RefreshCw size={14} className="animate-spin" />
             </div>
-            <div className="flex-1 flex flex-col gap-1 text-slate-500 dark:text-slate-405 leading-relaxed text-left font-sans font-medium">
-              <span className="font-bold text-slate-800 dark:text-slate-350">
+            <div className="flex-1 flex flex-col gap-0.5 text-[var(--body)] leading-normal text-left font-sans font-medium">
+              <span className="font-bold text-[var(--heading)]">
                 Orchestrator Executing Task...
               </span>
-              <span className="text-[10px] text-muted-foreground font-mono animate-pulse">
+              <span className="text-[9px] text-[var(--muted)] font-mono animate-pulse">
                 Parsing variables, analyzing user intent, routing sub-agents...
               </span>
             </div>
@@ -109,25 +109,25 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
 
         {/* Empty state suggests prompt templates */}
         {filteredMessages.length === 0 && (
-          <div className="flex flex-col items-center justify-center py-16 px-6 text-center select-none h-full">
-            <div className="h-12 w-12 rounded-xl bg-brand-500/10 border border-brand-500/10 flex items-center justify-center text-brand-500 mb-4 animate-pulse">
-              <Sparkles size={22} />
+          <div className="flex flex-col items-center justify-center py-12 px-6 text-center select-none h-full max-w-2xl mx-auto">
+            <div className="h-14 w-14 rounded-2xl bg-[var(--primary)]/10 border border-[var(--primary)]/20 flex items-center justify-center text-[var(--primary)] mb-5 shadow-inner">
+              <Sparkles size={24} className="animate-pulse" />
             </div>
 
-            <h4 className="font-black text-slate-800 dark:text-slate-205 text-sm font-display m-0 leading-none">
+            <h4 className="font-extrabold text-[var(--heading)] text-sm font-sans m-0 leading-none">
               Orchestrate AI Agent Workflows
             </h4>
-            <p className="text-xs text-muted-foreground max-w-sm mt-2 leading-relaxed font-sans font-medium">
+            <p className="text-xs text-[var(--body)] max-w-md mt-2 leading-relaxed font-sans font-medium">
               Enter a task description to dispatch commands autonomously to ATS, Resume, Job Match, Interview Prep, Cover Letter, Career Coach, and Learning agents.
             </p>
 
             {/* suggestion grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-w-xl w-full mt-8 text-left font-sans">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl w-full mt-6 text-left font-sans">
               {suggestedPrompts.map((prompt, i) => (
                 <button
                   key={i}
                   onClick={() => onSendMessage(prompt)}
-                  className="p-3 text-[10px] leading-relaxed font-semibold bg-card/60 dark:bg-slate-900/40 hover:bg-slate-100/20 dark:hover:bg-slate-950/30 border border-slate-205 dark:border-slate-850 hover:border-brand-500/30 rounded-xl transition-all duration-150 cursor-pointer shadow-2xs focus:outline-none text-slate-655 dark:text-slate-400 dark:hover:text-slate-200 text-left h-full"
+                  className="p-3 text-[10px] leading-relaxed font-semibold bg-[var(--surface)] hover:bg-[var(--surface-hover)] border border-[var(--border)] hover:border-[var(--primary)]/45 rounded-xl transition-all duration-200 cursor-pointer shadow-2xs focus:outline-none text-[var(--body)] hover:text-[var(--heading)] text-left h-full"
                 >
                   {prompt}
                 </button>
@@ -140,34 +140,34 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
       </div>
 
       {/* Message input footer */}
-      <div className="p-4 bg-card/50 dark:bg-slate-900/30 backdrop-blur-xs border-t border-border/65 select-none">
-        <form onSubmit={handleSend} className="relative flex items-center m-0">
+      <div className="p-4 bg-[var(--surface)]/80 dark:bg-[var(--surface)]/45 backdrop-blur-md border-t border-[var(--border)]/70 select-none">
+        <form onSubmit={handleSend} className="relative flex items-center m-0 max-w-4xl mx-auto w-full">
           <input
             type="text"
-            placeholder={isSubmitting ? 'Please wait for execution...' : 'Type orchestration command (e.g. review resume id 123 for software engineer role)...'}
+            placeholder={isSubmitting ? 'Please wait for execution...' : 'Ask the orchestrator to perform an action...'}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={isSubmitting}
-            className="w-full pl-4 pr-12 py-3 bg-white/70 dark:bg-slate-950 border border-border rounded-xl text-xs font-sans placeholder-slate-405 text-slate-750 dark:text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500/25 transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed shadow-2xs h-11 font-medium"
+            className="w-full pl-4 pr-12 py-3 bg-[var(--background)] dark:bg-[var(--background)]/60 border border-[var(--border)] rounded-xl text-xs font-sans placeholder-[var(--muted)] text-[var(--heading)] focus:outline-none focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)]/20 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed shadow-2xs h-11 font-medium"
           />
 
           <button
             type="submit"
             disabled={!input.trim() || isSubmitting}
             className={cn(
-              'absolute right-2 p-2 rounded-xl transition-all duration-200 cursor-pointer focus:outline-none border-none disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center h-8 w-8',
+              'absolute right-2 p-2 rounded-lg transition-all duration-200 cursor-pointer focus:outline-none border-none disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center h-7 w-7',
               input.trim() && !isSubmitting
-                ? 'bg-brand-500 text-white shadow-md shadow-brand-500/10 hover:bg-brand-600'
-                : 'text-slate-400 bg-transparent'
+                ? 'bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] shadow-sm'
+                : 'text-[var(--muted)] bg-transparent'
             )}
             aria-label="Send message"
           >
-            <Send size={14} />
+            <Send size={13} />
           </button>
         </form>
 
-        <div className="flex items-center gap-1.5 justify-end mt-2 text-[9px] font-black uppercase tracking-wider text-muted-foreground font-sans select-none leading-none">
-          <CornerDownLeft size={10} className="text-slate-400" />
+        <div className="flex items-center gap-1.5 justify-end mt-2 text-[9px] font-black uppercase tracking-wider text-[var(--muted)] font-sans select-none leading-none max-w-4xl mx-auto w-full">
+          <CornerDownLeft size={10} className="text-[var(--muted)]/60" />
           <span>Press Enter to dispatch execution request</span>
         </div>
       </div>
