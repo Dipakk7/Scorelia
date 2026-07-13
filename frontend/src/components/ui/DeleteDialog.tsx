@@ -45,16 +45,16 @@ export default function DeleteDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-md border border-border bg-card rounded-2xl shadow-xl">
+      <DialogContent className="max-w-md border border-[var(--border)] bg-[var(--surface)] rounded-[var(--radius-card)] shadow-[var(--shadow-xl)]">
         <DialogHeader className="space-y-3">
-          <div className="mx-auto sm:mx-0 flex h-10 w-10 items-center justify-center rounded-full bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-400">
+          <div className="mx-auto sm:mx-0 flex h-10 w-10 items-center justify-center rounded-full bg-[var(--danger)]/10 text-[var(--danger)] border border-[var(--danger)]/10">
             <AlertTriangle size={20} />
           </div>
           <div className="space-y-1">
-            <DialogTitle className="text-lg font-bold font-display text-foreground">
+            <DialogTitle className="text-lg font-bold font-display text-[var(--heading)]">
               {title}
             </DialogTitle>
-            <DialogDescription className="text-sm font-sans text-muted-foreground">
+            <DialogDescription className="text-sm font-sans text-[var(--muted)]">
               {description}
             </DialogDescription>
           </div>
@@ -62,8 +62,8 @@ export default function DeleteDialog({
 
         {requireConfirmationText && (
           <div className="space-y-2 py-2">
-            <p className="text-xs text-muted-foreground">
-              Please type <strong className="font-semibold text-muted-foreground select-all">{confirmWord}</strong> to confirm:
+            <p className="text-xs text-[var(--muted)]">
+              Please type <strong className="font-semibold text-[var(--muted)] select-all">{confirmWord}</strong> to confirm:
             </p>
             <Input
               value={confirmInput}
@@ -80,7 +80,7 @@ export default function DeleteDialog({
             variant="ghost"
             onClick={onClose}
             disabled={isDeleting}
-            className="w-full sm:w-auto text-muted-foreground hover:bg-muted hover:text-foreground"
+            className="w-full sm:w-auto"
           >
             Cancel
           </Button>
@@ -88,7 +88,7 @@ export default function DeleteDialog({
             variant="danger"
             onClick={handleConfirm}
             disabled={isDeleting || (requireConfirmationText && confirmInput !== confirmWord)}
-            className="w-full sm:w-auto flex items-center justify-center gap-1.5 bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            className="w-full sm:w-auto flex items-center justify-center gap-1.5"
           >
             {isDeleting ? (
               <>

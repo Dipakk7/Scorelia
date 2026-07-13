@@ -84,7 +84,7 @@ export function StatisticCard({
     return (
       <Card
         className={cn(
-          'overflow-hidden relative border-dashed border-2 border-[var(--border)]/80 bg-[var(--surface-hover)]/10 hover:bg-[var(--surface-hover)]/30 hover:border-[var(--primary)]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] group rounded-2xl',
+          'overflow-hidden relative border-dashed border-2 border-[var(--border)]/80 bg-[var(--surface-hover)]/10 hover:bg-[var(--surface-hover)]/30 hover:border-[var(--primary)]/40 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] group rounded-[var(--radius-card)]',
           className
         )}
       >
@@ -98,7 +98,7 @@ export function StatisticCard({
                 {zeroStateText}
               </h4>
             </div>
-            <div className="p-2.5 bg-[var(--divider)] text-[var(--muted)] rounded-xl border border-[var(--border)]/30 shrink-0 group-hover:scale-105 transition-transform duration-200">
+            <div className="p-2.5 bg-[var(--divider)] text-[var(--muted)] rounded-[var(--radius-md)] border border-[var(--border)]/30 shrink-0 group-hover:scale-105 transition-transform duration-200">
               <Icon size={18} className="stroke-[1.75]" />
             </div>
           </div>
@@ -139,7 +139,7 @@ export function StatisticCard({
   return (
     <Card
       className={cn(
-        'overflow-hidden relative border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 group rounded-2xl',
+        'overflow-hidden relative border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 group rounded-[var(--radius-card)]',
         activeTheme.shadow,
         activeTheme.border,
         className
@@ -162,7 +162,7 @@ export function StatisticCard({
               )}
             </div>
           </div>
-          <div className={cn('p-2.5 rounded-xl border shadow-xs transition-all duration-200 group-hover:scale-105 shrink-0', activeTheme.iconBg)}>
+          <div className={cn('p-2.5 rounded-[var(--radius-md)] border shadow-[var(--shadow-sm)] transition-all duration-200 group-hover:scale-105 shrink-0', activeTheme.iconBg)}>
             <Icon size={18} className="stroke-[1.75]" />
           </div>
         </div>

@@ -16,13 +16,13 @@ export function SettingsCard({
   className,
 }: SettingsCardProps) {
   return (
-    <Card className={cn('border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs flex flex-col', className)}>
-      <CardHeader className="pb-4 border-b border-slate-100 dark:border-slate-805/60 text-left select-none">
-        <CardTitle className="text-xs font-black uppercase tracking-wider text-slate-909 dark:text-white m-0 leading-none">
+    <Card className={cn('border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/30 transition-all duration-300 overflow-hidden text-left font-sans text-xs flex flex-col', className)}>
+      <CardHeader className="pb-4 border-b border-[var(--border)] text-left select-none">
+        <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--heading)] m-0 leading-none">
           {title}
         </CardTitle>
         {description && (
-          <CardDescription className="text-[9px] text-muted-foreground font-sans block mt-1.5 leading-none">
+          <CardDescription className="text-[9px] text-[var(--muted)] font-sans block mt-1.5 leading-none">
             {description}
           </CardDescription>
         )}

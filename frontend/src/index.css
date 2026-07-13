@@ -162,7 +162,7 @@
   --danger: #E36B6B;
   --heading: #171717;
   --body: #525866;
-  --muted: #8B919B;
+  --muted: #6C737F;
   --border: #E7EAF0;
   --divider: #EEF1F4;
 
@@ -394,11 +394,12 @@ body {
 *:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(109, 147, 201, 0.25);
+  box-shadow: 0 0 0 4px rgba(109, 147, 201, 0.15);
+  transition: outline-color var(--duration-fast) ease-in-out, box-shadow var(--duration-fast) ease-in-out, outline-offset var(--duration-fast) ease-in-out;
 }
 
 .dark *:focus-visible {
-  box-shadow: 0 0 0 4px rgba(127, 167, 224, 0.25);
+  box-shadow: 0 0 0 4px rgba(127, 167, 224, 0.2);
 }
 
 /* Respect user motion preferences */

@@ -58,7 +58,7 @@ export function ActivityCard({
   className,
 }: ActivityCardProps) {
   return (
-    <Card className={cn('border-border bg-surface rounded-2xl shadow-sm', className)}>
+    <Card className={cn('border-[var(--border)] bg-[var(--surface)] rounded-[var(--radius-card)] shadow-[var(--shadow-sm)]', className)}>
       <CardHeader className="text-left pb-4">
         <CardTitle className="text-lg font-bold font-display text-heading">{title}</CardTitle>
         {description && <CardDescription className="text-xs text-muted leading-relaxed font-sans">{description}</CardDescription>}
@@ -66,7 +66,7 @@ export function ActivityCard({
       <CardContent>
         {items.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-10 text-center px-4">
-            <div className="p-3 bg-divider rounded-2xl border border-border text-muted mb-3 shadow-xs">
+            <div className="p-3 bg-[var(--divider)] rounded-[var(--radius-md)] border border-[var(--border)] text-[var(--muted)] mb-3 shadow-[var(--shadow-sm)]">
               <CheckCircle2 size={24} className="stroke-[1.5]" />
             </div>
             <h4 className="text-sm font-semibold text-heading">No activity yet</h4>
@@ -90,8 +90,8 @@ export function ActivityCard({
                 return (
                   <div key={item.id || idx} className="relative flex gap-4 items-start text-left group pl-11">
                     {/* Timeline Node Circle */}
-                    <div className="absolute left-0 top-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-surface border border-border text-muted shadow-sm group-hover:scale-105 group-hover:border-primary/40 group-hover:text-primary transition-all duration-200 ease-in-out motion-reduce:transition-none z-10">
-                      {Icon ? <Icon size={16} className="stroke-[1.5]" /> : <div className="h-1.5 w-1.5 rounded-full bg-primary" />}
+                    <div className="absolute left-0 top-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-[var(--surface)] border border-[var(--border)] text-[var(--muted)] shadow-[var(--shadow-sm)] group-hover:scale-105 group-hover:border-[var(--primary)]/40 group-hover:text-[var(--primary)] transition-all duration-200 ease-in-out motion-reduce:transition-none z-10">
+                      {Icon ? <Icon size={16} className="stroke-[1.5]" /> : <div className="h-1.5 w-1.5 rounded-full bg-[var(--primary)]" />}
                     </div>
 
                     <div className="flex-1 space-y-1 min-w-0">

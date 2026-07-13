@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react'
 import { cn } from '@/lib/utils'
+import { motion } from 'framer-motion'
 
 interface TabsContextProps {
   value: string
@@ -70,13 +71,20 @@ export function TabsTrigger({ value, className, children, ...props }: TabsTrigge
       aria-selected={isActive}
       onClick={() => context.onValueChange(value)}
       className={cn(
-        'py-3.5 px-1 border-b-2 font-bold font-display text-xs flex items-center gap-2 whitespace-nowrap cursor-pointer transition-all border-transparent text-[var(--muted)] hover:text-[var(--heading)] -mb-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]/30 focus-visible:ring-offset-2',
-        isActive && 'border-[var(--primary)] text-[var(--primary)] font-extrabold',
+        'relative py-3.5 px-1 font-bold font-display text-xs flex items-center gap-2 whitespace-nowrap cursor-pointer transition-all text-[var(--muted)] hover:text-[var(--heading)] -mb-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]/30 focus-visible:ring-offset-2',
+        isActive && 'text-[var(--primary)] font-extrabold',
         className
       )}
       {...props}
     >
-      {children}
+      <span className="relative z-10">{children}</span>
+      {isActive && (
+        <motion.div
+          layoutId="activeTabUnderline"
+          className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--primary)] rounded-full z-0"
+          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+        />
+      )}
     </button>
   )
 }

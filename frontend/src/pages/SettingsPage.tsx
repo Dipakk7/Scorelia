@@ -230,7 +230,7 @@ export default function SettingsPage() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as TabType)}
                 className={cn(
-                  'flex items-center gap-2.5 px-4 py-3 text-xs font-bold uppercase tracking-wider rounded-xl transition-all shrink-0 cursor-pointer focus:outline-none border-none leading-none select-none text-left w-full h-10',
+                  'flex items-center gap-2.5 px-4 py-3 text-xs font-bold uppercase tracking-wider rounded-xl transition-all shrink-0 cursor-pointer focus:outline-none border-none leading-none select-none text-left w-auto md:w-full h-10',
                   isActive
                     ? 'bg-[var(--primary)] text-white shadow-[var(--shadow-sm)] font-extrabold'
                     : 'text-[var(--muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--heading)] bg-transparent'
@@ -257,7 +257,7 @@ export default function SettingsPage() {
                   <label className="text-[var(--muted)] text-[8px] font-black uppercase font-mono tracking-widest block leading-none select-none text-left">
                     Application Theme
                   </label>
-                  <div className="grid grid-cols-3 gap-3 text-left">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
                     {['light', 'dark', 'system'].map((t) => {
                       const isActive = theme === t
                       return (

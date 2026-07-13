@@ -106,7 +106,10 @@ export function MultiSelect({
       </div>
 
       {isOpen && (
-        <div className="absolute top-full left-0 w-full mt-1.5 bg-[var(--surface)] border border-[var(--border)] rounded-[var(--radius-input)] shadow-[var(--shadow-lg)] z-50 overflow-hidden max-h-60 flex flex-col backdrop-blur-md bg-white/95 dark:bg-slate-900/95">
+        <div
+          data-state="open"
+          className="absolute top-full left-0 w-full mt-1.5 bg-[var(--surface)] border border-[var(--border)] rounded-[var(--radius-input)] shadow-[var(--shadow-lg)] z-50 overflow-hidden max-h-60 flex flex-col backdrop-blur-md bg-white/95 dark:bg-slate-900/95 dropdown-content-anim"
+        >
           <input
             type="text"
             placeholder="Search options..."

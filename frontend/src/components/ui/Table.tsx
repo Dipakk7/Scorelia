@@ -16,7 +16,7 @@ Table.displayName = 'Table'
 
 export const TableHeader = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes<HTMLTableSectionElement>>(
   ({ className, ...props }, ref) => (
-    <thead ref={ref} className={cn('bg-[var(--divider)]/50 border-b border-[var(--border)]', className)} {...props} />
+    <thead ref={ref} className={cn('bg-[var(--divider)]/35 border-b border-[var(--border)]', className)} {...props} />
   )
 )
 TableHeader.displayName = 'TableHeader'
@@ -47,7 +47,7 @@ export const TableHead = React.forwardRef<HTMLTableCellElement, React.ThHTMLAttr
     <th
       ref={ref}
       className={cn(
-        'h-10 px-4 align-middle font-medium font-display text-[var(--muted)] [&:has([role=checkbox])]:pr-0 text-xs uppercase tracking-wider sticky top-0 bg-[var(--surface)] z-10 border-b border-[var(--border)]/50',
+        'h-10 px-4 align-middle font-medium font-display text-[var(--muted)] [&:has([role=checkbox])]:pr-0 text-xs uppercase tracking-wider sticky top-0 bg-[var(--surface)]/90 backdrop-blur-md z-10 border-b border-[var(--border)]/50',
         className
       )}
       {...props}

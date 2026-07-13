@@ -48,6 +48,15 @@ export default function MultiAgentWorkspacePage() {
   const [orchestrationMode, setOrchestrationMode] = useState<'auto' | 'manual'>('auto')
   const [selectedAgentId, setSelectedAgentId] = useState<string | null>(null)
 
+  // Window size tracking for responsiveness
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200)
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+  const isDesktop = windowWidth >= 1024
+
   // Resizable Panel states
   const [leftWidth, setLeftWidth] = useState(22) // % width of left sidebar
   const [rightWidth, setRightWidth] = useState(28) // % width of right sidebar
@@ -344,14 +353,21 @@ export default function MultiAgentWorkspacePage() {
       </div>
 
       {/* Main Workspace split screen */}
-      <div ref={workspaceContainerRef} className="flex-1 flex overflow-hidden w-full relative items-stretch gap-1">
+      <div 
+        ref={workspaceContainerRef} 
+        className={cn(
+          "flex-1 w-full relative items-stretch gap-4",
+          isDesktop ? "flex overflow-hidden gap-1" : "flex flex-col overflow-y-auto"
+        )}
+      >
         {/* Panel 1: Left Agent Registry */}
         <div
           className={cn(
-            'flex flex-col bg-[var(--surface)]/70 backdrop-blur-md border border-[var(--border)] overflow-y-auto px-4 py-5 select-none transition-all duration-300 rounded-2xl text-left',
-            leftCollapsed ? 'w-0 p-0 overflow-hidden border-none' : ''
+            'flex flex-col bg-[var(--surface)]/70 backdrop-blur-md border border-[var(--border)] overflow-y-auto px-4 py-5 select-none transition-all duration-300 rounded-2xl text-left w-full',
+            leftCollapsed ? 'hidden border-none' : '',
+            isDesktop ? 'w-auto' : ''
           )}
-          style={{ width: leftCollapsed ? '0px' : `${leftWidth}%` }}
+          style={{ width: isDesktop && !leftCollapsed ? `${leftWidth}%` : undefined }}
         >
           <div className="flex flex-col gap-4 min-w-[220px] text-left">
             <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground font-mono text-left leading-none">
@@ -370,7 +386,7 @@ export default function MultiAgentWorkspacePage() {
         </div>
 
         {/* Drag handler left */}
-        {!leftCollapsed && (
+        {!leftCollapsed && isDesktop && (
           <div
             onMouseDown={handleLeftResizeMouseDown}
             className="w-1 cursor-col-resize hover:bg-brand-500/40 bg-transparent transition-colors duration-200 z-20 flex-shrink-0"
@@ -378,7 +394,7 @@ export default function MultiAgentWorkspacePage() {
         )}
 
         {/* Panel 2: Center Chat Console & SVG Workflow Step Pipeline */}
-        <div className="flex-1 flex flex-col gap-4 overflow-y-auto px-1 pb-4 items-stretch text-left">
+        <div className={cn("flex-1 flex flex-col gap-4 px-1 pb-4 items-stretch text-left", isDesktop ? "overflow-y-auto" : "h-auto w-full")}>
           {/* Workflow progress SVG Graph */}
           {(messages.length > 0 || executeTaskMutation.isPending) && (
             <WorkflowGraph
@@ -416,7 +432,7 @@ export default function MultiAgentWorkspacePage() {
         </div>
 
         {/* Drag handler right */}
-        {!rightCollapsed && (
+        {!rightCollapsed && isDesktop && (
           <div
             onMouseDown={handleRightResizeMouseDown}
             className="w-1 cursor-col-resize hover:bg-brand-500/40 bg-transparent transition-colors duration-200 z-20 flex-shrink-0"
@@ -426,10 +442,11 @@ export default function MultiAgentWorkspacePage() {
         {/* Panel 3: Right Tabs (Shared Memory, logs, analytics, context) */}
         <div
           className={cn(
-            'flex flex-col bg-[var(--surface)]/70 backdrop-blur-md border border-[var(--border)] overflow-hidden transition-all duration-300 rounded-2xl text-left',
-            rightCollapsed ? 'w-0 p-0 overflow-hidden border-none' : 'p-4'
+            'flex flex-col bg-[var(--surface)]/70 backdrop-blur-md border border-[var(--border)] overflow-hidden transition-all duration-300 rounded-2xl text-left w-full',
+            rightCollapsed ? 'hidden border-none' : 'p-4',
+            isDesktop ? 'w-auto' : ''
           )}
-          style={{ width: rightCollapsed ? '0px' : `${rightWidth}%` }}
+          style={{ width: isDesktop && !rightCollapsed ? `${rightWidth}%` : undefined }}
         >
           <div className="flex flex-col gap-4 h-full min-w-[260px] text-left">
             {/* Tabs Control Row */}

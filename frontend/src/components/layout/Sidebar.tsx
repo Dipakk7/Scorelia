@@ -138,7 +138,7 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
                 onMouseLeave={handleMouseLeave}
                 className={({ isActive }) =>
                   cn(
-                    'flex items-center py-2.5 rounded-[14px] text-sm font-semibold font-sans transition-all duration-200 ease-in-out cursor-pointer group relative px-3',
+                    'flex items-center py-2.5 rounded-[14px] text-sm font-semibold font-sans transition-all duration-200 ease-in-out cursor-pointer group relative px-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[var(--sidebar-background)]',
                     expanded ? 'justify-start' : 'justify-center',
                     !isActive && 'text-[var(--sidebar-muted-foreground)] hover:bg-[var(--sidebar-border)]/45 hover:text-[var(--sidebar-active-foreground)]'
                   )
@@ -176,8 +176,8 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
             style={{ top: hoveredItem.top, left: hoveredItem.left }}
             className="absolute -translate-y-1/2 z-50 pointer-events-none"
           >
-            <div className="relative bg-[var(--sidebar-background)] text-[var(--sidebar-active-foreground)] text-xs font-semibold px-3 py-1.5 rounded-md border border-[var(--sidebar-border)] shadow-xl whitespace-nowrap animate-fade-in flex items-center">
-              <div className="absolute -left-1 w-2 h-2 rotate-45 bg-[var(--sidebar-background)] border-l border-b border-[var(--sidebar-border)]" />
+            <div className="relative bg-[var(--sidebar-background)]/90 backdrop-blur-md text-[var(--sidebar-active-foreground)] text-xs font-semibold px-3 py-1.5 rounded-md border border-[var(--sidebar-border)] shadow-xl whitespace-nowrap animate-fade-in flex items-center">
+              <div className="absolute -left-1 w-2 h-2 rotate-45 bg-[var(--sidebar-background)]/90 border-l border-b border-[var(--sidebar-border)]" />
               <span className="relative z-10">{hoveredItem.label}</span>
             </div>
           </div>

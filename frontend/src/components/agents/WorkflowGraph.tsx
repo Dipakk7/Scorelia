@@ -119,22 +119,22 @@ export const WorkflowGraph: React.FC<WorkflowGraphProps> = ({
 
                 {/* Connecting arrow/line */}
                 {idx < steps.length - 1 && (
-                  <div className="flex-1 h-0.5 min-w-[30px] md:min-w-[40px] border-t-2 border-dashed relative select-none">
+                  <div className="flex-1 w-0.5 h-6 md:h-0.5 md:w-full border-l-2 md:border-l-0 md:border-t-2 border-dashed relative select-none min-h-[24px] md:min-h-0 min-w-[30px] md:min-w-[40px]">
                     {/* Line style updates based on progress */}
                     <div
                       className={cn(
-                        'absolute top-[-2px] left-0 h-0.5 transition-all duration-500',
+                        'absolute top-0 left-0 md:top-[-2px] transition-all duration-500',
                         activeStepIndex !== null && idx < activeStepIndex
-                          ? 'w-full bg-success'
+                          ? 'w-full h-full bg-success'
                           : activeStepIndex === idx
-                          ? 'w-1/2 bg-warning animate-pulse'
-                          : 'w-0 bg-muted'
+                          ? 'w-full h-1/2 md:w-1/2 md:h-full bg-warning animate-pulse'
+                          : 'w-0 h-0 bg-muted'
                       )}
                     />
                     
                     {/* Directional arrowhead */}
-                    <div className="absolute right-0 top-[-5px] text-slate-300 dark:text-slate-700">
-                      <Play size={8} className="fill-current text-slate-300 dark:text-slate-750 rotate-0" />
+                    <div className="absolute left-[-3.5px] bottom-0 md:bottom-auto md:left-auto md:right-0 md:top-[-5px] text-slate-300 dark:text-slate-700">
+                      <Play size={8} className="fill-current text-slate-300 dark:text-slate-750 rotate-90 md:rotate-0" />
                     </div>
                   </div>
                 )}

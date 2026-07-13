@@ -5,7 +5,7 @@ export function DashboardSkeleton() {
   return (
     <div className="space-y-6 text-left animate-fadeIn">
       {/* Welcome Banner Skeleton */}
-      <div className="relative overflow-hidden rounded-2xl bg-slate-900/5 dark:bg-slate-900/20 p-6 md:p-8 border border-border space-y-6">
+      <div className="relative overflow-hidden rounded-[var(--radius-card)] bg-slate-900/5 dark:bg-slate-900/20 p-6 md:p-8 border border-border space-y-6">
         <div className="space-y-3">
           <Skeleton className="h-4 w-32" />
           <Skeleton className="h-8 w-64 md:w-96" />
@@ -13,7 +13,7 @@ export function DashboardSkeleton() {
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
           {Array.from({ length: 4 }).map((_, i) => (
-            <Skeleton key={i} className="h-14 w-full rounded-xl" />
+            <Skeleton key={i} className="h-14 w-full rounded-[var(--radius-md)]" />
           ))}
         </div>
       </div>
@@ -25,7 +25,7 @@ export function DashboardSkeleton() {
             <CardContent className="p-5 space-y-4">
               <div className="flex justify-between items-center">
                 <Skeleton className="h-4 w-24" />
-                <Skeleton className="h-8 w-8 rounded-lg" />
+                <Skeleton className="h-8 w-8 rounded-[var(--radius-sm)]" />
               </div>
               <Skeleton className="h-8 w-16" />
               <Skeleton className="h-2 w-full" />
@@ -58,7 +58,7 @@ export function DashboardSkeleton() {
             <CardContent className="p-5 space-y-4">
               <div className="flex justify-between items-center">
                 <Skeleton className="h-4 w-24" />
-                <Skeleton className="h-8 w-8 rounded-lg" />
+                <Skeleton className="h-8 w-8 rounded-[var(--radius-sm)]" />
               </div>
               <Skeleton className="h-8 w-16" />
               <Skeleton className="h-3 w-28" />
@@ -73,7 +73,7 @@ export function DashboardSkeleton() {
 export function ResumesSkeleton() {
   return (
     <div className="space-y-6 text-left animate-fadeIn">
-      <Skeleton className="h-10 w-full rounded-xl" />
+      <Skeleton className="h-10 w-full rounded-[var(--radius-md)]" />
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-2">
           <Skeleton className="h-7 w-48" />
@@ -90,7 +90,7 @@ export function ResumesSkeleton() {
           <Card key={i} className="border-border">
             <CardContent className="p-5 space-y-4">
               <div className="flex items-center gap-3">
-                <Skeleton className="h-10 w-10 rounded-lg" />
+                <Skeleton className="h-10 w-10 rounded-[var(--radius-sm)]" />
                 <div className="space-y-2 flex-1">
                   <Skeleton className="h-4 w-28" />
                   <Skeleton className="h-3 w-16" />
@@ -124,7 +124,7 @@ export function AtsSkeleton() {
         <CardContent className="p-6 space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center border border-border rounded-2xl p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center border border-border rounded-[var(--radius-card)] p-6">
                 <div className="flex flex-col items-center space-y-3">
                   <Skeleton className="h-32 w-32 rounded-full" />
                   <Skeleton className="h-4 w-32" />
@@ -140,7 +140,7 @@ export function AtsSkeleton() {
               <Skeleton className="h-5 w-32" />
               <div className="space-y-3">
                 {Array.from({ length: 4 }).map((_, i) => (
-                  <div key={i} className="flex justify-between items-center p-3 border border-border rounded-lg">
+                  <div key={i} className="flex justify-between items-center p-3 border border-border rounded-[var(--radius-sm)]">
                     <Skeleton className="h-4 w-24" />
                     <Skeleton className="h-4 w-12" />
                   </div>
@@ -162,7 +162,7 @@ export function JobMatchingSkeleton() {
         <Card className="border-border">
           <CardContent className="p-5 space-y-4">
             <Skeleton className="h-5 w-40" />
-            <Skeleton className="h-32 w-full rounded-lg" />
+            <Skeleton className="h-32 w-full rounded-[var(--radius-sm)]" />
             <Skeleton className="h-10 w-full" />
           </CardContent>
         </Card>
@@ -313,7 +313,7 @@ export function CareerCoachSkeleton() {
               <div className="relative pl-6 border-l border-border space-y-8">
                 {Array.from({ length: 3 }).map((_, i) => (
                   <div key={i} className="relative space-y-2">
-                    <div className="absolute -left-[30px] top-1 h-4 w-4 rounded-full border border-border bg-card" />
+                    <div className="absolute -left-[30px] top-1 h-4 w-4 rounded-full border border-border bg-[var(--surface)]" />
                     <Skeleton className="h-4 w-32" />
                     <Skeleton className="h-3 w-56" />
                   </div>
@@ -351,7 +351,7 @@ export function RagWorkspaceSkeleton() {
           <Card className="border-border">
             <CardContent className="p-5 space-y-4">
               <Skeleton className="h-5 w-32" />
-              <Skeleton className="h-28 w-full rounded-xl" />
+              <Skeleton className="h-28 w-full rounded-[var(--radius-md)]" />
               <Skeleton className="h-8 w-full" />
             </CardContent>
           </Card>
@@ -508,7 +508,7 @@ export function SettingsSkeleton() {
         <Card className="border-border md:col-span-1">
           <CardContent className="p-3 space-y-1">
             {Array.from({ length: 4 }).map((_, i) => (
-              <Skeleton key={i} className="h-9 w-full rounded-lg" />
+              <Skeleton key={i} className="h-9 w-full rounded-[var(--radius-sm)]" />
             ))}
           </CardContent>
         </Card>

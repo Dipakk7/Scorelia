@@ -29,17 +29,17 @@ export function NotificationCard({
   const getIcon = () => {
     switch (type.toUpperCase()) {
       case 'SUCCESS':
-        return { icon: CheckCircle2, color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/10' }
+        return { icon: CheckCircle2, color: 'text-[var(--success)] bg-[var(--success)]/10 border-[var(--success)]/15' }
       case 'WARNING':
-        return { icon: AlertTriangle, color: 'text-amber-500 bg-amber-500/10 border-amber-500/10' }
+        return { icon: AlertTriangle, color: 'text-[var(--warning)] bg-[var(--warning)]/10 border-[var(--warning)]/15' }
       case 'ERROR':
-        return { icon: AlertCircle, color: 'text-rose-500 bg-rose-500/10 border-rose-500/10' }
+        return { icon: AlertCircle, color: 'text-[var(--danger)] bg-[var(--danger)]/10 border-[var(--danger)]/15' }
       case 'ATS':
-        return { icon: Scan, color: 'text-blue-500 bg-blue-500/10 border-blue-500/10' }
+        return { icon: Scan, color: 'text-[var(--primary)] bg-[var(--primary)]/10 border-[var(--primary)]/15' }
       case 'INTERVIEW':
-        return { icon: MessageSquareCode, color: 'text-purple-500 bg-purple-500/10 border-purple-500/10' }
+        return { icon: MessageSquareCode, color: 'text-[var(--analytics)] bg-[var(--analytics)]/10 border-[var(--analytics)]/15' }
       default:
-        return { icon: Info, color: 'text-slate-500 bg-slate-500/10 border-slate-200/50' }
+        return { icon: Info, color: 'text-[var(--muted)] bg-[var(--muted)]/10 border-[var(--border)]' }
     }
   }
 
@@ -49,32 +49,32 @@ export function NotificationCard({
   return (
     <div
       className={cn(
-        'p-4 rounded-2xl border transition-all flex gap-4 text-left relative group',
+        'p-4 rounded-[var(--radius-card)] border transition-all flex gap-4 text-left relative group',
         is_read
-          ? 'border-slate-200/60 dark:border-slate-800/40 bg-white/40 dark:bg-slate-900/10'
-          : 'border-brand-500/20 bg-brand-500/5 dark:bg-brand-500/5 shadow-xs font-semibold',
+          ? 'border-[var(--border)] bg-[var(--surface)]/40'
+          : 'border-[var(--primary)]/20 bg-[var(--primary)]/5 shadow-[var(--shadow-sm)] font-semibold',
         className
       )}
     >
       {/* Icon */}
-      <div className={cn('h-10 w-10 shrink-0 rounded-xl border flex items-center justify-center shadow-xs', iconStyle)}>
+      <div className={cn('h-10 w-10 shrink-0 rounded-[var(--radius-md)] border flex items-center justify-center shadow-[var(--shadow-sm)]', iconStyle)}>
         <TypeIcon size={20} />
       </div>
 
       {/* Content */}
       <div className="flex-1 space-y-1 min-w-0 pr-16">
         <div className="flex items-center gap-2">
-          <h4 className={cn('text-sm font-bold font-display leading-tight truncate', is_read ? 'text-muted-foreground' : 'text-foreground')}>
+          <h4 className={cn('text-sm font-bold font-display leading-tight truncate', is_read ? 'text-[var(--muted)]' : 'text-[var(--heading)]')}>
             {title}
           </h4>
           {!is_read && (
-            <span className="h-2 w-2 rounded-full bg-brand-500 shrink-0" />
+            <span className="h-2 w-2 rounded-full bg-[var(--primary)] shrink-0" />
           )}
         </div>
-        <p className="text-xs text-muted-foreground font-sans leading-relaxed">
+        <p className="text-xs text-[var(--body)] font-sans leading-relaxed">
           {message}
         </p>
-        <span className="text-[10px] font-medium text-muted-foreground font-sans block mt-1.5 uppercase tracking-wider">
+        <span className="text-[10px] font-medium text-[var(--muted)] font-sans block mt-1.5 uppercase tracking-wider">
           {formattedTime}
         </span>
       </div>
@@ -84,7 +84,7 @@ export function NotificationCard({
         {!is_read && onMarkAsRead && (
           <button
             onClick={() => onMarkAsRead(id)}
-            className="p-1.5 rounded-lg text-slate-450 hover:text-emerald-600 hover:bg-emerald-500/10 dark:text-slate-550 dark:hover:text-emerald-400 dark:hover:bg-emerald-500/10 cursor-pointer focus:outline-none transition-colors border border-transparent hover:border-emerald-500/15 shadow-2xs"
+            className="p-1.5 rounded-[var(--radius-sm)] text-[var(--muted)] hover:text-[var(--success)] hover:bg-[var(--success)]/10 cursor-pointer focus:outline-none transition-colors border border-transparent hover:border-[var(--success)]/15 shadow-[var(--shadow-sm)]"
             title="Mark as read"
           >
             <Check size={14} />
@@ -93,7 +93,7 @@ export function NotificationCard({
         {onDelete && (
           <button
             onClick={() => onDelete(id)}
-            className="p-1.5 rounded-lg text-slate-450 hover:text-rose-600 hover:bg-rose-500/10 dark:text-slate-550 dark:hover:text-rose-450 dark:hover:bg-rose-500/10 cursor-pointer focus:outline-none transition-colors border border-transparent hover:border-rose-500/15 shadow-2xs"
+            className="p-1.5 rounded-[var(--radius-sm)] text-[var(--muted)] hover:text-[var(--danger)] hover:bg-[var(--danger)]/10 cursor-pointer focus:outline-none transition-colors border border-transparent hover:border-[var(--danger)]/15 shadow-[var(--shadow-sm)]"
             title="Delete notification"
           >
             <Trash2 size={14} />

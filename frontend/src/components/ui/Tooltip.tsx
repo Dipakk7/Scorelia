@@ -37,7 +37,7 @@ export function Tooltip({ content, children, className, position = 'top' }: Tool
       {isVisible && content && (
         <div
           className={cn(
-            'absolute z-[var(--z-index-tooltip)] pointer-events-none px-2.5 py-1.5 text-caption font-semibold rounded-md shadow-[var(--shadow-md)] bg-[var(--sidebar-background)] text-[var(--sidebar-active-foreground)] border border-[var(--sidebar-border)] whitespace-nowrap animate-fade-in font-sans',
+            'absolute z-[var(--z-index-tooltip)] pointer-events-none px-2.5 py-1.5 text-caption font-semibold rounded-[var(--radius-sm)] shadow-[var(--shadow-md)] bg-[var(--sidebar-background)] text-[var(--sidebar-active-foreground)] border border-[var(--sidebar-border)] whitespace-nowrap animate-fade-in font-sans',
             positionClasses[position],
             className
           )}

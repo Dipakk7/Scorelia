@@ -24,21 +24,21 @@ export function ErrorState({
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.2, ease: 'easeOut' }}
       className={cn(
-        'flex flex-col items-center justify-center text-center p-8 border border-red-500/10 dark:border-red-500/10 rounded-2xl bg-rose-500/[0.02] dark:bg-rose-500/[0.01] backdrop-blur-md min-h-[250px]',
+        'flex flex-col items-center justify-center text-center p-8 border border-[var(--danger)]/15 rounded-[var(--radius-card)] bg-[var(--danger)]/[0.02] backdrop-blur-md min-h-[250px]',
         className
       )}
     >
-      <div className="text-rose-500 mb-4 bg-rose-500/10 p-3 rounded-2xl border border-rose-500/25 animate-float">
+      <div className="text-[var(--danger)] mb-4 bg-[var(--danger)]/10 p-3 rounded-[var(--radius-md)] border border-[var(--danger)]/20 animate-float">
         <AlertTriangle size={32} />
       </div>
-      <h3 className="text-base font-bold font-display text-slate-900 dark:text-slate-200 mb-1.5">
+      <h3 className="text-base font-bold font-display text-[var(--heading)] mb-1.5">
         {title}
       </h3>
-      <p className="text-xs text-muted-foreground max-w-sm mb-6 font-sans leading-relaxed">
+      <p className="text-xs text-[var(--muted)] max-w-sm mb-6 font-sans leading-relaxed">
         {message}
       </p>
       {onRetry && (
-        <Button variant="outline" size="sm" onClick={onRetry} className="border-red-200 hover:bg-rose-500/5 hover:text-rose-700 hover:border-red-300 dark:border-red-900/40 dark:hover:bg-rose-950/20 dark:hover:text-red-400 rounded-xl font-bold cursor-pointer transition-all">
+        <Button variant="outline" size="sm" onClick={onRetry} className="border-[var(--danger)]/30 text-[var(--danger)] hover:bg-[var(--danger)]/5 hover:border-[var(--danger)]/50 rounded-[var(--radius-button)] font-bold cursor-pointer transition-all">
           {retryLabel}
         </Button>
       )}

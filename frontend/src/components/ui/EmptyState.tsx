@@ -61,7 +61,7 @@ export function EmptyState({
         className
       )}
     >
-      <div className="text-[var(--primary)] mb-4 bg-[var(--primary)]/10 border border-[var(--primary)]/20 p-3 rounded-2xl shadow-[var(--shadow-sm)] animate-float">
+      <div className="text-[var(--primary)] mb-4 bg-[var(--primary)]/10 border border-[var(--primary)]/20 p-3 rounded-[var(--radius-md)] shadow-[var(--shadow-sm)] animate-float">
         {icon || <FolderOpen size={30} className="stroke-[1.75]" />}
       </div>
       <h3 className="text-base font-bold font-display text-[var(--heading)] mb-1.5">
@@ -71,7 +71,7 @@ export function EmptyState({
         {description}
       </p>
       {actionLabel && onAction && (
-        <Button variant="primary" size="sm" onClick={onAction} className="rounded-xl font-bold hover:shadow-[var(--shadow-md)] transition-all cursor-pointer">
+        <Button variant="primary" size="sm" onClick={onAction} className="rounded-[var(--radius-button)] font-bold hover:shadow-[var(--shadow-md)] transition-all cursor-pointer">
           {actionLabel}
         </Button>
       )}

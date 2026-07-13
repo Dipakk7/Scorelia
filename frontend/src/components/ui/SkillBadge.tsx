@@ -13,7 +13,7 @@ export function SkillBadge({ skill, onDelete, className }: SkillBadgeProps) {
     <Badge
       variant="secondary"
       className={cn(
-        'flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200 border border-slate-250 dark:border-slate-700/60 shadow-xs hover:border-slate-350 dark:hover:border-slate-650 transition-all font-sans',
+        'flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-[var(--radius-badge)] bg-[var(--divider)] text-[var(--heading)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/30 transition-all font-sans',
         className
       )}
     >
@@ -25,7 +25,7 @@ export function SkillBadge({ skill, onDelete, className }: SkillBadgeProps) {
             e.stopPropagation()
             onDelete()
           }}
-          className="p-0.5 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-700 dark:hover:text-slate-100 transition-colors focus:outline-none cursor-pointer"
+          className="p-0.5 rounded-full hover:bg-[var(--border)] text-[var(--muted)] hover:text-[var(--heading)] transition-colors focus:outline-none cursor-pointer"
           aria-label={`Remove skill ${skill}`}
         >
           <X size={12} />

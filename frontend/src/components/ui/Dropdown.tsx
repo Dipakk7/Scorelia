@@ -15,7 +15,7 @@ export const DropdownContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        'z-50 min-w-[8rem] overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface)]/95 p-1 text-[var(--body)] shadow-[var(--shadow-md)] backdrop-blur-md dropdown-content-anim',
+        'z-50 min-w-[8rem] overflow-hidden rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)]/95 p-1 text-[var(--body)] shadow-[var(--shadow-md)] backdrop-blur-md dropdown-content-anim',
         className
       )}
       {...props}
@@ -33,7 +33,7 @@ export const DropdownItem = React.forwardRef<
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex cursor-pointer select-none items-center rounded-lg px-3 py-2 text-sm outline-none transition-all duration-[var(--duration-fast)] text-[var(--body)] hover:bg-[var(--divider)] hover:text-[var(--heading)] focus:bg-[var(--divider)] focus:text-[var(--heading)] data-[disabled]:pointer-events-none data-[disabled]:opacity-[var(--opacity-disabled)] font-sans',
+      'relative flex cursor-pointer select-none items-center rounded-[var(--radius-sm)] px-3 py-2 text-sm outline-none transition-all duration-[var(--duration-fast)] text-[var(--body)] hover:bg-[var(--divider)] hover:text-[var(--heading)] focus:bg-[var(--divider)] focus:text-[var(--heading)] data-[disabled]:pointer-events-none data-[disabled]:opacity-[var(--opacity-disabled)] font-sans',
       inset && 'pl-8',
       className
     )}
