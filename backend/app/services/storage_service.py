@@ -66,6 +66,9 @@ def delete_file(
     if provider == StorageProvider.LOCAL:
         try:
             path = Path(file_path)
+            if not path.is_absolute():
+                base_path = Path(settings.LOCAL_STORAGE_PATH)
+                path = base_path / path
             if path.exists() and path.is_file():
                 path.unlink()
                 return True
@@ -73,3 +76,13 @@ def delete_file(
         except Exception:
             return False
     return False
+
+def resolve_path(path_str: str) -> str:
+    """Resolve a database file_path string to an absolute path if it is relative."""
+    if not path_str:
+        return path_str
+    path = Path(path_str)
+    if not path.is_absolute():
+        base_path = Path(settings.LOCAL_STORAGE_PATH)
+        return str((base_path / path).resolve().absolute())
+    return str(path)

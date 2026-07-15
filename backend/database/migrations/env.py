@@ -37,9 +37,13 @@ print("Registered metadata tables:", list(target_metadata.tables.keys()))
 config = context.config
 
 # 5. Set DATABASE_URL dynamically using settings.DATABASE_URL
+db_url = settings.DATABASE_URL
+if db_url.startswith("postgresql://"):
+    db_url = db_url.replace("postgresql://", "postgresql+psycopg://", 1)
+
 config.set_main_option(
     "sqlalchemy.url",
-    settings.DATABASE_URL
+    db_url
 )
 
 # Interpret the config file for Python logging.

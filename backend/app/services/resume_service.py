@@ -63,32 +63,29 @@ async def process_upload(
     current_user: User
 ) -> Resume:
     """Orchestrates validation, filesystem saving, and database creation with automatic cleanup on failure."""
-    saved_file_path = None
-    db_record_created = False
-    
-    logger.info(
-        "resume_upload_started",
-        user_id=str(current_user.id),
-        filename=file.filename
-    )
-    
+    active_provider = StorageProvider.LOCAL
     try:
         # Step 1: Validate extension
         ok, ext = validate_file_extension(file.filename)
         if not ok:
             raise HTTPException(status_code=400, detail=ext)
             
-        # Step 2: Read file content into memory
-        file_content = await file.read()
+        # Step 2: Read file content in chunks to prevent memory OOM crashes
+        max_size_bytes = settings.MAX_FILE_SIZE_MB * 1024 * 1024
+        file_content = b""
+        chunk_size = 8192
+        while True:
+            chunk = await file.read(chunk_size)
+            if not chunk:
+                break
+            file_content += chunk
+            if len(file_content) > max_size_bytes:
+                raise HTTPException(
+                    status_code=413,
+                    detail=f"File size exceeds maximum allowed limit of {settings.MAX_FILE_SIZE_MB}MB"
+                )
         
-        # Step 3: Validate file size (MAX_FILE_SIZE_MB)
         file_size = len(file_content)
-        file_size_mb = file_size / (1024 * 1024)
-        if file_size_mb > settings.MAX_FILE_SIZE_MB:
-            raise HTTPException(
-                status_code=413,
-                detail=f"File size exceeds maximum allowed limit of {settings.MAX_FILE_SIZE_MB}MB"
-            )
             
         # Step 4: Validate MIME type
         ok, detected_mime = validate_mime_type(file_content, ext)
@@ -106,11 +103,17 @@ async def process_upload(
         # Step 5: Generate stored filename
         stored_filename = storage_service.generate_filename(current_user.id, file.filename)
         
+        # Resolve storage provider from settings dynamically
+        try:
+            active_provider = StorageProvider(settings.STORAGE_PROVIDER.upper())
+        except ValueError:
+            active_provider = StorageProvider.LOCAL
+
         # Step 6: Save file to storage
         saved_file_path, file_size = await storage_service.save_file(
             file_content=file_content,
             stored_filename=stored_filename,
-            provider=StorageProvider.LOCAL
+            provider=active_provider
         )
         
         # Step 7: Create database record
@@ -123,7 +126,7 @@ async def process_upload(
             file_size=file_size,
             file_type=ext,
             mime_type=detected_mime,
-            storage_provider=StorageProvider.LOCAL
+            storage_provider=active_provider
         )
         db_record_created = True
         
@@ -160,7 +163,7 @@ async def process_upload(
     finally:
         # Step 9: Safe cleanup if database record creation failed
         if saved_file_path and not db_record_created:
-            storage_service.delete_file(saved_file_path, StorageProvider.LOCAL)
+            storage_service.delete_file(saved_file_path, active_provider)
             logger.info(f"Cleaned up saved file '{saved_file_path}' because database transaction failed.")
 
 def delete_resume(

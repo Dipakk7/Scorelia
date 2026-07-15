@@ -12,11 +12,20 @@ if db_url.startswith("postgresql://"):
 
 try:
     logger.info("Initializing database engine", url=db_url.split("@")[-1])  # Sanitize: exclude password
+    
+    connect_args = {}
+    if settings.DATABASE_SSL_MODE:
+        connect_args["sslmode"] = settings.DATABASE_SSL_MODE
+        
     engine = create_engine(
         db_url,
         pool_pre_ping=True,
         future=True,
-        connect_args={"sslmode": "disable"}
+        pool_size=settings.DATABASE_POOL_SIZE,
+        max_overflow=settings.DATABASE_MAX_OVERFLOW,
+        pool_recycle=settings.DATABASE_POOL_RECYCLE,
+        pool_timeout=settings.DATABASE_POOL_TIMEOUT,
+        connect_args=connect_args
     )
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, future=True)
 except Exception as e:

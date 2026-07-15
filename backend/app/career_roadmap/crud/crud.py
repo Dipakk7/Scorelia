@@ -80,7 +80,7 @@ class RoadmapCRUD:
         db_milestone = RoadmapMilestone(
             roadmap_id=roadmap_id,
             phase_number=phase_number,
-            title=title,
+            title=title[:100] if title else "",
             description=description,
             duration=duration,
             order_index=order_index,
@@ -108,7 +108,7 @@ class RoadmapCRUD:
         db_recommendation = LearningRecommendation(
             roadmap_id=roadmap_id,
             category=category,
-            title=title,
+            title=title[:100] if title else "",
             description=description,
             priority=priority,
             resource_url=resource_url,

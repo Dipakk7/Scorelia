@@ -1,10 +1,31 @@
+import os
 import uuid
 from datetime import datetime
-from sqlalchemy import String, ForeignKey, Text, text, func, Enum as SQLEnum
+from sqlalchemy import String, ForeignKey, Text, text, func, Enum as SQLEnum, TypeDecorator
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.models.base import SharedBase
 from app.core.enums import StorageProvider, ResumeStatus
+from app.core.config import settings
+
+class PortableFilePath(TypeDecorator):
+    """Custom type to store relative path in database but return absolute path in code."""
+    impl = String(500)
+    cache_ok = True
+
+    def process_bind_param(self, value, dialect):
+        if value is not None:
+            storage_dir = os.path.abspath(settings.LOCAL_STORAGE_PATH)
+            abs_value = os.path.abspath(value)
+            if abs_value.startswith(storage_dir):
+                return os.path.relpath(abs_value, storage_dir)
+        return value
+
+    def process_result_value(self, value, dialect):
+        if value is not None and not os.path.isabs(value):
+            storage_dir = os.path.abspath(settings.LOCAL_STORAGE_PATH)
+            return os.path.join(storage_dir, value)
+        return value
 
 class Resume(SharedBase):
     """Resume database model mapping to the resumes table."""
@@ -25,7 +46,7 @@ class Resume(SharedBase):
         unique=True
     )
     file_path: Mapped[str] = mapped_column(
-        String(500),
+        PortableFilePath(),
         nullable=False
     )
     storage_provider: Mapped[StorageProvider] = mapped_column(

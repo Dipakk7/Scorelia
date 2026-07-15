@@ -163,6 +163,24 @@ class RoadmapAIService:
                 if not isinstance(parsed, dict):
                     raise ValueError("AI response did not parse as a JSON dictionary.")
                 
+                # Sanitize response fields to ensure list types for nested phases
+                if "phases" in parsed and isinstance(parsed["phases"], list):
+                    for phase in parsed["phases"]:
+                        if isinstance(phase, dict):
+                            for list_field in ["skills", "projects", "certifications", "resources", "completion_criteria"]:
+                                if list_field in phase:
+                                    val = phase[list_field]
+                                    if isinstance(val, str):
+                                        phase[list_field] = [val] if val.strip() else []
+                                    elif val is None:
+                                        phase[list_field] = []
+                                    elif not isinstance(val, list):
+                                        phase[list_field] = [str(val)]
+                                    else:
+                                        phase[list_field] = [str(item) for item in val]
+                                else:
+                                    phase[list_field] = []
+
                 # Strict schema validation
                 AICareerRoadmapResponse.model_validate(parsed)
                 
@@ -326,6 +344,117 @@ class RoadmapAIService:
                 if not isinstance(parsed, dict):
                     raise ValueError("AI response did not parse as a JSON dictionary.")
                 
+                # Sanitize response fields to ensure list types for AILearningPlanResponse
+                list_fields = ["weekly_plan", "recommendations"]
+                for list_field in list_fields:
+                    if list_field in parsed:
+                        val = parsed[list_field]
+                        if isinstance(val, str):
+                            parsed[list_field] = [val] if val.strip() else []
+                        elif val is None:
+                            parsed[list_field] = []
+                        elif not isinstance(val, list):
+                            parsed[list_field] = [val]
+
+                # Sanitize string list fields to convert dict elements to strings
+                string_list_fields = [
+                    "monthly_goals", "quarterly_goals", "practice_schedule",
+                    "certification_suggestions", "books", "courses", "hands_on_projects",
+                    "open_source_contributions", "interview_practice"
+                ]
+                for list_field in string_list_fields:
+                    if list_field in parsed:
+                        val = parsed[list_field]
+                        if isinstance(val, str):
+                            parsed[list_field] = [val] if val.strip() else []
+                        elif val is None:
+                            parsed[list_field] = []
+                        elif isinstance(val, list):
+                            new_list = []
+                            for item in val:
+                                if isinstance(item, dict):
+                                    str_val = item.get("title") or item.get("name") or item.get("description") or item.get("goal") or str(item)
+                                    new_list.append(str_val)
+                                elif item is not None:
+                                    new_list.append(str(item))
+                            parsed[list_field] = new_list
+                        else:
+                            parsed[list_field] = [str(val)]
+
+                # Sanitize weekly plan nested items
+                if "weekly_plan" in parsed and isinstance(parsed["weekly_plan"], list):
+                    for item in parsed["weekly_plan"]:
+                        if isinstance(item, dict):
+                            for nested_list in ["objectives", "schedule"]:
+                                if nested_list in item:
+                                    val = item[nested_list]
+                                    if isinstance(val, str):
+                                        item[nested_list] = [val] if val.strip() else []
+                                    elif val is None:
+                                        item[nested_list] = []
+                                    elif isinstance(val, list):
+                                        if nested_list == "objectives":
+                                            new_objectives = []
+                                            for obj in val:
+                                                if isinstance(obj, dict):
+                                                    str_obj = obj.get("title") or obj.get("name") or obj.get("objective") or str(obj)
+                                                    new_objectives.append(str_obj)
+                                                elif obj is not None:
+                                                    new_objectives.append(str(obj))
+                                            item["objectives"] = new_objectives
+                                    else:
+                                        item[nested_list] = [val]
+                                else:
+                                    item[nested_list] = []
+                            # Sanitize AIWeeklyPlanDay nested items
+                            if "schedule" in item and isinstance(item["schedule"], list):
+                                for day in item["schedule"]:
+                                    if isinstance(day, dict):
+                                        if "tasks" in day:
+                                            val = day["tasks"]
+                                            if isinstance(val, str):
+                                                day["tasks"] = [val] if val.strip() else []
+                                            elif val is None:
+                                                day["tasks"] = []
+                                            elif isinstance(val, list):
+                                                new_tasks = []
+                                                for t in val:
+                                                    if isinstance(t, dict):
+                                                        str_t = t.get("title") or t.get("name") or t.get("task") or str(t)
+                                                        new_tasks.append(str_t)
+                                                    elif t is not None:
+                                                        new_tasks.append(str(t))
+                                                day["tasks"] = new_tasks
+                                            else:
+                                                day["tasks"] = [val]
+                                        else:
+                                            day["tasks"] = []
+
+                # Sanitize recommendations nested items
+                if "recommendations" in parsed and isinstance(parsed["recommendations"], list):
+                    for rec in parsed["recommendations"]:
+                        if isinstance(rec, dict):
+                            for rec_list in ["learning_resources", "practice_projects", "success_criteria"]:
+                                if rec_list in rec:
+                                    val = rec[rec_list]
+                                    if isinstance(val, str):
+                                        rec[rec_list] = [val] if val.strip() else []
+                                    elif val is None:
+                                        rec[rec_list] = []
+                                    elif isinstance(val, list):
+                                        new_rec_list = []
+                                        for r_item in val:
+                                            if isinstance(r_item, dict):
+                                                str_r = r_item.get("title") or r_item.get("name") or r_item.get("resource") or str(r_item)
+                                                new_rec_list.append(str_r)
+                                            elif r_item is not None:
+                                                new_rec_list.append(str(r_item))
+                                        rec[rec_list] = new_rec_list
+                                    else:
+                                        rec[rec_list] = [val]
+                                else:
+                                    rec[rec_list] = []
+
                 # Strict schema validation
                 AILearningPlanResponse.model_validate(parsed)
                 

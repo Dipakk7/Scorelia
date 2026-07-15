@@ -38,23 +38,28 @@ export const clearStoredTokens = (): void => {
 
 const api: AxiosInstance = axios.create({
   baseURL: (import.meta.env.VITE_API_URL as string) || '/api/v1',
-  timeout: 15000,
+  timeout: 90000,
   headers: {
     'Content-Type': 'application/json',
   },
   withCredentials: true, // Crucial for HttpOnly cookie authentication in FastAPI
 })
 
-// Request Interceptor: Inject JWT token if using header-based auth
+// Request Interceptor: Inject JWT token and log structured request metadata
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = getStoredAccessToken()
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`
     }
+    console.log(`[API Request] ${config.method?.toUpperCase()} ${config.url}`, {
+      payload: config.data,
+      headers: config.headers,
+    })
     return config
   },
   (error) => {
+    console.error('[API Request Error]', error)
     return Promise.reject(error)
   }
 )
@@ -72,16 +77,45 @@ const onRefreshed = (token: string) => {
   refreshSubscribers = []
 }
 
-// Response Interceptor: Handle 401 errors, token refresh, and unified error handling
+// Response Interceptor: Handle 401 errors, token refresh, transient retries, and unified logging
 api.interceptors.response.use(
   (response) => {
+    console.log(`[API Response] ${response.status} ${response.config.url}`, {
+      data: response.data,
+    })
     return response
   },
   async (error: AxiosError) => {
     const originalRequest = error.config
 
+    console.error(`[API Response Error] ${originalRequest?.method?.toUpperCase()} ${originalRequest?.url}`, {
+      status: error.response?.status,
+      message: error.message,
+      code: error.code,
+      data: error.response?.data,
+    })
+
+    if (!originalRequest) {
+      return Promise.reject(formatAxiosError(error))
+    }
+
+    // Network Retry Logic for Safe (GET) requests on transient errors (network down, 502/503/504)
+    const isSafeToRetry = originalRequest.method?.toUpperCase() === 'GET'
+    const isTransientError = !error.response || [502, 503, 504].includes(error.response.status)
+    const hasAlreadyRetriedNetwork = (originalRequest as any)._networkRetry
+
+    if (isSafeToRetry && isTransientError && !hasAlreadyRetriedNetwork) {
+      ;(originalRequest as any)._networkRetry = true
+      console.warn(`[API Retry] Safe request encountered transient error. Retrying once: ${originalRequest.url}`)
+      try {
+        return await api(originalRequest)
+      } catch (retryErr) {
+        return Promise.reject(formatAxiosError(retryErr as AxiosError))
+      }
+    }
+
     // If request has already been retried, reject it
-    if (!originalRequest || (originalRequest as any)._retry) {
+    if ((originalRequest as any)._retry) {
       return Promise.reject(formatAxiosError(error))
     }
 
@@ -152,17 +186,57 @@ api.interceptors.response.use(
 export function formatAxiosError(error: AxiosError): ApiErrorResponse {
   if (error.response) {
     const data = error.response.data as any
+    const detailStr = typeof data?.detail === 'string' ? data.detail : JSON.stringify(data?.detail || '')
+    const msgStr = (data?.message || error.message || '').toLowerCase()
+    const detailLower = detailStr.toLowerCase()
+
+    let friendlyMessage = data?.message || error.message || 'An error occurred on the server'
+
+    if (error.response.status === 401) {
+      friendlyMessage = 'AI provider authentication failed. Please check credentials.'
+    } else if (error.response.status === 403) {
+      friendlyMessage = 'Access denied. You do not have permission to access this resource.'
+    } else if ([502, 503, 504].includes(error.response.status)) {
+      friendlyMessage = 'Backend server is unavailable.'
+    } else if (error.response.status === 422) {
+      friendlyMessage = 'Invalid API configuration.'
+    } else if (error.response.status === 500) {
+      if (detailLower.includes('ollama') || detailLower.includes('provider') || msgStr.includes('ollama') || msgStr.includes('provider')) {
+        friendlyMessage = 'Backend server is unavailable.'
+      } else if (detailLower.includes('model') || msgStr.includes('model')) {
+        friendlyMessage = 'Invalid API configuration.'
+      } else if (detailLower.includes('timeout') || msgStr.includes('timeout')) {
+        friendlyMessage = 'Request timed out.'
+      } else if (detailLower.includes('interview') || msgStr.includes('interview')) {
+        friendlyMessage = 'Interview service failed to initialize.'
+      } else {
+        friendlyMessage = 'Internal server error.'
+      }
+    }
+
     return {
       error: true,
       status_code: error.response.status,
-      message: data?.message || error.message || 'An error occurred on the server',
+      message: friendlyMessage,
       detail: data?.detail || null,
     }
   } else if (error.request) {
+    const isTimeout = error.code === 'ECONNABORTED' || error.message.toLowerCase().includes('timeout')
+    const isOffline = typeof navigator !== 'undefined' && !navigator.onLine
+    
+    let friendlyMessage = 'No response received from the server. Please check your connection.'
+    if (isTimeout) {
+      friendlyMessage = 'Request timed out.'
+    } else if (isOffline) {
+      friendlyMessage = 'Network connection lost.'
+    } else if (error.code === 'ERR_NETWORK' || error.message.toLowerCase().includes('network error') || error.message.toLowerCase().includes('refused')) {
+      friendlyMessage = 'Backend server is unavailable.'
+    }
+
     return {
       error: true,
       status_code: 0,
-      message: 'No response received from the server. Please check your connection.',
+      message: friendlyMessage,
       detail: null,
     }
   } else {
