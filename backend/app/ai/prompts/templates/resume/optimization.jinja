@@ -46,7 +46,7 @@ Instructions:
    - overall_score, ats, technical_skills, experience, projects, grammar, formatting, readability, leadership, professionalism, career_readiness, completeness, consistency.
 
 3. Complete missing skills suggestions (Suggest learning priority, difficulty, estimated time, recommended resources placeholder, and explain WHY the skill matters).
-4. Perform ATS and Keyword Optimization (Matched, Missing, Recommended, Overused, Weak keywords, and suggest strong replacement Action Verbs and Industry Keywords).
+4. Perform ATS and Keyword Optimization (Assess the candidate's current ATS score (0-100) based on their resume content, identify reasons for a low score, list missing keywords, sections needing improvement, and expected improvement after applying suggestions, as well as Matched, Missing, Recommended, Overused, and Weak keywords, and suggest strong replacement Action Verbs and Industry Keywords).
 5. Perform Achievement Optimization (Identify weak bullet points, missing metrics, missing impact, and missing business value, suggesting stronger impact statements).
 6. Evaluate Completeness: Calculate completeness percentage and check presence of: summary, projects, skills, education, experience, certifications, achievements, links.
 7. Assess Career Readiness: Internship Ready, Entry Level Ready, Mid Level Ready, Senior Ready, providing clear reasoning.
@@ -82,6 +82,7 @@ JSON Schema:
     }
   ],
   "ats_optimization": {
+    "current_score": 75,
     "why_score_is_low": "The resume lacks specific keywords and structured headers.",
     "missing_keywords": ["Kubernetes", "CI/CD"],
     "sections_needing_improvement": ["Experience", "Skills"],

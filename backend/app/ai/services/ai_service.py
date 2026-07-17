@@ -186,7 +186,18 @@ class AIService:
                 )
                 provider_response = await self.provider.generate(req)
                 break
-            except (AIRequestTimeout, AIProviderUnavailable) as e:
+            except AIRequestTimeout as e:
+                # Do not retry on timeouts to prevent cascading CPU overload on local LLM servers
+                duration_ms = (time.perf_counter() - start_time) * 1000
+                ai_metrics.record_failure(
+                    provider=self.provider.provider_name,
+                    model=model_name,
+                    prompt_version=template.metadata.version,
+                    duration_ms=duration_ms,
+                    error=str(e)
+                )
+                raise
+            except AIProviderUnavailable as e:
                 if attempt < retries:
                     ai_metrics.record_retry(
                         provider=self.provider.provider_name,

@@ -1,6 +1,7 @@
 import json
 import uuid
 import structlog
+import copy
 from datetime import datetime
 from typing import Dict, Any, Optional, List
 from sqlalchemy.orm import Session
@@ -41,6 +42,35 @@ class LLMOptimizationOutput(BaseModel):
     career_readiness: CareerReadiness
     industry_alignment: List[IndustryAlignmentDetail]
     recommendations: List[OptimizationRecommendation]
+
+def _clean_parsed_data_for_optimization(parsed_data: Dict[str, Any]) -> Dict[str, Any]:
+    cleaned = copy.deepcopy(parsed_data)
+    # Remove top level metadata that is not resume content
+    for key in ["model", "parsed_at", "statistics", "parser_version"]:
+        cleaned.pop(key, None)
+        
+    data = cleaned.get("data", {})
+    # Remove candidate contact details to focus solely on resume content
+    for key in ["name", "email", "phone", "links"]:
+        data.pop(key, None)
+        
+    # Clean projects raw_text
+    if "projects" in data and isinstance(data["projects"], dict):
+        val = data["projects"].get("value", [])
+        if isinstance(val, list):
+            for item in val:
+                if isinstance(item, dict):
+                    item.pop("raw_text", None)
+                    
+    # Clean experience raw_text
+    if "experience" in data and isinstance(data["experience"], dict):
+        val = data["experience"].get("value", [])
+        if isinstance(val, list):
+            for item in val:
+                if isinstance(item, dict):
+                    item.pop("raw_text", None)
+                    
+    return cleaned
 
 class ResumeOptimizationService:
     """Service orchestrating AI Resume Optimization & Intelligence Engine."""
@@ -135,13 +165,38 @@ class ResumeOptimizationService:
         provider = AIProviderFactory.get_provider(model_name=model_override)
         ai_service = AIService(provider)
 
-        # 6. Prepare Jinja template variables
+        # 6. Prepare Jinja template variables (compact & cleaned JSON formatting to reduce token footprint)
+        cleaned_parsed = _clean_parsed_data_for_optimization(resume.parsed_data)
+        
+        compact_ats = {
+            "overall_score": ats_score_response.overall_score,
+            "grade": ats_score_response.grade,
+            "breakdown": ats_score_response.breakdown.model_dump() if hasattr(ats_score_response.breakdown, "model_dump") else ats_score_response.breakdown,
+            "strengths": ats_score_response.strengths[:4] if ats_score_response.strengths else [],
+            "weaknesses": ats_score_response.weaknesses[:4] if ats_score_response.weaknesses else [],
+            "recommendations": ats_score_response.recommendations[:4] if ats_score_response.recommendations else []
+        }
+        
+        compact_job_match = {
+            "match_score": job_match_response.match_score,
+            "grade": job_match_response.grade,
+            "matched_skills": job_match_response.matched_skills,
+            "missing_skills": job_match_response.missing_skills
+        } if job_match_response else None
+
+        compact_gap = {
+            "experience_gap": gap_analysis_response.experience_gap.model_dump() if hasattr(gap_analysis_response.experience_gap, "model_dump") else gap_analysis_response.experience_gap,
+            "education_gap": gap_analysis_response.education_gap.model_dump() if hasattr(gap_analysis_response.education_gap, "model_dump") else gap_analysis_response.education_gap,
+            "certification_gap": gap_analysis_response.certification_gap.model_dump() if hasattr(gap_analysis_response.certification_gap, "model_dump") else gap_analysis_response.certification_gap,
+            "keyword_gap": gap_analysis_response.keyword_gap.model_dump() if hasattr(gap_analysis_response.keyword_gap, "model_dump") else gap_analysis_response.keyword_gap
+        } if gap_analysis_response else None
+
         variables = {
             "mode": normalized_mode,
-            "resume_json": json.dumps(resume.parsed_data, indent=2, default=str),
-            "ats_output": ats_score_response.model_dump_json(indent=2),
-            "job_match_output": job_match_response.model_dump_json(indent=2) if job_match_response else "",
-            "gap_analysis_output": gap_analysis_response.model_dump_json(indent=2) if gap_analysis_response else "",
+            "resume_json": json.dumps(cleaned_parsed, default=str),
+            "ats_output": json.dumps(compact_ats, default=str),
+            "job_match_output": json.dumps(compact_job_match, default=str) if compact_job_match else "",
+            "gap_analysis_output": json.dumps(compact_gap, default=str) if compact_gap else "",
             "job_description": job_description or ""
         }
 
@@ -165,7 +220,8 @@ class ResumeOptimizationService:
                     variables=variables,
                     parser_type="json",
                     temperature=mode_config["temperature"],
-                    max_tokens=mode_config["max_tokens"]
+                    max_tokens=mode_config["max_tokens"],
+                    options={"num_ctx": 4096}
                 )
                 parsed_response = structured_response.parsed_response
                 if not isinstance(parsed_response, dict):
@@ -237,5 +293,4 @@ class ResumeOptimizationService:
             optimization_id=str(db_opt.id),
             resume_id=str(resume_id)
         )
-
         return db_opt
