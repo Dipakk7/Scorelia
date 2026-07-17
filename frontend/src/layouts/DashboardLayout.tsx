@@ -103,7 +103,7 @@ export default function DashboardLayout() {
       {/* Mobile Sidebar Navigation Drawer Overlay */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-40 bg-slate-900/50 dark:bg-slate-950/70 backdrop-blur-xs md:hidden"
+          className="fixed inset-0 z-40 bg-black/40 md:hidden"
           onClick={() => setMobileOpen(false)}
         />
       )}
@@ -111,18 +111,18 @@ export default function DashboardLayout() {
       {/* Mobile Drawer Panel */}
       <div
         className={cn(
-          'fixed inset-y-0 left-0 z-55 w-64 bg-slate-900 text-slate-350 p-5 transform transition-transform duration-300 ease-in-out md:hidden flex flex-col justify-between shadow-2xl',
+          'fixed inset-y-0 left-0 z-55 w-64 bg-sidebar-bg text-sidebar-fg border-r border-sidebar-border p-5 transform transition-transform duration-300 ease-in-out md:hidden flex flex-col justify-between shadow-md',
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
         <div className="flex flex-col gap-6">
           <div className="flex items-center justify-between">
             <Link to="/dashboard" className="flex items-center gap-3 focus:outline-none">
-              <Logo iconOnly={false} className="h-7 w-auto text-white" />
+              <Logo iconOnly={false} className="h-7 w-auto text-sidebar-active-fg" />
             </Link>
             <button
               onClick={() => setMobileOpen(false)}
-              className="p-1 rounded-lg text-slate-400 hover:text-slate-200 cursor-pointer focus:outline-none"
+              className="p-1 rounded-lg text-sidebar-muted-fg hover:text-sidebar-active-fg cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-focus-ring"
               aria-label="Close menu"
             >
               <X size={20} />
@@ -138,10 +138,10 @@ export default function DashboardLayout() {
                   to={item.to}
                   className={({ isActive }) =>
                     cn(
-                      'flex items-center gap-3 py-2.5 rounded-lg text-sm font-semibold transition-all duration-150 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[var(--sidebar-background)]',
+                      'flex items-center gap-3 py-2.5 rounded-[var(--radius-button)] text-sm font-semibold transition-all duration-150 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-focus-ring/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-sidebar-bg',
                       isActive
-                        ? 'bg-brand-500/12 text-brand-400 border-l-2 border-brand-500 pl-2.5 pr-3 shadow-inner'
-                        : 'hover:bg-slate-800/40 hover:text-slate-100 text-slate-400 px-3'
+                        ? 'bg-sidebar-hover text-brand px-3 shadow-xs'
+                        : 'hover:bg-sidebar-hover hover:text-sidebar-active-fg text-sidebar-muted-fg px-3'
                     )
                   }
                 >
@@ -153,8 +153,8 @@ export default function DashboardLayout() {
           </nav>
         </div>
 
-        <div className="text-xs text-slate-500 font-display">
-          Logged in as: <span className="text-slate-400 font-sans block truncate">{user?.email}</span>
+        <div className="text-xs text-sidebar-muted-fg font-display border-t border-sidebar-border pt-4 mt-auto">
+          Logged in as: <span className="text-sidebar-active-fg font-sans block truncate">{user?.email}</span>
         </div>
       </div>
 

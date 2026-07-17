@@ -9,14 +9,14 @@ export const DropdownPortal = DropdownMenuPrimitive.Portal
 export const DropdownContent = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
->((({ className, sideOffset = 4, ...props }, ref) => (
+>((({ sideOffset = 4, ...props }, ref) => (
   <DropdownMenuPrimitive.Portal>
     <DropdownMenuPrimitive.Content
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        'z-50 min-w-[8rem] overflow-hidden rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--surface)]/95 p-1 text-[var(--body)] shadow-[var(--shadow-md)] backdrop-blur-md dropdown-content-anim',
-        className
+        'z-50 min-w-[8rem] overflow-hidden rounded-[var(--radius-md)] border border-border bg-surface p-1 text-body shadow-md dropdown-content-anim',
+        props.className
       )}
       {...props}
     />
@@ -29,13 +29,13 @@ export const DropdownItem = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {
     inset?: boolean
   }
->(({ className, inset, ...props }, ref) => (
+>(({ inset, ...props }, ref) => (
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
-      'relative flex cursor-pointer select-none items-center rounded-[var(--radius-sm)] px-3 py-2 text-sm outline-none transition-all duration-[var(--duration-fast)] text-[var(--body)] hover:bg-[var(--divider)] hover:text-[var(--heading)] focus:bg-[var(--divider)] focus:text-[var(--heading)] data-[disabled]:pointer-events-none data-[disabled]:opacity-[var(--opacity-disabled)] font-sans',
+      'relative flex cursor-pointer select-none items-center rounded-[var(--radius-sm)] px-3 py-2 text-sm outline-none transition-all duration-[var(--duration-fast)] text-body hover:bg-surface-hover hover:text-heading focus:bg-surface-hover focus:text-heading data-[disabled]:pointer-events-none data-[disabled]:opacity-[var(--opacity-disabled)] font-sans',
       inset && 'pl-8',
-      className
+      props.className
     )}
     {...props}
   />
@@ -47,13 +47,13 @@ export const DropdownLabel = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & {
     inset?: boolean
   }
->(({ className, inset, ...props }, ref) => (
+>(({ inset, ...props }, ref) => (
   <DropdownMenuPrimitive.Label
     ref={ref}
     className={cn(
-      'px-3 py-2 text-xs font-semibold font-display text-[var(--muted)]',
+      'px-3 py-2 text-xs font-semibold font-display text-muted',
       inset && 'pl-8',
-      className
+      props.className
     )}
     {...props}
   />
@@ -63,10 +63,10 @@ DropdownLabel.displayName = 'DropdownLabel'
 export const DropdownSeparator = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Separator>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
->(({ className, ...props }, ref) => (
+>(({ ...props }, ref) => (
   <DropdownMenuPrimitive.Separator
     ref={ref}
-    className={cn('-mx-1 my-1 h-px bg-[var(--divider)]', className)}
+    className={cn('-mx-1 my-1 h-px bg-border', props.className)}
     {...props}
   />
 ))

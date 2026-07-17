@@ -89,7 +89,7 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
   return (
     <aside
       className={cn(
-        'hidden md:block h-screen bg-[var(--sidebar-background)] transition-[width] duration-200 ease-in-out relative z-30',
+        'hidden md:block h-screen bg-sidebar-bg transition-[width] duration-200 ease-in-out relative z-30',
         pinned ? 'w-[260px]' : 'w-[72px]',
         className
       )}
@@ -107,22 +107,22 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
           }
         }}
         className={cn(
-          'flex flex-col h-full bg-[var(--sidebar-background)] text-[var(--sidebar-foreground)] border-r border-[var(--sidebar-border)] transition-[width] duration-200 ease-in-out absolute top-0 left-0 z-30',
+          'flex flex-col h-full bg-sidebar-bg text-sidebar-fg border-r border-sidebar-border transition-[width] duration-200 ease-in-out absolute top-0 left-0 z-30',
           expanded ? 'w-[260px]' : 'w-[72px]',
-          (!pinned && expanded) && 'shadow-xl'
+          (!pinned && expanded) && 'shadow-md'
         )}
       >
-        <div className="h-16 flex items-center px-3 border-b border-[var(--sidebar-border)]">
+        <div className="h-16 flex items-center px-3 border-b border-sidebar-border">
           <button
             onClick={() => setPinned(!pinned)}
             aria-expanded={expanded}
             className={cn(
-              "flex items-center cursor-pointer w-full transition-all duration-200 rounded-[14px] hover:bg-[var(--sidebar-border)]/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--primary)] focus-visible:outline-offset-2 focus:outline-none",
+              "flex items-center cursor-pointer w-full transition-all duration-200 rounded-[var(--radius-button)] hover:bg-sidebar-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-focus-ring/50 focus:outline-none",
               expanded ? "justify-start p-2 gap-3" : "justify-center p-2"
             )}
             aria-label={pinned ? 'Collapse sidebar' : 'Expand sidebar'}
           >
-            <Logo iconOnly={!expanded} className={cn("text-[var(--sidebar-active-foreground)] transition-all duration-200", expanded ? "h-7 w-auto" : "h-8 w-8")} />
+            <Logo iconOnly={!expanded} className={cn("text-sidebar-active-fg transition-all duration-200", expanded ? "h-7 w-auto" : "h-8 w-8")} />
           </button>
         </div>
 
@@ -138,9 +138,9 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
                 onMouseLeave={handleMouseLeave}
                 className={({ isActive }) =>
                   cn(
-                    'flex items-center py-2.5 rounded-[14px] text-sm font-semibold font-sans transition-all duration-200 ease-in-out cursor-pointer group relative px-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[var(--sidebar-background)]',
+                    'flex items-center py-2.5 rounded-[var(--radius-button)] text-sm font-semibold font-sans transition-all duration-200 ease-in-out cursor-pointer group relative px-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-focus-ring/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-sidebar-bg',
                     expanded ? 'justify-start' : 'justify-center',
-                    !isActive && 'text-[var(--sidebar-muted-foreground)] hover:bg-[var(--sidebar-border)]/45 hover:text-[var(--sidebar-active-foreground)]'
+                    !isActive && 'text-sidebar-muted-fg hover:bg-sidebar-hover hover:text-sidebar-active-fg'
                   )
                 }
               >
@@ -149,16 +149,16 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
                     {isActive && (
                       <motion.div
                         layoutId="activeSidebarLink"
-                        className="absolute inset-0 bg-[var(--primary)]/10 rounded-[14px] border-l-2 border-[var(--primary)] shadow-sm"
+                        className="absolute inset-0 bg-sidebar-hover rounded-[var(--radius-button)] shadow-xs"
                         transition={{ duration: 0.2 }}
                       />
                     )}
-                    <Icon size={20} className={cn("flex-shrink-0 transition-colors duration-200 relative z-10", isActive ? "text-[var(--primary)]" : "text-[var(--sidebar-muted-foreground)] group-hover:text-[var(--sidebar-active-foreground)]")} />
+                    <Icon size={20} className={cn("flex-shrink-0 transition-colors duration-200 relative z-10", isActive ? "text-brand" : "text-sidebar-muted-fg group-hover:text-sidebar-active-fg")} />
                     <span
                       className={cn(
                         "whitespace-nowrap tracking-wide transition-all duration-200 ease-in-out overflow-hidden relative z-10",
                         expanded ? "max-w-[200px] opacity-100 ml-3.5" : "max-w-0 opacity-0 ml-0",
-                        isActive ? "text-[var(--primary)] font-extrabold" : "text-[var(--sidebar-muted-foreground)] group-hover:text-[var(--sidebar-active-foreground)]"
+                        isActive ? "text-brand font-bold" : "text-sidebar-muted-fg group-hover:text-sidebar-active-fg"
                       )}
                     >
                       {item.label}
@@ -176,8 +176,8 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
             style={{ top: hoveredItem.top, left: hoveredItem.left }}
             className="absolute -translate-y-1/2 z-50 pointer-events-none"
           >
-            <div className="relative bg-[var(--sidebar-background)]/90 backdrop-blur-md text-[var(--sidebar-active-foreground)] text-xs font-semibold px-3 py-1.5 rounded-md border border-[var(--sidebar-border)] shadow-xl whitespace-nowrap animate-fade-in flex items-center">
-              <div className="absolute -left-1 w-2 h-2 rotate-45 bg-[var(--sidebar-background)]/90 border-l border-b border-[var(--sidebar-border)]" />
+            <div className="relative bg-sidebar-bg text-sidebar-active-fg text-xs font-semibold px-3 py-1.5 rounded-md border border-sidebar-border shadow-md whitespace-nowrap animate-fade-in flex items-center">
+              <div className="absolute -left-1 w-2 h-2 rotate-45 bg-sidebar-bg border-l border-b border-sidebar-border" />
               <span className="relative z-10">{hoveredItem.label}</span>
             </div>
           </div>

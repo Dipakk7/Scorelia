@@ -28,7 +28,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-label text-[var(--muted)] flex items-center gap-1"
+            className="text-label text-muted flex items-center gap-1"
           >
             <span>{label}</span>
             {required && <span className="text-[var(--danger)] font-bold">*</span>}
@@ -36,7 +36,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )}
         <div className="relative flex items-center">
           {leftIcon && (
-            <div className="absolute left-3 text-[var(--muted)] pointer-events-none">
+            <div className="absolute left-3 text-muted pointer-events-none">
               {leftIcon}
             </div>
           )}
@@ -45,12 +45,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             type={resolvedType}
             required={required}
             className={cn(
-              'w-full h-10 px-3.5 py-2 border rounded-[var(--radius-input)] bg-[var(--surface)] text-[var(--body)] placeholder-[var(--muted)]/60 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)] disabled:pointer-events-none disabled:opacity-[var(--opacity-disabled)] transition-all duration-[var(--duration-normal)] font-sans text-body-sm shadow-[var(--shadow-sm)]',
+              'w-full h-10 px-3.5 py-2 border rounded-[var(--radius-input)] bg-input-bg text-body placeholder-input-placeholder focus:outline-none focus:ring-2 focus:ring-brand-focus-ring/20 focus:border-input-border-focus disabled:pointer-events-none disabled:opacity-[var(--opacity-disabled)] transition-all duration-[var(--duration-normal)] font-sans text-body-sm shadow-[var(--shadow-sm)]',
               leftIcon ? 'pl-10' : '',
               rightIcon || isPassword ? 'pr-10' : '',
               error
                 ? 'border-[var(--danger)] focus:border-[var(--danger)] focus:ring-[var(--danger)]/10'
-                : 'border-[var(--border)] focus:ring-[var(--primary)]/20 focus:border-[var(--primary)] hover:border-[var(--primary)]/50',
+                : 'border-input-border focus:ring-brand-focus-ring/20 focus:border-input-border-focus hover:border-input-border-focus/50',
               className
             )}
             ref={ref}
@@ -63,12 +63,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               type="button"
               onClick={handleTogglePassword}
               tabIndex={-1}
-              className="absolute right-3 text-[var(--muted)] hover:text-[var(--heading)] cursor-pointer focus:outline-none"
+              className="absolute right-3 text-muted hover:text-secondary cursor-pointer focus:outline-none"
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
           ) : rightIcon ? (
-            <div className="absolute right-3 text-[var(--muted)] pointer-events-none">
+            <div className="absolute right-3 text-muted pointer-events-none">
               {rightIcon}
             </div>
           ) : null}

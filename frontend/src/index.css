@@ -6,6 +6,7 @@
 
   /* Centralized Colors mapped to CSS Variables */
   --color-background: var(--background);
+  --color-page: var(--background);
   --color-surface: var(--surface);
   --color-surface-hover: var(--surface-hover);
   --color-surface-elevated: var(--elevated);
@@ -19,12 +20,22 @@
   --color-destructive: var(--danger);
   --color-heading: var(--heading);
   --color-body: var(--body);
+  --color-secondary: var(--body);
   --color-muted: var(--divider);
   --color-border: var(--border);
   --color-divider: var(--divider);
   --color-input: var(--border);
   --color-foreground: var(--heading);
   --color-muted-foreground: var(--muted);
+  --color-brand: var(--primary);
+  --color-brand-hover: var(--primary-hover);
+  --color-brand-pressed: var(--primary-hover);
+  --color-brand-focus-ring: var(--primary);
+  --color-on-brand: white;
+  --color-input-bg: var(--surface);
+  --color-input-border: var(--border);
+  --color-input-placeholder: var(--muted);
+  --color-input-border-focus: var(--primary);
 
   --color-analytics: var(--analytics);
   --color-github: var(--github);
@@ -131,6 +142,14 @@
   --transition-duration-normal: var(--duration-normal);
   --transition-duration-slow: var(--duration-slow);
   --transition-timing-function-default: ease-in-out;
+
+  /* Sidebar design tokens exposed as semantic utility classes */
+  --color-sidebar-bg: var(--sidebar-background);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-fg: var(--sidebar-foreground);
+  --color-sidebar-muted-fg: var(--sidebar-muted-foreground);
+  --color-sidebar-active-fg: var(--sidebar-active-foreground);
+  --color-sidebar-hover: var(--sidebar-border);
 }
 
 @keyframes float {

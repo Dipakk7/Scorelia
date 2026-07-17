@@ -16,7 +16,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const baseStyles = 'inline-flex items-center justify-center font-semibold transition-all duration-[var(--duration-normal)] ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[var(--background)] disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed disabled:pointer-events-none cursor-pointer active:scale-[0.97]'
     
     const variants = {
-      primary: 'bg-[var(--primary)] text-white shadow-[var(--shadow-sm)] hover:bg-[var(--primary-hover)] hover:-translate-y-[1px] hover:shadow-[var(--shadow-md)] focus-visible:ring-[var(--primary)] active:translate-y-0',
+      primary: 'bg-brand text-on-brand shadow-[var(--shadow-sm)] hover:bg-brand-hover hover:-translate-y-[1px] hover:shadow-[var(--shadow-md)] focus-visible:ring-brand-focus-ring active:bg-brand-pressed active:translate-y-0',
       secondary: 'bg-[var(--divider)] text-[var(--heading)] hover:bg-[var(--border)]/70 hover:-translate-y-[1px] focus-visible:ring-[var(--primary)] active:translate-y-0',
       outline: 'border border-[var(--border)] bg-transparent text-[var(--body)] hover:bg-[var(--surface-hover)] hover:-translate-y-[1px] focus-visible:ring-[var(--primary)] active:translate-y-0',
       ghost: 'text-[var(--body)] hover:bg-[var(--surface-hover)] hover:text-[var(--heading)] focus-visible:ring-[var(--primary)] active:scale-[0.98]',

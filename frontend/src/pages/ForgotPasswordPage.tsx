@@ -50,27 +50,17 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div
-      className="min-h-screen w-screen flex flex-col items-center justify-center p-4 md:p-6 bg-background transition-colors relative overflow-hidden"
-      style={{
-        backgroundImage: 'radial-gradient(rgba(15, 157, 154, 0.07) 1.5px, transparent 1.5px)',
-        backgroundSize: '24px 24px',
-      }}
-    >
-      {/* Background gradients for WOW factor */}
-      <div className="absolute top-1/4 left-1/4 w-[450px] h-[450px] bg-[var(--primary)]/8 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[450px] h-[450px] bg-accent-blue/5 rounded-full blur-3xl pointer-events-none" />
-
+    <div className="min-h-screen w-screen flex flex-col items-center justify-center p-4 md:p-6 bg-page transition-colors relative overflow-hidden">
       <div className="w-full max-w-md z-10">
         {/* Brand Logo header */}
-        <div className="flex flex-col items-center mb-8 text-center">
-          <div className="h-16 w-16 bg-background/70 rounded-2xl flex items-center justify-center border border-border/50 shadow-lg shadow-slate-200/10 dark:shadow-none mb-4 animate-float">
-            <Logo iconOnly={true} className="h-10 w-10 text-[var(--primary)]" />
+        <div className="flex flex-col items-center mb-6 text-center">
+          <div className="flex items-center justify-center mb-3">
+            <Logo iconOnly={true} className="h-11 w-11 text-brand" />
           </div>
-          <h1 className="text-3xl font-extrabold font-display tracking-tight text-foreground m-0">
+          <h1 className="text-3xl font-extrabold font-display tracking-tight text-heading m-0">
             Welcome to Scorelia
           </h1>
-          <p className="text-xs font-bold uppercase tracking-widest text-[var(--primary)] mt-2 font-display">
+          <p className="text-label text-secondary mt-2 font-display">
             AI-powered Career Intelligence Platform
           </p>
         </div>
@@ -84,7 +74,7 @@ export default function ForgotPasswordPage() {
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.3 }}
             >
-              <Card className="glass-card shadow-2xl border-border/30 rounded-2xl overflow-hidden">
+              <Card className="bg-surface border-border shadow-md backdrop-blur-none bg-none rounded-card overflow-hidden">
                 <CardHeader className="text-center pt-8 pb-3 px-6 md:px-8">
                   <CardTitle className="text-2xl font-bold font-display text-foreground">Reset Password</CardTitle>
                   <CardDescription className="text-xs text-muted-foreground mt-1">
@@ -105,7 +95,7 @@ export default function ForgotPasswordPage() {
 
                     <Button
                       type="submit"
-                      className="w-full mt-4 font-display text-sm font-bold tracking-wide"
+                      className="w-full mt-6 font-display text-sm font-bold tracking-wide"
                       isLoading={isSubmitting}
                       size="lg"
                     >
@@ -113,10 +103,10 @@ export default function ForgotPasswordPage() {
                     </Button>
                   </form>
                 </CardContent>
-                <CardFooter className="justify-center border-t border-border/40 py-5 bg-muted/20">
+                <CardFooter className="justify-center border-t border-border py-5 bg-transparent">
                   <Link
                     to="/login"
-                    className="flex items-center text-xs font-bold text-muted-foreground hover:text-primary transition-colors gap-2"
+                    className="flex items-center text-xs font-bold text-secondary hover:text-brand-hover hover:underline transition-colors gap-2"
                   >
                     <ArrowLeft size={14} />
                     <span>Back to Sign In</span>
@@ -131,9 +121,9 @@ export default function ForgotPasswordPage() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
             >
-              <Card className="glass-card shadow-2xl border-border/30 rounded-2xl overflow-hidden">
+              <Card className="bg-surface border-border shadow-md backdrop-blur-none bg-none rounded-card overflow-hidden">
                 <CardContent className="pt-8 px-6 md:px-8 pb-6 text-center flex flex-col items-center">
-                  <CheckCircle2 size={56} className="text-success mb-4 animate-bounce" />
+                  <CheckCircle2 size={56} className="text-brand mb-4 animate-bounce" />
                   <CardTitle className="text-xl font-bold mb-2">Check Your Email</CardTitle>
                   <p className="text-xs text-muted-foreground max-w-sm mb-6 leading-relaxed font-sans">
                     We have simulated sending password reset instructions to{' '}
