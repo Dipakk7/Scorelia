@@ -1,9 +1,11 @@
 import uuid
 import structlog
 import json
+import copy
 from datetime import datetime
 from typing import Optional, List, Dict, Any
 from sqlalchemy.orm import Session
+from pydantic import ValidationError
 
 from app.cover_letter.crud import crud
 from app.cover_letter.models.ai_cover_letter import AICoverLetter
@@ -19,9 +21,132 @@ from app.cover_letter.services.resolver import CoverLetterTemplateResolver
 from app.ai.services.ai_service import AIService
 from app.ai.providers.factory import AIProviderFactory
 
-from app.ai.exceptions import ModelNotFound, AIProviderUnavailable, AIRequestTimeout, InvalidPrompt
+from app.ai.exceptions import (
+    ModelNotFound,
+    AIProviderUnavailable,
+    AIRequestTimeout,
+    InvalidPrompt,
+    ResponseParsingError
+)
 
 logger = structlog.get_logger()
+
+# Centralized constants for Cover Letter schemas and validation
+REQUIRED_TEXT_FIELDS = ["title", "greeting", "introduction", "body", "closing", "signature"]
+REQUIRED_AI_EVALUATION_FIELDS = ["overall_quality", "ats_score", "tone", "writing_style", "category_scores"]
+REQUIRED_CATEGORY_SCORE_KEYS = [
+    "grammar",
+    "professional_tone",
+    "readability",
+    "ats_friendliness",
+    "role_alignment",
+    "company_alignment"
+]
+
+
+def normalize_cover_letter_output(parsed_output: Dict[str, Any], request_writing_style: str) -> Dict[str, Any]:
+    """Normalize fields in the parsed AI output to match the expected types and schemas.
+    Does NOT mutate the original response dictionary.
+    """
+    normalized = copy.deepcopy(parsed_output)
+
+    # Normalize writing_style
+    w_style = normalized.get("writing_style")
+    if isinstance(w_style, str) and w_style.strip():
+        normalized["writing_style"] = w_style.upper().strip()
+    else:
+        normalized["writing_style"] = request_writing_style.upper().strip()
+
+    # Normalize tone
+    tone = normalized.get("tone")
+    if isinstance(tone, str):
+        normalized["tone"] = tone.strip()
+
+    # Normalize ats_score
+    if "ats_score" in normalized:
+        try:
+            normalized["ats_score"] = int(normalized["ats_score"])
+        except (ValueError, TypeError):
+            pass
+
+    # Normalize overall_quality
+    if "overall_quality" in normalized:
+        try:
+            normalized["overall_quality"] = int(normalized["overall_quality"])
+        except (ValueError, TypeError):
+            pass
+
+    # Normalize category_scores nested dict and its values
+    if "category_scores" in normalized and isinstance(normalized["category_scores"], dict):
+        normalized_cats = {}
+        for k, v in normalized["category_scores"].items():
+            if v is not None:
+                try:
+                    normalized_cats[k] = int(v)
+                except (ValueError, TypeError):
+                    normalized_cats[k] = v
+            else:
+                normalized_cats[k] = None
+        normalized["category_scores"] = normalized_cats
+
+    # Trim whitespace for string fields
+    for f in REQUIRED_TEXT_FIELDS:
+        val = normalized.get(f)
+        if isinstance(val, str):
+            normalized[f] = val.strip()
+
+    return normalized
+
+
+def validate_ai_evaluation_fields(normalized_output: Dict[str, Any]) -> Dict[str, Any]:
+    """Lightweight validation step to identify missing fields, invalid types, or malformed nested objects before Pydantic.
+    """
+    missing_fields = []
+    invalid_fields = {}
+
+    # 1. Check title, greeting, introduction, body, closing, signature
+    for f in REQUIRED_TEXT_FIELDS:
+        if f not in normalized_output or normalized_output[f] is None:
+            missing_fields.append(f)
+        elif not isinstance(normalized_output[f], str):
+            invalid_fields[f] = f"Expected str, got {type(normalized_output[f]).__name__}"
+
+    # 2. Check overall_quality, ats_score
+    for f in ["overall_quality", "ats_score"]:
+        if f not in normalized_output or normalized_output[f] is None:
+            missing_fields.append(f)
+        elif not isinstance(normalized_output[f], int):
+            invalid_fields[f] = f"Expected int, got {type(normalized_output[f]).__name__}"
+        elif normalized_output[f] < 0 or normalized_output[f] > 100:
+            invalid_fields[f] = f"Value {normalized_output[f]} is out of range [0, 100]"
+
+    # 3. Check tone, writing_style
+    for f in ["tone", "writing_style"]:
+        if f not in normalized_output or normalized_output[f] is None:
+            missing_fields.append(f)
+        elif not isinstance(normalized_output[f], str):
+            invalid_fields[f] = f"Expected str, got {type(normalized_output[f]).__name__}"
+
+    # 4. Check category_scores nested object
+    if "category_scores" not in normalized_output or normalized_output["category_scores"] is None:
+        missing_fields.append("category_scores")
+    elif not isinstance(normalized_output["category_scores"], dict):
+        invalid_fields["category_scores"] = f"Expected dict, got {type(normalized_output['category_scores']).__name__}"
+    else:
+        cat_dict = normalized_output["category_scores"]
+        for cat in REQUIRED_CATEGORY_SCORE_KEYS:
+            if cat not in cat_dict or cat_dict[cat] is None:
+                missing_fields.append(f"category_scores.{cat}")
+            elif not isinstance(cat_dict[cat], int):
+                invalid_fields[f"category_scores.{cat}"] = f"Expected int, got {type(cat_dict[cat]).__name__}"
+            elif cat_dict[cat] < 0 or cat_dict[cat] > 100:
+                invalid_fields[f"category_scores.{cat}"] = f"Value {cat_dict[cat]} is out of range [0, 100]"
+
+    return {
+        "missing_fields": missing_fields,
+        "invalid_fields": invalid_fields
+    }
+
 
 class FactValidationError(Exception):
     def __init__(self, details: List[ValidationErrorDetail]):
@@ -74,6 +199,16 @@ class CoverLetterService:
         model_override: Optional[str] = None
     ) -> AICoverLetter:
         """Orchestrate the cover letter context assembly, generate via AIService, fact-check, and save to DB."""
+        correlation_id = str(uuid.uuid4())
+        logger.info(
+            "cover_letter_generation_started",
+            correlation_id=correlation_id,
+            user_id=str(user_id),
+            resume_id=str(request.resume_id),
+            company_name=request.company_name,
+            job_title=request.job_title
+        )
+
         # 1. Validation of request properties
         if not request.company_name or not request.company_name.strip():
             raise ValueError("Company name must not be empty.")
@@ -142,12 +277,22 @@ class CoverLetterService:
         
         for attempt in range(attempts):
             try:
-                logger.info(
-                    "calling_ai_service_for_cover_letter",
-                    resume_id=str(request.resume_id),
-                    template_name=template_name,
-                    attempt=attempt + 1
-                )
+                if attempt > 0:
+                    logger.info(
+                        "ai_cover_letter_generation_retry_initiated",
+                        correlation_id=correlation_id,
+                        resume_id=str(request.resume_id),
+                        attempt=attempt + 1
+                    )
+                else:
+                    logger.info(
+                        "calling_ai_service_for_cover_letter",
+                        correlation_id=correlation_id,
+                        resume_id=str(request.resume_id),
+                        template_name=template_name,
+                        attempt=attempt + 1
+                    )
+
                 structured_response = await ai_service.execute(
                     category="cover_letter",
                     name=template_name,
@@ -156,27 +301,77 @@ class CoverLetterService:
                     temperature=mode_config["temperature"],
                     max_tokens=mode_config["max_tokens"]
                 )
-                parsed_output = structured_response.parsed_response
-                if not isinstance(parsed_output, dict):
+                raw_parsed = structured_response.parsed_response
+                if not isinstance(raw_parsed, dict):
+                    logger.warning(
+                        "ai_cover_letter_malformed_response_not_dict",
+                        correlation_id=correlation_id,
+                        resume_id=str(request.resume_id),
+                        template_name=template_name,
+                        attempt=attempt + 1
+                    )
                     raise ValueError("AI response did not parse as a JSON dictionary.")
-                
+
+                # Normalize response without mutating original raw_parsed
+                normalized_output = normalize_cover_letter_output(raw_parsed, request.writing_style)
+
+                # Pre-validation check of AI evaluation fields
+                val_result = validate_ai_evaluation_fields(normalized_output)
+                missing = val_result["missing_fields"]
+                invalid = val_result["invalid_fields"]
+
+                if missing or invalid:
+                    logger.warning(
+                        "ai_cover_letter_validation_failed_attempt",
+                        correlation_id=correlation_id,
+                        resume_id=str(request.resume_id),
+                        template_name=template_name,
+                        model=model_name,
+                        provider=provider_name,
+                        retry_attempt=attempt + 1,
+                        missing_fields=missing,
+                        invalid_fields=invalid
+                    )
+                    raise ValueError(
+                        f"AI response validation failed. Missing fields: {missing}. Invalid fields: {invalid}."
+                    )
+
+                # Populate backend-generated metadata only after successful validation
+                normalized_output["provider"] = structured_response.provider
+                normalized_output["model"] = structured_response.model
+                normalized_output["prompt_version"] = structured_response.prompt_version
+                normalized_output["created_at"] = structured_response.created_at.isoformat() + "Z"
+
                 # Pydantic validation
-                AICoverLetterOutput.model_validate(parsed_output)
+                AICoverLetterOutput.model_validate(normalized_output)
+                
+                parsed_output = normalized_output
                 ai_response = structured_response
                 break
+
             except (ModelNotFound, AIProviderUnavailable, AIRequestTimeout, InvalidPrompt) as exc:
                 logger.error(
                     "ai_cover_letter_generation_critical_failed",
+                    correlation_id=correlation_id,
+                    resume_id=str(request.resume_id),
                     error=str(exc)
                 )
                 raise
-            except Exception as exc:
+            except (ValueError, ResponseParsingError, ValidationError) as exc:
                 logger.warning(
-                    "ai_cover_letter_generation_attempt_failed",
+                    "ai_cover_letter_generation_recoverable_failed",
+                    correlation_id=correlation_id,
+                    resume_id=str(request.resume_id),
                     attempt=attempt + 1,
                     error=str(exc)
                 )
                 if attempt == attempts - 1:
+                    logger.error(
+                        "ai_cover_letter_generation_final_validation_failure",
+                        correlation_id=correlation_id,
+                        resume_id=str(request.resume_id),
+                        error=str(exc)
+                    )
                     raise ValueError(f"AI returned malformed output or failed validation: {str(exc)}")
 
         output_obj = AICoverLetterOutput.model_validate(parsed_output)
@@ -303,6 +498,7 @@ class CoverLetterService:
 
         logger.info(
             "cover_letter_generation_completed",
+            correlation_id=correlation_id,
             cover_letter_id=str(db_cover_letter.id),
             user_id=str(user_id)
         )

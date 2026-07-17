@@ -567,3 +567,150 @@ class TestAICoverLetterFoundation(unittest.TestCase):
         # Test fallback
         self.assertEqual(resolver.resolve("PROFESSIONAL", "invalid_level", "STANDARD", None), "experienced")
 
+    @patch("app.ai.services.ai_service.AIService.execute", new_callable=AsyncMock)
+    def test_08_validation_and_normalization(self, mock_execute):
+        """Test normalization, pre-validation checks, selective retries, and metadata generation."""
+        import asyncio
+        db = SessionLocal()
+        try:
+            service = CoverLetterService(db)
+            req = CoverLetterRequest(
+                resume_id=self.resume_id,
+                company_name="Google",
+                job_title="Software Developer",
+                writing_style="concise"
+            )
+
+            # Scenario A: Incomplete response (missing 'overall_quality' on first attempt), then valid on second
+            mock_execute.side_effect = [
+                # 1st attempt: missing overall_quality (triggering retry)
+                AIStructuredResponse(
+                    provider="mock_provider",
+                    model="mock_model",
+                    latency_ms=100.0,
+                    prompt_version="1.0.0",
+                    created_at=datetime.utcnow(),
+                    raw_response={},
+                    parsed_response={
+                        "title": "Application for Software Developer",
+                        "greeting": "Dear Google,",
+                        "introduction": "I am writing to apply...",
+                        "body": "My experience includes FastAPI...",
+                        "closing": "Sincerely,",
+                        "signature": "Applicant Signature",
+                        "ats_score": "95",  # numeric string to be normalized
+                        "tone": "PROFESSIONAL",
+                        "writing_style": "concise",  # lowercase style to be normalized
+                        # overall_quality is missing!
+                        "category_scores": {
+                            "grammar": 95,
+                            "professional_tone": 95,
+                            "readability": "90",  # numeric string inside categories
+                            "ats_friendliness": 92,
+                            "role_alignment": 94,
+                            "company_alignment": 90
+                        }
+                    },
+                    usage=TokenUsage(prompt_tokens=10, completion_tokens=10, total_tokens=20),
+                    token_fields={}
+                ),
+                # 2nd attempt: valid response
+                AIStructuredResponse(
+                    provider="mock_provider",
+                    model="mock_model",
+                    latency_ms=100.0,
+                    prompt_version="1.0.0",
+                    created_at=datetime.utcnow(),
+                    raw_response={},
+                    parsed_response={
+                        "title": "Application for Software Developer",
+                        "greeting": "Dear Google,",
+                        "introduction": "I am writing to apply...",
+                        "body": "My experience includes FastAPI...",
+                        "closing": "Sincerely,",
+                        "signature": "Applicant Signature",
+                        "ats_score": "95",  # numeric string to be normalized
+                        "overall_quality": 98,
+                        "tone": "PROFESSIONAL",
+                        "writing_style": "concise",
+                        "category_scores": {
+                            "grammar": 95,
+                            "professional_tone": 95,
+                            "readability": "90",  # numeric string
+                            "ats_friendliness": 92,
+                            "role_alignment": 94,
+                            "company_alignment": 90
+                        }
+                    },
+                    usage=TokenUsage(prompt_tokens=10, completion_tokens=10, total_tokens=20),
+                    token_fields={}
+                ),
+                # 3rd call: fact check
+                AIStructuredResponse(
+                    provider="mock_provider",
+                    model="mock_model",
+                    latency_ms=50.0,
+                    prompt_version="1.0.0",
+                    created_at=datetime.utcnow(),
+                    raw_response={},
+                    parsed_response={"is_valid": True, "fabrications": []},
+                    usage=TokenUsage(prompt_tokens=5, completion_tokens=5, total_tokens=10),
+                    token_fields={}
+                )
+            ]
+
+            cl = asyncio.run(service.generate_cover_letter(
+                user_id=self.user_id,
+                request=req
+            ))
+
+            # Verify that:
+            # - Metadata was correctly populated by backend (provider, model, prompt_version)
+            self.assertEqual(cl.provider, "mock_provider")
+            self.assertEqual(cl.model, "mock_model")
+            self.assertEqual(cl.prompt_version, "1.0.0")
+
+            # - Custom normalization was done: writing_style to CONCISE, scores coerced to int
+            self.assertEqual(cl.writing_style, "CONCISE")
+            self.assertEqual(cl.cover_letter_metadata["writing_style"], "CONCISE")
+            self.assertEqual(cl.cover_letter_metadata["overall_quality"], 98)
+            self.assertEqual(cl.cover_letter_metadata["ats_score"], 95)
+            self.assertEqual(cl.cover_letter_metadata["category_scores"]["readability"], 90)
+
+            # Scenario B: Always malformed (triggers retries and raises ValueError at end)
+            mock_execute.reset_mock()
+            mock_execute.side_effect = [
+                AIStructuredResponse(
+                    provider="mock_provider",
+                    model="mock_model",
+                    latency_ms=100.0,
+                    prompt_version="1.0.0",
+                    created_at=datetime.utcnow(),
+                    raw_response={},
+                    parsed_response={"title": "Application"}, # missing everything else
+                    usage=TokenUsage(prompt_tokens=10, completion_tokens=10, total_tokens=20),
+                    token_fields={}
+                ),
+                AIStructuredResponse(
+                    provider="mock_provider",
+                    model="mock_model",
+                    latency_ms=100.0,
+                    prompt_version="1.0.0",
+                    created_at=datetime.utcnow(),
+                    raw_response={},
+                    parsed_response={"title": "Application"}, # still missing
+                    usage=TokenUsage(prompt_tokens=10, completion_tokens=10, total_tokens=20),
+                    token_fields={}
+                )
+            ]
+
+            with self.assertRaises(ValueError) as err:
+                asyncio.run(service.generate_cover_letter(
+                    user_id=self.user_id,
+                    request=req
+                ))
+            self.assertIn("AI response validation failed", str(err.exception))
+
+        finally:
+            db.close()
+
