@@ -4,6 +4,7 @@ from app.ai.providers.base import BaseAIProvider
 from app.ai.clients.ollama_client import OllamaClient
 from app.ai.schemas.ai import AIRequest, AIResponse
 from app.ai.logging import log_ai_request
+from app.ai.config import OLLAMA_NUM_CTX
 
 
 class OllamaProvider(BaseAIProvider):
@@ -19,7 +20,8 @@ class OllamaProvider(BaseAIProvider):
         options = {
             "temperature": request.temperature if request.temperature is not None else 0.3,
             "top_p": request.top_p if request.top_p is not None else 0.9,
-            "num_predict": request.max_tokens if request.max_tokens is not None else 2048
+            "num_predict": request.max_tokens if request.max_tokens is not None else 2048,
+            "num_ctx": OLLAMA_NUM_CTX
         }
         if request.options:
             options.update(request.options)
@@ -81,7 +83,8 @@ class OllamaProvider(BaseAIProvider):
         options = {
             "temperature": kwargs.get("temperature", 0.3),
             "top_p": kwargs.get("top_p", 0.9),
-            "num_predict": kwargs.get("max_tokens", 2048)
+            "num_predict": kwargs.get("max_tokens", 2048),
+            "num_ctx": OLLAMA_NUM_CTX
         }
         if "options" in kwargs and kwargs["options"]:
             options.update(kwargs["options"])

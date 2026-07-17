@@ -12,6 +12,7 @@ from app.models.resume import Resume
 from app.utils.diff_engine import compute_diff
 from app.ai.services.ai_service import AIService
 from app.ai.providers.factory import AIProviderFactory
+from app.ai.exceptions import ModelNotFound, AIProviderUnavailable, AIRequestTimeout, InvalidPrompt
 from app.cover_letter.schemas.schemas import (
     CoverLetterOptimizationRequest,
     QualityScore,
@@ -108,7 +109,7 @@ class CoverLetterOptimizationService:
 
         # 7. Setup prompt rendering variables
         variables = {
-            "resume_json": json.dumps(resume_data, indent=2, default=str),
+            "resume_json": json.dumps(resume_data, default=str),
             "job_description": job_desc,
             "original_cover_letter": original_content
         }
@@ -158,6 +159,12 @@ class CoverLetterOptimizationService:
                 # If all matches, set response and break
                 ai_response = structured_response
                 break
+            except (ModelNotFound, AIProviderUnavailable, AIRequestTimeout, InvalidPrompt) as exc:
+                logger.error(
+                    "cover_letter_optimization_critical_failed",
+                    error=str(exc)
+                )
+                raise
             except Exception as exc:
                 logger.warning(
                     "cover_letter_optimization_attempt_failed",

@@ -38,7 +38,7 @@ export const clearStoredTokens = (): void => {
 
 const api: AxiosInstance = axios.create({
   baseURL: (import.meta.env.VITE_API_URL as string) || '/api/v1',
-  timeout: 90000,
+  timeout: 300000,
   headers: {
     'Content-Type': 'application/json',
   },

@@ -57,10 +57,11 @@ class Settings(BaseSettings):
     AI_PROVIDER: str = "ollama"
     OLLAMA_HOST: str = "http://localhost:11434"
     OLLAMA_MODEL: str = "qwen2.5:3b"
+    OLLAMA_NUM_CTX: int = 4096
     AI_TEMPERATURE: float = 0.3
     AI_TOP_P: float = 0.9
     AI_MAX_TOKENS: int = 2048
-    AI_TIMEOUT: int = 60
+    AI_TIMEOUT: int = 300
     AI_RETRY_COUNT: int = 3
     PROMPT_CACHE_ENABLED: bool = True
     PROMPT_CACHE_TTL: int = 300

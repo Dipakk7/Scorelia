@@ -145,6 +145,53 @@ class AICoverLetterOutput(BaseModel):
     created_at: str
     category_scores: CategoryScores
 
+    @field_validator("body", mode="before")
+    @classmethod
+    def coerce_body_to_string(cls, v):
+        if isinstance(v, str):
+            return v
+        if isinstance(v, dict):
+            lines = []
+            for key, val in v.items():
+                key_title = str(key).replace("_", " ").title()
+                if isinstance(val, list):
+                    lines.append(f"{key_title}:")
+                    for item in val:
+                        if isinstance(item, dict):
+                            # Recursively format sub-dictionaries/items
+                            lines.append(cls._format_dict_item(item, indent=2))
+                        else:
+                            lines.append(f"  - {item}")
+                elif isinstance(val, dict):
+                    lines.append(f"{key_title}:")
+                    lines.append(cls._format_dict_item(val, indent=2))
+                else:
+                    lines.append(f"{key_title}: {val}")
+            return "\n".join(lines)
+        if isinstance(v, list):
+            return "\n".join(str(item) for item in v)
+        return str(v)
+
+    @classmethod
+    def _format_dict_item(cls, d: dict, indent: int = 2) -> str:
+        space = " " * indent
+        lines = []
+        for k, val in d.items():
+            k_title = str(k).replace("_", " ").title()
+            if isinstance(val, list):
+                lines.append(f"{space}- {k_title}:")
+                for item in val:
+                    if isinstance(item, dict):
+                        lines.append(cls._format_dict_item(item, indent + 2))
+                    else:
+                        lines.append(f"{space}  * {item}")
+            elif isinstance(val, dict):
+                lines.append(f"{space}- {k_title}:")
+                lines.append(cls._format_dict_item(val, indent + 2))
+            else:
+                lines.append(f"{space}- {k_title}: {val}")
+        return "\n".join(lines)
+
 
 class CoverLetterOptimizationRequest(BaseModel):
     cover_letter_id: UUID

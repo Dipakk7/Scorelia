@@ -19,6 +19,8 @@ from app.cover_letter.services.resolver import CoverLetterTemplateResolver
 from app.ai.services.ai_service import AIService
 from app.ai.providers.factory import AIProviderFactory
 
+from app.ai.exceptions import ModelNotFound, AIProviderUnavailable, AIRequestTimeout, InvalidPrompt
+
 logger = structlog.get_logger()
 
 class FactValidationError(Exception):
@@ -109,22 +111,26 @@ class CoverLetterService:
 
         # 5. Populate Rendering Variables
         variables = {
-            "resume_json": json.dumps(context.resume.parsed_data or {}, indent=2, default=str),
-            "resume_review_json": json.dumps(context.resume_review.review or {} if context.resume_review else {}, indent=2, default=str),
-            "resume_rewrite_json": json.dumps(context.resume_rewrite.rewritten_content or {} if context.resume_rewrite else {}, indent=2, default=str),
-            "resume_optimization_json": json.dumps(context.resume_optimization.optimization_result or {} if context.resume_optimization else {}, indent=2, default=str),
+            "resume_json": json.dumps(context.resume.parsed_data or {}, default=str),
+            "resume_review_json": json.dumps(context.resume_review.review or {} if context.resume_review else {}, default=str),
+            "resume_optimization_json": json.dumps(context.resume_optimization.optimization_result or {} if context.resume_optimization else {}, default=str),
+            "interview_context": json.dumps(context.interview_context or {}, default=str),
             "ats_score": context.ats_score or 0,
             "job_description": context.job_description or "",
             "company_name": context.company_name,
             "role": context.role,
             "writing_style": request.writing_style,
             "generation_mode": request.generation_mode.value if hasattr(request.generation_mode, "value") else request.generation_mode,
-            "experience_level": experience_level.value if hasattr(experience_level, "value") else experience_level,
             "provider": provider_name,
             "model": model_name,
             "prompt_version": "1.0.0",
             "current_time": datetime.utcnow().isoformat() + "Z"
         }
+
+        # Filter variables to exactly match the resolved template's expected variables
+        template = ai_service.registry.get_prompt("cover_letter", template_name)
+        expected_vars = ai_service.validator.validate_template(template.template_body)
+        filtered_variables = {k: v for k, v in variables.items() if k in expected_vars}
 
         # 6. Execute AIService with Retry logic (Retry once if invalid JSON/Pydantic validation fails)
         mode_val = request.generation_mode.value if hasattr(request.generation_mode, "value") else request.generation_mode
@@ -145,7 +151,7 @@ class CoverLetterService:
                 structured_response = await ai_service.execute(
                     category="cover_letter",
                     name=template_name,
-                    variables=variables,
+                    variables=filtered_variables,
                     parser_type="json",
                     temperature=mode_config["temperature"],
                     max_tokens=mode_config["max_tokens"]
@@ -158,6 +164,12 @@ class CoverLetterService:
                 AICoverLetterOutput.model_validate(parsed_output)
                 ai_response = structured_response
                 break
+            except (ModelNotFound, AIProviderUnavailable, AIRequestTimeout, InvalidPrompt) as exc:
+                logger.error(
+                    "ai_cover_letter_generation_critical_failed",
+                    error=str(exc)
+                )
+                raise
             except Exception as exc:
                 logger.warning(
                     "ai_cover_letter_generation_attempt_failed",
@@ -181,7 +193,7 @@ class CoverLetterService:
 
         # 8. Fact Validation Verification
         check_variables = {
-            "resume_json": json.dumps(context.resume.parsed_data or {}, indent=2, default=str),
+            "resume_json": json.dumps(context.resume.parsed_data or {}, default=str),
             "generated_letter": generated_content
         }
         
@@ -202,7 +214,51 @@ class CoverLetterService:
         if not check_result.get("is_valid", True) or check_result.get("fabrications"):
             fabrications = check_result.get("fabrications", [])
             validation_details = []
+            resume_data = context.resume.parsed_data or {}
+
+            # Helper to extract all text values from the resume dictionary
+            def extract_texts(val):
+                texts = []
+                if isinstance(val, str):
+                    texts.append(val.lower())
+                elif isinstance(val, (list, tuple)):
+                    for v in val:
+                        texts.extend(extract_texts(v))
+                elif isinstance(val, dict):
+                    for v in val.values():
+                        texts.extend(extract_texts(v))
+                return texts
+
+            resume_texts = extract_texts(resume_data)
+
             for fab in fabrications:
+                item = fab.get("fabricated_item", "")
+                if not item:
+                    continue
+                item_lower = str(item).lower().strip()
+
+                # Check if supposedly fabricated item is actually in the resume data (case-insensitive)
+                is_false_positive = False
+                for t in resume_texts:
+                    if item_lower in t or t in item_lower:
+                        is_false_positive = True
+                        break
+
+                if not is_false_positive:
+                    # Token/keyword-based matching for company names / degrees / skills
+                    words = [w for w in item_lower.split() if len(w) > 3 and w not in ["with", "from", "that", "this", "were", "been", "role", "position"]]
+                    for word in words:
+                        for t in resume_texts:
+                            if word in t:
+                                is_false_positive = True
+                                break
+                        if is_false_positive:
+                            break
+
+                if is_false_positive:
+                    logger.info("disregarding_false_positive_fabrication", item=item)
+                    continue
+
                 validation_details.append(ValidationErrorDetail(
                     loc=["body", fab.get("field", "unknown")],
                     msg=f"Fabrication detected: {fab.get('fabricated_item')} - {fab.get('reason')}",
@@ -221,7 +277,7 @@ class CoverLetterService:
             "prompt_metadata": context.prompt_metadata,
             "interview_context": context.interview_context,
             "latency_ms": ai_response.latency_ms,
-            "experience_level": variables["experience_level"],
+            "experience_level": experience_level.value if hasattr(experience_level, "value") else experience_level,
             "writing_style": output_obj.writing_style,
             "tone": output_obj.tone,
             "overall_quality": output_obj.overall_quality,

@@ -4,6 +4,7 @@ from app.core.config import settings
 AI_PROVIDER = settings.AI_PROVIDER
 OLLAMA_HOST = settings.OLLAMA_HOST
 OLLAMA_MODEL = settings.OLLAMA_MODEL
+OLLAMA_NUM_CTX = settings.OLLAMA_NUM_CTX
 AI_TEMPERATURE = settings.AI_TEMPERATURE
 AI_TOP_P = settings.AI_TOP_P
 AI_MAX_TOKENS = settings.AI_MAX_TOKENS
