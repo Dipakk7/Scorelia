@@ -268,7 +268,7 @@ export default function RAGWorkspacePage() {
   return (
     <div className="space-y-6 text-left animate-fade-in font-sans focus:outline-none">
       {/* Page Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-6 rounded-[var(--radius-card)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300">
         <div className="space-y-1.5 text-left">
           <h1 className="text-xl md:text-2xl font-black font-display text-[var(--heading)] m-0 tracking-tight leading-none">
             RAG Semantic Workspace
@@ -279,7 +279,7 @@ export default function RAGWorkspacePage() {
         </div>
 
         {/* Database operational status indicator */}
-        <div className="flex items-center gap-2.5 bg-[var(--surface-hover)] border border-[var(--border)]/80 px-3.5 py-1.5 rounded-xl text-xs font-semibold select-none leading-none">
+        <div className="flex items-center gap-2.5 bg-[var(--surface-hover)] border border-[var(--border)]/80 px-3.5 py-1.5 rounded-[var(--radius-sm)] text-xs font-semibold select-none leading-none">
           <Database size={14} className="text-[var(--muted)]" />
           <div className="flex items-center gap-1.5">
             <span className="text-[var(--muted)] font-sans">KB Vector DB:</span>
@@ -299,7 +299,7 @@ export default function RAGWorkspacePage() {
       </div>
 
       {/* Knowledge Base Overview Statistics Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatisticCard
           title="Knowledge Collections"
           value={collections.length}
@@ -335,7 +335,7 @@ export default function RAGWorkspacePage() {
         {/* Left Side: Document management, Query builder, filters, history */}
         <div className="lg:col-span-1 space-y-6">
           {/* Document Uploader */}
-          <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
+          <Card id="knowledge-ingestion-card" className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
             <CardHeader className="pb-4 border-b border-[var(--border)]/60 text-left">
               <CardTitle className="text-sm font-black font-display text-[var(--heading)] flex items-center gap-2 m-0 leading-none">
                 <Upload className="text-[var(--primary)] h-4 w-4" />
@@ -345,7 +345,7 @@ export default function RAGWorkspacePage() {
                 Load PDF or TXT files directly to your semantic indexes.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4 pt-5 pb-5">
+            <CardContent className="space-y-6 p-6">
               <form onSubmit={handleUploadAndIndex} className="space-y-3.5 text-xs m-0 text-left">
                 {/* File input drag area */}
                 <div className="border-2 border-dashed border-[var(--border)] hover:border-[var(--primary)] rounded-[var(--radius-card)] p-6 text-center cursor-pointer transition-colors relative bg-[var(--surface-hover)]">
@@ -384,7 +384,7 @@ export default function RAGWorkspacePage() {
                         placeholder="New collection name..."
                         value={newCollectionName}
                         onChange={(e) => setNewCollectionName(e.target.value)}
-                        className="flex-1 text-xs py-2 px-3 border border-[var(--border)] rounded-xl bg-[var(--surface)] text-[var(--heading)] placeholder-[var(--muted)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)] font-sans font-medium transition-colors shadow-2xs"
+                        className="flex-1 text-xs py-2 px-3 border border-[var(--border)] rounded-[var(--radius-sm)] bg-[var(--surface)] text-[var(--heading)] placeholder-[var(--muted)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)] font-sans font-medium transition-colors shadow-2xs"
                       />
                       <Button
                         type="button"
@@ -392,7 +392,7 @@ export default function RAGWorkspacePage() {
                         size="sm"
                         disabled={createCollectionMutation.isPending || !newCollectionName.trim()}
                         onClick={() => createCollectionMutation.mutate(newCollectionName.trim())}
-                        className="text-[10px] font-bold uppercase tracking-wider h-9 rounded-xl px-3 cursor-pointer"
+                        className="text-[10px] font-bold uppercase tracking-wider h-9 rounded-[var(--radius-sm)] px-3 cursor-pointer"
                       >
                         Create
                       </Button>
@@ -413,7 +413,7 @@ export default function RAGWorkspacePage() {
 
                 <Button
                   type="submit"
-                  className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] border-none rounded-xl transition-all duration-200 text-xs w-full h-10"
+                  className="flex items-center justify-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] border-none rounded-[var(--radius-sm)] transition-all duration-200 text-xs w-full h-10"
                   disabled={isUploading || !uploadFile}
                 >
                   {isUploading ? (
@@ -511,7 +511,12 @@ export default function RAGWorkspacePage() {
                   <span>Retrieved Knowledge Chunks ({retrievedChunks.length})</span>
                 </h3>
                 {retrievedChunks.length === 0 ? (
-                  <EmptyRagResultsState />
+                  <EmptyRagResultsState onAction={() => {
+                    const uploadCard = document.getElementById('knowledge-ingestion-card')
+                    if (uploadCard) {
+                      uploadCard.scrollIntoView({ behavior: 'smooth' })
+                    }
+                  }} />
                 ) : (
                   <div className="space-y-3.5">
                     {retrievedChunks.map((chunk, idx) => (

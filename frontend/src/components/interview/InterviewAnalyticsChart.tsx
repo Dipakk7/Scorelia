@@ -7,6 +7,7 @@ import {
   Compass,
 } from 'lucide-react'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
+import { ChartEmptyState } from '@/components/ui/ChartEmptyState'
 import {
   ResponsiveContainer,
   AreaChart,
@@ -174,11 +175,11 @@ export default function InterviewAnalyticsChart({
                     <AreaChart data={overallTrendData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
                       <defs>
                         <linearGradient id="scoreColor" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor={themeColors.primary} stopOpacity={0.2} />
+                          <stop offset="5%" stopColor={themeColors.primary} stopOpacity={0.25} />
                           <stop offset="95%" stopColor={themeColors.primary} stopOpacity={0.0} />
                         </linearGradient>
                       </defs>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={themeColors.grid} />
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" strokeOpacity={0.1} />
                       <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={9} tickLine={false} axisLine={false} tick={{ fill: themeColors.mutedText }} />
                       <YAxis stroke={themeColors.mutedText} fontSize={9} tickLine={false} axisLine={false} domain={[0, 100]} tick={{ fill: themeColors.mutedText }} />
                       <Tooltip content={<CustomTooltip />} />
@@ -186,9 +187,11 @@ export default function InterviewAnalyticsChart({
                     </AreaChart>
                   </ResponsiveContainer>
                 ) : (
-                  <div className="h-full flex flex-col items-center justify-center text-[var(--muted)] text-xs italic">
-                    Not enough session logs. Complete interviews to track trends.
-                  </div>
+                  <ChartEmptyState
+                    message="Not enough session logs. Complete mock interviews to track your score progression over time."
+                    ctaText="Start Mock Interview"
+                    ctaTo="/interview"
+                  />
                 )}
               </CardContent>
             </Card>
@@ -204,7 +207,7 @@ export default function InterviewAnalyticsChart({
                 {techCommData.length > 0 ? (
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={techCommData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={themeColors.grid} />
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" strokeOpacity={0.1} />
                       <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={9} tickLine={false} axisLine={false} tick={{ fill: themeColors.mutedText }} />
                       <YAxis stroke={themeColors.mutedText} fontSize={9} tickLine={false} axisLine={false} domain={[0, 100]} tick={{ fill: themeColors.mutedText }} />
                       <Tooltip content={<CustomTooltip />} />
@@ -214,9 +217,11 @@ export default function InterviewAnalyticsChart({
                     </LineChart>
                   </ResponsiveContainer>
                 ) : (
-                  <div className="h-full flex flex-col items-center justify-center text-[var(--muted)] text-xs italic">
-                    Not enough session logs. Complete interviews to track trends.
-                  </div>
+                  <ChartEmptyState
+                    message="Not enough session logs. Complete mock interviews to compare technical vs communication skill metrics."
+                    ctaText="Start Mock Interview"
+                    ctaTo="/interview"
+                  />
                 )}
               </CardContent>
             </Card>
@@ -287,11 +292,17 @@ export default function InterviewAnalyticsChart({
               <CardContent className="h-64 pt-6 bg-transparent">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={weeklyData} margin={{ top: 10, right: 10, left: -30, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={themeColors.grid} />
+                    <defs>
+                      <linearGradient id="drillBarColor" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor={themeColors.primary} stopOpacity={0.9} />
+                        <stop offset="100%" stopColor={themeColors.primary} stopOpacity={0.4} />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" strokeOpacity={0.1} />
                     <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={9} tickLine={false} axisLine={false} tick={{ fill: themeColors.mutedText }} />
                     <YAxis stroke={themeColors.mutedText} fontSize={9} tickLine={false} axisLine={false} allowDecimals={false} tick={{ fill: themeColors.mutedText }} />
                     <Tooltip content={<ActivityTooltip />} />
-                    <Bar dataKey="Sessions" fill={themeColors.primary} radius={[4, 4, 0, 0]} maxBarSize={30} />
+                    <Bar dataKey="Sessions" fill="url(#drillBarColor)" radius={[4, 4, 0, 0]} maxBarSize={30} />
                   </BarChart>
                 </ResponsiveContainer>
               </CardContent>

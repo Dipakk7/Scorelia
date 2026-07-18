@@ -15,7 +15,7 @@ export const notify = {
     toast(message, {
       icon: '⚠️',
       style: {
-        border: '1px solid #eab308',
+        border: '1px solid var(--accent-warning)',
       },
     })
   },
@@ -23,7 +23,7 @@ export const notify = {
     toast(message, {
       icon: 'ℹ️',
       style: {
-        border: '1px solid #3b82f6',
+        border: '1px solid var(--accent-info)',
       },
     })
   },

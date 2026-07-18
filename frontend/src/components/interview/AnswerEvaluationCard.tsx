@@ -39,9 +39,13 @@ export default function AnswerEvaluationCard({ evaluation, questionText, answerT
         {/* Header Title with Score */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-border/60">
           <div className="space-y-1.5">
-            <h3 className="font-display font-black text-sm text-foreground flex items-center gap-1.5 m-0 leading-none">
+            <h3 className="font-display font-black text-sm text-foreground flex items-center gap-2 flex-wrap m-0 leading-none">
               <Sparkles size={16} className="text-brand-500 animate-pulse" />
               <span>Real-Time Answer Evaluation</span>
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider font-mono bg-brand-500/10 text-brand-500 border border-brand-500/20 select-none">
+                <Sparkles size={9} />
+                <span>Scorelia Copilot</span>
+              </span>
             </h3>
             <p className="text-[10px] text-slate-500 dark:text-slate-405 leading-relaxed font-sans max-w-md m-0 font-medium">
               Feedback computed by the AI interview engine based on keyword matching and context assessment.

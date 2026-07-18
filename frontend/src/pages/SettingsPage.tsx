@@ -10,6 +10,7 @@ import type { Theme } from '@/providers/ThemeProvider'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Select } from '@/components/ui/Select'
+import { Card } from '@/components/ui/Card'
 import { SettingsCard } from '@/components/ui/SettingsCard'
 import { Loader } from '@/components/ui/Loader'
 import { SettingsSkeleton } from '@/components/ui/Skeletons'
@@ -208,7 +209,7 @@ export default function SettingsPage() {
 
   return (
     <div className="space-y-6 text-left max-w-4xl mx-auto font-sans text-xs pb-12 select-none">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300 flex-shrink-0">
+      <Card variant="elevated" className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 hover:border-[var(--primary)]/40 flex-shrink-0">
         <div className="space-y-1.5 text-left">
           <h1 className="text-xl md:text-2xl font-black font-display text-[var(--heading)] m-0 tracking-tight leading-none text-left">
             Account Settings
@@ -217,7 +218,7 @@ export default function SettingsPage() {
             Adjust preferences, notification configs, security settings, and backups.
           </p>
         </div>
-      </div>
+      </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-start text-left">
         {/* Tab Buttons Side Nav */}

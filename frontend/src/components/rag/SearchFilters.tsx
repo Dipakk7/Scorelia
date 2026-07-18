@@ -26,8 +26,8 @@ export function SearchFilters({
   setDocumentFilter
 }: SearchFiltersProps) {
   return (
-    <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
-      <CardContent className="p-4 grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+    <Card className="border border-[var(--border)] bg-card/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
+      <CardContent className="p-6 grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
         {/* Collection Selector */}
         <div className="space-y-1.5 text-left">
           <label className="text-[9px] font-black uppercase tracking-widest text-muted-foreground leading-none">
@@ -36,7 +36,7 @@ export function SearchFilters({
           <select
             value={selectedCollection}
             onChange={(e) => setSelectedCollection(e.target.value)}
-            className="w-full text-xs py-2.5 px-3 border border-border rounded-xl bg-white/70 dark:bg-slate-900/50 text-foreground focus:outline-none focus:ring-1 focus:ring-brand-500 font-bold transition-colors cursor-pointer shadow-2xs"
+            className="w-full text-xs py-2.5 px-3 border border-[var(--border)] rounded-[var(--radius-sm)] bg-white/70 dark:bg-slate-900/50 text-foreground focus:outline-none focus:ring-1 focus:ring-[var(--primary)] font-bold transition-colors cursor-pointer shadow-2xs"
           >
             <option value="">All Collections</option>
             {collections.map((col) => (
@@ -55,7 +55,7 @@ export function SearchFilters({
           <select
             value={topK}
             onChange={(e) => setTopK(Number(e.target.value))}
-            className="w-full text-xs py-2.5 px-3 border border-border rounded-xl bg-white/70 dark:bg-slate-900/50 text-foreground focus:outline-none focus:ring-1 focus:ring-brand-500 font-bold transition-colors cursor-pointer shadow-2xs"
+            className="w-full text-xs py-2.5 px-3 border border-[var(--border)] rounded-[var(--radius-sm)] bg-white/70 dark:bg-slate-900/50 text-foreground focus:outline-none focus:ring-1 focus:ring-[var(--primary)] font-bold transition-colors cursor-pointer shadow-2xs"
           >
             {[3, 5, 8, 12, 15].map((k) => (
               <option key={k} value={k}>
@@ -98,7 +98,7 @@ export function SearchFilters({
             placeholder="Specific doc ID (optional)..."
             value={documentFilter}
             onChange={(e) => setDocumentFilter(e.target.value)}
-            className="w-full text-xs py-2.5 px-3 border border-border rounded-xl bg-white/70 dark:bg-slate-900/50 text-foreground focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans font-medium transition-colors shadow-2xs"
+            className="w-full text-xs py-2.5 px-3 border border-[var(--border)] rounded-[var(--radius-sm)] bg-white/70 dark:bg-slate-900/50 text-foreground focus:outline-none focus:ring-1 focus:ring-[var(--primary)] font-sans font-medium transition-colors shadow-2xs"
           />
         </div>
       </CardContent>

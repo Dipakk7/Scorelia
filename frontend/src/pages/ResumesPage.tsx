@@ -42,7 +42,7 @@ import { cn } from '@/lib/utils'
 function CustomTooltip({ active, payload, label }: any) {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)]/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 shadow-[var(--shadow-sm)] text-left font-sans text-xs">
         <p className="text-[9px] font-extrabold uppercase tracking-wider text-[var(--muted)]">{label}</p>
         <div className="mt-1.5 flex items-center gap-2 font-semibold">
           <span className="h-2 w-2 rounded-full bg-[var(--primary)]" />
@@ -705,6 +705,7 @@ export default function ResumesPage() {
                 <ResumeViewer
                   parsedData={selectedResume.parsed_data}
                   originalFilename={selectedResume.original_filename}
+                  onEditClick={() => setWorkspaceTab('editor')}
                 />
               )}
 

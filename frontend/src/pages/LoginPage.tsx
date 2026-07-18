@@ -80,7 +80,7 @@ export default function LoginPage() {
         </div>
 
         {/* Login Card */}
-        <Card className="bg-surface border-border shadow-md backdrop-blur-none bg-none rounded-card overflow-hidden">
+        <Card variant="glass" className="overflow-hidden">
           <CardHeader className="text-center pt-8 pb-3 px-6 md:px-8">
             <CardTitle className="text-2xl font-bold font-display text-foreground">Sign In</CardTitle>
             <CardDescription className="text-xs text-muted-foreground mt-1">

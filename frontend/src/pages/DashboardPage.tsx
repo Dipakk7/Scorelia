@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import toast from 'react-hot-toast'
 import {
   FileText,
   Scan,
@@ -37,6 +39,9 @@ import { DashboardSkeleton } from '@/components/ui/Skeletons'
 import { Button } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
 import type { ResumeResponse } from '@/types/resume'
+import OnboardingWizard from '@/components/dashboard/OnboardingWizard'
+import CareerHealthScore from '@/components/dashboard/CareerHealthScore'
+import AIDailyBrief from '@/components/dashboard/AIDailyBrief'
 
 interface DashboardStatsData {
   total_users: number
@@ -76,7 +81,7 @@ interface CustomTooltipProps {
 function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-xl border border-border/80 bg-surface p-3.5 shadow-lg text-left font-sans select-none focus-visible:outline-none min-w-[170px] space-y-2.5">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3.5 shadow-[var(--shadow-sm)] text-left font-sans select-none focus-visible:outline-none min-w-[170px] space-y-2.5">
         <p className="text-[10px] font-bold uppercase tracking-wider text-muted font-mono leading-none">{label}</p>
         <div className="space-y-2">
           {payload.map((pld: any, index: number) => {
@@ -406,11 +411,11 @@ function DashboardKPICard({
     >
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-1 flex-1">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-muted font-mono leading-none block mb-1.5">
+          <span className="text-label text-[var(--muted)] leading-none block mb-1.5">
             {title}
           </span>
           <div className="flex items-center gap-2 flex-wrap mt-1">
-            <h3 className="text-3xl font-extrabold tracking-tight text-heading font-sans leading-none">
+            <h3 className="text-h2 text-[var(--heading)] leading-none">
               {value}
             </h3>
             {statusBadge && (
@@ -476,10 +481,10 @@ function WorkspaceShortcutCard({ title, description, icon: Icon, to, themeColor 
             <Icon size={16} className="stroke-[1.5]" />
           </div>
           <div className="space-y-0.5 min-w-0">
-            <h4 className="text-xs font-bold text-heading font-sans group-hover:text-primary transition-colors leading-none truncate">
+            <h4 className="text-body font-semibold text-[var(--heading)] group-hover:text-primary transition-colors leading-none truncate">
               {title}
             </h4>
-            <p className="text-[11px] text-muted font-sans leading-normal truncate max-w-[200px] md:max-w-xs">
+            <p className="text-caption text-[var(--muted)] leading-normal truncate max-w-[200px] md:max-w-xs">
               {description}
             </p>
           </div>
@@ -509,10 +514,10 @@ function RecentActivityTimeline({ items }: RecentActivityTimelineProps) {
   return (
     <Card className="border-border/80 bg-surface rounded-[var(--radius-card)] shadow-sm text-left flex flex-col h-full select-none">
       <CardHeader className="pb-3.5 p-6">
-        <CardTitle className="text-sm font-bold text-heading font-sans">
+        <CardTitle>
           Recent Activity
         </CardTitle>
-        <CardDescription className="text-xs text-muted leading-relaxed font-sans">
+        <CardDescription>
           Operational transaction timeline logs.
         </CardDescription>
       </CardHeader>
@@ -554,14 +559,14 @@ function RecentActivityTimeline({ items }: RecentActivityTimelineProps) {
                     <div className="flex-1 space-y-1 pl-5">
                       <div className="flex items-center justify-between gap-2 flex-wrap">
                         <div className="flex items-center gap-1.5">
-                          <span className="text-xs font-bold text-heading font-sans leading-none">{act.title}</span>
+                          <span className="text-body font-semibold text-[var(--heading)] leading-none">{act.title}</span>
                           <span className={cn("p-0.5 rounded border shrink-0 text-xs", typeColors)}>
                             <Icon size={10} className="stroke-[1.5]" />
                           </span>
                         </div>
                         <span className="text-[10px] font-mono text-muted">{formattedDate}</span>
                       </div>
-                      <p className="text-[11px] text-body/80 leading-relaxed font-sans">{act.description}</p>
+                      <p className="text-caption text-[var(--body)]/80 leading-relaxed">{act.description}</p>
                     </div>
                   </div>
                 )
@@ -585,10 +590,10 @@ function ResumeWorkspaceTable({ resumes }: ResumeWorkspaceTableProps) {
       <CardHeader className="pb-3.5 p-6">
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <CardTitle className="text-sm font-bold text-heading font-sans">
+            <CardTitle>
               Resumes List
             </CardTitle>
-            <CardDescription className="text-xs text-muted leading-relaxed font-sans">
+            <CardDescription>
               Chronological record of uploaded credentials in the workspace.
             </CardDescription>
           </div>
@@ -625,7 +630,7 @@ function ResumeWorkspaceTable({ resumes }: ResumeWorkspaceTableProps) {
                           <div className="p-1 rounded bg-primary/10 text-primary border border-primary/20 shrink-0">
                             <FileText size={14} className="stroke-[1.5]" />
                           </div>
-                          <span className="font-semibold text-heading truncate text-xs leading-none group-hover:text-primary transition-colors duration-200">
+                          <span className="text-body font-semibold text-[var(--heading)] truncate leading-none group-hover:text-primary transition-colors duration-200">
                             {resume.original_filename}
                           </span>
                         </div>
@@ -633,7 +638,7 @@ function ResumeWorkspaceTable({ resumes }: ResumeWorkspaceTableProps) {
                       
                       {/* Uploaded date formatting */}
                       <TableCell className="py-2 px-3 text-left">
-                        <span className="text-xs text-body/90 font-medium font-sans">
+                        <span className="text-body font-medium text-[var(--body)]/90">
                           {new Date(resume.uploaded_at).toLocaleDateString(undefined, {
                             month: 'short',
                             day: 'numeric',
@@ -894,6 +899,23 @@ function AIIntelligenceCenter({
     }
   }
 
+  // Cross-Module Recommendation: Low/Medium ATS Score AND Interview practice is pending
+  if (resumesCount > 0 && atsScore < 80 && interviewSessions === 0) {
+    recommendations.push({
+      category: 'Copilot Alignment',
+      title: 'Complete Career Readiness Loop',
+      explanation: `Your profile ATS score is ${atsScore}% and you have not completed any mock interviews.`,
+      recommendation: 'Address missing keywords in Resumes/ATS and complete an initial AI mock session to verify verbal fluency.',
+      expectedImpact: '+15% ATS & Tech Fluency',
+      severity: 'Critical Sync',
+      severityVariant: 'danger',
+      actionText: 'Optimize & Practice',
+      actionLink: '/interview',
+      icon: Sparkles,
+      priority: 1
+    })
+  }
+
   // Sort recommendations by Priority (lower priority value means higher ranking)
   const sortedRecs = [...recommendations].sort((a, b) => a.priority - b.priority)
 
@@ -908,11 +930,12 @@ function AIIntelligenceCenter({
     <div className="space-y-5 text-left select-none animate-fade-in motion-reduce:animation-none">
       <div className="flex items-center justify-between pb-1 flex-wrap gap-2">
         <div className="space-y-1">
-          <h2 className="text-xl font-extrabold text-heading tracking-tight font-sans">AI Intelligence Center</h2>
-          <p className="text-xs text-muted leading-relaxed font-sans">Priority-ranked actionable recommendations derived from your active workspace metrics.</p>
+          <h2 className="text-h2 text-[var(--heading)]">AI Intelligence Center</h2>
+          <p className="text-caption text-[var(--muted)] leading-relaxed">Priority-ranked actionable recommendations derived from your active workspace metrics.</p>
         </div>
-        <span className="px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-primary/10 border border-primary/20 text-primary font-mono shrink-0">
-          Copilot Calibrated
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-wider font-mono bg-brand-500/10 text-brand-500 border border-brand-500/20 select-none shrink-0">
+          <Sparkles size={10} className="stroke-[2]" />
+          <span>Scorelia Copilot</span>
         </span>
       </div>
 
@@ -936,28 +959,28 @@ function AIIntelligenceCenter({
                     <div className="p-2 rounded-xl bg-primary/10 text-primary border border-primary/20 shrink-0 group-hover:scale-105 transition-transform duration-200 motion-reduce:transition-none">
                       <RecIcon size={16} className="stroke-[1.5]" />
                     </div>
-                    <span className="text-xs font-bold text-heading font-sans tracking-tight truncate">
+                    <span className="text-body font-semibold text-[var(--heading)] truncate">
                       {rec.category}
                     </span>
                   </div>
-                  <span className={cn("px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider border font-mono select-none shrink-0", severityBadgeClasses[rec.severityVariant])}>
+                  <span className={cn("px-2.5 py-0.5 rounded-full text-label border select-none shrink-0", severityBadgeClasses[rec.severityVariant])}>
                     {rec.severity}
                   </span>
                 </div>
                 
                 {/* Title & Explanation */}
                 <div className="space-y-1.5">
-                  <h4 className="text-sm font-bold text-heading font-sans leading-snug">
+                  <h4 className="text-h4 text-[var(--heading)] leading-snug">
                     {rec.title}
                   </h4>
-                  <p className="text-xs text-body/80 leading-relaxed font-sans font-medium">
+                  <p className="text-caption text-[var(--body)]/80 leading-relaxed font-medium">
                     {rec.explanation}
                   </p>
                 </div>
                 
                 {/* Recommendation Box */}
                 <div className="p-3 bg-surface-hover/50 rounded-xl border border-border/40 text-left space-y-1">
-                  <span className="text-[9px] font-bold uppercase tracking-wider text-muted font-mono block leading-none">Recommendation</span>
+                  <span className="text-label text-[var(--muted)] block leading-none">Recommendation</span>
                   <p className="text-[11px] text-body/90 font-sans leading-relaxed">
                     {rec.recommendation}
                   </p>
@@ -989,7 +1012,23 @@ function AIIntelligenceCenter({
 }
 
 export default function DashboardPage() {
-  const { user } = useAuth()
+  const { user, refreshUser } = useAuth()
+  const [isCompletingOnboarding, setIsCompletingOnboarding] = useState(false)
+
+  const handleCompleteOnboarding = async (role: string) => {
+    setIsCompletingOnboarding(true)
+    try {
+      await api.put('/auth/me', { has_onboarded: true, role })
+      await refreshUser()
+      toast.success('Setup completed! Welcome to your Command Center.')
+    } catch (err: any) {
+      console.error(err)
+      toast.error('Failed to update onboarding flag.')
+    } finally {
+      setIsCompletingOnboarding(false)
+    }
+  }
+
   const userDisplayName = user?.full_name || user?.email.split('@')[0] || 'User'
   
   const currentDate = new Date().toLocaleDateString(undefined, {
@@ -1249,177 +1288,136 @@ export default function DashboardPage() {
   const rec = getRecommendation()
 
   return (
-    <div className="space-y-12 text-left animate-fade-in motion-reduce:animation-none pb-8 select-none">
-      
-      {/* 1. HERO - AI Career Command Center */}
-      <div className="relative overflow-hidden rounded-[var(--radius-card)] border border-border bg-surface p-6 md:p-8 shadow-sm hover:shadow-md transition-all duration-300 select-none motion-reduce:transition-none">
-        {/* Subtle decorative vector line indicator */}
-        <div className="absolute right-0 top-0 -mr-16 -mt-16 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+    <>
+      {!user?.has_onboarded && (
+        <OnboardingWizard
+          onComplete={handleCompleteOnboarding}
+          isCompleting={isCompletingOnboarding}
+        />
+      )}
+      <div className="space-y-12 text-left animate-fade-in motion-reduce:animation-none pb-8 select-none">
+        
+        {/* 1. HERO - AI Career Command Center */}
+        <div className="relative overflow-hidden rounded-[var(--radius-card)] border border-border bg-surface p-6 md:p-8 shadow-sm hover:shadow-md transition-all duration-300 select-none motion-reduce:transition-none">
+          {/* Subtle decorative vector line indicator */}
+          <div className="absolute right-0 top-0 -mr-16 -mt-16 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-          {/* Left Column: Command Summary & Primary AI Recommendation */}
-          <div className="lg:col-span-8 flex flex-col justify-between space-y-5">
-            
-            {/* Header info */}
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-muted font-mono bg-divider px-2.5 py-0.5 rounded">
-                  {currentDate}
-                </span>
-              </div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground block mt-3">
-                {greeting} 👋
-              </span>
-              <h1 className="text-4xl md:text-5xl font-black text-heading tracking-tight mt-1 font-sans leading-none">
-                {userDisplayName}
-              </h1>
-              <p className="text-xs md:text-sm text-body/80 font-sans leading-relaxed max-w-xl mt-3">
-                Continue improving your career with AI-powered resume intelligence, interview preparation, and job matching.
-              </p>
-            </div>
-
-            {/* Subtle Divider */}
-            <hr className="border-t border-border/40 my-1" />
-
-            {/* AI Actionable Next Recommendation Card */}
-            <div className={cn("relative bg-surface-hover/30 border border-border/50 rounded-xl p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 select-none", rec.accentBorder, "border-l-[3px]")}>
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+            {/* Left Column: Command Summary & Primary AI Recommendation */}
+            <div className="lg:col-span-8 flex flex-col justify-between space-y-5">
               
-              {/* Confidence Badge placed in Top-Right */}
-              <div className="absolute top-4 right-4">
-                <span className={cn("inline-flex items-center px-2.5 py-0.5 rounded-full text-[9px] font-bold border font-mono select-none tracking-tight", confidenceBadge.colorClass)}>
-                  {confidenceBadge.label}
-                </span>
-              </div>
-
-              {/* Card Layout: Icon -> Title -> Recommendation -> Details */}
-              <div className="flex flex-col items-start text-left">
-                <div className="p-2 rounded-xl border border-border bg-surface text-primary mb-3.5">
-                  <rec.icon size={16} className="stroke-[1.5]" />
+              {/* Header info */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-muted font-mono bg-divider px-2.5 py-0.5 rounded">
+                    {currentDate}
+                  </span>
                 </div>
-                
-                <span className="text-[9px] font-black uppercase tracking-wider text-muted font-mono mb-1 leading-none">
-                  {rec.title}
-                </span>
-                
-                <h3 className="text-sm font-bold text-heading font-sans mb-1 leading-snug">
-                  {rec.recommendation}
-                </h3>
-                
-                <p className="text-xs text-body/90 font-sans leading-relaxed max-w-lg">
-                  {rec.details}
+                <div className="flex flex-col mt-3">
+                  <span className="inline-flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-primary font-mono bg-primary/10 border border-primary/20 px-2 py-0.5 rounded w-max select-none mb-1.5">
+                    <Sparkles size={10} className="animate-pulse" />
+                    <span>AI Career Command Center</span>
+                  </span>
+                  <span className="text-label text-[var(--muted)] block">
+                    {greeting} 👋
+                  </span>
+                </div>
+                <h1 className="text-h1 text-[var(--heading)] mt-1">
+                  {userDisplayName}
+                </h1>
+                <p className="text-body text-[var(--body)]/80 leading-relaxed max-w-xl mt-3">
+                  Continue improving your career with AI-powered resume intelligence, interview preparation, and job matching.
                 </p>
               </div>
-            </div>
 
-            {/* Command Actions */}
-            <div className="flex flex-wrap items-center gap-3 pt-1">
-              <Button variant="primary" size="sm" asChild>
-                <Link to="/resumes" className="gap-2 select-none">
-                  <Sparkles size={14} className="stroke-[1.5]" />
-                  <span>Improve Resume</span>
-                </Link>
-              </Button>
-              <Button variant="outline" size="sm" asChild>
-                <Link to="/ats" className="gap-2 select-none">
-                  <Scan size={14} className="stroke-[1.5]" />
-                  <span>Analyze ATS</span>
-                </Link>
-              </Button>
-            </div>
+              {/* Subtle Divider */}
+              <hr className="border-t border-border/40 my-1" />
 
-          </div>
-
-          {/* Right Column: Career Health Panel */}
-          <div className="lg:col-span-4 flex flex-col pt-4 lg:pt-0">
-            <div className="border border-border/50 bg-surface-hover/20 rounded-xl p-6 flex flex-col justify-between h-full select-none">
-              <div className="space-y-5">
-                <div className="flex items-center gap-2 text-[10px] font-black text-muted uppercase tracking-wider font-mono">
-                  <Activity size={12} className="text-primary stroke-[1.5]" />
-                  <span>Career Health</span>
-                </div>
+              {/* AI Actionable Next Recommendation Card */}
+              <div className={cn("relative bg-surface-hover/30 border border-border/50 rounded-xl p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 select-none", rec.accentBorder, "border-l-[3px]")}>
                 
-                <div className="space-y-4">
-                  {/* Row 1: Resume Score - Blue */}
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between text-xs font-semibold">
-                      <span className="text-body flex items-center gap-1.5 select-none font-sans">
-                        <FileText size={14} className="text-primary stroke-[1.5]" />
-                        <span>Resume Score</span>
-                      </span>
-                      <span className="text-heading font-bold font-mono">{resumes.length > 0 ? `${latestResumeScore}%` : '0%'}</span>
-                    </div>
-                    <div className="w-full bg-divider rounded-full h-1 overflow-hidden">
-                      <div 
-                        className="bg-primary h-full rounded-full transition-all duration-1000 ease-out" 
-                        style={{ width: `${resumes.length > 0 ? latestResumeScore : 0}%` }}
-                      />
-                    </div>
-                  </div>
+                {/* Confidence Badge placed in Top-Right */}
+                <div className="absolute top-4 right-4 flex items-center gap-1.5">
+                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider font-mono bg-brand-500/10 text-brand-500 border border-brand-500/20 select-none">
+                    <Sparkles size={9} />
+                    <span>Copilot</span>
+                  </span>
+                  <span className={cn("inline-flex items-center px-2.5 py-0.5 rounded-full text-[9px] font-bold border font-mono select-none tracking-tight", confidenceBadge.colorClass)}>
+                    {confidenceBadge.label}
+                  </span>
+                </div>
 
-                  {/* Row 2: ATS - Green */}
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between text-xs font-semibold">
-                      <span className="text-body flex items-center gap-1.5 select-none font-sans">
-                        <Award size={14} className="text-career stroke-[1.5]" />
-                        <span>ATS Score</span>
-                      </span>
-                      <span className="text-heading font-bold font-mono">{resumes.length > 0 ? `${atsScore}%` : '0%'}</span>
-                    </div>
-                    <div className="w-full bg-divider rounded-full h-1 overflow-hidden">
-                      <div 
-                        className="bg-career h-full rounded-full transition-all duration-1000 ease-out" 
-                        style={{ width: `${resumes.length > 0 ? atsScore : 0}%` }}
-                      />
-                    </div>
+                {/* Card Layout: Icon -> Title -> Recommendation -> Details */}
+                <div className="flex flex-col items-start text-left">
+                  <div className="p-2 rounded-xl border border-border bg-surface text-primary mb-3.5">
+                    <rec.icon size={16} className="stroke-[1.5]" />
                   </div>
-
-                  {/* Row 3: Job Matches - Purple */}
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between text-xs font-semibold py-0.5 border-b border-divider/40 pb-1">
-                      <span className="text-body flex items-center gap-1.5 select-none font-sans">
-                        <Layers size={14} className="text-analytics stroke-[1.5]" />
-                        <span>Job Matches</span>
-                      </span>
-                      <span className="text-heading font-bold font-mono">
-                        {totalJobMatches} {totalJobMatches === 1 ? 'Match' : 'Matches'}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Row 4: Interview Readiness - Amber */}
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between text-xs font-semibold py-0.5 border-b border-divider/40 pb-1">
-                      <span className="text-body flex items-center gap-1.5 select-none font-sans">
-                        <MessageSquareCode size={14} className="text-warning stroke-[1.5]" />
-                        <span>Interview Readiness</span>
-                      </span>
-                      <span className="text-heading font-bold text-xs font-sans">
-                        {resumes.length === 0 ? 'Not Started' : interviewSessions === 0 ? 'Needs Practice' : 'Active Practice'}
-                      </span>
-                    </div>
-                  </div>
+                  
+                  <span className="text-[9px] font-black uppercase tracking-wider text-muted font-mono mb-1 leading-none">
+                    {rec.title}
+                  </span>
+                  
+                  <h3 className="text-h3 text-[var(--heading)] mb-1 leading-snug">
+                    {rec.recommendation}
+                  </h3>
+                  
+                  <p className="text-xs text-body/90 font-sans leading-relaxed max-w-lg">
+                    {rec.details}
+                  </p>
                 </div>
               </div>
 
-              {resumes.length === 0 && (
-                <div className="text-[10px] text-muted italic font-medium pt-4 text-center font-sans border-t border-border/30 mt-5 select-none leading-relaxed">
-                  Upload initial resume to calibrate and map career health metrics.
-                </div>
-              )}
+              {/* Command Actions */}
+              <div className="flex flex-wrap items-center gap-3 pt-1">
+                <Button variant="primary" size="sm" asChild>
+                  <Link to="/resumes" className="gap-2 select-none">
+                    <Sparkles size={14} className="stroke-[1.5]" />
+                    <span>Improve Resume</span>
+                  </Link>
+                </Button>
+                <Button variant="outline" size="sm" asChild>
+                  <Link to="/ats" className="gap-2 select-none">
+                    <Scan size={14} className="stroke-[1.5]" />
+                    <span>Analyze ATS</span>
+                  </Link>
+                </Button>
+              </div>
+
+            </div>
+
+            {/* Right Column: Career Health Panel */}
+            <div className="lg:col-span-4 flex flex-col pt-4 lg:pt-0">
+              <CareerHealthScore
+                atsScore={atsScore}
+                interviewSessions={interviewSessions}
+                careerProgress={analytics?.career_progress ?? 0}
+                hasResumes={resumes.length > 0}
+              />
             </div>
           </div>
         </div>
-      </div>
 
-      {/* 2. AI INTELLIGENCE CENTER */}
-      <AIIntelligenceCenter
-        resumesCount={resumes.length}
-        atsScore={atsScore}
-        skillGaps={skillGaps}
-        interviewSessions={interviewSessions}
-        jobMatches={totalJobMatches}
-        _coverLetters={analytics?.cover_letters_generated ?? 0}
-      />
+        {/* 2. AI INTELLIGENCE CENTER & DAILY BRIEF */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div className="lg:col-span-8">
+            <AIIntelligenceCenter
+              resumesCount={resumes.length}
+              atsScore={atsScore}
+              skillGaps={skillGaps}
+              interviewSessions={interviewSessions}
+              jobMatches={totalJobMatches}
+              _coverLetters={analytics?.cover_letters_generated ?? 0}
+            />
+          </div>
+          <div className="lg:col-span-4">
+            <AIDailyBrief
+              hasResumes={resumes.length > 0}
+              atsScore={atsScore}
+              interviewSessions={interviewSessions}
+              careerProgress={analytics?.career_progress ?? 0}
+            />
+          </div>
+        </div>
 
       {/* 3. UNIQUE KPI METRICS (Avoiding duplication with Hero) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -1732,7 +1730,7 @@ export default function DashboardPage() {
         {/* Left Column: Shortcuts and Timeline (span 4 on desktop) */}
         <div className="lg:col-span-4 space-y-6">
           <div className="space-y-3.5 text-left">
-            <h3 className="text-base font-bold text-heading leading-none font-sans">Workspace Shortcuts</h3>
+            <h3 className="text-h3 text-[var(--heading)] leading-none">Workspace Shortcuts</h3>
             <div className="grid grid-cols-1 gap-3 h-full">
               <WorkspaceShortcutCard
                 title="ATS Scanner"
@@ -1768,5 +1766,6 @@ export default function DashboardPage() {
       </div>
 
     </div>
+    </>
   )
 }

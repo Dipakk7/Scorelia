@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import api from '@/api/api'
 import type { CoverLetterResponse } from '@/types/cover-letter'
 import type { ResumeResponse } from '@/types/resume'
@@ -41,7 +42,7 @@ import { cn } from '@/lib/utils'
 function TrendTooltip({ active, payload, label }: any) {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)]/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 shadow-[var(--shadow-sm)] text-left font-sans text-xs">
         <p className="text-[9px] font-extrabold uppercase tracking-wider text-[var(--muted)] m-0">{label}</p>
         <div className="mt-1.5 flex items-center gap-2 font-semibold">
           <span className="h-2 w-2 rounded-full bg-[var(--primary)]" />
@@ -56,6 +57,7 @@ function TrendTooltip({ active, payload, label }: any) {
 
 export default function CoverLetterPage() {
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   // Navigation states: 'dashboard' | 'generate' | 'workspace'
   const [currentView, setCurrentView] = useState<'dashboard' | 'generate' | 'workspace'>('dashboard')
@@ -380,7 +382,17 @@ export default function CoverLetterPage() {
                       </div>
                     </div>
                   ) : (
-                    <p className="text-xs text-[var(--muted)] italic m-0">No documents generated yet.</p>
+                    <div className="flex flex-col items-center justify-center py-4 text-center gap-3">
+                      <p className="text-xs text-[var(--muted)] italic m-0">No documents generated yet.</p>
+                      <Button
+                        variant="primary"
+                        size="sm"
+                        onClick={() => setCurrentView('generate')}
+                        className="h-8 text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all px-3 rounded-lg hover:shadow-md"
+                      >
+                        Create Letter Draft
+                      </Button>
+                    </div>
                   )}
                 </CardContent>
               </Card>
@@ -397,11 +409,17 @@ export default function CoverLetterPage() {
               <CardContent className="h-44 pt-6">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={getTrendData()} margin={{ top: 10, right: 10, left: -30, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--divider)" className="dark:stroke-slate-800/20" />
+                    <defs>
+                      <linearGradient id="coverLetterBarColor" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.9} />
+                        <stop offset="100%" stopColor="var(--primary)" stopOpacity={0.4} />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" strokeOpacity={0.1} />
                     <XAxis dataKey="name" stroke="var(--muted)" fontSize={9} tickLine={false} axisLine={false} />
                     <YAxis stroke="var(--muted)" fontSize={9} tickLine={false} axisLine={false} allowDecimals={false} />
                     <Tooltip content={<TrendTooltip />} />
-                    <Bar dataKey="Count" fill="var(--primary)" radius={[4, 4, 0, 0]} maxBarSize={30} />
+                    <Bar dataKey="Count" fill="url(#coverLetterBarColor)" radius={[4, 4, 0, 0]} maxBarSize={30} />
                   </BarChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -428,7 +446,15 @@ export default function CoverLetterPage() {
                       </div>
                     ))
                   ) : (
-                    <div className="p-8 text-center text-[var(--muted)] italic text-[10px]">No recent generations logs.</div>
+                    <div className="flex flex-col items-center justify-center p-6 text-center text-xs text-[var(--muted)] gap-2">
+                      <p className="italic text-[10px] m-0">No recent generations logs.</p>
+                      <button
+                        onClick={() => setCurrentView('generate')}
+                        className="text-[9px] font-bold uppercase tracking-wider text-[var(--primary)] hover:underline border-none bg-transparent cursor-pointer p-0 leading-none"
+                      >
+                        Start generation session →
+                      </button>
+                    </div>
                   )}
                 </div>
               </CardContent>
@@ -455,6 +481,8 @@ export default function CoverLetterPage() {
             {coverLetters.length === 0 ? (
               <EmptyCoverLettersState
                 onAction={() => setCurrentView('generate')}
+                hasResumes={parsedResumes.length > 0}
+                onNavigateToResumes={() => navigate('/resumes')}
               />
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

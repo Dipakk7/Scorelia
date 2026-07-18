@@ -1,12 +1,40 @@
 import React from 'react'
 import { cn } from '@/lib/utils'
 
-export const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
+/**
+ * Elevated
+ * -----------
+ * Default surface.
+ * Solid background.
+ * Subtle shadow.
+ * Subtle border.
+ * Used for all content-heavy cards.
+ * 
+ * Glass
+ * -----------
+ * Floating only.
+ * Backdrop blur.
+ * Translucent.
+ * Soft border.
+ * Never used inside dense data workspaces.
+ * 
+ * Never Mix
+ * -----------
+ * A page should not randomly mix glass and elevated cards unless there is 
+ * a clear visual hierarchy reason (hero, modal, dialog, etc.).
+ */
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  variant?: 'elevated' | 'glass'
+}
+
+export const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, variant = 'elevated', ...props }, ref) => (
     <div
       ref={ref}
       className={cn(
-        'rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)]/80 shadow-[var(--shadow-sm)] text-[var(--body)] transition-all duration-300 ease-in-out backdrop-blur-md',
+        'rounded-[var(--radius-card)] border text-[var(--body)] transition-all duration-300 ease-in-out',
+        variant === 'elevated' && 'border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-sm)]',
+        variant === 'glass' && 'border-[var(--border)] bg-[var(--surface-glass)] backdrop-blur-glass shadow-[var(--shadow-md)]',
         className?.includes('cursor-pointer') && 'hover:-translate-y-1 active:translate-y-0 hover:shadow-[var(--shadow-md)] hover:border-[var(--primary)]/30 active:scale-[0.99]',
         className
       )}
@@ -31,7 +59,7 @@ export const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttrib
   ({ className, ...props }, ref) => (
     <h3
       ref={ref}
-      className={cn('text-heading-sm text-[var(--heading)] font-semibold', className)}
+      className={cn('text-h3 text-[var(--heading)]', className)}
       {...props}
     />
   )
@@ -42,7 +70,7 @@ export const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTML
   ({ className, ...props }, ref) => (
     <p
       ref={ref}
-      className={cn('text-body-sm text-[var(--muted)]', className)}
+      className={cn('text-caption text-[var(--muted)]', className)}
       {...props}
     />
   )

@@ -130,5 +130,12 @@ class User(SharedBase):
         server_default=text("false")
     )
 
+    has_onboarded: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+        default=False,
+        server_default=text("false")
+    )
+
     resumes: Mapped[List["Resume"]] = relationship("Resume", back_populates="user", cascade="all, delete-orphan")
 

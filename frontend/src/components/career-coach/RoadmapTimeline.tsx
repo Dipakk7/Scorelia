@@ -68,7 +68,7 @@ export function RoadmapTimeline({ milestones, onUpdateStatus }: RoadmapTimelineP
   return (
     <div className="space-y-6 text-left font-sans text-xs">
       {/* Filters and Search Bar */}
-      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300">
+      <Card className="border border-[var(--border)] bg-card/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300">
         <CardContent className="p-4 flex flex-col md:flex-row gap-4 items-center justify-between">
           <div className="relative w-full md:max-w-xs text-left">
             <span className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-slate-400">
@@ -79,7 +79,7 @@ export function RoadmapTimeline({ milestones, onUpdateStatus }: RoadmapTimelineP
               placeholder="Search milestones..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full text-xs pl-9.5 pr-4 py-2 border border-border rounded-xl bg-slate-50/50 dark:bg-slate-900/60 text-slate-855 dark:text-slate-205 placeholder-slate-405 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans shadow-2xs transition-colors h-10"
+              className="w-full text-xs pl-9.5 pr-4 py-2 border border-[var(--border)] rounded-[var(--radius-md)] bg-[var(--surface-hover)]/30 text-slate-855 dark:text-slate-205 placeholder-slate-405 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans shadow-2xs transition-colors h-10"
             />
           </div>
 
@@ -92,7 +92,7 @@ export function RoadmapTimeline({ milestones, onUpdateStatus }: RoadmapTimelineP
                 key={status}
                 onClick={() => setStatusFilter(status)}
                 className={cn(
-                  'px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-black font-sans transition-all cursor-pointer border h-8.5 leading-none',
+                  'px-3 py-1.5 rounded-[var(--radius-sm)] text-[9px] uppercase tracking-wider font-black font-sans transition-all cursor-pointer border h-8.5 leading-none',
                   statusFilter === status
                     ? 'bg-brand-500/10 text-brand-655 dark:text-brand-400 border-brand-500/25'
                     : 'bg-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 border-slate-202 dark:border-slate-800'
@@ -106,7 +106,7 @@ export function RoadmapTimeline({ milestones, onUpdateStatus }: RoadmapTimelineP
               variant="outline"
               size="sm"
               onClick={handleExpandAll}
-              className="h-8.5 text-[9px] uppercase tracking-wider font-bold cursor-pointer rounded-lg border-border hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent flex items-center gap-1.5 ml-2"
+              className="h-8.5 text-[9px] uppercase tracking-wider font-bold cursor-pointer rounded-[var(--radius-sm)] border-[var(--border)] hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent flex items-center gap-1.5 ml-2"
             >
               {isAllExpanded ? <EyeOff size={14} /> : <Eye size={14} />}
               <span>{isAllExpanded ? 'Collapse' : 'Expand'}</span>
@@ -117,7 +117,7 @@ export function RoadmapTimeline({ milestones, onUpdateStatus }: RoadmapTimelineP
 
       {/* Timeline phases */}
       {phases.length === 0 ? (
-        <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-primary/50 transition-all duration-300">
+        <Card className="border border-[var(--border)] bg-card/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300">
           <CardContent className="py-12 text-center text-xs text-muted-foreground italic font-medium leading-relaxed">
             No milestones match the active search or filter constraints.
           </CardContent>

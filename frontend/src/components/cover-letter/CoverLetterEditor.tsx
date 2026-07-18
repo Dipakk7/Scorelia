@@ -274,9 +274,13 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
       {/* AI Side Panel */}
       <div className="lg:col-span-5 flex flex-col space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-display font-black text-xs uppercase tracking-widest text-foreground flex items-center gap-2 m-0">
+          <h3 className="font-display font-black text-xs uppercase tracking-widest text-foreground flex items-center gap-2 flex-wrap m-0">
             <Sparkles size={16} className="text-brand-500 animate-pulse" />
             <span>AI Optimization Workspace</span>
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider font-mono bg-brand-500/10 text-brand-500 border border-brand-500/20 select-none normal-case">
+              <Sparkles size={9} />
+              <span>Scorelia Copilot</span>
+            </span>
           </h3>
           <div className="flex items-center gap-2">
             <label className="flex items-center gap-1.5 text-[10px] text-muted-foreground cursor-pointer select-none font-bold uppercase tracking-wider">

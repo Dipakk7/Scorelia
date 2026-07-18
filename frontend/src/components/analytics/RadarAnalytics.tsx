@@ -102,7 +102,7 @@ export function RadarAnalytics({
             stroke={activeColor}
             fill={activeColor}
             fillOpacity={0.2}
-            activeDot={{ r: 5, stroke: activeColor, strokeWidth: 1.5, fill: '#fff' }}
+            activeDot={{ r: 5, stroke: activeColor, strokeWidth: 1.5, fill: 'var(--surface)' }}
           />
         </RadarChart>
       </ResponsiveContainer>

@@ -14,7 +14,7 @@ interface CareerDashboardCardProps {
 export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }: CareerDashboardCardProps) {
   if (!analytics) {
     return (
-      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left font-sans text-xs">
+      <Card className="border border-[var(--border)] bg-card/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 text-left font-sans text-xs">
         <CardContent className="py-12 text-center text-sm text-muted-foreground italic font-medium leading-relaxed">
           No analytics data available.
           Generate or select a roadmap to get started.
@@ -42,8 +42,8 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-sans text-xs">
       {/* Radial Score Card */}
-      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 md:col-span-1 text-left">
-        <CardHeader className="text-left pb-4 border-b border-border/60">
+      <Card className="border border-[var(--border)] bg-card/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 md:col-span-1 text-left">
+        <CardHeader className="text-left pb-4 border-b border-[var(--border)]/60">
           <CardTitle className="text-sm font-black font-display text-foreground flex items-center gap-2 m-0 leading-none">
             <Award className="text-brand-500 h-5 w-5" />
             <span>Career Readiness Score</span>
@@ -85,7 +85,7 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
             </div>
           </div>
           
-          <div className="mt-4 w-full border-t border-slate-100 dark:border-slate-850 pt-4 text-left">
+          <div className="mt-4 w-full border-t border-[var(--border)]/60 pt-4 text-left">
             <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2 leading-none">Readiness Breakdown</h4>
             <div className="space-y-2 text-[10px] text-muted-foreground font-sans">
               <div className="flex justify-between items-center">
@@ -106,8 +106,8 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
       </Card>
 
       {/* Goal & Progress Card */}
-      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 md:col-span-2 flex flex-col justify-between text-left">
-        <CardHeader className="text-left pb-4 border-b border-border/60">
+      <Card className="border border-[var(--border)] bg-card/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 md:col-span-2 flex flex-col justify-between text-left">
+        <CardHeader className="text-left pb-4 border-b border-[var(--border)]/60">
           <div className="flex items-start justify-between gap-4">
             <div className="space-y-1 text-left">
               <CardTitle className="text-sm font-black font-display text-foreground flex items-center gap-2 m-0 leading-none">
@@ -121,7 +121,7 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
                 Learning pathway mapped for {estimatedDuration} months.
               </p>
             </div>
-            <Badge variant="outline" className="bg-brand-500/5 text-brand-650 border border-brand-500/10 text-[9px] font-black uppercase tracking-wider py-0.5 px-2.5 rounded-lg leading-none shrink-0">
+            <Badge variant="outline" className="bg-brand-500/5 text-brand-650 border border-brand-500/10 text-[9px] font-black uppercase tracking-wider py-0.5 px-2.5 rounded-[var(--radius-sm)] leading-none shrink-0">
               {completionPercentage >= 100 ? 'Achieved' : 'In Progress'}
             </Badge>
           </div>
@@ -135,28 +135,28 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
               value={completedMilestones}
               description="Tasks accomplished"
               icon={CheckCircle2}
-              className="border-border p-3.5"
+              className="border-[var(--border)] p-3.5"
             />
             <StatisticCard
               title="Upcoming Left"
               value={remainingMilestones}
               description="Awaiting completion"
               icon={Circle}
-              className="border-border p-3.5"
+              className="border-[var(--border)] p-3.5"
             />
             <StatisticCard
               title="Skills Verified"
               value={skillsCompleted}
               description="Verified in profile"
               icon={GraduationCap}
-              className="border-border p-3.5"
+              className="border-[var(--border)] p-3.5"
             />
             <StatisticCard
               title="Skills Active"
               value={skillsInProgress}
               description="Acquisitions active"
               icon={Flame}
-              className="border-border p-3.5"
+              className="border-[var(--border)] p-3.5"
             />
           </div>
 
@@ -169,16 +169,16 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
           </div>
 
           {/* Upcoming milestones snapshot */}
-          <div className="border-t border-slate-100 dark:border-slate-850 pt-4 text-left">
+          <div className="border-t border-[var(--border)]/60 pt-4 text-left">
             <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2 leading-none">Upcoming Milestones</h4>
             {upcomingMilestones.length === 0 ? (
               <p className="text-xs text-slate-400 italic">No upcoming milestones.</p>
             ) : (
               <div className="space-y-2">
                 {upcomingMilestones.slice(0, 2).map((ms) => (
-                  <div key={ms.id} className="flex items-center justify-between gap-3 text-xs bg-slate-50/50 dark:bg-slate-900/40 p-2.5 rounded-xl border border-slate-200/50 dark:border-slate-850 hover:border-slate-300 dark:hover:border-slate-750 transition-all duration-200">
+                  <div key={ms.id} className="flex items-center justify-between gap-3 text-xs bg-[var(--surface-hover)]/30 p-2.5 rounded-[var(--radius-card)] border border-[var(--border)] hover:border-[var(--primary)]/30 transition-all duration-200">
                     <span className="font-semibold text-slate-800 dark:text-slate-205 truncate text-left">{ms.title}</span>
-                    <Badge variant="outline" className="shrink-0 text-[9px] font-bold py-0.5 px-2 bg-slate-100/50 dark:bg-slate-800/60 text-slate-500 rounded-lg border-none leading-none">{ms.duration || 'Flexible'}</Badge>
+                    <Badge variant="outline" className="shrink-0 text-[9px] font-bold py-0.5 px-2 bg-[var(--divider)]/50 text-[var(--muted)] rounded-[var(--radius-sm)] border-none leading-none">{ms.duration || 'Flexible'}</Badge>
                   </div>
                 ))}
               </div>

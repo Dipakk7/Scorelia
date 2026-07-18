@@ -22,8 +22,8 @@ export function SearchHistory({
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left font-sans text-xs">
       {/* Recent Searches */}
-      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
-        <CardHeader className="pb-4 border-b border-border/60 text-left flex flex-row items-center justify-between gap-4">
+      <Card className="border border-[var(--border)] bg-card/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left">
+        <CardHeader className="pb-4 border-b border-[var(--border)]/60 text-left flex flex-row items-center justify-between gap-4">
           <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none flex items-center gap-2">
             <Clock className="text-slate-400 h-4 w-4" />
             <span>Recent Queries</span>
@@ -37,16 +37,21 @@ export function SearchHistory({
             </button>
           )}
         </CardHeader>
-        <CardContent className="space-y-2 pt-4 text-left">
+        <CardContent className="space-y-6 p-6 text-left">
           {recentSearches.length === 0 ? (
-            <p className="text-xs text-muted-foreground italic py-4 m-0">No recent queries found.</p>
+            <div className="flex flex-col items-center justify-center py-6 text-center gap-2">
+              <p className="text-xs text-[var(--muted)] italic m-0">No recent queries found.</p>
+              <p className="text-[10px] text-[var(--muted)] m-0 max-w-[200px] leading-relaxed">
+                Type a question in the search bar above to generate query history logs.
+              </p>
+            </div>
           ) : (
             recentSearches.map((item, idx) => {
               const isSaved = savedSearches.includes(item)
               return (
                 <div
                   key={idx}
-                  className="flex items-center justify-between gap-3 p-2 bg-slate-55/30 dark:bg-slate-950/20 border border-slate-200/50 dark:border-slate-850 rounded-xl hover:bg-slate-100/50 dark:hover:bg-slate-900/40 transition-colors text-left"
+                  className="flex items-center justify-between gap-3 p-3 bg-[var(--surface-hover)]/30 border border-[var(--border)]/60 rounded-[var(--radius-sm)] hover:bg-[var(--surface-hover)]/50 transition-colors text-left"
                 >
                   <button
                     onClick={() => onSelectSearch(item)}
@@ -59,7 +64,7 @@ export function SearchHistory({
                   <div className="flex items-center gap-1.5 shrink-0">
                     <button
                       onClick={() => onToggleSave(item)}
-                      className="p-1 rounded-md text-slate-400 hover:text-brand-500 hover:bg-slate-100/50 dark:hover:bg-slate-900/50 transition-all cursor-pointer border-none bg-transparent flex items-center"
+                      className="p-1 rounded-[var(--radius-sm)] text-slate-400 hover:text-brand-500 hover:bg-slate-100/50 dark:hover:bg-slate-900/50 transition-all cursor-pointer border-none bg-transparent flex items-center"
                       title={isSaved ? 'Remove from Bookmarks' : 'Bookmark query'}
                     >
                       {isSaved ? (
@@ -70,7 +75,7 @@ export function SearchHistory({
                     </button>
                     <button
                       onClick={() => onDeleteRecent(item)}
-                      className="p-1 rounded-md text-slate-400 hover:text-red-500 hover:bg-slate-100/50 dark:hover:bg-slate-900/50 transition-all cursor-pointer border-none bg-transparent flex items-center"
+                      className="p-1 rounded-[var(--radius-sm)] text-slate-400 hover:text-red-500 hover:bg-slate-100/50 dark:hover:bg-slate-900/50 transition-all cursor-pointer border-none bg-transparent flex items-center"
                       title="Delete query record"
                     >
                       <Trash2 size={14} />
@@ -84,21 +89,26 @@ export function SearchHistory({
       </Card>
 
       {/* Saved Searches */}
-      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left">
-        <CardHeader className="pb-4 border-b border-border/60 text-left flex flex-row items-center justify-between gap-4">
+      <Card className="border border-[var(--border)] bg-card/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left">
+        <CardHeader className="pb-4 border-b border-[var(--border)]/60 text-left flex flex-row items-center justify-between gap-4">
           <CardTitle className="text-xs font-black uppercase tracking-wider text-foreground m-0 leading-none flex items-center gap-2">
             <Bookmark className="text-brand-500 h-4 w-4 animate-pulse" />
             <span>Saved Searches</span>
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-2 pt-4 text-left">
+        <CardContent className="space-y-6 p-6 text-left">
           {savedSearches.length === 0 ? (
-            <p className="text-xs text-muted-foreground italic py-4 m-0">No bookmarked searches yet.</p>
+            <div className="flex flex-col items-center justify-center py-6 text-center gap-2">
+              <p className="text-xs text-[var(--muted)] italic m-0">No bookmarked searches yet.</p>
+              <p className="text-[10px] text-[var(--muted)] m-0 max-w-[200px] leading-relaxed">
+                Bookmark search items in your query logs to save them here.
+              </p>
+            </div>
           ) : (
             savedSearches.map((item, idx) => (
               <div
                 key={idx}
-                className="flex items-center justify-between gap-3 p-2 bg-slate-55/30 dark:bg-slate-950/20 border border-slate-200/50 dark:border-slate-850 rounded-xl hover:bg-slate-100/50 dark:hover:bg-slate-900/40 transition-colors text-left"
+                className="flex items-center justify-between gap-3 p-3 bg-[var(--surface-hover)]/30 border border-[var(--border)]/60 rounded-[var(--radius-sm)] hover:bg-[var(--surface-hover)]/50 transition-colors text-left"
               >
                 <button
                   onClick={() => onSelectSearch(item)}
@@ -111,7 +121,7 @@ export function SearchHistory({
                 <div className="flex items-center gap-1.5 shrink-0">
                   <button
                     onClick={() => onToggleSave(item)}
-                    className="p-1 rounded-md text-brand-500 hover:bg-slate-105 dark:hover:bg-slate-900 cursor-pointer border-none bg-transparent flex items-center"
+                    className="p-1 rounded-[var(--radius-sm)] text-brand-500 hover:bg-slate-105 dark:hover:bg-slate-900 cursor-pointer border-none bg-transparent flex items-center"
                     title="Remove bookmark"
                   >
                     <BookmarkCheck size={14} />

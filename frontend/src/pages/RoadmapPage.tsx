@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import api from '@/api/api'
 import type { ResumeResponse } from '@/types/resume'
 import type {
@@ -44,6 +45,7 @@ type RoadmapTab = 'dashboard' | 'timeline' | 'skills' | 'learning-plan' | 'chart
 
 export default function RoadmapPage() {
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
   const [selectedRoadmapId, setSelectedRoadmapId] = useState<string>('')
   const [activeTab, setActiveTab] = useState<RoadmapTab>('dashboard')
 
@@ -326,10 +328,10 @@ export default function RoadmapPage() {
       {/* Header section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300">
         <div className="space-y-1.5 text-left">
-          <h1 className="text-xl md:text-2xl font-black font-display text-[var(--heading)] m-0 tracking-tight leading-none">
-            AI Career Coach
+          <h1 className="text-h1 text-[var(--heading)] m-0">
+            Career Roadmap Builder
           </h1>
-          <p className="text-xs text-[var(--muted)] font-sans leading-relaxed m-0 font-medium">
+          <p className="text-caption text-[var(--muted)] leading-relaxed m-0 font-medium">
             Map out custom career pivots, audit missing skill gaps, and execute weekly learning milestones.
           </p>
         </div>
@@ -363,9 +365,9 @@ export default function RoadmapPage() {
       {showCreateForm && (
         <Card className="border border-[var(--primary)]/20 bg-[var(--surface-hover)] p-5 rounded-[var(--radius-card)] backdrop-blur-md shadow-sm animate-slideDown text-left">
           <form onSubmit={handleGenerate} className="space-y-5 text-left m-0">
-            <h3 className="text-sm font-black font-display text-[var(--heading)] m-0 flex items-center gap-2 pb-3 border-b border-[var(--border)]">
+            <h3 className="text-h3 text-[var(--heading)] m-0 flex items-center gap-2 pb-3 border-b border-[var(--border)]">
               <Compass className="text-[var(--primary)]" size={16} />
-              <span>Map Your AI Career Plan</span>
+              <span>Configure AI Milestone Generator</span>
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-left">
@@ -463,7 +465,11 @@ export default function RoadmapPage() {
 
       {/* Main Workspace content */}
       {roadmaps.length === 0 ? (
-        <EmptyRoadmapsState onAction={() => setShowCreateForm(true)} />
+        <EmptyRoadmapsState 
+          onAction={() => setShowCreateForm(true)} 
+          hasResumes={resumes.length > 0}
+          onNavigateToResumes={() => navigate('/resumes')}
+        />
       ) : isActiveRoadmapLoading ? (
         <CareerCoachSkeleton />
       ) : (
@@ -485,7 +491,7 @@ export default function RoadmapPage() {
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id as RoadmapTab)}
                     className={cn(
-                      'flex items-center gap-2 pb-3 px-3.5 text-xs font-bold uppercase tracking-wider transition-all relative cursor-pointer border-b-2 border-transparent bg-transparent focus:outline-none -mb-[1px]',
+                      'flex items-center gap-2 pb-3 px-3.5 text-label transition-all relative cursor-pointer border-b-2 border-transparent bg-transparent focus:outline-none -mb-[1px]',
                       isActive
                         ? 'text-[var(--primary)] border-[var(--primary)] font-extrabold'
                         : 'text-[var(--muted)] hover:text-[var(--heading)]'

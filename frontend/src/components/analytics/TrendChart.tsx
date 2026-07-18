@@ -97,11 +97,11 @@ export function TrendChart({
           <AreaChart data={data} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
             <defs>
               <linearGradient id={`grad-${colorScheme}`} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor={activeColor} stopOpacity={0.2} />
+                <stop offset="5%" stopColor={activeColor} stopOpacity={0.25} />
                 <stop offset="95%" stopColor={activeColor} stopOpacity={0.0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={colors.grid} />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" strokeOpacity={0.1} />
             <XAxis
               dataKey={xAxisKey}
               stroke={colors.mutedText}
@@ -128,12 +128,12 @@ export function TrendChart({
               strokeWidth={2.5}
               fillOpacity={1}
               fill={`url(#grad-${colorScheme})`}
-              activeDot={{ r: 6, stroke: activeColor, strokeWidth: 2, fill: '#fff' }}
+              activeDot={{ r: 6, stroke: activeColor, strokeWidth: 2, fill: 'var(--surface)' }}
             />
           </AreaChart>
         ) : type === 'line' ? (
           <LineChart data={data} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={colors.grid} />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" strokeOpacity={0.1} />
             <XAxis
               dataKey={xAxisKey}
               stroke={colors.mutedText}
@@ -158,13 +158,19 @@ export function TrendChart({
               dataKey={yAxisKey}
               stroke={activeColor}
               strokeWidth={3}
-              dot={{ r: 4, stroke: activeColor, strokeWidth: 1.5, fill: '#fff' }}
+              dot={{ r: 4, stroke: activeColor, strokeWidth: 1.5, fill: 'var(--surface)' }}
               activeDot={{ r: 6, stroke: activeColor, strokeWidth: 2, fill: activeColor }}
             />
           </LineChart>
         ) : (
           <BarChart data={data} margin={{ top: 10, right: 10, left: -25, bottom: 0 }} barSize={16}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={colors.grid} />
+            <defs>
+              <linearGradient id={`bar-grad-${colorScheme}`} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={activeColor} stopOpacity={0.9} />
+                <stop offset="100%" stopColor={activeColor} stopOpacity={0.35} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" strokeOpacity={0.1} />
             <XAxis
               dataKey={xAxisKey}
               stroke={colors.mutedText}
@@ -183,10 +189,10 @@ export function TrendChart({
               tickFormatter={valueFormatter}
               tick={{ fill: colors.mutedText, fontWeight: 'bold' }}
             />
-            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(148, 163, 184, 0.05)' }} />
+            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'var(--surface-hover)' }} />
             <Bar
               dataKey={yAxisKey}
-              fill={activeColor}
+              fill={`url(#bar-grad-${colorScheme})`}
               radius={[4, 4, 0, 0]}
               animationDuration={1500}
             />

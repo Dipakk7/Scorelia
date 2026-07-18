@@ -17,6 +17,7 @@ import { ErrorState } from '@/components/ui/ErrorState'
 import { MultiAgentWorkspaceSkeleton } from '@/components/ui/Skeletons'
 import { EmptyAgentHistoryState } from '@/components/ui/EmptyState'
 import { StatisticCard } from '@/components/ui/StatisticCard'
+import { Card } from '@/components/ui/Card'
 import {
   Cpu,
   Database,
@@ -290,7 +291,7 @@ export default function MultiAgentWorkspacePage() {
   const latestExecutionSteps: AgentResponse[] = executeTaskMutation.data?.steps || []
 
   return (
-    <div className="flex flex-col h-[calc(100vh-140px)] md:h-[calc(100vh-160px)] overflow-hidden font-sans text-xs text-left bg-[var(--surface)] border border-[var(--border)] rounded-2xl shadow-sm">
+    <Card variant="elevated" className="flex flex-col h-[calc(100vh-140px)] md:h-[calc(100vh-160px)] overflow-hidden font-sans text-xs text-left">
       {/* Top Console Operations Header Bar */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 border-b border-[var(--border)]/75 bg-[var(--surface-hover)]/35 flex-shrink-0 select-none">
         <div className="space-y-1.5 text-left flex-1">
@@ -530,6 +531,6 @@ export default function MultiAgentWorkspacePage() {
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   )
 }

@@ -60,7 +60,7 @@ export function RAGSearchBar({
             setTimeout(() => setShowHistory(false), 200)
           }}
           placeholder="Ask a career question (e.g., 'What skills are needed for a Kubernetes engineer?')..."
-          className="w-full text-xs pl-12 pr-12 py-3 border border-border rounded-xl bg-slate-50/50 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder-slate-405 focus:outline-none focus:ring-1 focus:ring-brand-500 shadow-sm transition-all focus:shadow-md h-12 font-medium"
+          className="w-full text-xs pl-12 pr-12 py-3 border border-[var(--border)] rounded-[var(--radius-md)] bg-[var(--surface-hover)]/30 text-slate-900 dark:text-slate-100 placeholder-slate-405 focus:outline-none focus:ring-1 focus:ring-brand-500 shadow-sm transition-all focus:shadow-md h-12 font-medium"
         />
 
         {query && (
@@ -77,8 +77,8 @@ export function RAGSearchBar({
 
       {/* History dropdown */}
       {showHistory && recentSearches.length > 0 && (
-        <div className="absolute left-0 right-0 mt-2 bg-card/95 border border-border rounded-xl shadow-xl z-25 max-h-60 overflow-y-auto backdrop-blur-md text-left">
-          <div className="p-2 border-b border-slate-100 dark:border-slate-900 flex items-center gap-1.5 text-[9px] text-muted-foreground uppercase tracking-widest font-black font-display pl-3">
+        <div className="absolute left-0 right-0 mt-2 bg-card/95 border border-[var(--border)] rounded-[var(--radius-md)] shadow-xl z-25 max-h-60 overflow-y-auto backdrop-blur-md text-left">
+          <div className="p-2 border-b border-[var(--border)]/60 flex items-center gap-1.5 text-[9px] text-muted-foreground uppercase tracking-widest font-black font-display pl-3">
             <History size={11} className="text-slate-400" />
             <span>Recent Queries</span>
           </div>
@@ -93,7 +93,7 @@ export function RAGSearchBar({
                   onSearch(item)
                   setShowHistory(false)
                 }}
-                className="w-full flex items-center gap-2.5 px-4 py-2.5 text-left text-xs hover:bg-slate-50/50 dark:hover:bg-slate-900/40 text-slate-705 dark:text-slate-300 font-sans transition-colors cursor-pointer border-none bg-transparent font-medium"
+                className="w-full flex items-center gap-2.5 px-4 py-2.5 text-left text-xs hover:bg-[var(--surface-hover)]/30 text-slate-705 dark:text-slate-300 font-sans transition-colors cursor-pointer border-none bg-transparent font-medium"
               >
                 <History size={13} className="text-slate-400" />
                 <span className="truncate">{item}</span>

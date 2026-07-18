@@ -91,54 +91,97 @@ export function EmptyState({
   )
 }
 
-export function EmptyAnalyticsState({ onAction }: { onAction?: () => void }) {
+export function EmptyAnalyticsState({ 
+  onAction,
+  title = "No Analytics Data Available",
+  description = "You haven't run enough resume evaluations or mock interviews to view progress trends. Generate some files to start.",
+  actionLabel = "Upload Resume"
+}: { 
+  onAction?: () => void
+  title?: string
+  description?: string
+  actionLabel?: string
+}) {
   return (
     <EmptyState
       variant="primary"
       icon={<BarChart2 size={36} />}
-      title="No Analytics Data Available"
-      description="You haven't run enough resume evaluations or mock interviews to view progress trends. Generate some files to start."
-      actionLabel={onAction ? "Upload Resume" : undefined}
+      title={title}
+      description={description}
+      actionLabel={onAction ? actionLabel : undefined}
       onAction={onAction}
     />
   )
 }
 
-export function EmptyInterviewsState({ onAction }: { onAction: () => void }) {
+export function EmptyInterviewsState({ 
+  onAction, 
+  hasResumes = true, 
+  onNavigateToResumes 
+}: { 
+  onAction?: () => void; 
+  hasResumes?: boolean; 
+  onNavigateToResumes?: () => void 
+}) {
+  const showUploadResume = !hasResumes && onNavigateToResumes
   return (
     <EmptyState
       variant="success"
-      icon={<Mic size={36} className="animate-float" />}
-      title="No Mock Sessions Yet"
-      description="Refine your STAR structured storytelling skill set. Create a custom technical or behavioral mock drill today."
-      actionLabel="Configure Mock Round"
-      onAction={onAction}
+      icon={<Mic size={36} />}
+      title={showUploadResume ? "Resume Required for Prep" : "No Mock Sessions Yet"}
+      description={showUploadResume 
+        ? "AI Mock Interview loops require technical skills context from an active resume to calibrate questions. Please upload a resume first."
+        : "Refine your STAR structured storytelling skill set. Create a custom technical or behavioral mock drill today."}
+      actionLabel={showUploadResume ? "Upload Resume First" : "Configure Mock Round"}
+      onAction={showUploadResume ? onNavigateToResumes : onAction}
     />
   )
 }
 
-export function EmptyCoverLettersState({ onAction }: { onAction: () => void }) {
+export function EmptyCoverLettersState({ 
+  onAction, 
+  hasResumes = true, 
+  onNavigateToResumes 
+}: { 
+  onAction?: () => void; 
+  hasResumes?: boolean; 
+  onNavigateToResumes?: () => void 
+}) {
+  const showUploadResume = !hasResumes && onNavigateToResumes
   return (
     <EmptyState
       variant="accent"
       icon={<Sparkles size={36} />}
-      title="No Cover Letters Found"
-      description="Select an analyzed resume and paste target job descriptions to synthesize customized cover letter drafts."
-      actionLabel="Generate Cover Letter"
-      onAction={onAction}
+      title={showUploadResume ? "Resume Required for Cover Letter" : "No Cover Letters Found"}
+      description={showUploadResume 
+        ? "Scorelia generates custom cover letter pitches by matching resume experience against job descriptions. Please upload a resume first."
+        : "Select an analyzed resume and paste target job descriptions to synthesize customized cover letter drafts."}
+      actionLabel={showUploadResume ? "Upload Resume First" : "Generate Cover Letter"}
+      onAction={showUploadResume ? onNavigateToResumes : onAction}
     />
   )
 }
 
-export function EmptyRoadmapsState({ onAction }: { onAction: () => void }) {
+export function EmptyRoadmapsState({ 
+  onAction, 
+  hasResumes = true, 
+  onNavigateToResumes 
+}: { 
+  onAction?: () => void; 
+  hasResumes?: boolean; 
+  onNavigateToResumes?: () => void 
+}) {
+  const showUploadResume = !hasResumes && onNavigateToResumes
   return (
     <EmptyState
       variant="primary"
       icon={<Map size={36} />}
-      title="No Career Plans Maintained"
-      description="Initialize your career pivot roadmap. Our system tracks skill gaps and generates weekly milestone pathways."
-      actionLabel="Initialize Career Coach"
-      onAction={onAction}
+      title={showUploadResume ? "Resume Required for Career Path" : "No Career Plans Maintained"}
+      description={showUploadResume 
+        ? "Initialize your career pivot roadmap by parsing technical qualifications from a resume first to calibrate skill alignments."
+        : "Initialize your career pivot roadmap. Our system tracks skill gaps and generates weekly milestone pathways."}
+      actionLabel={showUploadResume ? "Upload Resume First" : "Initialize Career Coach"}
+      onAction={showUploadResume ? onNavigateToResumes : onAction}
     />
   )
 }

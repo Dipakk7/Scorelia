@@ -497,7 +497,7 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
 
                 <div className="flex flex-wrap gap-2 pt-2">
                   {skillsWatch.length === 0 ? (
-                    <p className="text-sm text-slate-400 italic font-sans">No skills added yet.</p>
+                    <p className="text-xs text-[var(--muted)] italic font-sans">No skills added yet. Type a keyword above and click Add.</p>
                   ) : (
                     skillsWatch.map((skill, index) => (
                       <span
@@ -539,8 +539,18 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
               </div>
 
               {expFields.length === 0 ? (
-                <div className="p-8 border border-dashed border-border rounded-xl text-center">
-                  <p className="text-sm text-slate-400 italic">No experience records found.</p>
+                <div className="flex flex-col items-center justify-center p-8 border border-dashed border-[var(--border)] rounded-[var(--radius-card)] text-center gap-3 bg-[var(--surface-hover)]/20">
+                  <p className="text-xs text-[var(--muted)] italic m-0">No experience records found.</p>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    type="button"
+                    onClick={() => appendExp({ title: '', company: '', duration: '', description: '' })}
+                    className="text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer h-8.5 rounded-xl hover:border-[var(--primary)]/30 hover:bg-[var(--primary)]/5"
+                  >
+                    <PlusCircle size={12} className="text-[var(--primary)]" />
+                    <span>Add Experience</span>
+                  </Button>
                 </div>
               ) : (
                 <div className="space-y-6 divide-y divide-slate-100 dark:divide-slate-850">
@@ -632,8 +642,18 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
               </div>
 
               {eduFields.length === 0 ? (
-                <div className="p-8 border border-dashed border-border rounded-xl text-center">
-                  <p className="text-sm text-slate-400 italic">No education records found.</p>
+                <div className="flex flex-col items-center justify-center p-8 border border-dashed border-[var(--border)] rounded-[var(--radius-card)] text-center gap-3 bg-[var(--surface-hover)]/20">
+                  <p className="text-xs text-[var(--muted)] italic m-0">No education records found.</p>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    type="button"
+                    onClick={() => appendEdu({ degree: '', institution: '', year: '' })}
+                    className="text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer h-8.5 rounded-xl hover:border-[var(--primary)]/30 hover:bg-[var(--primary)]/5"
+                  >
+                    <PlusCircle size={12} className="text-[var(--primary)]" />
+                    <span>Add Education</span>
+                  </Button>
                 </div>
               ) : (
                 <div className="space-y-6 divide-y divide-slate-100 dark:divide-slate-850">
@@ -713,8 +733,18 @@ export default function ResumeEditor({ parsedData, onSave, onDiscard }: ResumeEd
               </div>
 
               {projFields.length === 0 ? (
-                <div className="p-8 border border-dashed border-border rounded-xl text-center">
-                  <p className="text-sm text-slate-400 italic">No project records found.</p>
+                <div className="flex flex-col items-center justify-center p-8 border border-dashed border-[var(--border)] rounded-[var(--radius-card)] text-center gap-3 bg-[var(--surface-hover)]/20">
+                  <p className="text-xs text-[var(--muted)] italic m-0">No project records found.</p>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    type="button"
+                    onClick={() => appendProj({ name: '', description: '', technologies: [] })}
+                    className="text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer h-8.5 rounded-xl hover:border-[var(--primary)]/30 hover:bg-[var(--primary)]/5"
+                  >
+                    <PlusCircle size={12} className="text-[var(--primary)]" />
+                    <span>Add Project</span>
+                  </Button>
                 </div>
               ) : (
                 <div className="space-y-6 divide-y divide-slate-100 dark:divide-slate-850">

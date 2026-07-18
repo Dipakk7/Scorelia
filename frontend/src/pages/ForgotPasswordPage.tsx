@@ -74,7 +74,7 @@ export default function ForgotPasswordPage() {
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.3 }}
             >
-              <Card className="bg-surface border-border shadow-md backdrop-blur-none bg-none rounded-card overflow-hidden">
+              <Card variant="glass" className="overflow-hidden">
                 <CardHeader className="text-center pt-8 pb-3 px-6 md:px-8">
                   <CardTitle className="text-2xl font-bold font-display text-foreground">Reset Password</CardTitle>
                   <CardDescription className="text-xs text-muted-foreground mt-1">
@@ -121,7 +121,7 @@ export default function ForgotPasswordPage() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
             >
-              <Card className="bg-surface border-border shadow-md backdrop-blur-none bg-none rounded-card overflow-hidden">
+              <Card variant="glass" className="overflow-hidden">
                 <CardContent className="pt-8 px-6 md:px-8 pb-6 text-center flex flex-col items-center">
                   <CheckCircle2 size={56} className="text-brand mb-4 animate-bounce" />
                   <CardTitle className="text-xl font-bold mb-2">Check Your Email</CardTitle>

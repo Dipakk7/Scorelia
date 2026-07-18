@@ -3,6 +3,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { cn } from '@/lib/utils'
 import { Loader } from '@/components/ui/Loader'
 import { AlertCircle } from 'lucide-react'
+import { ChartEmptyState } from '@/components/ui/ChartEmptyState'
 
 interface AnalyticsCardProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string
@@ -12,6 +13,9 @@ interface AnalyticsCardProps extends React.HTMLAttributes<HTMLDivElement> {
   empty?: boolean
   emptyMessage?: string
   headerActions?: React.ReactNode
+  ctaText?: string
+  ctaTo?: string
+  ctaOnClick?: () => void
 }
 
 export const AnalyticsCard = React.forwardRef<HTMLDivElement, AnalyticsCardProps>(
@@ -25,6 +29,9 @@ export const AnalyticsCard = React.forwardRef<HTMLDivElement, AnalyticsCardProps
       empty = false,
       emptyMessage = 'No data available for the selected filter.',
       headerActions,
+      ctaText,
+      ctaTo,
+      ctaOnClick,
       children,
       ...props
     },
@@ -62,7 +69,7 @@ export const AnalyticsCard = React.forwardRef<HTMLDivElement, AnalyticsCardProps
               <Loader label="Computing insights..." />
             </div>
           ) : error ? (
-            <div className="flex flex-col items-center justify-center text-center p-6 text-rose-600 dark:text-rose-400 gap-2.5">
+            <div className="flex flex-col items-center justify-center text-center p-6 text-rose-600 dark:text-rose-450 gap-2.5">
               <AlertCircle className="h-10 w-10 stroke-[1.5] animate-bounce" />
               <p className="text-sm font-bold leading-none m-0">Failed to load analytics</p>
               <p className="text-xs text-muted-foreground leading-normal m-0">
@@ -70,9 +77,12 @@ export const AnalyticsCard = React.forwardRef<HTMLDivElement, AnalyticsCardProps
               </p>
             </div>
           ) : empty ? (
-            <div className="flex flex-col items-center justify-center text-center p-6 text-muted-foreground gap-2 font-sans font-medium text-xs">
-              <p className="m-0 leading-relaxed">{emptyMessage}</p>
-            </div>
+            <ChartEmptyState
+              message={emptyMessage}
+              ctaText={ctaText}
+              ctaTo={ctaTo}
+              ctaOnClick={ctaOnClick}
+            />
           ) : (
             <div className="w-full h-full animate-fade-in text-left">{children}</div>
           )}

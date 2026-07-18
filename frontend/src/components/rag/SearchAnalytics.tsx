@@ -18,6 +18,8 @@ import { cn } from '@/lib/utils'
 import { useTheme } from '@/providers/ThemeProvider'
 import { useState, useEffect } from 'react'
 
+import { ChartEmptyState } from '@/components/ui/ChartEmptyState'
+
 interface QueryMetricPoint {
   query: string
   latencyMs: number
@@ -52,7 +54,7 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
     success: 'var(--success)',
     warning: 'var(--warning)',
     destructive: 'var(--danger)',
-    grid: 'var(--divider)',
+    grid: 'var(--border)',
     text: 'var(--heading)',
     mutedText: 'var(--muted)',
   }
@@ -66,7 +68,7 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
     if (active && payload && payload.length) {
       const item = payload[0]?.payload
       return (
-        <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)]/95 p-3 shadow-[var(--shadow-lg)] backdrop-blur-md text-left font-sans text-xs select-none">
+        <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 shadow-[var(--shadow-lg)] backdrop-blur-md text-left font-sans text-xs select-none">
           {item?.query && (
             <p className="text-[10px] font-black text-[var(--heading)] max-w-[200px] truncate m-0 mb-1 leading-normal">
               Query: "{item.query}"
@@ -93,9 +95,18 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
 
   if (metrics.length === 0) {
     return (
-      <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 font-sans text-xs text-left">
-        <CardContent className="py-12 text-center text-[var(--muted)] italic font-medium leading-relaxed">
-          No query search analytics records available. Run searches to populate metrics.
+      <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
+        <CardContent className="min-h-[220px] flex flex-col justify-center text-left">
+          <ChartEmptyState
+            message="No query search analytics records available. Run searches to populate metrics."
+            ctaText="Ask First Question"
+            ctaOnClick={() => {
+              const searchInput = document.querySelector('input[placeholder*="Ask a career question"]') as HTMLInputElement
+              if (searchInput) {
+                searchInput.focus()
+              }
+            }}
+          />
         </CardContent>
       </Card>
     )
@@ -126,16 +137,16 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left font-sans text-xs bg-transparent">
       {/* Latency Chart */}
-      <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left md:col-span-1">
+      <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left md:col-span-1">
         <CardHeader className="pb-4 border-b border-[var(--border)]/60 text-left">
           <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--heading)] m-0 leading-none">
             Query Latency
           </CardTitle>
         </CardHeader>
-        <CardContent className="h-44 pt-5 bg-transparent">
+        <CardContent className="h-48 p-6 bg-transparent">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={latencyData}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={themeColors.grid} />
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" strokeOpacity={0.1} />
               <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={9} tickLine={false} tick={{ fill: themeColors.mutedText }} />
               <YAxis stroke={themeColors.mutedText} fontSize={9} tickLine={false} unit="s" tick={{ fill: themeColors.mutedText }} />
               <Tooltip content={<CustomTooltip />} />
@@ -146,13 +157,13 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
       </Card>
 
       {/* Cache Status Pie Chart */}
-      <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left md:col-span-1">
+      <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left md:col-span-1">
         <CardHeader className="pb-4 border-b border-[var(--border)]/60 text-left">
           <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--heading)] m-0 leading-none">
             Cache Efficiency
           </CardTitle>
         </CardHeader>
-        <CardContent className="h-44 pt-5 bg-transparent">
+        <CardContent className="h-48 p-6 bg-transparent">
           {hitCount === 0 && missCount === 0 ? (
             <div className="h-full flex items-center justify-center text-xs text-[var(--muted)] italic font-medium leading-none">Loading...</div>
           ) : (
@@ -180,13 +191,13 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
       </Card>
 
       {/* Token Distribution */}
-      <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left md:col-span-1">
+      <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left md:col-span-1">
         <CardHeader className="pb-4 border-b border-[var(--border)]/60 text-left">
           <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--heading)] m-0 leading-none">
             Token Usage
           </CardTitle>
         </CardHeader>
-        <CardContent className="h-44 pt-5 bg-transparent">
+        <CardContent className="h-48 p-6 bg-transparent">
           {tokenData.length === 0 ? (
             <div className="h-full flex items-center justify-center text-xs text-[var(--muted)] italic font-medium leading-relaxed">
               Token statistics not available.
@@ -194,11 +205,17 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
           ) : (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={tokenData}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={themeColors.grid} />
+                <defs>
+                  <linearGradient id="ragTokensGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.9} />
+                    <stop offset="100%" stopColor="var(--primary)" stopOpacity={0.2} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" strokeOpacity={0.1} />
                 <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={9} tickLine={false} tick={{ fill: themeColors.mutedText }} />
                 <YAxis stroke={themeColors.mutedText} fontSize={9} tickLine={false} tick={{ fill: themeColors.mutedText }} />
                 <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="tokens" fill={themeColors.primary} radius={[3, 3, 0, 0]} name="Tokens" maxBarSize={30} />
+                <Bar dataKey="tokens" fill="url(#ragTokensGrad)" radius={[3, 3, 0, 0]} name="Tokens" maxBarSize={30} />
               </BarChart>
             </ResponsiveContainer>
           )}

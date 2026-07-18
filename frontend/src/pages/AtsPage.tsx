@@ -13,6 +13,8 @@ import {
   ArrowRightLeft,
   Download,
   RefreshCw,
+  CheckCircle2,
+  Map,
 } from 'lucide-react'
 import {
   ResponsiveContainer,
@@ -57,8 +59,8 @@ type WorkspaceTab = 'ats-dashboard' | 'job-match' | 'keyword' | 'comparison'
 function CustomTooltip({ active, payload, label }: any) {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)]/95 p-3 shadow-xl backdrop-blur-md text-left font-sans text-xs">
-        <p className="text-[9px] font-extrabold uppercase tracking-wider text-[var(--muted)] m-0">{label}</p>
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 shadow-[var(--shadow-sm)] text-left font-sans text-xs">
+        <p className="text-label text-[var(--muted)] m-0">{label}</p>
         <div className="mt-1.5 flex items-center gap-2 font-semibold">
           <span className="h-2 w-2 rounded-full bg-[var(--primary)]" />
           <span className="text-[var(--muted)]">Rating:</span>
@@ -374,11 +376,11 @@ export default function AtsPage() {
       {/* Header bar */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-2xl border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300">
         <div className="space-y-1.5 text-left">
-          <h1 className="text-xl md:text-2xl font-black font-display text-[var(--heading)] m-0 flex items-center gap-2 tracking-tight leading-none">
+          <h1 className="text-h1 text-[var(--heading)] m-0 flex items-center gap-2">
             <Scan className="text-[var(--success)]" size={22} />
             <span>ATS Scanner & Job Matcher</span>
           </h1>
-          <p className="text-xs text-[var(--muted)] m-0 font-sans leading-relaxed">
+          <p className="text-caption text-[var(--muted)] m-0 leading-relaxed">
             Evaluate overall resume score, check keyword matches, and run semantic skill gap analysis.
           </p>
         </div>
@@ -431,12 +433,16 @@ export default function AtsPage() {
       {!selectedResumeId ? (
         <EmptyState
           icon={<FileText className="text-[var(--muted)] stroke-[1.75]" size={38} />}
-          title="No Resume Selected"
-          description="Upload or choose a resume from the active selection dropdown to begin ATS scoring and keywords diagnostic checks."
-          actionLabel="Select First Resume"
+          title={resumes.length === 0 ? "No Resumes Available" : "No Resume Selected"}
+          description={resumes.length === 0 
+            ? "You need to upload at least one parsed resume profile in your workspace to enable ATS scoring and keywords diagnostic checks."
+            : "Upload or choose a resume from the active selection dropdown to begin ATS scoring and keywords diagnostic checks."}
+          actionLabel={resumes.length === 0 ? "Upload Resume First" : "Select First Resume"}
           onAction={() => {
             if (resumes.length > 0) {
               setSelectedResumeId(resumes[0].id)
+            } else {
+              navigate('/resumes')
             }
           }}
           className="border-[var(--border)]"
@@ -556,12 +562,12 @@ export default function AtsPage() {
                     {/* Strengths & Weaknesses */}
                     <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300">
                       <CardHeader className="pb-3 border-b border-[var(--border)]/60">
-                        <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--heading)] m-0">Quick Assessment</CardTitle>
+                        <CardTitle className="text-label text-[var(--heading)] m-0">Quick Assessment</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4 pt-4 text-xs font-sans">
-                        {/* Strengths */}
+                        {/* Core Strengths */}
                         <div className="space-y-2 text-left">
-                          <span className="font-extrabold uppercase text-[9px] tracking-widest text-[var(--success)] block font-display">
+                          <span className="text-label text-[var(--success)] block">
                             Core Strengths
                           </span>
                           <ul className="p-0 m-0 space-y-2 text-[var(--body)] leading-relaxed font-sans font-medium">
@@ -579,7 +585,7 @@ export default function AtsPage() {
 
                         {/* Weaknesses */}
                         <div className="space-y-2 border-t border-[var(--border)]/40 pt-4 text-left">
-                          <span className="font-extrabold uppercase text-[9px] tracking-widest text-[var(--danger)] block font-display">
+                          <span className="text-label text-[var(--danger)] block">
                             Vulnerabilities
                           </span>
                           <ul className="p-0 m-0 space-y-2 text-[var(--body)] leading-relaxed font-sans font-medium">
@@ -607,8 +613,17 @@ export default function AtsPage() {
                           <RecommendationCard key={idx} recommendation={rec} />
                         ))
                       ) : (
-                        <div className="p-4 border border-dashed border-[var(--border)] rounded-2xl text-center text-xs text-muted-foreground italic">
-                          No recommendations recorded.
+                        <div className="flex flex-col items-center justify-center p-6 bg-[var(--surface-hover)]/30 border border-dashed border-[var(--border)] rounded-2xl text-center text-xs text-muted-foreground gap-3">
+                          <div className="p-2 bg-[var(--success)]/10 text-[var(--success)] border border-[var(--success)]/20 rounded-xl mb-1 animate-pulse">
+                            <CheckCircle2 size={16} />
+                          </div>
+                          <p className="m-0 leading-relaxed font-sans font-medium text-[var(--muted)] max-w-sm">
+                            Your resume keywords and formatting match perfectly! No primary recommendations recorded.
+                          </p>
+                          <Button size="sm" variant="outline" onClick={() => navigate('/roadmap')} className="text-[10px] font-bold uppercase tracking-wider py-1.5 h-8.5 rounded-xl flex items-center gap-1">
+                            <Map size={12} className="text-[var(--primary)]" />
+                            <span>Build Career Roadmap</span>
+                          </Button>
                         </div>
                       )}
                     </div>
@@ -650,7 +665,7 @@ export default function AtsPage() {
                     {/* Match Recommendations */}
                     <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 text-left">
                       <CardHeader className="pb-3 border-b border-[var(--border)]/60">
-                        <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--heading)] m-0">Match Recommendations</CardTitle>
+                        <CardTitle className="text-label text-[var(--heading)] m-0">Match Recommendations</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-3.5 pt-4 text-xs font-sans">
                         {matchResult.recommendations && matchResult.recommendations.length > 0 ? (
@@ -704,15 +719,15 @@ export default function AtsPage() {
             <div className="space-y-6">
               <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 text-left">
                 <CardHeader className="pb-3 border-b border-[var(--border)]/60">
-                  <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--heading)] m-0">Compare Resumes Against Target Job</CardTitle>
-                  <CardDescription className="text-xs text-[var(--muted)] mt-1 leading-normal font-sans">
-                    Select additional resumes from your repository to compare suitability side-by-side.
+                  <CardTitle className="text-heading">Compare Resumes Against Target Job</CardTitle>
+                  <CardDescription className="text-body text-[var(--muted)]">
+                    Select which credentials from your workspace to run batch matching simulations against.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-5 pt-4 text-xs text-left">
                   {/* Selector list of other resumes */}
                   <div className="space-y-2">
-                    <span className="font-extrabold text-[9px] uppercase tracking-widest text-[var(--muted)] block font-display">
+                    <span className="text-label text-[var(--muted)] block">
                       Select Resumes to Compare
                     </span>
                     <div className="flex flex-wrap gap-2.5">

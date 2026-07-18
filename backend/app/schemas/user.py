@@ -67,6 +67,7 @@ class UserResponse(BaseModel):
     email_notifications: bool = True
     push_notifications: bool = True
     marketing_emails: bool = False
+    has_onboarded: bool = False
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -87,6 +88,7 @@ class UserUpdate(BaseModel):
     email_notifications: bool | None = None
     push_notifications: bool | None = None
     marketing_emails: bool | None = None
+    has_onboarded: bool | None = None
 
 
 class Token(BaseModel):

@@ -6,6 +6,7 @@ import { LanguageDistributionChart } from '@/components/analytics/LanguageDistri
 import { ContributionChart } from '@/components/analytics/ContributionChart'
 import { GitHubCard } from '@/components/analytics/GitHubCard'
 import { AnalyticsCard } from '@/components/analytics/AnalyticsCard'
+import { Card } from '@/components/ui/Card'
 import { StatisticCard } from '@/components/ui/StatisticCard'
 import { Search, Users, Calendar, AlertCircle, GitBranch, Heart, Activity, Compass, Code, Percent } from 'lucide-react'
 import { GithubIntelligenceSkeleton } from '@/components/ui/Skeletons'
@@ -91,7 +92,7 @@ export default function GithubIntelligencePage() {
       {isLoading ? (
         <GithubIntelligenceSkeleton />
       ) : error ? (
-        <div className="flex flex-col items-center justify-center min-h-[400px] border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] p-6 text-center text-rose-500 gap-3 select-none">
+        <Card variant="elevated" className="flex flex-col items-center justify-center min-h-[400px] p-6 text-center text-rose-500 gap-3 select-none">
           <AlertCircle className="h-12 w-12 animate-bounce" />
           <div className="text-center">
             <p className="text-sm font-black uppercase tracking-wider leading-none m-0">Failed to fetch GitHub Analytics</p>
@@ -108,7 +109,7 @@ export default function GithubIntelligencePage() {
           >
             Retry Fetching
           </button>
-        </div>
+        </Card>
       ) : profile && repositorySummary && insights ? (
         <div className="space-y-6">
           {/* Developer Profile Header Card */}

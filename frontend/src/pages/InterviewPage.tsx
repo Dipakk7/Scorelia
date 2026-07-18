@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import api from '@/api/api'
 import type {
   InterviewSessionResponse,
@@ -38,6 +39,16 @@ import {
 
 export default function InterviewPage() {
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
+
+  // Fetch resumes to drive Smart Next Actions
+  const { data: resumesData } = useQuery<{ resumes: any[]; total: number }>({
+    queryKey: ['resumesList'],
+    queryFn: async () => {
+      const res = await api.get('/resumes')
+      return res.data
+    }
+  })
 
   // Views: 'dashboard' | 'setup' | 'active' | 'feedback' | 'report'
   const [currentView, setCurrentView] = useState<'dashboard' | 'setup' | 'active' | 'report'>('dashboard')
@@ -322,10 +333,10 @@ export default function InterviewPage() {
       {/* Header Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300">
         <div className="space-y-1.5">
-          <h1 className="text-xl md:text-2xl font-black font-display text-[var(--heading)] m-0 tracking-tight leading-none">
+          <h1 className="text-h1 text-[var(--heading)] m-0">
             AI Interview Prep Coach
           </h1>
-          <p className="text-xs text-[var(--muted)] font-sans leading-relaxed m-0 font-medium">
+          <p className="text-caption text-[var(--muted)] leading-relaxed m-0 font-medium">
             Refine your technical stack and STAR structured storytelling skills with real-time feedback.
           </p>
         </div>
@@ -365,7 +376,7 @@ export default function InterviewPage() {
           {/* Interactive Trends charts */}
           {analyticsData && (
             <div className="space-y-3.5">
-              <h3 className="font-display font-black text-sm text-[var(--heading)] m-0">Performance Metrics Analysis</h3>
+            <h3 className="text-h3 text-[var(--heading)] m-0">Performance Metrics Analysis</h3>
               <InterviewAnalyticsChart
                 scoreTrend={analyticsData.score_trend}
                 weeklyActivity={analyticsData.weekly_completion_count}
@@ -375,9 +386,13 @@ export default function InterviewPage() {
 
           {/* Session history listings */}
           <div className="space-y-3.5">
-            <h3 className="font-display font-black text-sm text-[var(--heading)] m-0">Simulated Mock Round History</h3>
+            <h3 className="text-h3 text-[var(--heading)] m-0">Simulated Mock Round History</h3>
             {sessions.length === 0 ? (
-              <EmptyInterviewsState onAction={() => setCurrentView('setup')} />
+              <EmptyInterviewsState 
+                onAction={() => setCurrentView('setup')} 
+                hasResumes={(resumesData?.total ?? 0) > 0}
+                onNavigateToResumes={() => navigate('/resumes')}
+              />
             ) : (
               <QuestionHistory sessions={sessions} onSelectSession={handleOpenReport} />
             )}
@@ -448,7 +463,7 @@ export default function InterviewPage() {
 
             <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300 text-left">
               <CardContent className="p-5 text-xs text-[var(--muted)] font-sans space-y-3 leading-relaxed font-medium">
-                <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground block mb-1 leading-none">
+                <span className="text-label text-muted-foreground block mb-1 leading-none">
                   Active Simulator Controls
                 </span>
                 <p className="m-0 leading-relaxed">
@@ -487,13 +502,13 @@ export default function InterviewPage() {
                 <Card className="md:col-span-2 border border-[var(--border)] bg-[var(--surface-hover)]/40 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--accent)]/45 transition-all duration-300 flex flex-col justify-between text-left">
                   <CardContent className="p-6 flex flex-col justify-between h-full space-y-4">
                     <div className="space-y-1.5 text-left">
-                      <span className="text-[9px] font-black text-[var(--accent)] uppercase tracking-widest block leading-none">
-                        Final Score Report Card
+                      <span className="text-label text-[var(--accent)] block leading-none">
+                        Active Simulation Session
                       </span>
-                      <h2 className="text-lg font-extrabold text-[var(--heading)] line-clamp-1 m-0 leading-tight">
-                        Round complete! AI Score Assessment
+                      <h2 className="text-h2 text-[var(--heading)] line-clamp-1 m-0 leading-tight">
+                        {currentTurn?.question_text || 'Preparing turn prompt...'}
                       </h2>
-                      <p className="text-[11px] text-[var(--muted)] leading-relaxed font-sans mt-2.5 font-medium m-0">
+                      <p className="text-caption text-[var(--muted)] leading-relaxed mt-2.5 font-medium m-0">
                         {reportData.summary}
                       </p>
                     </div>
@@ -517,7 +532,7 @@ export default function InterviewPage() {
                       <span className="text-[8px] font-bold uppercase tracking-wider mt-1 leading-none">/100</span>
                     </div>
                     <div className="space-y-1">
-                      <h4 className="font-extrabold text-[var(--heading)] text-xs m-0">Averaged Competency Rate</h4>
+                      <h4 className="text-h4 text-[var(--heading)] m-0">Averaged Competency Rate</h4>
                       <p className="text-[10px] text-[var(--muted)] font-sans font-bold m-0 leading-none">Across all completed questions</p>
                     </div>
                   </CardContent>
@@ -528,22 +543,22 @@ export default function InterviewPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {/* Stats scores grid */}
                 <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 text-left">
-                  <CardHeader className="pb-2.5 border-b border-[var(--border)]/60">
-                    <CardTitle className="text-xs font-black text-[var(--heading)] uppercase tracking-wider m-0">
+                  <CardHeader className="pb-3 border-b border-[var(--border)]/60">
+                    <CardTitle className="text-label text-[var(--heading)] uppercase tracking-wider m-0">
                       Turn Score Breakdowns
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-5 space-y-3.5 text-left">
                     {[
-                      { label: 'Technical Accuracy', value: reportData.session_statistics.technical_score, color: 'bg-amber-500' },
+                      { label: 'Technical Accuracy', value: reportData.session_statistics.technical_score, color: 'bg-accent-warning' },
                       { label: 'STAR Methodology', value: reportData.session_statistics.star_score, color: 'bg-accent-purple' },
-                      { label: 'Communication delivery', value: reportData.session_statistics.communication_score, color: 'bg-blue-500' },
-                      { label: 'Confidence & Assuredness', value: reportData.session_statistics.confidence_score, color: 'bg-rose-500' },
-                      { label: 'Grammar structure', value: reportData.session_statistics.grammar_score, color: 'bg-emerald-500' },
+                      { label: 'Communication delivery', value: reportData.session_statistics.communication_score, color: 'bg-accent-info' },
+                      { label: 'Confidence & Assuredness', value: reportData.session_statistics.confidence_score, color: 'bg-accent-danger' },
+                      { label: 'Grammar structure', value: reportData.session_statistics.grammar_score, color: 'bg-accent-success' },
                     ].map((m, i) => (
                       <div key={i} className="space-y-1">
                         <div className="flex items-center justify-between text-[10px] font-sans">
-                          <span className="font-extrabold text-[var(--muted)] uppercase tracking-widest text-[9px]">{m.label}</span>
+                          <span className="text-label text-[var(--muted)]">{m.label}</span>
                           <span className="font-mono font-black text-[var(--heading)]">{m.value}%</span>
                         </div>
                         <div className="h-1.5 w-full bg-[var(--surface-hover)] rounded-full overflow-hidden">
@@ -556,8 +571,8 @@ export default function InterviewPage() {
 
                 {/* Strengths */}
                 <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 text-left">
-                  <CardHeader className="pb-2.5 border-b border-[var(--border)]/60">
-                    <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--success)] flex items-center gap-1.5 m-0">
+                  <CardHeader className="pb-3 border-b border-[var(--border)]/60">
+                    <CardTitle className="text-label text-[var(--success)] flex items-center gap-1.5 m-0">
                       <ThumbsUp size={14} className="text-[var(--success)]" />
                       <span>Round Strengths</span>
                     </CardTitle>
@@ -574,8 +589,8 @@ export default function InterviewPage() {
 
                 {/* Weaknesses */}
                 <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 text-left">
-                  <CardHeader className="pb-2.5 border-b border-[var(--border)]/60">
-                    <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--danger)] flex items-center gap-1.5 m-0">
+                  <CardHeader className="pb-3 border-b border-[var(--border)]/60">
+                    <CardTitle className="text-label text-[var(--danger)] flex items-center gap-1.5 m-0">
                       <ThumbsDown size={14} className="text-[var(--danger)]" />
                       <span>Delivery Weaknesses</span>
                     </CardTitle>
@@ -606,15 +621,15 @@ export default function InterviewPage() {
 
                 {/* Recommendations */}
                 <Card className="lg:col-span-4 border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 text-left">
-                  <CardHeader className="pb-2.5 border-b border-[var(--border)]/60">
-                    <CardTitle className="text-xs font-black uppercase tracking-wider text-[var(--heading)] m-0">
+                  <CardHeader className="pb-3 border-b border-[var(--border)]/60">
+                    <CardTitle className="text-label text-[var(--heading)] m-0">
                       Study & Coaching Plan
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-5 space-y-4 text-[10px] overflow-y-auto max-h-[300px] text-left">
                     {reportData.recommendations.practice_topics.length > 0 && (
                       <div className="space-y-1.5 text-left">
-                        <strong className="text-[var(--muted)] block uppercase tracking-widest text-[9px] font-black leading-none">Practice Topics</strong>
+                      <strong className="text-label text-[var(--muted)] block leading-none">Practice Topics</strong>
                         <div className="flex flex-wrap gap-1.5 pt-0.5">
                           {reportData.recommendations.practice_topics.map((t, i) => (
                             <Badge key={i} variant="outline" className="bg-[var(--primary)]/5 text-[var(--primary)] border-[var(--primary)]/15 text-[9px] font-bold py-0.5 px-2 rounded-lg">

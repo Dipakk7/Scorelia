@@ -1,3 +1,6 @@
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
 @import "tailwindcss";
 
 @theme {
@@ -10,14 +13,15 @@
   --color-surface: var(--surface);
   --color-surface-hover: var(--surface-hover);
   --color-surface-elevated: var(--elevated);
+  --color-surface-glass: var(--surface-glass);
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
-  --color-success: var(--success);
-  --color-warning: var(--warning);
-  --color-danger: var(--danger);
-  --color-destructive: var(--danger);
+  --color-success: var(--accent-success);
+  --color-warning: var(--accent-warning);
+  --color-danger: var(--accent-danger);
+  --color-destructive: var(--accent-danger);
   --color-heading: var(--heading);
   --color-body: var(--body);
   --color-secondary: var(--body);
@@ -42,12 +46,20 @@
   --color-career: var(--career);
   --color-indigo: var(--indigo);
   --color-indigo-hover: var(--indigo-hover);
-  --color-accent-purple: var(--analytics);
-  --color-accent-purple-hover: var(--analytics);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-purple-hover: var(--accent-purple);
   --color-accent-blue: var(--primary);
   --color-accent-blue-hover: var(--primary-hover);
-  --color-accent-emerald: var(--career);
-  --color-accent-emerald-hover: var(--career);
+  --color-accent-emerald: var(--accent-success);
+  --color-accent-emerald-hover: var(--accent-success);
+  --color-accent-success: var(--accent-success);
+  --color-accent-warning: var(--accent-warning);
+  --color-accent-danger: var(--accent-danger);
+  --color-accent-info: var(--accent-info);
+  --color-blob-1: var(--blob-1);
+  --color-blob-2: var(--blob-2);
+  --color-blob-3: var(--blob-3);
+  --background-image-gradient-primary: var(--gradient-primary);
 
   /* Legacy brand colors compatibility mappings so they inherit from the tokens */
   --color-brand-50: var(--background);
@@ -94,19 +106,19 @@
   --color-slate-905: var(--heading);
 
   /* Compatibility rose, emerald, amber mappings */
-  --color-rose-250: var(--danger);
-  --color-rose-505: var(--danger);
-  --color-rose-650: var(--danger);
-  --color-rose-655: var(--danger);
-  --color-rose-955: var(--danger);
-  --color-emerald-250: var(--success);
-  --color-emerald-450: var(--success);
-  --color-emerald-505: var(--success);
-  --color-amber-250: var(--warning);
-  --color-amber-450: var(--warning);
-  --color-amber-455: var(--warning);
-  --color-amber-605: var(--warning);
-  --color-amber-650: var(--warning);
+  --color-rose-250: var(--accent-danger);
+  --color-rose-505: var(--accent-danger);
+  --color-rose-650: var(--accent-danger);
+  --color-rose-655: var(--accent-danger);
+  --color-rose-955: var(--accent-danger);
+  --color-emerald-250: var(--accent-success);
+  --color-emerald-450: var(--accent-success);
+  --color-emerald-505: var(--accent-success);
+  --color-amber-250: var(--accent-warning);
+  --color-amber-450: var(--accent-warning);
+  --color-amber-455: var(--accent-warning);
+  --color-amber-605: var(--accent-warning);
+  --color-amber-650: var(--accent-warning);
 
   /* Spacing Tokens */
   --spacing-spacing-xs: var(--spacing-xs);
@@ -150,6 +162,43 @@
   --color-sidebar-muted-fg: var(--sidebar-muted-foreground);
   --color-sidebar-active-fg: var(--sidebar-active-foreground);
   --color-sidebar-hover: var(--sidebar-border);
+  --blur-glass: 20px;
+
+  /* Centralized Typography Scale mapped to CSS Variables */
+  --text-h1: var(--font-h1-size);
+  --font-weight-h1: var(--font-h1-weight);
+  --leading-h1: var(--font-h1-leading);
+  --tracking-h1: var(--font-h1-tracking);
+
+  --text-h2: var(--font-h2-size);
+  --font-weight-h2: var(--font-h2-weight);
+  --leading-h2: var(--font-h2-leading);
+  --tracking-h2: var(--font-h2-tracking);
+
+  --text-h3: var(--font-h3-size);
+  --font-weight-h3: var(--font-h3-weight);
+  --leading-h3: var(--font-h3-leading);
+  --tracking-h3: var(--font-h3-tracking);
+
+  --text-h4: var(--font-h4-size);
+  --font-weight-h4: var(--font-h4-weight);
+  --leading-h4: var(--font-h4-leading);
+  --tracking-h4: var(--font-h4-tracking);
+
+  --text-body: var(--font-body-size);
+  --font-weight-body: var(--font-body-weight);
+  --leading-body: var(--font-body-leading);
+  --tracking-body: var(--font-body-tracking);
+
+  --text-caption: var(--font-caption-size);
+  --font-weight-caption: var(--font-caption-weight);
+  --leading-caption: var(--font-caption-leading);
+  --tracking-caption: var(--font-caption-tracking);
+
+  --text-label: var(--font-label-size);
+  --font-weight-label: var(--font-label-weight);
+  --leading-label: var(--font-label-leading);
+  --tracking-label: var(--font-label-tracking);
 }
 
 @keyframes float {
@@ -170,21 +219,31 @@
   -moz-osx-font-smoothing: grayscale;
 
   /* Global Design System variables - Light Mode */
-  --background: #F7F8FA;
-  --surface: #FFFFFF;
-  --surface-hover: #FCFCFD;
-  --elevated: #FFFFFF;
-  --primary: #6D93C9;
+  --background: #FAFAF8;
+  --surface: #F3F2EF;
+  --surface-hover: #EBEAE6;
+  --elevated: #F3F2EF;
+  --surface-glass: rgba(255, 255, 255, 0.6);
+  --primary: #53709A;
   --primary-hover: #5D82B8;
   --accent: #E09163;
   --accent-hover: #D68150;
-  --success: #77D49B;
-  --warning: #F2C45A;
-  --danger: #E36B6B;
-  --heading: #171717;
-  --body: #525866;
-  --muted: #5E6470;
-  --border: #DFE2E9;
+  --accent-success: #059669;
+  --accent-warning: #D97706;
+  --accent-danger: #E11D48;
+  --accent-info: #0284C7;
+  --accent-purple: #7C3AED;
+  --blob-1: #6366F1;
+  --blob-2: #EC4899;
+  --blob-3: #14B8A6;
+  --gradient-primary: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%);
+  --success: var(--accent-success);
+  --warning: var(--accent-warning);
+  --danger: var(--accent-danger);
+  --heading: #0F0F14;
+  --body: #52525B;
+  --muted: #6E6E76;
+  --border: rgba(15,15,20,0.08);
   --divider: #EEF1F4;
 
   /* Legacy variable mappings */
@@ -230,17 +289,53 @@
   --duration-normal: 200ms;
   --duration-slow: 300ms;
 
-  /* Typography scale */
-  --text-heading-xl: 2.25rem;
-  --text-heading-lg: 1.875rem;
-  --text-heading-md: 1.5rem;
-  --text-heading-sm: 1.25rem;
+  /* Typography System variables */
+  --font-h1-size: 2.25rem; /* 36px */
+  --font-h1-weight: 700;
+  --font-h1-leading: 1.2;
+  --font-h1-tracking: -0.02em;
+
+  --font-h2-size: 1.875rem; /* 30px */
+  --font-h2-weight: 700;
+  --font-h2-leading: 1.25;
+  --font-h2-tracking: -0.02em;
+
+  --font-h3-size: 1.5rem; /* 24px */
+  --font-h3-weight: 600;
+  --font-h3-leading: 1.3;
+  --font-h3-tracking: -0.02em;
+
+  --font-h4-size: 1.25rem; /* 20px */
+  --font-h4-weight: 600;
+  --font-h4-leading: 1.35;
+  --font-h4-tracking: -0.02em;
+
+  --font-body-size: 0.875rem; /* 14px */
+  --font-body-weight: 400;
+  --font-body-leading: 1.57;
+  --font-body-tracking: 0em;
+
+  --font-caption-size: 0.75rem; /* 12px */
+  --font-caption-weight: 400;
+  --font-caption-leading: 1.4;
+  --font-caption-tracking: 0em;
+
+  --font-label-size: 12px;
+  --font-label-weight: 600;
+  --font-label-leading: 1.4;
+  --font-label-tracking: 0.08em;
+
+  /* Legacy typography variables mapped to the new scale for system compatibility */
+  --text-heading-xl: var(--font-h1-size);
+  --text-heading-lg: var(--font-h2-size);
+  --text-heading-md: var(--font-h3-size);
+  --text-heading-sm: var(--font-h4-size);
   --text-body-lg: 1.125rem;
-  --text-body-md: 1rem;
-  --text-body-sm: 0.875rem;
-  --text-caption: 0.75rem;
-  --text-label: 0.75rem;
-  --text-button-text: 0.875rem;
+  --text-body-md: var(--font-body-size);
+  --text-body-sm: var(--font-body-size);
+  --text-caption: var(--font-caption-size);
+  --text-label: var(--font-label-size);
+  --text-button-text: var(--font-body-size);
   
   /* Opacity / Z-Index / Focus */
   --opacity-disabled: 0.5;
@@ -263,21 +358,31 @@
 
 .dark {
   /* Global Design System variables - Dark Mode */
-  --background: #121416;
-  --surface: #1C2023;
-  --surface-hover: #252B31;
-  --elevated: #252B31;
+  --background: #0A0A0F;
+  --surface: #13131A;
+  --surface-hover: #1A1A22;
+  --elevated: #1C1C26;
+  --surface-glass: rgba(255, 255, 255, 0.06);
   --primary: #7FA7E0;
   --primary-hover: #91B3E8;
   --accent: #F0A173;
   --accent-hover: #F4B38A;
-  --success: #82DFA7;
-  --warning: #F5C96A;
-  --danger: #F08787;
-  --heading: #F5F6F7;
-  --body: #C6CCD4;
-  --muted: #9CA3AF;
-  --border: #373F48;
+  --accent-success: #34D399;
+  --accent-warning: #FBBF24;
+  --accent-danger: #FB7185;
+  --accent-info: #38BDF8;
+  --accent-purple: #8B5CF6;
+  --blob-1: #6366F1;
+  --blob-2: #EC4899;
+  --blob-3: #14B8A6;
+  --gradient-primary: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+  --success: var(--accent-success);
+  --warning: var(--accent-warning);
+  --danger: var(--accent-danger);
+  --heading: #F5F5F7;
+  --body: #A1A1AA;
+  --muted: #80808E;
+  --border: rgba(255,255,255,0.08);
   --divider: #2B323B;
 
   /* Legacy variable mappings */
@@ -306,6 +411,7 @@ body {
   min-height: 100vh;
   background-color: var(--background);
   color: var(--body);
+  font-family: var(--font-sans);
   transition: background-color var(--duration-normal) ease-in-out, color var(--duration-normal) ease-in-out;
 }
 
@@ -361,6 +467,66 @@ body {
   font-size: var(--text-button-text);
   font-weight: 600;
   line-height: 1.4;
+}
+
+/*
+Typography System
+
+h1    Page titles
+h2    Section titles
+h3    Card titles
+h4    Grouped headings
+body  Paragraph text
+caption  Metadata
+label Uppercase semantic labels (12px/600/0.08em/uppercase — 
+      short tags only, e.g. RECOMMENDATION, STATUS)
+
+Avoid arbitrary Tailwind text sizing. All new typography consumes 
+these tokens.
+*/
+
+.text-h1 {
+  font-size: var(--font-h1-size);
+  font-weight: var(--font-h1-weight);
+  line-height: var(--font-h1-leading);
+  letter-spacing: var(--font-h1-tracking);
+}
+.text-h2 {
+  font-size: var(--font-h2-size);
+  font-weight: var(--font-h2-weight);
+  line-height: var(--font-h2-leading);
+  letter-spacing: var(--font-h2-tracking);
+}
+.text-h3 {
+  font-size: var(--font-h3-size);
+  font-weight: var(--font-h3-weight);
+  line-height: var(--font-h3-leading);
+  letter-spacing: var(--font-h3-tracking);
+}
+.text-h4 {
+  font-size: var(--font-h4-size);
+  font-weight: var(--font-h4-weight);
+  line-height: var(--font-h4-leading);
+  letter-spacing: var(--font-h4-tracking);
+}
+.text-body {
+  font-size: var(--font-body-size);
+  font-weight: var(--font-body-weight);
+  line-height: var(--font-body-leading);
+  letter-spacing: var(--font-body-tracking);
+}
+.text-caption {
+  font-size: var(--font-caption-size);
+  font-weight: var(--font-caption-weight);
+  line-height: var(--font-caption-leading);
+  letter-spacing: var(--font-caption-tracking);
+}
+.text-label {
+  font-size: var(--font-label-size);
+  font-weight: var(--font-label-weight);
+  line-height: var(--font-label-leading);
+  letter-spacing: var(--font-label-tracking);
+  text-transform: uppercase;
 }
 
 /* Custom Scrollbar for premium feel */

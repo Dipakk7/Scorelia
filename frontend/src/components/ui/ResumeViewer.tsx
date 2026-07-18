@@ -28,9 +28,25 @@ import {
 interface ResumeViewerProps {
   parsedData: ParsedResumeData | null
   originalFilename: string
+  onEditClick?: () => void
 }
 
-export default function ResumeViewer({ parsedData, originalFilename }: ResumeViewerProps) {
+export default function ResumeViewer({ parsedData, originalFilename, onEditClick }: ResumeViewerProps) {
+  const renderEmptySector = (message: string) => (
+    <div className="flex items-center justify-between gap-4 py-2.5 px-4 border border-dashed border-[var(--border)] rounded-xl bg-[var(--surface-hover)]/10 text-left">
+      <span className="text-xs text-[var(--muted)] italic font-sans font-medium">{message}</span>
+      {onEditClick && (
+        <button
+          type="button"
+          onClick={onEditClick}
+          className="text-[10px] font-bold uppercase tracking-wider text-[var(--primary)] hover:underline border-none bg-transparent cursor-pointer p-0 select-none shrink-0"
+        >
+          Add in Editor →
+        </button>
+      )}
+    </div>
+  )
+
   const [sectionsOpen, setSectionsOpen] = useState<Record<string, boolean>>({
     personal: true,
     summary: true,
@@ -337,7 +353,7 @@ export default function ResumeViewer({ parsedData, originalFilename }: ResumeVie
                 ))}
               </div>
             ) : (
-              <p className="text-slate-400 italic text-sm text-left">No social or web links found.</p>
+              renderEmptySector("No social or web links found.")
             )}
           </ResumeSection>
 
@@ -356,7 +372,7 @@ export default function ResumeViewer({ parsedData, originalFilename }: ResumeVie
                 ))}
               </div>
             ) : (
-              <p className="text-slate-400 italic text-sm text-left">No technical skills detected.</p>
+              renderEmptySector("No technical skills detected.")
             )}
           </ResumeSection>
 
@@ -379,7 +395,7 @@ export default function ResumeViewer({ parsedData, originalFilename }: ResumeVie
                 ))}
               </div>
             ) : (
-              <p className="text-slate-400 italic text-sm text-left">No languages specified.</p>
+              renderEmptySector("No languages specified.")
             )}
           </ResumeSection>
         </div>
@@ -398,7 +414,7 @@ export default function ResumeViewer({ parsedData, originalFilename }: ResumeVie
                 {data.summary.value}
               </p>
             ) : (
-              <p className="text-slate-400 italic text-sm text-left">No professional summary detected.</p>
+              renderEmptySector("No professional summary detected.")
             )}
           </ResumeSection>
 
@@ -437,7 +453,7 @@ export default function ResumeViewer({ parsedData, originalFilename }: ResumeVie
                 ))}
               </div>
             ) : (
-              <p className="text-slate-400 italic text-sm text-left">No work experience detected.</p>
+              renderEmptySector("No work experience detected.")
             )}
           </ResumeSection>
 
@@ -466,7 +482,7 @@ export default function ResumeViewer({ parsedData, originalFilename }: ResumeVie
                 ))}
               </div>
             ) : (
-              <p className="text-slate-400 italic text-sm text-left">No education history detected.</p>
+              renderEmptySector("No education history detected.")
             )}
           </ResumeSection>
 
@@ -505,7 +521,7 @@ export default function ResumeViewer({ parsedData, originalFilename }: ResumeVie
                 ))}
               </div>
             ) : (
-              <p className="text-slate-400 italic text-sm text-left">No projects documented.</p>
+              renderEmptySector("No projects documented.")
             )}
           </ResumeSection>
 
@@ -530,7 +546,7 @@ export default function ResumeViewer({ parsedData, originalFilename }: ResumeVie
                 ))}
               </ul>
             ) : (
-              <p className="text-slate-400 italic text-sm text-left">No certifications detected.</p>
+              renderEmptySector("No certifications detected.")
             )}
           </ResumeSection>
 
@@ -555,7 +571,7 @@ export default function ResumeViewer({ parsedData, originalFilename }: ResumeVie
                 ))}
               </ul>
             ) : (
-              <p className="text-slate-400 italic text-sm text-left">No achievements cataloged.</p>
+              renderEmptySector("No achievements cataloged.")
             )}
           </ResumeSection>
         </div>

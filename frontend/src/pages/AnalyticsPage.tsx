@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   useDashboardAnalytics,
   useResumeAnalytics,
@@ -35,6 +36,7 @@ import {
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/Tabs'
 import { AnalyticsSkeleton } from '@/components/ui/Skeletons'
 import { EmptyAnalyticsState } from '@/components/ui/EmptyState'
+import { Card } from '@/components/ui/Card'
 import { cn } from '@/lib/utils'
 
 type TabType =
@@ -49,6 +51,7 @@ type TabType =
   | 'agents'
 
 export default function AnalyticsPage() {
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState<TabType>('overview')
   const [dateRange, setDateRange] = useState('30d')
   const [exportOpen, setExportOpen] = useState(false)
@@ -164,17 +167,17 @@ export default function AnalyticsPage() {
   if (!dashboard.isLoading && dashboard.data?.total_resumes === 0) {
     return (
       <div className="space-y-6 text-left font-sans text-xs">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 hover:shadow-[var(--shadow-md)] transition-all duration-300 flex-shrink-0">
+        <Card variant="elevated" className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 hover:border-[var(--primary)]/40 hover:shadow-[var(--shadow-md)] flex-shrink-0">
           <div className="space-y-1 text-left">
-            <h2 className="text-xl md:text-2xl font-black font-display text-[var(--heading)] m-0 tracking-tight leading-none">
+            <h1 className="text-h1 text-[var(--heading)] m-0">
               Analytics Center
-            </h2>
-            <p className="text-xs text-[var(--body)] font-sans leading-relaxed m-0 font-medium mt-1.5">
+            </h1>
+            <p className="text-caption text-[var(--body)] m-0 font-medium mt-1.5">
               Centralized operations intelligence dashboard across all Scorelia modules.
             </p>
           </div>
-        </div>
-        <EmptyAnalyticsState />
+        </Card>
+        <EmptyAnalyticsState onAction={() => navigate('/resumes')} />
       </div>
     )
   }
@@ -182,16 +185,16 @@ export default function AnalyticsPage() {
   return (
     <div className="space-y-6 font-sans select-none pb-12 text-left text-xs">
       {/* Title Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 hover:shadow-[var(--shadow-md)] transition-all duration-300 flex-shrink-0">
+      <Card variant="elevated" className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 hover:border-[var(--primary)]/40 hover:shadow-[var(--shadow-md)] flex-shrink-0">
         <div className="space-y-1.5 text-left">
-          <h2 className="text-xl md:text-2xl font-black font-display text-[var(--heading)] m-0 tracking-tight leading-none">
+          <h1 className="text-h1 text-[var(--heading)] m-0">
             Analytics Center
-          </h2>
-          <p className="text-xs text-[var(--body)] font-sans leading-relaxed m-0 font-medium mt-1.5">
+          </h1>
+          <p className="text-caption text-[var(--body)] m-0 font-medium mt-1.5">
             Centralized operations intelligence dashboard across all Scorelia modules.
           </p>
         </div>
-      </div>
+      </Card>
 
       {/* Filter Bar */}
       <AnalyticsFilterBar
@@ -269,6 +272,9 @@ export default function AnalyticsPage() {
               loading={chartsOverview.isLoading}
               error={chartsOverview.error}
               empty={overviewAtsDist.length === 0}
+              ctaText="Upload Resume"
+              ctaTo="/resumes"
+              emptyMessage="No ATS score data available. Upload resumes to calibrate your score."
             >
               <TrendChart data={overviewAtsDist} type="bar" colorScheme="violet" />
             </AnalyticsCard>
@@ -279,6 +285,9 @@ export default function AnalyticsPage() {
               loading={chartsOverview.isLoading}
               error={chartsOverview.error}
               empty={overviewJobMatchDist.length === 0}
+              ctaText="Scan Vacancies"
+              ctaTo="/ats"
+              emptyMessage="No job match data available. Scan your resume against vacancies."
             >
               <TrendChart data={overviewJobMatchDist} type="bar" colorScheme="emerald" />
             </AnalyticsCard>
@@ -289,6 +298,9 @@ export default function AnalyticsPage() {
               loading={chartsOverview.isLoading}
               error={chartsOverview.error}
               empty={overviewTimeline.length === 0}
+              ctaText="Upload Resume"
+              ctaTo="/resumes"
+              emptyMessage="No resume timeline data available. Upload your first resume to track timeline."
             >
               <TrendChart data={overviewTimeline} type="area" colorScheme="brand" />
             </AnalyticsCard>
@@ -299,6 +311,9 @@ export default function AnalyticsPage() {
               loading={chartsOverview.isLoading}
               error={chartsOverview.error}
               empty={overviewSkills.length === 0}
+              ctaText="Upload Resume"
+              ctaTo="/resumes"
+              emptyMessage="No skills distribution data available. Upload resumes to map skills."
             >
               <TrendChart data={overviewSkills} type="bar" colorScheme="amber" />
             </AnalyticsCard>
@@ -314,6 +329,9 @@ export default function AnalyticsPage() {
               loading={resume.isLoading}
               error={resume.error}
               empty={experienceChartData.length === 0}
+              ctaText="Upload Resume"
+              ctaTo="/resumes"
+              emptyMessage="No experience data available. Upload resumes to compile experience charts."
             >
               <TrendChart data={experienceChartData} type="bar" colorScheme="brand" />
             </AnalyticsCard>
@@ -324,6 +342,9 @@ export default function AnalyticsPage() {
               loading={resume.isLoading}
               error={resume.error}
               empty={educationChartData.length === 0}
+              ctaText="Upload Resume"
+              ctaTo="/resumes"
+              emptyMessage="No education history available. Upload resumes to see educational levels."
             >
               <LanguageDistributionChart data={educationChartData} />
             </AnalyticsCard>
@@ -334,6 +355,9 @@ export default function AnalyticsPage() {
               loading={resume.isLoading}
               error={resume.error}
               empty={Object.keys(resume.data?.timeline?.monthly || {}).length === 0}
+              ctaText="Upload Resume"
+              ctaTo="/resumes"
+              emptyMessage="No upload history available. Upload your first resume to build timeline."
             >
               <TrendChart
                 data={Object.entries(resume.data?.timeline?.monthly || {}).map(([k, v]) => ({
@@ -351,6 +375,9 @@ export default function AnalyticsPage() {
               loading={resume.isLoading}
               error={resume.error}
               empty={topSkillsChartData.length === 0}
+              ctaText="Upload Resume"
+              ctaTo="/resumes"
+              emptyMessage="No skills mapped yet. Upload resumes to parse skills."
             >
               <TrendChart data={topSkillsChartData} type="bar" colorScheme="emerald" />
             </AnalyticsCard>
@@ -366,6 +393,9 @@ export default function AnalyticsPage() {
               loading={ats.isLoading}
               error={ats.error}
               empty={atsCategoryChartData.length === 0}
+              ctaText="Run ATS Scan"
+              ctaTo="/ats"
+              emptyMessage="No ATS categories evaluated. Scan your resumes against job descriptions."
             >
               <RadarAnalytics data={atsCategoryChartData} colorScheme="violet" />
             </AnalyticsCard>
@@ -376,6 +406,9 @@ export default function AnalyticsPage() {
               loading={ats.isLoading}
               error={ats.error}
               empty={!ats.data?.trend?.score_trend?.length}
+              ctaText="Run ATS Scan"
+              ctaTo="/ats"
+              emptyMessage="No ATS score history. Analyze your resumes to build progression trends."
             >
               <TrendChart
                 data={(ats.data?.trend?.score_trend || []).map((t) => ({
@@ -394,6 +427,9 @@ export default function AnalyticsPage() {
               loading={ats.isLoading}
               error={ats.error}
               empty={!ats.data?.weaknesses?.top_weaknesses?.length}
+              ctaText="Audit Weaknesses"
+              ctaTo="/ats"
+              emptyMessage="No compliance issues logged. Run an ATS scan to detect vocabulary gaps."
             >
               <div className="space-y-3 font-sans text-xs text-left">
                 {(ats.data?.weaknesses?.top_weaknesses || []).map((w, idx) => (
@@ -417,6 +453,9 @@ export default function AnalyticsPage() {
               loading={ats.isLoading}
               error={ats.error}
               empty={!ats.data?.weaknesses?.top_recommendations?.length}
+              ctaText="Analyze ATS"
+              ctaTo="/ats"
+              emptyMessage="No recommendations generated yet. Complete a resume evaluation to view recommendations."
             >
               <div className="space-y-3 font-sans text-xs text-left">
                 {(ats.data?.weaknesses?.top_recommendations || []).map((r, idx) => (
@@ -445,6 +484,9 @@ export default function AnalyticsPage() {
               loading={jobMatch.isLoading}
               error={jobMatch.error}
               empty={jobDistributionChartData.length === 0}
+              ctaText="Match Job Vacancies"
+              ctaTo="/ats"
+              emptyMessage="No job matches found. Align your resumes against active catalog descriptions."
             >
               <LanguageDistributionChart data={jobDistributionChartData} />
             </AnalyticsCard>
@@ -455,6 +497,9 @@ export default function AnalyticsPage() {
               loading={jobMatch.isLoading}
               error={jobMatch.error}
               empty={missingSkillsChartData.length === 0}
+              ctaText="Audit Skill Gaps"
+              ctaTo="/roadmap"
+              emptyMessage="No missing skills analyzed. Build a career roadmap to view skill gaps."
             >
               <TrendChart data={missingSkillsChartData} type="bar" colorScheme="amber" />
             </AnalyticsCard>
@@ -465,6 +510,9 @@ export default function AnalyticsPage() {
               loading={jobMatch.isLoading}
               error={jobMatch.error}
               empty={!jobMatch.data?.trend?.score_trend?.length}
+              ctaText="Sync Job Matches"
+              ctaTo="/ats"
+              emptyMessage="No match trend data available. Scan your profile against vacancy targets."
             >
               <TrendChart
                 data={(jobMatch.data?.trend?.score_trend || []).map((t) => ({
@@ -484,26 +532,26 @@ export default function AnalyticsPage() {
             >
               <div className="grid grid-cols-2 gap-4 font-sans text-xs py-4 text-left">
                 <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Total Match Queries</div>
-                  <div className="text-lg font-black text-[var(--heading)] mt-1 leading-none font-mono">
+                  <div className="text-label text-[var(--muted)] leading-none mb-1.5">Total Match Queries</div>
+                  <div className="text-h4 font-black text-[var(--heading)] mt-1 font-mono leading-none">
                     {jobMatch.data?.history.total_matches || 0}
                   </div>
                 </div>
                 <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Avg Matches / Resume</div>
-                  <div className="text-lg font-black text-[var(--heading)] mt-1 leading-none font-mono">
+                  <div className="text-label text-[var(--muted)] leading-none mb-1.5">Avg Matches / Resume</div>
+                  <div className="text-h4 font-black text-[var(--heading)] mt-1 font-mono leading-none">
                     {jobMatch.data?.history.average_matches_per_resume || 0}
                   </div>
                 </div>
                 <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Repeated Jobs</div>
-                  <div className="text-lg font-black text-[var(--heading)] mt-1 leading-none font-mono">
+                  <div className="text-label text-[var(--muted)] leading-none mb-1.5">Repeated Jobs</div>
+                  <div className="text-h4 font-black text-[var(--heading)] mt-1 font-mono leading-none">
                     {jobMatch.data?.history.repeated_job_descriptions || 0}
                   </div>
                 </div>
                 <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Historical Growth</div>
-                  <div className="text-lg font-black text-[var(--heading)] mt-1 leading-none font-mono">
+                  <div className="text-label text-[var(--muted)] leading-none mb-1.5">Historical Growth</div>
+                  <div className="text-h4 font-black text-[var(--heading)] mt-1 font-mono leading-none">
                     +{jobMatch.data?.history.historical_match_growth || 0}%
                   </div>
                 </div>
@@ -522,20 +570,20 @@ export default function AnalyticsPage() {
             >
               <div className="grid grid-cols-3 gap-3 font-sans text-xs py-8 text-left">
                 <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Cover Letters</div>
-                  <div className="text-lg font-black text-[var(--primary)] mt-1 leading-none font-mono">
+                  <div className="text-label text-[var(--muted)] leading-none mb-1.5">Cover Letters</div>
+                  <div className="text-h4 font-black text-[var(--primary)] mt-1 font-mono leading-none">
                     {dashboard.data?.cover_letters_generated || 0}
                   </div>
                 </div>
                 <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">AI usage</div>
-                  <div className="text-lg font-black text-[var(--analytics)] mt-1 leading-none font-mono">
+                  <div className="text-label text-[var(--muted)] leading-none mb-1.5">AI usage</div>
+                  <div className="text-h4 font-black text-[var(--analytics)] mt-1 font-mono leading-none">
                     {dashboard.data?.ai_usage || 0}
                   </div>
                 </div>
                 <div className="p-4 rounded-[var(--radius-card)] bg-[var(--surface-hover)] border border-[var(--border)] shadow-2xs hover:shadow-sm text-left">
-                  <div className="text-[var(--muted)] text-[9px] font-black uppercase tracking-widest leading-none mb-1.5">Prep Loops</div>
-                  <div className="text-lg font-black text-[var(--success)] mt-1 leading-none font-mono">
+                  <div className="text-label text-[var(--muted)] leading-none mb-1.5">Prep Loops</div>
+                  <div className="text-h4 font-black text-[var(--success)] mt-1 font-mono leading-none">
                     {dashboard.data?.interview_sessions || 0}
                   </div>
                 </div>
@@ -570,6 +618,9 @@ export default function AnalyticsPage() {
               loading={interviewHistory.isLoading}
               error={interviewHistory.error}
               empty={!interviewHistory.data?.total_interviews}
+              ctaText="Practice Interview"
+              ctaTo="/interview"
+              emptyMessage="No interview rounds completed yet. Conduct mock training runs to audit marks."
             >
               <RadarAnalytics
                 data={[
@@ -589,6 +640,9 @@ export default function AnalyticsPage() {
               loading={interviewHistory.isLoading}
               error={interviewHistory.error}
               empty={!interviewHistory.data?.score_trend?.length}
+              ctaText="Practice Interview"
+              ctaTo="/interview"
+              emptyMessage="No progression scores trend. Refine your storytelling drills today."
             >
               <TrendChart
                 data={(interviewHistory.data?.score_trend || []).map((t) => ({
@@ -614,7 +668,7 @@ export default function AnalyticsPage() {
                 <span className="text-5xl font-black text-[var(--primary)] font-display block">
                   {dashboard.data?.career_progress || 0}%
                 </span>
-                <span className="text-[10px] font-bold text-[var(--muted)] uppercase tracking-widest mt-2 block font-sans">
+                <span className="text-label text-[var(--muted)] mt-2 block">
                   Total Milestone Completion
                 </span>
               </div>
