@@ -19,10 +19,12 @@ import {
 import React from 'react'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { Navbar } from '@/components/layout/Navbar'
+import { CommandPalette } from '@/components/layout/CommandPalette'
 import { useAuth } from '@/providers/AuthProvider'
 import { cn } from '@/lib/utils'
 import { Logo } from '@/components/common/Logo'
 import { SIDEBAR_PINNED_KEY, SIDEBAR_COLLAPSED_KEY } from '@/lib/constants'
+import { BackgroundMesh } from '@/components/ui/BackgroundMesh'
 
 
 // Custom Github SVG Icon to bypass missing brand icons in this version of lucide-react
@@ -96,7 +98,9 @@ export default function DashboardLayout() {
   ]
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-background font-sans">
+    <div className="flex h-screen w-screen overflow-hidden bg-background font-sans relative">
+      <BackgroundMesh />
+      <CommandPalette />
       {/* Desktop Collapsible Sidebar */}
       <Sidebar pinned={pinned} setPinned={setPinned} />
 
@@ -138,14 +142,14 @@ export default function DashboardLayout() {
                   to={item.to}
                   className={({ isActive }) =>
                     cn(
-                      'flex items-center gap-3 py-2.5 rounded-[var(--radius-button)] text-sm font-semibold transition-all duration-150 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-focus-ring/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-sidebar-bg',
+                      'flex items-center gap-3 py-2.5 rounded-r-[var(--radius-button)] text-sm font-semibold transition-all duration-150 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-focus-ring/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-sidebar-bg',
                       isActive
-                        ? 'bg-sidebar-hover text-brand px-3 shadow-xs'
+                        ? 'bg-brand/10 border-l-[3px] border-brand text-brand pl-[9px] pr-3 shadow-[0_0_12px_rgba(83,112,154,0.15)] dark:shadow-[0_0_12px_rgba(127,167,224,0.25)]'
                         : 'hover:bg-sidebar-hover hover:text-sidebar-active-fg text-sidebar-muted-fg px-3'
                     )
                   }
                 >
-                  <Icon size={18} className="flex-shrink-0 transition-colors" />
+                  <Icon size={20} className="flex-shrink-0 transition-colors stroke-[2]" />
                   <span className="tracking-wide">{item.label}</span>
                 </NavLink>
               )

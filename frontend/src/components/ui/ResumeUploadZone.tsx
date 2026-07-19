@@ -178,8 +178,17 @@ export default function ResumeUploadZone({ onUploadSuccess, maxSizeMB = 5 }: Res
         onDragLeave={handleDrag}
         onDrop={handleDrop}
         onClick={triggerFileInput}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            triggerFileInput()
+          }
+        }}
+        role="button"
+        tabIndex={0}
+        aria-label="Upload resume files"
         className={cn(
-          'relative border-2 border-dashed rounded-lg p-10 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 min-h-[220px] group shadow-xs hover:shadow-md hover:border-brand-500/60 dark:hover:border-brand-500/50',
+          'relative border-2 border-dashed rounded-lg p-10 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 min-h-[220px] group shadow-xs hover:shadow-md hover:border-brand-500/60 dark:hover:border-brand-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2',
           isDragActive
             ? 'border-brand-500 bg-brand-500/8 dark:border-brand-500 dark:bg-brand-950/10'
             : 'border-border bg-card/40 backdrop-blur-md'
@@ -247,10 +256,10 @@ export default function ResumeUploadZone({ onUploadSuccess, maxSizeMB = 5 }: Res
                   </div>
 
                   {item.status === 'uploading' && (
-                    <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                    <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden relative">
                       <div
-                        className="bg-brand-600 dark:bg-brand-500 h-1.5 rounded-full transition-all duration-300"
-                        style={{ width: `${item.progress}%` }}
+                        className="bg-brand-600 dark:bg-brand-500 h-1.5 rounded-full progress-fill progress-shimmer"
+                        style={{ transform: `scaleX(${item.progress / 100})` }}
                       />
                     </div>
                   )}

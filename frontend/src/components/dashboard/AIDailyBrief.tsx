@@ -82,7 +82,7 @@ export default function AIDailyBrief({
       <div>
         <CardHeader className="pb-3 border-b border-border/60 text-left flex flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0">
+            <div className="p-1.5 rounded-lg bg-primary/10 text-primary border border-primary/20 shrink-0 ai-presence-pulse">
               <Sparkles size={14} className="stroke-[1.75]" />
             </div>
             <div className="text-left">

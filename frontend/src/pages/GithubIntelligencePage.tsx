@@ -77,6 +77,7 @@ export default function GithubIntelligencePage() {
               onChange={(e) => setSearchInput(e.target.value)}
               placeholder="Search GitHub username..."
               className="w-full pl-9 pr-4 py-2 text-xs font-semibold rounded-xl border border-[var(--border)] bg-[var(--surface-hover)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)] focus:border-[var(--primary)] text-[var(--heading)] placeholder-[var(--muted)] shadow-2xs h-9"
+              aria-label="GitHub username"
             />
           </div>
           <button

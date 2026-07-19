@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/components/ui/Card'
 import { cn } from '@/lib/utils'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
+import { CountUpText } from '@/components/ui/CountUpText'
 
 interface StatisticCardProps {
   title: string
@@ -22,6 +23,7 @@ interface StatisticCardProps {
   zeroStateText?: string
   metricType?: 'number' | 'percentage'
   accentColor?: 'teal' | 'blue' | 'purple' | 'emerald'
+  animate?: boolean
 }
 
 export function StatisticCard({
@@ -35,6 +37,7 @@ export function StatisticCard({
   zeroStateText,
   metricType = 'number',
   accentColor = 'teal',
+  animate = false,
 }: StatisticCardProps) {
   // Determine if it should render as a zero state
   const numericValue = typeof value === 'string' ? parseFloat(value) : value
@@ -153,7 +156,11 @@ export function StatisticCard({
             </p>
             <div className="flex items-center gap-2 flex-wrap mt-1">
               <h3 className="text-3xl md:text-3.5xl font-black font-display text-[var(--heading)] tracking-tight leading-none">
-                {displayValue}
+                {animate && !isNaN(numericValue) ? (
+                  <CountUpText value={numericValue} suffix={metricType === 'percentage' ? '%' : ''} />
+                ) : (
+                  displayValue
+                )}
               </h3>
               {showAtsStatus && statusLabel && (
                 <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-[var(--success)]/10 text-[var(--success)] border border-[var(--success)]/10">
@@ -173,10 +180,10 @@ export function StatisticCard({
               <span>Completion Progress</span>
               <span>{Math.round(numericValue)}%</span>
             </div>
-            <div className="w-full bg-[var(--divider)] rounded-full h-1.5 overflow-hidden">
+            <div className="w-full bg-[var(--divider)] rounded-full h-1.5 overflow-hidden relative">
               <div
-                className={cn('h-full rounded-full transition-all duration-500 ease-out', activeTheme.barBg)}
-                style={{ width: `${Math.min(100, Math.max(0, numericValue))}%` }}
+                className={cn('h-full rounded-full progress-fill progress-shimmer', activeTheme.barBg)}
+                style={{ transform: `scaleX(${Math.min(100, Math.max(0, numericValue)) / 100})` }}
               />
             </div>
           </div>

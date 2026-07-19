@@ -377,7 +377,7 @@ export default function AtsPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-2xl border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300">
         <div className="space-y-1.5 text-left">
           <h1 className="text-h1 text-[var(--heading)] m-0 flex items-center gap-2">
-            <Scan className="text-[var(--success)]" size={22} />
+            <Scan className="text-[var(--success)]" size={20} />
             <span>ATS Scanner & Job Matcher</span>
           </h1>
           <p className="text-caption text-[var(--muted)] m-0 leading-relaxed">

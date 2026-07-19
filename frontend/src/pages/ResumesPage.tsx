@@ -387,6 +387,7 @@ export default function ResumesPage() {
               accentColor="emerald"
               zeroStateText="No ATS scores computed"
               cta={{ text: 'Calculate ATS scores', onClick: () => setCurrentView('list') }}
+              animate={true}
             />
           </div>
 

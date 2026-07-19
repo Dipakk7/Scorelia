@@ -268,7 +268,7 @@ export default function ResumeIntelligencePage() {
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300">
         <div className="space-y-1.5">
           <h1 className="text-xl md:text-2xl font-black text-[var(--heading)] tracking-tight flex items-center gap-2 m-0 leading-none">
-            <Sparkles className="text-[var(--primary)] animate-pulse" size={22} />
+            <Sparkles className="text-[var(--primary)] animate-pulse" size={20} />
             <span>AI Resume Intelligence Workspace</span>
           </h1>
           <p className="text-xs text-[var(--muted)] font-sans leading-relaxed m-0">
@@ -384,9 +384,9 @@ export default function ResumeIntelligencePage() {
           <div className="space-y-6">
             {/* OVERVIEW DASHBOARD */}
             {activeTab === 'overview' && (
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Scoring cards center */}
-                <div className="lg:col-span-2 space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                {/* Cell 1: QualityScoreCard circular gauges (Primary score indicators) */}
+                <div className="lg:col-span-8 flex flex-col justify-between">
                   <QualityScoreCard
                     qualityScore={latestOptimization?.quality_score?.overall_score || latestReview?.overall_score || 0}
                     readinessScore={latestOptimization?.quality_score?.career_readiness || 0}
@@ -395,8 +395,46 @@ export default function ResumeIntelligencePage() {
                     onAnalyze={handleRunPipeline}
                     isAnalyzing={pipelineMutation.isPending}
                   />
+                </div>
 
-                  {/* Recharts Analytics graphs */}
+                {/* Cell 2: Latest Review Audit (Placed on the right of gauges) */}
+                <div className="lg:col-span-4 flex flex-col">
+                  <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] space-y-4 hover:border-[var(--primary)]/40 transition-all duration-300 h-full flex flex-col justify-between">
+                    <div className="pb-2.5 border-b border-[var(--border)]/60 text-left">
+                      <h4 className="text-xs font-black text-[var(--heading)] uppercase tracking-wider m-0">
+                        Latest Review Audit
+                      </h4>
+                    </div>
+                    {latestReview ? (
+                      <div className="space-y-3.5 text-xs text-left flex-1 flex flex-col justify-between mt-2">
+                        <div className="flex justify-between items-center bg-[var(--surface-hover)] p-2.5 rounded-xl border border-[var(--border)]/40 font-sans">
+                          <span className="text-[var(--muted)] font-semibold">Quality Score</span>
+                          <Badge variant="success" className="font-extrabold text-[10px] px-2 py-0">
+                            {latestReview.overall_score}/100
+                          </Badge>
+                        </div>
+                        <div className="space-y-1 my-3.5">
+                          <span className="text-[9px] text-[var(--muted)] font-extrabold uppercase tracking-widest">
+                            Summary Brief
+                          </span>
+                          <p className="text-[11px] text-[var(--body)] leading-relaxed line-clamp-3 font-medium m-0">
+                            {latestReview.overall_summary}
+                          </p>
+                        </div>
+                        <div className="text-[10px] text-[var(--muted)] font-medium pt-2 border-t border-[var(--border)]/20">
+                          Scanned on: {new Date(latestReview.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="text-xs text-muted-foreground italic text-center py-6 font-sans font-medium flex-1 flex items-center justify-center">
+                        No review record available. Click 'Run AI Pipeline'.
+                      </div>
+                    )}
+                  </Card>
+                </div>
+
+                {/* Cell 3: Intelligence Charts (Primary chart logs) */}
+                <div className="lg:col-span-8 flex flex-col">
                   <IntelligenceCharts
                     reviews={reviews}
                     optimizations={optimizations}
@@ -406,78 +444,44 @@ export default function ResumeIntelligencePage() {
                   />
                 </div>
 
-                {/* Status and Activity history */}
-                <div className="space-y-6 col-span-1">
-                  {/* Latest Review Info */}
-                  <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] space-y-4 hover:border-[var(--primary)]/40 transition-all duration-300">
-                    <div className="pb-2.5 border-b border-[var(--border)]/60 text-left">
-                      <h4 className="text-xs font-black text-[var(--heading)] uppercase tracking-wider m-0">
-                        Latest Review Audit
-                      </h4>
-                    </div>
-                    {latestReview ? (
-                      <div className="space-y-3.5 text-xs text-left">
-                        <div className="flex justify-between items-center bg-[var(--surface-hover)] p-2.5 rounded-xl border border-[var(--border)]/40 font-sans">
-                          <span className="text-[var(--muted)] font-semibold">Quality Score</span>
-                          <Badge variant="success" className="font-extrabold text-[10px] px-2 py-0">
-                            {latestReview.overall_score}/100
-                          </Badge>
-                        </div>
-                        <div className="space-y-1">
-                          <span className="text-[9px] text-[var(--muted)] font-extrabold uppercase tracking-widest">
-                            Summary Brief
-                          </span>
-                          <p className="text-[11px] text-[var(--body)] leading-relaxed line-clamp-3 font-medium m-0">
-                            {latestReview.overall_summary}
-                          </p>
-                        </div>
-                        <div className="text-[10px] text-[var(--muted)] font-medium">
-                          Scanned on: {new Date(latestReview.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="text-xs text-muted-foreground italic text-center py-6 font-sans font-medium">
-                        No review record available. Click 'Run AI Pipeline'.
-                      </div>
-                    )}
-                  </Card>
-
+                {/* Cell 4: Latest Rewrite and ATS Diagnostic Stack */}
+                <div className="lg:col-span-4 flex flex-col space-y-6">
                   {/* Latest Style Rewrite Version */}
-                  <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] space-y-4 hover:border-[var(--primary)]/40 transition-all duration-300">
+                  <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] space-y-4 hover:border-[var(--primary)]/40 transition-all duration-300 flex-1 flex flex-col justify-between">
                     <div className="pb-2.5 border-b border-[var(--border)]/60 text-left">
                       <h4 className="text-xs font-black text-[var(--heading)] uppercase tracking-wider m-0">
                         Latest Style Rewrite
                       </h4>
                     </div>
                     {latestRewrite ? (
-                      <div className="space-y-3 text-xs text-left">
+                      <div className="space-y-3 text-xs text-left flex-1 flex flex-col justify-between mt-2">
                         <div className="flex justify-between items-center bg-[var(--surface-hover)]/50 p-2.5 rounded-xl border border-[var(--border)]">
                           <span className="text-[var(--muted)] font-semibold">Applied Persona</span>
                           <Badge variant="secondary" className="font-bold text-[10px] px-2 py-0">
                             {latestRewrite.rewrite_mode}
                           </Badge>
                         </div>
-                        <div className="flex justify-between text-[10px] text-[var(--muted)] font-medium">
+                        <div className="flex justify-between text-[10px] text-[var(--muted)] font-medium pt-2 border-t border-[var(--border)]/20">
                           <span>Model: {latestRewrite.metadata?.model || 'Ollama'}</span>
                           <span>{new Date(latestRewrite.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
                         </div>
                       </div>
                     ) : (
-                      <div className="text-xs text-muted-foreground italic text-center py-6 font-sans font-medium">
+                      <div className="text-xs text-muted-foreground italic text-center py-6 font-sans font-medium flex-1 flex items-center justify-center">
                         No rewritten version.
                       </div>
                     )}
                   </Card>
 
                   {/* ATS optimizations status */}
-                  <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-2xl shadow-sm space-y-4 hover:border-[var(--primary)]/40 transition-all duration-300">
+                  <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-2xl shadow-sm space-y-4 hover:border-[var(--primary)]/40 transition-all duration-300 flex-1 flex flex-col justify-between">
                     <div className="pb-2.5 border-b border-[var(--border)]/60 text-left">
                       <h4 className="text-xs font-black text-[var(--heading)] uppercase tracking-wider m-0">
                         ATS Diagnostic Level
                       </h4>
                     </div>
                     {latestOptimization?.ats_optimization ? (
-                      <div className="space-y-3 text-xs text-left">
+                      <div className="space-y-3 text-xs text-left flex-1 flex flex-col justify-between mt-2">
                         <div className="flex justify-between items-center font-sans">
                           <span className="text-[var(--muted)] font-semibold">ATS Match Score</span>
                           <span className="font-black text-[var(--primary)]">
@@ -508,7 +512,7 @@ export default function ResumeIntelligencePage() {
                         </div>
                       </div>
                     ) : (
-                      <div className="text-xs text-muted-foreground italic text-center py-6 font-sans font-medium">
+                      <div className="text-xs text-muted-foreground italic text-center py-6 font-sans font-medium flex-1 flex items-center justify-center">
                         No optimizations found.
                       </div>
                     )}

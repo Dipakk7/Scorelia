@@ -138,9 +138,11 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
                 onMouseLeave={handleMouseLeave}
                 className={({ isActive }) =>
                   cn(
-                    'flex items-center py-2.5 rounded-[var(--radius-button)] text-sm font-semibold font-sans transition-all duration-200 ease-in-out cursor-pointer group relative px-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-focus-ring/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-sidebar-bg',
+                    'flex items-center py-2.5 rounded-r-[var(--radius-button)] text-sm font-semibold font-sans transition-all duration-200 ease-in-out cursor-pointer group relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-focus-ring/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-sidebar-bg',
                     expanded ? 'justify-start' : 'justify-center',
-                    !isActive && 'text-sidebar-muted-fg hover:bg-sidebar-hover hover:text-sidebar-active-fg'
+                    isActive 
+                      ? 'pl-[9px] pr-3 text-brand' 
+                      : 'text-sidebar-muted-fg hover:bg-sidebar-hover hover:text-sidebar-active-fg px-3'
                   )
                 }
               >
@@ -149,11 +151,11 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
                     {isActive && (
                       <motion.div
                         layoutId="activeSidebarLink"
-                        className="absolute inset-0 bg-sidebar-hover rounded-[var(--radius-button)] shadow-xs"
+                        className="absolute inset-0 bg-brand/10 border-l-[3px] border-brand rounded-r-[var(--radius-button)] shadow-[0_0_12px_rgba(83,112,154,0.15)] dark:shadow-[0_0_12px_rgba(127,167,224,0.25)]"
                         transition={{ duration: 0.2 }}
                       />
                     )}
-                    <Icon size={20} className={cn("flex-shrink-0 transition-colors duration-200 relative z-10", isActive ? "text-brand" : "text-sidebar-muted-fg group-hover:text-sidebar-active-fg")} />
+                    <Icon size={20} className={cn("flex-shrink-0 transition-colors duration-200 relative z-10 stroke-[2]", isActive ? "text-brand" : "text-sidebar-muted-fg group-hover:text-sidebar-active-fg")} />
                     <span
                       className={cn(
                         "whitespace-nowrap tracking-wide transition-all duration-200 ease-in-out overflow-hidden relative z-10",

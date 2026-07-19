@@ -131,10 +131,10 @@ export function DeveloperScoreCard({ score, breakdown }: DeveloperScoreCardProps
                     </span>
                     <span className="text-slate-950 dark:text-slate-50 font-mono font-black leading-none">{sub.score}%</span>
                   </div>
-                  <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 border border-slate-200/50 dark:border-slate-850/50 overflow-hidden">
+                  <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 border border-slate-200/50 dark:border-slate-850/50 overflow-hidden relative">
                     <div
-                      className="bg-brand-500 h-1.5 rounded-full"
-                      style={{ width: `${sub.score}%` }}
+                      className="bg-brand-500 h-1.5 rounded-full progress-fill progress-shimmer"
+                      style={{ transform: `scaleX(${sub.score / 100})` }}
                     />
                   </div>
                 </div>

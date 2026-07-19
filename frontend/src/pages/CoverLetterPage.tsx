@@ -62,6 +62,7 @@ export default function CoverLetterPage() {
   // Navigation states: 'dashboard' | 'generate' | 'workspace'
   const [currentView, setCurrentView] = useState<'dashboard' | 'generate' | 'workspace'>('dashboard')
   const [selectedLetterId, setSelectedLetterId] = useState<string | null>(null)
+  const [isNewGeneration, setIsNewGeneration] = useState<boolean>(false)
 
   // Generator form states
   const [companyName, setCompanyName] = useState<string>('')
@@ -143,6 +144,7 @@ export default function CoverLetterPage() {
       toast.success('AI Cover Letter generated successfully!')
       queryClient.invalidateQueries({ queryKey: ['coverLettersList'] })
       setSelectedLetterId(data.id)
+      setIsNewGeneration(true)
       setCurrentView('workspace')
       // Reset form
       setCompanyName('')
@@ -297,6 +299,7 @@ export default function CoverLetterPage() {
             onClick={() => {
               setCurrentView('dashboard')
               setSelectedLetterId(null)
+              setIsNewGeneration(false)
               setCompareData(null)
             }}
             className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-bold border-[var(--border)] cursor-pointer rounded-xl hover:border-[var(--primary)]/30 hover:bg-[var(--primary)]/5 transition-all text-[var(--body)] bg-transparent"
@@ -679,6 +682,8 @@ export default function CoverLetterPage() {
                   <CoverLetterEditor
                     coverLetter={activeLetter}
                     onUpdateContent={handleUpdateEditorContent}
+                    isNewGeneration={isNewGeneration}
+                    onStreamComplete={() => setIsNewGeneration(false)}
                   />
                 </div>
 
@@ -738,6 +743,7 @@ export default function CoverLetterPage() {
                       <CoverLetterEditor
                         coverLetter={activeLetter}
                         onUpdateContent={handleUpdateEditorContent}
+                        isNewGeneration={false}
                       />
                     </div>
                   </CardContent>

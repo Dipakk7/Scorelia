@@ -6,6 +6,7 @@ import { ResponsiveContainer, AreaChart, Area, XAxis } from 'recharts'
 import { cn } from '@/lib/utils'
 import { useTheme } from '@/providers/ThemeProvider'
 import { useState, useEffect } from 'react'
+import { CountUpText } from '@/components/ui/CountUpText'
 
 interface QualityScoreCardProps {
   qualityScore: number
@@ -105,7 +106,7 @@ export function QualityScoreCard({
         {/* Value Label inside circle */}
         <div className="absolute top-[40px] flex flex-col items-center">
           <span className="text-xl font-black text-slate-900 dark:text-slate-100 tracking-tight">
-            {value}
+            <CountUpText value={value} />
             <span className="text-[10px] text-slate-400 font-normal">%</span>
           </span>
         </div>

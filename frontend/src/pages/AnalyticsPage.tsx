@@ -216,11 +216,13 @@ export default function AnalyticsPage() {
         />
         <StatisticCard
           title="Average ATS Score"
-          value={`${dashboard.data?.average_ats_score ?? 0}%`}
+          value={dashboard.data?.average_ats_score ?? 0}
           icon={Scan}
           description="Average Resume ATS Score"
           trend={{ value: 4.8, isPositive: true }}
+          metricType="percentage"
           className="border-[var(--border)] bg-[var(--surface)]/70"
+          animate={true}
         />
         <StatisticCard
           title="Job Match Success"
@@ -265,58 +267,72 @@ export default function AnalyticsPage() {
       <div className="space-y-6">
         {/* PANEL: OVERVIEW */}
         {activeTab === 'overview' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <AnalyticsCard
-              title="ATS Scores Distribution"
-              description="Quantity of resumes grouped by ATS score bands"
-              loading={chartsOverview.isLoading}
-              error={chartsOverview.error}
-              empty={overviewAtsDist.length === 0}
-              ctaText="Upload Resume"
-              ctaTo="/resumes"
-              emptyMessage="No ATS score data available. Upload resumes to calibrate your score."
-            >
-              <TrendChart data={overviewAtsDist} type="bar" colorScheme="violet" />
-            </AnalyticsCard>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            
+            {/* Cell 1: ATS Scores Distribution (Primary bar chart, wider span) */}
+            <div className="lg:col-span-8 flex flex-col">
+              <AnalyticsCard
+                title="ATS Scores Distribution"
+                description="Quantity of resumes grouped by ATS score bands"
+                loading={chartsOverview.isLoading}
+                error={chartsOverview.error}
+                empty={overviewAtsDist.length === 0}
+                ctaText="Upload Resume"
+                ctaTo="/resumes"
+                emptyMessage="No ATS score data available. Upload resumes to calibrate your score."
+              >
+                <TrendChart data={overviewAtsDist} type="bar" colorScheme="violet" />
+              </AnalyticsCard>
+            </div>
 
-            <AnalyticsCard
-              title="Job Matches Distribution"
-              description="Compatibility percentage shares across job descriptions"
-              loading={chartsOverview.isLoading}
-              error={chartsOverview.error}
-              empty={overviewJobMatchDist.length === 0}
-              ctaText="Scan Vacancies"
-              ctaTo="/ats"
-              emptyMessage="No job match data available. Scan your resume against vacancies."
-            >
-              <TrendChart data={overviewJobMatchDist} type="bar" colorScheme="emerald" />
-            </AnalyticsCard>
+            {/* Cell 2: Job Matches Distribution (Supporting chart, narrower span) */}
+            <div className="lg:col-span-4 flex flex-col">
+              <AnalyticsCard
+                title="Job Matches Distribution"
+                description="Compatibility percentage shares across job descriptions"
+                loading={chartsOverview.isLoading}
+                error={chartsOverview.error}
+                empty={overviewJobMatchDist.length === 0}
+                ctaText="Scan Vacancies"
+                ctaTo="/ats"
+                emptyMessage="No job match data available. Scan your resume against vacancies."
+              >
+                <TrendChart data={overviewJobMatchDist} type="bar" colorScheme="emerald" />
+              </AnalyticsCard>
+            </div>
 
-            <AnalyticsCard
-              title="Resume Upload Timeline"
-              description="Monthly volume changes of documents uploaded"
-              loading={chartsOverview.isLoading}
-              error={chartsOverview.error}
-              empty={overviewTimeline.length === 0}
-              ctaText="Upload Resume"
-              ctaTo="/resumes"
-              emptyMessage="No resume timeline data available. Upload your first resume to track timeline."
-            >
-              <TrendChart data={overviewTimeline} type="area" colorScheme="brand" />
-            </AnalyticsCard>
+            {/* Cell 3: Top Skills Distribution (Supporting list, narrower span) */}
+            <div className="lg:col-span-4 flex flex-col">
+              <AnalyticsCard
+                title="Top Skills Distribution"
+                description="Most common tags identified in resumes"
+                loading={chartsOverview.isLoading}
+                error={chartsOverview.error}
+                empty={overviewSkills.length === 0}
+                ctaText="Upload Resume"
+                ctaTo="/resumes"
+                emptyMessage="No skills distribution data available. Upload resumes to map skills."
+              >
+                <TrendChart data={overviewSkills} type="bar" colorScheme="amber" />
+              </AnalyticsCard>
+            </div>
 
-            <AnalyticsCard
-              title="Top Skills Distribution"
-              description="Most common tags identified in resumes"
-              loading={chartsOverview.isLoading}
-              error={chartsOverview.error}
-              empty={overviewSkills.length === 0}
-              ctaText="Upload Resume"
-              ctaTo="/resumes"
-              emptyMessage="No skills distribution data available. Upload resumes to map skills."
-            >
-              <TrendChart data={overviewSkills} type="bar" colorScheme="amber" />
-            </AnalyticsCard>
+            {/* Cell 4: Resume Upload Timeline (Full width/longer context) */}
+            <div className="lg:col-span-8 flex flex-col">
+              <AnalyticsCard
+                title="Resume Upload Timeline"
+                description="Monthly volume changes of documents uploaded"
+                loading={chartsOverview.isLoading}
+                error={chartsOverview.error}
+                empty={overviewTimeline.length === 0}
+                ctaText="Upload Resume"
+                ctaTo="/resumes"
+                emptyMessage="No resume timeline data available. Upload your first resume to track timeline."
+              >
+                <TrendChart data={overviewTimeline} type="area" colorScheme="brand" />
+              </AnalyticsCard>
+            </div>
+
           </div>
         )}
 

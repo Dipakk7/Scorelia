@@ -13,17 +13,17 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', isLoading, asChild = false, children, disabled, ...props }, ref) => {
     const Component = asChild ? Slot : 'button'
 
-    const baseStyles = 'inline-flex items-center justify-center font-semibold transition-all duration-[var(--duration-normal)] ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[var(--background)] disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed disabled:pointer-events-none cursor-pointer active:scale-[0.97]'
+    const baseStyles = 'inline-flex items-center justify-center font-semibold transition-all duration-[var(--duration-normal)] ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[var(--background)] disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed disabled:pointer-events-none cursor-pointer btn-active'
     
     const variants = {
-      primary: 'bg-brand text-on-brand shadow-[var(--shadow-sm)] hover:bg-brand-hover hover:-translate-y-[1px] hover:shadow-[var(--shadow-md)] focus-visible:ring-brand-focus-ring active:bg-brand-pressed active:translate-y-0',
-      secondary: 'bg-[var(--divider)] text-[var(--heading)] hover:bg-[var(--border)]/70 hover:-translate-y-[1px] focus-visible:ring-[var(--primary)] active:translate-y-0',
-      outline: 'border border-[var(--border)] bg-transparent text-[var(--body)] hover:bg-[var(--surface-hover)] hover:-translate-y-[1px] focus-visible:ring-[var(--primary)] active:translate-y-0',
-      ghost: 'text-[var(--body)] hover:bg-[var(--surface-hover)] hover:text-[var(--heading)] focus-visible:ring-[var(--primary)] active:scale-[0.98]',
-      danger: 'bg-[var(--danger)] text-white shadow-[var(--shadow-sm)] hover:bg-[var(--danger)]/90 hover:-translate-y-[1px] hover:shadow-[var(--shadow-md)] focus-visible:ring-[var(--danger)] active:translate-y-0',
-      link: 'text-[var(--primary)] underline-offset-4 hover:underline bg-transparent p-0 h-auto active:scale-100 focus-visible:ring-[var(--primary)]/30',
-      upgrade: 'bg-[var(--accent)] text-white shadow-[var(--shadow-sm)] hover:bg-[var(--accent-hover)] hover:-translate-y-[1px] hover:shadow-[var(--shadow-md)] focus-visible:ring-[var(--accent)] active:translate-y-0',
-      success: 'bg-[var(--success)] text-white shadow-[var(--shadow-sm)] hover:bg-[var(--success)]/90 hover:-translate-y-[1px] hover:shadow-[var(--shadow-md)] focus-visible:ring-[var(--success)] active:translate-y-0',
+      primary: 'bg-brand text-on-brand shadow-[var(--shadow-sm)] hover:bg-brand-hover hover:-translate-y-[1px] hover:shadow-[var(--shadow-md)] focus-visible:ring-brand-focus-ring active:bg-brand-pressed',
+      secondary: 'bg-[var(--divider)] text-[var(--heading)] hover:bg-[var(--border)]/70 hover:-translate-y-[1px] focus-visible:ring-[var(--primary)]',
+      outline: 'border border-[var(--border)] bg-transparent text-[var(--body)] hover:bg-[var(--surface-hover)] hover:-translate-y-[1px] focus-visible:ring-[var(--primary)]',
+      ghost: 'text-[var(--body)] hover:bg-[var(--surface-hover)] hover:text-[var(--heading)] focus-visible:ring-[var(--primary)]',
+      danger: 'bg-[var(--danger)] text-white shadow-[var(--shadow-sm)] hover:bg-[var(--danger)]/90 hover:-translate-y-[1px] hover:shadow-[var(--shadow-md)] focus-visible:ring-[var(--danger)]',
+      link: 'text-[var(--primary)] underline-offset-4 hover:underline bg-transparent p-0 h-auto focus-visible:ring-[var(--primary)]/30',
+      upgrade: 'bg-[var(--accent)] text-white shadow-[var(--shadow-sm)] hover:bg-[var(--accent-hover)] hover:-translate-y-[1px] hover:shadow-[var(--shadow-md)] focus-visible:ring-[var(--accent)]',
+      success: 'bg-[var(--success)] text-white shadow-[var(--shadow-sm)] hover:bg-[var(--success)]/90 hover:-translate-y-[1px] hover:shadow-[var(--shadow-md)] focus-visible:ring-[var(--success)]',
     }
 
     const sizes = {

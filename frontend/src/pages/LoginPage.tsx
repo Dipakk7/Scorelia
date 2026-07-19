@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/Card'
 import type { ApiErrorResponse } from '@/api/api'
+import { BackgroundMesh } from '@/components/ui/BackgroundMesh'
 
 
 // Define the Login Zod Schema
@@ -60,6 +61,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen w-screen flex flex-col items-center justify-center p-4 md:p-6 bg-page transition-colors relative overflow-hidden">
+      <BackgroundMesh />
       <motion.div
         initial={{ opacity: 0, y: 25 }}
         animate={{ opacity: 1, y: 0 }}

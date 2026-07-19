@@ -115,7 +115,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
               className="p-2 rounded-lg text-secondary hover:bg-surface-hover hover:text-heading cursor-pointer focus:outline-none relative transition-all duration-200 hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-brand-focus-ring"
               aria-label="Notifications center"
             >
-              <Bell size={18} />
+              <Bell size={20} />
               {unreadCount > 0 && (
                 <span className="absolute top-1.5 right-1.5 h-4 min-w-4 px-1 rounded-full bg-danger text-[9px] font-black text-white flex items-center justify-center border border-surface shadow-md animate-pulse font-sans">
                   {unreadCount}
@@ -194,9 +194,9 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
               className="p-2 rounded-lg text-secondary hover:bg-surface-hover hover:text-heading cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-brand-focus-ring"
               aria-label="Select theme"
             >
-              {theme === 'light' && <Sun size={18} />}
-              {theme === 'dark' && <Moon size={18} />}
-              {theme === 'system' && <Monitor size={18} />}
+              {theme === 'light' && <Sun size={20} />}
+              {theme === 'dark' && <Moon size={20} />}
+              {theme === 'system' && <Monitor size={20} />}
             </button>
           </DropdownTrigger>
           <DropdownContent className="w-36" align="end">

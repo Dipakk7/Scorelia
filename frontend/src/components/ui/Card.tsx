@@ -25,17 +25,18 @@ import { cn } from '@/lib/utils'
  */
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'elevated' | 'glass'
+  hoverLift?: boolean
 }
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant = 'elevated', ...props }, ref) => (
+  ({ className, variant = 'elevated', hoverLift = false, ...props }, ref) => (
     <div
       ref={ref}
       className={cn(
         'rounded-[var(--radius-card)] border text-[var(--body)] transition-all duration-300 ease-in-out',
         variant === 'elevated' && 'border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-sm)]',
         variant === 'glass' && 'border-[var(--border)] bg-[var(--surface-glass)] backdrop-blur-glass shadow-[var(--shadow-md)]',
-        className?.includes('cursor-pointer') && 'hover:-translate-y-1 active:translate-y-0 hover:shadow-[var(--shadow-md)] hover:border-[var(--primary)]/30 active:scale-[0.99]',
+        (hoverLift || className?.includes('cursor-pointer') || className?.includes('hover:border-[var(--primary)]/40')) && 'hover-lift',
         className
       )}
       {...props}

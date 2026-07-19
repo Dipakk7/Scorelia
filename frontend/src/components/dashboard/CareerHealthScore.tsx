@@ -1,5 +1,6 @@
 import { Activity, Award, MessageSquareCode, FileText } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { CountUpText } from '@/components/ui/CountUpText'
 
 interface CareerHealthScoreProps {
   atsScore: number
@@ -83,7 +84,9 @@ export default function CareerHealthScore({
               />
             </svg>
             <div className="absolute flex flex-col items-center justify-center font-mono">
-              <span className="text-2xl font-black text-foreground leading-none">{healthScore}</span>
+              <span className="text-2xl font-black text-foreground leading-none">
+                <CountUpText value={healthScore} />
+              </span>
               <span className="text-[7px] uppercase font-black text-muted-foreground tracking-widest mt-0.5 leading-none">/ 100</span>
             </div>
           </div>
@@ -101,12 +104,14 @@ export default function CareerHealthScore({
                 <FileText size={13} className="text-primary stroke-[1.75]" />
                 <span>Resume & ATS Score</span>
               </span>
-              <span className="text-foreground font-bold font-mono">{hasResumes ? `${atsScore}%` : '0%'}</span>
+              <span className="text-foreground font-bold font-mono">
+                {hasResumes ? <CountUpText value={atsScore} suffix="%" /> : '0%'}
+              </span>
             </div>
-            <div className="w-full bg-border/40 rounded-full h-1 overflow-hidden">
+            <div className="w-full bg-border/40 rounded-full h-1 overflow-hidden relative">
               <div
-                className="bg-primary h-full rounded-full transition-all duration-1000 ease-out"
-                style={{ width: `${hasResumes ? atsScore : 0}%` }}
+                className="bg-primary h-full rounded-full progress-fill progress-shimmer"
+                style={{ transform: `scaleX(${hasResumes ? atsScore : 0} / 100)` }}
               />
             </div>
           </div>
@@ -118,12 +123,14 @@ export default function CareerHealthScore({
                 <MessageSquareCode size={13} className="text-warning stroke-[1.75]" />
                 <span>Interview Score</span>
               </span>
-              <span className="text-foreground font-bold font-mono">{hasResumes ? `${interviewScore}%` : '0%'}</span>
+              <span className="text-foreground font-bold font-mono">
+                {hasResumes ? <CountUpText value={interviewScore} suffix="%" /> : '0%'}
+              </span>
             </div>
-            <div className="w-full bg-border/40 rounded-full h-1 overflow-hidden">
+            <div className="w-full bg-border/40 rounded-full h-1 overflow-hidden relative">
               <div
-                className="bg-warning h-full rounded-full transition-all duration-1000 ease-out"
-                style={{ width: `${hasResumes ? interviewScore : 0}%` }}
+                className="bg-warning h-full rounded-full progress-fill progress-shimmer"
+                style={{ transform: `scaleX(${hasResumes ? interviewScore : 0} / 100)` }}
               />
             </div>
           </div>
@@ -135,12 +142,14 @@ export default function CareerHealthScore({
                 <Award size={13} className="text-career stroke-[1.75]" />
                 <span>Roadmap Progress</span>
               </span>
-              <span className="text-foreground font-bold font-mono">{hasResumes ? `${careerProgress}%` : '0%'}</span>
+              <span className="text-foreground font-bold font-mono">
+                {hasResumes ? <CountUpText value={careerProgress} suffix="%" /> : '0%'}
+              </span>
             </div>
-            <div className="w-full bg-border/40 rounded-full h-1 overflow-hidden">
+            <div className="w-full bg-border/40 rounded-full h-1 overflow-hidden relative">
               <div
-                className="bg-career h-full rounded-full transition-all duration-1000 ease-out"
-                style={{ width: `${hasResumes ? careerProgress : 0}%` }}
+                className="bg-career h-full rounded-full progress-fill progress-shimmer"
+                style={{ transform: `scaleX(${hasResumes ? careerProgress : 0} / 100)` }}
               />
             </div>
           </div>

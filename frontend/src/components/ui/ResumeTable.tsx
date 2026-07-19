@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { CountUpText } from '@/components/ui/CountUpText'
 import {
   Table,
   TableHeader,
@@ -399,7 +400,7 @@ export default function ResumeTable({
                     <TableCell>
                       {resume.ats_score !== null ? (
                         <span className="font-bold font-display text-[var(--primary)] bg-[var(--primary)]/10 px-2 py-0.5 rounded-lg border border-[var(--primary)]/20">
-                          {resume.ats_score}/100
+                          <CountUpText value={resume.ats_score} suffix="/100" />
                         </span>
                       ) : (
                         <span className="text-[var(--muted)] font-sans">-</span>

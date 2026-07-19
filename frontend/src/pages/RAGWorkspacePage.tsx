@@ -354,6 +354,7 @@ export default function RAGWorkspacePage() {
                     accept=".pdf,.txt"
                     onChange={(e) => setUploadFile(e.target.files ? e.target.files[0] : null)}
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    aria-label="Upload PDF or Plain Text"
                   />
                   <div className="flex flex-col items-center justify-center gap-1.5 select-none">
                     <FileText className="text-[var(--muted)] h-8 w-8" />
@@ -385,6 +386,7 @@ export default function RAGWorkspacePage() {
                         value={newCollectionName}
                         onChange={(e) => setNewCollectionName(e.target.value)}
                         className="flex-1 text-xs py-2 px-3 border border-[var(--border)] rounded-[var(--radius-sm)] bg-[var(--surface)] text-[var(--heading)] placeholder-[var(--muted)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)] font-sans font-medium transition-colors shadow-2xs"
+                        aria-label="New collection name"
                       />
                       <Button
                         type="button"

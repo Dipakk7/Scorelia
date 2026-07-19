@@ -402,10 +402,10 @@ export function OptimizationCard({ optimization }: OptimizationCardProps) {
                           </span>
                           <span>{confPercentage}% confidence</span>
                         </div>
-                        <div className="h-2 w-full bg-slate-100 dark:bg-slate-850 rounded-full overflow-hidden">
+                        <div className="h-2 w-full bg-slate-100 dark:bg-slate-850 rounded-full overflow-hidden relative">
                           <div
-                            className="h-full bg-brand-500 rounded-full"
-                            style={{ width: `${confPercentage}%` }}
+                            className="h-full bg-brand-500 rounded-full progress-fill progress-shimmer"
+                            style={{ transform: `scaleX(${confPercentage / 100})` }}
                           />
                         </div>
                       </div>

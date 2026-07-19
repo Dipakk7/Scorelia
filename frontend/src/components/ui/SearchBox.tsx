@@ -29,6 +29,7 @@ export function SearchBox({ value, onChange, onClear, className, placeholder = '
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
+        aria-label={props['aria-label'] || placeholder}
         className="w-full h-10 pl-10 pr-9 border border-input-border bg-input-bg text-body placeholder-input-placeholder rounded-[var(--radius-input)] text-body-sm focus:outline-none focus:ring-2 focus:ring-brand-focus-ring/20 focus:border-input-border-focus hover:border-input-border-focus/50 shadow-sm transition-all duration-[var(--duration-normal)] font-sans"
         {...props}
       />

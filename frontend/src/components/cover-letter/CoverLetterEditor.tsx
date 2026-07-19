@@ -21,18 +21,34 @@ import { DiffViewer } from '@/components/resume-intelligence/DiffViewer'
 import api from '@/api/api'
 import type { CoverLetterResponse, CoverLetterOptimizationResponse } from '@/types/cover-letter'
 import { cn } from '@/lib/utils'
+import { StreamingText } from '@/components/ui/StreamingText'
 
 interface CoverLetterEditorProps {
   coverLetter: CoverLetterResponse
   onUpdateContent: (newContent: string) => void
+  isNewGeneration?: boolean
+  onStreamComplete?: () => void
 }
 
 type PanelTab = 'analysis' | 'suggestions' | 'comparison'
 
-export default function CoverLetterEditor({ coverLetter, onUpdateContent }: CoverLetterEditorProps) {
+export default function CoverLetterEditor({
+  coverLetter,
+  onUpdateContent,
+  isNewGeneration = false,
+  onStreamComplete,
+}: CoverLetterEditorProps) {
   const [editorContent, setEditorContent] = useState<string>('')
   const [isPreviewMode, setIsPreviewMode] = useState<boolean>(false)
   const [activeTab, setActiveTab] = useState<PanelTab>('analysis')
+  const [isCurrentlyStreaming, setIsCurrentlyStreaming] = useState<boolean>(isNewGeneration)
+
+  useEffect(() => {
+    setIsCurrentlyStreaming(isNewGeneration)
+    if (isNewGeneration) {
+      setIsPreviewMode(true)
+    }
+  }, [isNewGeneration])
 
   // Undo/Redo history stack
   const [history, setHistory] = useState<string[]>([])
@@ -171,9 +187,11 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
         <div className="flex items-center justify-between">
           <div className="flex bg-slate-100/50 dark:bg-slate-900/40 p-1 border border-border/80 rounded-2xl text-[9px] font-black uppercase tracking-wider gap-1">
             <button
-              onClick={() => setIsPreviewMode(false)}
+              onClick={() => !isCurrentlyStreaming && setIsPreviewMode(false)}
+              disabled={isCurrentlyStreaming}
               className={cn(
-                'px-3 py-1.5 rounded-xl text-[9px] uppercase font-black tracking-wider cursor-pointer border-none bg-transparent transition-all',
+                'px-3 py-1.5 rounded-xl text-[9px] uppercase font-black tracking-wider border-none bg-transparent transition-all',
+                isCurrentlyStreaming ? 'opacity-40 cursor-not-allowed text-muted-foreground' : 'cursor-pointer',
                  !isPreviewMode
                   ? 'bg-card text-foreground dark:text-white shadow-2xs font-extrabold'
                   : 'text-muted-foreground hover:bg-muted hover:text-foreground'
@@ -199,7 +217,7 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
               variant="ghost"
               size="sm"
               onClick={triggerUndo}
-              disabled={historyIndex <= 0}
+              disabled={historyIndex <= 0 || isCurrentlyStreaming}
               className="h-8 w-8 p-0 cursor-pointer text-slate-400 hover:text-slate-900 hover:bg-slate-50/50 dark:hover:bg-slate-850/30 rounded-lg flex items-center justify-center transition-all bg-transparent border-none disabled:opacity-40 disabled:pointer-events-none"
               title="Undo"
             >
@@ -209,7 +227,7 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
               variant="ghost"
               size="sm"
               onClick={triggerRedo}
-              disabled={historyIndex >= history.length - 1}
+              disabled={historyIndex >= history.length - 1 || isCurrentlyStreaming}
               className="h-8 w-8 p-0 cursor-pointer text-slate-400 hover:text-slate-900 hover:bg-slate-50/50 dark:hover:bg-slate-850/30 rounded-lg flex items-center justify-center transition-all bg-transparent border-none disabled:opacity-40 disabled:pointer-events-none"
               title="Redo"
             >
@@ -219,7 +237,8 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
               variant="ghost"
               size="sm"
               onClick={handleCopy}
-              className="h-8 w-8 p-0 cursor-pointer text-slate-400 hover:text-slate-900 hover:bg-slate-50/50 dark:hover:bg-slate-850/30 rounded-lg flex items-center justify-center transition-all bg-transparent border-none"
+              disabled={isCurrentlyStreaming}
+              className="h-8 w-8 p-0 cursor-pointer text-slate-400 hover:text-slate-900 hover:bg-slate-50/50 dark:hover:bg-slate-850/30 rounded-lg flex items-center justify-center transition-all bg-transparent border-none disabled:opacity-40 disabled:pointer-events-none"
               title="Copy"
             >
               <Copy size={13} />
@@ -228,7 +247,8 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
               variant="outline"
               size="sm"
               onClick={handleSave}
-              className="h-8 px-3.5 font-bold text-[10px] uppercase tracking-wider cursor-pointer text-brand-600 border-border hover:border-brand-500/30 hover:bg-brand-500/5 rounded-xl transition-all bg-transparent"
+              disabled={isCurrentlyStreaming}
+              className="h-8 px-3.5 font-bold text-[10px] uppercase tracking-wider cursor-pointer text-brand-600 border-border hover:border-brand-500/30 hover:bg-brand-500/5 rounded-xl transition-all bg-transparent disabled:opacity-40 disabled:pointer-events-none"
             >
               Save Draft
             </Button>
@@ -239,8 +259,19 @@ export default function CoverLetterEditor({ coverLetter, onUpdateContent }: Cove
           <CardContent className="p-0 flex-1 flex flex-col">
             {isPreviewMode ? (
               <div className="flex-1 p-8 overflow-y-auto whitespace-pre-wrap font-sans text-sm text-slate-850 dark:text-slate-250 leading-relaxed bg-slate-50/20 dark:bg-slate-955/10 font-medium">
-                {editorContent || (
-                  <span className="text-slate-400 dark:text-slate-500 italic">No content generated. Start typing or use the Generator.</span>
+                {isCurrentlyStreaming ? (
+                  <StreamingText
+                    text={coverLetter.generated_content || ''}
+                    speed={15}
+                    onComplete={() => {
+                      setIsCurrentlyStreaming(false)
+                      onStreamComplete?.()
+                    }}
+                  />
+                ) : (
+                  editorContent || (
+                    <span className="text-slate-400 dark:text-slate-500 italic">No content generated. Start typing or use the Generator.</span>
+                  )
                 )}
               </div>
             ) : (

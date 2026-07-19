@@ -1,4 +1,6 @@
 
+import { CountUpText } from '@/components/ui/CountUpText'
+
 interface ATSGaugeProps {
   score: number
   maxScore?: number
@@ -61,7 +63,7 @@ export function ATSGauge({
         {/* Centered Content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center font-sans">
           <span className="text-4xl font-black text-slate-900 dark:text-slate-50 tracking-tight transition-colors">
-            {score}
+            <CountUpText value={score} />
           </span>
           <span className="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-widest font-extrabold mt-0.5">
             {label}

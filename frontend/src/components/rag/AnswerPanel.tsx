@@ -5,6 +5,7 @@ import { Copy, RefreshCw, Download, Sparkles, BrainCircuit, History, Layers, Cpu
 import type { RAGResponse } from '@/types/rag'
 import toast from 'react-hot-toast'
 import { cn } from '@/lib/utils'
+import { StreamingText } from '@/components/ui/StreamingText'
 
 interface AnswerPanelProps {
   response: RAGResponse | null
@@ -110,7 +111,7 @@ export function AnswerPanel({
         {/* Answer Content */}
         <CardContent className="p-6 text-left">
           <div className="prose dark:prose-invert prose-xs max-w-none text-slate-800 dark:text-slate-205 font-sans leading-relaxed text-sm whitespace-pre-line font-medium">
-            {response.answer}
+            <StreamingText text={response.answer} />
           </div>
         </CardContent>
       </div>

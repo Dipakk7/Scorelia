@@ -60,10 +60,10 @@ export function ATSScoreCard({ breakdown, overallScore: _overallScore, grade: _g
             </div>
             
             {/* Progress Track */}
-            <div className="h-2 w-full bg-slate-100 dark:bg-slate-850 rounded-full overflow-hidden">
+            <div className="h-2 w-full bg-slate-100 dark:bg-slate-850 rounded-full overflow-hidden relative">
               <div
-                className={`h-full ${getProgressColor(item.val, item.max)} transition-all duration-700`}
-                style={{ width: `${(item.val / item.max) * 100}%` }}
+                className={`h-full progress-fill progress-shimmer ${getProgressColor(item.val, item.max)}`}
+                style={{ transform: `scaleX(${(item.val / item.max)})` }}
               />
             </div>
             <p className="text-[10px] text-muted-foreground font-sans leading-tight m-0 font-medium">

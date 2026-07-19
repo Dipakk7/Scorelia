@@ -167,10 +167,10 @@ export default function STARScoreCard({ starScore, answerText, starAnalysis }: S
                   </p>
 
                   {/* Tiny progress bar */}
-                  <div className="h-1 w-full bg-slate-100 dark:bg-slate-850 rounded-full overflow-hidden">
+                  <div className="h-1 w-full bg-slate-100 dark:bg-slate-850 rounded-full overflow-hidden relative">
                     <div
-                      className={cn('h-full rounded-full transition-all duration-500', step.barColor)}
-                      style={{ width: `${step.score}%` }}
+                      className={cn('h-full rounded-full progress-fill progress-shimmer', step.barColor)}
+                      style={{ transform: `scaleX(${step.score / 100})` }}
                     />
                   </div>
 

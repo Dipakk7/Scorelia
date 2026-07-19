@@ -38,6 +38,7 @@ import { ErrorState } from '@/components/ui/ErrorState'
 import { DashboardSkeleton } from '@/components/ui/Skeletons'
 import { Button } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
+import { CountUpText } from '@/components/ui/CountUpText'
 import type { ResumeResponse } from '@/types/resume'
 import OnboardingWizard from '@/components/dashboard/OnboardingWizard'
 import CareerHealthScore from '@/components/dashboard/CareerHealthScore'
@@ -655,7 +656,7 @@ function ResumeWorkspaceTable({ resumes }: ResumeWorkspaceTableProps) {
                               "text-xs font-bold leading-none",
                               ats >= 80 ? "text-success" : ats >= 70 ? "text-warning" : "text-danger"
                             )}>
-                              {ats}%
+                              <CountUpText value={ats} suffix="%" />
                             </span>
                             <span className={cn(
                               "text-[9px] font-bold px-1.5 py-0.5 rounded border select-none shrink-0",
@@ -1297,15 +1298,15 @@ export default function DashboardPage() {
       )}
       <div className="space-y-12 text-left animate-fade-in motion-reduce:animation-none pb-8 select-none">
         
-        {/* 1. HERO - AI Career Command Center */}
-        <div className="relative overflow-hidden rounded-[var(--radius-card)] border border-border bg-surface p-6 md:p-8 shadow-sm hover:shadow-md transition-all duration-300 select-none motion-reduce:transition-none">
-          {/* Subtle decorative vector line indicator */}
-          <div className="absolute right-0 top-0 -mr-16 -mt-16 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+        {/* 1. PRIMARY BENTO WORKSPACE GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 items-stretch">
+          
+          {/* Card A: Hero Command Center & Copilot Primary Recommendation */}
+          <div className="lg:col-span-8 relative overflow-hidden rounded-[var(--radius-card)] border border-border bg-surface p-6 md:p-8 shadow-sm hover:shadow-md transition-all duration-300 select-none motion-reduce:transition-none flex flex-col justify-between space-y-5">
+            {/* Subtle decorative vector line indicator */}
+            <div className="absolute right-0 top-0 -mr-16 -mt-16 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-            {/* Left Column: Command Summary & Primary AI Recommendation */}
-            <div className="lg:col-span-8 flex flex-col justify-between space-y-5">
-              
+            <div className="relative z-10 flex flex-col justify-between h-full space-y-5">
               {/* Header info */}
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
@@ -1335,7 +1336,6 @@ export default function DashboardPage() {
 
               {/* AI Actionable Next Recommendation Card */}
               <div className={cn("relative bg-surface-hover/30 border border-border/50 rounded-xl p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 select-none", rec.accentBorder, "border-l-[3px]")}>
-                
                 {/* Confidence Badge placed in Top-Right */}
                 <div className="absolute top-4 right-4 flex items-center gap-1.5">
                   <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider font-mono bg-brand-500/10 text-brand-500 border border-brand-500/20 select-none">
@@ -1382,24 +1382,31 @@ export default function DashboardPage() {
                   </Link>
                 </Button>
               </div>
-
-            </div>
-
-            {/* Right Column: Career Health Panel */}
-            <div className="lg:col-span-4 flex flex-col pt-4 lg:pt-0">
-              <CareerHealthScore
-                atsScore={atsScore}
-                interviewSessions={interviewSessions}
-                careerProgress={analytics?.career_progress ?? 0}
-                hasResumes={resumes.length > 0}
-              />
             </div>
           </div>
-        </div>
 
-        {/* 2. AI INTELLIGENCE CENTER & DAILY BRIEF */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          <div className="lg:col-span-8">
+          {/* Card B: Career Health Score circular indicators */}
+          <div className="lg:col-span-4 flex flex-col">
+            <CareerHealthScore
+              atsScore={atsScore}
+              interviewSessions={interviewSessions}
+              careerProgress={analytics?.career_progress ?? 0}
+              hasResumes={resumes.length > 0}
+            />
+          </div>
+
+          {/* Card C: AI Daily Brief text panel */}
+          <div className="lg:col-span-4 flex flex-col">
+            <AIDailyBrief
+              hasResumes={resumes.length > 0}
+              atsScore={atsScore}
+              interviewSessions={interviewSessions}
+              careerProgress={analytics?.career_progress ?? 0}
+            />
+          </div>
+
+          {/* Card D: AI Intelligence Center recommendations */}
+          <div className="lg:col-span-8 flex flex-col">
             <AIIntelligenceCenter
               resumesCount={resumes.length}
               atsScore={atsScore}
@@ -1407,14 +1414,6 @@ export default function DashboardPage() {
               interviewSessions={interviewSessions}
               jobMatches={totalJobMatches}
               _coverLetters={analytics?.cover_letters_generated ?? 0}
-            />
-          </div>
-          <div className="lg:col-span-4">
-            <AIDailyBrief
-              hasResumes={resumes.length > 0}
-              atsScore={atsScore}
-              interviewSessions={interviewSessions}
-              careerProgress={analytics?.career_progress ?? 0}
             />
           </div>
         </div>
@@ -1499,16 +1498,17 @@ export default function DashboardPage() {
         />
       </div>
 
-      {/* 4. PREMIUM TREND CHARTS */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* 4. PREMIUM TREND CHARTS BENTO GRID */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         {/* Chart 1: Resume Score & ATS Trend */}
-        <PremiumChartCard
-          title="Resume Score & ATS Trend"
-          description="Timeline progress of resume keyword matches and automated ATS evaluations."
-          badgeText={resumes.length > 0 ? "Calibrated" : "Uncalibrated"}
-          badgeVariant={resumes.length > 0 ? "success" : "warning"}
-        >
+        <div className="lg:col-span-8 flex flex-col">
+          <PremiumChartCard
+            title="Resume Score & ATS Trend"
+            description="Timeline progress of resume keyword matches and automated ATS evaluations."
+            badgeText={resumes.length > 0 ? "Calibrated" : "Uncalibrated"}
+            badgeVariant={resumes.length > 0 ? "success" : "warning"}
+          >
                     {scoreLoading || atsLoading ? (
             <ChartSkeleton />
           ) :  combinedChart1Data.length === 0 ? (
@@ -1568,15 +1568,17 @@ export default function DashboardPage() {
             </div>
           )}
         </PremiumChartCard>
+      </div>
 
-        {/* Chart 2: Job Match & Interview Performance */}
+      {/* Chart 2: Job Match & Interview Performance */}
+      <div className="lg:col-span-4 flex flex-col">
         <PremiumChartCard
           title="Job Match & Interview Performance"
           description="Evaluations mapping vacancy relevance against completed tech mock sessions."
           badgeText={interviewSessions > 0 ? "Active" : "Inactive"}
           badgeVariant={interviewSessions > 0 ? "success" : "info"}
         >
-                    {matchLoading || interviewLoading ? (
+          {matchLoading || interviewLoading ? (
             <ChartSkeleton />
           ) :  combinedChart2Data.length === 0 ? (
             <LocalEmptyState
@@ -1627,14 +1629,16 @@ export default function DashboardPage() {
             </div>
           )}
         </PremiumChartCard>
+      </div>
 
         {/* Chart 3: Weekly Activity */}
-        <PremiumChartCard
-          title="Weekly Activity Distribution"
-          description="Workspace event transactions and AI prompts processed over the past 7 days."
-          badgeText="7 Days"
-          badgeVariant="info"
-        >
+        <div className="lg:col-span-4 flex flex-col">
+          <PremiumChartCard
+            title="Weekly Activity Distribution"
+            description="Workspace event transactions and AI prompts processed over the past 7 days."
+            badgeText="7 Days"
+            badgeVariant="info"
+          >
                     {weeklyLoading ? (
             <ChartSkeleton />
           ) :  !hasWeeklyActivity ? (
@@ -1675,14 +1679,16 @@ export default function DashboardPage() {
             </ResponsiveContainer>
           )}
         </PremiumChartCard>
+      </div>
 
         {/* Chart 4: Monthly Activity */}
-        <PremiumChartCard
-          title="Monthly Activity Distribution"
-          description="Aggregated chronologies of workspace transactions processed during this year."
-          badgeText="12 Months"
-          badgeVariant="info"
-        >
+        <div className="lg:col-span-8 flex flex-col">
+          <PremiumChartCard
+            title="Monthly Activity Distribution"
+            description="Aggregated chronologies of workspace transactions processed during this year."
+            badgeText="12 Months"
+            badgeVariant="info"
+          >
                     {monthlyLoading ? (
             <ChartSkeleton />
           ) :  !hasMonthlyActivity ? (
@@ -1722,16 +1728,16 @@ export default function DashboardPage() {
               </BarChart>
             </ResponsiveContainer>
           )}
-        </PremiumChartCard>
+          </PremiumChartCard>
+        </div>
       </div>
 
-      {/* 5. WORKSPACE TOOLS, RECENT ACTIVITY & RESUMES LIST TABLE */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-        {/* Left Column: Shortcuts and Timeline (span 4 on desktop) */}
-        <div className="lg:col-span-4 space-y-6">
-          <div className="space-y-3.5 text-left">
-            <h3 className="text-h3 text-[var(--heading)] leading-none">Workspace Shortcuts</h3>
-            <div className="grid grid-cols-1 gap-3 h-full">
+      {/* 5. WORKSPACE BENTO GRID: SHORTCUTS, TIMELINE & RESUMES */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        {/* Left Column: Shortcuts (span 4 on desktop) */}
+        <div className="lg:col-span-4 flex flex-col text-left space-y-3.5">
+          <h3 className="text-h3 text-[var(--heading)] leading-none">Workspace Shortcuts</h3>
+          <div className="grid grid-cols-1 gap-3 flex-1">
               <WorkspaceShortcutCard
                 title="ATS Scanner"
                 description="Audit keyword coverage and relevance matches"
@@ -1753,15 +1759,17 @@ export default function DashboardPage() {
                 to="/roadmap"
                 themeColor="analytics"
               />
-            </div>
           </div>
-          
-          <RecentActivityTimeline items={recentActivities} />
         </div>
 
         {/* Right Column: Resumes Table (span 8 on desktop) */}
-        <div className="lg:col-span-8 flex flex-col h-full">
+        <div className="lg:col-span-8 lg:row-span-2 flex flex-col h-full">
           <ResumeWorkspaceTable resumes={resumes} />
+        </div>
+
+        {/* Timeline (span 4 on desktop, placed below Shortcuts) */}
+        <div className="lg:col-span-4 flex flex-col h-full">
+          <RecentActivityTimeline items={recentActivities} />
         </div>
       </div>
 

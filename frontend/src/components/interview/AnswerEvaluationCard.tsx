@@ -87,10 +87,10 @@ export default function AnswerEvaluationCard({ evaluation, questionText, answerT
                   <span className="font-extrabold text-muted-foreground uppercase tracking-widest text-[9px]">{cat.label}</span>
                   <span className="font-mono font-black text-foreground">{cat.value}%</span>
                 </div>
-                <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-850 rounded-full overflow-hidden">
+                <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-850 rounded-full overflow-hidden relative">
                   <div
-                    className={cn('h-full rounded-full transition-all duration-500', cat.color)}
-                    style={{ width: `${cat.value}%` }}
+                    className={cn('h-full rounded-full progress-fill progress-shimmer', cat.color)}
+                    style={{ transform: `scaleX(${cat.value / 100})` }}
                   />
                 </div>
               </div>

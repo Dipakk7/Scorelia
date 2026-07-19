@@ -406,10 +406,14 @@ export function ReportExportDialog({
           {/* GitHub Input */}
           {reportType === 'github' && (
             <div className="space-y-1.5 animate-slide-down text-left">
-              <label className="font-black text-muted-foreground uppercase tracking-widest text-[8px] font-mono leading-none">
+              <label
+                htmlFor="github-username-input"
+                className="font-black text-muted-foreground uppercase tracking-widest text-[8px] font-mono leading-none"
+              >
                 Enter GitHub Username
               </label>
               <input
+                id="github-username-input"
                 type="text"
                 value={githubUsername}
                 onChange={(e) => setGithubUsername(e.target.value)}

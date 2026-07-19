@@ -362,6 +362,7 @@ export default function ProfilePage() {
                     onChange={(e) => setNewSkill(e.target.value)}
                     placeholder="Add a skill e.g. React"
                     className="flex-1 rounded-lg border border-[var(--border)] bg-[var(--surface-hover)] px-3 py-1.5 text-xs text-[var(--heading)] focus:border-[var(--primary)] focus:outline-none transition-colors"
+                    aria-label="Add a skill"
                   />
                   <Button
                     type="submit"
