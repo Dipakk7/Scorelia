@@ -1,7 +1,7 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts'
-import { cn } from '@/lib/utils'
-import { useTheme } from '@/providers/ThemeProvider'
 import { useState, useEffect } from 'react'
+import { useScoreliaReducedMotion, getChartAnimationProps } from '@/lib/motion'
+
 
 interface LanguageItem {
   label: string
@@ -17,21 +17,14 @@ export function LanguageDistributionChart({ data, height = 240 }: LanguageDistri
   // Sort data descending to keep colors consistent
   const sortedData = [...data].sort((a, b) => b.value - a.value)
 
-  const { theme } = useTheme()
-  const [isDark, setIsDark] = useState(false)
+  const shouldReduceMotion = useScoreliaReducedMotion()
+  const [isInitial, setIsInitial] = useState(true)
 
   useEffect(() => {
-    const checkDark = () => {
-      setIsDark(document.documentElement.classList.contains('dark'))
-    }
-    checkDark()
-    const observer = new MutationObserver(checkDark)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    })
-    return () => observer.disconnect()
+    const timer = setTimeout(() => setIsInitial(false), 500)
+    return () => clearTimeout(timer)
   }, [])
+
 
   const colors = [
     'var(--primary)',
@@ -90,6 +83,7 @@ export function LanguageDistributionChart({ data, height = 240 }: LanguageDistri
             paddingAngle={3}
             dataKey="value"
             nameKey="label"
+            {...getChartAnimationProps(shouldReduceMotion, isInitial)}
           >
             {sortedData.map((_entry, index) => (
               <Cell

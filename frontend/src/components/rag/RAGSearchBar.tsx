@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Search, Loader2, X, History } from 'lucide-react'
-import { cn } from '@/lib/utils'
 
 interface RAGSearchBarProps {
   onSearch: (query: string) => void

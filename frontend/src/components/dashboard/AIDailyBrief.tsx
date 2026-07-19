@@ -1,4 +1,4 @@
-import { Sparkles, ArrowRight, Calendar, AlertCircle } from 'lucide-react'
+import { Sparkles, Calendar, AlertCircle } from 'lucide-react'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
 import { cn } from '@/lib/utils'
 

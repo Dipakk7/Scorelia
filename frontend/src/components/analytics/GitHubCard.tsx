@@ -1,7 +1,6 @@
 import { Card, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { Star, GitFork, ExternalLink, BookOpen } from 'lucide-react'
-import { cn } from '@/lib/utils'
 
 interface RepoProps {
   name: string

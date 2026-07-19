@@ -47,7 +47,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           </span>
         )}
         {helperText && !error && (
-          <span className="text-caption text-[var(--muted)] font-sans">
+          <span className="text-caption text-[var(--muted)] font-sans animate-fade-in">
             {helperText}
           </span>
         )}

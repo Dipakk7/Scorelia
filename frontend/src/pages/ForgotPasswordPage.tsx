@@ -11,6 +11,7 @@ import { useAuth } from '@/providers/AuthProvider'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/Card'
+import { useScoreliaReducedMotion, getDropdownVariants } from '@/lib/motion'
 
 const forgotSchema = zod.object({
   email: zod
@@ -23,6 +24,7 @@ type ForgotFormInputs = zod.infer<typeof forgotSchema>
 
 export default function ForgotPasswordPage() {
   const { forgotPassword } = useAuth()
+  const shouldReduceMotion = useScoreliaReducedMotion()
   const [isSent, setIsSent] = useState(false)
   const [submittedEmail, setSubmittedEmail] = useState('')
 
@@ -69,10 +71,10 @@ export default function ForgotPasswordPage() {
           {!isSent ? (
             <motion.div
               key="request-form"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.3 }}
+              variants={getDropdownVariants(shouldReduceMotion)}
+              initial="initial"
+              animate="animate"
+              exit="exit"
             >
               <Card variant="glass" className="overflow-hidden">
                 <CardHeader className="text-center pt-8 pb-3 px-6 md:px-8">
@@ -98,6 +100,7 @@ export default function ForgotPasswordPage() {
                       className="w-full mt-6 font-display text-sm font-bold tracking-wide"
                       isLoading={isSubmitting}
                       size="lg"
+                      motion={true}
                     >
                       Send Reset Instructions
                     </Button>
@@ -117,9 +120,9 @@ export default function ForgotPasswordPage() {
           ) : (
             <motion.div
               key="success-message"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
+              variants={getDropdownVariants(shouldReduceMotion)}
+              initial="initial"
+              animate="animate"
             >
               <Card variant="glass" className="overflow-hidden">
                 <CardContent className="pt-8 px-6 md:px-8 pb-6 text-center flex flex-col items-center">
@@ -137,7 +140,7 @@ export default function ForgotPasswordPage() {
                   </div>
 
                   <Link to="/login" className="w-full">
-                    <Button variant="outline" className="w-full" size="lg">
+                    <Button variant="outline" className="w-full" size="lg" motion={true}>
                       Return to Sign In
                     </Button>
                   </Link>

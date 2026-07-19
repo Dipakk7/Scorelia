@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/Badge'
 import { StatisticCard } from '@/components/ui/StatisticCard'
 import { Award, Compass, CheckCircle2, Circle, GraduationCap, Flame } from 'lucide-react'
 import type { RoadmapAnalyticsResponse } from '@/types/roadmap'
+import { ScoreRing } from '@/components/ui/ScoreRing'
 
 interface CareerDashboardCardProps {
   analytics: RoadmapAnalyticsResponse | null
@@ -32,13 +33,6 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
   const skillsInProgress = skills?.skills_in_progress?.length ?? 0
   const upcomingMilestones = timeline?.upcoming_milestones || []
 
-  // Color selection based on Readiness Score
-  const getScoreColor = (val: number) => {
-    if (val >= 80) return 'text-emerald-500 stroke-emerald-500'
-    if (val >= 50) return 'text-amber-500 stroke-amber-500'
-    return 'text-red-500 stroke-red-500'
-  }
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-sans text-xs">
       {/* Radial Score Card */}
@@ -53,37 +47,13 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col items-center justify-center pt-6 pb-6 text-center">
-          <div className="relative h-32 w-32 flex items-center justify-center">
-            {/* SVG circle loader */}
-            <svg className="w-full h-full transform -rotate-90">
-              <circle
-                cx="64"
-                cy="64"
-                r="52"
-                strokeWidth="8"
-                stroke="currentColor"
-                className="text-slate-100 dark:text-slate-800/60"
-                fill="transparent"
-              />
-              <circle
-                cx="64"
-                cy="64"
-                r="52"
-                strokeWidth="8"
-                strokeDasharray={2 * Math.PI * 52}
-                strokeDashoffset={2 * Math.PI * 52 * (1 - score / 100)}
-                strokeLinecap="round"
-                fill="transparent"
-                className={`transition-all duration-500 ${getScoreColor(score)}`}
-              />
-            </svg>
-            <div className="absolute flex flex-col items-center select-none font-display">
-              <span className="text-3xl font-black font-mono text-slate-950 dark:text-white leading-none">
-                {Math.round(score)}
-              </span>
-              <span className="text-[7px] uppercase tracking-widest font-black text-slate-400 dark:text-slate-500 mt-1.5 leading-none">Readiness</span>
-            </div>
-          </div>
+          <ScoreRing
+            value={score}
+            size={128}
+            strokeWidth={8}
+            color={score >= 80 ? '--success' : score >= 50 ? '--warning' : '--destructive'}
+            subLabel="Readiness"
+          />
           
           <div className="mt-4 w-full border-t border-[var(--border)]/60 pt-4 text-left">
             <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2 leading-none">Readiness Breakdown</h4>

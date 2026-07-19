@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { cn } from '@/lib/utils'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useScoreliaReducedMotion, getDropdownVariants } from '@/lib/motion'
 
 export interface PopoverProps {
   content: React.ReactNode
@@ -11,6 +13,7 @@ export interface PopoverProps {
 export function Popover({ content, children, className, align = 'center' }: PopoverProps) {
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
+  const shouldReduceMotion = useScoreliaReducedMotion()
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -40,17 +43,23 @@ export function Popover({ content, children, className, align = 'center' }: Popo
   return (
     <div ref={containerRef} className="relative inline-block text-left">
       {trigger}
-      {isOpen && (
-        <div
-          className={cn(
-            'absolute z-[var(--z-index-popover)] w-72 rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-4 shadow-[var(--shadow-lg)] backdrop-blur-md animate-fade-in font-sans text-xs',
-            alignClasses[align],
-            className
-          )}
-        >
-          {content}
-        </div>
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            variants={getDropdownVariants(shouldReduceMotion)}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className={cn(
+              'absolute z-[var(--z-index-popover)] w-72 rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface)] p-4 shadow-[var(--shadow-lg)] backdrop-blur-md font-sans text-xs',
+              alignClasses[align],
+              className
+            )}
+          >
+            {content}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

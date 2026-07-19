@@ -3,10 +3,10 @@ import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Spinner } from '@/components/ui/Spinner'
 import { ResponsiveContainer, AreaChart, Area, XAxis } from 'recharts'
-import { cn } from '@/lib/utils'
-import { useTheme } from '@/providers/ThemeProvider'
 import { useState, useEffect } from 'react'
-import { CountUpText } from '@/components/ui/CountUpText'
+import { useScoreliaReducedMotion, getChartAnimationProps } from '@/lib/motion'
+import { ScoreRing } from '@/components/ui/ScoreRing'
+
 
 interface QualityScoreCardProps {
   qualityScore: number
@@ -25,21 +25,14 @@ export function QualityScoreCard({
   onAnalyze,
   isAnalyzing = false,
 }: QualityScoreCardProps) {
-  const { theme } = useTheme()
-  const [isDark, setIsDark] = useState(false)
+  const shouldReduceMotion = useScoreliaReducedMotion()
+  const [isInitial, setIsInitial] = useState(true)
 
   useEffect(() => {
-    const checkDark = () => {
-      setIsDark(document.documentElement.classList.contains('dark'))
-    }
-    checkDark()
-    const observer = new MutationObserver(checkDark)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    })
-    return () => observer.disconnect()
+    const timer = setTimeout(() => setIsInitial(false), 500)
+    return () => clearTimeout(timer)
   }, [])
+
 
   const themeColors = {
     primary: 'var(--primary)',      // Resume Score -> Blue
@@ -61,55 +54,18 @@ export function QualityScoreCard({
   const renderCircularGauge = (
     value: number,
     label: string,
-    gradientId: string,
-    fromColor: string,
-    toColor: string,
+    colorVar: string,
     subtext: string
   ) => {
-    const radius = 38
-    const circumference = 2 * Math.PI * radius
-    const strokeDashoffset = circumference - (value / 100) * circumference
-
     return (
       <div className="flex flex-col items-center text-center p-5 bg-card/30 dark:bg-slate-900/20 backdrop-blur-md rounded-2xl border border-border/80 shadow-xs relative overflow-hidden group hover:scale-[1.01] hover:border-brand-500/20 dark:hover:border-brand-500/10 transition-all duration-300">
-        <svg className="w-24 h-24 transform -rotate-90">
-          <defs>
-            <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={fromColor} />
-              <stop offset="100%" stopColor={toColor} />
-            </linearGradient>
-          </defs>
-          {/* Outer circle track */}
-          <circle
-            cx="48"
-            cy="48"
-            r={radius}
-            className="stroke-slate-100 dark:stroke-slate-850"
-            strokeWidth="7"
-            fill="transparent"
-          />
-          {/* Progress circle */}
-          <circle
-            cx="48"
-            cy="48"
-            r={radius}
-            stroke={`url(#${gradientId})`}
-            strokeWidth="7"
-            fill="transparent"
-            strokeDasharray={circumference}
-            strokeDashoffset={strokeDashoffset}
-            strokeLinecap="round"
-            className="transition-all duration-1000 ease-out"
-          />
-        </svg>
-
-        {/* Value Label inside circle */}
-        <div className="absolute top-[40px] flex flex-col items-center">
-          <span className="text-xl font-black text-slate-900 dark:text-slate-100 tracking-tight">
-            <CountUpText value={value} />
-            <span className="text-[10px] text-slate-400 font-normal">%</span>
-          </span>
-        </div>
+        <ScoreRing
+          value={value}
+          size={96}
+          strokeWidth={7}
+          color={colorVar}
+          subLabel="%"
+        />
 
         <div className="mt-4">
           <h4 className="text-xs font-black text-muted-foreground tracking-wide uppercase">
@@ -186,25 +142,19 @@ export function QualityScoreCard({
               {renderCircularGauge(
                 qualityScore,
                 'Quality Score',
-                'gradQuality',
-                themeColors.primary,
-                themeColors.primaryDark,
+                '--primary',
                 'Weighted evaluation'
               )}
               {renderCircularGauge(
                 readinessScore,
                 'Career Readiness',
-                'gradReady',
-                themeColors.purple,
-                themeColors.purpleDark,
+                '--analytics',
                 'Industry suitability'
               )}
               {renderCircularGauge(
                 improvementScore,
                 'ATS Grade',
-                'gradImprove',
-                themeColors.success,
-                themeColors.successDark,
+                '--success',
                 'Keyword compliance'
               )}
             </div>
@@ -239,6 +189,7 @@ export function QualityScoreCard({
                         strokeWidth={2}
                         fillOpacity={1}
                         fill="url(#scoreSpark)"
+                        {...getChartAnimationProps(shouldReduceMotion, isInitial)}
                       />
                       <XAxis dataKey="date" hide />
                     </AreaChart>

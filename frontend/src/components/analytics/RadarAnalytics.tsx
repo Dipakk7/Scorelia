@@ -7,8 +7,8 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from 'recharts'
-import { useTheme } from '@/providers/ThemeProvider'
 import { useState, useEffect } from 'react'
+import { useScoreliaReducedMotion, getChartAnimationProps } from '@/lib/motion'
 
 interface RadarAnalyticsProps {
   data: { label: string; value: number }[]
@@ -23,21 +23,14 @@ export function RadarAnalytics({
   height = 240,
   maxVal = 100,
 }: RadarAnalyticsProps) {
-  const { theme } = useTheme()
-  const [isDark, setIsDark] = useState(false)
+  const shouldReduceMotion = useScoreliaReducedMotion()
+  const [isInitial, setIsInitial] = useState(true)
 
   useEffect(() => {
-    const checkDark = () => {
-      setIsDark(document.documentElement.classList.contains('dark'))
-    }
-    checkDark()
-    const observer = new MutationObserver(checkDark)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    })
-    return () => observer.disconnect()
+    const timer = setTimeout(() => setIsInitial(false), 500)
+    return () => clearTimeout(timer)
   }, [])
+
 
   const colors = {
     primary: 'var(--primary)',
@@ -103,6 +96,7 @@ export function RadarAnalytics({
             fill={activeColor}
             fillOpacity={0.2}
             activeDot={{ r: 5, stroke: activeColor, strokeWidth: 1.5, fill: 'var(--surface)' }}
+            {...getChartAnimationProps(shouldReduceMotion, isInitial)}
           />
         </RadarChart>
       </ResponsiveContainer>

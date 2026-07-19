@@ -11,8 +11,8 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts'
-import { useTheme } from '@/providers/ThemeProvider'
 import { useState, useEffect } from 'react'
+import { useScoreliaReducedMotion, getChartAnimationProps } from '@/lib/motion'
 
 interface TrendChartProps {
   data: { label: string; value: number | string }[]
@@ -33,21 +33,14 @@ export function TrendChart({
   yAxisKey = 'value',
   valueFormatter = (val) => String(val),
 }: TrendChartProps) {
-  const { theme } = useTheme()
-  const [isDark, setIsDark] = useState(false)
+  const shouldReduceMotion = useScoreliaReducedMotion()
+  const [isInitial, setIsInitial] = useState(true)
 
   useEffect(() => {
-    const checkDark = () => {
-      setIsDark(document.documentElement.classList.contains('dark'))
-    }
-    checkDark()
-    const observer = new MutationObserver(checkDark)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    })
-    return () => observer.disconnect()
+    const timer = setTimeout(() => setIsInitial(false), 500)
+    return () => clearTimeout(timer)
   }, [])
+
 
   const colors = {
     primary: 'var(--primary)',
@@ -129,6 +122,7 @@ export function TrendChart({
               fillOpacity={1}
               fill={`url(#grad-${colorScheme})`}
               activeDot={{ r: 6, stroke: activeColor, strokeWidth: 2, fill: 'var(--surface)' }}
+              {...getChartAnimationProps(shouldReduceMotion, isInitial)}
             />
           </AreaChart>
         ) : type === 'line' ? (
@@ -160,6 +154,7 @@ export function TrendChart({
               strokeWidth={3}
               dot={{ r: 4, stroke: activeColor, strokeWidth: 1.5, fill: 'var(--surface)' }}
               activeDot={{ r: 6, stroke: activeColor, strokeWidth: 2, fill: activeColor }}
+              {...getChartAnimationProps(shouldReduceMotion, isInitial)}
             />
           </LineChart>
         ) : (
@@ -194,7 +189,7 @@ export function TrendChart({
               dataKey={yAxisKey}
               fill={`url(#bar-grad-${colorScheme})`}
               radius={[4, 4, 0, 0]}
-              animationDuration={1500}
+              {...getChartAnimationProps(shouldReduceMotion, isInitial)}
             />
           </BarChart>
         )}

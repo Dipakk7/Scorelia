@@ -1,6 +1,5 @@
 import { Card, CardContent } from '@/components/ui/Card'
 import type { CollectionResponse } from '@/types/rag'
-import { cn } from '@/lib/utils'
 
 interface SearchFiltersProps {
   collections: CollectionResponse[]

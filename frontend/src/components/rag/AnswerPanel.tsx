@@ -4,7 +4,6 @@ import { Badge } from '@/components/ui/Badge'
 import { Copy, RefreshCw, Download, Sparkles, BrainCircuit, History, Layers, Cpu } from 'lucide-react'
 import type { RAGResponse } from '@/types/rag'
 import toast from 'react-hot-toast'
-import { cn } from '@/lib/utils'
 import { StreamingText } from '@/components/ui/StreamingText'
 
 interface AnswerPanelProps {

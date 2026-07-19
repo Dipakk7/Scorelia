@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
+import { useScoreliaReducedMotion } from '@/lib/motion'
 
 interface TabsContextProps {
   value: string
@@ -61,6 +62,7 @@ export interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonE
 export function TabsTrigger({ value, className, children, ...props }: TabsTriggerProps) {
   const context = useContext(TabsContext)
   if (!context) throw new Error('TabsTrigger must be used within Tabs')
+  const shouldReduceMotion = useScoreliaReducedMotion()
 
   const isActive = context.value === value
 
@@ -82,7 +84,7 @@ export function TabsTrigger({ value, className, children, ...props }: TabsTrigge
         <motion.div
           layoutId="activeTabUnderline"
           className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--primary)] rounded-full z-0"
-          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 380, damping: 30 }}
         />
       )}
     </button>
@@ -96,19 +98,23 @@ export interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {
 export function TabsContent({ value, className, children, ...props }: TabsContentProps) {
   const context = useContext(TabsContext)
   if (!context) throw new Error('TabsContent must be used within Tabs')
+  const shouldReduceMotion = useScoreliaReducedMotion()
 
   if (context.value !== value) return null
 
   return (
-    <div
+    <motion.div
       role="tabpanel"
+      initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 4 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.18, ease: 'easeOut' }}
       className={cn(
-        'mt-4 focus-visible:outline-none animate-fade-in',
+        'mt-4 focus-visible:outline-none',
         className
       )}
-      {...props}
+      {...(props as any)}
     >
       {children}
-    </div>
+    </motion.div>
   )
 }

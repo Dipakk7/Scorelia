@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { CountUpText } from '@/components/ui/CountUpText'
 import {
   Table,
@@ -57,6 +57,12 @@ export default function ResumeTable({
   onAnalyze,
   onRename,
 }: ResumeTableProps) {
+  const [isInitial, setIsInitial] = useState(true)
+  useEffect(() => {
+    const timer = setTimeout(() => setIsInitial(false), 500)
+    return () => clearTimeout(timer)
+  }, [])
+
   // Search, Sort, Filter, Page states
   const [searchQuery, setSearchQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState<string>('all')
@@ -330,7 +336,7 @@ export default function ResumeTable({
                 const isRenaming = renamingId === resume.id
 
                 return (
-                  <TableRow key={resume.id} className={isSelected ? 'bg-[var(--surface-hover)]' : ''}>
+                  <TableRow key={resume.id} className={isSelected ? 'bg-[var(--surface-hover)]' : ''} motion={isInitial}>
                     {/* Selection Checkbox */}
                     <TableCell className="text-center pl-4">
                       <input

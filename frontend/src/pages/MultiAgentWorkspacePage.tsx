@@ -16,10 +16,8 @@ import { ContextViewer } from '@/components/agents/ContextViewer'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { MultiAgentWorkspaceSkeleton } from '@/components/ui/Skeletons'
 import { EmptyAgentHistoryState } from '@/components/ui/EmptyState'
-import { StatisticCard } from '@/components/ui/StatisticCard'
 import { Card } from '@/components/ui/Card'
 import {
-  Cpu,
   Database,
   Terminal,
   Activity,

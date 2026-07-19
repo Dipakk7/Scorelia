@@ -1,5 +1,7 @@
 import React from 'react'
 import { cn } from '@/lib/utils'
+import { motion } from 'framer-motion'
+import { useScoreliaReducedMotion } from '@/lib/motion'
 
 export const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
   ({ className, ...props }, ref) => (
@@ -28,17 +30,41 @@ export const TableBody = React.forwardRef<HTMLTableSectionElement, React.HTMLAtt
 )
 TableBody.displayName = 'TableBody'
 
-export const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTMLTableRowElement>>(
-  ({ className, ...props }, ref) => (
-    <tr
-      ref={ref}
-      className={cn(
-        'border-b border-[var(--border)]/50 transition-all duration-[var(--duration-fast)] hover:bg-[var(--surface-hover)] data-[state=selected]:bg-[var(--divider)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]/20',
-        className
-      )}
-      {...props}
-    />
-  )
+export interface TableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
+  motion?: boolean
+}
+
+export const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
+  ({ className, motion: isMotion = false, ...props }, ref) => {
+    const shouldReduceMotion = useScoreliaReducedMotion()
+
+    const resolvedClassName = cn(
+      'border-b border-[var(--border)]/50 transition-all duration-[var(--duration-fast)] hover:bg-[var(--surface-hover)] data-[state=selected]:bg-[var(--divider)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]/20',
+      className
+    )
+
+    if (isMotion && !shouldReduceMotion) {
+      return (
+        <motion.tr
+          ref={ref as any}
+          className={resolvedClassName}
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.18, ease: 'easeOut' }}
+          {...(props as any)}
+        />
+      )
+    }
+
+    return (
+      <tr
+        ref={ref}
+        className={resolvedClassName}
+        {...props}
+      />
+    )
+  }
 )
 TableRow.displayName = 'TableRow'
 

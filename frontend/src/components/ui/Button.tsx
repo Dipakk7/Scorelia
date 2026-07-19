@@ -1,19 +1,25 @@
 import React from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import { cn } from '@/lib/utils'
+import { motion } from 'framer-motion'
+import { useScoreliaReducedMotion, getButtonVariants } from '@/lib/motion'
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'link' | 'upgrade' | 'success'
   size?: 'sm' | 'md' | 'lg' | 'icon'
   isLoading?: boolean
   asChild?: boolean
+  motion?: boolean
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = 'primary', size = 'md', isLoading, asChild = false, children, disabled, ...props }, ref) => {
-    const Component = asChild ? Slot : 'button'
+  ({ className, variant = 'primary', size = 'md', isLoading, asChild = false, children, disabled, motion: isMotion = false, ...props }, ref) => {
+    const shouldReduceMotion = useScoreliaReducedMotion()
 
-    const baseStyles = 'inline-flex items-center justify-center font-semibold transition-all duration-[var(--duration-normal)] ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[var(--background)] disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed disabled:pointer-events-none cursor-pointer btn-active'
+    const baseStyles = cn(
+      'inline-flex items-center justify-center font-semibold transition-all duration-[var(--duration-normal)] ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[var(--background)] disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed disabled:pointer-events-none cursor-pointer',
+      (!isMotion || shouldReduceMotion) && 'btn-active'
+    )
     
     const variants = {
       primary: 'bg-brand text-on-brand shadow-[var(--shadow-sm)] hover:bg-brand-hover hover:-translate-y-[1px] hover:shadow-[var(--shadow-md)] focus-visible:ring-brand-focus-ring active:bg-brand-pressed',
@@ -33,15 +39,53 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       icon: 'h-10 w-10 p-0 rounded-[var(--radius-button)]',
     }
 
+    if (isMotion && !asChild && !shouldReduceMotion) {
+      return (
+        <motion.button
+          className={cn(baseStyles, variants[variant], variant !== 'link' && sizes[size], className)}
+          ref={ref as any}
+          disabled={disabled || isLoading}
+          variants={getButtonVariants(shouldReduceMotion)}
+          initial="initial"
+          whileHover="hover"
+          whileTap="tap"
+          {...(props as any)}
+        >
+          {isLoading ? (
+            <span className="flex items-center justify-center gap-2 animate-fade-in">
+              <svg
+                className="h-4 w-4 animate-spin text-current"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
+              </svg>
+              {size !== 'icon' && variant !== 'link' && 'Loading...'}
+            </span>
+          ) : (
+            children
+          )}
+        </motion.button>
+      )
+    }
+
+    const NormalComponent = asChild ? Slot : 'button'
+
     return (
-      <Component
+      <NormalComponent
         className={cn(baseStyles, variants[variant], variant !== 'link' && sizes[size], className)}
         ref={ref}
         disabled={disabled || isLoading}
         {...props}
       >
         {isLoading ? (
-          <span className="flex items-center justify-center gap-2">
+          <span className="flex items-center justify-center gap-2 animate-fade-in">
             <svg
               className="h-4 w-4 animate-spin text-current"
               xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +104,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ) : (
           children
         )}
-      </Component>
+      </NormalComponent>
     )
   }
 )

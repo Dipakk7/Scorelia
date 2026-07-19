@@ -14,9 +14,8 @@ import {
   LineChart,
   Line
 } from 'recharts'
-import { cn } from '@/lib/utils'
-import { useTheme } from '@/providers/ThemeProvider'
 import { useState, useEffect } from 'react'
+import { useScoreliaReducedMotion, getChartAnimationProps } from '@/lib/motion'
 
 import { ChartEmptyState } from '@/components/ui/ChartEmptyState'
 
@@ -33,21 +32,14 @@ interface SearchAnalyticsProps {
 }
 
 export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
-  const { theme } = useTheme()
-  const [isDark, setIsDark] = useState(false)
+  const shouldReduceMotion = useScoreliaReducedMotion()
+  const [isInitial, setIsInitial] = useState(true)
 
   useEffect(() => {
-    const checkDark = () => {
-      setIsDark(document.documentElement.classList.contains('dark'))
-    }
-    checkDark()
-    const observer = new MutationObserver(checkDark)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    })
-    return () => observer.disconnect()
+    const timer = setTimeout(() => setIsInitial(false), 500)
+    return () => clearTimeout(timer)
   }, [])
+
 
   const themeColors = {
     primary: 'var(--primary)',
@@ -64,7 +56,7 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
     'var(--primary)',
   ]
 
-  function CustomTooltip({ active, payload, label }: any) {
+  function CustomTooltip({ active, payload, _label }: any) {
     if (active && payload && payload.length) {
       const item = payload[0]?.payload
       return (
@@ -150,7 +142,7 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
               <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={9} tickLine={false} tick={{ fill: themeColors.mutedText }} />
               <YAxis stroke={themeColors.mutedText} fontSize={9} tickLine={false} unit="s" tick={{ fill: themeColors.mutedText }} />
               <Tooltip content={<CustomTooltip />} />
-              <Line type="monotone" dataKey="latency" stroke={themeColors.primary} strokeWidth={2} dot={{ r: 3 }} name="Latency" />
+              <Line type="monotone" dataKey="latency" stroke={themeColors.primary} strokeWidth={2} dot={{ r: 3 }} name="Latency" {...getChartAnimationProps(shouldReduceMotion, isInitial)} />
             </LineChart>
           </ResponsiveContainer>
         </CardContent>
@@ -177,6 +169,7 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
                   outerRadius={50}
                   paddingAngle={3}
                   dataKey="value"
+                  {...getChartAnimationProps(shouldReduceMotion, isInitial)}
                 >
                   {cacheData.map((_, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -215,7 +208,7 @@ export function SearchAnalytics({ metrics }: SearchAnalyticsProps) {
                 <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={9} tickLine={false} tick={{ fill: themeColors.mutedText }} />
                 <YAxis stroke={themeColors.mutedText} fontSize={9} tickLine={false} tick={{ fill: themeColors.mutedText }} />
                 <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="tokens" fill="url(#ragTokensGrad)" radius={[3, 3, 0, 0]} name="Tokens" maxBarSize={30} />
+                <Bar dataKey="tokens" fill="url(#ragTokensGrad)" radius={[3, 3, 0, 0]} name="Tokens" maxBarSize={30} {...getChartAnimationProps(shouldReduceMotion, isInitial)} />
               </BarChart>
             </ResponsiveContainer>
           )}

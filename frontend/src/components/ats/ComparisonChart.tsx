@@ -14,8 +14,8 @@ import {
   Radar,
 } from 'recharts'
 import { ChartEmptyState } from '@/components/ui/ChartEmptyState'
-import { useTheme } from '@/providers/ThemeProvider'
 import { useState, useEffect } from 'react'
+import { useScoreliaReducedMotion, getChartAnimationProps } from '@/lib/motion'
 
 export interface ComparisonDataPoint {
   name: string // Resume name or Job title
@@ -38,7 +38,7 @@ function CustomTooltip({ active, payload, label }: any) {
         <p className="text-[10px] font-black uppercase tracking-wider text-[var(--heading)] m-0 truncate max-w-[200px]">{label}</p>
         <div className="mt-2 space-y-1">
           {payload.map((p: any, idx: number) => (
-            <div key={idx} className="flex items-center gap-2 font-semibold text-xs">
+            <div key={idx} className="flex items-center gap-2 font-semibold text-xs leading-none">
               <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: p.fill }} />
               <span className="text-[var(--muted)]">{p.name}:</span>
               <span className="text-[var(--heading)] font-bold">{p.value}%</span>
@@ -52,20 +52,12 @@ function CustomTooltip({ active, payload, label }: any) {
 }
 
 export function ComparisonChart({ data, type = 'bar' }: ComparisonChartProps) {
-  const { theme } = useTheme()
-  const [isDark, setIsDark] = useState(false)
+  const shouldReduceMotion = useScoreliaReducedMotion()
+  const [isInitial, setIsInitial] = useState(true)
 
   useEffect(() => {
-    const checkDark = () => {
-      setIsDark(document.documentElement.classList.contains('dark'))
-    }
-    checkDark()
-    const observer = new MutationObserver(checkDark)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    })
-    return () => observer.disconnect()
+    const timer = setTimeout(() => setIsInitial(false), 500)
+    return () => clearTimeout(timer)
   }, [])
 
   const themeColors = {
@@ -136,8 +128,8 @@ export function ComparisonChart({ data, type = 'bar' }: ComparisonChartProps) {
             />
             <Tooltip content={<CustomTooltip />} />
             <Legend wrapperStyle={{ fontSize: '10px', fontFamily: 'Inter', paddingTop: '10px', fontWeight: 'bold' }} />
-            <Bar dataKey="overall" name="Overall Match Score" fill={themeColors.success} radius={[6, 6, 0, 0]} maxBarSize={50} />
-            <Bar dataKey="skills" name="Skills Score" fill={themeColors.primary} radius={[6, 6, 0, 0]} maxBarSize={50} />
+            <Bar dataKey="overall" name="Overall Match Score" fill={themeColors.success} radius={[6, 6, 0, 0]} maxBarSize={50} {...getChartAnimationProps(shouldReduceMotion, isInitial)} />
+            <Bar dataKey="skills" name="Skills Score" fill={themeColors.primary} radius={[6, 6, 0, 0]} maxBarSize={50} {...getChartAnimationProps(shouldReduceMotion, isInitial)} />
           </BarChart>
         ) : (
           <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
@@ -159,6 +151,7 @@ export function ComparisonChart({ data, type = 'bar' }: ComparisonChartProps) {
                 stroke={colors[idx % colors.length]}
                 fill={colors[idx % colors.length]}
                 fillOpacity={0.15}
+                {...getChartAnimationProps(shouldReduceMotion, isInitial)}
               />
             ))}
             <Tooltip content={<CustomTooltip />} />

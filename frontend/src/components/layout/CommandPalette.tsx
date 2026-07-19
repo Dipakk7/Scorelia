@@ -15,31 +15,12 @@ import {
   Search,
   CornerDownLeft,
 } from 'lucide-react'
+import { Github } from '@/components/ui/GithubIcon'
 import {
   Dialog,
   DialogContent,
 } from '@/components/ui/Dialog'
 import { cn } from '@/lib/utils'
-
-// Custom Github SVG Icon matching other components
-const Github = (props: React.SVGProps<SVGSVGElement> & { size?: number }) => {
-  const { size = 20, ...rest } = props
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width={size}
-      height={size}
-      stroke="currentColor"
-      strokeWidth="2"
-      fill="none"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...rest}
-    >
-      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-    </svg>
-  )
-}
 
 interface CommandItem {
   to: string
@@ -47,6 +28,21 @@ interface CommandItem {
   description: string
   icon: React.ComponentType<{ size?: number; className?: string }>
 }
+
+const MODULES_LIST: CommandItem[] = [
+  { to: '/dashboard', label: 'Dashboard', description: 'Overview of your career command center', icon: LayoutDashboard },
+  { to: '/resumes', label: 'Resume Builder', description: 'Create, edit, and export your resumes', icon: FileText },
+  { to: '/resume-intelligence', label: 'AI Resume Intelligence', description: 'Analyze resume score and format checks', icon: Sparkles },
+  { to: '/ats', label: 'ATS Analysis', description: 'Semantic keyword gap analysis and job matching', icon: Scan },
+  { to: '/cover-letter', label: 'AI Cover Letter', description: 'Generate custom tailored cover letters', icon: MailOpen },
+  { to: '/interview', label: 'AI Interview Prep', description: 'Practice mock interview rounds with real-time feedback', icon: MessageSquareCode },
+  { to: '/roadmap', label: 'Career Roadmap', description: 'Map out weekly learning milestones and career path', icon: Map },
+  { to: '/rag-workspace', label: 'RAG Workspace', description: 'Semantic search on your knowledge documentations', icon: Database },
+  { to: '/agents', label: 'Agent Console', description: 'Coordinate multi-agent background audits', icon: Bot },
+  { to: '/analytics', label: 'Analytics Center', description: 'Visualize your progress and career health scores', icon: BarChart3 },
+  { to: '/github-intelligence', label: 'GitHub Intelligence', description: 'Fetch repositories data and build scorecards', icon: Github },
+  { to: '/settings', label: 'Settings', description: 'Configure preferences, security, and appearance', icon: Settings },
+]
 
 export function CommandPalette() {
   const [isOpen, setIsOpen] = useState(false)
@@ -57,21 +53,6 @@ export function CommandPalette() {
   const previouslyFocusedElementRef = useRef<HTMLElement | null>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
   const listRef = useRef<HTMLDivElement | null>(null)
-
-  const modulesList: CommandItem[] = [
-    { to: '/dashboard', label: 'Dashboard', description: 'Overview of your career command center', icon: LayoutDashboard },
-    { to: '/resumes', label: 'Resume Builder', description: 'Create, edit, and export your resumes', icon: FileText },
-    { to: '/resume-intelligence', label: 'AI Resume Intelligence', description: 'Analyze resume score and format checks', icon: Sparkles },
-    { to: '/ats', label: 'ATS Analysis', description: 'Semantic keyword gap analysis and job matching', icon: Scan },
-    { to: '/cover-letter', label: 'AI Cover Letter', description: 'Generate custom tailored cover letters', icon: MailOpen },
-    { to: '/interview', label: 'AI Interview Prep', description: 'Practice mock interview rounds with real-time feedback', icon: MessageSquareCode },
-    { to: '/roadmap', label: 'Career Roadmap', description: 'Map out weekly learning milestones and career path', icon: Map },
-    { to: '/rag-workspace', label: 'RAG Workspace', description: 'Semantic search on your knowledge documentations', icon: Database },
-    { to: '/agents', label: 'Agent Console', description: 'Coordinate multi-agent background audits', icon: Bot },
-    { to: '/analytics', label: 'Analytics Center', description: 'Visualize your progress and career health scores', icon: BarChart3 },
-    { to: '/github-intelligence', label: 'GitHub Intelligence', description: 'Fetch repositories data and build scorecards', icon: Github },
-    { to: '/settings', label: 'Settings', description: 'Configure preferences, security, and appearance', icon: Settings },
-  ]
 
   // Global keydown listener for Cmd+K / Ctrl+K
   useEffect(() => {
@@ -113,9 +94,9 @@ export function CommandPalette() {
   // Filter and sort items based on relevance score (Exact match -> Starts with -> Contains)
   const filteredItems = useMemo(() => {
     const q = query.trim().toLowerCase()
-    if (!q) return modulesList
+    if (!q) return MODULES_LIST
 
-    return modulesList
+    return MODULES_LIST
       .map((item) => {
         const l = item.label.toLowerCase()
         const d = item.description.toLowerCase()

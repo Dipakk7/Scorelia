@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { cn } from '@/lib/utils'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useScoreliaReducedMotion, getTooltipVariants } from '@/lib/motion'
 
 export interface TooltipProps {
   content: React.ReactNode
@@ -10,6 +12,7 @@ export interface TooltipProps {
 
 export function Tooltip({ content, children, className, position = 'top' }: TooltipProps) {
   const [isVisible, setIsVisible] = useState(false)
+  const shouldReduceMotion = useScoreliaReducedMotion()
 
   const positionClasses = {
     top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
@@ -34,18 +37,24 @@ export function Tooltip({ content, children, className, position = 'top' }: Tool
       onBlur={() => setIsVisible(false)}
     >
       {children}
-      {isVisible && content && (
-        <div
-          className={cn(
-            'absolute z-[var(--z-index-tooltip)] pointer-events-none px-2.5 py-1.5 text-caption font-semibold rounded-[var(--radius-sm)] shadow-[var(--shadow-md)] bg-[var(--sidebar-background)] text-[var(--sidebar-active-foreground)] border border-[var(--sidebar-border)] whitespace-nowrap animate-fade-in font-sans',
-            positionClasses[position],
-            className
-          )}
-        >
-          <span className="relative z-10">{content}</span>
-          <div className={cn('absolute w-0 h-0 border-4', arrowClasses[position])} />
-        </div>
-      )}
+      <AnimatePresence>
+        {isVisible && content && (
+          <motion.div
+            variants={getTooltipVariants(shouldReduceMotion)}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className={cn(
+              'absolute z-[var(--z-index-tooltip)] pointer-events-none px-2.5 py-1.5 text-caption font-semibold rounded-[var(--radius-sm)] shadow-[var(--shadow-md)] bg-[var(--sidebar-background)] text-[var(--sidebar-active-foreground)] border border-[var(--sidebar-border)] whitespace-nowrap font-sans',
+              positionClasses[position],
+              className
+            )}
+          >
+            <span className="relative z-10">{content}</span>
+            <div className={cn('absolute w-0 h-0 border-4', arrowClasses[position])} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

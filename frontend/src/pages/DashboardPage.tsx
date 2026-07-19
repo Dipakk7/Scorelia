@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import {
@@ -43,6 +43,7 @@ import type { ResumeResponse } from '@/types/resume'
 import OnboardingWizard from '@/components/dashboard/OnboardingWizard'
 import CareerHealthScore from '@/components/dashboard/CareerHealthScore'
 import AIDailyBrief from '@/components/dashboard/AIDailyBrief'
+import { useScoreliaReducedMotion, getChartAnimationProps } from '@/lib/motion'
 
 interface DashboardStatsData {
   total_users: number
@@ -293,7 +294,7 @@ function PremiumChartCard({
 
 interface DashboardKPICardProps {
   title: string
-  value: string | number
+  value: React.ReactNode
   icon: React.ComponentType<{ size?: number; className?: string }>
   themeColor: 'primary' | 'success' | 'warning' | 'analytics' | 'github' | 'danger'
   statusBadge?: string
@@ -1015,6 +1016,13 @@ function AIIntelligenceCenter({
 export default function DashboardPage() {
   const { user, refreshUser } = useAuth()
   const [isCompletingOnboarding, setIsCompletingOnboarding] = useState(false)
+  const shouldReduceMotion = useScoreliaReducedMotion()
+  const [isInitialChart, setIsInitialChart] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsInitialChart(false), 500)
+    return () => clearTimeout(timer)
+  }, [])
 
   const handleCompleteOnboarding = async (role: string) => {
     setIsCompletingOnboarding(true)
@@ -1180,7 +1188,6 @@ export default function DashboardPage() {
 
   // AI Career Brief Dynamic Calculations & Fallbacks
   const atsScore = analytics?.average_ats_score ?? 0
-  const latestResumeScore = analytics?.latest_resume?.ats_score ?? atsScore
   const skillGaps = analytics?.skill_gap_count ?? 0
   const totalJobMatches = analytics?.total_job_matches ?? 0
   const interviewSessions = analytics?.interview_sessions ?? 0
@@ -1423,7 +1430,7 @@ export default function DashboardPage() {
         {/* KPI 1: Career Roadmap Progress */}
         <DashboardKPICard
           title="Career Progress"
-          value={`${analytics?.career_progress ?? 0}%`}
+          value={<CountUpText value={analytics?.career_progress ?? 0} suffix="%" />}
           icon={MapIcon}
           themeColor="analytics"
           statusBadge={
@@ -1441,7 +1448,7 @@ export default function DashboardPage() {
         {/* KPI 2: Skill Gaps */}
         <DashboardKPICard
           title="Skill Gaps"
-          value={analytics?.skill_gap_count ?? 0}
+          value={<CountUpText value={analytics?.skill_gap_count ?? 0} />}
           icon={Scan}
           themeColor="primary"
           statusBadge={
@@ -1461,7 +1468,7 @@ export default function DashboardPage() {
         {/* KPI 3: Cover Letters */}
         <DashboardKPICard
           title="Cover Letters"
-          value={analytics?.cover_letters_generated ?? 0}
+          value={<CountUpText value={analytics?.cover_letters_generated ?? 0} />}
           icon={Sparkles}
           themeColor="github"
           statusBadge={
@@ -1480,7 +1487,7 @@ export default function DashboardPage() {
         {/* KPI 4: Total Resumes */}
         <DashboardKPICard
           title="Workspace Credentials"
-          value={resumes.length}
+          value={<CountUpText value={resumes.length} />}
           icon={FileText}
           themeColor="success"
           statusBadge={
@@ -1542,9 +1549,9 @@ export default function DashboardPage() {
                     fill="url(#atsGradient)" 
                     name="ATS Progress" 
                     strokeWidth={2} 
-                    animationDuration={500}
                     dot={{ r: 3, stroke: 'var(--success)', strokeWidth: 1.5, fill: 'var(--surface)' }}
                     activeDot={{ r: 5, stroke: 'var(--success)', strokeWidth: 2, fill: 'var(--surface)' }}
+                    {...getChartAnimationProps(shouldReduceMotion, isInitialChart)}
                   />
                   <Line 
                     type="monotone" 
@@ -1552,9 +1559,9 @@ export default function DashboardPage() {
                     stroke="var(--primary)" 
                     name="Resume Score" 
                     strokeWidth={2} 
-                    animationDuration={700}
                     dot={{ r: 3, stroke: 'var(--primary)', strokeWidth: 1.5, fill: 'var(--surface)' }}
                     activeDot={{ r: 5, stroke: 'var(--primary)', strokeWidth: 2, fill: 'var(--surface)' }}
+                    {...getChartAnimationProps(shouldReduceMotion, isInitialChart)}
                   />
                 </ComposedChart>
               </ResponsiveContainer>

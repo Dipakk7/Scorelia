@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useScoreliaReducedMotion, getTooltipVariants } from '@/lib/motion'
 
 import {
   LayoutDashboard,
@@ -14,30 +15,10 @@ import {
   Bot,
   BarChart3,
 } from 'lucide-react'
+import { Github } from '@/components/ui/GithubIcon'
 import React, { useState } from 'react'
 import { cn } from '@/lib/utils'
 import { Logo } from '@/components/common/Logo'
-
-
-// Custom Github SVG Icon to bypass missing brand icons in this version of lucide-react
-const Github = (props: React.SVGProps<SVGSVGElement> & { size?: number }) => {
-  const { size = 20, ...rest } = props
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width={size}
-      height={size}
-      stroke="currentColor"
-      strokeWidth="2"
-      fill="none"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...rest}
-    >
-      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-    </svg>
-  )
-}
 
 interface SidebarProps {
   pinned: boolean
@@ -49,6 +30,7 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
   const [isHovered, setIsHovered] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const [hoveredItem, setHoveredItem] = useState<{ label: string; top: number; left: number } | null>(null)
+  const shouldReduceMotion = useScoreliaReducedMotion()
 
   const isHoverExpanded = isHovered || isFocused
   const expanded = pinned || isHoverExpanded
@@ -89,7 +71,7 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
   return (
     <aside
       className={cn(
-        'hidden md:block h-screen bg-sidebar-bg transition-[width] duration-200 ease-in-out relative z-30',
+        'hidden md:block h-screen bg-sidebar-bg/80 backdrop-blur-md transition-[width] duration-200 ease-in-out relative z-30',
         pinned ? 'w-[260px]' : 'w-[72px]',
         className
       )}
@@ -107,17 +89,17 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
           }
         }}
         className={cn(
-          'flex flex-col h-full bg-sidebar-bg text-sidebar-fg border-r border-sidebar-border transition-[width] duration-200 ease-in-out absolute top-0 left-0 z-30',
+          'flex flex-col h-full bg-sidebar-bg/80 backdrop-blur-md text-sidebar-fg border-r border-white/5 transition-[width] duration-200 ease-in-out absolute top-0 left-0 z-30',
           expanded ? 'w-[260px]' : 'w-[72px]',
           (!pinned && expanded) && 'shadow-md'
         )}
       >
-        <div className="h-16 flex items-center px-3 border-b border-sidebar-border">
+        <div className="h-16 flex items-center px-3 border-b border-white/5">
           <button
             onClick={() => setPinned(!pinned)}
             aria-expanded={expanded}
             className={cn(
-              "flex items-center cursor-pointer w-full transition-all duration-200 rounded-[var(--radius-button)] hover:bg-sidebar-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-focus-ring/50 focus:outline-none",
+              "flex items-center cursor-pointer w-full transition-all duration-200 rounded-[var(--radius-button)] hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-focus-ring/50 focus:outline-none",
               expanded ? "justify-start p-2 gap-3" : "justify-center p-2"
             )}
             aria-label={pinned ? 'Collapse sidebar' : 'Expand sidebar'}
@@ -141,8 +123,8 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
                     'flex items-center py-2.5 rounded-r-[var(--radius-button)] text-sm font-semibold font-sans transition-all duration-200 ease-in-out cursor-pointer group relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-focus-ring/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-sidebar-bg',
                     expanded ? 'justify-start' : 'justify-center',
                     isActive 
-                      ? 'pl-[9px] pr-3 text-brand' 
-                      : 'text-sidebar-muted-fg hover:bg-sidebar-hover hover:text-sidebar-active-fg px-3'
+                      ? 'pl-[9px] pr-3 text-white' 
+                      : 'text-sidebar-muted-fg hover:bg-white/5 hover:text-white px-3'
                   )
                 }
               >
@@ -150,21 +132,27 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
                   <>
                     {isActive && (
                       <motion.div
-                        layoutId="activeSidebarLink"
-                        className="absolute inset-0 bg-brand/10 border-l-[3px] border-brand rounded-r-[var(--radius-button)] shadow-[0_0_12px_rgba(83,112,154,0.15)] dark:shadow-[0_0_12px_rgba(127,167,224,0.25)]"
-                        transition={{ duration: 0.2 }}
+                        layoutId="activeSidebarIndicator"
+                        className="absolute inset-0 bg-white/5 border-l-[3px] border-[hsl(var(--primary))] rounded-r-[var(--radius-button)] shadow-[0_0_12px_rgba(83,112,154,0.15)] dark:shadow-[0_0_12px_rgba(127,167,224,0.25)]"
+                        transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2, ease: 'easeInOut' }}
                       />
                     )}
-                    <Icon size={20} className={cn("flex-shrink-0 transition-colors duration-200 relative z-10 stroke-[2]", isActive ? "text-brand" : "text-sidebar-muted-fg group-hover:text-sidebar-active-fg")} />
-                    <span
+                    <Icon size={20} className={cn("flex-shrink-0 transition-colors duration-200 relative z-10 stroke-[1.75]", isActive ? "text-[hsl(var(--primary))]" : "text-sidebar-muted-fg group-hover:text-white")} />
+                    <motion.span
+                      initial={false}
+                      animate={{
+                        width: expanded ? 'auto' : 0,
+                        opacity: expanded ? 1 : 0,
+                        marginLeft: expanded ? 14 : 0,
+                      }}
+                      transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2, ease: 'easeInOut' }}
                       className={cn(
-                        "whitespace-nowrap tracking-wide transition-all duration-200 ease-in-out overflow-hidden relative z-10",
-                        expanded ? "max-w-[200px] opacity-100 ml-3.5" : "max-w-0 opacity-0 ml-0",
-                        isActive ? "text-brand font-bold" : "text-sidebar-muted-fg group-hover:text-sidebar-active-fg"
+                        "whitespace-nowrap tracking-wide overflow-hidden relative z-10 block",
+                        isActive ? "text-white font-bold" : "text-sidebar-muted-fg group-hover:text-white"
                       )}
                     >
                       {item.label}
-                    </span>
+                    </motion.span>
                   </>
                 )}
               </NavLink>
@@ -173,17 +161,23 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
         </nav>
 
         {/* Tooltip */}
-        {!expanded && hoveredItem && (
-          <div
-            style={{ top: hoveredItem.top, left: hoveredItem.left }}
-            className="absolute -translate-y-1/2 z-50 pointer-events-none"
-          >
-            <div className="relative bg-sidebar-bg text-sidebar-active-fg text-xs font-semibold px-3 py-1.5 rounded-md border border-sidebar-border shadow-md whitespace-nowrap animate-fade-in flex items-center">
-              <div className="absolute -left-1 w-2 h-2 rotate-45 bg-sidebar-bg border-l border-b border-sidebar-border" />
-              <span className="relative z-10">{hoveredItem.label}</span>
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {!expanded && hoveredItem && (
+            <motion.div
+              style={{ top: hoveredItem.top, left: hoveredItem.left }}
+              variants={getTooltipVariants(shouldReduceMotion)}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="absolute -translate-y-1/2 z-50 pointer-events-none"
+            >
+              <div className="relative bg-sidebar-bg text-sidebar-active-fg text-xs font-semibold px-3 py-1.5 rounded-md border border-sidebar-border shadow-md whitespace-nowrap flex items-center">
+                <div className="absolute -left-1 w-2 h-2 rotate-45 bg-sidebar-bg border-l border-b border-sidebar-border" />
+                <span className="relative z-10">{hoveredItem.label}</span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </aside>
   )

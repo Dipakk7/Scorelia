@@ -1,45 +1,48 @@
 @import "@fontsource/inter/400.css";
 @import "@fontsource/inter/600.css";
 @import "@fontsource/inter/700.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/700.css";
 @import "tailwindcss";
 
 @theme {
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   /* Centralized Colors mapped to CSS Variables */
-  --color-background: var(--background);
-  --color-page: var(--background);
+  --color-background: hsl(var(--background));
+  --color-page: hsl(var(--background));
   --color-surface: var(--surface);
   --color-surface-hover: var(--surface-hover);
   --color-surface-elevated: var(--elevated);
   --color-surface-glass: var(--surface-glass);
-  --color-primary: var(--primary);
-  --color-primary-hover: var(--primary-hover);
-  --color-accent: var(--accent);
-  --color-accent-hover: var(--accent-hover);
-  --color-success: var(--accent-success);
-  --color-warning: var(--accent-warning);
-  --color-danger: var(--accent-danger);
-  --color-destructive: var(--accent-danger);
+  --color-primary: hsl(var(--primary));
+  --color-primary-hover: hsl(var(--primary));
+  --color-accent: hsl(var(--accent));
+  --color-accent-hover: hsl(var(--accent));
+  --color-success: hsl(var(--success));
+  --color-warning: hsl(var(--warning));
+  --color-danger: hsl(var(--destructive));
+  --color-destructive: hsl(var(--destructive));
   --color-heading: var(--heading);
   --color-body: var(--body);
   --color-secondary: var(--body);
   --color-muted: var(--divider);
-  --color-border: var(--border);
+  --color-border: hsl(var(--border));
   --color-divider: var(--divider);
-  --color-input: var(--border);
+  --color-input: hsl(var(--input));
   --color-foreground: var(--heading);
-  --color-muted-foreground: var(--muted);
-  --color-brand: var(--primary);
-  --color-brand-hover: var(--primary-hover);
-  --color-brand-pressed: var(--primary-hover);
-  --color-brand-focus-ring: var(--primary);
-  --color-on-brand: white;
-  --color-input-bg: var(--surface);
-  --color-input-border: var(--border);
-  --color-input-placeholder: var(--muted);
-  --color-input-border-focus: var(--primary);
+  --color-muted-foreground: var(--muted-color);
+  --color-brand: hsl(var(--primary));
+  --color-brand-hover: hsl(var(--primary));
+  --color-brand-pressed: hsl(var(--primary));
+  --color-brand-focus-ring: hsl(var(--primary));
+  --color-on-brand: hsl(var(--primary-foreground));
+  --color-input-bg: hsl(var(--input));
+  --color-input-border: hsl(var(--border));
+  --color-input-placeholder: var(--muted-color);
+  --color-input-border-focus: hsl(var(--primary));
 
   --color-analytics: var(--analytics);
   --color-github: var(--github);
@@ -48,13 +51,13 @@
   --color-indigo-hover: var(--indigo-hover);
   --color-accent-purple: var(--accent-purple);
   --color-accent-purple-hover: var(--accent-purple);
-  --color-accent-blue: var(--primary);
-  --color-accent-blue-hover: var(--primary-hover);
-  --color-accent-emerald: var(--accent-success);
-  --color-accent-emerald-hover: var(--accent-success);
-  --color-accent-success: var(--accent-success);
-  --color-accent-warning: var(--accent-warning);
-  --color-accent-danger: var(--accent-danger);
+  --color-accent-blue: hsl(var(--primary));
+  --color-accent-blue-hover: hsl(var(--primary));
+  --color-accent-emerald: hsl(var(--success));
+  --color-accent-emerald-hover: hsl(var(--success));
+  --color-accent-success: hsl(var(--success));
+  --color-accent-warning: hsl(var(--warning));
+  --color-accent-danger: hsl(var(--destructive));
   --color-accent-info: var(--accent-info);
   --color-blob-1: var(--blob-1);
   --color-blob-2: var(--blob-2);
@@ -62,24 +65,24 @@
   --background-image-gradient-primary: var(--gradient-primary);
 
   /* Legacy brand colors compatibility mappings so they inherit from the tokens */
-  --color-brand-50: var(--background);
+  --color-brand-50: hsl(var(--background));
   --color-brand-100: var(--divider);
   --color-brand-200: var(--border);
-  --color-brand-300: var(--muted);
-  --color-brand-400: var(--primary-hover);
-  --color-brand-500: var(--primary);
-  --color-brand-600: var(--primary-hover);
-  --color-brand-700: var(--primary-hover);
-  --color-brand-800: var(--primary-hover);
-  --color-brand-900: var(--primary-hover);
-  --color-brand-950: var(--primary-hover);
+  --color-brand-300: var(--muted-color);
+  --color-brand-400: hsl(var(--primary));
+  --color-brand-500: hsl(var(--primary));
+  --color-brand-600: hsl(var(--primary));
+  --color-brand-700: hsl(var(--primary));
+  --color-brand-800: hsl(var(--primary));
+  --color-brand-900: hsl(var(--primary));
+  --color-brand-950: hsl(var(--primary));
 
   /* Compatibility slate mappings for existing classes */
-  --color-slate-50: var(--background);
+  --color-slate-50: hsl(var(--background));
   --color-slate-100: var(--divider);
   --color-slate-200: var(--border);
-  --color-slate-300: var(--muted);
-  --color-slate-400: var(--muted);
+  --color-slate-300: var(--muted-color);
+  --color-slate-400: var(--muted-color);
   --color-slate-500: var(--body);
   --color-slate-600: var(--body);
   --color-slate-700: var(--body);
@@ -88,14 +91,14 @@
   --color-slate-950: var(--heading);
 
   /* Compatibility slate helper mappings (used in the codebase) */
-  --color-slate-55: var(--background);
+  --color-slate-55: hsl(var(--background));
   --color-slate-65: var(--divider);
   --color-slate-75: var(--border);
-  --color-slate-85: var(--muted);
+  --color-slate-85: var(--muted-color);
   --color-slate-105: var(--divider);
   --color-slate-205: var(--border);
   --color-slate-250: var(--border);
-  --color-slate-355: var(--muted);
+  --color-slate-355: var(--muted-color);
   --color-slate-405: var(--body);
   --color-slate-455: var(--body);
   --color-slate-550: var(--body);
@@ -106,19 +109,19 @@
   --color-slate-905: var(--heading);
 
   /* Compatibility rose, emerald, amber mappings */
-  --color-rose-250: var(--accent-danger);
-  --color-rose-505: var(--accent-danger);
-  --color-rose-650: var(--accent-danger);
-  --color-rose-655: var(--accent-danger);
-  --color-rose-955: var(--accent-danger);
-  --color-emerald-250: var(--accent-success);
-  --color-emerald-450: var(--accent-success);
-  --color-emerald-505: var(--accent-success);
-  --color-amber-250: var(--accent-warning);
-  --color-amber-450: var(--accent-warning);
-  --color-amber-455: var(--accent-warning);
-  --color-amber-605: var(--accent-warning);
-  --color-amber-650: var(--accent-warning);
+  --color-rose-250: hsl(var(--destructive));
+  --color-rose-505: hsl(var(--destructive));
+  --color-rose-650: hsl(var(--destructive));
+  --color-rose-655: hsl(var(--destructive));
+  --color-rose-955: hsl(var(--destructive));
+  --color-emerald-250: hsl(var(--success));
+  --color-emerald-450: hsl(var(--success));
+  --color-emerald-505: hsl(var(--success));
+  --color-amber-250: hsl(var(--warning));
+  --color-amber-450: hsl(var(--warning));
+  --color-amber-455: hsl(var(--warning));
+  --color-amber-605: hsl(var(--warning));
+  --color-amber-650: hsl(var(--warning));
 
   /* Spacing Tokens */
   --spacing-spacing-xs: var(--spacing-xs);
@@ -219,37 +222,61 @@
   -moz-osx-font-smoothing: grayscale;
 
   /* Global Design System variables - Light Mode */
-  --background: #FAFAF8;
-  --surface: #F3F2EF;
-  --surface-hover: #EBEAE6;
-  --elevated: #F3F2EF;
+  --background: 240 20% 98%;
+  --foreground: 240 25% 8%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 25% 8%;
+  --popover: 240 20% 98%;
+  --popover-foreground: 240 25% 8%;
+  --primary: 250 95% 64%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 180 85% 55%;
+  --secondary-foreground: 240 25% 4%;
+  --muted: 240 5% 96%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --success: 142 70% 45%;
+  --warning: 38 92% 50%;
+  --destructive: 350 80% 55%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 250 95% 64%;
+
+  /* Direct CSS Variable mappings */
+  --surface: hsl(var(--card));
+  --surface-hover: hsl(var(--accent));
+  --elevated: hsl(var(--card));
   --surface-glass: rgba(255, 255, 255, 0.6);
-  --primary: #53709A;
-  --primary-hover: #5D82B8;
-  --accent: #E09163;
-  --accent-hover: #D68150;
-  --accent-success: #059669;
-  --accent-warning: #D97706;
-  --accent-danger: #E11D48;
+  --heading: hsl(var(--foreground));
+  --body: hsl(var(--muted-foreground));
+  --muted-color: hsl(var(--muted-foreground));
+  --border-color: hsl(var(--border));
+  --divider: hsl(var(--border));
+
+  --accent-success: hsl(var(--success));
+  --accent-warning: hsl(var(--warning));
+  --accent-danger: hsl(var(--destructive));
   --accent-info: #0284C7;
   --accent-purple: #7C3AED;
   --blob-1: #6366F1;
   --blob-2: #EC4899;
   --blob-3: #14B8A6;
-  --gradient-primary: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #DB2777 100%);
+  --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, #7C3AED 50%, #DB2777 100%);
   --success: var(--accent-success);
   --warning: var(--accent-warning);
   --danger: var(--accent-danger);
-  --heading: #0F0F14;
-  --body: #52525B;
-  --muted: #6E6E76;
-  --border: rgba(15,15,20,0.08);
-  --divider: #EEF1F4;
+
+  --analytics: hsl(var(--primary));
+  --github: hsl(var(--secondary));
+  --career: hsl(var(--success));
+  --indigo: hsl(var(--primary));
+  --indigo-hover: hsl(var(--primary));
 
   /* Legacy variable mappings */
   --dark-bg: var(--background);
   --dark-card: var(--surface);
-  --dark-border: var(--border);
+  --dark-border: var(--border-color);
   --body-text: var(--body);
 
   /* Shadows - soft elevation, no harsh shadows */
@@ -349,46 +376,70 @@
   --z-index-tooltip: 1060;
 
   /* Custom Color Tokens for Category Progress Bars & Badges */
-  --analytics: #AA3BFF;
-  --github: #00D2FF;
-  --career: #10B981;
-  --indigo: #5F63F2;
-  --indigo-hover: #4B4EBF;
+  --analytics: hsl(var(--primary));
+  --github: hsl(var(--secondary));
+  --career: hsl(var(--success));
+  --indigo: hsl(var(--primary));
+  --indigo-hover: hsl(var(--primary));
 }
 
 .dark {
   /* Global Design System variables - Dark Mode */
-  --background: #0A0A0F;
-  --surface: #13131A;
-  --surface-hover: #1A1A22;
-  --elevated: #1C1C26;
+  --background: 240 25% 4%;
+  --foreground: 210 40% 98%;
+  --card: 240 20% 8%;
+  --card-foreground: 210 40% 98%;
+  --popover: 240 20% 6%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 250 95% 64%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 180 85% 55%;
+  --secondary-foreground: 240 25% 4%;
+  --muted: 240 10% 16%;
+  --muted-foreground: 215 15% 65%;
+  --accent: 250 95% 15%;
+  --accent-foreground: 210 40% 98%;
+  --success: 142 70% 45%;
+  --warning: 38 92% 50%;
+  --destructive: 350 80% 55%;
+  --border: 240 10% 16%;
+  --input: 240 10% 18%;
+  --ring: 250 95% 64%;
+
+  /* Direct CSS Variable mappings */
+  --surface: hsl(var(--card));
+  --surface-hover: hsl(var(--muted));
+  --elevated: hsl(var(--popover));
   --surface-glass: rgba(255, 255, 255, 0.06);
-  --primary: #7FA7E0;
-  --primary-hover: #91B3E8;
-  --accent: #F0A173;
-  --accent-hover: #F4B38A;
-  --accent-success: #34D399;
-  --accent-warning: #FBBF24;
-  --accent-danger: #FB7185;
+  --heading: hsl(var(--foreground));
+  --body: hsl(var(--muted-foreground));
+  --muted-color: hsl(var(--muted-foreground));
+  --border-color: hsl(var(--border));
+  --divider: hsl(var(--border));
+
+  --accent-success: hsl(var(--success));
+  --accent-warning: hsl(var(--warning));
+  --accent-danger: hsl(var(--destructive));
   --accent-info: #38BDF8;
   --accent-purple: #8B5CF6;
   --blob-1: #6366F1;
   --blob-2: #EC4899;
   --blob-3: #14B8A6;
-  --gradient-primary: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+  --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, #8B5CF6 50%, #EC4899 100%);
   --success: var(--accent-success);
   --warning: var(--accent-warning);
   --danger: var(--accent-danger);
-  --heading: #F5F5F7;
-  --body: #A1A1AA;
-  --muted: #80808E;
-  --border: rgba(255,255,255,0.08);
-  --divider: #2B323B;
+
+  --analytics: hsl(var(--primary));
+  --github: hsl(var(--secondary));
+  --career: hsl(var(--success));
+  --indigo: hsl(var(--primary));
+  --indigo-hover: hsl(var(--primary));
 
   /* Legacy variable mappings */
   --dark-bg: var(--background);
   --dark-card: var(--surface);
-  --dark-border: var(--border);
+  --dark-border: var(--border-color);
   --body-text: var(--body);
 
   /* Shadows - soft elevated */
@@ -396,13 +447,6 @@
   --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.3), 0 2px 6px -1px rgba(0, 0, 0, 0.2);
   --shadow-lg: 0 8px 24px -4px rgba(0, 0, 0, 0.4), 0 4px 10px -2px rgba(0, 0, 0, 0.2);
   --shadow-xl: 0 12px 36px -6px rgba(0, 0, 0, 0.5), 0 6px 16px -4px rgba(0, 0, 0, 0.3);
-
-  /* Dark mode specific colors for category progress bars & badges */
-  --analytics: #C084FC;
-  --github: #22D3EE;
-  --career: #34D399;
-  --indigo: #818CF8;
-  --indigo-hover: #A5B4FC;
 }
 
 body {
@@ -902,6 +946,16 @@ html {
   .btn-active:active {
     transform: none !important;
   }
+}
+
+/* Global stroke-width and font-mono overrides */
+.font-mono {
+  font-family: var(--font-mono) !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+svg.lucide {
+  stroke-width: 1.75px !important;
 }
 
 

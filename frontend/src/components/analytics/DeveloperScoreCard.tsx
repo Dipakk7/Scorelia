@@ -2,6 +2,7 @@ import { RadarAnalytics } from '@/components/analytics/RadarAnalytics'
 import { Card } from '@/components/ui/Card'
 import { Award, Zap, Code, ShieldCheck, HelpCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { ScoreRing } from '@/components/ui/ScoreRing'
 
 interface ScoreBreakdown {
   code_quality_score: number
@@ -50,48 +51,14 @@ export function DeveloperScoreCard({ score, breakdown }: DeveloperScoreCardProps
         </div>
 
         {/* Circular Gauge Ring */}
-        <div className="flex flex-col items-center justify-center my-6 relative select-none">
-          <svg className="w-36 h-36 transform -rotate-90">
-            {/* Background circle */}
-            <circle
-              cx="72"
-              cy="72"
-              r="62"
-              stroke="currentColor"
-              strokeWidth="8"
-              className="text-slate-100 dark:text-slate-800/40"
-              fill="transparent"
-            />
-            {/* Foreground circle */}
-            <circle
-              cx="72"
-              cy="72"
-              r="62"
-              stroke="url(#scoreGrad)"
-              strokeWidth="8"
-              strokeDasharray={2 * Math.PI * 62}
-              strokeDashoffset={2 * Math.PI * 62 * (1 - score / 100)}
-              strokeLinecap="round"
-              fill="transparent"
-              className="transition-all duration-1000 ease-out"
-            />
-            <defs>
-              <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#0F9D9A" />
-                <stop offset="50%" stopColor="#00D2FF" />
-                <stop offset="100%" stopColor="#10b981" />
-              </linearGradient>
-            </defs>
-          </svg>
-          <div className="absolute flex flex-col items-center justify-center text-center leading-none">
-            <span className="text-4xl font-black font-display tracking-tighter bg-gradient-to-r from-brand-500 via-cyan-500 to-emerald-500 bg-clip-text text-transparent leading-none block">
-              {score}
-            </span>
-            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-1 block">
-              / 100
-            </span>
-          </div>
-        </div>
+        <ScoreRing
+          value={score}
+          size={144}
+          strokeWidth={8}
+          color={score >= 90 ? '--success' : score >= 75 ? '--primary' : score >= 50 ? '--warning' : '--destructive'}
+          subLabel="/ 100"
+          className="my-2"
+        />
 
         {/* Rank badge */}
         <div className={cn('mt-2 py-2.5 px-4 rounded-xl border text-center text-[10px] font-black uppercase tracking-wider leading-none select-none', rank.color)}>

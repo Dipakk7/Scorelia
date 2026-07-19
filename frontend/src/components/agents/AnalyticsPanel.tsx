@@ -12,12 +12,13 @@ import {
   Pie,
   Cell
 } from 'recharts'
+import { useScoreliaReducedMotion, getChartAnimationProps } from '@/lib/motion'
 import {
-  Wrench,
   Activity,
   RotateCcw,
   Sparkles
 } from 'lucide-react'
+
 import {
   useSystemAnalytics,
   useAgentsAnalytics,
@@ -57,6 +58,13 @@ const CompactChartPanel: React.FC<{ title: string; description?: string; childre
 
 export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({ className }) => {
   const [activeTab, setActiveTab] = useState<'system' | 'agents' | 'tools'>('system')
+  const shouldReduceMotion = useScoreliaReducedMotion()
+  const [isInitial, setIsInitial] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsInitial(false), 500)
+    return () => clearTimeout(timer)
+  }, [])
 
   const themeColors = {
     primary: 'var(--primary)',
@@ -225,6 +233,7 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({ className }) => 
                       outerRadius={45}
                       paddingAngle={3}
                       dataKey="value"
+                      {...getChartAnimationProps(shouldReduceMotion, isInitial)}
                     >
                       {successRateData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
@@ -286,7 +295,7 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({ className }) => 
                       <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={8} tickLine={false} tick={{ fill: themeColors.mutedText }} />
                       <YAxis stroke={themeColors.mutedText} fontSize={8} tickLine={false} tick={{ fill: themeColors.mutedText }} />
                       <Tooltip content={<CustomTooltip />} />
-                      <Bar dataKey="executions" fill={themeColors.primary} name="Executions" radius={[3, 3, 0, 0]} maxBarSize={20} />
+                      <Bar dataKey="executions" fill={themeColors.primary} name="Executions" radius={[3, 3, 0, 0]} maxBarSize={20} {...getChartAnimationProps(shouldReduceMotion, isInitial)} />
                     </BarChart>
                   </ResponsiveContainer>
                 ) : (
@@ -304,7 +313,7 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({ className }) => 
                       <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={8} tickLine={false} tick={{ fill: themeColors.mutedText }} />
                       <YAxis stroke={themeColors.mutedText} fontSize={8} tickLine={false} unit="ms" tick={{ fill: themeColors.mutedText }} />
                       <Tooltip content={<CustomTooltip />} />
-                      <Bar dataKey="latency" fill={themeColors.primary} name="Latency" radius={[3, 3, 0, 0]} maxBarSize={20} unit="ms" />
+                      <Bar dataKey="latency" fill={themeColors.primary} name="Latency" radius={[3, 3, 0, 0]} maxBarSize={20} unit="ms" {...getChartAnimationProps(shouldReduceMotion, isInitial)} />
                     </BarChart>
                   </ResponsiveContainer>
                 ) : (
@@ -326,7 +335,7 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({ className }) => 
                       <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={8} tickLine={false} tick={{ fill: themeColors.mutedText }} />
                       <YAxis stroke={themeColors.mutedText} fontSize={8} tickLine={false} tick={{ fill: themeColors.mutedText }} />
                       <Tooltip content={<CustomTooltip />} />
-                      <Bar dataKey="executions" fill={themeColors.primary} name="Invocations" radius={[3, 3, 0, 0]} maxBarSize={20} />
+                      <Bar dataKey="executions" fill={themeColors.primary} name="Invocations" radius={[3, 3, 0, 0]} maxBarSize={20} {...getChartAnimationProps(shouldReduceMotion, isInitial)} />
                     </BarChart>
                   </ResponsiveContainer>
                 ) : (
@@ -346,6 +355,7 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({ className }) => 
                         cy="50%"
                         outerRadius={40}
                         dataKey="executions"
+                        {...getChartAnimationProps(shouldReduceMotion, isInitial)}
                       >
                         {toolChartData.map((_, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />

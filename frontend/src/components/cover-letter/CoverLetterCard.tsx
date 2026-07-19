@@ -3,7 +3,6 @@ import type { CoverLetterResponse } from '@/types/cover-letter'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
-import { cn } from '@/lib/utils'
 
 interface CoverLetterCardProps {
   coverLetter: CoverLetterResponse

@@ -155,7 +155,7 @@ export function StatisticCard({
               {title}
             </p>
             <div className="flex items-center gap-2 flex-wrap mt-1">
-              <h3 className="text-3xl md:text-3.5xl font-black font-display text-[var(--heading)] tracking-tight leading-none">
+              <h3 className="text-3xl md:text-3.5xl font-black font-mono text-[var(--heading)] tracking-tight leading-none">
                 {animate && !isNaN(numericValue) ? (
                   <CountUpText value={numericValue} suffix={metricType === 'percentage' ? '%' : ''} />
                 ) : (

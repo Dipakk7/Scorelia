@@ -147,7 +147,19 @@ export function useGithubInsights(username: string) {
     queryKey: ['githubInsights', username],
     queryFn: async () => {
       const res = await api.get(`/analytics/github/${username}/insights`)
-      return res.data?.data || res.data
+      const data = res.data?.data || res.data
+      if (data && data.developer_score && data.developer_score.breakdown) {
+        const bd = data.developer_score.breakdown
+        data.developer_score.breakdown = {
+          ...bd,
+          complexity_score: bd.language_diversity ?? bd.complexity_score ?? 0,
+          code_quality_score: bd.activity ?? bd.code_quality_score ?? 0,
+          testing_score: bd.consistency ?? bd.testing_score ?? 0,
+          documentation_score: bd.documentation ?? bd.documentation_score ?? 0,
+          security_score: bd.community_engagement ?? bd.security_score ?? 0
+        }
+      }
+      return data
     },
     enabled: !!username && username.trim().length > 0,
     retry: 1,

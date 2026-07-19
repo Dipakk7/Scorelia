@@ -310,6 +310,11 @@ export interface GitHubDeveloperScoreBreakdown {
   testing_score: number
   complexity_score: number
   security_score: number
+  language_diversity?: number
+  activity?: number
+  community_engagement?: number
+  consistency?: number
+  documentation?: number
 }
 
 export interface GitHubDeveloperScore {

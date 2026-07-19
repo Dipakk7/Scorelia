@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
-import ATSGauge from './ATSGauge'
+import { ScoreRing } from '@/components/ui/ScoreRing'
 import {
   ResponsiveContainer,
   RadarChart,
@@ -10,9 +10,9 @@ import {
   Radar,
   Tooltip,
 } from 'recharts'
-import { cn } from '@/lib/utils'
-import { useTheme } from '@/providers/ThemeProvider'
 import { useState, useEffect } from 'react'
+import { useScoreliaReducedMotion, getChartAnimationProps } from '@/lib/motion'
+
 
 interface MatchBreakdown {
   skills: number
@@ -48,6 +48,14 @@ interface JobMatchCardProps {
 }
 
 export function JobMatchCard({ matchData }: JobMatchCardProps) {
+  const [isInitial, setIsInitial] = useState(true)
+  const shouldReduceMotion = useScoreliaReducedMotion()
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsInitial(false), 500)
+    return () => clearTimeout(timer)
+  }, [])
+
   const {
     match_score,
     grade,
@@ -57,21 +65,7 @@ export function JobMatchCard({ matchData }: JobMatchCardProps) {
     extra_skills = [],
   } = matchData
 
-  const { theme } = useTheme()
-  const [isDark, setIsDark] = useState(false)
 
-  useEffect(() => {
-    const checkDark = () => {
-      setIsDark(document.documentElement.classList.contains('dark'))
-    }
-    checkDark()
-    const observer = new MutationObserver(checkDark)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    })
-    return () => observer.disconnect()
-  }, [])
 
   const themeColors = {
     primary: 'var(--primary)',      // Resume Score -> Blue
@@ -120,7 +114,13 @@ export function JobMatchCard({ matchData }: JobMatchCardProps) {
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 items-center bg-transparent">
           <div className="flex flex-col items-center bg-transparent">
-            <ATSGauge score={match_score} label="Match Score" grade={grade} size={180} />
+            <ScoreRing
+              value={match_score}
+              size={180}
+              label="Match Score"
+              subLabel={grade ? `Grade: ${grade}` : undefined}
+              color={match_score >= 80 ? '--success' : match_score >= 60 ? '--warning' : '--destructive'}
+            />
             <div className="mt-2.5 text-center">
               <span className="text-[10px] text-[var(--muted)] font-bold uppercase tracking-wider block">
                 Semantic Similarity:
@@ -149,7 +149,8 @@ export function JobMatchCard({ matchData }: JobMatchCardProps) {
                   dataKey="value"
                   stroke={themeColors.primary}
                   fill={themeColors.primary}
-                  fillOpacity={0.25}
+                  fillOpacity={0.15}
+                  {...getChartAnimationProps(shouldReduceMotion, isInitial)}
                 />
                 <Tooltip content={<CustomTooltip />} />
               </RadarChart>

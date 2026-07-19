@@ -1,5 +1,6 @@
 import type { ParsedResumeData } from '@/types/resume'
 import { Badge } from '@/components/ui/Badge'
+import { ScoreRing } from '@/components/ui/ScoreRing'
 import {
   FileText,
   AlertTriangle,
@@ -115,35 +116,14 @@ export default function ResumeMetadata({ parsedData, fileSize }: ResumeMetadataP
           </div>
 
           <div className="py-4 flex items-center gap-6">
-            <div className="relative h-20 w-20 flex items-center justify-center">
-              <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                <path
-                  className="text-slate-100 dark:text-slate-800"
-                  strokeWidth="3.5"
-                  stroke="currentColor"
-                  fill="none"
-                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                />
-                <path
-                  className={
-                    averageConfidence >= 80
-                      ? 'text-emerald-500'
-                      : averageConfidence >= 60
-                      ? 'text-amber-500'
-                      : 'text-red-500'
-                  }
-                  strokeDasharray={`${averageConfidence}, 100`}
-                  strokeWidth="3.5"
-                  strokeLinecap="round"
-                  stroke="currentColor"
-                  fill="none"
-                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                />
-              </svg>
-              <div className="absolute text-lg font-bold font-display text-slate-800 dark:text-white">
-                {averageConfidence}%
-              </div>
-            </div>
+            <ScoreRing
+              value={averageConfidence}
+              size={80}
+              strokeWidth={4}
+              color={averageConfidence >= 80 ? '--success' : averageConfidence >= 60 ? '--warning' : '--destructive'}
+              subLabel="%"
+              className="p-0 shrink-0"
+            />
 
             <div className="flex-1 text-left space-y-1">
               <p className="text-xs font-semibold text-slate-700 dark:text-slate-350">

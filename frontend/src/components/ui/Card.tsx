@@ -1,5 +1,7 @@
 import React from 'react'
 import { cn } from '@/lib/utils'
+import { motion } from 'framer-motion'
+import { useScoreliaReducedMotion, getCardVariants } from '@/lib/motion'
 
 /**
  * Elevated
@@ -26,22 +28,44 @@ import { cn } from '@/lib/utils'
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'elevated' | 'glass'
   hoverLift?: boolean
+  motion?: boolean
 }
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant = 'elevated', hoverLift = false, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn(
-        'rounded-[var(--radius-card)] border text-[var(--body)] transition-all duration-300 ease-in-out',
-        variant === 'elevated' && 'border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-sm)]',
-        variant === 'glass' && 'border-[var(--border)] bg-[var(--surface-glass)] backdrop-blur-glass shadow-[var(--shadow-md)]',
-        (hoverLift || className?.includes('cursor-pointer') || className?.includes('hover:border-[var(--primary)]/40')) && 'hover-lift',
-        className
-      )}
-      {...props}
-    />
-  )
+  ({ className, variant = 'elevated', hoverLift = false, motion: isMotion = false, ...props }, ref) => {
+    const shouldReduceMotion = useScoreliaReducedMotion()
+    const cardVariants = getCardVariants(shouldReduceMotion)
+
+    const resolvedClasses = cn(
+      'rounded-[var(--radius-card)] border text-[var(--body)] transition-all duration-300 ease-in-out',
+      variant === 'elevated' && 'border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-sm)]',
+      variant === 'glass' && 'border-[var(--border)] bg-[var(--surface-glass)] backdrop-blur-glass shadow-[var(--shadow-md)]',
+      (!isMotion && (hoverLift || className?.includes('cursor-pointer') || className?.includes('hover:border-[var(--primary)]/40'))) && 'hover-lift',
+      className
+    )
+
+    if (isMotion && !shouldReduceMotion) {
+      return (
+        <motion.div
+          ref={ref as any}
+          className={resolvedClasses}
+          variants={cardVariants}
+          initial="initial"
+          whileHover="hover"
+          whileTap="tap"
+          {...(props as any)}
+        />
+      )
+    }
+
+    return (
+      <div
+        ref={ref}
+        className={resolvedClasses}
+        {...props}
+      />
+    )
+  }
 )
 Card.displayName = 'Card'
 

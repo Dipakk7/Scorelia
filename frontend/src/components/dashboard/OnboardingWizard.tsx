@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Sparkles, FileText, CheckCircle2, ChevronRight, Compass } from 'lucide-react'
+import { Sparkles, CheckCircle2, ChevronRight, Compass } from 'lucide-react'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'

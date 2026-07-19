@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useScoreliaReducedMotion, getChartAnimationProps } from '@/lib/motion'
 import {
   TrendingUp,
   Activity,
@@ -28,7 +29,6 @@ import {
   Legend,
 } from 'recharts'
 import { cn } from '@/lib/utils'
-import { useTheme } from '@/providers/ThemeProvider'
 
 interface InterviewAnalyticsChartProps {
   scoreTrend?: { date: string; score: number }[]
@@ -46,21 +46,12 @@ export default function InterviewAnalyticsChart({
   weeklyActivity = {},
 }: InterviewAnalyticsChartProps) {
   const [activeTab, setActiveTab] = useState<ChartTab>('scores')
-
-  const { theme } = useTheme()
-  const [isDark, setIsDark] = useState(false)
+  const shouldReduceMotion = useScoreliaReducedMotion()
+  const [isInitial, setIsInitial] = useState(true)
 
   useEffect(() => {
-    const checkDark = () => {
-      setIsDark(document.documentElement.classList.contains('dark'))
-    }
-    checkDark()
-    const observer = new MutationObserver(checkDark)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    })
-    return () => observer.disconnect()
+    const timer = setTimeout(() => setIsInitial(false), 500)
+    return () => clearTimeout(timer)
   }, [])
 
   const themeColors = {
@@ -183,7 +174,7 @@ export default function InterviewAnalyticsChart({
                       <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={9} tickLine={false} axisLine={false} tick={{ fill: themeColors.mutedText }} />
                       <YAxis stroke={themeColors.mutedText} fontSize={9} tickLine={false} axisLine={false} domain={[0, 100]} tick={{ fill: themeColors.mutedText }} />
                       <Tooltip content={<CustomTooltip />} />
-                      <Area type="monotone" dataKey="Score" stroke={themeColors.primary} strokeWidth={2} fillOpacity={1} fill="url(#scoreColor)" />
+                      <Area type="monotone" dataKey="Score" stroke={themeColors.primary} strokeWidth={2} fillOpacity={1} fill="url(#scoreColor)" {...getChartAnimationProps(shouldReduceMotion, isInitial)} />
                     </AreaChart>
                   </ResponsiveContainer>
                 ) : (
@@ -212,8 +203,8 @@ export default function InterviewAnalyticsChart({
                       <YAxis stroke={themeColors.mutedText} fontSize={9} tickLine={false} axisLine={false} domain={[0, 100]} tick={{ fill: themeColors.mutedText }} />
                       <Tooltip content={<CustomTooltip />} />
                       <Legend wrapperStyle={{ fontSize: '9px', marginTop: '5px', fill: themeColors.mutedText }} />
-                      <Line type="monotone" dataKey="Technical" stroke={themeColors.primary} strokeWidth={2} activeDot={{ r: 4 }} />
-                      <Line type="monotone" dataKey="Communication" stroke={themeColors.success} strokeWidth={2} activeDot={{ r: 4 }} />
+                      <Line type="monotone" dataKey="Technical" stroke={themeColors.primary} strokeWidth={2} activeDot={{ r: 4 }} {...getChartAnimationProps(shouldReduceMotion, isInitial)} />
+                      <Line type="monotone" dataKey="Communication" stroke={themeColors.success} strokeWidth={2} activeDot={{ r: 4 }} {...getChartAnimationProps(shouldReduceMotion, isInitial)} />
                     </LineChart>
                   </ResponsiveContainer>
                 ) : (
@@ -243,7 +234,7 @@ export default function InterviewAnalyticsChart({
                     <PolarGrid stroke={themeColors.grid} />
                     <PolarAngleAxis dataKey="subject" tick={{ fill: themeColors.mutedText, fontSize: 10, fontWeight: 'bold' }} />
                     <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fill: themeColors.mutedText, fontSize: 8 }} />
-                    <Radar name="Candidate" dataKey="A" stroke={themeColors.primary} fill={themeColors.primary} fillOpacity={0.2} />
+                    <Radar name="Candidate" dataKey="A" stroke={themeColors.primary} fill={themeColors.primary} fillOpacity={0.2} {...getChartAnimationProps(shouldReduceMotion, isInitial)} />
                     <Tooltip content={<CustomTooltip />} />
                   </RadarChart>
                 </ResponsiveContainer>
@@ -302,7 +293,7 @@ export default function InterviewAnalyticsChart({
                     <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={9} tickLine={false} axisLine={false} tick={{ fill: themeColors.mutedText }} />
                     <YAxis stroke={themeColors.mutedText} fontSize={9} tickLine={false} axisLine={false} allowDecimals={false} tick={{ fill: themeColors.mutedText }} />
                     <Tooltip content={<ActivityTooltip />} />
-                    <Bar dataKey="Sessions" fill="url(#drillBarColor)" radius={[4, 4, 0, 0]} maxBarSize={30} />
+                    <Bar dataKey="Sessions" fill="url(#drillBarColor)" radius={[4, 4, 0, 0]} maxBarSize={30} {...getChartAnimationProps(shouldReduceMotion, isInitial)} />
                   </BarChart>
                 </ResponsiveContainer>
               </CardContent>

@@ -4,7 +4,6 @@ import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import type { InterviewTurnResponse } from '@/types/interview'
-import { cn } from '@/lib/utils'
 
 interface InterviewQuestionCardProps {
   turn: InterviewTurnResponse

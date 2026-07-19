@@ -2,7 +2,6 @@ import { useMemo } from 'react'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { Briefcase, Building, MapPin, DollarSign, Calendar, Gift, Settings } from 'lucide-react'
-import { cn } from '@/lib/utils'
 
 interface JobDescriptionData {
   title: string | null

@@ -3,7 +3,6 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { ProgressTracker } from './ProgressTracker'
 import { CheckSquare, Square, Book, PlayCircle, Award, Terminal, Calendar, Layers } from 'lucide-react'
 import type { AILearningPlanResponse } from '@/types/roadmap'
-import { cn } from '@/lib/utils'
 
 interface LearningPlanCardProps {
   learningPlan: AILearningPlanResponse | null

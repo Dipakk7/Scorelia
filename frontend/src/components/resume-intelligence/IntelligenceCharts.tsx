@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useScoreliaReducedMotion, getChartAnimationProps } from '@/lib/motion'
 import {
   TrendingUp,
   Activity,
@@ -30,7 +31,6 @@ import type {
 } from '@/types/resume-intelligence'
 import { ChartEmptyState } from '@/components/ui/ChartEmptyState'
 import { cn } from '@/lib/utils'
-import { useTheme } from '@/providers/ThemeProvider'
 
 interface IntelligenceChartsProps {
   reviews?: ResumeReviewResponse[]
@@ -48,22 +48,16 @@ export function IntelligenceCharts({
   isAnalyzing = false,
 }: IntelligenceChartsProps) {
   const [activeTab, setActiveTab] = useState<'trends' | 'dimensions'>('trends')
+  const shouldReduceMotion = useScoreliaReducedMotion()
+  const [isInitial, setIsInitial] = useState(true)
 
-  const { theme } = useTheme()
-  const [isDark, setIsDark] = useState(false)
+  const _unusedAnalyzing = isAnalyzing // suppress unused var check while keeping API contract
 
   useEffect(() => {
-    const checkDark = () => {
-      setIsDark(document.documentElement.classList.contains('dark'))
-    }
-    checkDark()
-    const observer = new MutationObserver(checkDark)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    })
-    return () => observer.disconnect()
+    const timer = setTimeout(() => setIsInitial(false), 500)
+    return () => clearTimeout(timer)
   }, [])
+
 
   const themeColors = {
     primary: 'var(--primary)',      // Resume Score -> Blue
@@ -201,6 +195,7 @@ export function IntelligenceCharts({
                         strokeWidth={2}
                         fillOpacity={1}
                         fill="url(#scoreTimelineGradient)"
+                        {...getChartAnimationProps(shouldReduceMotion, isInitial)}
                       />
                     </AreaChart>
                   </ResponsiveContainer>
@@ -240,7 +235,7 @@ export function IntelligenceCharts({
                         <XAxis dataKey="name" tick={{ fontSize: 9, fill: themeColors.mutedText }} stroke={themeColors.mutedText} tickLine={false} />
                         <YAxis tick={{ fontSize: 10, fill: themeColors.mutedText }} stroke={themeColors.mutedText} allowDecimals={false} tickLine={false} />
                         <Tooltip content={<CustomTooltip />} />
-                        <Bar dataKey="count" name="Operations Run" radius={[4, 4, 0, 0]} barSize={24}>
+                        <Bar dataKey="count" name="Operations Run" radius={[4, 4, 0, 0]} barSize={24} {...getChartAnimationProps(shouldReduceMotion, isInitial)}>
                           {usageData.map((entry, index) => (
                             <Cell key={index} fill={entry.color} />
                           ))}
@@ -297,6 +292,7 @@ export function IntelligenceCharts({
                     stroke={themeColors.primary}
                     fill={themeColors.primary}
                     fillOpacity={0.25}
+                    {...getChartAnimationProps(shouldReduceMotion, isInitial)}
                   />
                   <Tooltip content={<CustomTooltip />} />
                 </RadarChart>

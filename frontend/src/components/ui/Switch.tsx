@@ -12,7 +12,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
     const switchId = id || `switch-${Math.random().toString(36).substr(2, 9)}`
 
     return (
-      <div className={cn('flex flex-col gap-1 text-left', containerClassName)}>
+      <div className={cn('flex flex-col gap-1 text-left', containerClassName, className)}>
         <label htmlFor={switchId} className="flex items-center gap-3 cursor-pointer select-none group">
           <div className="relative flex items-center">
             <input

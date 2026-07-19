@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { ChevronDown, ChevronUp } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useScoreliaReducedMotion, getAccordionVariants } from '@/lib/motion'
 
 interface ResumeSectionProps {
   title: string
@@ -23,6 +24,7 @@ export default function ResumeSection({
   className,
 }: ResumeSectionProps) {
   const [localIsOpen, setLocalIsOpen] = useState(true)
+  const shouldReduceMotion = useScoreliaReducedMotion()
   const isExpanded = onToggle ? propsIsOpen : localIsOpen
   const toggle = onToggle ? onToggle : () => setLocalIsOpen(!localIsOpen)
 
@@ -50,19 +52,23 @@ export default function ResumeSection({
           </div>
         </div>
 
-        <button className="text-slate-400 dark:text-slate-500">
-          {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-        </button>
+        <motion.div
+          animate={{ rotate: isExpanded ? 180 : 0 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.18, ease: 'easeInOut' }}
+          className="text-slate-400 dark:text-slate-500"
+        >
+          <ChevronDown size={16} />
+        </motion.div>
       </div>
 
       {/* Content */}
       <AnimatePresence initial={false}>
         {isExpanded && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2, ease: 'easeInOut' }}
+            variants={getAccordionVariants(shouldReduceMotion)}
+            initial="initial"
+            animate="animate"
+            exit="exit"
             className="overflow-hidden"
           >
             <div className="p-5 border-t border-[var(--border)] font-sans">

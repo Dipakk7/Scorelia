@@ -1,6 +1,5 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Bookmark, BookmarkCheck, Trash2, Clock, Play } from 'lucide-react'
-import { cn } from '@/lib/utils'
 
 interface SearchHistoryProps {
   recentSearches: string[]

@@ -5,7 +5,6 @@ import { Card, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
-import { cn } from '@/lib/utils'
 
 interface QuestionHistoryProps {
   sessions: InterviewSessionResponse[]

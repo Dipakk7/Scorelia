@@ -1,5 +1,4 @@
 import React from 'react'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Layers, CheckCircle2, AlertTriangle, Loader2, Play } from 'lucide-react'
 import type { WorkflowStep } from '@/types/agent'
 import { cn } from '@/lib/utils'

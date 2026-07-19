@@ -1,6 +1,7 @@
 import { Activity, Award, MessageSquareCode, FileText } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { CountUpText } from '@/components/ui/CountUpText'
+import { ScoreRing } from '@/components/ui/ScoreRing'
 
 interface CareerHealthScoreProps {
   atsScore: number
@@ -56,40 +57,13 @@ export default function CareerHealthScore({
 
         {/* Large visual score circle */}
         <div className="flex flex-col items-center justify-center py-4 space-y-2">
-          <div className="relative flex items-center justify-center">
-            {/* SVG circle track */}
-            <svg className="w-24 h-24 transform -rotate-90">
-              <circle
-                cx="48"
-                cy="48"
-                r="40"
-                stroke="currentColor"
-                strokeWidth="6"
-                fill="transparent"
-                className="text-border/40"
-              />
-              <circle
-                cx="48"
-                cy="48"
-                r="40"
-                stroke="currentColor"
-                strokeWidth="6"
-                fill="transparent"
-                strokeDasharray={251.2}
-                strokeDashoffset={251.2 - (251.2 * healthScore) / 100}
-                className={cn(
-                  "transition-all duration-1000 ease-out",
-                  healthScore >= 85 ? "text-success" : healthScore >= 70 ? "text-primary" : healthScore >= 50 ? "text-warning" : "text-danger"
-                )}
-              />
-            </svg>
-            <div className="absolute flex flex-col items-center justify-center font-mono">
-              <span className="text-2xl font-black text-foreground leading-none">
-                <CountUpText value={healthScore} />
-              </span>
-              <span className="text-[7px] uppercase font-black text-muted-foreground tracking-widest mt-0.5 leading-none">/ 100</span>
-            </div>
-          </div>
+          <ScoreRing
+            value={healthScore}
+            size={96}
+            strokeWidth={6}
+            color={healthScore >= 85 ? '--success' : healthScore >= 70 ? '--primary' : healthScore >= 50 ? '--warning' : '--destructive'}
+            subLabel="/ 100"
+          />
           <p className="text-[10px] text-muted-foreground font-sans font-medium text-center max-w-[200px] leading-relaxed">
             Composite metrics index evaluating ATS coverage, verbal mock readiness, and milestones completion.
           </p>

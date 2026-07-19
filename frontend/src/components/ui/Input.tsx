@@ -82,7 +82,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           </span>
         )}
         {helperText && !error && (
-          <span className="text-caption text-[var(--muted)] font-sans">
+          <span className="text-caption text-[var(--muted)] font-sans animate-fade-in">
             {helperText}
           </span>
         )}

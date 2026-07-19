@@ -2,7 +2,6 @@ import { Card, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { AlertCircle, BookOpen, Clock, BarChart4 } from 'lucide-react'
 import type { AISkillGapResponse, AISkillGapItem } from '@/types/roadmap'
-import { cn } from '@/lib/utils'
 
 interface SkillGapCardProps {
   skillGap: AISkillGapResponse | null

@@ -9,30 +9,13 @@ import {
   Cpu,
   BellOff,
   Briefcase,
-  Search
+  Search,
 } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { Github } from '@/components/ui/GithubIcon'
 import { Button } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
-
-function Github(props: React.SVGProps<SVGSVGElement> & { size?: number }) {
-  const { size = 24, ...rest } = props
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width={size}
-      height={size}
-      stroke="currentColor"
-      strokeWidth="2"
-      fill="none"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...rest}
-    >
-      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-    </svg>
-  )
-}
+import { motion } from 'framer-motion'
+import { useScoreliaReducedMotion } from '@/lib/motion'
 
 export interface EmptyStateProps {
   icon?: React.ReactNode
@@ -53,6 +36,26 @@ export function EmptyState({
   className,
   variant = 'primary',
 }: EmptyStateProps) {
+  const shouldReduceMotion = useScoreliaReducedMotion()
+
+  const containerVariants = {
+    initial: {},
+    animate: {
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.08,
+      },
+    },
+  }
+
+  const childVariants = {
+    initial: { opacity: 0, y: shouldReduceMotion ? 0 : 8 },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.18, ease: 'easeOut' as const },
+    },
+  }
+
   const variantStyles = {
     primary: 'text-[var(--primary)] bg-[var(--primary)]/8 border-[var(--primary)]/15',
     success: 'text-[var(--success)] bg-[var(--success)]/8 border-[var(--success)]/15',
@@ -65,27 +68,29 @@ export function EmptyState({
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.98 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.22, ease: 'easeOut' }}
+      variants={containerVariants}
+      initial="initial"
+      animate="animate"
       className={cn(
         'flex flex-col items-center justify-center text-center p-8 border border-dashed border-[var(--border)] rounded-[var(--radius-card)] bg-[var(--surface)]/40 backdrop-blur-md min-h-[300px] shadow-[var(--shadow-sm)]',
         className
       )}
     >
-      <div className={cn('mb-4 border p-3 rounded-[var(--radius-md)] shadow-[var(--shadow-sm)] animate-float flex items-center justify-center', activeStyles)}>
+      <motion.div variants={childVariants} className={cn('mb-4 border p-3 rounded-[var(--radius-md)] shadow-[var(--shadow-sm)] flex items-center justify-center', activeStyles)}>
         {icon || <FolderOpen size={30} className="stroke-[1.75]" />}
-      </div>
-      <h3 className="text-base font-bold font-display text-[var(--heading)] mb-1.5">
+      </motion.div>
+      <motion.h3 variants={childVariants} className="text-base font-bold font-display text-[var(--heading)] mb-1.5">
         {title}
-      </h3>
-      <p className="text-xs text-[var(--muted)] max-w-sm mb-5 font-sans leading-relaxed">
+      </motion.h3>
+      <motion.p variants={childVariants} className="text-xs text-[var(--muted)] max-w-sm mb-5 font-sans leading-relaxed">
         {description}
-      </p>
+      </motion.p>
       {actionLabel && onAction && (
-        <Button variant="primary" size="sm" onClick={onAction} className="rounded-[var(--radius-button)] font-bold hover:shadow-[var(--shadow-md)] transition-all cursor-pointer">
-          {actionLabel}
-        </Button>
+        <motion.div variants={childVariants}>
+          <Button variant="primary" size="sm" onClick={onAction} className="rounded-[var(--radius-button)] font-bold hover:shadow-[var(--shadow-md)] transition-all cursor-pointer">
+            {actionLabel}
+          </Button>
+        </motion.div>
       )}
     </motion.div>
   )

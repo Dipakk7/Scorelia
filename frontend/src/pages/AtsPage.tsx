@@ -27,7 +27,7 @@ import {
 } from 'recharts'
 
 // Custom Components
-import ATSGauge from '@/components/ats/ATSGauge'
+import { ScoreRing } from '@/components/ui/ScoreRing'
 import ATSScoreCard from '@/components/ats/ATSScoreCard'
 import RecommendationCard from '@/components/ats/RecommendationCard'
 import KeywordCloud from '@/components/ats/KeywordCloud'
@@ -46,7 +46,6 @@ import ExportDialog from '@/components/ats/ExportDialog'
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Select } from '@/components/ui/Select'
-import { Loader } from '@/components/ui/Loader'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { AtsSkeleton } from '@/components/ui/Skeletons'
 import { EmptyState } from '@/components/ui/EmptyState'
@@ -510,10 +509,12 @@ export default function AtsPage() {
                   <div className="lg:col-span-2 space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center bg-[var(--surface)]/70 backdrop-blur-md border border-[var(--border)]/60 rounded-2xl p-6 shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300">
                       <div className="flex flex-col items-center">
-                        <ATSGauge
-                          score={atsScoreData?.overall_score || 0}
-                          grade={atsScoreData?.grade}
+                        <ScoreRing
+                          value={atsScoreData?.overall_score || 0}
+                          size={180}
                           label="Overall ATS Score"
+                          subLabel={atsScoreData?.grade ? `Grade: ${atsScoreData.grade}` : undefined}
+                          color={atsScoreData?.overall_score && atsScoreData.overall_score >= 80 ? '--success' : atsScoreData?.overall_score && atsScoreData.overall_score >= 60 ? '--warning' : '--destructive'}
                         />
                         <p className="text-[11px] text-[var(--muted)] mt-3.5 italic text-center leading-relaxed max-w-[200px] m-0 font-medium">
                           "{atsScoreData?.grade_summary || 'No score generated yet.'}"

@@ -12,7 +12,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     const radioId = id || `radio-${Math.random().toString(36).substr(2, 9)}`
 
     return (
-      <div className={cn('flex flex-col gap-1 text-left', containerClassName)}>
+      <div className={cn('flex flex-col gap-1 text-left', containerClassName, className)}>
         <label htmlFor={radioId} className="flex items-center gap-2.5 cursor-pointer select-none group">
           <div className="relative flex items-center justify-center">
             <input

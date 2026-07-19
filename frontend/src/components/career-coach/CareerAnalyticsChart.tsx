@@ -1,4 +1,3 @@
-import { ChartCard } from '@/components/ui/ChartCard'
 import {
   ResponsiveContainer,
   AreaChart,
@@ -20,28 +19,21 @@ import {
   Radar
 } from 'recharts'
 import type { RoadmapAnalyticsResponse } from '@/types/roadmap'
-import { useTheme } from '@/providers/ThemeProvider'
 import { useState, useEffect } from 'react'
+import { useScoreliaReducedMotion, getChartAnimationProps } from '@/lib/motion'
 
 interface CareerAnalyticsChartProps {
   analytics: RoadmapAnalyticsResponse | null
 }
 
 export function CareerAnalyticsChart({ analytics }: CareerAnalyticsChartProps) {
-  const { theme } = useTheme()
-  const [isDark, setIsDark] = useState(false)
+
+  const shouldReduceMotion = useScoreliaReducedMotion()
+  const [isInitial, setIsInitial] = useState(true)
 
   useEffect(() => {
-    const checkDark = () => {
-      setIsDark(document.documentElement.classList.contains('dark'))
-    }
-    checkDark()
-    const observer = new MutationObserver(checkDark)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    })
-    return () => observer.disconnect()
+    const timer = setTimeout(() => setIsInitial(false), 500)
+    return () => clearTimeout(timer)
   }, [])
 
   const themeColors = {
@@ -150,6 +142,7 @@ export function CareerAnalyticsChart({ analytics }: CareerAnalyticsChartProps) {
                 stroke={themeColors.primary}
                 fill={themeColors.primary}
                 fillOpacity={0.2}
+                {...getChartAnimationProps(shouldReduceMotion, isInitial)}
               />
               <Tooltip content={<CustomTooltip />} />
             </RadarChart>
@@ -190,6 +183,7 @@ export function CareerAnalyticsChart({ analytics }: CareerAnalyticsChartProps) {
                   fill="url(#velocityColor)"
                   name="Interval Completed"
                   strokeWidth={2}
+                  {...getChartAnimationProps(shouldReduceMotion, isInitial)}
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -215,7 +209,7 @@ export function CareerAnalyticsChart({ analytics }: CareerAnalyticsChartProps) {
                 <XAxis dataKey="name" stroke={themeColors.mutedText} fontSize={10} tickLine={false} tick={{ fill: themeColors.mutedText }} />
                 <YAxis stroke={themeColors.mutedText} fontSize={11} tickLine={false} allowDecimals={false} tick={{ fill: themeColors.mutedText }} />
                 <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="value" fill={themeColors.primary} radius={[4, 4, 0, 0]} name="Skill Count" maxBarSize={30} />
+                <Bar dataKey="value" fill={themeColors.primary} radius={[4, 4, 0, 0]} name="Skill Count" maxBarSize={30} {...getChartAnimationProps(shouldReduceMotion, isInitial)} />
               </BarChart>
             </ResponsiveContainer>
           )}
@@ -244,6 +238,7 @@ export function CareerAnalyticsChart({ analytics }: CareerAnalyticsChartProps) {
                   label={(props: any) => `${props.name ?? 'Unknown'}: ${((props.percent ?? 0) * 100).toFixed(0)}%`}
                   outerRadius={70}
                   dataKey="value"
+                  {...getChartAnimationProps(shouldReduceMotion, isInitial)}
                 >
                   {difficultyData.map((_, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
