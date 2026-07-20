@@ -95,7 +95,7 @@ export default function CoverLetterPage() {
   })
 
   // Filter parsed resumes
-  const parsedResumes = (resumesData?.resumes || []).filter((r) => r.status === 'PARSED')
+  const parsedResumes = (resumesData?.resumes || []).filter((r) => r.status.toLowerCase() === 'parsed')
 
   // Fetch cover letters history
   const {

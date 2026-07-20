@@ -36,7 +36,7 @@ export default function InterviewSetupForm({ onSubmit, isSubmitting }: Interview
   })
 
   // Filter parsed resumes since we need parsing data for resume-based questions
-  const parsedResumes = (resumesData?.resumes || []).filter((r) => r.status === 'PARSED')
+  const parsedResumes = (resumesData?.resumes || []).filter((r) => r.status.toLowerCase() === 'parsed')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()

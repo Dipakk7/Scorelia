@@ -795,7 +795,7 @@ html {
 
 /* Ensure text-muted uses the text gray color variable, not the background-color variable */
 .text-muted {
-  color: var(--muted) !important;
+  color: var(--muted-color) !important;
 }
 
 /* ==========================================================
