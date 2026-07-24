@@ -88,6 +88,7 @@ export interface ResumeResponse {
   id: string
   user_id: string
   original_filename: string
+  title?: string
   file_size: number
   file_type: string
   storage_provider: string

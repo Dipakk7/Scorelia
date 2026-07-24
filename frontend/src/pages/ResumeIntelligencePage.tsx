@@ -1,720 +1,402 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useMemo, Suspense, lazy } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import api from '@/api/api'
-import type { ResumeResponse } from '@/types/resume'
-import type {
-  ResumeReviewResponse,
-  ResumeRewriteResponse,
-  ResumeOptimizationResponse,
-  TimelineItem,
-} from '@/types/resume-intelligence'
-
-// Components
-import QualityScoreCard from '@/components/resume-intelligence/QualityScoreCard'
-import AIReviewCard from '@/components/resume-intelligence/AIReviewCard'
-import RecommendationPanel from '@/components/resume-intelligence/RecommendationPanel'
-import OptimizationCard from '@/components/resume-intelligence/OptimizationCard'
-import RewriteToolbar from '@/components/resume-intelligence/RewriteToolbar'
-import RewriteEditor from '@/components/resume-intelligence/RewriteEditor'
-import VersionTimeline from '@/components/resume-intelligence/VersionTimeline'
-import ProcessingStatus from '@/components/resume-intelligence/ProcessingStatus'
-import IntelligenceCharts from '@/components/resume-intelligence/IntelligenceCharts'
-import ExportDialog from '@/components/resume-intelligence/ExportDialog'
-
-import { Button } from '@/components/ui/Button'
-import { ErrorState } from '@/components/ui/ErrorState'
-import { Card, CardContent } from '@/components/ui/Card'
-import { AiResumeSkeleton } from '@/components/ui/Skeletons'
-import EmptyResumeState from '@/components/ui/EmptyResumeState'
-import { Badge } from '@/components/ui/Badge'
-import toast from 'react-hot-toast'
+import { useResumeIntelligence } from '@/hooks/useResumeIntelligence'
+import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
+import { useScoreliaReducedMotion } from '@/lib/motion'
 import {
-  Sparkles,
-  FileText,
-  TrendingUp,
-  History,
-  Download,
-  AlertCircle,
-  Activity,
-  Layers,
-  Zap,
-} from 'lucide-react'
-import { cn } from '@/lib/utils'
+  transformToOverviewScore,
+  transformToMiniMetrics,
+  transformToBreakdownItems,
+  transformToRadarData,
+  transformToKeywordData,
+  transformToContentStats,
+  transformToBenchmarkMap,
+  transformToRecruiterSimulation,
+  transformToATSInfo,
+  transformToRewrites,
+  transformToRoadmap,
+} from '@/lib/resume-intelligence-adapter'
 
-type DashboardTab = 'overview' | 'review' | 'rewrite' | 'optimization' | 'history'
+// UI & Layout Components
+import { ErrorState } from '@/components/ui/ErrorState'
+import EmptyResumeState from '@/components/ui/EmptyResumeState'
+import { AiResumeSkeleton } from '@/components/ui/Skeletons'
+import WidgetErrorBoundary from '@/components/resume-intelligence/WidgetErrorBoundary'
+
+// Resume Intelligence Workspace Core Components
+import {
+  ResumeIntelligenceHeader,
+  type TabType,
+} from '@/components/resume-intelligence/ResumeIntelligenceHeader'
+import { ScoreOverviewCard } from '@/components/resume-intelligence/ScoreOverviewCard'
+import { MiniMetricCards } from '@/components/resume-intelligence/MiniMetricCards'
+import { ScoreBreakdownCard } from '@/components/resume-intelligence/ScoreBreakdownCard'
+import { QualityRadarCard } from '@/components/resume-intelligence/QualityRadarCard'
+import { KeywordMatchCard } from '@/components/resume-intelligence/KeywordMatchCard'
+import { ContentInsightsCard } from '@/components/resume-intelligence/ContentInsightsCard'
+import { CompetitorBenchmarkCard } from '@/components/resume-intelligence/CompetitorBenchmarkCard'
+import { AIInsightBanner } from '@/components/resume-intelligence/AIInsightBanner'
+import { AIIntelligenceSidebar } from '@/components/resume-intelligence/AIIntelligenceSidebar'
+import { ExportDialog } from '@/components/resume-intelligence/ExportDialog'
+
+// Code Splitting & Lazy Component Loading for Secondary Tabs
+const AIRecruiterSimulationCard = lazy(
+  () => import('@/components/resume-intelligence/ai/AIRecruiterSimulationCard')
+)
+const AIRiskAnalysisCard = lazy(
+  () => import('@/components/resume-intelligence/ai/AIRiskAnalysisCard')
+)
+const AIRewriteSuggestionsCard = lazy(
+  () => import('@/components/resume-intelligence/ai/AIRewriteSuggestionsCard')
+)
+const AIImprovementRoadmapCard = lazy(
+  () => import('@/components/resume-intelligence/ai/AIImprovementRoadmapCard')
+)
+const AIConfidenceCard = lazy(
+  () => import('@/components/resume-intelligence/ai/AIConfidenceCard')
+)
+const AIKeywordIntelligenceCard = lazy(
+  () => import('@/components/resume-intelligence/ai/AIKeywordIntelligenceCard')
+)
+const SectionAnalysisWorkspace = lazy(
+  () => import('@/components/resume-intelligence/sections/SectionAnalysisWorkspace')
+)
+
+// Phase 6 UX & Interaction Additions
+import AILifecycleProgressModal from '@/components/resume-intelligence/AILifecycleProgressModal'
+import ResumeIntelligenceSearchBar from '@/components/resume-intelligence/ResumeIntelligenceSearchBar'
 
 export default function ResumeIntelligencePage() {
   const navigate = useNavigate()
-  const queryClient = useQueryClient()
-  const [selectedResumeId, setSelectedResumeId] = useState<string>('')
-  const [activeTab, setActiveTab] = useState<DashboardTab>('overview')
-  const [isExportOpen, setIsExportOpen] = useState(false)
+  const shouldReduceMotion = useScoreliaReducedMotion()
+  const [activeTab, setActiveTab] = useState<TabType>('overview')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [isLifecycleModalOpen, setIsLifecycleModalOpen] = useState(false)
+  const [isExportDialogOpen, setIsExportDialogOpen] = useState(false)
 
-  // Compare overlay state
-  const [comparisonItem, setComparisonItem] = useState<TimelineItem | null>(null)
-
-  // Pipeline simulation stages
-  const [pipelineStages, setPipelineStages] = useState<Record<string, string>>({
-    parser: 'PENDING',
-    review: 'PENDING',
-    rewrite: 'PENDING',
-    optimization: 'PENDING',
-  })
-
-  // 1. Fetch resumes list
+  // Custom TanStack Query Hook managing FastAPI backend endpoint queries & caching
   const {
-    data: resumesData,
-    isLoading: isResumesLoading,
-    error: resumesError,
-  } = useQuery<{ resumes: ResumeResponse[]; total: number }>({
-    queryKey: ['resumesList'],
-    queryFn: async () => {
-      const res = await api.get('/resumes')
-      return res.data
-    },
-  })
+    resumes,
+    selectedResumeId,
+    setSelectedResumeId,
+    selectedResumeTitle,
+    latestReview,
+    latestOptimization,
+    isResumesLoading,
+    isResumesError,
+    isReanalyzing,
+    handleReanalyze,
+    refetchAll,
+  } = useResumeIntelligence()
 
-  const resumes = resumesData?.resumes || []
-
-  // Pre-select first resume if none selected
-  useEffect(() => {
-    if (resumesData?.resumes && resumesData.resumes.length > 0 && !selectedResumeId) {
-      setSelectedResumeId(resumesData.resumes[0].id)
-    }
-  }, [resumesData, selectedResumeId])
-
-  const activeResume = resumes.find((r) => r.id === selectedResumeId)
-
-  // 3. Fetch Reviews
-  const { data: reviewsData } = useQuery<{ reviews: ResumeReviewResponse[] }>({
-    queryKey: ['resumeReviews', selectedResumeId],
-    queryFn: async () => {
-      const res = await api.get(`/ai/resume/reviews?resume_id=${selectedResumeId}`)
-      return res.data
-    },
-    enabled: !!selectedResumeId,
-  })
-  const reviews = reviewsData?.reviews || []
-  const latestReview = reviews[0] || null
-
-  // 4. Fetch Rewrites
-  const { data: rewritesData } = useQuery<{ rewrites: ResumeRewriteResponse[] }>({
-    queryKey: ['resumeRewrites', selectedResumeId],
-    queryFn: async () => {
-      const res = await api.get(`/ai/resume/rewrites?resume_id=${selectedResumeId}`)
-      return res.data
-    },
-    enabled: !!selectedResumeId,
-  })
-  const rewrites = rewritesData?.rewrites || []
-  const latestRewrite = rewrites[0] || null
-
-  // 5. Fetch Optimizations
-  const { data: optimizationsData } = useQuery<{ optimizations: ResumeOptimizationResponse[] }>({
-    queryKey: ['resumeOptimizations', selectedResumeId],
-    queryFn: async () => {
-      const res = await api.get(`/ai/resume/optimizations?resume_id=${selectedResumeId}`)
-      return res.data
-    },
-    enabled: !!selectedResumeId,
-  })
-  const optimizations = optimizationsData?.optimizations || []
-  const latestOptimization = optimizations[0] || null
-
-  // Pipeline Execution Mutation (Parser -> Review -> Rewrite -> Optimize -> Scoring)
-  const pipelineMutation = useMutation({
-    mutationFn: async (payload: { resume_id: string; jobDescription?: string }) => {
-      const res = await api.post('/ai/resume/workflow', {
-        resume_id: payload.resume_id,
-        job_description: payload.jobDescription || 'Standard Professional target job',
-        mode: 'PROFESSIONAL',
-      })
-      return res.data
-    },
-    onMutate: () => {
-      // Initialize pipeline stages tracking
-      setPipelineStages({
-        parser: 'RUNNING',
-        review: 'PENDING',
-        rewrite: 'PENDING',
-        optimization: 'PENDING',
-      })
-    },
-    onSuccess: () => {
-      toast.success('AI Workflow Pipeline completed successfully!')
-      setPipelineStages({
-        parser: 'SUCCESS',
-        review: 'SUCCESS',
-        rewrite: 'SUCCESS',
-        optimization: 'SUCCESS',
-      })
-      // Invalidate queries to fetch fresh reviews, rewrites, and optimizations
-      queryClient.invalidateQueries({ queryKey: ['resumeDetail', selectedResumeId] })
-      queryClient.invalidateQueries({ queryKey: ['resumeReviews', selectedResumeId] })
-      queryClient.invalidateQueries({ queryKey: ['resumeRewrites', selectedResumeId] })
-      queryClient.invalidateQueries({ queryKey: ['resumeOptimizations', selectedResumeId] })
-      queryClient.invalidateQueries({ queryKey: ['resumesList'] })
-    },
-    onError: (err: any) => {
-      const msg = err?.response?.data?.detail || err?.message || 'Pipeline workflow execution failed.'
-      toast.error(msg)
-      // Determine failed stage based on stages or set all failing
-      setPipelineStages((prev) => {
-        const next = { ...prev }
-        if (next.parser === 'RUNNING') next.parser = 'FAILED'
-        else if (next.review === 'RUNNING') next.review = 'FAILED'
-        else if (next.rewrite === 'RUNNING') next.rewrite = 'FAILED'
-        else next.optimization = 'FAILED'
-        return next
-      })
-    },
-  })
-
-  // Simulated timer pipeline steps during pending mutation execution
-  useEffect(() => {
-    let t1: any, t2: any, t3: any
-    if (pipelineMutation.isPending) {
-      t1 = setTimeout(() => {
-        setPipelineStages((prev) => ({ ...prev, parser: 'SUCCESS', review: 'RUNNING' }))
-      }, 2500)
-
-      t2 = setTimeout(() => {
-        setPipelineStages((prev) => ({ ...prev, review: 'SUCCESS', rewrite: 'RUNNING' }))
-      }, 5500)
-
-      t3 = setTimeout(() => {
-        setPipelineStages((prev) => ({ ...prev, rewrite: 'SUCCESS', optimization: 'RUNNING' }))
-      }, 8500)
-    }
-    return () => {
-      clearTimeout(t1)
-      clearTimeout(t2)
-      clearTimeout(t3)
-    }
-  }, [pipelineMutation.isPending])
-
-  // Individual rewrite trigger mutation
-  const rewriteMutation = useMutation({
-    mutationFn: async (payload: { mode: string; jobDescription?: string }) => {
-      const res = await api.post('/ai/resume/rewrite', {
-        resume_id: selectedResumeId,
-        mode: payload.mode,
-        job_description: payload.jobDescription,
-      })
-      return res.data
-    },
-    onSuccess: () => {
-      toast.success('AI Resume rewrite generated!')
-      queryClient.invalidateQueries({ queryKey: ['resumeRewrites', selectedResumeId] })
-      queryClient.invalidateQueries({ queryKey: ['resumeDetail', selectedResumeId] })
-    },
-    onError: (err: any) => {
-      toast.error(err?.response?.data?.detail || 'Rewrite failed.')
-    },
-  })
-
-  // Undo rewrite mutation
-  const undoRewriteMutation = useMutation({
-    mutationFn: async (rewriteId: string) => {
-      const res = await api.post(`/ai/resume/rewrite/${rewriteId}/undo`)
-      return res.data
-    },
-    onSuccess: () => {
-      toast.success('Resume rolled back successfully!')
-      queryClient.invalidateQueries({ queryKey: ['resumeDetail', selectedResumeId] })
-      queryClient.invalidateQueries({ queryKey: ['resumeRewrites', selectedResumeId] })
-    },
-    onError: (err: any) => {
-      toast.error(err?.response?.data?.detail || 'Rollback failed.')
-    },
-  })
-
-  if (isResumesLoading) {
-    return <AiResumeSkeleton />
+  // Trigger Re-analysis with Progress Modal
+  const triggerReanalyzeWorkflow = () => {
+    setIsLifecycleModalOpen(true)
+    handleReanalyze()
   }
 
-  if (resumesError) {
+  // Keyboard Shortcuts Listener (R, /, Esc)
+  useKeyboardShortcuts({
+    onReanalyze: triggerReanalyzeWorkflow,
+    onEscape: () => {
+      setIsLifecycleModalOpen(false)
+      setIsExportDialogOpen(false)
+      setSearchQuery('')
+    },
+  })
+
+  // Transformed Adapter Data for Live UI Rendering (Memoized for performance)
+  const overviewScoreData = useMemo(
+    () => transformToOverviewScore(latestReview, latestOptimization),
+    [latestReview, latestOptimization]
+  )
+
+  const miniMetricsData = useMemo(
+    () => transformToMiniMetrics(latestReview, latestOptimization),
+    [latestReview, latestOptimization]
+  )
+
+  const breakdownItemsData = useMemo(
+    () => transformToBreakdownItems(latestOptimization?.quality_score),
+    [latestOptimization]
+  )
+
+  const radarData = useMemo(
+    () => transformToRadarData(latestOptimization?.quality_score),
+    [latestOptimization]
+  )
+
+  const keywordData = useMemo(
+    () => transformToKeywordData(latestOptimization?.keyword_optimization),
+    [latestOptimization]
+  )
+
+  const contentStatsData = useMemo(
+    () => transformToContentStats(null, latestOptimization),
+    [latestOptimization]
+  )
+
+  const benchmarkMapData = useMemo(
+    () => transformToBenchmarkMap(latestOptimization),
+    [latestOptimization]
+  )
+
+  const recruiterSimulationData = useMemo(
+    () => transformToRecruiterSimulation(latestReview, latestOptimization),
+    [latestReview, latestOptimization]
+  )
+
+  const atsWarningsData = useMemo(
+    () => transformToATSInfo(latestReview, latestOptimization),
+    [latestReview, latestOptimization]
+  )
+
+  const rewritesData = useMemo(
+    () => transformToRewrites(latestOptimization),
+    [latestOptimization]
+  )
+
+  const roadmapStepsData = useMemo(
+    () => transformToRoadmap(latestReview, latestOptimization),
+    [latestReview, latestOptimization]
+  )
+
+  // Loading State Rendering
+  if (isResumesLoading) {
     return (
-      <ErrorState
-        title="Failed to load workspace"
-        message="Could not establish contact with FastAPI AI intelligence server."
-      />
+      <div className="w-full h-full p-2 md:p-4">
+        <AiResumeSkeleton />
+      </div>
     )
   }
 
-  if (resumes.length === 0) {
+  // Error State Rendering
+  if (isResumesError) {
     return (
-      <div className="py-12">
+      <div className="w-full min-h-[500px] flex items-center justify-center p-4">
+        <ErrorState
+          title="Failed to Load Resume Intelligence"
+          message="We encountered an error establishing connection to your resume workspace."
+          onRetry={() => refetchAll()}
+        />
+      </div>
+    )
+  }
+
+  // Empty State Rendering (When no resumes exist)
+  if (resumes.length === 0 && !isResumesLoading) {
+    return (
+      <div className="w-full min-h-[500px] flex items-center justify-center p-4">
         <EmptyResumeState onUploadClick={() => navigate('/resumes')} />
       </div>
     )
   }
 
-  const handleRunPipeline = () => {
-    if (!selectedResumeId) return
-    pipelineMutation.mutate({ resume_id: selectedResumeId })
-  }
-
-  // Compile history aggregated for charts
-  const historyData = [
-    ...reviews.map((r) => ({ date: new Date(r.created_at).toLocaleDateString(), score: r.overall_score })),
-    ...optimizations.map((o) => ({ date: new Date(o.created_at).toLocaleDateString(), score: o.quality_score?.overall_score || 0 })),
-  ].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+  const safeTitle = (selectedResumeTitle || 'Senior AI Engineer Resume.pdf').replace(/\.[^/.]+$/, '')
 
   return (
-    <div className="space-y-6 text-left max-w-7xl mx-auto font-sans focus:outline-none animate-fade-in">
-      {/* Selector & Setup Header */}
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300">
-        <div className="space-y-1.5">
-          <h1 className="text-xl md:text-2xl font-black text-[var(--heading)] tracking-tight flex items-center gap-2 m-0 leading-none">
-            <Sparkles className="text-[var(--primary)] animate-pulse" size={20} />
-            <span>AI Resume Intelligence Workspace</span>
-          </h1>
-          <p className="text-xs text-[var(--muted)] font-sans leading-relaxed m-0">
-            Audit formatting, match keywords, score readiness, and generate persona styles.
-          </p>
-        </div>
-
-        {/* Dropdown selector & pipeline triggers */}
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="flex flex-col gap-1 min-w-[200px]">
-            <label htmlFor="resume-select" className="text-[9px] font-black text-[var(--muted)] uppercase tracking-widest leading-none mb-1">
-              Active Selection
-            </label>
-            <select
-              id="resume-select"
-              value={selectedResumeId}
-              onChange={(e) => setSelectedResumeId(e.target.value)}
-              disabled={pipelineMutation.isPending}
-              className="text-xs bg-[var(--surface-hover)] border border-[var(--border)] rounded-xl p-2.5 text-[var(--body)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)] cursor-pointer transition-colors duration-200"
-            >
-              {resumes.map((r) => (
-                <option key={r.id} value={r.id}>
-                  {r.original_filename} ({r.status})
-                </option>
-              ))}
-              {resumes.length === 0 && <option>No resumes uploaded</option>}
-            </select>
-          </div>
-
-          <div className="flex items-end self-end gap-2 pt-2 md:pt-0">
-            <Button
-              variant="primary"
-              size="sm"
-              onClick={handleRunPipeline}
-              disabled={!selectedResumeId || pipelineMutation.isPending}
-              className="flex items-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white shadow-sm border-none rounded-xl transition-all duration-200"
-            >
-              <Zap size={14} className="animate-pulse" />
-              <span>Run AI Pipeline</span>
-            </Button>
-
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setIsExportOpen(true)}
-              disabled={!latestReview && !latestOptimization}
-              className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-bold border-[var(--border)] cursor-pointer rounded-xl hover:border-[var(--primary)]/30 hover:bg-[var(--primary)]/5 text-[var(--body)] transition-all"
-            >
-              <Download size={14} />
-              <span>Export Report</span>
-            </Button>
-          </div>
-        </div>
+    <div className="w-full max-w-[1920px] mx-auto flex flex-col min-h-screen text-slate-100 selection:bg-purple-500/30">
+      {/* Screen Reader ARIA Live Region */}
+      <div className="sr-only" aria-live="polite">
+        {isReanalyzing ? 'Resume re-analysis pipeline is currently executing' : 'Resume Intelligence dashboard updated'}
       </div>
 
-      {resumes.length === 0 ? (
-        <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] text-center py-16">
-          <CardContent className="space-y-4 max-w-sm mx-auto p-0">
-            <div className="h-12 w-12 rounded-2xl bg-[var(--surface-hover)] flex items-center justify-center mx-auto text-[var(--muted)] border border-[var(--border)]">
-              <FileText size={22} className="stroke-[1.75]" />
-            </div>
-            <div>
-              <h3 className="text-sm font-bold text-[var(--heading)] m-0">No Resumes Found</h3>
-              <p className="text-xs text-[var(--muted)] mt-1.5 leading-relaxed font-sans">
-                Please upload a resume in the Resume Builder or parsed document list before initiating the AI scan.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      ) : (
-        <>
-          {/* Processing Orchestrator Status overlay */}
-          {(pipelineMutation.isPending || pipelineMutation.isSuccess) && (
-            <ProcessingStatus
-              stages={pipelineStages}
-              isProcessing={pipelineMutation.isPending}
-              error={(pipelineMutation.error as any)?.message}
-              onRetry={handleRunPipeline}
-              onCancel={() => pipelineMutation.reset()}
-            />
-          )}
+      {/* Global AI Lifecycle Modal */}
+      <AILifecycleProgressModal
+        isOpen={isLifecycleModalOpen}
+        onClose={() => setIsLifecycleModalOpen(false)}
+      />
 
-          {/* Workspace Tabs */}
-          <div className="flex border-b border-[var(--border)] overflow-x-auto scrollbar-none gap-1 bg-[var(--surface-hover)] rounded-t-2xl">
-            {[
-              { id: 'overview', label: 'Intelligence Dashboard', icon: Layers },
-              { id: 'review', label: 'AI Review & Diagnostic', icon: Activity },
-              { id: 'rewrite', label: 'AI Style Rewrite', icon: Sparkles },
-              { id: 'optimization', label: 'ATS Keyword Optimizer', icon: TrendingUp },
-              { id: 'history', label: 'Version Timeline', icon: History },
-            ].map((tab) => {
-              const Icon = tab.icon
-              const isActive = activeTab === tab.id
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id as DashboardTab)}
-                  className={cn(
-                    'flex items-center gap-2 px-5 py-3.5 text-xs font-bold whitespace-nowrap transition-all border-b-2 cursor-pointer',
-                    isActive
-                      ? 'border-[var(--primary)] text-[var(--primary)] bg-[var(--surface-hover)]'
-                      : 'text-[var(--muted)] hover:text-[var(--heading)] hover:bg-[var(--surface-hover)]'
-                  )}
-                >
-                  <Icon size={13} className={isActive ? 'text-[var(--primary)]' : 'text-[var(--muted)]'} />
-                  <span>{tab.label}</span>
-                </button>
-              )
-            })}
-          </div>
+      {/* Report Export Dialog Modal */}
+      <ExportDialog
+        isOpen={isExportDialogOpen}
+        onClose={() => setIsExportDialogOpen(false)}
+        reviewData={latestReview}
+        optimizationData={latestOptimization}
+        resumeFilename={safeTitle}
+      />
 
-          {/* Tab Panes */}
-          <div className="space-y-6">
-            {/* OVERVIEW DASHBOARD */}
-            {activeTab === 'overview' && (
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-                {/* Cell 1: QualityScoreCard circular gauges (Primary score indicators) */}
-                <div className="lg:col-span-8 flex flex-col justify-between">
-                  <QualityScoreCard
-                    qualityScore={latestOptimization?.quality_score?.overall_score || latestReview?.overall_score || 0}
-                    readinessScore={latestOptimization?.quality_score?.career_readiness || 0}
-                    improvementScore={latestOptimization?.ats_optimization?.current_score || 0}
-                    history={historyData}
-                    onAnalyze={handleRunPipeline}
-                    isAnalyzing={pipelineMutation.isPending}
-                  />
-                </div>
+      {/* 1. Workspace Header Section */}
+      <ResumeIntelligenceHeader
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        selectedResumeTitle={selectedResumeTitle}
+        resumesList={resumes.map((r) => ({ id: r.id, title: r.title || r.original_filename || 'Untitled Resume' }))}
+        onSelectResume={setSelectedResumeId}
+        lastAnalyzedText={
+          latestReview?.created_at
+            ? `Last analyzed: ${new Date(latestReview.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`
+            : 'Last analyzed: 2 min ago'
+        }
+        isReanalyzing={isReanalyzing}
+        onReanalyze={triggerReanalyzeWorkflow}
+        onDownloadReport={() => setIsExportDialogOpen(true)}
+      />
 
-                {/* Cell 2: Latest Review Audit (Placed on the right of gauges) */}
-                <div className="lg:col-span-4 flex flex-col">
-                  <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] space-y-4 hover:border-[var(--primary)]/40 transition-all duration-300 h-full flex flex-col justify-between">
-                    <div className="pb-2.5 border-b border-[var(--border)]/60 text-left">
-                      <h4 className="text-xs font-black text-[var(--heading)] uppercase tracking-wider m-0">
-                        Latest Review Audit
-                      </h4>
-                    </div>
-                    {latestReview ? (
-                      <div className="space-y-3.5 text-xs text-left flex-1 flex flex-col justify-between mt-2">
-                        <div className="flex justify-between items-center bg-[var(--surface-hover)] p-2.5 rounded-xl border border-[var(--border)]/40 font-sans">
-                          <span className="text-[var(--muted)] font-semibold">Quality Score</span>
-                          <Badge variant="success" className="font-extrabold text-[10px] px-2 py-0">
-                            {latestReview.overall_score}/100
-                          </Badge>
-                        </div>
-                        <div className="space-y-1 my-3.5">
-                          <span className="text-[9px] text-[var(--muted)] font-extrabold uppercase tracking-widest">
-                            Summary Brief
-                          </span>
-                          <p className="text-[11px] text-[var(--body)] leading-relaxed line-clamp-3 font-medium m-0">
-                            {latestReview.overall_summary}
-                          </p>
-                        </div>
-                        <div className="text-[10px] text-[var(--muted)] font-medium pt-2 border-t border-[var(--border)]/20">
-                          Scanned on: {new Date(latestReview.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="text-xs text-muted-foreground italic text-center py-6 font-sans font-medium flex-1 flex items-center justify-center">
-                        No review record available. Click 'Run AI Pipeline'.
-                      </div>
-                    )}
-                  </Card>
-                </div>
-
-                {/* Cell 3: Intelligence Charts (Primary chart logs) */}
-                <div className="lg:col-span-8 flex flex-col">
-                  <IntelligenceCharts
-                    reviews={reviews}
-                    optimizations={optimizations}
-                    rewrites={rewrites}
-                    onAnalyze={handleRunPipeline}
-                    isAnalyzing={pipelineMutation.isPending}
-                  />
-                </div>
-
-                {/* Cell 4: Latest Rewrite and ATS Diagnostic Stack */}
-                <div className="lg:col-span-4 flex flex-col space-y-6">
-                  {/* Latest Style Rewrite Version */}
-                  <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] space-y-4 hover:border-[var(--primary)]/40 transition-all duration-300 flex-1 flex flex-col justify-between">
-                    <div className="pb-2.5 border-b border-[var(--border)]/60 text-left">
-                      <h4 className="text-xs font-black text-[var(--heading)] uppercase tracking-wider m-0">
-                        Latest Style Rewrite
-                      </h4>
-                    </div>
-                    {latestRewrite ? (
-                      <div className="space-y-3 text-xs text-left flex-1 flex flex-col justify-between mt-2">
-                        <div className="flex justify-between items-center bg-[var(--surface-hover)]/50 p-2.5 rounded-xl border border-[var(--border)]">
-                          <span className="text-[var(--muted)] font-semibold">Applied Persona</span>
-                          <Badge variant="secondary" className="font-bold text-[10px] px-2 py-0">
-                            {latestRewrite.rewrite_mode}
-                          </Badge>
-                        </div>
-                        <div className="flex justify-between text-[10px] text-[var(--muted)] font-medium pt-2 border-t border-[var(--border)]/20">
-                          <span>Model: {latestRewrite.metadata?.model || 'Ollama'}</span>
-                          <span>{new Date(latestRewrite.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="text-xs text-muted-foreground italic text-center py-6 font-sans font-medium flex-1 flex items-center justify-center">
-                        No rewritten version.
-                      </div>
-                    )}
-                  </Card>
-
-                  {/* ATS optimizations status */}
-                  <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-2xl shadow-sm space-y-4 hover:border-[var(--primary)]/40 transition-all duration-300 flex-1 flex flex-col justify-between">
-                    <div className="pb-2.5 border-b border-[var(--border)]/60 text-left">
-                      <h4 className="text-xs font-black text-[var(--heading)] uppercase tracking-wider m-0">
-                        ATS Diagnostic Level
-                      </h4>
-                    </div>
-                    {latestOptimization?.ats_optimization ? (
-                      <div className="space-y-3 text-xs text-left flex-1 flex flex-col justify-between mt-2">
-                        <div className="flex justify-between items-center font-sans">
-                          <span className="text-[var(--muted)] font-semibold">ATS Match Score</span>
-                          <span className="font-black text-[var(--primary)]">
-                            {latestOptimization.ats_optimization.current_score}%
-                          </span>
-                        </div>
-                        <div className="space-y-1">
-                          <span className="text-[9px] text-[var(--muted)] font-extrabold uppercase tracking-widest block">
-                            Key Missing Keywords
-                          </span>
-                          <div className="flex flex-wrap gap-1 mt-1.5">
-                            {latestOptimization.ats_optimization.missing_keywords
-                              ?.slice(0, 5)
-                              .map((kw) => (
-                                <span
-                                  key={kw}
-                                  className="text-[9px] font-bold px-2 py-0.5 rounded-lg bg-[var(--danger)]/10 text-[var(--danger)] border border-[var(--danger)]/20 shadow-2xs"
-                                >
-                                  {kw}
-                                </span>
-                              ))}
-                            {latestOptimization.ats_optimization.missing_keywords?.length > 5 && (
-                              <span className="text-[9px] text-muted-foreground self-center font-bold">
-                                +{latestOptimization.ats_optimization.missing_keywords.length - 5} more
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="text-xs text-muted-foreground italic text-center py-6 font-sans font-medium flex-1 flex items-center justify-center">
-                        No optimizations found.
-                      </div>
-                    )}
-                  </Card>
-                </div>
-              </div>
-            )}
-
-            {/* AI REVIEW */}
-            {activeTab === 'review' && (
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in">
-                {/* Diagnostic detailed tabs */}
-                <div className="lg:col-span-2">
-                  {latestReview ? (
-                    <AIReviewCard review={latestReview} />
-                  ) : (
-                    <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm text-center py-16">
-                      <CardContent className="space-y-4 max-w-sm mx-auto p-0 text-center">
-                        <div className="h-10 w-10 rounded-xl bg-[var(--surface-hover)] flex items-center justify-center mx-auto text-[var(--muted)] border border-[var(--border)]">
-                          <AlertCircle size={18} />
-                        </div>
-                        <div>
-                          <h4 className="text-sm font-extrabold text-[var(--heading)] m-0">
-                            No Review Found
-                          </h4>
-                          <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed font-sans">
-                            Generate diagnostic review feedback by executing the full workflow orchestrator.
-                          </p>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  )}
-                </div>
-
-                {/* Expandable actionable suggestions list */}
-                <div className="lg:col-span-1">
-                  {latestReview ? (
-                    <RecommendationPanel
-                      recommendations={latestReview.recommendations}
-                      priorityImprovements={latestReview.priority_improvements}
-                    />
-                  ) : (
-                    <div className="text-xs text-muted-foreground italic text-center py-10 font-sans font-medium">
-                      No recommendations to show.
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* AI REWRITE */}
-            {activeTab === 'rewrite' && (
-              <div className="space-y-6 animate-fade-in">
-                {/* Trigger panels */}
-                <RewriteToolbar
-                  onRewrite={(payload) => rewriteMutation.mutate(payload)}
-                  isPending={rewriteMutation.isPending}
-                />
-
-                {/* Draft side by side panel */}
-                {latestRewrite ? (
-                  <RewriteEditor
-                    rewrite={latestRewrite}
-                    isPending={rewriteMutation.isPending}
-                    isRejecting={undoRewriteMutation.isPending}
-                    onAccept={() => toast.success('Rewrite accepted!')}
-                    onReject={() => undoRewriteMutation.mutate(latestRewrite.id)}
-                    onRegenerate={() =>
-                      rewriteMutation.mutate({
-                        mode: latestRewrite.rewrite_mode,
-                        jobDescription: latestRewrite.job_description,
-                      })
-                    }
-                  />
-                ) : (
-                  <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm text-center py-16">
-                    <CardContent className="space-y-4 max-w-sm mx-auto p-0 text-center">
-                      <div className="h-10 w-10 bg-[var(--surface-hover)] rounded-xl flex items-center justify-center mx-auto text-[var(--muted)] border border-[var(--border)]">
-                        <Sparkles size={18} />
-                      </div>
-                      <div>
-                        <h4 className="text-sm font-extrabold text-[var(--heading)] m-0">
-                          No Rewritten Versions
-                        </h4>
-                        <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed font-sans">
-                          Choose a persona style and hit 'Generate AI Rewrite' above to tailor your resume text.
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
-            )}
-
-            {/* ATS OPTIMIZER */}
-            {activeTab === 'optimization' && (
-              <div className="space-y-6 animate-fade-in">
-                {latestOptimization ? (
-                  <OptimizationCard optimization={latestOptimization} />
-                ) : (
-                  <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm text-center py-16">
-                    <CardContent className="space-y-4 max-w-sm mx-auto p-0 text-center">
-                      <div className="h-10 w-10 bg-[var(--surface-hover)] rounded-xl flex items-center justify-center mx-auto text-[var(--muted)] border border-[var(--border)]">
-                        <TrendingUp size={18} />
-                      </div>
-                      <div>
-                        <h4 className="text-sm font-extrabold text-[var(--heading)] m-0">
-                          No Optimization Recommendations
-                        </h4>
-                        <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed font-sans">
-                          Run the AI pipeline to analyze ATS keywords density and compile bullet point suggestions.
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
-            )}
-
-            {/* TIMELINE */}
-            {activeTab === 'history' && (
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in">
-                <div className="lg:col-span-2">
-                  <VersionTimeline
-                    resumeUploadedAt={activeResume?.uploaded_at || new Date().toISOString()}
-                    resumeFilename={activeResume?.original_filename || 'original_resume.pdf'}
-                    reviews={reviews}
-                    rewrites={rewrites}
-                    optimizations={optimizations}
-                    isRestoring={undoRewriteMutation.isPending}
-                    onCompare={(item) => {
-                      setComparisonItem(item)
-                      toast.success(`Comparing current vs: ${item.title}`)
-                    }}
-                    onRestore={(item) => {
-                      if (item.type === 'rewrite') {
-                        undoRewriteMutation.mutate(item.id)
-                      }
-                    }}
-                  />
-                </div>
-
-                {/* Compare view sidebar overlay */}
-                <div className="lg:col-span-1">
-                  <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md p-5 shadow-sm rounded-2xl space-y-4 hover:border-[var(--primary)]/40 transition-all duration-300">
-                    <div className="pb-2.5 border-b border-[var(--border)]/60 text-left">
-                      <h4 className="text-xs font-black text-[var(--heading)] uppercase tracking-wider m-0">
-                        Timeline Sandbox Comparator
-                      </h4>
-                    </div>
-                    {comparisonItem ? (
-                      <div className="space-y-3.5 text-xs text-left">
-                        <div className="p-3 bg-[var(--primary)]/5 border border-[var(--primary)]/10 rounded-xl space-y-1">
-                          <span className="text-[10px] text-[var(--muted)] font-bold uppercase tracking-wider block">
-                            Comparison Target
-                          </span>
-                          <span className="font-bold text-[var(--heading)]">
-                            {comparisonItem.title}
-                          </span>
-                          <span className="block text-[9px] text-[var(--muted)]">
-                            {new Date(comparisonItem.timestamp).toLocaleString()}
-                          </span>
-                        </div>
-
-                        {/* Direct comparison view trigger */}
-                        <p className="text-[11px] text-[var(--body)] leading-normal leading-relaxed m-0 font-medium">
-                          Currently evaluating revisions for {comparisonItem.title}. Compare how keyword lists, bullet highlights, or summary fields have drifted across edits.
-                        </p>
-
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => setComparisonItem(null)}
-                          className="w-full py-2 text-xs cursor-pointer rounded-xl font-bold border-[var(--border)] hover:border-[var(--primary)]/30 hover:bg-[var(--primary)]/5 transition-all"
-                        >
-                          Clear Selection
-                        </Button>
-                      </div>
-                    ) : (
-                      <div className="text-xs text-muted-foreground italic text-center py-8 font-sans font-medium">
-                        Select 'Compare' on any timeline version item to load differences.
-                      </div>
-                    )}
-                  </Card>
-                </div>
-              </div>
-            )}
-          </div>
-        </>
-      )}
-
-      {/* Export Report dialog modal */}
-      {isExportOpen && (
-        <ExportDialog
-          isOpen={isExportOpen}
-          onClose={() => setIsExportOpen(false)}
-          reviewData={latestReview}
-          optimizationData={latestOptimization}
-          rewriteData={latestRewrite}
-          resumeFilename={activeResume?.original_filename}
+      {/* Client-Side Search Bar */}
+      <div className="mb-5 flex items-center justify-between gap-4">
+        <ResumeIntelligenceSearchBar
+          value={searchQuery}
+          onChange={setSearchQuery}
+          onClear={() => setSearchQuery('')}
         />
+      </div>
+
+      {/* 2. Main Workspace Layout */}
+      {activeTab === 'overview' && (
+        <main aria-label="Resume Intelligence Overview Workspace" className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+          {/* LEFT & CENTER COLUMNS (8 cols on Desktop / 12 on mobile) */}
+          <div className="lg:col-span-8 flex flex-col gap-5">
+            {/* Top Row: Score Overview & Mini Trend Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
+              <div className="md:col-span-6">
+                <WidgetErrorBoundary widgetName="Score Overview">
+                  <ScoreOverviewCard
+                    score={overviewScoreData.score}
+                    maxScore={overviewScoreData.maxScore}
+                    statusText={overviewScoreData.statusText}
+                    percentileText={overviewScoreData.percentileText}
+                    headlineText={overviewScoreData.headlineText}
+                    descriptionText={overviewScoreData.descriptionText}
+                  />
+                </WidgetErrorBoundary>
+              </div>
+              <div className="md:col-span-6">
+                <WidgetErrorBoundary widgetName="Trend Metrics">
+                  <MiniMetricCards metrics={miniMetricsData} />
+                </WidgetErrorBoundary>
+              </div>
+            </div>
+
+            {/* Middle Row: Score Breakdown & Quality Radar */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
+              <div className="md:col-span-6">
+                <WidgetErrorBoundary widgetName="Score Breakdown">
+                  <ScoreBreakdownCard items={breakdownItemsData} />
+                </WidgetErrorBoundary>
+              </div>
+              <div className="md:col-span-6">
+                <WidgetErrorBoundary widgetName="Quality Radar Chart">
+                  <QualityRadarCard data={radarData} />
+                </WidgetErrorBoundary>
+              </div>
+            </div>
+
+            {/* Bottom Row: Keyword Match, Content Insights, Competitor Benchmark */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
+              <div>
+                <WidgetErrorBoundary widgetName="Keyword Match">
+                  <KeywordMatchCard
+                    matchPercentage={keywordData.matchPercentage}
+                    matchedCount={keywordData.matchedCount}
+                    missingCount={keywordData.missingCount}
+                    totalCount={keywordData.totalCount}
+                    categories={keywordData.categories}
+                  />
+                </WidgetErrorBoundary>
+              </div>
+              <div>
+                <WidgetErrorBoundary widgetName="Content Insights">
+                  <ContentInsightsCard stats={contentStatsData} />
+                </WidgetErrorBoundary>
+              </div>
+              <div>
+                <WidgetErrorBoundary widgetName="Competitor Benchmark">
+                  <CompetitorBenchmarkCard roleDataMap={benchmarkMapData} />
+                </WidgetErrorBoundary>
+              </div>
+            </div>
+
+            {/* AI Insight Banner */}
+            <div>
+              <WidgetErrorBoundary widgetName="AI Insight Banner">
+                <AIInsightBanner />
+              </WidgetErrorBoundary>
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN: AI Intelligence Sidebar (4 cols on Desktop / 12 on mobile) */}
+          <div className="lg:col-span-4">
+            <WidgetErrorBoundary widgetName="AI Intelligence Sidebar">
+              <AIIntelligenceSidebar userName="Dipak" />
+            </WidgetErrorBoundary>
+          </div>
+        </main>
       )}
+
+      {/* Lazy Suspense Fallback for Secondary Tab Views */}
+      <Suspense fallback={<AiResumeSkeleton />}>
+        {/* Content Analysis View: Section-by-Section Workspace */}
+        {activeTab === 'content-analysis' && (
+          <main aria-label="Content Analysis & Section Analysis Tab" className="flex flex-col gap-5">
+            <WidgetErrorBoundary widgetName="Section Analysis Workspace">
+              <SectionAnalysisWorkspace searchQuery={searchQuery} />
+            </WidgetErrorBoundary>
+          </main>
+        )}
+
+        {/* Keyword Analysis View */}
+        {activeTab === 'keyword-analysis' && (
+          <main aria-label="Keyword Analysis Tab" className="flex flex-col gap-5">
+            <WidgetErrorBoundary widgetName="Keyword Intelligence">
+              <AIKeywordIntelligenceCard categories={keywordData.categories} />
+            </WidgetErrorBoundary>
+            <WidgetErrorBoundary widgetName="Keyword Match">
+              <KeywordMatchCard
+                matchPercentage={keywordData.matchPercentage}
+                matchedCount={keywordData.matchedCount}
+                missingCount={keywordData.missingCount}
+                totalCount={keywordData.totalCount}
+                categories={keywordData.categories}
+              />
+            </WidgetErrorBoundary>
+          </main>
+        )}
+
+        {/* Competitor Benchmark View */}
+        {activeTab === 'competitor-benchmark' && (
+          <main aria-label="Competitor Benchmark Tab" className="flex flex-col gap-5">
+            <WidgetErrorBoundary widgetName="AI Recruiter Simulation">
+              <AIRecruiterSimulationCard simulation={recruiterSimulationData} />
+            </WidgetErrorBoundary>
+            <WidgetErrorBoundary widgetName="Competitor Benchmark">
+              <CompetitorBenchmarkCard roleDataMap={benchmarkMapData} />
+            </WidgetErrorBoundary>
+          </main>
+        )}
+
+        {/* Score History & Improvement View */}
+        {activeTab === 'score-history' && (
+          <main aria-label="Score History Tab" className="flex flex-col gap-5">
+            <WidgetErrorBoundary widgetName="AI Improvement Roadmap">
+              <AIImprovementRoadmapCard steps={roadmapStepsData} />
+            </WidgetErrorBoundary>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <WidgetErrorBoundary widgetName="Score Breakdown">
+                <ScoreBreakdownCard items={breakdownItemsData} />
+              </WidgetErrorBoundary>
+              <WidgetErrorBoundary widgetName="AI Engine Confidence">
+                <AIConfidenceCard />
+              </WidgetErrorBoundary>
+            </div>
+          </main>
+        )}
+
+        {/* Detailed Report View */}
+        {activeTab === 'detailed-report' && (
+          <main aria-label="Detailed Report Tab" className="flex flex-col gap-5">
+            <WidgetErrorBoundary widgetName="ATS Risk Analysis">
+              <AIRiskAnalysisCard warnings={atsWarningsData} />
+            </WidgetErrorBoundary>
+            <WidgetErrorBoundary widgetName="AI Recruiter Simulation">
+              <AIRecruiterSimulationCard simulation={recruiterSimulationData} />
+            </WidgetErrorBoundary>
+            <WidgetErrorBoundary widgetName="AI Improvement Roadmap">
+              <AIImprovementRoadmapCard steps={roadmapStepsData} />
+            </WidgetErrorBoundary>
+          </main>
+        )}
+      </Suspense>
     </div>
   )
 }
