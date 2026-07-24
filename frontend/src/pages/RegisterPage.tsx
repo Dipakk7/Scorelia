@@ -1,18 +1,17 @@
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
-import { Mail, Lock, User as UserIcon } from 'lucide-react'
-import { Logo } from '@/components/common/Logo'
+import { Mail, User as UserIcon } from 'lucide-react'
 import { useAuth } from '@/providers/AuthProvider'
-import { Input } from '@/components/ui/Input'
-import { Button } from '@/components/ui/Button'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/Card'
 import type { ApiErrorResponse } from '@/api/api'
-import { BackgroundMesh } from '@/components/ui/BackgroundMesh'
-import { SectionReveal } from '@/components/ui/SectionReveal'
-
+import { AuthCardLayout } from '@/components/layout/AuthCardLayout'
+import { AuthInput } from '@/components/common/AuthInput'
+import { PasswordInput } from '@/components/common/PasswordInput'
+import { PrimaryAuthButton } from '@/components/common/PrimaryAuthButton'
+import { SocialAuthButtons } from '@/components/common/SocialAuthButtons'
 
 // Define the Registration Zod Schema matching FastAPI backend constraints
 const registerSchema = zod
@@ -77,131 +76,56 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen w-screen grid grid-cols-1 md:grid-cols-2 bg-page transition-colors relative overflow-hidden text-left">
-      <BackgroundMesh />
-      
-      {/* Left Half: Premium AI Obsidian Art Backdrop */}
-      <div className="hidden md:flex flex-col justify-between p-12 relative overflow-hidden border-r border-border bg-card/40 backdrop-blur-md">
-        {/* Glowing gradient mesh blob animations */}
-        <div className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-[var(--primary)]/10 blur-[100px] bg-mesh-blob-1" />
-        <div className="absolute -bottom-40 -right-40 w-96 h-96 rounded-full bg-[var(--secondary)]/10 blur-[100px] bg-mesh-blob-2" />
-        
-        {/* Header Logo */}
-        <div className="flex items-center gap-2.5 z-10">
-          <Logo iconOnly={true} className="h-9 w-9 text-brand" />
-          <span className="text-lg font-black font-display tracking-tight text-heading">Scorelia</span>
-        </div>
+    <AuthCardLayout
+      activeTab="signup"
+      title="Create an account ✨"
+      subtitle="Sign up to start your AI career journey"
+    >
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-3.5 text-left">
+        {/* Full Name Field */}
+        <AuthInput
+          {...register('fullName')}
+          type="text"
+          placeholder="Full name"
+          autoComplete="name"
+          leftIcon={<UserIcon size={18} />}
+          error={errors.fullName?.message}
+        />
 
-        {/* Core Value Proposition & Testimonial/Metrics */}
-        <div className="space-y-6 my-auto max-w-md z-10 text-left">
-          <h2 className="text-4xl font-extrabold font-display tracking-tight text-heading leading-tight m-0">
-            The Intelligent Career Copilot.
-          </h2>
-          <p className="text-sm text-muted-foreground font-sans leading-relaxed m-0">
-            Map out custom career pivots, audit missing skill gaps, practice real-time speech mock interviews, and track local AI progress.
-          </p>
-          <div className="mt-8 p-6 rounded-2xl border border-border/80 bg-surface/50 backdrop-blur-md">
-            <p className="text-xs italic text-foreground font-medium leading-relaxed m-0">
-              "100% Secure. Files are parsed locally on your device."
-            </p>
-            <div className="mt-3 flex items-center gap-2">
-              <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[10px] font-bold text-[var(--success)] uppercase tracking-wider font-mono">Local Privacy Guaranteed</span>
-            </div>
-          </div>
-        </div>
+        {/* Email Address Field */}
+        <AuthInput
+          {...register('email')}
+          type="email"
+          placeholder="Email address"
+          autoComplete="email"
+          leftIcon={<Mail size={18} />}
+          error={errors.email?.message}
+        />
 
-        {/* Footer info */}
-        <div className="text-[10px] text-muted-foreground font-sans z-10 m-0">
-          &copy; {new Date().getFullYear()} Scorelia Inc. All rights reserved.
-        </div>
-      </div>
+        {/* Password Field */}
+        <PasswordInput
+          {...register('password')}
+          placeholder="Password"
+          autoComplete="new-password"
+          error={errors.password?.message}
+        />
 
-      {/* Right Half: Obsidian Form Canvas */}
-      <div className="flex items-center justify-center p-6 md:p-12 overflow-y-auto">
-        <div className="w-full max-w-md z-10">
-          {/* Mobile-only logo header */}
-          <div className="flex flex-col items-center mb-6 text-center md:hidden">
-            <Logo iconOnly={true} className="h-10 w-10 text-brand mb-2" />
-            <h1 className="text-2xl font-extrabold font-display tracking-tight text-heading m-0">Scorelia</h1>
-          </div>
+        {/* Confirm Password Field */}
+        <PasswordInput
+          {...register('confirmPassword')}
+          placeholder="Confirm password"
+          autoComplete="new-password"
+          error={errors.confirmPassword?.message}
+        />
 
-          <SectionReveal>
-            <Card variant="glass" className="overflow-hidden">
-            <CardHeader className="text-center pt-8 pb-3 px-6 md:px-8">
-              <CardTitle className="text-2xl font-bold font-display text-foreground">Create Account</CardTitle>
-              <CardDescription className="text-xs text-muted-foreground mt-1">
-                Sign up today and optimize your career trajectory
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="px-6 md:px-8 pb-6 pt-4">
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <Input
-                  {...register('fullName')}
-                  type="text"
-                  label="Full Name"
-                  placeholder="John Doe"
-                  error={errors.fullName?.message}
-                  leftIcon={<UserIcon size={16} />}
-                  autoComplete="name"
-                />
+        {/* Primary Action Button */}
+        <PrimaryAuthButton isLoading={isSubmitting} className="mt-3">
+          Sign Up
+        </PrimaryAuthButton>
+      </form>
 
-                <Input
-                  {...register('email')}
-                  type="email"
-                  label="Email Address"
-                  placeholder="you@example.com"
-                  error={errors.email?.message}
-                  leftIcon={<Mail size={16} />}
-                  autoComplete="email"
-                />
-
-                <Input
-                  {...register('password')}
-                  type="password"
-                  label="Password"
-                  placeholder="Choose a strong password"
-                  error={errors.password?.message}
-                  leftIcon={<Lock size={16} />}
-                  autoComplete="new-password"
-                />
-
-                <Input
-                  {...register('confirmPassword')}
-                  type="password"
-                  label="Confirm Password"
-                  placeholder="Retype password"
-                  error={errors.confirmPassword?.message}
-                  leftIcon={<Lock size={16} />}
-                  autoComplete="new-password"
-                />
-
-                <Button
-                  type="submit"
-                  className="w-full mt-6 font-display text-sm font-bold tracking-wide"
-                  isLoading={isSubmitting}
-                  size="lg"
-                  motion={true}
-                >
-                  Sign Up
-                </Button>
-              </form>
-            </CardContent>
-            <CardFooter className="justify-center border-t border-border py-5 bg-transparent">
-              <p className="text-xs text-secondary font-medium m-0">
-                Already have an account?{' '}
-                <Link
-                  to="/login"
-                  className="font-bold text-brand hover:text-brand-hover hover:underline transition-colors"
-                >
-                  Sign In
-                </Link>
-              </p>
-            </CardFooter>
-            </Card>
-          </SectionReveal>
-        </div>
-      </div>
-    </div>
+      {/* Social OAuth Buttons */}
+      <SocialAuthButtons />
+    </AuthCardLayout>
   )
 }

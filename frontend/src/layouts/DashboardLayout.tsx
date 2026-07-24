@@ -26,7 +26,6 @@ import { useAuth } from '@/providers/AuthProvider'
 import { cn } from '@/lib/utils'
 import { Logo } from '@/components/common/Logo'
 import { SIDEBAR_PINNED_KEY, SIDEBAR_COLLAPSED_KEY } from '@/lib/constants'
-import { BackgroundMesh } from '@/components/ui/BackgroundMesh'
 
 export default function DashboardLayout() {
   const shouldReduceMotion = useScoreliaReducedMotion()
@@ -66,10 +65,10 @@ export default function DashboardLayout() {
   const mobileNavItems = [
     { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { to: '/resumes', label: 'Resume Builder', icon: FileText },
-    { to: '/resume-intelligence', label: 'AI Resume Intelligence', icon: Sparkles },
+    { to: '/resume-intelligence', label: 'Resume Intelligence', icon: Sparkles },
     { to: '/ats', label: 'ATS Analysis', icon: Scan },
-    { to: '/cover-letter', label: 'AI Cover Letter', icon: MailOpen },
-    { to: '/interview', label: 'AI Interview Prep', icon: MessageSquareCode },
+    { to: '/cover-letter', label: 'Cover Letter', icon: MailOpen },
+    { to: '/interview', label: 'Interview Prep', icon: MessageSquareCode },
     { to: '/roadmap', label: 'Career Roadmap', icon: Map },
     { to: '/rag-workspace', label: 'RAG Workspace', icon: Database },
     { to: '/agents', label: 'Agent Console', icon: Bot },
@@ -79,8 +78,11 @@ export default function DashboardLayout() {
   ]
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-background font-sans relative">
-      <BackgroundMesh />
+    <div className="flex h-screen w-screen overflow-hidden bg-[#07080e] text-slate-100 font-sans relative selection:bg-purple-500/30 selection:text-purple-200">
+      {/* Background Ambient Glow Accents */}
+      <div className="fixed top-0 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none z-0" />
+      <div className="fixed bottom-0 right-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none z-0" />
+
       <CommandPalette />
       {/* Desktop Collapsible Sidebar */}
       <Sidebar pinned={pinned} setPinned={setPinned} />
@@ -88,7 +90,7 @@ export default function DashboardLayout() {
       {/* Mobile Sidebar Navigation Drawer Overlay */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/40 md:hidden"
+          className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm md:hidden"
           onClick={() => setMobileOpen(false)}
         />
       )}
@@ -96,25 +98,25 @@ export default function DashboardLayout() {
       {/* Mobile Drawer Panel */}
       <div
         className={cn(
-          'fixed inset-y-0 left-0 z-55 w-64 bg-sidebar-bg text-sidebar-fg border-r border-sidebar-border p-5 transform transition-transform duration-300 ease-in-out md:hidden flex flex-col justify-between shadow-md',
+          'fixed inset-y-0 left-0 z-50 w-64 bg-[#0b0c14] border-r border-white/10 p-5 transform transition-transform duration-300 ease-in-out md:hidden flex flex-col justify-between shadow-2xl',
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
         <div className="flex flex-col gap-6">
           <div className="flex items-center justify-between">
             <Link to="/dashboard" className="flex items-center gap-3 focus:outline-none">
-              <Logo iconOnly={false} className="h-7 w-auto text-sidebar-active-fg" />
+              <Logo iconOnly={false} className="h-7 w-auto text-purple-400" />
             </Link>
             <button
               onClick={() => setMobileOpen(false)}
-              className="p-1 rounded-lg text-sidebar-muted-fg hover:text-sidebar-active-fg cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-focus-ring"
+              className="p-1 rounded-lg text-slate-400 hover:text-white cursor-pointer focus:outline-none"
               aria-label="Close menu"
             >
               <X size={20} />
             </button>
           </div>
 
-          <nav className="flex flex-col gap-1 mt-4">
+          <nav className="flex flex-col gap-1.5 mt-2">
             {mobileNavItems.map((item) => {
               const Icon = item.icon
               return (
@@ -123,30 +125,30 @@ export default function DashboardLayout() {
                   to={item.to}
                   className={({ isActive }) =>
                     cn(
-                      'flex items-center gap-3 py-2.5 rounded-r-[var(--radius-button)] text-sm font-semibold transition-all duration-150 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-focus-ring/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-sidebar-bg',
+                      'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-150 group',
                       isActive
-                        ? 'bg-brand/10 border-l-[3px] border-brand text-brand pl-[9px] pr-3 shadow-[0_0_12px_rgba(83,112,154,0.15)] dark:shadow-[0_0_12px_rgba(127,167,224,0.25)]'
-                        : 'hover:bg-sidebar-hover hover:text-sidebar-active-fg text-sidebar-muted-fg px-3'
+                        ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md shadow-purple-900/40'
+                        : 'hover:bg-white/5 text-slate-400 hover:text-white'
                     )
                   }
                 >
-                  <Icon size={20} className="flex-shrink-0 transition-colors stroke-[2]" />
-                  <span className="tracking-wide">{item.label}</span>
+                  <Icon size={19} className="shrink-0 transition-colors stroke-[1.8]" />
+                  <span className="tracking-tight">{item.label}</span>
                 </NavLink>
               )
             })}
           </nav>
         </div>
 
-        <div className="text-xs text-sidebar-muted-fg font-display border-t border-sidebar-border pt-4 mt-auto">
-          Logged in as: <span className="text-sidebar-active-fg font-sans block truncate">{user?.email}</span>
+        <div className="text-xs text-slate-400 border-t border-white/10 pt-4 mt-auto">
+          Logged in as: <span className="text-slate-200 font-mono block truncate">{user?.email}</span>
         </div>
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
         <Navbar onMenuToggle={() => setMobileOpen(!mobileOpen)} />
-        <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 bg-background focus:outline-none">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 md:p-6 lg:p-8 bg-[#07080e] focus:outline-none custom-scrollbar">
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}
@@ -164,3 +166,4 @@ export default function DashboardLayout() {
     </div>
   )
 }
+

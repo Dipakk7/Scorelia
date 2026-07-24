@@ -958,4 +958,28 @@ svg.lucide {
   stroke-width: 1.75px !important;
 }
 
+/* Printable Resume A4 Stylesheet */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  header, nav, aside, footer, .no-print, [role="tablist"] {
+    display: none !important;
+  }
+  .print-document-canvas {
+    transform: none !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    width: 210mm !important;
+    min-height: 297mm !important;
+  }
+}
+
 
