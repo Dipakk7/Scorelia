@@ -4,6 +4,8 @@ from app.api.v1.endpoints.resume import router as resume_router
 from app.api.v1.endpoints.ats import router as ats_router
 from app.api.v1.endpoints.job_match import router as job_match_router
 from app.analytics.router import router as analytics_router
+from app.api.v1.endpoints.analytics_center import router as analytics_center_router
+from app.api.v1.endpoints.analytics_preferences import router as analytics_preferences_router
 from app.api.v1.endpoints.ai_resume_review import router as ai_review_router
 from app.api.v1.endpoints.ai_resume_rewrite import router as ai_rewrite_router
 from app.api.v1.endpoints.ai_resume_optimization import router as ai_optimization_router
@@ -86,6 +88,18 @@ api_router.include_router(
     analytics_router,
     prefix="/analytics",
     tags=["Analytics"]
+)
+
+api_router.include_router(
+    analytics_center_router,
+    prefix="/analytics",
+    tags=["Analytics Center"]
+)
+
+api_router.include_router(
+    analytics_preferences_router,
+    prefix="/analytics/preferences",
+    tags=["Analytics Personalization Preferences"]
 )
 
 api_router.include_router(
