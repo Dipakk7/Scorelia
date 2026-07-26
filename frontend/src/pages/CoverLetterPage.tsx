@@ -1,786 +1,382 @@
-import { useState } from 'react'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
-import api from '@/api/api'
-import type { CoverLetterResponse } from '@/types/cover-letter'
-import type { ResumeResponse } from '@/types/resume'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
-import { Select } from '@/components/ui/Select'
-import { Textarea } from '@/components/ui/Textarea'
-import { Badge } from '@/components/ui/Badge'
-import { ErrorState } from '@/components/ui/ErrorState'
-import { EmptyCoverLettersState } from '@/components/ui/EmptyState'
-import { CoverLetterSkeleton } from '@/components/ui/Skeletons'
-import { StatisticCard } from '@/components/ui/StatisticCard'
-import TemplateSelector from '@/components/cover-letter/TemplateSelector'
-import ExportDialog from '@/components/cover-letter/ExportDialog'
-import CoverLetterCard from '@/components/cover-letter/CoverLetterCard'
-import CoverLetterEditor from '@/components/cover-letter/CoverLetterEditor'
-import CoverLetterHistory from '@/components/cover-letter/CoverLetterHistory'
-import DeleteDialog from '@/components/ui/DeleteDialog'
-import toast from 'react-hot-toast'
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
+import { AlertCircle, RefreshCw } from 'lucide-react'
+import { useScoreliaReducedMotion, getContainerVariants, getSectionVariants } from '@/lib/motion'
+import { useCoverLetter } from '@/hooks/useCoverLetter'
+import { CoverLetterHeader } from '@/components/cover-letter/CoverLetterHeader'
+import { CoverLetterStepsBar } from '@/components/cover-letter/CoverLetterStepsBar'
+import { WorkspaceLayout } from '@/components/cover-letter/WorkspaceLayout'
+import { CoverLetterInputsCard } from '@/components/cover-letter/CoverLetterInputsCard'
+import { CoverLetterPreviewCard } from '@/components/cover-letter/CoverLetterPreviewCard'
+import { AIEnhancementToolsCard } from '@/components/cover-letter/AIEnhancementToolsCard'
+import { CoverLetterQuickActions } from '@/components/cover-letter/CoverLetterQuickActions'
+import { AIGenerationProgressPanel } from '@/components/cover-letter/AIGenerationProgressPanel'
+import { VersionHistoryPanel } from '@/components/cover-letter/VersionHistoryPanel'
+import { GenerationHistoryPanel } from '@/components/cover-letter/GenerationHistoryPanel'
+import { CoverLetterScoreCard } from '@/components/cover-letter/CoverLetterScoreCard'
+import { KeywordsMatchedCard } from '@/components/cover-letter/KeywordsMatchedCard'
+import { AIAssistantCard } from '@/components/cover-letter/AIAssistantCard'
+import { SmartSuggestionsCard } from '@/components/cover-letter/SmartSuggestionsCard'
+import { CoverLetterTemplatesCard } from '@/components/cover-letter/CoverLetterTemplatesCard'
+import { DocumentStylePanel, defaultDocumentStyleSettings, type DocumentStyleSettings } from '@/components/cover-letter/DocumentStylePanel'
+import { PersonalizationInsightsCard } from '@/components/cover-letter/PersonalizationInsightsCard'
+import { CompareVersionsModal } from '@/components/cover-letter/CompareVersionsModal'
+import { ExportCoverLetterModal } from '@/components/cover-letter/ExportCoverLetterModal'
+import { LoadingSkeleton } from '@/components/cover-letter/LoadingSkeleton'
+import { EmptyState } from '@/components/cover-letter/EmptyState'
 import {
-  MailOpen,
-  Plus,
-  ArrowLeft,
-  Briefcase,
-  Building,
-  Sparkles,
-  Calendar,
-  Activity,
-  Download,
-  AlertCircle,
-  Loader2,
-  Clock,
-} from 'lucide-react'
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
-import { cn } from '@/lib/utils'
-
-function TrendTooltip({ active, payload, label }: any) {
-  if (active && payload && payload.length) {
-    return (
-      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 shadow-[var(--shadow-sm)] text-left font-sans text-xs">
-        <p className="text-[9px] font-extrabold uppercase tracking-wider text-[var(--muted)] m-0">{label}</p>
-        <div className="mt-1.5 flex items-center gap-2 font-semibold">
-          <span className="h-2 w-2 rounded-full bg-[var(--primary)]" />
-          <span className="text-[var(--muted)]">Created:</span>
-          <span className="text-[var(--heading)]">{payload[0].value} letters</span>
-        </div>
-      </div>
-    )
-  }
-  return null
-}
+  mockCoverLetterVersions,
+  type MockCoverLetterContent,
+  mockToolTransformations,
+  type GenerationHistoryLog,
+} from '@/lib/cover-letter-mock-data'
 
 export default function CoverLetterPage() {
-  const queryClient = useQueryClient()
-  const navigate = useNavigate()
+  const shouldReduceMotion = useScoreliaReducedMotion()
+  const containerVariants = getContainerVariants(shouldReduceMotion)
+  const itemVariants = getSectionVariants(shouldReduceMotion)
 
-  // Navigation states: 'dashboard' | 'generate' | 'workspace'
-  const [currentView, setCurrentView] = useState<'dashboard' | 'generate' | 'workspace'>('dashboard')
-  const [selectedLetterId, setSelectedLetterId] = useState<string | null>(null)
-  const [isNewGeneration, setIsNewGeneration] = useState<boolean>(false)
-
-  // Generator form states
-  const [companyName, setCompanyName] = useState<string>('')
-  const [jobTitle, setJobTitle] = useState<string>('')
-  const [jobDescription, setJobDescription] = useState<string>('')
-  const [resumeId, setResumeId] = useState<string>('')
-  const [writingStyle, setWritingStyle] = useState<string>('PROFESSIONAL')
-  const [experienceLevel, setExperienceLevel] = useState<
-    'INTERNSHIP' | 'FRESHER' | 'EXPERIENCED' | 'EXECUTIVE' | 'TECHNICAL' | 'CAREER_CHANGE'
-  >('EXPERIENCED')
-  const [generationMode, setGenerationMode] = useState<'STANDARD' | 'FAST' | 'DETAILED'>('STANDARD')
-
-  // Export Dialog States
-  const [isExportOpen, setIsExportOpen] = useState<boolean>(false)
-  const [exportLetter, setExportLetter] = useState<CoverLetterResponse | null>(null)
-
-  // Delete Dialog States
-  const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false)
-  const [deleteLetterId, setDeleteLetterId] = useState<string | null>(null)
-
-  // Workspace compare states
-  const [compareData, setCompareData] = useState<{ original: string; optimized: string } | null>(null)
-
-  // Fetch resumes
-  const { data: resumesData } = useQuery<{ resumes: ResumeResponse[]; total: number }>({
-    queryKey: ['coverLetterResumes'],
-    queryFn: async () => {
-      const res = await api.get('/resumes')
-      return res.data
-    },
-  })
-
-  // Filter parsed resumes
-  const parsedResumes = (resumesData?.resumes || []).filter((r) => r.status.toLowerCase() === 'parsed')
-
-  // Fetch cover letters history
+  // React Query Hook Connection
   const {
-    data: historyData,
-    isLoading: historyLoading,
-    error: historyError,
-    refetch,
-  } = useQuery<{ cover_letters: CoverLetterResponse[]; total: number }>({
-    queryKey: ['coverLettersList'],
-    queryFn: async () => {
-      const res = await api.get('/ai/cover-letter/history')
-      return res.data
-    },
-  })
+    resumesQuery,
+    historyQuery,
+    generateMutation,
+    updateMutation,
+    selectedLetterId,
+    handleSelectLetter,
+    errorMessage,
+    setErrorMessage,
+    adaptedResumes,
+    adaptedActiveContent,
+  } = useCoverLetter()
 
-  // Fetch individual cover letter details (when in workspace)
-  const { data: activeLetter, isLoading: isActiveLoading } = useQuery<CoverLetterResponse>({
-    queryKey: ['coverLetterDetail', selectedLetterId],
-    queryFn: async () => {
-      if (!selectedLetterId) return null
-      const res = await api.get(`/ai/cover-letter/${selectedLetterId}`)
-      return res.data
-    },
-    enabled: !!selectedLetterId,
-  })
+  const [currentStep, setCurrentStep] = useState(3)
+  const [selectedTemplateId, setSelectedTemplateId] = useState('modern')
+  const [viewState, setViewState] = useState<'workspace' | 'skeleton' | 'empty'>('workspace')
 
-  // MUTATIONS
+  // Style Settings state
+  const [styleSettings, setStyleSettings] = useState<DocumentStyleSettings>(defaultDocumentStyleSettings)
 
-  // Generate cover letter mutation
-  const generateMutation = useMutation({
-    mutationFn: async () => {
-      const payload = {
-        resume_id: resumeId,
-        company_name: companyName.trim(),
-        job_title: jobTitle.trim(),
-        job_description: jobDescription.trim() || undefined,
-        writing_style: writingStyle,
-        experience_level: experienceLevel,
-        generation_mode: generationMode,
-      }
-      const res = await api.post('/ai/cover-letter/generate', payload)
-      return res.data
-    },
-    onSuccess: (data) => {
-      toast.success('AI Cover Letter generated successfully!')
-      queryClient.invalidateQueries({ queryKey: ['coverLettersList'] })
-      setSelectedLetterId(data.id)
-      setIsNewGeneration(true)
-      setCurrentView('workspace')
-      // Reset form
-      setCompanyName('')
-      setJobTitle('')
-      setJobDescription('')
-      setResumeId('')
-    },
-    onError: (err: any) => {
-      console.error(err)
-      const msg = err?.response?.data?.message || err?.message || 'Failed to generate cover letter.'
-      toast.error(msg)
-    },
-  })
+  // Compare Modal state
+  const [isCompareOpen, setIsCompareOpen] = useState(false)
 
-  // Delete cover letter mutation
-  const deleteMutation = useMutation({
-    mutationFn: async (id: string) => {
-      const res = await api.delete(`/ai/cover-letter/${id}`)
-      return res.data
-    },
-    onSuccess: () => {
-      toast.success('Cover letter deleted successfully.')
-      queryClient.invalidateQueries({ queryKey: ['coverLettersList'] })
-      setIsDeleteOpen(false)
-      setDeleteLetterId(null)
-      if (selectedLetterId && deleteLetterId === selectedLetterId) {
-        setSelectedLetterId(null)
-        setCurrentView('dashboard')
-      }
-    },
-    onError: (err: any) => {
-      console.error(err)
-      toast.error('Failed to delete cover letter.')
-    },
-  })
+  // Export Modal state
+  const [isExportOpen, setIsExportOpen] = useState(false)
 
-  // Tone options
-  const writingStyles = [
-    { value: 'PROFESSIONAL', label: 'Professional' },
-    { value: 'MODERN', label: 'Modern & Bold' },
-    { value: 'FORMAL', label: 'Formal / Academic' },
-    { value: 'FRIENDLY', label: 'Friendly & Conversational' },
-    { value: 'STARTUP', label: 'Startup Pitch style' },
-    { value: 'EXECUTIVE', label: 'Executive Leadership' },
-    { value: 'CONCISE', label: 'Concise & Short' },
-    { value: 'ENTHUSIASTIC', label: 'Enthusiastic & Passionate' },
-  ]
+  // Active Letter Content Override state
+  const [activeVersion, setActiveVersion] = useState<MockCoverLetterContent>(adaptedActiveContent)
 
-  // RENDER HELPERS
+  // Sync active version when backend adapted content changes
+  React.useEffect(() => {
+    if (adaptedActiveContent) {
+      setActiveVersion(adaptedActiveContent)
+    }
+  }, [adaptedActiveContent])
 
-  const handleOpenExport = (letter: CoverLetterResponse) => {
-    setExportLetter(letter)
-    setIsExportOpen(true)
+  // AI Generation mode state
+  const [isGenerating, setIsGenerating] = useState(false)
+
+  const handleUpdateStyleSettings = (newSettings: Partial<DocumentStyleSettings>) => {
+    setStyleSettings((prev) => ({ ...prev, ...newSettings }))
   }
 
-  const handleOpenDelete = (id: string) => {
-    setDeleteLetterId(id)
-    setIsDeleteOpen(true)
+  const handleStartGeneration = () => {
+    setIsGenerating(true)
   }
 
-  const handleUpdateEditorContent = (newContent: string) => {
-    // When editing locally, we sync to the cover letter metadata or save local storage
-    if (activeLetter) {
-      activeLetter.generated_content = newContent
-      // Trigger a queries refresh
-      queryClient.setQueryData(['coverLetterDetail', selectedLetterId], activeLetter)
+  const handleCompleteGeneration = () => {
+    setIsGenerating(false)
+    setCurrentStep(3)
+  }
+
+  const handleCancelGeneration = () => {
+    setIsGenerating(false)
+  }
+
+  // Handle Form Submit / Generate Action via React Query Mutation
+  const handleGenerateSubmit = (formData: {
+    resumeId: string
+    companyName: string
+    jobTitle: string
+    hiringManager: string
+    jobDescription: string
+    tone: string
+    experienceLevel: string
+    language: string
+  }) => {
+    setIsGenerating(true)
+    generateMutation.mutate(
+      {
+        resume_id: formData.resumeId,
+        company_name: formData.companyName,
+        job_title: formData.jobTitle,
+        job_description: formData.jobDescription,
+        writing_style: formData.tone,
+      },
+      {
+        onSettled: () => {
+          setIsGenerating(false)
+          setCurrentStep(3)
+        },
+      }
+    )
+  }
+
+  // AI Tool Transformations
+  const handleApplyToolTransformation = (toolId: string) => {
+    const transform = mockToolTransformations[toolId]
+    if (transform) {
+      const updatedContent = `${transform.intro}\n\n${transform.body1}\n\n${transform.body2}\n\n${transform.closing}`
+      setActiveVersion((prev) => ({
+        ...prev,
+        introParagraph: transform.intro,
+        bodyParagraph1: transform.body1,
+        bodyParagraph2: transform.body2,
+        closingParagraph: transform.closing,
+      }))
+
+      if (selectedLetterId) {
+        updateMutation.mutate({ id: selectedLetterId, content: updatedContent })
+      }
     }
   }
 
-  // Visual trend calculation: Count generated letters by month
-  const getTrendData = () => {
-    const letters = historyData?.cover_letters || []
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    const counts: Record<string, number> = {}
+  // Quick Actions
+  const handleCopyText = () => {
+    const text = `${activeVersion.introParagraph}\n\n${activeVersion.bodyParagraph1}\n\n${activeVersion.bodyParagraph2}\n\n${activeVersion.closingParagraph}`
+    navigator.clipboard?.writeText(text)
+  }
 
-    // Initialize last 6 months
-    const d = new Date()
-    for (let i = 5; i >= 0; i--) {
-      const m = new Date(d.getFullYear(), d.getMonth() - i, 1)
-      counts[months[m.getMonth()]] = 0
+  const handleDuplicateVersion = () => {
+    const newVer: MockCoverLetterContent = {
+      ...activeVersion,
+      id: `v-${Date.now()}`,
+      versionNumber: 2,
+      versionLabel: `Version 2 — Custom Edit`,
+      createdAt: 'Just now',
     }
-
-    letters.forEach((cl) => {
-      const date = new Date(cl.created_at)
-      const monthName = months[date.getMonth()]
-      if (counts[monthName] !== undefined) {
-        counts[monthName]++
-      }
-    })
-
-    return Object.entries(counts).map(([name, count]) => ({
-      name,
-      Count: count,
-    }))
+    setActiveVersion(newVer)
   }
 
-  if (historyLoading) {
-    return <CoverLetterSkeleton />
+  const handleResetDraft = () => {
+    setActiveVersion(adaptedActiveContent)
+    setStyleSettings(defaultDocumentStyleSettings)
   }
 
-  if (historyError) {
-    return <ErrorState message="Failed to load cover letters. Verify FastAPI backend." onRetry={refetch} />
+  const handleToggleFavorite = () => {
+    setActiveVersion((prev) => ({ ...prev, isFavorite: !prev.isFavorite }))
   }
 
-  const coverLetters = historyData?.cover_letters || []
-  const totalLetters = historyData?.total || 0
-  const latestLetter = coverLetters[0] || null
+  const handleRestoreFromHistory = (log: GenerationHistoryLog) => {
+    if (log.id) {
+      handleSelectLetter(log.id)
+    }
+  }
 
-  const recentActivities = coverLetters.slice(0, 4).map((cl) => ({
-    title: `Generated cover letter for ${cl.job_title}`,
-    time: new Date(cl.created_at).toLocaleDateString(undefined, {
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    }),
-    meta: cl.company_name,
-  }))
-
-  // Count cover letters generated today
-  const generatedTodayCount = coverLetters.filter(
-    (cl) => new Date(cl.created_at).toDateString() === new Date().toDateString()
-  ).length
+  const isLoading = resumesQuery.isLoading || historyQuery.isLoading
 
   return (
-    <div className="space-y-6 text-left animate-fade-in font-sans focus:outline-none">
-      {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[var(--surface)]/70 backdrop-blur-md p-5 rounded-[var(--radius-card)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300">
-        <div className="space-y-1.5">
-          <h1 className="text-xl md:text-2xl font-black font-display text-[var(--heading)] m-0 tracking-tight leading-none">
-            AI Cover Letter Builder
-          </h1>
-          <p className="text-xs text-[var(--muted)] font-sans leading-relaxed m-0 font-medium">
-            Design and optimize tailored, ATS-friendly cover letters using your parsed resumes.
-          </p>
-        </div>
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="space-y-6 max-w-full overflow-x-hidden p-4 sm:p-6 text-left selection:bg-purple-500/30"
+    >
+      {/* Top Header */}
+      <CoverLetterHeader
+        onGenerateClick={handleStartGeneration}
+        onExportClick={() => setIsExportOpen(true)}
+      />
 
-        {currentView === 'dashboard' && (
-          <Button
-            onClick={() => setCurrentView('generate')}
-            disabled={parsedResumes.length === 0}
-            className="flex items-center gap-1.5 px-4 py-2.5 font-bold cursor-pointer bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white border-none rounded-xl transition-all duration-200 text-xs"
+      {/* Inline Error Card with Retry */}
+      {errorMessage && (
+        <motion.div
+          variants={itemVariants}
+          className="p-4 rounded-2xl border border-rose-500/30 bg-rose-500/10 text-xs text-rose-300 flex items-center justify-between gap-3 animate-fade-in"
+        >
+          <div className="flex items-center gap-2">
+            <AlertCircle size={16} className="text-rose-400 shrink-0" />
+            <span>{errorMessage}</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setErrorMessage(null)}
+            className="flex items-center gap-1 px-3 py-1 rounded-xl bg-rose-500/20 text-rose-200 font-bold hover:bg-rose-500/30 border-none cursor-pointer"
           >
-            <Plus size={14} />
-            <span>Generate New Letter</span>
-          </Button>
-        )}
+            <RefreshCw size={11} />
+            <span>Dismiss</span>
+          </button>
+        </motion.div>
+      )}
 
-        {currentView !== 'dashboard' && (
-          <Button
-            variant="outline"
-            onClick={() => {
-              setCurrentView('dashboard')
-              setSelectedLetterId(null)
-              setIsNewGeneration(false)
-              setCompareData(null)
-            }}
-            className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-bold border-[var(--border)] cursor-pointer rounded-xl hover:border-[var(--primary)]/30 hover:bg-[var(--primary)]/5 transition-all text-[var(--body)] bg-transparent"
-          >
-            <ArrowLeft size={14} />
-            <span>Back to Dashboard</span>
-          </Button>
-        )}
-      </div>
+      {/* Side-by-Side Compare Versions Modal */}
+      <CompareVersionsModal
+        isOpen={isCompareOpen}
+        onClose={() => setIsCompareOpen(false)}
+        originalVersion={mockCoverLetterVersions[0]}
+        activeVersion={activeVersion}
+      />
 
-      {/* DASHBOARD VIEW */}
-      {currentView === 'dashboard' && (
-        <div className="space-y-6">
-          {/* Stats Cards Row */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            <StatisticCard
-              title="Total Cover Letters"
-              value={totalLetters}
-              description="Tailored resumes matched"
-              icon={MailOpen}
-              className="border-[var(--border)]"
-            />
-            <StatisticCard
-              title="Generated Today"
-              value={generatedTodayCount}
-              description="New revisions today"
-              icon={Sparkles}
-              className="border-[var(--border)]"
-            />
-            <StatisticCard
-              title="AI Word Count"
-              value={totalLetters * 320}
-              description="AI optimization credits"
-              icon={Activity}
-              className="border-[var(--border)]"
-            />
-            <StatisticCard
-              title="ATS Pass Rate"
-              value="94.2%"
-              description="ATS scanner qualified"
-              icon={Briefcase}
-              className="border-[var(--border)]"
-            />
-          </div>
+      {/* Export Document Modal */}
+      <ExportCoverLetterModal
+        isOpen={isExportOpen}
+        onClose={() => setIsExportOpen(false)}
+        content={activeVersion}
+        styleSettings={styleSettings}
+      />
 
-          {/* Stats & Trends Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-            {/* Left Metrics column */}
-            <div className="lg:col-span-4 flex flex-col justify-between gap-6">
-              <Card className="flex-1 border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300">
-                <CardContent className="p-5 flex flex-col justify-between h-full font-sans text-xs">
-                  <div className="flex items-center justify-between mb-3.5">
-                    <span className="text-[9px] font-black uppercase tracking-wider text-[var(--muted)]">
-                      Latest Document
-                    </span>
-                    <Badge variant="outline" className="text-[9px] font-bold uppercase tracking-wider px-2 py-0 border-[var(--border)] text-[var(--muted)]">
-                      Active
-                    </Badge>
-                  </div>
-                  {latestLetter ? (
-                    <div className="space-y-3.5 text-left">
-                      <div>
-                        <h4 className="font-extrabold text-[var(--heading)] text-sm line-clamp-1 m-0">
-                          {latestLetter.job_title}
-                        </h4>
-                        <p className="text-xs font-semibold text-[var(--muted)] m-0 mt-1">{latestLetter.company_name}</p>
-                      </div>
-                      <div className="flex justify-between items-center pt-3 border-t border-[var(--border)]">
-                        <span className="text-[10px] text-[var(--muted)] font-bold uppercase tracking-wider">
-                          {new Date(latestLetter.created_at).toLocaleDateString()}
-                        </span>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => {
-                            setSelectedLetterId(latestLetter.id)
-                            setCurrentView('workspace')
-                          }}
-                          className="h-8 text-[10px] font-bold uppercase tracking-wider cursor-pointer hover:bg-[var(--primary)]/5 hover:text-[var(--primary)] transition-all px-3 rounded-lg border-none"
-                        >
-                          Workspace
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-center justify-center py-4 text-center gap-3">
-                      <p className="text-xs text-[var(--muted)] italic m-0">No documents generated yet.</p>
-                      <Button
-                        variant="primary"
-                        size="sm"
-                        onClick={() => setCurrentView('generate')}
-                        className="h-8 text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all px-3 rounded-lg hover:shadow-md"
-                      >
-                        Create Letter Draft
-                      </Button>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Middle Trend Chart */}
-            <Card className="lg:col-span-5 border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300">
-              <CardHeader className="pb-2.5 border-b border-[var(--border)]/60">
-                <CardTitle className="text-xs font-black text-[var(--heading)] uppercase tracking-wider flex items-center gap-1.5 m-0">
-                  <Activity size={14} className="text-[var(--primary)]" />
-                  <span>Document Generation Frequency</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="h-44 pt-6">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={getTrendData()} margin={{ top: 10, right: 10, left: -30, bottom: 0 }}>
-                    <defs>
-                      <linearGradient id="coverLetterBarColor" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.9} />
-                        <stop offset="100%" stopColor="var(--primary)" stopOpacity={0.4} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" strokeOpacity={0.1} />
-                    <XAxis dataKey="name" stroke="var(--muted)" fontSize={9} tickLine={false} axisLine={false} />
-                    <YAxis stroke="var(--muted)" fontSize={9} tickLine={false} axisLine={false} allowDecimals={false} />
-                    <Tooltip content={<TrendTooltip />} />
-                    <Bar dataKey="Count" fill="url(#coverLetterBarColor)" radius={[4, 4, 0, 0]} maxBarSize={30} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
-
-            {/* Right Activity List */}
-            <Card className="lg:col-span-3 border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden flex flex-col justify-between">
-              <CardHeader className="pb-2.5 border-b border-[var(--border)]/60 text-left">
-                <CardTitle className="text-xs font-black text-[var(--heading)] uppercase tracking-wider flex items-center gap-1.5 m-0">
-                  <Clock size={14} className="text-[var(--success)]" />
-                  <span>Recent activity logs</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-0 text-left">
-                <div className="divide-y divide-[var(--border)]">
-                  {recentActivities.length > 0 ? (
-                    recentActivities.map((act, i) => (
-                      <div key={i} className="p-3.5 flex items-start justify-between gap-3 text-[10px] hover:bg-[var(--surface-hover)] transition-colors duration-150">
-                        <div className="space-y-0.5">
-                          <p className="font-extrabold text-[var(--heading)] line-clamp-1 m-0">{act.title}</p>
-                          <span className="text-[9px] text-[var(--muted)] mt-0.5 block font-semibold">{act.meta}</span>
-                        </div>
-                        <span className="text-[8px] text-[var(--muted)] shrink-0 font-mono font-bold uppercase tracking-wider mt-0.5">{act.time}</span>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="flex flex-col items-center justify-center p-6 text-center text-xs text-[var(--muted)] gap-2">
-                      <p className="italic text-[10px] m-0">No recent generations logs.</p>
-                      <button
-                        onClick={() => setCurrentView('generate')}
-                        className="text-[9px] font-bold uppercase tracking-wider text-[var(--primary)] hover:underline border-none bg-transparent cursor-pointer p-0 leading-none"
-                      >
-                        Start generation session →
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Parsed Resume Check warning */}
-          {parsedResumes.length === 0 && (
-            <div className="flex items-start gap-3 p-4 rounded-2xl border border-amber-250/50 bg-amber-500/5 text-amber-600">
-              <AlertCircle size={18} className="shrink-0 mt-0.5" />
-              <div className="space-y-1 text-xs text-left">
-                <h4 className="font-bold m-0 leading-none">No Parsed Resume Found!</h4>
-                <p className="font-sans m-0 leading-relaxed">
-                  The AI Cover Letter builder requires a parsed resume to customize letters. Please upload and parse your resume in the{' '}
-                  <a href="/resumes" className="underline font-bold">Resume Builder</a> first.
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* History Documents Grid */}
-          <div className="space-y-3.5">
-            <h3 className="font-display font-black text-sm text-foreground m-0">Generated Document History</h3>
-            {coverLetters.length === 0 ? (
-              <EmptyCoverLettersState
-                onAction={() => setCurrentView('generate')}
-                hasResumes={parsedResumes.length > 0}
-                onNavigateToResumes={() => navigate('/resumes')}
-              />
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {coverLetters.map((cl) => (
-                  <CoverLetterCard
-                    key={cl.id}
-                    coverLetter={cl}
-                    onSelect={(id) => {
-                      setSelectedLetterId(id)
-                      setCurrentView('workspace')
-                    }}
-                    onDelete={handleOpenDelete}
-                    onExport={handleOpenExport}
-                  />
-                ))}
-              </div>
-            )}
+      {/* Workspace View Mode Pill Bar */}
+      <motion.div
+        variants={itemVariants}
+        className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-2xl border border-[var(--border)] bg-[var(--surface)] text-xs"
+      >
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="font-bold text-[var(--heading)] font-sans">Phase 9 Production Verification Edition:</span>
+          <div className="flex items-center gap-1 bg-[var(--surface-hover)]/60 p-1 rounded-xl border border-[var(--border)]">
+            <button
+              type="button"
+              onClick={() => setViewState('workspace')}
+              className={`px-3 py-1 rounded-lg font-bold transition-all cursor-pointer border-none ${
+                viewState === 'workspace'
+                  ? 'bg-[var(--primary)] text-white shadow-sm'
+                  : 'bg-transparent text-[var(--muted)] hover:text-[var(--heading)]'
+              }`}
+            >
+              Verified Workspace
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewState('skeleton')}
+              className={`px-3 py-1 rounded-lg font-bold transition-all cursor-pointer border-none ${
+                viewState === 'skeleton'
+                  ? 'bg-[var(--primary)] text-white shadow-sm'
+                  : 'bg-transparent text-[var(--muted)] hover:text-[var(--heading)]'
+              }`}
+            >
+              Skeleton Shimmer
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewState('empty')}
+              className={`px-3 py-1 rounded-lg font-bold transition-all cursor-pointer border-none ${
+                viewState === 'empty'
+                  ? 'bg-[var(--primary)] text-white shadow-sm'
+                  : 'bg-transparent text-[var(--muted)] hover:text-[var(--heading)]'
+              }`}
+            >
+              Empty State
+            </button>
           </div>
         </div>
-      )}
 
-      {/* GENERATE FORM VIEW */}
-      {currentView === 'generate' && (
-        <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm overflow-hidden hover:border-[var(--primary)]/40 transition-all duration-300">
-          <CardContent className="p-6 space-y-6 text-left">
-            <h3 className="font-display font-black text-sm text-[var(--heading)] flex items-center gap-2 pb-3 border-b border-[var(--border)] m-0">
-              <Sparkles size={16} className="text-[var(--primary)] animate-pulse" />
-              <span>Configure AI Tailored Cover Letter</span>
-            </h3>
+        <button
+          type="button"
+          onClick={() => setIsExportOpen(true)}
+          className="text-xs font-bold text-emerald-400 hover:underline cursor-pointer bg-transparent border-none p-0"
+        >
+          Export (.pdf, .docx, .md, .txt, .json) ⚡
+        </button>
+      </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {/* Job Title */}
-              <div className="space-y-1.5 text-left">
-                <label htmlFor="job-title" className="block text-[10px] font-black text-[var(--muted)] uppercase tracking-widest leading-none">
-                  Target Job Title
-                </label>
-                <div className="relative">
-                  <Briefcase className="absolute left-3.5 top-3 h-4.5 w-4.5 text-[var(--muted)]" />
-                  <Input
-                    id="job-title"
-                    value={jobTitle}
-                    onChange={(e) => setJobTitle(e.target.value)}
-                    placeholder="e.g. Senior Software Engineer"
-                    className="pl-10 text-xs bg-[var(--surface-hover)]/50 border border-[var(--border)] rounded-xl p-2.5 h-10 text-[var(--body)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]"
-                    required
-                  />
-                </div>
-              </div>
+      {/* Step Navigation Wizard */}
+      <CoverLetterStepsBar currentStep={currentStep} onSelectStep={setCurrentStep} />
 
-              {/* Company Name */}
-              <div className="space-y-1.5 text-left">
-                <label htmlFor="company-name" className="block text-[10px] font-black text-[var(--muted)] uppercase tracking-widest leading-none">
-                  Company Name
-                </label>
-                <div className="relative">
-                  <Building className="absolute left-3.5 top-3 h-4.5 w-4.5 text-[var(--muted)]" />
-                  <Input
-                    id="company-name"
-                    value={companyName}
-                    onChange={(e) => setCompanyName(e.target.value)}
-                    placeholder="e.g. OpenAI"
-                    className="pl-10 text-xs bg-[var(--surface-hover)]/50 border border-[var(--border)] rounded-xl p-2.5 h-10 text-[var(--body)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]"
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {/* Resume Selection */}
-              <Select
-                id="resume-id"
-                label="Select Source Resume"
-                value={resumeId}
-                onChange={(e) => setResumeId(e.target.value)}
-                required
-              >
-                <option value="">-- Choose Resume --</option>
-                {parsedResumes.map((r) => (
-                  <option key={r.id} value={r.id}>
-                    {r.original_filename} (Score: {r.ats_score || 'N/A'})
-                  </option>
-                ))}
-              </Select>
-
-              {/* Tone Style */}
-              <Select
-                id="writing-style"
-                label="Writing Style & Tone"
-                value={writingStyle}
-                onChange={(e) => setWritingStyle(e.target.value)}
-              >
-                {writingStyles.map((style) => (
-                  <option key={style.value} value={style.value}>
-                    {style.label}
-                  </option>
-                ))}
-              </Select>
-
-              {/* Generation Mode */}
-              <Select
-                id="generation-mode"
-                label="Generation Detail Mode"
-                value={generationMode}
-                onChange={(e: any) => setGenerationMode(e.target.value)}
-              >
-                <option value="STANDARD">Standard Audit (Optimal detail)</option>
-                <option value="FAST">Fast draft (Quick outline)</option>
-                <option value="DETAILED">Detailed optimize (Comprehensive & rich)</option>
-              </Select>
-            </div>
-
-            {/* Template grid selector */}
-            <TemplateSelector selectedId={experienceLevel} onChange={setExperienceLevel} />
-
-            {/* Job Description */}
-            <Textarea
-              id="job-desc"
-              label="Target Job Description (Recommended)"
-              value={jobDescription}
-              onChange={(e) => setJobDescription(e.target.value)}
-              placeholder="Paste the target job description here. The AI will cross-reference this description with your resume parsing data to align keywords, tech stack, and experience."
-              className="min-h-[140px] resize-none"
-            />
-
-            {/* Form actions */}
-            <div className="flex justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-850">
-              <Button
-                variant="outline"
-                onClick={() => setCurrentView('dashboard')}
-                disabled={generateMutation.isPending}
-                className="h-10 text-xs font-bold cursor-pointer rounded-xl border-slate-200 dark:border-slate-850 hover:border-brand-500/30 hover:bg-brand-500/5 transition-all bg-transparent"
-              >
-                Cancel
-              </Button>
-              <Button
-                onClick={() => generateMutation.mutate()}
-                disabled={generateMutation.isPending || !companyName || !jobTitle || !resumeId}
-                className="flex items-center gap-1.5 px-5 py-2.5 font-bold cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-10"
-              >
-                {generateMutation.isPending ? (
-                  <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    <span>Writing Letter...</span>
-                  </>
-                ) : (
-                  <>
-                    <Sparkles size={14} className="animate-pulse" />
-                    <span>Write Cover Letter</span>
-                  </>
-                )}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* WORKSPACE VIEW */}
-      {currentView === 'workspace' && (
-        <div className="space-y-6 animate-fade-in">
-          {isActiveLoading ? (
-            <CoverLetterSkeleton />
-          ) : activeLetter ? (
-            <div className="space-y-6">
-              {/* Workspace Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-[var(--surface)]/70 backdrop-blur-md border border-[var(--border)] shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300">
-                <div className="space-y-1.5 text-left">
-                  <span className="text-[9px] font-black text-[var(--muted)] uppercase tracking-widest block font-sans leading-none">
-                    Active Editor Workspace
-                  </span>
-                  <h2 className="text-base font-extrabold text-[var(--heading)] line-clamp-1 m-0 leading-tight">
-                    {activeLetter.job_title} at {activeLetter.company_name}
-                  </h2>
-                  <p className="text-[10px] text-[var(--muted)] font-medium m-0 flex items-center gap-1.5 leading-none">
-                    <Calendar size={11} className="text-[var(--muted)]" />
-                    <span>Created: {new Date(activeLetter.created_at).toLocaleString()}</span>
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button
-                    variant="outline"
-                    onClick={() => handleOpenExport(activeLetter)}
-                    className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-bold border-[var(--border)] cursor-pointer rounded-xl hover:border-[var(--primary)]/30 hover:bg-[var(--primary)]/5 transition-all bg-transparent h-9"
-                  >
-                    <Download size={13} />
-                    <span>Export</span>
-                  </Button>
-                </div>
-              </div>
-
-              {/* Double Column workspace */}
-              <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-stretch">
-                <div className={cn(compareData ? 'xl:col-span-12' : 'xl:col-span-9')}>
-                  <CoverLetterEditor
-                    coverLetter={activeLetter}
-                    onUpdateContent={handleUpdateEditorContent}
-                    isNewGeneration={isNewGeneration}
-                    onStreamComplete={() => setIsNewGeneration(false)}
-                  />
-                </div>
-
-                {!compareData && (
-                  <div className="xl:col-span-3">
-                    <div className="p-5 rounded-2xl bg-[var(--surface)]/70 backdrop-blur-md border border-[var(--border)] h-full">
-                      <CoverLetterHistory
-                        coverLetterId={activeLetter.id}
-                        activeContent={activeLetter.generated_content || ''}
-                        onRestore={(content) => {
-                          handleUpdateEditorContent(content)
-                          toast.success('Restored content draft!')
-                        }}
-                        onCompare={(original, optimized) => {
-                          setCompareData({ original, optimized })
-                        }}
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Floating comparison view if active */}
-              {compareData && (
-                <Card className="border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300">
-                  <CardHeader className="flex flex-row items-center justify-between pb-3 border-b border-[var(--border)]">
-                    <div className="space-y-1 text-left">
-                      <CardTitle className="text-xs font-black text-[var(--heading)] uppercase tracking-wider m-0">
-                        Document Version Comparison Viewer
-                      </CardTitle>
-                      <CardDescription className="text-[10px] text-[var(--muted)] font-medium leading-none">
-                        Review edits between historical baseline and AI Optimized versions.
-                      </CardDescription>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setCompareData(null)}
-                      className="text-xs font-bold h-8 cursor-pointer hover:bg-[var(--surface-hover)] rounded-lg px-2 border-none bg-transparent"
-                    >
-                      Close Comparison
-                    </Button>
-                  </CardHeader>
-                  <CardContent className="p-5 text-left">
-                    <CoverLetterHistory
-                      coverLetterId={activeLetter.id}
-                      activeContent={activeLetter.generated_content || ''}
-                      onRestore={(content) => {
-                        handleUpdateEditorContent(content)
-                        toast.success('Restored content draft!')
-                      }}
-                      onCompare={(original, optimized) => {
-                        setCompareData({ original, optimized })
-                      }}
-                    />
-                    <div className="mt-4">
-                      <CoverLetterEditor
-                        coverLetter={activeLetter}
-                        onUpdateContent={handleUpdateEditorContent}
-                        isNewGeneration={false}
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-            </div>
-          ) : (
-            <div className="p-8 text-center text-[var(--muted)] italic">Document details not found.</div>
-          )}
-        </div>
-      )}
-
-      {/* EXPORT DIALOG */}
-      {exportLetter && (
-        <ExportDialog
-          isOpen={isExportOpen}
-          onClose={() => {
-            setIsExportOpen(false)
-            setExportLetter(null)
+      {/* Dynamic View Rendering */}
+      {isLoading || viewState === 'skeleton' ? (
+        <LoadingSkeleton />
+      ) : viewState === 'empty' ? (
+        <EmptyState
+          onAction={() => {
+            setViewState('workspace')
           }}
-          coverLetterId={exportLetter.id}
-          companyName={exportLetter.company_name}
-          jobTitle={exportLetter.job_title}
-          content={exportLetter.generated_content || ''}
+        />
+      ) : (
+        <WorkspaceLayout
+          leftContent={
+            <>
+              {/* Multi-Stage AI Generation Timeline Modal / Progress Overlay */}
+              {isGenerating && (
+                <AIGenerationProgressPanel
+                  onComplete={handleCompleteGeneration}
+                  onCancel={handleCancelGeneration}
+                />
+              )}
+
+              {/* Document Personalization & Style Settings Panel */}
+              <DocumentStylePanel
+                settings={styleSettings}
+                onUpdateSettings={handleUpdateStyleSettings}
+              />
+
+              {/* Quick Actions Toolbar */}
+              <CoverLetterQuickActions
+                onCopyText={handleCopyText}
+                onDuplicateVersion={handleDuplicateVersion}
+                onResetDraft={handleResetDraft}
+                onToggleFavorite={handleToggleFavorite}
+                onDownloadClick={() => setIsExportOpen(true)}
+                isFavorite={activeVersion.isFavorite}
+              />
+
+              {/* Inputs Card */}
+              <CoverLetterInputsCard
+                resumes={adaptedResumes}
+                isGenerating={generateMutation.isPending || isGenerating}
+                onStartGeneration={handleStartGeneration}
+                onGenerateClick={handleGenerateSubmit}
+              />
+
+              {/* Cover Letter Preview & Inline Editor Card */}
+              <CoverLetterPreviewCard
+                activeVersion={activeVersion}
+                selectedTemplateId={selectedTemplateId}
+                onTemplateChange={setSelectedTemplateId}
+                isGenerating={isGenerating}
+                styleSettings={styleSettings}
+              />
+
+              {/* 8 AI Enhancement Actions Panel */}
+              <AIEnhancementToolsCard
+                onApplyToolTransformation={handleApplyToolTransformation}
+              />
+            </>
+          }
+          rightSidebar={
+            <>
+              {/* Personalization Insights Widget */}
+              <PersonalizationInsightsCard />
+
+              {/* Version History & Edit Log Drawer */}
+              <VersionHistoryPanel
+                activeVersionId={activeVersion.id}
+                onSelectVersion={setActiveVersion}
+                onOpenCompareModal={() => setIsCompareOpen(true)}
+              />
+
+              {/* Cover Letter Score Gauge & Sub-Metrics */}
+              <CoverLetterScoreCard />
+
+              {/* Matched & Missing Keywords */}
+              <KeywordsMatchedCard />
+
+              {/* Scorelia AI Assistant Chat */}
+              <AIAssistantCard />
+
+              {/* Generation History Log */}
+              <GenerationHistoryPanel onRestoreGeneration={handleRestoreFromHistory} />
+
+              {/* Smart Suggestions */}
+              <SmartSuggestionsCard />
+
+              {/* Cover Letter Templates Picker */}
+              <CoverLetterTemplatesCard
+                selectedTemplateId={selectedTemplateId}
+                onSelectTemplate={setSelectedTemplateId}
+              />
+            </>
+          }
         />
       )}
-
-      <DeleteDialog
-        isOpen={isDeleteOpen}
-        onClose={() => setIsDeleteOpen(false)}
-        onConfirm={async () => {
-          if (deleteLetterId) {
-            await deleteMutation.mutateAsync(deleteLetterId)
-          }
-        }}
-        title="Delete Cover Letter?"
-        description="This action cannot be undone. It will remove this cover letter and all optimization version history from the database."
-      />
-    </div>
+    </motion.div>
   )
 }
