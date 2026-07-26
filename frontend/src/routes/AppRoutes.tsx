@@ -20,7 +20,7 @@ const ProfilePage = React.lazy(() => import('@/pages/ProfilePage'))
 const ResumeIntelligencePage = React.lazy(() => import('@/pages/ResumeIntelligencePage'))
 const CoverLetterPage = React.lazy(() => import('@/pages/CoverLetterPage'))
 const RAGWorkspacePage = React.lazy(() => import('@/pages/RAGWorkspacePage'))
-const MultiAgentWorkspacePage = React.lazy(() => import('@/pages/MultiAgentWorkspacePage'))
+const AgentConsolePage = React.lazy(() => import('@/pages/AgentConsolePage'))
 const AnalyticsPage = React.lazy(() => import('@/pages/AnalyticsPage'))
 const GithubIntelligencePage = React.lazy(() => import('@/pages/GithubIntelligencePage'))
 const NotFoundPage = React.lazy(() => import('@/pages/404Page'))
@@ -100,7 +100,7 @@ export function AppRoutes() {
           <Route path="interview" element={<InterviewPrepPage />} />
           <Route path="roadmap" element={<CareerRoadmapPage />} />
           <Route path="rag-workspace" element={<RAGWorkspacePage />} />
-          <Route path="agents" element={<MultiAgentWorkspacePage />} />
+          <Route path="agents" element={<AgentConsolePage />} />
           <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="github-intelligence" element={<GithubIntelligencePage />} />
           <Route path="settings" element={<SettingsPage />} />
