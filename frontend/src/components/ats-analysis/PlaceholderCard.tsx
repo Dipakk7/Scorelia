@@ -1,0 +1,5 @@
+export { ATSCompatibilityCard as ATSCompatibilityPlaceholderCard } from './ATSCompatibilityCard'
+export { KeywordAnalysisCard as KeywordMatchPlaceholderCard } from './KeywordAnalysisCard'
+export { FormattingAnalysisCard as FormattingAnalysisPlaceholderCard } from './FormattingAnalysisCard'
+export { ParserPreviewCard as ATSSimulationPlaceholderCard } from './ParserPreviewCard'
+export { AIRecommendationCard as AIRecommendationBannerCard } from './AIRecommendationCard'
