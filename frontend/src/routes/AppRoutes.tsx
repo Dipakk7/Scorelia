@@ -13,7 +13,7 @@ const ForgotPasswordPage = React.lazy(() => import('@/pages/ForgotPasswordPage')
 const DashboardPage = React.lazy(() => import('@/pages/DashboardPage'))
 const ResumesPage = React.lazy(() => import('@/pages/ResumesPage'))
 const AtsPage = React.lazy(() => import('@/pages/AtsPage'))
-const InterviewPage = React.lazy(() => import('@/pages/InterviewPage'))
+const InterviewPrepPage = React.lazy(() => import('@/pages/InterviewPrepPage'))
 const RoadmapPage = React.lazy(() => import('@/pages/RoadmapPage'))
 const SettingsPage = React.lazy(() => import('@/pages/SettingsPage'))
 const ProfilePage = React.lazy(() => import('@/pages/ProfilePage'))
@@ -97,7 +97,7 @@ export function AppRoutes() {
           <Route path="resume-intelligence" element={<ResumeIntelligencePage />} />
           <Route path="ats" element={<AtsPage />} />
           <Route path="cover-letter" element={<CoverLetterPage />} />
-          <Route path="interview" element={<InterviewPage />} />
+          <Route path="interview" element={<InterviewPrepPage />} />
           <Route path="roadmap" element={<RoadmapPage />} />
           <Route path="rag-workspace" element={<RAGWorkspacePage />} />
           <Route path="agents" element={<MultiAgentWorkspacePage />} />
