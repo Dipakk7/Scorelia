@@ -28,8 +28,43 @@ from app.career_roadmap.services.analytics_service import CareerAnalyticsService
 from app.career_roadmap.services.service import RoadmapService
 from app.career_roadmap.services.context import RoadmapContext
 
+from app.career_roadmap.schemas.schemas_v3 import (
+    CareerRoadmapOverviewResponse,
+    TimelineResponse,
+    SkillsGapResponse,
+    MilestonesResponse,
+    AssistantResponse,
+    AssistantMessageRequest,
+)
+from app.career_roadmap.services.roadmap_v3_service import RoadmapV3Service
+
 logger = structlog.get_logger()
 router = APIRouter()
+
+@router.get("/overview", response_model=CareerRoadmapOverviewResponse, summary="Get Career Roadmap V3 Overview")
+async def get_overview():
+    return RoadmapV3Service.get_overview_data()
+
+@router.get("/timeline", response_model=TimelineResponse, summary="Get Career Roadmap V3 Timeline")
+async def get_timeline():
+    return RoadmapV3Service.get_timeline_data()
+
+@router.get("/skills-gap", response_model=SkillsGapResponse, summary="Get Career Roadmap V3 Skills Gap")
+async def get_skills_gap():
+    return RoadmapV3Service.get_skills_gap_data()
+
+@router.get("/milestones", response_model=MilestonesResponse, summary="Get Career Roadmap V3 Milestones")
+async def get_milestones():
+    return RoadmapV3Service.get_milestones_data()
+
+@router.get("/assistant", response_model=AssistantResponse, summary="Get Career Roadmap V3 AI Assistant Session")
+async def get_assistant():
+    return RoadmapV3Service.get_assistant_data()
+
+@router.post("/assistant/message", response_model=AssistantResponse, summary="Post message to AI Assistant")
+async def post_assistant_message(request: AssistantMessageRequest):
+    return RoadmapV3Service.process_assistant_message(request)
+
 
 @router.post(
     "/roadmaps",
