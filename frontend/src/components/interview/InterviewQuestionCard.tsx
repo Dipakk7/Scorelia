@@ -1,200 +1,154 @@
-import React, { useState } from 'react'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
+import { useState } from 'react'
+import { Send, SkipForward, Flag, Loader2, BookOpen } from 'lucide-react'
+import { Card, CardContent } from '@/components/ui/Card'
+import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
-import { HelpCircle, Bookmark, Volume2, Sparkles } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useScoreliaReducedMotion } from '@/lib/motion'
+import type { InterviewTurnResponse } from '@/types/interview'
 
-export interface SampleQuestion {
-  id: string
-  number: number
-  category: string
-  difficulty: 'Easy' | 'Medium' | 'Hard'
-  questionText: string
-  contextSnippet: string
+interface InterviewQuestionCardProps {
+  turn: InterviewTurnResponse
+  currentNumber: number
+  totalCount: number
+  onSubmitAnswer: (answer: string) => void
+  onSkipQuestion: () => void
+  onCompleteSession: () => void
+  isSubmitting?: boolean
 }
 
-export const defaultSampleQuestions: SampleQuestion[] = [
-  {
-    id: 'q1',
-    number: 1,
-    category: 'Behavioral & Role Overview',
-    difficulty: 'Easy',
-    questionText: 'Tell me about yourself and your experience architecting high-scale web applications.',
-    contextSnippet: 'Focus on recent leadership achievements, primary tech stack (React, Node, Cloud), and concrete metrics.',
-  },
-  {
-    id: 'q2',
-    number: 2,
-    category: 'Technical Deep-Dive',
-    difficulty: 'Hard',
-    questionText: 'Describe a challenging technical project where you faced performance bottlenecks, and how you resolved them.',
-    contextSnippet: 'Focus on root-cause analysis, specific telemetry metrics (e.g. p99 latency), architectural trade-offs, and STAR methodology.',
-  },
-  {
-    id: 'q3',
-    number: 3,
-    category: 'Cultural Alignment & Leadership',
-    difficulty: 'Medium',
-    questionText: 'How do you handle technical disagreements within an engineering team when choosing system architecture?',
-    contextSnippet: 'Highlight data-driven decision making, benchmarking, prototyping, and fostering technical consensus.',
-  },
-  {
-    id: 'q4',
-    number: 4,
-    category: 'System Design & Scalability',
-    difficulty: 'Hard',
-    questionText: 'How would you design a real-time collaborative document editing system supporting thousands of concurrent users?',
-    contextSnippet: 'Discuss Operational Transformation (OT) / CRDTs, WebSocket connection scaling, message queues, and caching layers.',
-  },
-  {
-    id: 'q5',
-    number: 5,
-    category: 'Behavioral & Conflict Management',
-    difficulty: 'Medium',
-    questionText: 'Describe a time when a critical production system failed unexpectedly. How did you manage post-mortem resolution?',
-    contextSnippet: 'Detail incident triage, blameless post-mortem culture, preventive automated testing, and SLA recovery.',
-  },
-]
+export default function InterviewQuestionCard({
+  turn,
+  currentNumber,
+  totalCount,
+  onSubmitAnswer,
+  onSkipQuestion,
+  onCompleteSession,
+  isSubmitting,
+}: InterviewQuestionCardProps) {
+  const [answer, setAnswer] = useState<string>('')
 
-export interface InterviewQuestionCardProps {
-  questionNumber?: number
-  questionIndex?: number
-  totalQuestions?: number
-  category?: string
-  difficulty?: 'Easy' | 'Medium' | 'Hard'
-  questionText?: string
-  contextSnippet?: string
-  onQuestionChange?: (index: number) => void
-}
+  // Word count and Character count
+  const wordCount = answer.trim() ? answer.trim().split(/\s+/).length : 0
+  const charCount = answer.length
 
-export const InterviewQuestionCardComponent: React.FC<InterviewQuestionCardProps> = ({
-  questionNumber,
-  questionIndex = 0,
-  totalQuestions = 5,
-  category,
-  difficulty,
-  questionText,
-  contextSnippet,
-  onQuestionChange,
-}) => {
-  const shouldReduceMotion = useScoreliaReducedMotion()
-  const [isBookmarked, setIsBookmarked] = useState(false)
-  const [isPlayingAudio, setIsPlayingAudio] = useState(false)
-
-  const activeQuestion = defaultSampleQuestions[questionIndex] || defaultSampleQuestions[0]
-
-  const num = questionNumber ?? activeQuestion.number
-  const cat = category ?? activeQuestion.category
-  const diff = difficulty ?? activeQuestion.difficulty
-  const text = questionText ?? activeQuestion.questionText
-  const hint = contextSnippet ?? activeQuestion.contextSnippet
-
-  const getDifficultyBadge = () => {
-    switch (diff) {
-      case 'Easy':
-        return <Badge variant="success" className="px-2.5 py-0.5 text-xs font-semibold">Easy</Badge>
-      case 'Hard':
-        return <Badge variant="error" className="px-2.5 py-0.5 text-xs font-semibold">Hard</Badge>
-      case 'Medium':
-      default:
-        return <Badge variant="warning" className="px-2.5 py-0.5 text-xs font-semibold">Medium</Badge>
-    }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!answer.trim()) return
+    onSubmitAnswer(answer.trim())
+    setAnswer('') // Reset answer after submission
   }
 
-  const toggleAudio = () => {
-    setIsPlayingAudio((prev) => !prev)
-  }
+  // Format category badge nicely
+  const categoryLabel = turn.question_category
+    ? turn.question_category.replace('_', ' ')
+    : 'General'
 
   return (
-    <Card className="relative w-full overflow-hidden border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-sm)]">
-      <CardHeader className="border-b border-[var(--border)] bg-[var(--surface-hover)]/30 pb-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--primary)]/10 text-[var(--primary)]">
-              <HelpCircle className="h-5 w-5" aria-hidden="true" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <CardTitle className="text-base font-bold text-[var(--heading)]">
-                  Question {num} of {totalQuestions}
-                </CardTitle>
-                <Badge variant="info" className="px-2.5 py-0.5 text-xs font-semibold">
-                  {cat}
-                </Badge>
-              </div>
-              <CardDescription className="text-xs text-[var(--muted)]">
-                Active Question Turn
-              </CardDescription>
-            </div>
-          </div>
-
+    <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left flex flex-col h-full justify-between font-sans text-xs">
+      <CardContent className="p-6 flex flex-col justify-between h-full space-y-6">
+        {/* Header indicator */}
+        <div className="flex items-center justify-between gap-4 pb-3.5 border-b border-border/60">
           <div className="flex items-center gap-2">
-            {getDifficultyBadge()}
-
-            {/* Audio Prompt Button */}
-            <button
-              type="button"
-              onClick={toggleAudio}
-              className={`flex h-10 w-10 min-h-[44px] min-w-[44px] items-center justify-center rounded-lg border transition-all cursor-pointer ${
-                isPlayingAudio
-                  ? 'border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--primary)]'
-                  : 'border-[var(--border)] bg-[var(--surface)] text-[var(--muted)] hover:bg-[var(--surface-hover)]'
-              }`}
-              title={isPlayingAudio ? 'Pause Audio Prompt' : 'Listen to Question Audio Prompt'}
-              aria-label="Listen to Question Audio"
-            >
-              <Volume2 className={`h-4 w-4 ${isPlayingAudio ? 'animate-pulse' : ''}`} aria-hidden="true" />
-            </button>
-
-            {/* Bookmark Button */}
-            <button
-              type="button"
-              onClick={() => setIsBookmarked((prev) => !prev)}
-              className={`flex h-10 w-10 min-h-[44px] min-w-[44px] items-center justify-center rounded-lg border transition-all cursor-pointer ${
-                isBookmarked
-                  ? 'border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--primary)]'
-                  : 'border-[var(--border)] bg-[var(--surface)] text-[var(--muted)] hover:bg-[var(--surface-hover)]'
-              }`}
-              title={isBookmarked ? 'Remove Bookmark' : 'Bookmark Question'}
-              aria-label="Bookmark Question"
-            >
-              <Bookmark className={`h-4 w-4 ${isBookmarked ? 'fill-current' : ''}`} aria-hidden="true" />
-            </button>
+            <span className="text-[10px] font-black uppercase tracking-widest text-brand-600 dark:text-brand-405 font-sans leading-none">
+              Question {currentNumber} of {totalCount}
+            </span>
+            <Badge variant="outline" className="text-[9px] font-black uppercase tracking-wider py-0 px-2 border-slate-200/60 text-slate-500">
+              {categoryLabel}
+            </Badge>
+          </div>
+          <div className="h-1.5 w-28 bg-slate-100 dark:bg-slate-850 rounded-full overflow-hidden shrink-0">
+            <div
+              className="h-full bg-brand-500 rounded-full transition-all duration-300"
+              style={{ width: `${(currentNumber / totalCount) * 100}%` }}
+            />
           </div>
         </div>
-      </CardHeader>
 
-      <CardContent className="space-y-4 p-6">
-        {/* Animated Question Prompt Text */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={num}
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: 10 }}
-            transition={{ duration: 0.2 }}
-            className="space-y-3"
-          >
-            <h3 className="text-base font-bold text-[var(--heading)] leading-snug md:text-lg">
-              "{text}"
-            </h3>
+        {/* Question Text */}
+        <div className="space-y-2">
+          <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground flex items-center gap-1.5 leading-none">
+            <BookOpen size={12} className="text-slate-400" />
+            <span>Active Question Prompt</span>
+          </span>
+          <p className="text-sm font-extrabold font-display text-foreground leading-relaxed m-0">
+            {turn.question_text}
+          </p>
+        </div>
 
-            {hint && (
-              <div className="flex items-start gap-2.5 rounded-xl border border-[var(--primary)]/20 bg-[var(--primary)]/5 p-3.5 text-xs text-[var(--body)] leading-relaxed">
-                <Sparkles className="mt-0.5 h-4 w-4 text-[var(--primary)] shrink-0" aria-hidden="true" />
-                <div>
-                  <strong className="font-semibold text-[var(--heading)] block mb-0.5">Evaluation Hint:</strong>
-                  <span>{hint}</span>
-                </div>
+        {/* Typing Form */}
+        <form onSubmit={handleSubmit} className="space-y-4 flex-1 flex flex-col justify-between m-0">
+          <div className="space-y-2 flex-1 flex flex-col">
+            <label htmlFor="response-text" className="block text-[9px] font-black uppercase tracking-widest text-muted-foreground leading-none">
+              Your Professional Answer
+            </label>
+            <textarea
+              id="response-text"
+              disabled={isSubmitting}
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
+              placeholder="Structure your answer clearly. For behavioral questions, consider using the STAR methodology: describe the Situation, specify the Task, describe your Actions, and share the final Results..."
+              className="flex-1 w-full text-xs font-sans leading-relaxed text-foreground bg-slate-55/30 dark:bg-slate-950/20 border border-slate-250 dark:border-slate-850 focus:border-brand-500 focus:outline-none rounded-xl p-4 resize-none min-h-[160px] focus:ring-1 focus:ring-brand-500 transition-colors font-medium"
+            />
+            {/* TextArea character metrics */}
+            <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-1 pt-0.5">
+              <div className="flex items-center gap-3">
+                <span>
+                  Words: <strong className="font-extrabold text-muted-foreground">{wordCount}</strong>
+                </span>
+                <span>
+                  Characters: <strong className="font-extrabold text-muted-foreground">{charCount}</strong>
+                </span>
               </div>
-            )}
-          </motion.div>
-        </AnimatePresence>
+              <span className="italic text-[9px] tracking-normal normal-case font-medium text-slate-405">Recommended: 150+ words for deep evaluation.</span>
+            </div>
+          </div>
+
+          {/* Action buttons */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-slate-100 dark:border-slate-850">
+            <div className="flex gap-2">
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={onSkipQuestion}
+                disabled={isSubmitting}
+                className="text-slate-500 hover:text-slate-900 hover:bg-slate-100/50 dark:hover:bg-slate-850/30 h-9 font-bold text-[10px] uppercase tracking-wider gap-1.5 cursor-pointer rounded-lg transition-all bg-transparent border-none flex items-center"
+              >
+                <SkipForward size={13} />
+                <span>Skip</span>
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={onCompleteSession}
+                disabled={isSubmitting}
+                className="text-slate-500 hover:text-rose-500 hover:bg-rose-500/5 h-9 font-bold text-[10px] uppercase tracking-wider gap-1.5 cursor-pointer rounded-lg transition-all bg-transparent border-none flex items-center"
+              >
+                <Flag size={13} />
+                <span>Finish</span>
+              </Button>
+            </div>
+
+            <Button
+              type="submit"
+              disabled={isSubmitting || !answer.trim()}
+              className="flex items-center justify-center gap-1.5 px-5 py-2.5 font-bold cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm shadow-brand-500/10 border-none rounded-xl transition-all duration-200 text-xs h-9"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 size={13} className="animate-spin" />
+                  <span>Evaluating answer...</span>
+                </>
+              ) : (
+                <>
+                  <Send size={13} />
+                  <span>Submit & Next</span>
+                </>
+              )}
+            </Button>
+          </div>
+        </form>
       </CardContent>
     </Card>
   )
 }
-
-export const InterviewQuestionCard = React.memo(InterviewQuestionCardComponent)
-export default InterviewQuestionCard
