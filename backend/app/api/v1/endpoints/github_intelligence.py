@@ -6,7 +6,8 @@ from typing import Dict, Any, List
 from fastapi import APIRouter, Depends
 from app.schemas.github_intelligence import DeepIntelligenceSchema, HealthSchema
 from app.services.github.intelligence.intelligence_service import IntelligenceService
-from app.services.github.github_service import GitHubService, get_github_service
+from app.services.github.github_service import GitHubService
+from app.api.v1.endpoints.github import get_github_service
 
 router = APIRouter()
 
