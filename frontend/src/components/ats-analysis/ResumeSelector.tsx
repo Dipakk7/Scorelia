@@ -48,6 +48,8 @@ export const ResumeSelector: React.FC<ResumeSelectorProps> = memo(({
     MOCK_RESUMES.find((r) => r.id === selectedId) || MOCK_RESUMES[0]
   )
 
+  const currentResume = selectedResume || MOCK_RESUMES.find((r) => r.id === selectedId) || MOCK_RESUMES[0]
+
   const handleSelect = useCallback((resume: ResumeOption) => {
     setSelectedResume(resume)
     setIsOpen(false)
@@ -72,21 +74,21 @@ export const ResumeSelector: React.FC<ResumeSelectorProps> = memo(({
                   Target Resume
                 </span>
                 <span className="text-xs font-mono text-slate-400 bg-slate-800/60 px-2 py-0.5 rounded-md border border-slate-700/50">
-                  {selectedResume.version}
+                  {currentResume?.version ?? 'v1.0'}
                 </span>
                 <span className="inline-flex items-center gap-1 text-[11px] font-medium text-amber-400/90 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
                   <AlertCircle className="w-3 h-3" />
-                  {selectedResume.status}
+                  {currentResume?.status ?? 'Not Analyzed'}
                 </span>
               </div>
 
               <h2 className="text-base sm:text-lg font-bold text-white font-mono tracking-tight break-all">
-                {selectedResume.name}
+                {currentResume?.name ?? 'Software_Engineer_Resume.pdf'}
               </h2>
 
               <p className="flex items-center gap-1.5 text-xs text-slate-400">
                 <Clock className="w-3.5 h-3.5 text-slate-500" />
-                <span>{selectedResume.lastUpdated}</span>
+                <span>{currentResume?.lastUpdated ?? 'Select a resume to analyze'}</span>
               </p>
             </div>
           </div>
@@ -102,7 +104,7 @@ export const ResumeSelector: React.FC<ResumeSelectorProps> = memo(({
             >
               <div className="flex items-center gap-2 truncate">
                 <FileText className="w-4 h-4 text-purple-400 shrink-0" />
-                <span className="truncate">{selectedResume.name}</span>
+                <span className="truncate">{currentResume?.name ?? 'Software_Engineer_Resume.pdf'}</span>
               </div>
               <ChevronDown
                 className={cn('w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0', isOpen && 'rotate-180')}

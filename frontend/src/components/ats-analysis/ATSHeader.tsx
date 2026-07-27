@@ -57,7 +57,7 @@ export const ATSHeader: React.FC<ATSHeaderProps> = memo(({
             <span>ATS Analysis</span>
             <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
             <span className="text-purple-400 font-semibold capitalize">
-              {activeTab.replace('-', ' ')}
+              {(activeTab || 'overview').replace('-', ' ')}
             </span>
           </nav>
 

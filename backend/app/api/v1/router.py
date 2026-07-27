@@ -15,10 +15,22 @@ from app.career_roadmap.api.router import router as roadmap_router
 from app.modules.rag.api.router import router as rag_router
 from app.api.v1.endpoints.agents import router as agents_router
 from app.api.v1.endpoints.notifications import router as notifications_router
-
-
+from app.api.v1.endpoints.github import router as github_router
+from app.api.v1.endpoints.github_intelligence import router as github_intel_router
 
 api_router = APIRouter()
+
+api_router.include_router(
+    github_router,
+    prefix="/github",
+    tags=["GitHub Intelligence"]
+)
+
+api_router.include_router(
+    github_intel_router,
+    prefix="/github",
+    tags=["Deep GitHub Intelligence"]
+)
 
 
 

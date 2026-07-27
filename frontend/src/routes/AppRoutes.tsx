@@ -22,7 +22,7 @@ const CoverLetterPage = React.lazy(() => import('@/pages/CoverLetterPage'))
 const RAGWorkspacePage = React.lazy(() => import('@/pages/RAGWorkspacePage'))
 const AgentConsolePage = React.lazy(() => import('@/pages/AgentConsolePage'))
 const AnalyticsPage = React.lazy(() => import('@/pages/AnalyticsPage'))
-const GithubIntelligencePage = React.lazy(() => import('@/pages/GithubIntelligencePage'))
+const GitHubIntelligencePage = React.lazy(() => import('@/pages/GitHubIntelligencePage'))
 const NotFoundPage = React.lazy(() => import('@/pages/404Page'))
 const ForbiddenPage = React.lazy(() => import('@/pages/403Page'))
 const ServerErrorPage = React.lazy(() => import('@/pages/500Page'))
@@ -102,7 +102,7 @@ export function AppRoutes() {
           <Route path="rag-workspace" element={<RAGWorkspacePage />} />
           <Route path="agents" element={<AgentConsolePage />} />
           <Route path="analytics" element={<AnalyticsPage />} />
-          <Route path="github-intelligence" element={<GithubIntelligencePage />} />
+          <Route path="github-intelligence" element={<GitHubIntelligencePage />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="profile" element={<ProfilePage />} />
         </Route>

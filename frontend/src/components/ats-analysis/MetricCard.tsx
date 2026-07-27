@@ -1,5 +1,5 @@
 import React from 'react'
-import { ArrowUpRight, TrendingUp, type LucideIcon } from 'lucide-react'
+import { ArrowUpRight, TrendingUp, Layers, type LucideIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export interface MetricCardProps {
@@ -25,6 +25,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   description,
   onClick,
 }) => {
+  const IconComponent = Icon || Layers
   const isExcellent = statusType === 'excellent'
   const isWarning = statusType === 'warning'
 
@@ -37,7 +38,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="p-2 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-400 group-hover:bg-purple-500/20 transition-colors">
-            <Icon className="w-4 h-4" />
+            <IconComponent className="w-4 h-4" />
           </div>
           <h4 className="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-white transition-colors">
             {title}

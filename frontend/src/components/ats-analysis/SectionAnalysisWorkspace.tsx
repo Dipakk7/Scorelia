@@ -11,8 +11,9 @@ interface SectionAnalysisWorkspaceProps {
 export const SectionAnalysisWorkspace: React.FC<SectionAnalysisWorkspaceProps> = ({
   section,
 }) => {
-  const isExcellent = section.score >= 95
-  const isWarning = section.score < 90
+  if (!section) return null
+  const isExcellent = (section.score ?? 0) >= 95
+  const isWarning = (section.score ?? 0) < 90
 
   return (
     <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-5 sm:p-6 shadow-xl space-y-5">

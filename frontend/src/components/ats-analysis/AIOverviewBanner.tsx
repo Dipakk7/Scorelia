@@ -11,6 +11,15 @@ export const AIOverviewBanner: React.FC<AIOverviewBannerProps> = ({
   data = mockAiOverviewBanner,
   onOptimizeClick,
 }) => {
+  const safeData = data || mockAiOverviewBanner
+  const readinessScore = safeData?.readinessScore ?? 92
+  const readinessLevel = safeData?.readinessLevel ?? '92% - Production Ready'
+  const recruiterImpression = safeData?.recruiterImpression ?? 'Highly Favorable (9.2 / 10)'
+  const recruiterScore = safeData?.recruiterScore ?? 94
+  const passProbability = safeData?.passProbability ?? '95% ATS Pass Probability'
+  const passScore = safeData?.passScore ?? 95
+  const summary = safeData?.summary ?? mockAiOverviewBanner.summary
+
   return (
     <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-purple-950/90 via-slate-900 to-indigo-950/90 border border-purple-500/40 p-5 sm:p-6 shadow-xl backdrop-blur-md">
       {/* Background Ambient Glow */}
@@ -56,13 +65,13 @@ export const AIOverviewBanner: React.FC<AIOverviewBannerProps> = ({
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
                 ATS Readiness Level
               </span>
-              <span className="font-mono text-emerald-400 font-bold">{data.readinessScore}%</span>
+              <span className="font-mono text-emerald-400 font-bold">{readinessScore}%</span>
             </div>
-            <div className="text-base font-bold text-white font-mono">{data.readinessLevel}</div>
+            <div className="text-base font-bold text-white font-mono">{readinessLevel}</div>
             <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full"
-                style={{ width: `${data.readinessScore}%` }}
+                style={{ width: `${readinessScore}%` }}
               />
             </div>
           </div>
@@ -76,11 +85,11 @@ export const AIOverviewBanner: React.FC<AIOverviewBannerProps> = ({
               </span>
               <span className="font-mono text-purple-300 font-bold">9.4 / 10</span>
             </div>
-            <div className="text-base font-bold text-white tracking-tight">{data.recruiterImpression}</div>
+            <div className="text-base font-bold text-white tracking-tight">{recruiterImpression}</div>
             <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-purple-500 to-indigo-400 rounded-full"
-                style={{ width: `${data.recruiterScore}%` }}
+                style={{ width: `${recruiterScore}%` }}
               />
             </div>
           </div>
@@ -92,13 +101,13 @@ export const AIOverviewBanner: React.FC<AIOverviewBannerProps> = ({
                 <TrendingUp className="w-4 h-4 text-cyan-400" />
                 Pass Probability
               </span>
-              <span className="font-mono text-cyan-400 font-bold">{data.passScore}%</span>
+              <span className="font-mono text-cyan-400 font-bold">{passScore}%</span>
             </div>
-            <div className="text-base font-bold text-white tracking-tight">{data.passProbability}</div>
+            <div className="text-base font-bold text-white tracking-tight">{passProbability}</div>
             <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-cyan-500 to-blue-400 rounded-full"
-                style={{ width: `${data.passScore}%` }}
+                style={{ width: `${passScore}%` }}
               />
             </div>
           </div>
@@ -107,7 +116,7 @@ export const AIOverviewBanner: React.FC<AIOverviewBannerProps> = ({
         {/* Executive Summary */}
         <div className="p-3.5 rounded-xl bg-purple-950/40 border border-purple-500/30 text-xs text-purple-200 leading-relaxed flex items-start gap-2.5">
           <Award className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
-          <span>{data.summary}</span>
+          <span>{summary}</span>
         </div>
       </div>
     </div>
