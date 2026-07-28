@@ -8,7 +8,9 @@ export function useIntegrationsQuery() {
   return useQuery<UserIntegrationItem[]>({
     queryKey: INTEGRATIONS_QUERY_KEY,
     queryFn: () => integrationsApi.getIntegrations(),
-    staleTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60 * 10,
+    gcTime: 1000 * 60 * 30,
+    refetchOnWindowFocus: false,
   })
 }
 

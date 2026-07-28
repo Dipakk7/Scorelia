@@ -11,7 +11,9 @@ export function useSessionsQuery() {
   return useQuery({
     queryKey: SESSIONS_QUERY_KEY,
     queryFn: () => securityApi.getSessions(),
-    staleTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60 * 10,
+    gcTime: 1000 * 60 * 30,
+    refetchOnWindowFocus: false,
   })
 }
 
@@ -19,7 +21,9 @@ export function useDevicesQuery() {
   return useQuery({
     queryKey: DEVICES_QUERY_KEY,
     queryFn: () => securityApi.getTrustedDevices(),
-    staleTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60 * 10,
+    gcTime: 1000 * 60 * 30,
+    refetchOnWindowFocus: false,
   })
 }
 
@@ -28,6 +32,8 @@ export function use2FAQuery() {
     queryKey: TWO_FACTOR_QUERY_KEY,
     queryFn: () => securityApi.get2FAStatus(),
     staleTime: 1000 * 60 * 10,
+    gcTime: 1000 * 60 * 30,
+    refetchOnWindowFocus: false,
   })
 }
 
@@ -35,7 +41,9 @@ export function useLoginHistoryQuery() {
   return useQuery({
     queryKey: LOGIN_HISTORY_QUERY_KEY,
     queryFn: () => securityApi.getLoginHistory(),
-    staleTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60 * 10,
+    gcTime: 1000 * 60 * 30,
+    refetchOnWindowFocus: false,
   })
 }
 

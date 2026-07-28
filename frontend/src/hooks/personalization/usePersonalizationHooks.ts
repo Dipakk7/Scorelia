@@ -9,6 +9,8 @@ export function usePersonalizationQuery() {
     queryKey: PERSONALIZATION_QUERY_KEY,
     queryFn: () => personalizationApi.getPersonalization(),
     staleTime: 1000 * 60 * 10,
+    gcTime: 1000 * 60 * 30,
+    refetchOnWindowFocus: false,
   })
 }
 

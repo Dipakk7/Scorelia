@@ -9,7 +9,9 @@ export function useSettingsQuery() {
     queryKey: SETTINGS_QUERY_KEY,
     queryFn: () => settingsApi.getSettings(),
     staleTime: 1000 * 60 * 10,
-    retry: 2,
+    gcTime: 1000 * 60 * 30,
+    refetchOnWindowFocus: false,
+    retry: 1,
   })
 }
 
