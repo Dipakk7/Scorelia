@@ -17,6 +17,10 @@ from app.api.v1.endpoints.agents import router as agents_router
 from app.api.v1.endpoints.notifications import router as notifications_router
 from app.api.v1.endpoints.github import router as github_router
 from app.api.v1.endpoints.github_intelligence import router as github_intel_router
+from app.api.v1.endpoints.settings import router as settings_router
+from app.api.v1.endpoints.security import router as security_router
+from app.api.v1.endpoints.integrations import router as integrations_router
+from app.api.v1.endpoints.personalization import router as personalization_router
 
 api_router = APIRouter()
 
@@ -31,9 +35,6 @@ api_router.include_router(
     prefix="/github",
     tags=["Deep GitHub Intelligence"]
 )
-
-
-
 
 api_router.include_router(
     auth_router,
@@ -95,7 +96,6 @@ api_router.include_router(
     tags=["Job Matching"]
 )
 
-
 api_router.include_router(
     analytics_router,
     prefix="/analytics",
@@ -132,9 +132,29 @@ api_router.include_router(
     tags=["Notifications"]
 )
 
+api_router.include_router(
+    settings_router,
+    prefix="/settings",
+    tags=["Settings"]
+)
 
+api_router.include_router(
+    security_router,
+    prefix="/security",
+    tags=["Security"]
+)
 
+api_router.include_router(
+    integrations_router,
+    prefix="/integrations",
+    tags=["Integrations"]
+)
 
+api_router.include_router(
+    personalization_router,
+    prefix="/personalization",
+    tags=["Personalization"]
+)
 
 @api_router.get("", tags=["System"])
 async def get_v1_index():
@@ -145,6 +165,10 @@ async def get_v1_index():
             "resumes": "placeholder",
             "jobs": "placeholder",
             "interviews": "placeholder",
-            "chats": "placeholder"
+            "chats": "placeholder",
+            "settings": "active",
+            "security": "active",
+            "integrations": "active",
+            "personalization": "active"
         }
     }
