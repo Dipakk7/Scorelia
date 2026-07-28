@@ -70,7 +70,9 @@ export const ScoreRing = React.forwardRef<HTMLDivElement, ScoreRingProps>(
       [ref, viewRef]
     )
 
-    const percentage = Math.min(Math.max((value / max) * 100, 0), 100)
+    const safeValue = typeof value === 'number' && !isNaN(value) && isFinite(value) ? value : 0
+    const safeMax = typeof max === 'number' && !isNaN(max) && isFinite(max) && max > 0 ? max : 100
+    const percentage = Math.min(Math.max((safeValue / safeMax) * 100, 0), 100)
     const radius = (size - strokeWidth) / 2
     const circumference = radius * 2 * Math.PI
     const strokeDashoffset = circumference - (percentage / 100) * circumference

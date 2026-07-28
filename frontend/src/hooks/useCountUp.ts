@@ -6,6 +6,7 @@ export function useCountUp(
   duration: number = 800,
   decimals: number = 0
 ) {
+  const safeTarget = typeof target === 'number' && !isNaN(target) && isFinite(target) ? target : 0
   const [count, setCount] = useState(0)
   const hasAnimated = useRef(false)
 
@@ -14,13 +15,13 @@ export function useCountUp(
 
     // If reduced motion or already animated, set directly
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || hasAnimated.current) {
-      setCount(target)
+      setCount(safeTarget)
       hasAnimated.current = true
       return
     }
 
     const start = 0
-    const end = target
+    const end = safeTarget
     if (start === end) {
       setCount(end)
       hasAnimated.current = true

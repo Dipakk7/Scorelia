@@ -23,11 +23,11 @@ import { mockSectionsList, mockSectionDetailsMap } from './ats-section-mock-data
  * Safe Helper to safely get numeric score bounded between 0 and 100
  */
 const safeScore = (val: any, fallback: number = 90): number => {
-  if (typeof val === 'number' && !isNaN(val)) {
+  if (typeof val === 'number' && !isNaN(val) && isFinite(val)) {
     return Math.min(Math.max(Math.round(val), 0), 100)
   }
   const parsed = parseFloat(val)
-  if (!isNaN(parsed)) {
+  if (!isNaN(parsed) && isFinite(parsed)) {
     return Math.min(Math.max(Math.round(parsed), 0), 100)
   }
   return fallback

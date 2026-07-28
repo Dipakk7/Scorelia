@@ -28,11 +28,17 @@ export function useATSAnalysis() {
   } = useQuery<{ resumes: ResumeResponse[]; total: number }>({
     queryKey: ['resumesList'],
     queryFn: async () => {
-      const res = await api.get('/resumes')
-      return res.data
+      try {
+        const res = await api.get('/resumes')
+        return res?.data || { resumes: [], total: 0 }
+      } catch (err) {
+        console.warn('[useATSAnalysis] /resumes query fallback:', err)
+        return { resumes: [], total: 0 }
+      }
     },
     staleTime: 1000 * 60 * 5, // 5 mins cache
     gcTime: 1000 * 60 * 15,
+    placeholderData: { resumes: [], total: 0 },
     refetchOnWindowFocus: false,
     retry: 1,
   })
@@ -63,13 +69,15 @@ export function useATSAnalysis() {
     queryFn: async () => {
       try {
         const res = await api.get('/analytics/ats')
-        return res.data
+        return res?.data || null
       } catch (err) {
         console.warn('[useATSAnalysis] /analytics/ats fallback', err)
         return null
       }
     },
     staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 15,
+    placeholderData: null,
     refetchOnWindowFocus: false,
     retry: 1,
   })
@@ -89,7 +97,7 @@ export function useATSAnalysis() {
           resume_id: selectedResumeId,
           bypass_cache: false,
         })
-        return res.data
+        return res?.data || null
       } catch (err) {
         console.warn('[useATSAnalysis] /agents/ats/score fallback', err)
         return null
@@ -98,6 +106,7 @@ export function useATSAnalysis() {
     enabled: !!selectedResumeId,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 15,
+    placeholderData: null,
     refetchOnWindowFocus: false,
     retry: 1,
   })
