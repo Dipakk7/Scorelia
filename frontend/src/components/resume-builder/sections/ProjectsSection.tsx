@@ -69,9 +69,9 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   return (
     <div className="space-y-5 animate-fade-in text-left">
       {/* Section Header */}
-      <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-3 transition-colors">
+      <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-white/[0.08] pb-3.5 transition-colors">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider font-mono">
+          <div className="flex items-center gap-1.5 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider font-mono">
             <FolderGit2 size={14} />
             <span>Key Projects</span>
           </div>
@@ -86,7 +86,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         <button
           type="button"
           onClick={onAdd}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 border border-purple-400/30 shadow-sm cursor-pointer transition-all active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+          className="flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 border border-purple-400/30 shadow-sm cursor-pointer transition-all active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
         >
           <Plus size={14} />
           <span>Add Project</span>
@@ -95,7 +95,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
       {/* Empty State */}
       {items.length === 0 && (
-        <div className="bg-slate-50 dark:bg-slate-900/40 border border-dashed border-slate-300 dark:border-white/15 rounded-xl p-8 text-center space-y-3 transition-colors">
+        <div className="bg-slate-50/80 dark:bg-[#171a2b]/60 border border-dashed border-slate-300 dark:border-white/[0.1] rounded-xl p-8 text-center space-y-3 transition-colors">
           <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center mx-auto border border-purple-200 dark:border-purple-500/20">
             <FolderGit2 size={20} />
           </div>
@@ -123,12 +123,12 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           return (
             <div
               key={proj.id}
-              className="bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl overflow-hidden shadow-sm transition-colors group"
+              className="bg-slate-50/80 dark:bg-[#171a2b] border border-slate-200/70 dark:border-white/[0.08] rounded-xl overflow-hidden shadow-sm dark:shadow-[0_4px_16px_-2px_rgba(0,0,0,0.35)] transition-colors group"
             >
               {/* Header Bar */}
               <div
                 onClick={() => toggleExpand(proj.id)}
-                className="flex items-center justify-between p-3.5 bg-white/80 dark:bg-slate-950/40 cursor-pointer hover:bg-slate-100 dark:hover:bg-white/5 transition-colors border-b border-slate-200/80 dark:border-white/5"
+                className="flex items-center justify-between p-3.5 bg-white/90 dark:bg-[#171a2b] cursor-pointer hover:bg-slate-100/90 dark:hover:bg-[#1f2238] transition-colors border-b border-slate-200/80 dark:border-white/[0.08]"
               >
                 <div className="flex items-center gap-2.5 min-w-0">
                   {/* Reorder Handle & Arrow Controls */}
@@ -167,7 +167,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                       {proj.name || 'Untitled Project'}
                     </h4>
                     <p className="text-[11px] text-slate-600 dark:text-slate-400 truncate m-0 font-sans">
-                      {proj.subtitle || (proj.techStack || []).join(', ')}
+                      {proj.techStack?.join(', ')}
                     </p>
                   </div>
                 </div>
@@ -179,7 +179,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                       e.stopPropagation()
                       onDelete?.(proj.id)
                     }}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 hover:bg-slate-200 dark:hover:bg-white/10 cursor-pointer focus:outline-none"
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 hover:bg-slate-200/80 dark:hover:bg-[#1f2238] cursor-pointer focus:outline-none"
                     title="Delete Project"
                   >
                     <Trash2 size={14} />
@@ -192,7 +192,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
               {/* Body */}
               {isExpanded && (
-                <div className="p-4 md:p-5 space-y-4 border-t border-slate-200/80 dark:border-white/5">
+                <div className="p-4 md:p-5 space-y-4 border-t border-slate-200/80 dark:border-white/[0.08]">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="sm:col-span-2 space-y-1.5">
                       <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Project Title *</label>
@@ -203,7 +203,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                           onUpdate?.(proj.id, { ...proj, name: e.target.value })
                         }
                         placeholder="e.g. Scorelia AI Platform"
-                        className="w-full bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl px-3.5 py-2 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors"
+                        className="w-full bg-white dark:bg-[#1f2238] border border-slate-200/80 dark:border-white/[0.1] rounded-xl px-3.5 py-2 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus:dark:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-all"
                       />
                     </div>
 
@@ -216,7 +216,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                           onUpdate?.(proj.id, { ...proj, liveUrl: e.target.value })
                         }
                         placeholder="https://myproject.com"
-                        className="w-full bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl px-3.5 py-2 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors"
+                        className="w-full bg-white dark:bg-[#1f2238] border border-slate-200/80 dark:border-white/[0.1] rounded-xl px-3.5 py-2 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus:dark:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-all"
                       />
                     </div>
 
@@ -229,13 +229,13 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                           onUpdate?.(proj.id, { ...proj, githubUrl: e.target.value })
                         }
                         placeholder="github.com/user/project"
-                        className="w-full bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl px-3.5 py-2 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors"
+                        className="w-full bg-white dark:bg-[#1f2238] border border-slate-200/80 dark:border-white/[0.1] rounded-xl px-3.5 py-2 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus:dark:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-all"
                       />
                     </div>
                   </div>
 
                   {/* Bullet Points List */}
-                  <div className="space-y-2 pt-2 border-t border-slate-200/80 dark:border-white/5">
+                  <div className="space-y-2 pt-2 border-t border-slate-200/80 dark:border-white/[0.08]">
                     <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Project Features &amp; Technical Highlights</label>
                     {proj.bullets.map((b, bIdx) => (
                       <div key={bIdx} className="flex items-center gap-2">

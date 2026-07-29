@@ -442,6 +442,26 @@
   --dark-border: var(--border-color);
   --body-text: var(--body);
 
+  /* 6-Tier Surface System (Dark Mode Hierarchy) */
+  --surface-0: #090a10; /* Application base background */
+  --surface-1: #0d0f17; /* Workspace & Canvas backdrop */
+  --surface-2: #121522; /* Primary Workspace Panels (Header, Stepper, Editor, Preview, AI) */
+  --surface-3: #171a2b; /* Panel Interiors, Cards, Tab Headers, Footers */
+  --surface-4: #1f2238; /* Interactive Controls (Inputs, Buttons, Pills) */
+  --surface-4-hover: #272a45; /* Control Hover State */
+  --surface-5: #252840; /* Floating Components (Modals, Popovers, Dropdowns, Tooltips) */
+
+  /* Dark Elevation Shadows */
+  --shadow-panel-dark: 0 10px 30px -5px rgba(0, 0, 0, 0.5), 0 4px 12px -2px rgba(0, 0, 0, 0.3);
+  --shadow-card-dark: 0 4px 16px -2px rgba(0, 0, 0, 0.35), 0 2px 6px -1px rgba(0, 0, 0, 0.2);
+  --shadow-control-dark: 0 2px 6px -1px rgba(0, 0, 0, 0.25);
+  --shadow-paper-dark: 0 25px 65px -12px rgba(0, 0, 0, 0.85);
+  --shadow-floating-dark: 0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 8px 16px -4px rgba(0, 0, 0, 0.4);
+
+  /* Subtle Dark Borders */
+  --border-subtle-dark: rgba(255, 255, 255, 0.07);
+  --border-control-dark: rgba(255, 255, 255, 0.12);
+
   /* Shadows - soft elevated */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.3), 0 2px 6px -1px rgba(0, 0, 0, 0.2);

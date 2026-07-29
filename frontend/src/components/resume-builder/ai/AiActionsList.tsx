@@ -95,7 +95,7 @@ interface AiActionsListProps {
 export const AiActionsList: React.FC<AiActionsListProps> = ({ onExecuteAction }) => {
   return (
     <div className="space-y-3 text-left">
-      <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-2 transition-colors">
+      <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800/80 pb-2 transition-colors">
         <span className="text-xs font-bold text-slate-900 dark:text-white font-display">
           AI One-Click Optimizations
         </span>
