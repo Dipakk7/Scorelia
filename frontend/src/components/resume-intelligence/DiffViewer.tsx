@@ -143,7 +143,7 @@ export function DiffViewer({ originalText = '', newText = '', title }: DiffViewe
               <span className="text-[10px] text-brand-555 font-bold uppercase tracking-wider block">
                 AI Rewritten Text
               </span>
-              <div className="text-xs leading-relaxed font-mono whitespace-pre-wrap p-4 bg-emerald-500/5 dark:bg-emerald-950/5 rounded-lg border border-emerald-500/10 text-slate-800 dark:text-slate-205 min-h-[120px]">
+              <div className="text-xs leading-relaxed font-mono whitespace-pre-wrap p-4 bg-emerald-500/5 dark:bg-emerald-950/5 rounded-lg border border-emerald-500/10 text-[var(--body)] min-h-[120px]">
                 {diffResult
                   .filter((chunk) => chunk.type !== 'removed')
                   .map((chunk, idx) => {

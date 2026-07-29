@@ -32,14 +32,14 @@ export const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-[var(--border)] bg-[var(--surface)] p-6 shadow-[var(--shadow-xl)] dialog-content-anim sm:rounded-[var(--radius-card)]',
+        'fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-[var(--border)] bg-[var(--elevated)] p-6 shadow-[var(--shadow-xl)] backdrop-blur-md dialog-content-anim sm:rounded-[var(--radius-card)]',
         className
       )}
       {...props}
     >
       {children}
       <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 disabled:pointer-events-none cursor-pointer">
-        <X className="h-4 w-4 text-[var(--muted)]" />
+        <X className="h-4 w-4 text-[var(--body)] hover:text-[var(--heading)]" />
         <span className="sr-only">Close</span>
       </DialogPrimitive.Close>
     </DialogPrimitive.Content>
@@ -97,7 +97,7 @@ export const DialogDescription = React.forwardRef<
   <DialogPrimitive.Description
     ref={ref}
     className={cn(
-      'text-sm text-[var(--muted)]',
+      'text-sm text-[var(--body)]',
       className
     )}
     {...props}

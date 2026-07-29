@@ -97,7 +97,7 @@ export const ScoreRing = React.forwardRef<HTMLDivElement, ScoreRingProps>(
               fill="transparent"
               stroke={trackColorValue}
               strokeWidth={strokeWidth}
-              className="opacity-20 dark:opacity-30"
+              className="opacity-40 dark:opacity-50"
             />
             {/* Foreground progress circle */}
             <motion.circle

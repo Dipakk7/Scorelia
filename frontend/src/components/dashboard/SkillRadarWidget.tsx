@@ -32,7 +32,7 @@ interface SkillRadarWidgetProps {
 function CustomRadarTooltip({ active, payload }: any) {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-xl border border-white/10 bg-[#121320] p-2 shadow-xl text-xs font-mono font-bold text-purple-300">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--elevated)] p-2.5 shadow-[var(--shadow-md)] text-xs font-mono font-bold text-purple-400">
         <span>{payload[0].payload.skill}: {payload[0].value}%</span>
       </div>
     )
@@ -49,21 +49,22 @@ export const SkillRadarWidget: React.FC<SkillRadarWidgetProps> = React.memo(({
   }, [data])
 
   return (
-    <div className="p-5 rounded-2xl bg-[#0f101d]/90 border border-white/10 backdrop-blur-md space-y-4 shadow-xl select-none">
+    <div className="p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] backdrop-blur-md space-y-4 shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-all select-none">
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-bold text-white tracking-tight">Skill Intelligence (Radar)</h3>
-        <span className="text-[10px] font-mono text-slate-400">{radarData.length} Categories</span>
+        <h3 className="text-xs font-bold text-[var(--heading)] tracking-tight">Skill Intelligence (Radar)</h3>
+        <span className="text-[11px] font-mono font-semibold text-[var(--muted-color)]">{radarData.length} Categories</span>
       </div>
 
       <div className="h-44 w-full flex items-center justify-center pt-1">
         <ResponsiveContainer width="100%" height="100%">
           <RadarChart cx="50%" cy="50%" outerRadius="75%" data={radarData}>
-            <PolarGrid stroke="rgba(168, 85, 247, 0.25)" />
+            <PolarGrid stroke="var(--border)" opacity={0.6} />
             <PolarAngleAxis
               dataKey="skill"
-              stroke="#94a3b8"
-              fontSize={9}
+              stroke="var(--muted-color)"
+              fontSize={12}
               tickLine={false}
+              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
             />
             <PolarRadiusAxis domain={[0, 100]} axisLine={false} tick={false} />
             <Radar

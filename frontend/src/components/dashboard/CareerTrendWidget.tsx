@@ -34,9 +34,9 @@ function CustomTrendTooltip({ active, payload, label }: any) {
   if (active && payload && payload.length) {
     const val = payload[0].value
     return (
-      <div className="rounded-xl border border-white/10 bg-[#121320] p-2.5 shadow-xl text-left font-sans select-none text-xs space-y-1">
-        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">{label}</p>
-        <div className="flex items-center gap-2 font-mono font-bold text-white">
+      <div className="rounded-xl border border-[var(--border)] bg-[var(--elevated)] p-2.5 shadow-[var(--shadow-md)] text-left font-sans select-none text-xs space-y-1 text-[var(--heading)]">
+        <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--muted-color)] font-mono">{label}</p>
+        <div className="flex items-center gap-2 font-mono font-bold text-[var(--heading)]">
           <span className="h-2 w-2 rounded-full bg-purple-400" />
           <span>ATS Score: {val}%</span>
         </div>
@@ -55,10 +55,10 @@ export const CareerTrendWidget: React.FC<CareerTrendWidgetProps> = React.memo(({
     return data
   }, [data])
   return (
-    <div className="p-5 rounded-2xl bg-[#0f101d]/90 border border-white/10 backdrop-blur-md space-y-4 shadow-xl select-none">
+    <div className="p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] backdrop-blur-md space-y-4 shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-all select-none">
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-bold text-white tracking-tight">Career Intelligence Trend</h3>
-        <span className="text-[10px] font-mono text-slate-400 bg-white/5 px-2.5 py-1 rounded-lg border border-white/10 cursor-pointer hover:border-white/20">
+        <h3 className="text-xs font-bold text-[var(--heading)] tracking-tight">Career Intelligence Trend</h3>
+        <span className="text-[11px] font-mono font-semibold text-[var(--muted-color)] bg-[var(--surface-hover)] px-2.5 py-1 rounded-lg border border-[var(--border)] cursor-pointer hover:border-[var(--primary)]/30">
           {timeframe}
         </span>
       </div>
@@ -73,21 +73,25 @@ export const CareerTrendWidget: React.FC<CareerTrendWidgetProps> = React.memo(({
                 <stop offset="100%" stopColor="#38bdf8" />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" opacity={0.5} vertical={false} />
             <XAxis
               dataKey="month"
-              stroke="#64748b"
-              fontSize={10}
+              stroke="var(--border)"
+              fontSize={12}
               tickLine={false}
               axisLine={false}
+              tickMargin={6}
+              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
             />
             <YAxis
-              stroke="#64748b"
-              fontSize={10}
+              stroke="var(--border)"
+              fontSize={12}
               domain={[0, 100]}
               tickLine={false}
               axisLine={false}
               ticks={[0, 25, 50, 75, 100]}
+              tickMargin={6}
+              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
             />
             <Tooltip content={<CustomTrendTooltip />} />
             <Line
@@ -95,8 +99,8 @@ export const CareerTrendWidget: React.FC<CareerTrendWidgetProps> = React.memo(({
               dataKey="score"
               stroke="url(#trendLineGrad)"
               strokeWidth={3}
-              dot={{ fill: '#a855f7', r: 4, stroke: '#121325', strokeWidth: 2 }}
-              activeDot={{ r: 6, fill: '#38bdf8', stroke: '#ffffff', strokeWidth: 2 }}
+              dot={{ fill: '#a855f7', r: 4, stroke: 'var(--surface)', strokeWidth: 2 }}
+              activeDot={{ r: 6, fill: '#38bdf8', stroke: 'var(--surface)', strokeWidth: 2 }}
             />
           </LineChart>
         </ResponsiveContainer>

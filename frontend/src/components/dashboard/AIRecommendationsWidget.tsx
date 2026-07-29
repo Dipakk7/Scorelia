@@ -54,9 +54,9 @@ export const AIRecommendationsWidget: React.FC<AIRecommendationsWidgetProps> = R
   onViewAll,
 }) => {
   return (
-    <div className="p-5 rounded-2xl bg-[#0f101d]/90 border border-white/10 backdrop-blur-md space-y-3.5 shadow-xl select-none">
+    <div className="p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] backdrop-blur-md space-y-3.5 shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-all select-none">
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-bold text-white tracking-tight">AI Recommendations</h3>
+        <h3 className="text-xs font-bold text-[var(--heading)] tracking-tight">AI Recommendations</h3>
         <button
           onClick={onViewAll}
           className="text-[10px] font-mono text-purple-400 hover:underline cursor-pointer bg-transparent border-none p-0"
@@ -69,20 +69,20 @@ export const AIRecommendationsWidget: React.FC<AIRecommendationsWidgetProps> = R
         {items.map((item, idx) => (
           <div
             key={idx}
-            className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-white/15 transition-all flex items-center justify-between gap-2 text-xs"
+            className="p-2.5 rounded-xl bg-[var(--surface-hover)]/40 border border-[var(--border)]/60 hover:border-[var(--primary)]/30 transition-all flex items-center justify-between gap-2 text-xs"
           >
             <div className="flex items-center gap-2.5 min-w-0">
               <div className={`p-1.5 rounded-lg border shrink-0 ${item.color}`}>
                 <span className="h-2 w-2 rounded-full bg-current block" />
               </div>
               <div className="min-w-0 truncate">
-                <span className="font-semibold text-slate-200 block truncate leading-tight">{item.title}</span>
-                <span className="text-[10px] text-slate-500 font-mono block leading-tight">{item.subtitle}</span>
+                <span className="font-semibold text-[var(--heading)] block truncate leading-tight">{item.title}</span>
+                <span className="text-[10px] text-[var(--muted-color)] font-mono block leading-tight">{item.subtitle}</span>
               </div>
             </div>
 
             <div className="flex items-center gap-2 shrink-0 text-[10px] font-mono">
-              <span className="text-slate-400">{item.time}</span>
+              <span className="text-[var(--muted-color)]">{item.time}</span>
               <span className={`px-2 py-0.5 rounded-md font-bold border ${item.color}`}>
                 {item.impact}
               </span>

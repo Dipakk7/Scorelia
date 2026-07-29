@@ -40,9 +40,9 @@ export const AIInsightsWidget: React.FC<AIInsightsWidgetProps> = React.memo(({
   onViewAll,
 }) => {
   return (
-    <div className="p-5 rounded-2xl bg-[#0f101d]/90 border border-white/10 backdrop-blur-md space-y-4 shadow-xl select-none">
+    <div className="p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] backdrop-blur-md space-y-4 shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-all select-none">
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-bold text-white tracking-tight">AI Insights</h3>
+        <h3 className="text-xs font-bold text-[var(--heading)] tracking-tight">AI Insights</h3>
         <button
           onClick={onViewAll}
           className="text-[10px] font-mono text-purple-400 hover:underline cursor-pointer bg-transparent border-none p-0"
@@ -57,12 +57,12 @@ export const AIInsightsWidget: React.FC<AIInsightsWidgetProps> = React.memo(({
           return (
             <div
               key={idx}
-              className="flex gap-3 items-start text-xs p-3 rounded-xl bg-white/[0.03] border border-white/5 hover:border-white/15 transition-all"
+              className="flex gap-3 items-start text-xs p-3 rounded-xl bg-[var(--surface-hover)]/40 border border-[var(--border)]/60 hover:border-[var(--primary)]/30 transition-all"
             >
               <div className={`p-1.5 rounded-lg border shrink-0 ${ins.color}`}>
                 <Icon size={14} />
               </div>
-              <p className="text-slate-300 leading-relaxed text-[11px]">{ins.text}</p>
+              <p className="text-[var(--body)] leading-relaxed text-[11px]">{ins.text}</p>
             </div>
           )
         })}

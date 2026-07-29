@@ -39,7 +39,7 @@ export const QuickActionsRow: React.FC<QuickActionsRowProps> = React.memo(({
 }) => {
   return (
     <div className="space-y-2 select-none">
-      <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400 font-mono">Quick Actions</h2>
+      <h2 className="text-xs font-bold uppercase tracking-wider text-[var(--muted-color)] font-mono">Quick Actions</h2>
       <div className="flex items-center gap-2.5 overflow-x-auto pb-2 custom-scrollbar">
         {actions.map((act, i) => {
           const Icon = act.icon
@@ -48,7 +48,7 @@ export const QuickActionsRow: React.FC<QuickActionsRowProps> = React.memo(({
               key={i}
               to={act.to}
               aria-label={act.label}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#0f101d] border border-white/10 hover:border-white/20 hover:bg-white/[0.07] active:scale-[0.98] transition-all shrink-0 group text-xs font-semibold text-slate-200 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e]"
+              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[var(--surface)] border border-[var(--border)] hover:border-[var(--primary)]/30 hover:bg-[var(--surface-hover)] active:scale-[0.98] transition-all shrink-0 group text-xs font-semibold text-[var(--heading)] shadow-[var(--shadow-sm)] hover-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]/50"
             >
               <div className={`p-1 rounded-lg border ${act.color}`}>
                 <Icon size={14} />
@@ -60,7 +60,7 @@ export const QuickActionsRow: React.FC<QuickActionsRowProps> = React.memo(({
         <button
           onClick={onCustomClick}
           aria-label="Add custom action"
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-transparent border border-dashed border-white/20 hover:border-purple-400/50 hover:bg-white/[0.04] active:scale-[0.98] text-slate-400 hover:text-purple-300 transition-all shrink-0 text-xs font-semibold cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e]"
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-transparent border border-dashed border-[var(--border)] hover:border-[var(--primary)]/50 hover:bg-[var(--surface-hover)] active:scale-[0.98] text-[var(--muted-color)] hover:text-[var(--primary)] transition-all shrink-0 text-xs font-semibold cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]/50"
         >
           <Plus size={14} />
           <span>Custom</span>

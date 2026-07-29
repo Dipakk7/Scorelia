@@ -31,14 +31,14 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = React.memo(({
   }
 
   return (
-    <div className="p-5 rounded-2xl bg-[#0f101d]/95 border border-purple-500/20 backdrop-blur-md shadow-xl space-y-4 select-none">
-      <div className="flex items-center justify-between border-b border-white/10 pb-3">
+    <div className="p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] backdrop-blur-md shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-all space-y-4 select-none">
+      <div className="flex items-center justify-between border-b border-[var(--border)] pb-3">
         <div className="flex items-center gap-2.5">
           <div className="p-2 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/30">
             <Bot size={18} />
           </div>
           <div>
-            <h3 className="text-xs font-bold text-white tracking-tight">AI Assistant</h3>
+            <h3 className="text-xs font-bold text-[var(--heading)] tracking-tight">AI Assistant</h3>
             <span className="text-[9px] font-mono text-purple-400 uppercase tracking-widest block">Scorelia Copilot</span>
           </div>
         </div>
@@ -50,7 +50,7 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = React.memo(({
       <div className="space-y-3">
         <div className="p-3 rounded-xl bg-purple-950/30 border border-purple-500/20 text-xs space-y-1">
           <span className="font-bold text-purple-300 block">Hi {displayName}! 👋</span>
-          <p className="text-slate-400 leading-relaxed">How can I help you today?</p>
+          <p className="text-[var(--muted-color)] leading-relaxed">How can I help you today?</p>
         </div>
 
         {/* Input box */}
@@ -62,7 +62,7 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = React.memo(({
             onKeyDown={(e) => { if (e.key === 'Enter') handleSend() }}
             placeholder="Ask Scorelia AI anything..."
             aria-label="Ask Scorelia AI query input"
-            className="w-full pl-3.5 pr-10 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-xs text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-purple-500/50 focus-visible:ring-2 focus-visible:ring-purple-500/50"
+            className="w-full pl-3.5 pr-10 py-2.5 rounded-xl bg-[var(--surface-hover)]/40 border border-[var(--border)] text-xs text-[var(--heading)] placeholder:text-[var(--muted-color)] focus:outline-none focus:border-[var(--primary)]/50 focus-visible:ring-2 focus-visible:ring-[var(--primary)]/50"
           />
           <button
             onClick={handleSend}
@@ -79,10 +79,10 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = React.memo(({
             <div
               key={i}
               onClick={() => handlePromptClick(p)}
-              className="p-2 rounded-lg bg-white/[0.03] border border-white/5 hover:border-purple-500/30 text-[11px] text-slate-300 cursor-pointer flex items-center justify-between group transition-colors"
+              className="p-2 rounded-lg bg-[var(--surface-hover)]/40 border border-[var(--border)]/60 hover:border-purple-500/30 text-[11px] text-[var(--body)] cursor-pointer flex items-center justify-between group transition-colors"
             >
               <span className="truncate">{p}</span>
-              <ChevronRight size={12} className="text-slate-500 group-hover:text-purple-400 shrink-0" />
+              <ChevronRight size={12} className="text-[var(--muted-color)] group-hover:text-purple-400 shrink-0" />
             </div>
           ))}
         </div>

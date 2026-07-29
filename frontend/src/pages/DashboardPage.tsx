@@ -137,15 +137,15 @@ export default function DashboardPage() {
   }, [notifData])
 
   return (
-    <div className="space-y-6 pb-12 select-none text-slate-100 font-sans">
+    <div className="space-y-6 pb-12 select-none text-[var(--body)] font-sans">
       {/* 1. Header Area: Dynamic Greeting & Subtitle */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white flex items-center gap-2">
+          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-[var(--heading)] flex items-center gap-2">
             <span>{greeting}, {displayName}!</span>
             <span className="inline-block animate-bounce">👋</span>
           </h1>
-          <p className="text-xs md:text-sm text-slate-400 mt-1">
+          <p className="text-xs md:text-sm text-[var(--muted-color)] mt-1">
             Your AI agents analyzed your profile while you were away.
           </p>
         </div>
@@ -167,42 +167,42 @@ export default function DashboardPage() {
         {/* Left 3 Compact Metric Pills */}
         <div className="xl:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-3">
           {/* Metric Pill 1 */}
-          <div className="p-4 rounded-2xl bg-[#0f101d]/80 border border-white/10 backdrop-blur-md flex items-center gap-3 shadow-lg hover:border-emerald-500/30 transition-all">
+          <div className="p-4 rounded-2xl bg-[var(--surface)] border border-[var(--border)] backdrop-blur-md flex items-center gap-3 shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] hover:border-emerald-500/30 transition-all cursor-pointer hover-lift">
             <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shrink-0">
               <TrendingUp size={18} />
             </div>
             <div className="min-w-0">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-200">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-[var(--heading)]">
                 <span>ATS score improved</span>
                 <span className="text-emerald-400 text-[11px] font-mono">+3% today</span>
               </div>
-              <span className="text-[10px] text-slate-500 font-mono">Real-time keyword sync</span>
+              <span className="text-[10px] text-[var(--muted-color)] font-mono">Real-time keyword sync</span>
             </div>
           </div>
 
           {/* Metric Pill 2 */}
-          <div className="p-4 rounded-2xl bg-[#0f101d]/80 border border-white/10 backdrop-blur-md flex items-center gap-3 shadow-lg hover:border-purple-500/30 transition-all">
+          <div className="p-4 rounded-2xl bg-[var(--surface)] border border-[var(--border)] backdrop-blur-md flex items-center gap-3 shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] hover:border-purple-500/30 transition-all cursor-pointer hover-lift">
             <div className="p-2.5 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 shrink-0">
               <Target size={18} />
             </div>
             <div className="min-w-0">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-200">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-[var(--heading)]">
                 <span>Interview readiness up</span>
                 <span className="text-purple-400 text-[11px] font-mono">+8% this week</span>
               </div>
-              <span className="text-[10px] text-slate-500 font-mono">
+              <span className="text-[10px] text-[var(--muted-color)] font-mono">
                 {dashboardSummary?.parsed_resumes || profileStats?.resume_count || 5} sessions completed
               </span>
             </div>
           </div>
 
           {/* Metric Pill 3 */}
-          <div className="p-4 rounded-2xl bg-[#0f101d]/80 border border-white/10 backdrop-blur-md flex items-center gap-3 shadow-lg hover:border-amber-500/30 transition-all">
+          <div className="p-4 rounded-2xl bg-[var(--surface)] border border-[var(--border)] backdrop-blur-md flex items-center gap-3 shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] hover:border-amber-500/30 transition-all cursor-pointer hover-lift">
             <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0">
               <Briefcase size={18} />
             </div>
             <div className="min-w-0">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-200">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-[var(--heading)]">
                 <span>{jobMatchesCount} new jobs matched</span>
               </div>
               <Link to="/roadmap" className="text-[10px] text-amber-400 hover:underline font-mono">

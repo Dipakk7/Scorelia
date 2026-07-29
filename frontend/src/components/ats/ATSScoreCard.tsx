@@ -38,10 +38,10 @@ export function ATSScoreCard({ breakdown, overallScore: _overallScore, grade: _g
   }
 
   return (
-    <Card className="border border-border/60 bg-card/70 backdrop-blur-md shadow-sm overflow-hidden font-sans rounded-2xl hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 text-left">
+    <Card className="border border-border/60 bg-card/70 backdrop-blur-md shadow-sm overflow-hidden font-sans rounded-2xl hover:border-[var(--primary)]/30 transition-all duration-300 text-left">
       <CardHeader className="pb-2.5 border-b border-border/60">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-sm font-extrabold text-slate-900 dark:text-slate-150 m-0">ATS Score Breakdown</CardTitle>
+          <CardTitle className="text-sm font-extrabold text-[var(--heading)] m-0">ATS Score Breakdown</CardTitle>
           <div className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">
             Version 1.0
           </div>

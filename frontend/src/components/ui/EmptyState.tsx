@@ -61,7 +61,7 @@ export function EmptyState({
     success: 'text-[var(--success)] bg-[var(--success)]/8 border-[var(--success)]/15',
     warning: 'text-[var(--warning)] bg-[var(--warning)]/8 border-[var(--warning)]/15',
     accent: 'text-[var(--accent)] bg-[var(--accent)]/8 border-[var(--accent)]/15',
-    muted: 'text-[var(--muted)] bg-[var(--divider)] border-[var(--border)]',
+    muted: 'text-[var(--body)] bg-[var(--divider)] border-[var(--border)]',
   }
 
   const activeStyles = variantStyles[variant] || variantStyles.primary
@@ -82,7 +82,7 @@ export function EmptyState({
       <motion.h3 variants={childVariants} className="text-base font-bold font-display text-[var(--heading)] mb-1.5">
         {title}
       </motion.h3>
-      <motion.p variants={childVariants} className="text-xs text-[var(--muted)] max-w-sm mb-5 font-sans leading-relaxed">
+      <motion.p variants={childVariants} className="text-xs text-[var(--body)] max-w-sm mb-5 font-sans leading-relaxed">
         {description}
       </motion.p>
       {actionLabel && onAction && (

@@ -42,9 +42,10 @@ export const HeroCareerScoreDial: React.FC<HeroCareerScoreDialProps> = React.mem
               cx="40"
               cy="40"
               r={radius}
-              stroke="rgba(255, 255, 255, 0.08)"
+              stroke="var(--border)"
               strokeWidth="6"
               fill="transparent"
+              className="opacity-50"
             />
             {/* Animated Progress Ring */}
             <circle
@@ -62,7 +63,7 @@ export const HeroCareerScoreDial: React.FC<HeroCareerScoreDialProps> = React.mem
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
             <span className="text-2xl font-black text-white font-mono leading-none">{score}</span>
-            <span className="text-[7.5px] text-purple-300 font-mono uppercase tracking-widest block mt-0.5">Score</span>
+            <span className="text-[9px] text-purple-300 font-mono font-semibold uppercase tracking-widest block mt-0.5">Score</span>
           </div>
         </div>
 
@@ -78,7 +79,7 @@ export const HeroCareerScoreDial: React.FC<HeroCareerScoreDialProps> = React.mem
         <span className="text-xs text-slate-300">
           You are in top <span className="text-purple-400 font-bold font-mono">{percentile}%</span>
         </span>
-        <span className="text-[10px] text-slate-500">in {targetRole} roles</span>
+        <span className="text-[11px] text-purple-200/90 font-medium">in {targetRole} roles</span>
         <button
           onClick={onViewBenchmark}
           className="text-xs font-bold text-purple-400 hover:text-purple-300 flex items-center gap-1 mt-1 transition-colors cursor-pointer"

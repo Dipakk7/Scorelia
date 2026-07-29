@@ -24,7 +24,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const variants = {
       primary: 'bg-brand text-on-brand shadow-[var(--shadow-sm)] hover:bg-brand-hover hover:-translate-y-[1px] hover:shadow-[var(--shadow-md)] focus-visible:ring-brand-focus-ring active:bg-brand-pressed',
       secondary: 'bg-[var(--divider)] text-[var(--heading)] hover:bg-[var(--border)]/70 hover:-translate-y-[1px] focus-visible:ring-[var(--primary)]',
-      outline: 'border border-[var(--border)] bg-transparent text-[var(--body)] hover:bg-[var(--surface-hover)] hover:-translate-y-[1px] focus-visible:ring-[var(--primary)]',
+      outline: 'border border-[var(--border)] bg-transparent text-[var(--heading)] hover:bg-[var(--surface-hover)] hover:-translate-y-[1px] focus-visible:ring-[var(--primary)]',
       ghost: 'text-[var(--body)] hover:bg-[var(--surface-hover)] hover:text-[var(--heading)] focus-visible:ring-[var(--primary)]',
       danger: 'bg-[var(--danger)] text-white shadow-[var(--shadow-sm)] hover:bg-[var(--danger)]/90 hover:-translate-y-[1px] hover:shadow-[var(--shadow-md)] focus-visible:ring-[var(--danger)]',
       link: 'text-[var(--primary)] underline-offset-4 hover:underline bg-transparent p-0 h-auto focus-visible:ring-[var(--primary)]/30',

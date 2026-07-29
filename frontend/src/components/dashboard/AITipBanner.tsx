@@ -17,7 +17,7 @@ export const AITipBanner: React.FC<AITipBannerProps> = React.memo(({
     <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-950/40 via-indigo-950/40 to-pink-950/40 border border-purple-500/30 flex items-center justify-between gap-4 text-xs select-none shadow-lg">
       <div className="flex items-center gap-2.5 min-w-0">
         <Sparkles size={18} className="text-purple-400 shrink-0 animate-pulse" />
-        <span className="truncate">
+        <span className="truncate text-slate-200">
           <strong className="text-purple-300">AI Tip:</strong> {tipText}
         </span>
       </div>

@@ -370,7 +370,7 @@ export default function CoverLetterEditor({
                   'pb-2 px-3 text-[10px] font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer focus:outline-none -mb-[2px] bg-transparent border-none',
                   activeTab === tab
                     ? 'border-brand-500 text-brand-500 font-extrabold'
-                    : 'border-transparent text-muted-foreground hover:text-slate-800 dark:hover:text-slate-350',
+                    : 'border-transparent text-muted-foreground hover:text-slate-800 dark:hover:text-[var(--heading)]',
                   isTabDisabled && 'opacity-40 cursor-not-allowed hover:text-slate-400'
                 )}
               >
@@ -570,7 +570,7 @@ export default function CoverLetterEditor({
                             key={i}
                             className="p-3.5 rounded-xl border border-border bg-slate-50/50 dark:bg-slate-900/10 space-y-1.5 text-left"
                           >
-                            <h5 className="font-bold text-xs text-slate-800 dark:text-slate-250 m-0">{sug.suggested_improvement}</h5>
+                            <h5 className="font-bold text-xs text-[var(--heading)] m-0">{sug.suggested_improvement}</h5>
                             <p className="text-[11px] text-slate-550 dark:text-slate-400 font-sans leading-relaxed m-0 font-medium">
                               {sug.reason}
                             </p>

@@ -17,7 +17,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         {label && (
           <label
             htmlFor={textareaId}
-            className="text-label text-[var(--muted)] flex items-center gap-1"
+            className="text-label text-[var(--muted-color)] flex items-center gap-1"
           >
             <span>{label}</span>
             {required && <span className="text-[var(--danger)] font-bold">*</span>}
@@ -27,7 +27,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           id={textareaId}
           required={required}
           className={cn(
-            'w-full min-h-[100px] px-3.5 py-2.5 border rounded-[var(--radius-input)] bg-[var(--surface)] text-[var(--body)] placeholder-[var(--muted)]/80 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)] disabled:pointer-events-none disabled:opacity-[var(--opacity-disabled)] transition-all duration-[var(--duration-normal)] font-sans text-sm resize-y shadow-[var(--shadow-sm)]',
+            'w-full min-h-[100px] px-3.5 py-2.5 border rounded-[var(--radius-input)] bg-[var(--surface)] text-[var(--body)] placeholder-[var(--muted-color)]/70 focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 focus:border-[var(--primary)] disabled:pointer-events-none disabled:opacity-[var(--opacity-disabled)] transition-all duration-[var(--duration-normal)] font-sans text-sm resize-y shadow-[var(--shadow-sm)]',
             error
               ? 'border-[var(--danger)] focus:border-[var(--danger)] focus:ring-[var(--danger)]/10'
               : 'border-[var(--border)] focus:ring-[var(--primary)]/20 focus:border-[var(--primary)] hover:border-[var(--primary)]/50',
@@ -47,7 +47,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           </span>
         )}
         {helperText && !error && (
-          <span className="text-caption text-[var(--muted)] font-sans animate-fade-in">
+          <span className="text-caption text-[var(--muted-color)] font-sans animate-fade-in">
             {helperText}
           </span>
         )}

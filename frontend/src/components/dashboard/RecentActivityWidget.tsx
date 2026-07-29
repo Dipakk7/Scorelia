@@ -34,9 +34,9 @@ export const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = React.m
   onViewAll,
 }) => {
   return (
-    <div className="p-5 rounded-2xl bg-[#0f101d]/90 border border-white/10 backdrop-blur-md space-y-4 shadow-xl select-none">
+    <div className="p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] backdrop-blur-md space-y-4 shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-all select-none">
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-bold text-white tracking-tight">Recent Activity</h3>
+        <h3 className="text-xs font-bold text-[var(--heading)] tracking-tight">Recent Activity</h3>
         <button
           onClick={onViewAll}
           className="text-[10px] font-mono text-purple-400 hover:underline cursor-pointer bg-transparent border-none p-0"
@@ -51,15 +51,15 @@ export const RecentActivityWidget: React.FC<RecentActivityWidgetProps> = React.m
           return (
             <div
               key={idx}
-              className="flex items-center justify-between text-xs p-2.5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all"
+              className="flex items-center justify-between text-xs p-2.5 rounded-xl bg-[var(--surface-hover)]/40 border border-[var(--border)]/60 hover:border-[var(--primary)]/30 transition-all"
             >
               <div className="flex items-center gap-2.5 min-w-0">
                 <div className={`p-1.5 rounded-lg border shrink-0 ${act.color}`}>
                   <Icon size={13} />
                 </div>
-                <span className="text-slate-300 font-medium truncate text-[11px]">{act.title}</span>
+                <span className="text-[var(--heading)] font-medium truncate text-[11px]">{act.title}</span>
               </div>
-              <span className="text-[10px] font-mono text-slate-500 shrink-0 ml-2">{act.time}</span>
+              <span className="text-[10px] font-mono text-[var(--muted-color)] shrink-0 ml-2">{act.time}</span>
             </div>
           )
         })}

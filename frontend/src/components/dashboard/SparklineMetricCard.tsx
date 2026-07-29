@@ -44,15 +44,15 @@ export const SparklineMetricCard: React.FC<SparklineMetricProps> = React.memo(({
   return (
     <div
       tabIndex={0}
-      className="p-4 rounded-2xl bg-[#0f101d]/90 border border-white/10 backdrop-blur-md space-y-2 hover:border-white/20 hover:-translate-y-0.5 hover:shadow-xl transition-all duration-200 shadow-md select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e]"
+      className="p-4 rounded-2xl bg-[var(--surface)] border border-[var(--border)] backdrop-blur-md space-y-2 hover:border-[var(--primary)]/30 hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] transition-all duration-200 shadow-[var(--shadow-sm)] select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]/50"
     >
       <div className="flex items-center justify-between">
-        <span className="text-[11px] font-medium text-slate-400 truncate">{title}</span>
-        <span className={`text-[10px] font-mono font-bold ${color}`}>{change}</span>
+        <span className="text-xs font-semibold text-[var(--muted-color)] truncate">{title}</span>
+        <span className={`text-[11px] font-mono font-bold ${color}`}>{change}</span>
       </div>
       <div className="flex items-baseline justify-between">
-        <span className="text-xl font-extrabold font-mono text-white">{score}</span>
-        <span className="text-[10px] font-mono text-slate-500 uppercase">{status}</span>
+        <span className="text-xl font-extrabold font-mono text-[var(--heading)]">{score}</span>
+        <span className="text-[11px] font-mono text-[var(--muted-color)] uppercase font-semibold">{status}</span>
       </div>
       {/* Recharts Area Sparkline Graph */}
       <div className="h-6 w-full pt-1">

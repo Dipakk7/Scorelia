@@ -26,9 +26,9 @@ export const ResumeIntelligenceWidget: React.FC<ResumeIntelligenceWidgetProps> =
   onViewDetails,
 }) => {
   return (
-    <div className="p-5 rounded-2xl bg-[#0f101d]/90 border border-white/10 backdrop-blur-md space-y-4 shadow-xl select-none">
+    <div className="p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] backdrop-blur-md space-y-4 shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-all select-none">
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-bold text-white tracking-tight">Resume Intelligence</h3>
+        <h3 className="text-xs font-bold text-[var(--heading)] tracking-tight">Resume Intelligence</h3>
         <button
           onClick={onViewDetails}
           className="text-[10px] font-mono text-purple-400 hover:underline cursor-pointer bg-transparent border-none p-0"
@@ -44,14 +44,14 @@ export const ResumeIntelligenceWidget: React.FC<ResumeIntelligenceWidgetProps> =
           const circ = 2 * Math.PI * r
           const offset = circ - (ring.score / 100) * circ
           return (
-            <div key={idx} className="flex flex-col items-center text-center p-2 rounded-xl bg-white/[0.03] border border-white/5 space-y-1">
+            <div key={idx} className="flex flex-col items-center text-center p-2 rounded-xl bg-[var(--surface-hover)]/40 border border-[var(--border)]/60 space-y-1">
               <div className="relative w-14 h-14 flex items-center justify-center">
                 <svg className="w-14 h-14 transform -rotate-90" viewBox="0 0 50 50">
                   <circle
                     cx="25"
                     cy="25"
                     r={r}
-                    stroke="rgba(255, 255, 255, 0.08)"
+                    stroke="var(--border)"
                     strokeWidth="4"
                     fill="transparent"
                   />
@@ -68,10 +68,10 @@ export const ResumeIntelligenceWidget: React.FC<ResumeIntelligenceWidgetProps> =
                     className="transition-all duration-700 ease-out"
                   />
                 </svg>
-                <span className="absolute text-xs font-black font-mono text-white">{ring.score}</span>
+                <span className="absolute text-xs font-black font-mono text-[var(--heading)]">{ring.score}</span>
               </div>
-              <span className="text-[10px] font-semibold text-slate-200 block truncate leading-none">{ring.label}</span>
-              <span className="text-[8px] font-mono text-emerald-400 block uppercase tracking-wider">{ring.status}</span>
+              <span className="text-[11px] font-semibold text-[var(--heading)] block truncate leading-none">{ring.label}</span>
+              <span className="text-[9px] font-mono font-bold text-emerald-400 block uppercase tracking-wider">{ring.status}</span>
             </div>
           )
         })}

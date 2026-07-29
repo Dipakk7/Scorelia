@@ -180,7 +180,7 @@ export function SkillGapCard({ missingSkills, preferredSkills = [] }: SkillGapCa
         {/* Technical skills gap */}
         {technicalGaps.length > 0 && (
           <div className="space-y-3.5">
-            <h4 className="text-xs font-black text-slate-900 dark:text-slate-250 flex items-center gap-1.5 m-0 uppercase tracking-wider">
+            <h4 className="text-xs font-black text-[var(--heading)] flex items-center gap-1.5 m-0 uppercase tracking-wider">
               <Lightbulb size={13} className="text-amber-500" />
               <span>Technical Skills to Add</span>
             </h4>
@@ -193,7 +193,7 @@ export function SkillGapCard({ missingSkills, preferredSkills = [] }: SkillGapCa
         {/* Soft skills gap */}
         {softGaps.length > 0 && (
           <div className="space-y-3.5">
-            <h4 className="text-xs font-black text-slate-900 dark:text-slate-250 flex items-center gap-1.5 m-0 uppercase tracking-wider">
+            <h4 className="text-xs font-black text-[var(--heading)] flex items-center gap-1.5 m-0 uppercase tracking-wider">
               <CheckCircle size={13} className="text-emerald-500" />
               <span>Soft Skills & Professional Gaps</span>
             </h4>

@@ -115,7 +115,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
         <button
           type="button"
           onClick={onMenuToggle}
-          className="p-2.5 -ml-2 rounded-xl text-[var(--muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--heading)] md:hidden cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50"
+          className="p-2.5 -ml-2 rounded-xl text-[var(--body)] hover:bg-[var(--surface-hover)] hover:text-[var(--heading)] md:hidden cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50"
           aria-label="Toggle navigation menu"
         >
           <Menu size={20} />
@@ -128,13 +128,13 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
           type="button"
           onClick={handleSearchClick}
           aria-label="Global search (Command K)"
-          className="w-full flex items-center justify-between px-3.5 py-1.5 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)] hover:border-purple-500/30 active:scale-[0.99] text-[var(--muted)] hover:text-[var(--heading)] transition-all cursor-pointer group shadow-inner focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50"
+          className="w-full flex items-center justify-between px-3.5 py-1.5 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)] hover:border-purple-500/30 active:scale-[0.99] text-[var(--body)] hover:text-[var(--heading)] transition-all cursor-pointer group shadow-inner focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50"
         >
           <div className="flex items-center gap-2.5">
-            <Search size={16} className="text-[var(--muted)] group-hover:text-purple-500 transition-colors" />
-            <span className="text-xs font-medium">Search anything...</span>
+            <Search size={16} className="text-[var(--muted-color)] group-hover:text-purple-500 transition-colors" />
+            <span className="text-xs font-medium text-[var(--body)]">Search anything...</span>
           </div>
-          <kbd className="px-2 py-0.5 text-[10px] font-mono font-bold text-[var(--muted)] bg-[var(--surface)] rounded border border-[var(--border)] flex items-center gap-0.5">
+          <kbd className="px-2 py-0.5 text-[10px] font-mono font-bold text-[var(--muted-color)] bg-[var(--surface)] rounded border border-[var(--border)] flex items-center gap-0.5">
             <span>⌘</span>
             <span>K</span>
           </kbd>
@@ -147,7 +147,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
         <button
           type="button"
           onClick={handleSearchClick}
-          className="p-2 rounded-xl text-[var(--muted)] hover:bg-[var(--surface-hover)] hover:text-purple-400 cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95"
+          className="p-2 rounded-xl text-[var(--body)] hover:bg-[var(--surface-hover)] hover:text-purple-400 cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95"
           title="Quick Commands"
         >
           <Gift size={18} />

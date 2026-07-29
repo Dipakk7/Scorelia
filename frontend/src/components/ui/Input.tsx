@@ -28,7 +28,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-label text-muted flex items-center gap-1"
+            className="text-label text-[var(--muted-color)] flex items-center gap-1"
           >
             <span>{label}</span>
             {required && <span className="text-[var(--danger)] font-bold">*</span>}
@@ -36,7 +36,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )}
         <div className="relative flex items-center">
           {leftIcon && (
-            <div className="absolute left-3 text-muted pointer-events-none">
+            <div className="absolute left-3 text-[var(--muted-color)] pointer-events-none">
               {leftIcon}
             </div>
           )}
@@ -63,12 +63,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               type="button"
               onClick={handleTogglePassword}
               tabIndex={-1}
-              className="absolute right-3 text-muted hover:text-secondary cursor-pointer focus:outline-none"
+              className="absolute right-3 text-[var(--muted-color)] hover:text-[var(--heading)] cursor-pointer focus:outline-none"
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
           ) : rightIcon ? (
-            <div className="absolute right-3 text-muted pointer-events-none">
+            <div className="absolute right-3 text-[var(--muted-color)] pointer-events-none">
               {rightIcon}
             </div>
           ) : null}
@@ -82,7 +82,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           </span>
         )}
         {helperText && !error && (
-          <span className="text-caption text-[var(--muted)] font-sans animate-fade-in">
+          <span className="text-caption text-[var(--muted-color)] font-sans animate-fade-in">
             {helperText}
           </span>
         )}

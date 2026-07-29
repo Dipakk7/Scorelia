@@ -140,7 +140,7 @@ export default function InterviewAnalyticsChart({
               'pb-2.5 px-3.5 text-[10px] font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer focus:outline-none -mb-[2px] bg-transparent border-none',
               activeTab === tab
                 ? 'border-brand-500 text-brand-500 font-extrabold'
-                : 'border-transparent text-muted-foreground hover:text-slate-800 dark:hover:text-slate-355'
+                : 'border-transparent text-muted-foreground hover:text-slate-800 dark:hover:text-[var(--heading)]'
             )}
           >
             {tab === 'scores' && 'Performance Trends'}

@@ -131,8 +131,8 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
           </div>
 
           <div className="space-y-1.5 text-left">
-            <div className="flex justify-between text-xs font-semibold text-slate-800 dark:text-slate-350">
-              <span className="font-extrabold text-slate-500 dark:text-slate-450 uppercase tracking-widest text-[9px]">Overall Roadmap Completion</span>
+            <div className="flex justify-between text-xs font-semibold text-[var(--heading)]">
+              <span className="font-extrabold text-[var(--muted-color)] uppercase tracking-widest text-[9px]">Overall Roadmap Completion</span>
               <span className="font-mono font-black text-foreground">{Math.round(completionPercentage)}%</span>
             </div>
             <ProgressTracker value={completionPercentage} />
@@ -147,7 +147,7 @@ export function CareerDashboardCard({ analytics, targetRole, estimatedDuration }
               <div className="space-y-2">
                 {upcomingMilestones.slice(0, 2).map((ms) => (
                   <div key={ms.id} className="flex items-center justify-between gap-3 text-xs bg-[var(--surface-hover)]/30 p-2.5 rounded-[var(--radius-card)] border border-[var(--border)] hover:border-[var(--primary)]/30 transition-all duration-200">
-                    <span className="font-semibold text-slate-800 dark:text-slate-205 truncate text-left">{ms.title}</span>
+                    <span className="font-semibold text-[var(--heading)] truncate text-left">{ms.title}</span>
                     <Badge variant="outline" className="shrink-0 text-[9px] font-bold py-0.5 px-2 bg-[var(--divider)]/50 text-[var(--muted)] rounded-[var(--radius-sm)] border-none leading-none">{ms.duration || 'Flexible'}</Badge>
                   </div>
                 ))}

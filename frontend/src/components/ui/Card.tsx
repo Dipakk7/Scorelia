@@ -95,7 +95,7 @@ export const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTML
   ({ className, ...props }, ref) => (
     <p
       ref={ref}
-      className={cn('text-caption text-[var(--muted)]', className)}
+      className={cn('text-caption text-[var(--muted-color)]', className)}
       {...props}
     />
   )

@@ -82,7 +82,7 @@ export default function CareerHealthScore({
                 {hasResumes ? <CountUpText value={atsScore} suffix="%" /> : '0%'}
               </span>
             </div>
-            <div className="w-full bg-border/40 rounded-full h-1 overflow-hidden relative">
+            <div className="w-full bg-[var(--divider)] rounded-full h-1.5 overflow-hidden relative">
               <div
                 className="bg-primary h-full rounded-full progress-fill progress-shimmer"
                 style={{ transform: `scaleX(${hasResumes ? atsScore : 0} / 100)` }}
@@ -101,7 +101,7 @@ export default function CareerHealthScore({
                 {hasResumes ? <CountUpText value={interviewScore} suffix="%" /> : '0%'}
               </span>
             </div>
-            <div className="w-full bg-border/40 rounded-full h-1 overflow-hidden relative">
+            <div className="w-full bg-[var(--divider)] rounded-full h-1.5 overflow-hidden relative">
               <div
                 className="bg-warning h-full rounded-full progress-fill progress-shimmer"
                 style={{ transform: `scaleX(${hasResumes ? interviewScore : 0} / 100)` }}
@@ -120,7 +120,7 @@ export default function CareerHealthScore({
                 {hasResumes ? <CountUpText value={careerProgress} suffix="%" /> : '0%'}
               </span>
             </div>
-            <div className="w-full bg-border/40 rounded-full h-1 overflow-hidden relative">
+            <div className="w-full bg-[var(--divider)] rounded-full h-1.5 overflow-hidden relative">
               <div
                 className="bg-career h-full rounded-full progress-fill progress-shimmer"
                 style={{ transform: `scaleX(${hasResumes ? careerProgress : 0} / 100)` }}

@@ -291,7 +291,7 @@ export default function ResumeViewer({ parsedData, originalFilename, onEditClick
                 <span className="block text-[11px] uppercase tracking-wider font-semibold text-slate-400 dark:text-slate-500 mb-0.5">
                   Full Name
                 </span>
-                <p className="font-semibold text-slate-800 dark:text-slate-150">
+                <p className="font-semibold text-[var(--heading)]">
                   {data.name?.value || <span className="text-slate-400 italic">Not detected</span>}
                 </p>
               </div>

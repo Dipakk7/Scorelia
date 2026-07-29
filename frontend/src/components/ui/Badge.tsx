@@ -10,13 +10,13 @@ export function Badge({ className, variant = 'default', ...props }: BadgeProps) 
 
   const variants = {
     default: 'bg-[var(--primary)]/10 text-[var(--primary)] border-[var(--primary)]/20',
-    secondary: 'bg-[var(--divider)] text-[var(--muted)] border-[var(--border)]',
+    secondary: 'bg-[var(--divider)] text-[var(--heading)] border-[var(--border)]',
     success: 'bg-[var(--success)]/10 text-[var(--success)] border-[var(--success)]/20',
     warning: 'bg-[var(--warning)]/10 text-[var(--warning)] border-[var(--warning)]/20',
     error: 'bg-[var(--danger)]/10 text-[var(--danger)] border-[var(--danger)]/20',
     info: 'bg-[var(--primary)]/10 text-[var(--primary)] border-[var(--primary)]/20',
-    neutral: 'bg-[var(--muted)]/10 text-[var(--muted)] border-[var(--border)]',
-    outline: 'bg-transparent text-[var(--muted)] border-[var(--border)]',
+    neutral: 'bg-[var(--muted-color)]/10 text-[var(--body)] border-[var(--border)]',
+    outline: 'bg-transparent text-[var(--body)] border-[var(--border)]',
   }
 
   const activeVariant = variant === 'neutral' ? 'neutral' : variant

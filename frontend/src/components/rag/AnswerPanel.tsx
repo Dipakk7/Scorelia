@@ -109,7 +109,7 @@ export function AnswerPanel({
 
         {/* Answer Content */}
         <CardContent className="p-6 text-left">
-          <div className="prose dark:prose-invert prose-xs max-w-none text-slate-800 dark:text-slate-205 font-sans leading-relaxed text-sm whitespace-pre-line font-medium">
+          <div className="prose dark:prose-invert prose-xs max-w-none text-[var(--body)] font-sans leading-relaxed text-sm whitespace-pre-line font-medium">
             <StreamingText text={response.answer} />
           </div>
         </CardContent>
