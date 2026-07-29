@@ -24,12 +24,12 @@ export const TemplateGalleryModal: React.FC<TemplateGalleryModalProps> = ({
       role="dialog"
       aria-modal="true"
       aria-labelledby="template-gallery-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 dark:bg-black/85 backdrop-blur-md animate-fade-in duration-200 ease-out motion-reduce:animate-none text-left"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 dark:bg-black/80 backdrop-blur-md animate-fade-in duration-200 ease-out motion-reduce:animate-none text-left"
     >
       {/* Modal Card Container */}
-      <div className="relative w-full max-w-4xl bg-white dark:bg-[#252840] border border-slate-200/80 dark:border-white/[0.14] rounded-2xl shadow-2xl dark:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.7)] overflow-hidden flex flex-col max-h-[90vh] transition-all duration-200 ease-out transform-gpu motion-reduce:transition-none">
+      <div className="relative w-full max-w-4xl bg-white dark:bg-[#0e0f1a] border border-slate-200 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] transition-all duration-200 ease-out transform-gpu motion-reduce:transition-none">
         {/* Modal Header */}
-        <div className="flex items-center justify-between p-5 border-b border-slate-200/80 dark:border-white/[0.1] bg-slate-50 dark:bg-[#1f2238] transition-colors">
+        <div className="flex items-center justify-between p-5 border-b border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-slate-900/60 transition-colors">
           <div className="flex items-center gap-2.5">
             <div className="p-2 rounded-xl bg-purple-100 dark:bg-purple-600/30 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-500/30">
               <Layout size={18} />
@@ -48,7 +48,7 @@ export const TemplateGalleryModal: React.FC<TemplateGalleryModalProps> = ({
             type="button"
             onClick={onClose}
             aria-label="Close template gallery"
-            className="p-2 rounded-xl text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/80 dark:hover:bg-[#272a45] transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+            className="p-2 rounded-xl text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
           >
             <X size={18} />
           </button>
@@ -79,8 +79,8 @@ export const TemplateGalleryModal: React.FC<TemplateGalleryModalProps> = ({
                   className={cn(
                     'group relative rounded-xl border p-4 flex flex-col justify-between cursor-pointer transition-all duration-300 overflow-hidden shadow-sm hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
                     isSelected
-                      ? 'bg-purple-50 dark:bg-[#1f2238] border-purple-500 ring-2 ring-purple-500/50 shadow-md'
-                      : 'bg-slate-50/80 dark:bg-[#171a2b] border-slate-200/80 dark:border-white/[0.08] hover:border-purple-500/40 hover:bg-slate-100/90 dark:hover:bg-[#1f2238]'
+                      ? 'bg-purple-50 dark:bg-purple-950/40 border-purple-500 ring-2 ring-purple-500/50'
+                      : 'bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-white/10 hover:border-purple-500/40 hover:bg-slate-100 dark:hover:bg-slate-900/80'
                   )}
                 >
                   {/* Selected Badge */}

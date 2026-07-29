@@ -31,8 +31,8 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
   return (
     <div className="space-y-5 animate-fade-in text-left">
       {/* Section Header */}
-      <div className="border-b border-slate-200/80 dark:border-white/[0.08] pb-3.5 transition-colors">
-        <div className="flex items-center gap-1.5 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider font-mono">
+      <div className="border-b border-slate-200 dark:border-white/10 pb-3 transition-colors">
+        <div className="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider font-mono">
           <FileText size={14} />
           <span>Professional Summary</span>
         </div>
@@ -45,14 +45,14 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
       </div>
 
       {/* Main Form Container */}
-      <div className="bg-slate-50/80 dark:bg-[#171a2b] border border-slate-200/70 dark:border-white/[0.08] rounded-xl p-4 md:p-5 space-y-4 shadow-sm dark:shadow-[0_4px_16px_-2px_rgba(0,0,0,0.35)] transition-colors">
+      <div className="bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl p-4 md:p-5 space-y-4 shadow-sm transition-colors">
         <div className="flex items-center justify-between">
           <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
             Write your brief summary
           </label>
           <button
             type="button"
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold text-purple-900 dark:text-purple-300 bg-purple-50 dark:bg-[#1f2238] border border-purple-300 dark:border-purple-500/40 hover:bg-purple-100 dark:hover:bg-[#272a45] transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold text-purple-900 dark:text-purple-300 bg-purple-50 dark:bg-purple-600/20 border border-purple-300 dark:border-purple-500/30 hover:bg-purple-100 dark:hover:bg-purple-600/40 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
           >
             <Sparkles size={13} className="animate-pulse text-purple-600 dark:text-purple-400" />
             <span>Generate with AI</span>
@@ -66,7 +66,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
             onChange={(e) => handleTextChange(e.target.value)}
             placeholder="e.g. Driven Software Engineer with 4+ years of experience delivering robust web applications..."
             aria-label="Professional Summary"
-            className="w-full bg-white dark:bg-[#1f2238] border border-slate-200/80 dark:border-white/[0.1] rounded-xl p-3.5 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus:dark:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-all leading-relaxed resize-none"
+            className="w-full bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl p-3.5 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors leading-relaxed resize-none"
           />
           <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
             <span>Keep under 300 characters for optimal ATS scanning</span>
@@ -78,7 +78,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
       </div>
 
       {/* Smart Tip Alert */}
-      <div className="bg-purple-50/80 dark:bg-[#191732] border border-purple-200/80 dark:border-purple-500/30 rounded-xl p-4 flex items-start gap-3 shadow-xs transition-colors">
+      <div className="bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-500/30 rounded-xl p-4 flex items-start gap-3 transition-colors">
         <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 shrink-0 mt-0.5">
           <Sparkles size={16} />
         </div>

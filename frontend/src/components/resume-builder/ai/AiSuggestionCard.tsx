@@ -50,7 +50,7 @@ export const AiSuggestionCard: React.FC<AiSuggestionCardProps> = ({
   }
 
   return (
-    <div className="p-3.5 rounded-xl bg-slate-50/80 dark:bg-[#171a2b] border border-slate-200/70 dark:border-white/[0.08] hover:border-purple-500/40 shadow-sm dark:shadow-[0_4px_16px_-2px_rgba(0,0,0,0.35)] transition-all space-y-2.5 text-left">
+    <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 hover:border-purple-500/40 transition-all space-y-2.5 text-left">
       {/* Top Meta Bar */}
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-1.5">
@@ -89,39 +89,30 @@ export const AiSuggestionCard: React.FC<AiSuggestionCardProps> = ({
 
       {/* Expand Details Trigger */}
       {isExpanded && (
-        <div className="p-2.5 rounded-lg bg-white dark:bg-[#1f2238] border border-slate-200/80 dark:border-white/[0.1] text-[11px] text-slate-700 dark:text-slate-300 leading-relaxed space-y-1 transition-colors">
+        <div className="p-2.5 rounded-lg bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/5 text-[11px] text-slate-700 dark:text-slate-300 leading-relaxed space-y-1 transition-colors">
           <span className="text-[10px] font-bold uppercase font-mono text-purple-600 dark:text-purple-400">AI Rationale:</span>
           <p className="m-0 font-sans">{suggestion.detailText}</p>
         </div>
       )}
 
       {/* Bottom Actions */}
-      <div className="flex items-center justify-between pt-1 border-t border-slate-200/80 dark:border-slate-800/80">
+      <div className="flex items-center justify-between pt-1 border-t border-slate-200/80 dark:border-white/5">
         <button
           type="button"
           onClick={() => setIsExpanded(!isExpanded)}
-          className="text-[10px] font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-1 cursor-pointer focus:outline-none"
+          className="text-[10px] font-bold text-slate-500 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-300 flex items-center gap-1 cursor-pointer font-mono focus:outline-none"
         >
-          {isExpanded ? (
-            <>
-              <span>Less info</span>
-              <ChevronUp size={11} />
-            </>
-          ) : (
-            <>
-              <span>Why fix this?</span>
-              <ChevronDown size={11} />
-            </>
-          )}
+          <span>{isExpanded ? 'Hide Rationale' : 'View Details'}</span>
+          {isExpanded ? <ChevronUp size={11} /> : <ChevronDown size={11} />}
         </button>
 
         <button
           type="button"
           onClick={handleApply}
-          className="flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-bold text-white bg-purple-600 hover:bg-purple-500 border border-purple-400/30 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+          className="flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 border border-purple-400/30 cursor-pointer transition-all active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
         >
-          <Sparkles size={11} />
-          <span>Apply Fix</span>
+          <Plus size={12} />
+          <span>Apply Suggestion</span>
         </button>
       </div>
     </div>

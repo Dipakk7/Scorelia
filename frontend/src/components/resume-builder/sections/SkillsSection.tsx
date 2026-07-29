@@ -83,9 +83,9 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
   return (
     <div className="space-y-5 animate-fade-in text-left">
       {/* Section Header */}
-      <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-white/[0.08] pb-3.5 transition-colors">
+      <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-3 transition-colors">
         <div>
-          <div className="flex items-center gap-1.5 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider font-mono">
+          <div className="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider font-mono">
             <Code size={14} />
             <span>Technical Capabilities</span>
           </div>
@@ -100,7 +100,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
         <button
           type="button"
           onClick={onAddCategory}
-          className="flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 border border-purple-400/30 shadow-sm cursor-pointer transition-all active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 border border-purple-400/30 shadow-sm cursor-pointer transition-all active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
         >
           <Plus size={14} />
           <span>Add Category</span>
@@ -109,7 +109,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
 
       {/* Empty State */}
       {categories.length === 0 && (
-        <div className="bg-slate-50/80 dark:bg-[#171a2b]/60 border border-dashed border-slate-300 dark:border-white/[0.1] rounded-xl p-8 text-center space-y-3 transition-colors">
+        <div className="bg-slate-50 dark:bg-slate-900/40 border border-dashed border-slate-300 dark:border-white/15 rounded-xl p-8 text-center space-y-3 transition-colors">
           <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center mx-auto border border-purple-200 dark:border-purple-500/20">
             <Code size={20} />
           </div>
@@ -135,9 +135,9 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
         {categories.map((cat, idx) => (
           <div
             key={cat.id}
-            className="bg-slate-50/80 dark:bg-[#171a2b] border border-slate-200/70 dark:border-white/[0.08] rounded-xl p-4 space-y-3 shadow-sm dark:shadow-[0_4px_16px_-2px_rgba(0,0,0,0.35)] transition-colors group"
+            className="bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl p-4 space-y-3 shadow-sm transition-colors group"
           >
-            <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-white/[0.08] pb-2">
+            <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-white/5 pb-2">
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-0.5 text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300">
                   <GripVertical size={16} className="cursor-grab active:cursor-grabbing" />
@@ -168,7 +168,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
                   onChange={(e) =>
                     onUpdateCategory?.(cat.id, { ...cat, name: e.target.value })
                   }
-                  className="text-xs font-bold text-slate-900 dark:text-white bg-transparent border-b border-transparent hover:border-slate-300 dark:hover:border-slate-700 focus:border-purple-500 focus:outline-none px-1 py-0.5 rounded transition-colors font-display"
+                  className="text-xs font-bold text-slate-900 dark:text-white bg-transparent border-b border-transparent hover:border-slate-300 dark:hover:border-white/20 focus:border-purple-500 focus:outline-none px-1 py-0.5 rounded transition-colors font-display"
                 />
               </div>
 
@@ -187,7 +187,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
               {cat.skills.map((skill, sIdx) => (
                 <span
                   key={sIdx}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-purple-100/80 dark:bg-[#1f2238] text-purple-900 dark:text-purple-200 border border-purple-300/80 dark:border-purple-500/40 shadow-xs group/tag"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-purple-100 dark:bg-purple-950/40 text-purple-800 dark:text-purple-200 border border-purple-300 dark:border-purple-500/30 group/tag"
                 >
                   <span>{skill}</span>
                   <button
@@ -200,22 +200,20 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
                 </span>
               ))}
 
-              {/* Tag Input for adding skill */}
-              <div className="flex items-center gap-1 min-w-[140px]">
+              {/* Add Tag Input Box */}
+              <div className="flex items-center gap-1">
                 <input
                   type="text"
+                  placeholder="+ Add skill tag..."
                   value={newSkillText[cat.id] || ''}
-                  onChange={(e) =>
-                    setNewSkillText({ ...newSkillText, [cat.id]: e.target.value })
-                  }
+                  onChange={(e) => setNewSkillText({ ...newSkillText, [cat.id]: e.target.value })}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       e.preventDefault()
                       handleAddSkillTag(cat.id)
                     }
                   }}
-                  placeholder="+ Add skill..."
-                  className="h-7 bg-white dark:bg-[#1f2238] border border-slate-200/80 dark:border-white/[0.1] rounded-lg px-2 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-all"
+                  className="bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-lg px-2.5 py-1 text-xs font-medium text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 w-32 transition-colors"
                 />
               </div>
             </div>
