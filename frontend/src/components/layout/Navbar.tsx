@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Menu, Sun, Moon, Monitor, LogOut, User as UserIcon, Settings, Bell, Trash2, Check, Search, Gift } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -29,6 +30,11 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
   const { theme, setTheme } = useTheme()
   const queryClient = useQueryClient()
   const navigate = useNavigate()
+
+  // Controlled states for dropdown popovers to guarantee click responsiveness
+  const [isProfileOpen, setIsProfileOpen] = useState(false)
+  const [isNotifOpen, setIsNotifOpen] = useState(false)
+  const [isThemeOpen, setIsThemeOpen] = useState(false)
 
   // Query notifications count and list
   const { data: notifData } = useQuery({
@@ -81,6 +87,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
 
   const handleThemeChange = (newTheme: Theme) => {
     setTheme(newTheme)
+    setIsThemeOpen(false)
   }
 
   const handleSearchClick = () => {
@@ -147,10 +154,11 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
         </button>
 
         {/* Notification Bell Dropdown */}
-        <Dropdown>
+        <Dropdown open={isNotifOpen} onOpenChange={setIsNotifOpen}>
           <DropdownTrigger asChild>
             <button
               type="button"
+              onClick={() => setIsNotifOpen((prev) => !prev)}
               className="p-2 rounded-xl text-slate-400 hover:bg-white/5 hover:text-slate-100 cursor-pointer focus:outline-none relative transition-all duration-200 hover:scale-105 active:scale-95"
               aria-label="Notifications center"
             >
@@ -162,7 +170,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
               )}
             </button>
           </DropdownTrigger>
-          <DropdownContent className="w-80 bg-[#121320] border-white/10 text-slate-200" align="end">
+          <DropdownContent className="w-80 bg-[#121320] border-white/10 text-slate-200 z-50" align="end">
             <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 select-none">
               <span className="text-[10px] font-extrabold font-mono text-purple-400 uppercase tracking-widest">
                 Notifications
@@ -230,10 +238,11 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
         </Dropdown>
 
         {/* Theme Toggle Dropdown */}
-        <Dropdown>
+        <Dropdown open={isThemeOpen} onOpenChange={setIsThemeOpen}>
           <DropdownTrigger asChild>
             <button
               type="button"
+              onClick={() => setIsThemeOpen((prev) => !prev)}
               className="p-2 rounded-xl text-slate-400 hover:bg-white/5 hover:text-slate-100 cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95"
               aria-label="Select theme"
             >
@@ -242,7 +251,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
               {theme === 'system' && <Monitor size={18} />}
             </button>
           </DropdownTrigger>
-          <DropdownContent className="w-36 bg-[#121320] border-white/10 text-slate-200" align="end">
+          <DropdownContent className="w-36 bg-[#121320] border-white/10 text-slate-200 z-50" align="end">
             <DropdownLabel className="text-[10px] uppercase font-extrabold tracking-widest text-slate-400">Appearance</DropdownLabel>
             <DropdownSeparator className="bg-white/10" />
             <DropdownItem
@@ -285,10 +294,14 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
         </Dropdown>
 
         {/* User Account Dropdown */}
-        <Dropdown>
+        <Dropdown open={isProfileOpen} onOpenChange={setIsProfileOpen}>
           <DropdownTrigger asChild>
             <button
               type="button"
+              onClick={() => {
+                console.log('[Navbar] Avatar clicked - toggling profile dropdown')
+                setIsProfileOpen((prev) => !prev)
+              }}
               className="flex items-center gap-1.5 p-1 rounded-full hover:bg-white/5 cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95"
               aria-label="User account profile menu"
             >
@@ -299,7 +312,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
               />
             </button>
           </DropdownTrigger>
-          <DropdownContent className="w-56 bg-[#121320] border-white/10 text-slate-200" align="end">
+          <DropdownContent className="w-56 bg-[#121320] border-white/10 text-slate-200 z-50" align="end">
             <div className="flex flex-col px-3.5 py-2.5 text-left select-none">
               <span className="text-xs font-bold text-slate-100 truncate">
                 {userDisplayName}
@@ -310,14 +323,22 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
             </div>
             <DropdownSeparator className="bg-white/10" />
             <DropdownItem
-              onSelect={() => navigate('/profile')}
+              onSelect={() => {
+                console.log('[Navbar] My Profile selected - navigating to /profile')
+                setIsProfileOpen(false)
+                navigate('/profile')
+              }}
               className="cursor-pointer rounded-lg m-0.5 text-xs flex items-center py-2 text-slate-200 hover:text-white"
             >
               <UserIcon size={14} className="mr-2.5 text-slate-400" />
               <span>My Profile</span>
             </DropdownItem>
             <DropdownItem
-              onSelect={() => navigate('/settings')}
+              onSelect={() => {
+                console.log('[Navbar] Account Settings selected - navigating to /settings')
+                setIsProfileOpen(false)
+                navigate('/settings')
+              }}
               className="cursor-pointer rounded-lg m-0.5 text-xs flex items-center py-2 text-slate-200 hover:text-white"
             >
               <Settings size={14} className="mr-2.5 text-slate-400" />
@@ -325,7 +346,10 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
             </DropdownItem>
             <DropdownSeparator className="bg-white/10" />
             <DropdownItem
-              onSelect={logout}
+              onSelect={() => {
+                setIsProfileOpen(false)
+                logout()
+              }}
               className="text-pink-400 hover:bg-pink-500/10 cursor-pointer py-2 font-bold rounded-lg m-0.5 text-xs flex items-center"
             >
               <LogOut size={14} className="mr-2.5" />
