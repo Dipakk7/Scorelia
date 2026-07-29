@@ -4,7 +4,6 @@ import { SettingsTabs } from './SettingsTabs'
 import { SettingsWorkspace } from './SettingsWorkspace'
 import { SettingsSidebar } from './SettingsSidebar'
 import { SettingsBottomStatus } from './SettingsBottomStatus'
-import { SettingsSkeleton } from './SettingsSkeleton'
 import { EmptySettingsState } from './EmptySettingsState'
 import { SettingsErrorBoundary } from './SettingsErrorBoundary'
 import { settingsMockData } from './settingsMockData'
@@ -41,8 +40,8 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [activeTab])
 
-  const isLoading = initialLoading || queryLoading
-  const isError = queryError
+  const workspaceLoading = viewState === 'skeleton' || queryLoading
+  const workspaceEmpty = viewState === 'empty'
 
   return (
     <SettingsErrorBoundary categoryName="Settings Page" onReset={refetch}>
@@ -52,7 +51,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
           className
         )}
       >
-        {/* 1. Header (Title, Subtitle, Search Field, Top Action Buttons) */}
+        {/* 1. Header — Always renders shell immediately without global loading lock */}
         <SettingsHeader
           title={settingsMockData.pageTitle}
           subtitle={settingsMockData.pageSubtitle}
@@ -104,38 +103,41 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({
           </button>
         </div>
 
-        {viewState === 'skeleton' || isLoading ? (
-          <SettingsSkeleton />
-        ) : viewState === 'empty' ? (
-          <EmptySettingsState onReload={() => setViewState('normal')} className="py-16" />
-        ) : (
-          <div className="space-y-6">
-            {/* 2. Sticky Navigation Tabs */}
-            <div className="sticky top-0 z-20 bg-[var(--background)]/90 backdrop-blur-md pt-2 pb-1">
-              <SettingsTabs
-                tabs={settingsMockData.tabs}
-                activeTab={activeTab}
-                onTabChange={setActiveTab}
-              />
-            </div>
-
-            {/* 3. Executive Responsive Two-Column Layout (Main Workspace + Right Sidebar) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-              {/* Main Workspace Column */}
-              <div className="lg:col-span-8 xl:col-span-9 w-full">
-                <SettingsWorkspace activeTab={activeTab} isLoading={isLoading} isError={isError} onRetry={refetch} />
-              </div>
-
-              {/* Right Sidebar Column */}
-              <div className="lg:col-span-4 xl:col-span-3 w-full">
-                <SettingsSidebar />
-              </div>
-            </div>
-
-            {/* 4. Bottom Status Bar (Full Width Spans Workspace) */}
-            <SettingsBottomStatus isSaving={isFetching} />
+        <div className="space-y-6">
+          {/* 2. Sticky Navigation Tabs — Rendered immediately */}
+          <div className="sticky top-0 z-20 bg-[var(--background)]/90 backdrop-blur-md pt-2 pb-1">
+            <SettingsTabs
+              tabs={settingsMockData.tabs}
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+            />
           </div>
-        )}
+
+          {/* 3. Executive Responsive Two-Column Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            {/* Main Workspace Column — Scoped per-category loading */}
+            <div className="lg:col-span-8 xl:col-span-9 w-full">
+              {workspaceEmpty ? (
+                <EmptySettingsState onReload={() => setViewState('normal')} className="py-16" />
+              ) : (
+                <SettingsWorkspace
+                  activeTab={activeTab}
+                  isLoading={workspaceLoading}
+                  isError={queryError}
+                  onRetry={refetch}
+                />
+              )}
+            </div>
+
+            {/* Right Sidebar Column — Rendered immediately */}
+            <div className="lg:col-span-4 xl:col-span-3 w-full">
+              <SettingsSidebar />
+            </div>
+          </div>
+
+          {/* 4. Bottom Status Bar — Rendered immediately */}
+          <SettingsBottomStatus isSaving={isFetching} />
+        </div>
       </main>
     </SettingsErrorBoundary>
   )
