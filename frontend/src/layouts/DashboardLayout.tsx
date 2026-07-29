@@ -78,7 +78,7 @@ export default function DashboardLayout() {
   ]
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-[#07080e] text-slate-100 font-sans relative selection:bg-purple-500/30 selection:text-purple-200">
+    <div className="flex h-screen w-screen overflow-hidden bg-[var(--background)] text-[var(--body)] font-sans relative selection:bg-purple-500/30 selection:text-purple-200 transition-colors duration-200">
       {/* Background Ambient Glow Accents */}
       <div className="fixed top-0 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none z-0" />
       <div className="fixed bottom-0 right-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none z-0" />
@@ -98,7 +98,7 @@ export default function DashboardLayout() {
       {/* Mobile Drawer Panel */}
       <div
         className={cn(
-          'fixed inset-y-0 left-0 z-50 w-64 bg-[#0b0c14] border-r border-white/10 p-5 transform transition-transform duration-300 ease-in-out md:hidden flex flex-col justify-between shadow-2xl',
+          'fixed inset-y-0 left-0 z-50 w-64 bg-[var(--surface)] border-r border-[var(--border)] p-5 transform transition-transform duration-300 ease-in-out md:hidden flex flex-col justify-between shadow-2xl',
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
@@ -108,8 +108,9 @@ export default function DashboardLayout() {
               <Logo iconOnly={false} className="h-7 w-auto text-purple-400" />
             </Link>
             <button
+              type="button"
               onClick={() => setMobileOpen(false)}
-              className="p-1 rounded-lg text-slate-400 hover:text-white cursor-pointer focus:outline-none"
+              className="p-1 rounded-lg text-[var(--muted)] hover:text-[var(--heading)] cursor-pointer focus:outline-none"
               aria-label="Close menu"
             >
               <X size={20} />
@@ -128,7 +129,7 @@ export default function DashboardLayout() {
                       'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-150 group',
                       isActive
                         ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md shadow-purple-900/40'
-                        : 'hover:bg-white/5 text-slate-400 hover:text-white'
+                        : 'hover:bg-[var(--surface-hover)] text-[var(--muted)] hover:text-[var(--heading)]'
                     )
                   }
                 >
@@ -140,15 +141,15 @@ export default function DashboardLayout() {
           </nav>
         </div>
 
-        <div className="text-xs text-slate-400 border-t border-white/10 pt-4 mt-auto">
-          Logged in as: <span className="text-slate-200 font-mono block truncate">{user?.email}</span>
+        <div className="text-xs text-[var(--muted)] border-t border-[var(--border)] pt-4 mt-auto">
+          Logged in as: <span className="text-[var(--heading)] font-mono block truncate">{user?.email}</span>
         </div>
       </div>
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
         <Navbar onMenuToggle={() => setMobileOpen(!mobileOpen)} />
-        <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 md:p-6 lg:p-8 bg-[#07080e] focus:outline-none custom-scrollbar">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 md:p-6 lg:p-8 bg-[var(--background)] focus:outline-none custom-scrollbar transition-colors duration-200">
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}
@@ -166,4 +167,3 @@ export default function DashboardLayout() {
     </div>
   )
 }
-

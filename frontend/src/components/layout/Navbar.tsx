@@ -106,7 +106,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
   return (
     <header
       className={cn(
-        'h-16 flex items-center justify-between px-4 md:px-8 sticky top-0 z-20 transition-colors bg-[#0b0c14]/90 backdrop-blur-md border-b border-white/5',
+        'h-16 flex items-center justify-between px-4 md:px-8 sticky top-0 z-20 transition-colors duration-200 bg-[var(--surface)]/90 backdrop-blur-md border-b border-[var(--border)] text-[var(--body)]',
         className
       )}
     >
@@ -115,7 +115,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
         <button
           type="button"
           onClick={onMenuToggle}
-          className="p-2.5 -ml-2 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white md:hidden cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50"
+          className="p-2.5 -ml-2 rounded-xl text-[var(--muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--heading)] md:hidden cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50"
           aria-label="Toggle navigation menu"
         >
           <Menu size={20} />
@@ -128,13 +128,13 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
           type="button"
           onClick={handleSearchClick}
           aria-label="Global search (Command K)"
-          className="w-full flex items-center justify-between px-3.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-white/20 hover:bg-white/[0.07] active:scale-[0.99] text-slate-400 hover:text-slate-200 transition-all cursor-pointer group shadow-inner focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50"
+          className="w-full flex items-center justify-between px-3.5 py-1.5 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)] hover:border-purple-500/30 active:scale-[0.99] text-[var(--muted)] hover:text-[var(--heading)] transition-all cursor-pointer group shadow-inner focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50"
         >
           <div className="flex items-center gap-2.5">
-            <Search size={16} className="text-slate-400 group-hover:text-purple-400 transition-colors" />
+            <Search size={16} className="text-[var(--muted)] group-hover:text-purple-500 transition-colors" />
             <span className="text-xs font-medium">Search anything...</span>
           </div>
-          <kbd className="px-2 py-0.5 text-[10px] font-mono font-bold text-slate-400 bg-white/5 rounded border border-white/10 flex items-center gap-0.5">
+          <kbd className="px-2 py-0.5 text-[10px] font-mono font-bold text-[var(--muted)] bg-[var(--surface)] rounded border border-[var(--border)] flex items-center gap-0.5">
             <span>⌘</span>
             <span>K</span>
           </kbd>
@@ -147,7 +147,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
         <button
           type="button"
           onClick={handleSearchClick}
-          className="p-2 rounded-xl text-slate-400 hover:bg-white/5 hover:text-purple-400 cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95"
+          className="p-2 rounded-xl text-[var(--muted)] hover:bg-[var(--surface-hover)] hover:text-purple-400 cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95"
           title="Quick Commands"
         >
           <Gift size={18} />
@@ -159,19 +159,19 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
             <button
               type="button"
               onClick={() => setIsNotifOpen((prev) => !prev)}
-              className="p-2 rounded-xl text-slate-400 hover:bg-white/5 hover:text-slate-100 cursor-pointer focus:outline-none relative transition-all duration-200 hover:scale-105 active:scale-95"
+              className="p-2 rounded-xl text-[var(--muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--heading)] cursor-pointer focus:outline-none relative transition-all duration-200 hover:scale-105 active:scale-95"
               aria-label="Notifications center"
             >
               <Bell size={18} />
               {unreadCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 h-4 min-w-4 px-1 rounded-full bg-pink-600 text-[9px] font-extrabold text-white flex items-center justify-center border border-[#0b0c14] shadow-md animate-pulse">
+                <span className="absolute top-1.5 right-1.5 h-4 min-w-4 px-1 rounded-full bg-pink-600 text-[9px] font-extrabold text-white flex items-center justify-center border border-[var(--surface)] shadow-md animate-pulse">
                   {unreadCount}
                 </span>
               )}
             </button>
           </DropdownTrigger>
-          <DropdownContent className="w-80 bg-[#121320] border-white/10 text-slate-200 z-50" align="end">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 select-none">
+          <DropdownContent className="w-80 bg-[var(--surface)] border-[var(--border)] text-[var(--body)] z-50 shadow-2xl" align="end">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border)] select-none">
               <span className="text-[10px] font-extrabold font-mono text-purple-400 uppercase tracking-widest">
                 Notifications
               </span>
@@ -186,7 +186,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
               )}
             </div>
 
-            <div className="max-h-72 overflow-y-auto divide-y divide-white/5">
+            <div className="max-h-72 overflow-y-auto divide-y divide-[var(--border)]">
               {notifications.length === 0 ? (
                 <EmptyNotificationsState />
               ) : (
@@ -194,18 +194,18 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
                   <div
                     key={n.id}
                     className={cn(
-                      'p-3.5 flex gap-3 text-left relative group transition-colors hover:bg-white/5',
-                      !n.is_read && 'bg-purple-950/20'
+                      'p-3.5 flex gap-3 text-left relative group transition-colors hover:bg-[var(--surface-hover)]',
+                      !n.is_read && 'bg-purple-500/10'
                     )}
                   >
                     <div className="flex-1 space-y-1 min-w-0 pr-8">
-                      <p className={cn('text-xs tracking-tight truncate', n.is_read ? 'text-slate-400' : 'text-slate-100 font-bold')}>
+                      <p className={cn('text-xs tracking-tight truncate', n.is_read ? 'text-[var(--muted)]' : 'text-[var(--heading)] font-bold')}>
                         {n.title}
                       </p>
-                      <p className="text-[10px] text-slate-400 font-sans line-clamp-2 leading-relaxed">
+                      <p className="text-[10px] text-[var(--muted)] font-sans line-clamp-2 leading-relaxed">
                         {n.message}
                       </p>
-                      <span className="text-[8px] font-bold text-slate-400 block mt-1.5 uppercase tracking-wider font-mono">
+                      <span className="text-[8px] font-bold text-[var(--muted)] block mt-1.5 uppercase tracking-wider font-mono">
                         {new Date(n.created_at).toLocaleDateString()}
                       </span>
                     </div>
@@ -215,7 +215,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
                         <button
                           type="button"
                           onClick={() => markReadMutation.mutate(n.id)}
-                          className="p-1 rounded bg-[#18192a] text-slate-400 hover:text-emerald-400 hover:bg-white/10 cursor-pointer border border-white/10"
+                          className="p-1 rounded bg-[var(--surface-hover)] text-[var(--muted)] hover:text-emerald-400 cursor-pointer border border-[var(--border)]"
                           title="Mark read"
                         >
                           <Check size={12} />
@@ -224,7 +224,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
                       <button
                         type="button"
                         onClick={() => deleteNotifMutation.mutate(n.id)}
-                        className="p-1 rounded bg-[#18192a] text-slate-400 hover:text-pink-400 hover:bg-white/10 cursor-pointer border border-white/10"
+                        className="p-1 rounded bg-[var(--surface-hover)] text-[var(--muted)] hover:text-pink-400 cursor-pointer border border-[var(--border)]"
                         title="Delete"
                       >
                         <Trash2 size={12} />
@@ -243,46 +243,46 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
             <button
               type="button"
               onClick={() => setIsThemeOpen((prev) => !prev)}
-              className="p-2 rounded-xl text-slate-400 hover:bg-white/5 hover:text-slate-100 cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95"
+              className="p-2 rounded-xl text-[var(--muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--heading)] cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95"
               aria-label="Select theme"
             >
-              {theme === 'light' && <Sun size={18} />}
-              {theme === 'dark' && <Moon size={18} />}
-              {theme === 'system' && <Monitor size={18} />}
+              {theme === 'light' && <Sun size={18} className="text-amber-500" />}
+              {theme === 'dark' && <Moon size={18} className="text-purple-400" />}
+              {theme === 'system' && <Monitor size={18} className="text-[var(--heading)]" />}
             </button>
           </DropdownTrigger>
-          <DropdownContent className="w-36 bg-[#121320] border-white/10 text-slate-200 z-50" align="end">
-            <DropdownLabel className="text-[10px] uppercase font-extrabold tracking-widest text-slate-400">Appearance</DropdownLabel>
-            <DropdownSeparator className="bg-white/10" />
+          <DropdownContent className="w-36 bg-[var(--surface)] border-[var(--border)] text-[var(--body)] z-50 shadow-2xl" align="end">
+            <DropdownLabel className="text-[10px] uppercase font-extrabold tracking-widest text-[var(--muted)]">Appearance</DropdownLabel>
+            <DropdownSeparator className="bg-[var(--border)]" />
             <DropdownItem
               onClick={() => handleThemeChange('light')}
               className={cn(
-                'cursor-pointer rounded-lg m-0.5 flex items-center justify-between text-xs',
-                theme === 'light' && 'text-purple-400 font-bold bg-white/5'
+                'cursor-pointer rounded-lg m-0.5 flex items-center justify-between text-xs transition-colors',
+                theme === 'light' ? 'text-purple-500 font-bold bg-[var(--surface-hover)]' : 'hover:bg-[var(--surface-hover)]'
               )}
             >
               <div className="flex items-center">
-                <Sun size={14} className="mr-2" /> Light
+                <Sun size={14} className="mr-2 text-amber-500" /> Light
               </div>
-              {theme === 'light' && <Check size={14} className="text-purple-400" />}
+              {theme === 'light' && <Check size={14} className="text-purple-500" />}
             </DropdownItem>
             <DropdownItem
               onClick={() => handleThemeChange('dark')}
               className={cn(
-                'cursor-pointer rounded-lg m-0.5 flex items-center justify-between text-xs',
-                theme === 'dark' && 'text-purple-400 font-bold bg-white/5'
+                'cursor-pointer rounded-lg m-0.5 flex items-center justify-between text-xs transition-colors',
+                theme === 'dark' ? 'text-purple-400 font-bold bg-[var(--surface-hover)]' : 'hover:bg-[var(--surface-hover)]'
               )}
             >
               <div className="flex items-center">
-                <Moon size={14} className="mr-2" /> Dark
+                <Moon size={14} className="mr-2 text-purple-400" /> Dark
               </div>
               {theme === 'dark' && <Check size={14} className="text-purple-400" />}
             </DropdownItem>
             <DropdownItem
               onClick={() => handleThemeChange('system')}
               className={cn(
-                'cursor-pointer rounded-lg m-0.5 flex items-center justify-between text-xs',
-                theme === 'system' && 'text-purple-400 font-bold bg-white/5'
+                'cursor-pointer rounded-lg m-0.5 flex items-center justify-between text-xs transition-colors',
+                theme === 'system' ? 'text-purple-400 font-bold bg-[var(--surface-hover)]' : 'hover:bg-[var(--surface-hover)]'
               )}
             >
               <div className="flex items-center">
@@ -298,11 +298,8 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
           <DropdownTrigger asChild>
             <button
               type="button"
-              onClick={() => {
-                console.log('[Navbar] Avatar clicked - toggling profile dropdown')
-                setIsProfileOpen((prev) => !prev)
-              }}
-              className="flex items-center gap-1.5 p-1 rounded-full hover:bg-white/5 cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95"
+              onClick={() => setIsProfileOpen((prev) => !prev)}
+              className="flex items-center gap-1.5 p-1 rounded-full hover:bg-[var(--surface-hover)] cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95"
               aria-label="User account profile menu"
             >
               <Avatar
@@ -312,45 +309,43 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
               />
             </button>
           </DropdownTrigger>
-          <DropdownContent className="w-56 bg-[#121320] border-white/10 text-slate-200 z-50" align="end">
+          <DropdownContent className="w-56 bg-[var(--surface)] border-[var(--border)] text-[var(--body)] z-50 shadow-2xl" align="end">
             <div className="flex flex-col px-3.5 py-2.5 text-left select-none">
-              <span className="text-xs font-bold text-slate-100 truncate">
+              <span className="text-xs font-bold text-[var(--heading)] truncate">
                 {userDisplayName}
               </span>
-              <span className="text-[11px] text-slate-400 truncate font-mono mt-0.5">
+              <span className="text-[11px] text-[var(--muted)] truncate font-mono mt-0.5">
                 {user?.email}
               </span>
             </div>
-            <DropdownSeparator className="bg-white/10" />
+            <DropdownSeparator className="bg-[var(--border)]" />
             <DropdownItem
               onSelect={() => {
-                console.log('[Navbar] My Profile selected - navigating to /profile')
                 setIsProfileOpen(false)
                 navigate('/profile')
               }}
-              className="cursor-pointer rounded-lg m-0.5 text-xs flex items-center py-2 text-slate-200 hover:text-white"
+              className="cursor-pointer rounded-lg m-0.5 text-xs flex items-center py-2 text-[var(--body)] hover:text-[var(--heading)] hover:bg-[var(--surface-hover)]"
             >
-              <UserIcon size={14} className="mr-2.5 text-slate-400" />
+              <UserIcon size={14} className="mr-2.5 text-[var(--muted)]" />
               <span>My Profile</span>
             </DropdownItem>
             <DropdownItem
               onSelect={() => {
-                console.log('[Navbar] Account Settings selected - navigating to /settings')
                 setIsProfileOpen(false)
                 navigate('/settings')
               }}
-              className="cursor-pointer rounded-lg m-0.5 text-xs flex items-center py-2 text-slate-200 hover:text-white"
+              className="cursor-pointer rounded-lg m-0.5 text-xs flex items-center py-2 text-[var(--body)] hover:text-[var(--heading)] hover:bg-[var(--surface-hover)]"
             >
-              <Settings size={14} className="mr-2.5 text-slate-400" />
+              <Settings size={14} className="mr-2.5 text-[var(--muted)]" />
               <span>Account Settings</span>
             </DropdownItem>
-            <DropdownSeparator className="bg-white/10" />
+            <DropdownSeparator className="bg-[var(--border)]" />
             <DropdownItem
               onSelect={() => {
                 setIsProfileOpen(false)
                 logout()
               }}
-              className="text-pink-400 hover:bg-pink-500/10 cursor-pointer py-2 font-bold rounded-lg m-0.5 text-xs flex items-center"
+              className="text-pink-500 hover:bg-pink-500/10 cursor-pointer py-2 font-bold rounded-lg m-0.5 text-xs flex items-center"
             >
               <LogOut size={14} className="mr-2.5" />
               <span>Sign Out</span>
@@ -361,3 +356,5 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
     </header>
   )
 }
+
+export default Navbar
