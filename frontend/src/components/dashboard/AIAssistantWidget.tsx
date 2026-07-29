@@ -34,22 +34,22 @@ export const AIAssistantWidget: React.FC<AIAssistantWidgetProps> = React.memo(({
     <div className="p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] backdrop-blur-md shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-all space-y-4 select-none">
       <div className="flex items-center justify-between border-b border-[var(--border)] pb-3">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 rounded-xl bg-purple-500/20 text-purple-300 border border-purple-500/30">
+          <div className="p-2 rounded-xl bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30">
             <Bot size={18} />
           </div>
           <div>
             <h3 className="text-xs font-bold text-[var(--heading)] tracking-tight">AI Assistant</h3>
-            <span className="text-[9px] font-mono text-purple-400 uppercase tracking-widest block">Scorelia Copilot</span>
+            <span className="text-[9px] font-mono text-purple-700 dark:text-purple-400 uppercase tracking-widest block">Scorelia Copilot</span>
           </div>
         </div>
-        <span className="text-[9px] font-mono uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+        <span className="text-[9px] font-mono uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30">
           BETA
         </span>
       </div>
 
       <div className="space-y-3">
         <div className="p-3 rounded-xl bg-purple-950/30 border border-purple-500/20 text-xs space-y-1">
-          <span className="font-bold text-purple-300 block">Hi {displayName}! 👋</span>
+          <span className="font-bold text-[var(--heading)] block">Hi {displayName}! 👋</span>
           <p className="text-[var(--muted-color)] leading-relaxed">How can I help you today?</p>
         </div>
 

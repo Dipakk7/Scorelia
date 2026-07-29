@@ -114,8 +114,8 @@ export const AIOverviewBanner: React.FC<AIOverviewBannerProps> = ({
         </div>
 
         {/* Executive Summary */}
-        <div className="p-3.5 rounded-xl bg-purple-950/40 border border-purple-500/30 text-xs text-purple-200 leading-relaxed flex items-start gap-2.5">
-          <Award className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+        <div className="p-3.5 rounded-xl bg-purple-950/40 border border-purple-500/30 text-xs text-[var(--heading)] leading-relaxed flex items-start gap-2.5">
+          <Award className="w-4 h-4 text-purple-700 dark:text-purple-400 shrink-0 mt-0.5" />
           <span>{summary}</span>
         </div>
       </div>

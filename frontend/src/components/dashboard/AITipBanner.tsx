@@ -16,14 +16,15 @@ export const AITipBanner: React.FC<AITipBannerProps> = React.memo(({
   return (
     <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-950/40 via-indigo-950/40 to-pink-950/40 border border-purple-500/30 flex items-center justify-between gap-4 text-xs select-none shadow-lg">
       <div className="flex items-center gap-2.5 min-w-0">
-        <Sparkles size={18} className="text-purple-400 shrink-0 animate-pulse" />
-        <span className="truncate text-slate-200">
-          <strong className="text-purple-300">AI Tip:</strong> {tipText}
+        <Sparkles size={18} className="text-purple-700 dark:text-purple-400 shrink-0 animate-pulse" />
+        <span className="truncate text-[var(--heading)]">
+          <strong className="text-purple-700 dark:text-purple-300 font-bold">AI Tip:</strong>{' '}
+          <span className="text-[var(--heading)]">{tipText}</span>
         </span>
       </div>
       <Link
         to={actionTo}
-        className="font-bold text-purple-400 hover:text-purple-300 shrink-0 flex items-center gap-1 transition-colors"
+        className="font-bold text-purple-700 dark:text-purple-300 hover:text-purple-800 dark:hover:text-purple-200 shrink-0 flex items-center gap-1 transition-colors"
       >
         <span>{actionLabel}</span>
         <ChevronRight size={14} />

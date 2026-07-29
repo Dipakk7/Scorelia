@@ -20,15 +20,15 @@ export const AIInsightBanner: React.FC<AIInsightBannerProps> = ({
 
       {/* Left Icon & Text Content */}
       <div className="flex items-center gap-3 md:gap-4 relative z-10">
-        <div className="p-2.5 rounded-xl bg-purple-600/20 border border-purple-500/30 text-purple-300 shrink-0 shadow-inner">
-          <Sparkles className="w-5 h-5 text-purple-300 fill-purple-300/20" />
+        <div className="p-2.5 rounded-xl bg-purple-600/20 border border-purple-500/30 text-purple-700 dark:text-purple-300 shrink-0 shadow-inner">
+          <Sparkles className="w-5 h-5 text-purple-700 dark:text-purple-300 fill-purple-700/20 dark:fill-purple-300/20" />
         </div>
 
         <div className="flex flex-col">
-          <span className="text-xs font-bold text-purple-300 uppercase tracking-wider mb-0.5">
+          <span className="text-xs font-bold text-purple-700 dark:text-purple-300 uppercase tracking-wider mb-0.5">
             AI Insight
           </span>
-          <p className="text-xs md:text-sm text-slate-200 font-medium leading-snug">
+          <p className="text-xs md:text-sm text-[var(--heading)] font-medium leading-snug">
             {insightText}
           </p>
         </div>
