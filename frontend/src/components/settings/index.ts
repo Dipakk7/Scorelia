@@ -40,3 +40,5 @@ export * from './SettingsBottomStatus'
 export * from './SettingsSkeleton'
 export * from './EmptySettingsState'
 export * from './SettingsPage'
+export * from './SettingsErrorBoundary'
+
