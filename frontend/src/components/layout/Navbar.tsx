@@ -19,6 +19,7 @@ import {
   DropdownSeparator,
 } from '@/components/ui/Dropdown'
 import { cn } from '@/lib/utils'
+import { AnchoredGlobalSearch } from '@/components/layout/AnchoredGlobalSearch'
 
 interface NavbarProps {
   onMenuToggle: () => void
@@ -122,23 +123,9 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
         </button>
       </div>
 
-      {/* Center: Search input area matching V3 reference design */}
-      <div className="flex-1 max-w-md mx-4 hidden sm:block" role="search">
-        <button
-          type="button"
-          onClick={handleSearchClick}
-          aria-label="Global search (Command K)"
-          className="w-full flex items-center justify-between px-3.5 py-1.5 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)] hover:border-purple-500/30 active:scale-[0.99] text-[var(--body)] hover:text-[var(--heading)] transition-all cursor-pointer group shadow-inner focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50"
-        >
-          <div className="flex items-center gap-2.5">
-            <Search size={16} className="text-[var(--muted-color)] group-hover:text-purple-500 transition-colors" />
-            <span className="text-xs font-medium text-[var(--body)]">Search anything...</span>
-          </div>
-          <kbd className="px-2 py-0.5 text-[10px] font-mono font-bold text-[var(--muted-color)] bg-[var(--surface)] rounded border border-[var(--border)] flex items-center gap-0.5">
-            <span>⌘</span>
-            <span>K</span>
-          </kbd>
-        </button>
+      {/* Center: Anchored Global Search Floating Panel */}
+      <div className="flex-1 max-w-md md:max-w-lg mx-4 hidden sm:block">
+        <AnchoredGlobalSearch />
       </div>
 
       {/* Right side: Actions & User Dropdown */}
