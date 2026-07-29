@@ -4,28 +4,31 @@ import { MapPin, Globe, Mail, Briefcase, Calendar, Link2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface ProfileCardProps {
-  user: {
-    full_name: string | null
-    email: string
-    role: string | null
-    bio: string | null
-    location: string | null
-    website: string | null
-    linkedin: string | null
-    github: string | null
-    profile_picture: string | null
-    created_at: string
+  user?: {
+    full_name?: string | null
+    email?: string | null
+    role?: string | null
+    bio?: string | null
+    location?: string | null
+    website?: string | null
+    linkedin?: string | null
+    github?: string | null
+    profile_picture?: string | null
+    created_at?: string | null
   }
   className?: string
 }
 
 export function ProfileCard({ user, className }: ProfileCardProps) {
-  const userDisplayName = user.full_name || user.email.split('@')[0] || 'User'
-  const memberSince = new Date(user.created_at).toLocaleDateString(undefined, {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
+  const userEmail = user?.email || 'user@example.com'
+  const userDisplayName = user?.full_name || userEmail.split('@')[0] || 'User'
+  const memberSince = user?.created_at
+    ? new Date(user.created_at).toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    : 'Recently'
 
   return (
     <Card className={cn('border-[var(--border)] bg-[var(--surface)]/40 backdrop-blur-md overflow-hidden relative shadow-[var(--shadow-sm)]', className)}>
@@ -33,7 +36,7 @@ export function ProfileCard({ user, className }: ProfileCardProps) {
       <CardContent className="p-6 flex flex-col items-center text-center">
         {/* Avatar */}
         <Avatar
-          src={user.profile_picture}
+          src={user?.profile_picture || null}
           fallbackText={userDisplayName}
           className="h-24 w-24 border-2 border-[var(--border)] shadow-[var(--shadow-md)] mb-4"
         />
@@ -44,11 +47,11 @@ export function ProfileCard({ user, className }: ProfileCardProps) {
         </h3>
         <p className="text-sm font-semibold text-[var(--primary)] mt-1 flex items-center gap-1.5 justify-center">
           <Briefcase size={14} />
-          {user.role || 'Job Seeker'}
+          {user?.role || 'Job Seeker'}
         </p>
 
         {/* Bio */}
-        {user.bio ? (
+        {user?.bio ? (
           <p className="text-sm text-[var(--body)] mt-4 leading-relaxed font-sans max-w-sm">
             "{user.bio}"
           </p>
@@ -65,10 +68,10 @@ export function ProfileCard({ user, className }: ProfileCardProps) {
         <div className="w-full space-y-3.5 text-sm text-left">
           <div className="flex items-center gap-3 text-[var(--muted)] font-sans">
             <Mail size={16} className="text-[var(--muted)] shrink-0" />
-            <span className="truncate">{user.email}</span>
+            <span className="truncate">{userEmail}</span>
           </div>
 
-          {user.location && (
+          {user?.location && (
             <div className="flex items-center gap-3 text-[var(--muted)] font-sans">
               <MapPin size={16} className="text-[var(--muted)] shrink-0" />
               <span className="truncate">{user.location}</span>
@@ -82,11 +85,11 @@ export function ProfileCard({ user, className }: ProfileCardProps) {
         </div>
 
         {/* Social Links */}
-        {(user.website || user.linkedin || user.github) && (
+        {(user?.website || user?.linkedin || user?.github) && (
           <>
             <div className="w-full h-px bg-[var(--divider)] my-5" />
             <div className="flex items-center gap-3 mt-1.5">
-              {user.website && (
+              {user?.website && (
                 <a
                   href={user.website.startsWith('http') ? user.website : `https://${user.website}`}
                   target="_blank"
@@ -98,7 +101,7 @@ export function ProfileCard({ user, className }: ProfileCardProps) {
                 </a>
               )}
 
-              {user.linkedin && (
+              {user?.linkedin && (
                 <a
                   href={user.linkedin.startsWith('http') ? user.linkedin : `https://linkedin.com/in/${user.linkedin}`}
                   target="_blank"
@@ -110,7 +113,7 @@ export function ProfileCard({ user, className }: ProfileCardProps) {
                 </a>
               )}
 
-              {user.github && (
+              {user?.github && (
                 <a
                   href={user.github.startsWith('http') ? user.github : `https://github.com/${user.github}`}
                   target="_blank"
@@ -128,3 +131,5 @@ export function ProfileCard({ user, className }: ProfileCardProps) {
     </Card>
   )
 }
+
+export default ProfileCard
