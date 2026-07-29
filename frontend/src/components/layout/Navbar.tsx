@@ -1,5 +1,5 @@
-import { Menu, Sun, Moon, Monitor, LogOut, User as UserIcon, Settings, Bell, Trash2, Check, Search, Sparkles, Gift } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Menu, Sun, Moon, Monitor, LogOut, User as UserIcon, Settings, Bell, Trash2, Check, Search, Gift } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 
@@ -28,6 +28,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
   const { user, logout } = useAuth()
   const { theme, setTheme } = useTheme()
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   // Query notifications count and list
   const { data: notifData } = useQuery({
@@ -105,6 +106,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
       {/* Left side: Mobile Toggle */}
       <div className="flex items-center gap-3">
         <button
+          type="button"
           onClick={onMenuToggle}
           className="p-2.5 -ml-2 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white md:hidden cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50"
           aria-label="Toggle navigation menu"
@@ -116,6 +118,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
       {/* Center: Search input area matching V3 reference design */}
       <div className="flex-1 max-w-md mx-4 hidden sm:block" role="search">
         <button
+          type="button"
           onClick={handleSearchClick}
           aria-label="Global search (Command K)"
           className="w-full flex items-center justify-between px-3.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-white/20 hover:bg-white/[0.07] active:scale-[0.99] text-slate-400 hover:text-slate-200 transition-all cursor-pointer group shadow-inner focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50"
@@ -135,6 +138,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
       <div className="flex items-center gap-2.5">
         {/* Quick Gift/Sparkle Action Pill */}
         <button
+          type="button"
           onClick={handleSearchClick}
           className="p-2 rounded-xl text-slate-400 hover:bg-white/5 hover:text-purple-400 cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95"
           title="Quick Commands"
@@ -146,6 +150,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
         <Dropdown>
           <DropdownTrigger asChild>
             <button
+              type="button"
               className="p-2 rounded-xl text-slate-400 hover:bg-white/5 hover:text-slate-100 cursor-pointer focus:outline-none relative transition-all duration-200 hover:scale-105 active:scale-95"
               aria-label="Notifications center"
             >
@@ -164,6 +169,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
               </span>
               {unreadCount > 0 && (
                 <button
+                  type="button"
                   onClick={() => markAllReadMutation.mutate()}
                   className="text-[9px] font-bold text-purple-400 hover:text-purple-300 hover:underline cursor-pointer uppercase tracking-wider bg-transparent border-none p-0"
                 >
@@ -199,6 +205,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
                     <div className="absolute right-3 top-3.5 flex gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                       {!n.is_read && (
                         <button
+                          type="button"
                           onClick={() => markReadMutation.mutate(n.id)}
                           className="p-1 rounded bg-[#18192a] text-slate-400 hover:text-emerald-400 hover:bg-white/10 cursor-pointer border border-white/10"
                           title="Mark read"
@@ -207,6 +214,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
                         </button>
                       )}
                       <button
+                        type="button"
                         onClick={() => deleteNotifMutation.mutate(n.id)}
                         className="p-1 rounded bg-[#18192a] text-slate-400 hover:text-pink-400 hover:bg-white/10 cursor-pointer border border-white/10"
                         title="Delete"
@@ -225,6 +233,7 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
         <Dropdown>
           <DropdownTrigger asChild>
             <button
+              type="button"
               className="p-2 rounded-xl text-slate-400 hover:bg-white/5 hover:text-slate-100 cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95"
               aria-label="Select theme"
             >
@@ -278,11 +287,15 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
         {/* User Account Dropdown */}
         <Dropdown>
           <DropdownTrigger asChild>
-            <button className="flex items-center gap-1.5 p-1 rounded-full hover:bg-white/5 cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95">
+            <button
+              type="button"
+              className="flex items-center gap-1.5 p-1 rounded-full hover:bg-white/5 cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95"
+              aria-label="User account profile menu"
+            >
               <Avatar
                 src={user?.profile_picture}
                 fallbackText={userDisplayName}
-                className="h-8 w-8 ring-2 ring-purple-500/30"
+                className="h-8 w-8 ring-2 ring-purple-500/30 pointer-events-none"
               />
             </button>
           </DropdownTrigger>
@@ -296,22 +309,27 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
               </span>
             </div>
             <DropdownSeparator className="bg-white/10" />
-            <DropdownItem asChild className="cursor-pointer rounded-lg m-0.5 text-xs">
-              <Link to="/profile" className="flex items-center w-full py-2">
-                <UserIcon size={14} className="mr-2.5 text-slate-400" />
-                My Profile
-              </Link>
+            <DropdownItem
+              onSelect={() => navigate('/profile')}
+              className="cursor-pointer rounded-lg m-0.5 text-xs flex items-center py-2 text-slate-200 hover:text-white"
+            >
+              <UserIcon size={14} className="mr-2.5 text-slate-400" />
+              <span>My Profile</span>
             </DropdownItem>
-            <DropdownItem asChild className="cursor-pointer rounded-lg m-0.5 text-xs">
-              <Link to="/settings" className="flex items-center w-full py-2">
-                <Settings size={14} className="mr-2.5 text-slate-400" />
-                Account Settings
-              </Link>
+            <DropdownItem
+              onSelect={() => navigate('/settings')}
+              className="cursor-pointer rounded-lg m-0.5 text-xs flex items-center py-2 text-slate-200 hover:text-white"
+            >
+              <Settings size={14} className="mr-2.5 text-slate-400" />
+              <span>Account Settings</span>
             </DropdownItem>
             <DropdownSeparator className="bg-white/10" />
-            <DropdownItem onClick={logout} className="text-pink-400 hover:bg-pink-500/10 cursor-pointer py-2 font-bold rounded-lg m-0.5 text-xs">
+            <DropdownItem
+              onSelect={logout}
+              className="text-pink-400 hover:bg-pink-500/10 cursor-pointer py-2 font-bold rounded-lg m-0.5 text-xs flex items-center"
+            >
               <LogOut size={14} className="mr-2.5" />
-              Sign Out
+              <span>Sign Out</span>
             </DropdownItem>
           </DropdownContent>
         </Dropdown>
@@ -319,5 +337,3 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
     </header>
   )
 }
-
-
