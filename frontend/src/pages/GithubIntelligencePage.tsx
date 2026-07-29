@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import { useScoreliaReducedMotion, getPageVariants } from '@/lib/motion'
 import {
+
   GitHubHeroDashboard,
   GitHubTabs,
   GitHubWorkspace,
@@ -21,9 +20,6 @@ import { useGitHubInsights } from '@/hooks/github/useGitHubInsights'
 import { useGitHubSync } from '@/hooks/github/useGitHubSync'
 
 export function GitHubIntelligencePage() {
-  const shouldReduceMotion = useScoreliaReducedMotion()
-  const pageVariants = getPageVariants(shouldReduceMotion)
-
   const [activeTab, setActiveTab] = useState<GitHubTabId>('overview')
   const [searchQuery, setSearchQuery] = useState('')
   const [dateRange, setDateRange] = useState('30d')
@@ -112,13 +108,8 @@ export function GitHubIntelligencePage() {
 
   return (
     <GitHubErrorBoundary sectionName="GitHub Intelligence Page" onReset={handleRefetchAll}>
-      <motion.main
-        variants={pageVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        className="space-y-6 text-left max-w-[1680px] mx-auto font-sans p-3 sm:p-5 lg:p-6 pb-20 min-h-screen text-[var(--body)] select-none"
-      >
+      <main className="space-y-6 text-left max-w-[1680px] mx-auto font-sans p-3 sm:p-5 lg:p-6 pb-20 min-h-screen text-[var(--body)] select-none">
+
         {/* Offline Banner Indicator */}
         <GitHubOfflineBanner isOffline={isOffline} onReconnect={handleSync} />
 
@@ -166,7 +157,7 @@ export function GitHubIntelligencePage() {
           {/* 4. Bottom Status Bar (Full Width Spans Workspace) */}
           <GitHubBottomStatusBar onGenerateReport={() => alert('AI Report generation requested.')} />
         </div>
-      </motion.main>
+      </main>
     </GitHubErrorBoundary>
   )
 }
