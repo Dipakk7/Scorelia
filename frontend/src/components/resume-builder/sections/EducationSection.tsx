@@ -57,16 +57,16 @@ export const EducationSection: React.FC<EducationSectionProps> = ({
   return (
     <div className="space-y-5 animate-fade-in text-left">
       {/* Section Header */}
-      <div className="flex items-center justify-between border-b border-white/10 pb-3">
+      <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-3 transition-colors">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-purple-400 uppercase tracking-wider font-mono">
+          <div className="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider font-mono">
             <GraduationCap size={14} />
             <span>Academic Background</span>
           </div>
-          <h3 className="text-lg font-bold text-white font-display mt-0.5 m-0">
+          <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display mt-0.5 m-0">
             Education &amp; Qualifications
           </h3>
-          <p className="text-xs text-slate-400 mt-1 font-sans">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 font-sans">
             Add degrees, diplomas, academic honors, or relevant university coursework. Reorder entries easily.
           </p>
         </div>
@@ -74,7 +74,7 @@ export const EducationSection: React.FC<EducationSectionProps> = ({
         <button
           type="button"
           onClick={onAdd}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-purple-600/80 hover:bg-purple-600 border border-purple-500/40 shadow-sm cursor-pointer transition-all active:scale-95 shrink-0"
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 border border-purple-400/30 shadow-sm cursor-pointer transition-all active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
         >
           <Plus size={14} />
           <span>Add Education</span>
@@ -83,20 +83,20 @@ export const EducationSection: React.FC<EducationSectionProps> = ({
 
       {/* Empty State */}
       {items.length === 0 && (
-        <div className="bg-slate-900/40 border border-dashed border-white/15 rounded-xl p-8 text-center space-y-3">
-          <div className="w-12 h-12 rounded-full bg-purple-500/10 text-purple-400 flex items-center justify-center mx-auto border border-purple-500/20">
+        <div className="bg-slate-50 dark:bg-slate-900/40 border border-dashed border-slate-300 dark:border-white/15 rounded-xl p-8 text-center space-y-3 transition-colors">
+          <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center mx-auto border border-purple-200 dark:border-purple-500/20">
             <GraduationCap size={20} />
           </div>
           <div className="space-y-1">
-            <h4 className="text-sm font-bold text-white m-0">No Education Entries Added Yet</h4>
-            <p className="text-xs text-slate-400 max-w-sm mx-auto m-0">
+            <h4 className="text-sm font-bold text-slate-900 dark:text-white m-0">No Education Entries Added Yet</h4>
+            <p className="text-xs text-slate-600 dark:text-slate-400 max-w-sm mx-auto m-0">
               Include your degree, major, university, and academic distinctions.
             </p>
           </div>
           <button
             type="button"
             onClick={onAdd}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 cursor-pointer transition-all"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 cursor-pointer transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
           >
             <Plus size={13} />
             <span>Add First Education Entry</span>
@@ -111,17 +111,17 @@ export const EducationSection: React.FC<EducationSectionProps> = ({
           return (
             <div
               key={edu.id}
-              className="bg-slate-900/60 border border-white/10 rounded-xl overflow-hidden shadow-sm transition-all group"
+              className="bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl overflow-hidden shadow-sm transition-colors group"
             >
               {/* Card Header Bar */}
               <div
                 onClick={() => toggleExpand(edu.id)}
-                className="flex items-center justify-between p-3.5 bg-slate-950/40 cursor-pointer hover:bg-white/5 transition-colors border-b border-white/5"
+                className="flex items-center justify-between p-3.5 bg-white/80 dark:bg-slate-950/40 cursor-pointer hover:bg-slate-100 dark:hover:bg-white/5 transition-colors border-b border-slate-200/80 dark:border-white/5"
               >
                 <div className="flex items-center gap-2.5 min-w-0">
                   {/* Reorder Handle & Arrow Controls */}
                   <div
-                    className="flex items-center gap-0.5 text-slate-500 group-hover:text-slate-300"
+                    className="flex items-center gap-0.5 text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <GripVertical size={16} className="cursor-grab active:cursor-grabbing" />
@@ -129,7 +129,7 @@ export const EducationSection: React.FC<EducationSectionProps> = ({
                       type="button"
                       disabled={idx === 0}
                       onClick={() => handleMove(idx, 'up')}
-                      className="p-0.5 hover:text-purple-400 disabled:opacity-30 cursor-pointer"
+                      className="p-0.5 hover:text-purple-600 dark:hover:text-purple-400 disabled:opacity-30 cursor-pointer focus:outline-none"
                       title="Move Up"
                       aria-label="Move education up"
                     >
@@ -139,7 +139,7 @@ export const EducationSection: React.FC<EducationSectionProps> = ({
                       type="button"
                       disabled={idx === items.length - 1}
                       onClick={() => handleMove(idx, 'down')}
-                      className="p-0.5 hover:text-purple-400 disabled:opacity-30 cursor-pointer"
+                      className="p-0.5 hover:text-purple-600 dark:hover:text-purple-400 disabled:opacity-30 cursor-pointer focus:outline-none"
                       title="Move Down"
                       aria-label="Move education down"
                     >
@@ -147,14 +147,14 @@ export const EducationSection: React.FC<EducationSectionProps> = ({
                     </button>
                   </div>
 
-                  <div className="p-1.5 rounded-lg bg-purple-500/20 text-purple-300 font-mono font-extrabold text-xs">
+                  <div className="p-1.5 rounded-lg bg-purple-100 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300 font-mono font-extrabold text-xs">
                     #{idx + 1}
                   </div>
                   <div className="min-w-0">
-                    <h4 className="text-xs font-bold text-white truncate m-0">
+                    <h4 className="text-xs font-bold text-slate-900 dark:text-white truncate m-0">
                       {edu.degree || 'Untitled Degree'}
                     </h4>
-                    <p className="text-[11px] text-slate-400 truncate m-0 font-sans">
+                    <p className="text-[11px] text-slate-600 dark:text-slate-400 truncate m-0 font-sans">
                       {edu.institution} • {edu.startDate} - {edu.endDate}
                     </p>
                   </div>
@@ -167,7 +167,7 @@ export const EducationSection: React.FC<EducationSectionProps> = ({
                       e.stopPropagation()
                       onDelete?.(edu.id)
                     }}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-pink-400 hover:bg-white/10 cursor-pointer"
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 hover:bg-slate-200 dark:hover:bg-white/10 cursor-pointer focus:outline-none"
                     title="Delete Entry"
                   >
                     <Trash2 size={14} />
@@ -180,10 +180,10 @@ export const EducationSection: React.FC<EducationSectionProps> = ({
 
               {/* Form Body */}
               {isExpanded && (
-                <div className="p-4 md:p-5 space-y-4 border-t border-white/5">
+                <div className="p-4 md:p-5 space-y-4 border-t border-slate-200/80 dark:border-white/5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="sm:col-span-2 space-y-1.5">
-                      <label className="text-xs font-semibold text-slate-300">Degree / Qualification *</label>
+                      <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Degree / Qualification *</label>
                       <input
                         type="text"
                         value={edu.degree}
@@ -191,12 +191,12 @@ export const EducationSection: React.FC<EducationSectionProps> = ({
                           onUpdate?.(edu.id, { ...edu, degree: e.target.value })
                         }
                         placeholder="e.g. B.S. in Computer Science"
-                        className="w-full bg-slate-950/80 border border-white/10 rounded-xl px-3.5 py-2 text-xs font-medium text-slate-100 focus:outline-none focus:border-purple-500/80"
+                        className="w-full bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl px-3.5 py-2 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors"
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-slate-300">School / University *</label>
+                      <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">School / University *</label>
                       <input
                         type="text"
                         value={edu.institution}
@@ -204,12 +204,12 @@ export const EducationSection: React.FC<EducationSectionProps> = ({
                           onUpdate?.(edu.id, { ...edu, institution: e.target.value })
                         }
                         placeholder="e.g. Stanford University"
-                        className="w-full bg-slate-950/80 border border-white/10 rounded-xl px-3.5 py-2 text-xs font-medium text-slate-100 focus:outline-none focus:border-purple-500/80"
+                        className="w-full bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl px-3.5 py-2 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors"
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-slate-300">Location</label>
+                      <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Location</label>
                       <input
                         type="text"
                         value={edu.location}
@@ -217,12 +217,12 @@ export const EducationSection: React.FC<EducationSectionProps> = ({
                           onUpdate?.(edu.id, { ...edu, location: e.target.value })
                         }
                         placeholder="e.g. Stanford, CA"
-                        className="w-full bg-slate-950/80 border border-white/10 rounded-xl px-3.5 py-2 text-xs font-medium text-slate-100 focus:outline-none focus:border-purple-500/80"
+                        className="w-full bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl px-3.5 py-2 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors"
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-slate-300">Dates Attended</label>
+                      <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Dates Attended</label>
                       <div className="grid grid-cols-2 gap-2">
                         <input
                           type="text"
@@ -231,7 +231,7 @@ export const EducationSection: React.FC<EducationSectionProps> = ({
                             onUpdate?.(edu.id, { ...edu, startDate: e.target.value })
                           }
                           placeholder="e.g. 2022"
-                          className="w-full bg-slate-950/80 border border-white/10 rounded-xl px-3 py-2 text-xs font-medium text-slate-100 focus:outline-none focus:border-purple-500/80"
+                          className="w-full bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl px-3 py-2 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors"
                         />
                         <input
                           type="text"
@@ -240,13 +240,13 @@ export const EducationSection: React.FC<EducationSectionProps> = ({
                             onUpdate?.(edu.id, { ...edu, endDate: e.target.value })
                           }
                           placeholder="e.g. 2026"
-                          className="w-full bg-slate-950/80 border border-white/10 rounded-xl px-3 py-2 text-xs font-medium text-slate-100 focus:outline-none focus:border-purple-500/80"
+                          className="w-full bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl px-3 py-2 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors"
                         />
                       </div>
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-slate-300">GPA / Honors (Optional)</label>
+                      <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">GPA / Honors (Optional)</label>
                       <input
                         type="text"
                         value={edu.gpa || ''}
@@ -254,7 +254,7 @@ export const EducationSection: React.FC<EducationSectionProps> = ({
                           onUpdate?.(edu.id, { ...edu, gpa: e.target.value })
                         }
                         placeholder="e.g. 3.9 / 4.0 or First Class with Distinction"
-                        className="w-full bg-slate-950/80 border border-white/10 rounded-xl px-3.5 py-2 text-xs font-medium text-slate-100 focus:outline-none focus:border-purple-500/80"
+                        className="w-full bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl px-3.5 py-2 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors"
                       />
                     </div>
                   </div>

@@ -16,7 +16,7 @@ export const PreviewEducation: React.FC<PreviewEducationProps> = ({
   }
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 break-inside-avoid">
       <h2
         className="text-xs font-bold tracking-wider font-display uppercase border-b pb-0.5 m-0"
         style={{ color: accentColor, borderColor: `${accentColor}33` }}
@@ -25,8 +25,8 @@ export const PreviewEducation: React.FC<PreviewEducationProps> = ({
       </h2>
       <div className="space-y-2">
         {education.map((item) => (
-          <div key={item.id} className="space-y-0.5 text-[11px]">
-            <div className="flex items-baseline justify-between font-bold text-slate-800">
+          <div key={item.id} className="space-y-0.5 text-[11px] break-inside-avoid">
+            <div className="flex items-baseline justify-between font-bold text-slate-900">
               <span>{item.degree}</span>
               <span className="text-[10px] font-mono text-slate-500 font-normal">
                 {item.startDate} - {item.endDate}

@@ -28,7 +28,7 @@ export const ResumeBuilderStepper: React.FC<ResumeBuilderStepperProps> = ({
   onStepClick,
 }) => {
   return (
-    <div className="w-full overflow-x-auto custom-scrollbar bg-[#0b0c14]/70 backdrop-blur-md border border-white/10 p-2 rounded-2xl">
+    <div className="w-full overflow-x-auto custom-scrollbar bg-white/80 dark:bg-[#0b0c14]/70 backdrop-blur-md border border-slate-200/80 dark:border-white/10 p-2 rounded-2xl transition-colors">
       <nav className="flex items-center gap-1.5 min-w-max" role="tablist" aria-label="Resume builder step navigation">
         {BUILDER_STEPS.map((step) => {
           const isActive = step.id === activeStep
@@ -46,20 +46,20 @@ export const ResumeBuilderStepper: React.FC<ResumeBuilderStepperProps> = ({
               className={cn(
                 'flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer select-none border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
                 isActive
-                  ? 'bg-purple-600/20 text-white border-purple-500/50 shadow-md shadow-purple-950/40'
+                  ? 'bg-purple-50 dark:bg-purple-600/20 text-purple-900 dark:text-white border-purple-300 dark:border-purple-500/50 shadow-sm dark:shadow-purple-950/40'
                   : isCompleted
-                  ? 'bg-white/5 text-slate-300 border-white/5 hover:bg-white/10 hover:text-white'
-                  : 'bg-transparent text-slate-400 border-transparent hover:bg-white/5 hover:text-slate-200'
+                  ? 'bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/5 hover:bg-slate-200 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white'
+                  : 'bg-transparent text-slate-500 dark:text-slate-400 border-transparent hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-200'
               )}
             >
               <span
                 className={cn(
                   'flex items-center justify-center w-5 h-5 rounded-full text-[11px] font-mono font-extrabold transition-all',
                   isActive
-                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-sm'
+                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-sm'
                     : isCompleted
-                    ? 'bg-purple-500/30 text-purple-300 border border-purple-500/40'
-                    : 'bg-white/10 text-slate-400'
+                    ? 'bg-purple-100 text-purple-700 dark:bg-purple-500/30 dark:text-purple-300 border border-purple-300 dark:border-purple-500/40'
+                    : 'bg-slate-200 text-slate-600 dark:bg-white/10 dark:text-slate-400'
                 )}
               >
                 {step.id}

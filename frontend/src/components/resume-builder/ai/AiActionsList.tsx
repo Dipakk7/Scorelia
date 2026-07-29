@@ -95,11 +95,11 @@ interface AiActionsListProps {
 export const AiActionsList: React.FC<AiActionsListProps> = ({ onExecuteAction }) => {
   return (
     <div className="space-y-3 text-left">
-      <div className="flex items-center justify-between border-b border-white/10 pb-2">
-        <span className="text-xs font-bold text-white font-display">
+      <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-2 transition-colors">
+        <span className="text-xs font-bold text-slate-900 dark:text-white font-display">
           AI One-Click Optimizations
         </span>
-        <span className="text-[10px] font-mono text-purple-400 font-semibold">
+        <span className="text-[10px] font-mono text-purple-600 dark:text-purple-400 font-semibold">
           9 Smart Actions
         </span>
       </div>

@@ -31,30 +31,30 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
   return (
     <div className="space-y-5 animate-fade-in text-left">
       {/* Section Header */}
-      <div className="border-b border-white/10 pb-3">
-        <div className="flex items-center gap-2 text-xs font-bold text-purple-400 uppercase tracking-wider font-mono">
+      <div className="border-b border-slate-200 dark:border-white/10 pb-3 transition-colors">
+        <div className="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider font-mono">
           <FileText size={14} />
           <span>Professional Summary</span>
         </div>
-        <h3 className="text-lg font-bold text-white font-display mt-0.5 m-0">
+        <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display mt-0.5 m-0">
           Executive Summary
         </h3>
-        <p className="text-xs text-slate-400 mt-1 font-sans">
+        <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 font-sans">
           Write a compelling 2–4 sentence summary highlighting your core expertise, key achievements, and career focus.
         </p>
       </div>
 
       {/* Main Form Container */}
-      <div className="bg-slate-900/60 border border-white/10 rounded-xl p-4 md:p-5 space-y-4 shadow-sm">
+      <div className="bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl p-4 md:p-5 space-y-4 shadow-sm transition-colors">
         <div className="flex items-center justify-between">
-          <label className="text-xs font-semibold text-slate-300">
+          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
             Write your brief summary
           </label>
           <button
             type="button"
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold text-purple-300 bg-purple-600/20 border border-purple-500/30 hover:bg-purple-600/40 transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold text-purple-900 dark:text-purple-300 bg-purple-50 dark:bg-purple-600/20 border border-purple-300 dark:border-purple-500/30 hover:bg-purple-100 dark:hover:bg-purple-600/40 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
           >
-            <Sparkles size={13} className="animate-pulse" />
+            <Sparkles size={13} className="animate-pulse text-purple-600 dark:text-purple-400" />
             <span>Generate with AI</span>
           </button>
         </div>
@@ -66,11 +66,11 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
             onChange={(e) => handleTextChange(e.target.value)}
             placeholder="e.g. Driven Software Engineer with 4+ years of experience delivering robust web applications..."
             aria-label="Professional Summary"
-            className="w-full bg-slate-950/80 border border-white/10 rounded-xl p-3.5 text-xs font-medium text-slate-100 focus:outline-none focus:border-purple-500/80 transition-colors leading-relaxed resize-none"
+            className="w-full bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl p-3.5 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors leading-relaxed resize-none"
           />
-          <div className="flex items-center justify-between text-[11px] text-slate-400 font-mono">
+          <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
             <span>Keep under 300 characters for optimal ATS scanning</span>
-            <span className={currentLength > maxLen ? 'text-pink-400 font-bold' : 'text-slate-400'}>
+            <span className={currentLength > maxLen ? 'text-pink-600 dark:text-pink-400 font-bold' : 'text-slate-500 dark:text-slate-400'}>
               {currentLength} / {maxLen}
             </span>
           </div>
@@ -78,19 +78,19 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
       </div>
 
       {/* Smart Tip Alert */}
-      <div className="bg-purple-950/30 border border-purple-500/30 rounded-xl p-4 flex items-start gap-3">
-        <div className="p-2 rounded-lg bg-purple-500/20 text-purple-400 shrink-0 mt-0.5">
+      <div className="bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-500/30 rounded-xl p-4 flex items-start gap-3 transition-colors">
+        <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 shrink-0 mt-0.5">
           <Sparkles size={16} />
         </div>
         <div className="space-y-1 flex-1">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-white">ATS Impact Tip</span>
-            <button type="button" className="text-[10px] text-purple-400 hover:underline cursor-pointer">
+            <span className="text-xs font-bold text-slate-900 dark:text-white">ATS Impact Tip</span>
+            <button type="button" className="text-[10px] text-purple-600 dark:text-purple-400 hover:underline cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80 rounded">
               Why this tip?
             </button>
           </div>
-          <p className="text-xs text-slate-300 font-sans leading-relaxed">
-            Including target role keywords and 2–3 quantified achievements in your summary can boost ATS matching by up to <strong className="text-purple-300 font-bold">30%</strong>.
+          <p className="text-xs text-slate-700 dark:text-slate-300 font-sans leading-relaxed m-0">
+            Including target role keywords and 2–3 quantified achievements in your summary can boost ATS matching by up to <strong className="text-purple-700 dark:text-purple-300 font-bold">30%</strong>.
           </p>
         </div>
       </div>

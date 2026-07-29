@@ -13,17 +13,17 @@ export const PreviewProjects: React.FC<PreviewProjectsProps> = ({ projects, acce
   }
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 break-inside-avoid">
       <h2
         className="text-xs font-bold tracking-wider font-display uppercase border-b pb-0.5 m-0"
         style={{ color: accentColor, borderColor: `${accentColor}33` }}
       >
         PROJECTS
       </h2>
-      <div className="space-y-2 text-[11px]">
+      <div className="space-y-2.5 text-[11px]">
         {projects.map((proj) => (
-          <div key={proj.id} className="space-y-0.5">
-            <div className="flex items-baseline justify-between font-bold text-slate-800">
+          <div key={proj.id} className="space-y-0.5 break-inside-avoid">
+            <div className="flex items-baseline justify-between font-bold text-slate-900">
               <span>{proj.name}</span>
               {proj.subtitle && (
                 <span className="text-[10px] text-slate-500 font-mono font-normal">
@@ -32,9 +32,9 @@ export const PreviewProjects: React.FC<PreviewProjectsProps> = ({ projects, acce
               )}
             </div>
             {proj.bullets && proj.bullets.length > 0 && (
-              <ul className="list-disc list-inside text-slate-700 space-y-0.5 pl-1 font-sans">
+              <ul className="list-disc list-outside text-slate-700 space-y-1 pl-4 font-sans">
                 {proj.bullets.map((bullet, idx) => (
-                  <li key={idx} className="leading-snug">{bullet}</li>
+                  <li key={idx} className="leading-relaxed">{bullet}</li>
                 ))}
               </ul>
             )}

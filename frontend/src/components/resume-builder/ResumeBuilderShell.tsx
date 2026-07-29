@@ -137,7 +137,7 @@ export const ResumeBuilderShell: React.FC<ResumeBuilderShellProps> = ({
   ]
 
   return (
-    <div className="flex flex-col h-full min-h-[calc(100vh-5rem)] space-y-4 text-left font-sans animate-fade-in">
+    <div className="flex flex-col h-full min-h-[calc(100vh-5rem)] space-y-4 md:space-y-5 text-left font-sans animate-fade-in pb-4">
       {/* Top Header */}
       <ResumeBuilderHeader
         resumeName={currentResumeRecord?.original_filename || effectiveResumeName}
@@ -155,15 +155,15 @@ export const ResumeBuilderShell: React.FC<ResumeBuilderShellProps> = ({
       />
 
       {/* Mobile/Tablet Panel View Selector */}
-      <div className="flex lg:hidden items-center bg-slate-900/80 p-1.5 rounded-2xl border border-white/10 gap-1">
+      <div className="flex lg:hidden items-center bg-white/90 dark:bg-slate-900/80 p-1.5 rounded-2xl border border-slate-200 dark:border-white/10 gap-1 shadow-sm transition-colors">
         <button
           type="button"
           onClick={() => setMobileActivePanel('editor')}
           className={cn(
-            'flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border',
+            'flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
             mobileActivePanel === 'editor'
               ? 'bg-purple-600 text-white border-purple-400 shadow-md'
-              : 'bg-transparent text-slate-400 border-transparent hover:text-white'
+              : 'bg-transparent text-slate-600 dark:text-slate-400 border-transparent hover:text-slate-900 dark:hover:text-white'
           )}
         >
           <PenTool size={14} />
@@ -173,10 +173,10 @@ export const ResumeBuilderShell: React.FC<ResumeBuilderShellProps> = ({
           type="button"
           onClick={() => setMobileActivePanel('preview')}
           className={cn(
-            'flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border',
+            'flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
             mobileActivePanel === 'preview'
               ? 'bg-purple-600 text-white border-purple-400 shadow-md'
-              : 'bg-transparent text-slate-400 border-transparent hover:text-white'
+              : 'bg-transparent text-slate-600 dark:text-slate-400 border-transparent hover:text-slate-900 dark:hover:text-white'
           )}
         >
           <Eye size={14} />
@@ -186,10 +186,10 @@ export const ResumeBuilderShell: React.FC<ResumeBuilderShellProps> = ({
           type="button"
           onClick={() => setMobileActivePanel('assistant')}
           className={cn(
-            'flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border',
+            'flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
             mobileActivePanel === 'assistant'
               ? 'bg-purple-600 text-white border-purple-400 shadow-md'
-              : 'bg-transparent text-slate-400 border-transparent hover:text-white'
+              : 'bg-transparent text-slate-600 dark:text-slate-400 border-transparent hover:text-slate-900 dark:hover:text-white'
           )}
         >
           <Bot size={14} />
@@ -198,7 +198,7 @@ export const ResumeBuilderShell: React.FC<ResumeBuilderShellProps> = ({
       </div>
 
       {/* Main 3-Column Workspace Grid */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 min-h-[650px] items-stretch">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 min-h-[650px] items-stretch">
         {/* Left Editing Workspace Panel */}
         <div
           className={cn(

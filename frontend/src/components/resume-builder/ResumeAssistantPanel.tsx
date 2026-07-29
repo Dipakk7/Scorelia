@@ -46,9 +46,9 @@ export const ResumeAssistantPanel: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col h-full bg-[#0b0c14]/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl overflow-hidden text-left font-sans">
+    <div className="flex flex-col h-full bg-white/90 dark:bg-[#0b0c14]/80 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-xl overflow-hidden text-left font-sans transition-colors">
       {/* Workspace Tabs Header Bar */}
-      <div className="flex items-center gap-1 p-2 bg-slate-950/80 border-b border-white/10 overflow-x-auto custom-scrollbar" role="tablist" aria-label="AI Assistant workspace tabs">
+      <div className="flex items-center gap-1 p-2 bg-slate-50 dark:bg-slate-950/80 border-b border-slate-200 dark:border-white/10 overflow-x-auto custom-scrollbar" role="tablist" aria-label="AI Assistant workspace tabs">
         {[
           { id: 'chat', label: 'AI Chat', icon: Bot },
           { id: 'actions', label: 'Actions', icon: Sparkles },
@@ -68,11 +68,11 @@ export const ResumeAssistantPanel: React.FC = () => {
               className={cn(
                 'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer border select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
                 isActive
-                  ? 'bg-gradient-to-r from-purple-600/30 via-indigo-600/30 to-pink-600/30 text-purple-200 border-purple-500/50 shadow-md shadow-purple-950/40'
-                  : 'bg-transparent text-slate-400 border-transparent hover:bg-white/5 hover:text-slate-200'
+                  ? 'bg-purple-50 dark:bg-purple-600/30 text-purple-900 dark:text-purple-200 border-purple-300 dark:border-purple-500/50 shadow-sm dark:shadow-purple-950/40'
+                  : 'bg-transparent text-slate-600 dark:text-slate-400 border-transparent hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-slate-200'
               )}
             >
-              <Icon size={13} className={isActive ? 'text-purple-400' : 'text-slate-500'} />
+              <Icon size={13} className={isActive ? 'text-purple-600 dark:text-purple-400' : 'text-slate-400 dark:text-slate-500'} />
               <span>{tab.label}</span>
             </button>
           )
@@ -88,13 +88,13 @@ export const ResumeAssistantPanel: React.FC = () => {
             <AtsInsightsPanel />
 
             {/* AI Suggestions Cards Stack */}
-            <div className="space-y-2 pt-2 border-t border-white/10">
+            <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-white/10">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-white font-display flex items-center gap-1.5">
-                  <Sparkles size={13} className="text-purple-400" />
+                <span className="text-xs font-bold text-slate-900 dark:text-white font-display flex items-center gap-1.5">
+                  <Sparkles size={13} className="text-purple-600 dark:text-purple-400" />
                   <span>AI Suggestions</span>
                 </span>
-                <span className="text-[10px] font-mono text-purple-400 font-bold">
+                <span className="text-[10px] font-mono text-purple-600 dark:text-purple-400 font-bold">
                   {suggestions.length} Available
                 </span>
               </div>
@@ -112,25 +112,25 @@ export const ResumeAssistantPanel: React.FC = () => {
 
         {activeTab === 'template' && (
           <div className="space-y-4">
-            <div className="bg-slate-900/60 border border-white/10 rounded-xl p-4 space-y-3 shadow-sm">
-              <div className="flex items-center justify-between border-b border-white/5 pb-2">
-                <span className="text-xs font-bold text-white font-display">Active Template Card</span>
-                <span className="text-[10px] font-mono text-purple-400 font-semibold">Corporate</span>
+            <div className="bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl p-4 space-y-3 shadow-sm">
+              <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-white/5 pb-2">
+                <span className="text-xs font-bold text-slate-900 dark:text-white font-display">Active Template Card</span>
+                <span className="text-[10px] font-mono text-purple-600 dark:text-purple-400 font-semibold">Corporate</span>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-16 h-20 rounded-lg bg-slate-800 border border-white/10 overflow-hidden shrink-0 flex flex-col p-1 space-y-1 justify-center items-center shadow-inner">
+                <div className="w-16 h-20 rounded-lg bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-white/10 overflow-hidden shrink-0 flex flex-col p-1 space-y-1 justify-center items-center shadow-inner">
                   <div className="w-full h-2 bg-blue-500/40 rounded" />
-                  <div className="w-full h-1 bg-slate-600 rounded" />
-                  <div className="w-full h-1 bg-slate-600 rounded" />
-                  <div className="w-3/4 h-1 bg-slate-600 rounded" />
+                  <div className="w-full h-1 bg-slate-400 dark:bg-slate-600 rounded" />
+                  <div className="w-full h-1 bg-slate-400 dark:bg-slate-600 rounded" />
+                  <div className="w-3/4 h-1 bg-slate-400 dark:bg-slate-600 rounded" />
                 </div>
 
                 <div className="space-y-1 min-w-0">
-                  <h4 className="text-xs font-bold text-white font-display m-0">
+                  <h4 className="text-xs font-bold text-slate-900 dark:text-white font-display m-0">
                     Professional Template
                   </h4>
-                  <p className="text-[11px] text-slate-400 leading-snug line-clamp-2 m-0">
+                  <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-snug line-clamp-2 m-0">
                     Clean, corporate layout with classic navy headers and formal dividers.
                   </p>
                 </div>
