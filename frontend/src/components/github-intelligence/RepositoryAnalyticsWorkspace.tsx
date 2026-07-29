@@ -52,3 +52,6 @@ export const RepositoryAnalyticsWorkspace: React.FC<RepositoryAnalyticsWorkspace
     </div>
   )
 }
+
+export default RepositoryAnalyticsWorkspace
+

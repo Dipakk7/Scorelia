@@ -5,10 +5,12 @@ import { cn } from '@/lib/utils'
 
 export interface EmptyGitHubStateProps {
   onConnect?: () => void
+  onSync?: () => void
   className?: string
 }
 
-export const EmptyGitHubState: React.FC<EmptyGitHubStateProps> = ({ onConnect, className }) => {
+export const EmptyGitHubState: React.FC<EmptyGitHubStateProps> = ({ onConnect, onSync, className }) => {
+
   return (
     <div
       className={cn(

@@ -68,5 +68,9 @@ export * from './GitHubOfflineBanner'
 export * from './GitHubWorkspace'
 export * from './GitHubSidebar'
 export * from './GitHubBottomStatusBar'
+export * from './GitHubErrorBoundary'
+export * from './GitHubSettingsWorkspace'
 export * from './GitHubSkeleton'
 export * from './EmptyGitHubState'
+
+

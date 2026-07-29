@@ -57,3 +57,6 @@ export const AIInsightsWorkspace: React.FC<AIInsightsWorkspaceProps> = ({
     </div>
   )
 }
+
+export default AIInsightsWorkspace
+

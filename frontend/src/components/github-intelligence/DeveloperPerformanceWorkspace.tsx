@@ -79,3 +79,6 @@ export const DeveloperPerformanceWorkspace: React.FC<DeveloperPerformanceWorkspa
     </div>
   )
 }
+
+export default DeveloperPerformanceWorkspace
+

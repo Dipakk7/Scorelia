@@ -182,3 +182,6 @@ export const RepositoryIntelligenceWorkspace: React.FC<RepositoryIntelligenceWor
     </div>
   )
 }
+
+export default RepositoryIntelligenceWorkspace
+
