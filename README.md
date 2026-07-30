@@ -41,7 +41,7 @@
 
 > **Scorelia** is a full-stack AI career intelligence platform that helps job seekers analyze resumes, check ATS compatibility, semantically match resumes against job descriptions, prepare for interviews, and get personalized career guidance — powered entirely by open-source AI running on your own machine.
 >
-> No external API costs. No data leaving your device. Just a private, local AI career copilot.
+> No external API costs. No data leaving your device. Just a private, local AI career copilot
 
 <div align="center">
 
