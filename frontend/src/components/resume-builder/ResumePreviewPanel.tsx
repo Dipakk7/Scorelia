@@ -87,161 +87,170 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
         onSelectTemplate={(tplId) => setActiveTemplateId(tplId)}
       />
 
-      {/* Sticky Top Preview Toolbar */}
-      <div className="sticky top-0 z-20 p-2.5 px-3.5 border-b border-slate-200/80 dark:border-border-subtle/30 flex flex-nowrap items-center justify-between gap-2.5 bg-white/90 dark:bg-surface-l2/50 backdrop-blur-md overflow-x-auto custom-scrollbar whitespace-nowrap transition-colors">
-        {/* Left: Title, Active Template Picker Trigger & Live Badge */}
-        <div className="flex items-center gap-2.5 shrink-0">
-          <h3 className="h-8 text-xs font-bold text-slate-900 dark:text-white font-display m-0 flex items-center gap-1.5">
-            <FileText size={14} className="text-purple-600 dark:text-purple-400" />
-            <span className="text-slate-800 dark:text-slate-200 font-bold">Document Preview</span>
-          </h3>
-
-          {/* Template Selector Trigger */}
-          <button
-            type="button"
-            onClick={() => setIsGalleryOpen(true)}
-            className="h-8 flex items-center gap-1.5 px-2.5 rounded-lg text-xs font-semibold bg-purple-100/70 dark:bg-purple-600/20 border border-purple-300 dark:border-purple-500/40 hover:bg-purple-200/70 dark:hover:bg-purple-600/30 text-purple-900 dark:text-purple-200 cursor-pointer transition-all shadow-none focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
-          >
-            <Layout size={13} />
-            <span>{activeTemplate.name}</span>
-            <ChevronDown size={13} className="text-purple-700 dark:text-purple-300" />
-          </button>
-
-          {/* Live Status Pill */}
-          <span className="hidden sm:flex h-8 items-center gap-1.5 px-2.5 rounded-lg text-xs font-semibold bg-emerald-50 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30 font-mono">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
-            Live
-          </span>
-        </div>
-
-        {/* Right Toolbar Controls: Zoom (-/+, Fit Width, Fit Page, Zoom %), Device Toggles, Theme, Refresh, Fullscreen, Download */}
-        <div className="flex items-center gap-2 shrink-0">
-          {/* Zoom Controls */}
-          <div className="h-8 flex items-center gap-1 bg-slate-100/70 dark:bg-surface-l4/80 px-2 rounded-lg border border-slate-200/80 dark:border-border-subtle/40 text-xs font-mono text-slate-700 dark:text-slate-300">
+      {/* Top Preview Toolbar Header Bar (Fixed-Width Controls, Horizontal Scroll Restored) */}
+      <div className="sticky top-0 z-20 h-[46px] min-h-[46px] px-3.5 bg-white dark:bg-surface-l2 border-b border-slate-200 dark:border-border-subtle overflow-x-auto overflow-y-hidden whitespace-nowrap scroll-smooth custom-scrollbar transition-colors box-border">
+        <div className="flex flex-nowrap items-center justify-between gap-4 min-w-max w-full h-full">
+          {/* Left Section: Active Template & Live Status Indicator */}
+          <div className="flex items-center gap-3 shrink-0 flex-none">
             <button
               type="button"
-              onClick={() => handleZoom(-10)}
-              className="p-0.5 hover:text-slate-900 dark:hover:text-white text-slate-500 dark:text-slate-400 cursor-pointer focus:outline-none"
-              title="Zoom Out"
-              aria-label="Zoom Out"
+              onClick={() => setIsGalleryOpen(true)}
+              className="h-8 flex items-center gap-1.5 px-3 rounded-lg text-xs font-semibold bg-purple-100/70 dark:bg-purple-600/20 border border-purple-300 dark:border-purple-500/40 hover:bg-purple-200/70 dark:hover:bg-purple-600/30 text-purple-900 dark:text-purple-200 cursor-pointer transition-colors shadow-none focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80 shrink-0 flex-none"
             >
-              <Minus size={12} />
+              <Layout size={13} />
+              <span>{activeTemplate.name}</span>
+              <ChevronDown size={13} className="text-purple-700 dark:text-purple-300" />
             </button>
-            <span className="w-8 text-center font-bold">{zoomLevel}%</span>
-            <button
-              type="button"
-              onClick={() => handleZoom(10)}
-              className="p-0.5 hover:text-slate-900 dark:hover:text-white text-slate-500 dark:text-slate-400 cursor-pointer focus:outline-none"
-              title="Zoom In"
-              aria-label="Zoom In"
-            >
-              <Plus size={12} />
-            </button>
+
+            {/* Live Status Pill */}
+            <span className="hidden sm:flex h-8 items-center gap-1.5 px-2.5 rounded-lg text-xs font-semibold bg-emerald-50 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30 font-mono shrink-0 flex-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
+              Live
+            </span>
           </div>
 
-          {/* Fit Actions */}
-          <button
-            type="button"
-            onClick={handleFitWidth}
-            className="hidden md:flex h-8 items-center px-2.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle hover:bg-slate-200 dark:hover:bg-surface-l3 text-slate-700 dark:text-slate-300 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
-          >
-            Fit Width
-          </button>
-          <button
-            type="button"
-            onClick={handleFitPage}
-            className="hidden md:flex h-8 items-center px-2.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle hover:bg-slate-200 dark:hover:bg-surface-l3 text-slate-700 dark:text-slate-300 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
-          >
-            Fit Page
-          </button>
+          {/* Right Toolbar Controls: 4 Grouped Sections with 16px Spacing */}
+          <div className="flex items-center gap-4 shrink-0 flex-none">
+            {/* Group 1: Zoom Control & Fit Controls */}
+            <div className="flex items-center gap-2 shrink-0 flex-none">
+              {/* Segmented Zoom Control */}
+              <div className="h-8 inline-flex items-center bg-slate-100 dark:bg-surface-l4 p-0.5 rounded-lg border border-slate-200 dark:border-border-subtle text-xs font-mono text-slate-700 dark:text-slate-300 shrink-0 flex-none">
+                <button
+                  type="button"
+                  onClick={() => handleZoom(-10)}
+                  className="w-6 h-7 flex items-center justify-center rounded hover:bg-slate-200 dark:hover:bg-surface-l3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer focus:outline-none shrink-0"
+                  title="Zoom Out"
+                  aria-label="Zoom Out"
+                >
+                  <Minus size={12} />
+                </button>
+                <span className="w-9 text-center font-bold px-0.5 select-none shrink-0">{zoomLevel}%</span>
+                <button
+                  type="button"
+                  onClick={() => handleZoom(10)}
+                  className="w-6 h-7 flex items-center justify-center rounded hover:bg-slate-200 dark:hover:bg-surface-l3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer focus:outline-none shrink-0"
+                  title="Zoom In"
+                  aria-label="Zoom In"
+                >
+                  <Plus size={12} />
+                </button>
+              </div>
 
-          {/* Page Selector Indicator */}
-          <span className="hidden sm:flex h-8 items-center px-2.5 rounded-lg text-xs font-mono text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle">
-            Page 1 of 1
-          </span>
+              {/* Fit Width Pill */}
+              <button
+                type="button"
+                onClick={handleFitWidth}
+                className="hidden md:flex h-8 items-center px-3 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle hover:bg-slate-200 dark:hover:bg-surface-l3 hover:border-slate-300 dark:hover:border-slate-600 text-slate-700 dark:text-slate-300 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80 shrink-0 flex-none"
+              >
+                Fit Width
+              </button>
+              {/* Fit Page Pill */}
+              <button
+                type="button"
+                onClick={handleFitPage}
+                className="hidden md:flex h-8 items-center px-3 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle hover:bg-slate-200 dark:hover:bg-surface-l3 hover:border-slate-300 dark:hover:border-slate-600 text-slate-700 dark:text-slate-300 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80 shrink-0 flex-none"
+              >
+                Fit Page
+              </button>
+            </div>
 
-          {/* Device Toggles */}
-          <div className="hidden sm:flex h-8 items-center bg-slate-100 dark:bg-surface-l4 p-0.5 rounded-lg border border-slate-200 dark:border-border-subtle">
-            <button
-              type="button"
-              onClick={() => setPreviewDevice('desktop')}
-              className={cn(
-                'h-7 w-7 flex items-center justify-center rounded text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer',
-                previewDevice === 'desktop' && 'bg-white dark:bg-surface-l3 text-slate-900 dark:text-white font-bold shadow-sm'
-              )}
-              title="Desktop View"
-            >
-              <Monitor size={13} />
-            </button>
-            <button
-              type="button"
-              onClick={() => setPreviewDevice('tablet')}
-              className={cn(
-                'h-7 w-7 flex items-center justify-center rounded text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer',
-                previewDevice === 'tablet' && 'bg-white dark:bg-surface-l3 text-slate-900 dark:text-white font-bold shadow-sm'
-              )}
-              title="Tablet View"
-            >
-              <Tablet size={13} />
-            </button>
-            <button
-              type="button"
-              onClick={() => setPreviewDevice('mobile')}
-              className={cn(
-                'h-7 w-7 flex items-center justify-center rounded text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer',
-                previewDevice === 'mobile' && 'bg-white dark:bg-surface-l3 text-slate-900 dark:text-white font-bold shadow-sm'
-              )}
-              title="Mobile View"
-            >
-              <Smartphone size={13} />
+            {/* Group 2: Page Indicator */}
+            <span className="hidden sm:flex h-8 items-center px-3 rounded-lg text-xs font-mono text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle select-none shrink-0 flex-none">
+              Page 1 of 1
+            </span>
+
+            {/* Group 3: View Mode Toggle Segmented Control (Exact Equal Segments) */}
+            <div className="hidden sm:inline-flex h-8 items-center bg-slate-100 dark:bg-surface-l4 p-0.5 rounded-lg border border-slate-200 dark:border-border-subtle shrink-0 flex-none gap-0.5">
+              <button
+                type="button"
+                onClick={() => setPreviewDevice('desktop')}
+                className={cn(
+                  'w-8 h-7 flex-none flex items-center justify-center rounded-md transition-colors cursor-pointer',
+                  previewDevice === 'desktop'
+                    ? 'bg-white dark:bg-surface-l3 text-slate-900 dark:text-white font-bold shadow-sm border border-slate-200/80 dark:border-white/10'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                )}
+                title="Desktop View"
+              >
+                <Monitor size={13} />
+              </button>
+              <button
+                type="button"
+                onClick={() => setPreviewDevice('tablet')}
+                className={cn(
+                  'w-8 h-7 flex-none flex items-center justify-center rounded-md transition-colors cursor-pointer',
+                  previewDevice === 'tablet'
+                    ? 'bg-white dark:bg-surface-l3 text-slate-900 dark:text-white font-bold shadow-sm border border-slate-200/80 dark:border-white/10'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                )}
+                title="Tablet View"
+              >
+                <Tablet size={13} />
+              </button>
+              <button
+                type="button"
+                onClick={() => setPreviewDevice('mobile')}
+                className={cn(
+                  'w-8 h-7 flex-none flex items-center justify-center rounded-md transition-colors cursor-pointer',
+                  previewDevice === 'mobile'
+                    ? 'bg-white dark:bg-surface-l3 text-slate-900 dark:text-white font-bold shadow-sm border border-slate-200/80 dark:border-white/10'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                )}
+                title="Mobile View"
+              >
+                <Smartphone size={13} />
+              </button>
+            </div>
+
+            {/* Group 4: Action Icons Container (8px Spacing, Fixed Sizing) */}
+            <div className="flex items-center gap-2 shrink-0 flex-none">
+              {/* Theme Toggle */}
+              <button
+                type="button"
+                onClick={() => setPreviewTheme(previewTheme === 'light' ? 'dark' : 'light')}
+                className="w-8 h-8 shrink-0 flex-none flex items-center justify-center rounded-lg bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-surface-l3 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+                title="Toggle Paper Theme"
+                aria-label="Toggle Paper Theme"
+              >
+                {previewTheme === 'light' ? <Moon size={13} /> : <Sun size={13} />}
+              </button>
+
+              {/* Refresh Button */}
+              <button
+                type="button"
+                onClick={() => setZoomLevel(100)}
+                className="w-8 h-8 shrink-0 flex-none flex items-center justify-center rounded-lg bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-surface-l3 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+                title="Reset Zoom & Refresh"
+                aria-label="Reset Zoom & Refresh"
+              >
+                <RotateCw size={13} />
+              </button>
+
+              {/* Fullscreen Button */}
+              <button
+                type="button"
+                onClick={() => setIsFullscreen(!isFullscreen)}
+                className="w-8 h-8 shrink-0 flex-none flex items-center justify-center rounded-lg bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-surface-l3 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+                title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
+                aria-label="Toggle Fullscreen"
+              >
+                {isFullscreen ? <Minimize2 size={13} /> : <Maximize2 size={13} />}
+              </button>
+
+              {/* Download PDF Button */}
+              <button
+                type="button"
+                onClick={handleDownloadPDF}
+                className="w-8 h-8 shrink-0 flex-none flex items-center justify-center rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 cursor-pointer shadow-sm transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+                title="Download PDF"
+                aria-label="Download PDF"
+              >
+                <Download size={13} />
             </button>
           </div>
-
-          {/* Theme Toggle */}
-          <button
-            type="button"
-            onClick={() => setPreviewTheme(previewTheme === 'light' ? 'dark' : 'light')}
-            className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
-            title="Toggle Paper Theme"
-            aria-label="Toggle Paper Theme"
-          >
-            {previewTheme === 'light' ? <Moon size={13} /> : <Sun size={13} />}
-          </button>
-
-          {/* Refresh Button */}
-          <button
-            type="button"
-            onClick={() => setZoomLevel(100)}
-            className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
-            title="Reset Zoom & Refresh"
-            aria-label="Reset Zoom & Refresh"
-          >
-            <RotateCw size={13} />
-          </button>
-
-          {/* Fullscreen Button */}
-          <button
-            type="button"
-            onClick={() => setIsFullscreen(!isFullscreen)}
-            className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
-            title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
-            aria-label="Toggle Fullscreen"
-          >
-            {isFullscreen ? <Minimize2 size={13} /> : <Maximize2 size={13} />}
-          </button>
-
-          {/* Download PDF Button */}
-          <button
-            type="button"
-            onClick={handleDownloadPDF}
-            className="w-8 h-8 flex items-center justify-center rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 cursor-pointer shadow-sm transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
-            title="Download PDF"
-            aria-label="Download PDF"
-          >
-            <Download size={13} />
-          </button>
         </div>
       </div>
+    </div>
 
       {/* A4 Paper Document Preview Container */}
       <div className="flex-1 overflow-auto p-3 sm:p-4 md:p-5 bg-slate-200/70 dark:bg-[#0c0d15] flex justify-center items-start custom-scrollbar transition-colors">

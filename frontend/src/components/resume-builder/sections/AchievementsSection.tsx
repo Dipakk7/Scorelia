@@ -14,6 +14,7 @@ interface AchievementsSectionProps {
   items?: AchievementItem[]
   onAdd?: () => void
   onDelete?: (id: string) => void
+  onUpdate?: (id: string, updated: AchievementItem) => void
 }
 
 export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
@@ -29,6 +30,7 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
   ],
   onAdd,
   onDelete,
+  onUpdate,
 }) => {
   const [expandedId, setExpandedId] = useState<string | null>(items[0]?.id || null)
 
@@ -49,7 +51,7 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
             Key Achievements &amp; Awards
           </h3>
           <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 font-sans">
-            Highlight hackathon wins, company awards, patents, or notable competitions.
+            Highlight hackathon wins, awards, publications, and competitive rankings.
           </p>
         </div>
 
@@ -86,46 +88,47 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
         </div>
       )}
 
-      {/* Items List */}
-      <div className="space-y-4">
-        {items.map((ach, idx) => {
+      {/* Achievements Accordion List */}
+      <div className="space-y-3">
+        {items.map((ach) => {
           const isExpanded = expandedId === ach.id
           return (
             <div
               key={ach.id}
               className="bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle rounded-xl overflow-hidden shadow-sm transition-colors"
             >
-              {/* Header Bar */}
+              {/* Card Header */}
               <div
                 onClick={() => toggleExpand(ach.id)}
-                className="flex items-center justify-between p-4 bg-white/80 dark:bg-surface-l2 cursor-pointer hover:bg-slate-100 dark:hover:bg-surface-l4 transition-colors border-b border-slate-200/80 dark:border-border-subtle"
+                className="p-4 flex items-center justify-between gap-3 cursor-pointer hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
               >
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300 font-mono font-extrabold text-xs">
-                    #{idx + 1}
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-600/20 text-purple-700 dark:text-purple-300 shrink-0">
+                    <Award size={16} />
                   </div>
                   <div className="min-w-0">
                     <h4 className="text-xs font-bold text-slate-900 dark:text-white truncate m-0">
                       {ach.title || 'Untitled Achievement'}
                     </h4>
-                    <p className="text-[11px] text-slate-600 dark:text-slate-400 truncate m-0 font-sans">
-                      {ach.issuer} • {ach.impactMetric || ach.date}
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate m-0">
+                      {ach.issuer || 'Issuing Organization'} • {ach.impactMetric || 'Metric'}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 shrink-0">
+                <div className="flex items-center gap-2">
                   <button
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation()
                       onDelete?.(ach.id)
                     }}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 hover:bg-slate-200 dark:hover:bg-white/10 cursor-pointer focus:outline-none"
-                    title="Delete Entry"
+                    className="p-1.5 text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 cursor-pointer rounded-lg hover:bg-slate-200 dark:hover:bg-white/5 focus:outline-none"
+                    title="Delete Achievement"
                   >
                     <Trash2 size={14} />
                   </button>
+
                   <div className="p-1.5 text-slate-400">
                     {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                   </div>
@@ -140,7 +143,8 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
                       <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Achievement Title *</label>
                       <input
                         type="text"
-                        defaultValue={ach.title}
+                        value={ach.title}
+                        onChange={(e) => onUpdate?.(ach.id, { ...ach, title: e.target.value })}
                         placeholder="e.g. Winner of National Open AI Hackathon"
                         className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 py-2 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
                       />
@@ -150,7 +154,8 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
                       <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Issuing Organization / Event</label>
                       <input
                         type="text"
-                        defaultValue={ach.issuer}
+                        value={ach.issuer || ''}
+                        onChange={(e) => onUpdate?.(ach.id, { ...ach, issuer: e.target.value })}
                         placeholder="e.g. IEEE / Microsoft"
                         className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 py-2 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
                       />
@@ -160,7 +165,8 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
                       <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Impact Metric Tag (Optional)</label>
                       <input
                         type="text"
-                        defaultValue={ach.impactMetric}
+                        value={ach.impactMetric || ''}
+                        onChange={(e) => onUpdate?.(ach.id, { ...ach, impactMetric: e.target.value })}
                         placeholder="e.g. 1st Place / 500 Submissions"
                         className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 py-2 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
                       />
@@ -170,7 +176,8 @@ export const AchievementsSection: React.FC<AchievementsSectionProps> = ({
                       <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Description</label>
                       <textarea
                         rows={3}
-                        defaultValue={ach.description}
+                        value={ach.description}
+                        onChange={(e) => onUpdate?.(ach.id, { ...ach, description: e.target.value })}
                         placeholder="Describe the context, competitive scale, and measurable impact."
                         className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl p-3 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 resize-none transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
                       />

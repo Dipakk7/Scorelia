@@ -15,6 +15,7 @@ interface ReferencesSectionProps {
   availableUponRequest?: boolean
   onAdd?: () => void
   onDelete?: (id: string) => void
+  onUpdate?: (id: string, updated: ReferenceItem) => void
   onToggleAvailable?: (val: boolean) => void
 }
 
@@ -32,6 +33,7 @@ export const ReferencesSection: React.FC<ReferencesSectionProps> = ({
   availableUponRequest = true,
   onAdd,
   onDelete,
+  onUpdate,
   onToggleAvailable,
 }) => {
   const [expandedId, setExpandedId] = useState<string | null>(items[0]?.id || null)
@@ -50,10 +52,10 @@ export const ReferencesSection: React.FC<ReferencesSectionProps> = ({
             <span>Professional References</span>
           </div>
           <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display mt-0.5 m-0">
-            References &amp; Endorsements
+            References &amp; Recommendations
           </h3>
           <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 font-sans">
-            Add contacts who can vouch for your professional work or toggle &quot;Available upon request&quot;.
+            Add professional contacts who can vouch for your work performance.
           </p>
         </div>
 
@@ -68,62 +70,44 @@ export const ReferencesSection: React.FC<ReferencesSectionProps> = ({
       </div>
 
       {/* Available Upon Request Toggle Card */}
-      <div className="bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle rounded-xl p-4 flex items-center justify-between gap-3 shadow-sm transition-colors">
+      <div className="p-4 bg-purple-50/60 dark:bg-purple-900/10 border border-purple-200 dark:border-purple-500/30 rounded-xl flex items-center justify-between gap-3 transition-colors">
         <div>
-          <h4 className="text-xs font-bold text-slate-900 dark:text-white m-0">Available Upon Request Mode</h4>
-          <p className="text-[11px] text-slate-600 dark:text-slate-400 m-0">Displays a clean &quot;References available upon request&quot; line in paper layout.</p>
+          <h4 className="text-xs font-bold text-slate-900 dark:text-white m-0">
+            Show "References Available Upon Request" banner
+          </h4>
+          <p className="text-[11px] text-slate-600 dark:text-slate-400 m-0 font-sans">
+            Hides detailed contact info on public resumes and prints a clean standard line.
+          </p>
         </div>
-        <label className="relative inline-flex items-center cursor-pointer">
+
+        <label className="relative inline-flex items-center cursor-pointer shrink-0">
           <input
             type="checkbox"
-            defaultChecked={availableUponRequest}
+            checked={availableUponRequest}
             onChange={(e) => onToggleAvailable?.(e.target.checked)}
             className="sr-only peer"
           />
-          <div className="w-9 h-5 bg-slate-300 dark:bg-surface-l4 peer-focus:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-purple-500/80 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-purple-600"></div>
+          <div className="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-surface-l4 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-purple-600"></div>
         </label>
       </div>
 
-      {/* Empty State */}
-      {items.length === 0 && !availableUponRequest && (
-        <div className="bg-slate-50 dark:bg-surface-l3 border border-dashed border-slate-300 dark:border-border-subtle rounded-xl p-8 text-center space-y-3 transition-colors">
-          <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center mx-auto border border-purple-200 dark:border-purple-500/20">
-            <UserCheck size={20} />
-          </div>
-          <div className="space-y-1">
-            <h4 className="text-sm font-bold text-slate-900 dark:text-white m-0">No Individual References Added</h4>
-            <p className="text-xs text-slate-600 dark:text-slate-400 max-w-sm mx-auto m-0">
-              Add manager or academic contacts or enable &quot;Available upon request&quot;.
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={onAdd}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 cursor-pointer transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
-          >
-            <Plus size={13} />
-            <span>Add Reference</span>
-          </button>
-        </div>
-      )}
-
-      {/* References List */}
+      {/* Items List */}
       <div className="space-y-4">
-        {items.map((refItem, idx) => {
+        {items.map((refItem) => {
           const isExpanded = expandedId === refItem.id
           return (
             <div
               key={refItem.id}
               className="bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle rounded-xl overflow-hidden shadow-sm transition-colors"
             >
-              {/* Header Bar */}
+              {/* Card Header */}
               <div
                 onClick={() => toggleExpand(refItem.id)}
                 className="flex items-center justify-between p-4 bg-white/80 dark:bg-surface-l2 cursor-pointer hover:bg-slate-100 dark:hover:bg-surface-l4 transition-colors border-b border-slate-200/80 dark:border-border-subtle"
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300 font-mono font-extrabold text-xs">
-                    #{idx + 1}
+                    <UserCheck size={16} />
                   </div>
                   <div className="min-w-0">
                     <h4 className="text-xs font-bold text-slate-900 dark:text-white truncate m-0">
@@ -147,6 +131,7 @@ export const ReferencesSection: React.FC<ReferencesSectionProps> = ({
                   >
                     <Trash2 size={14} />
                   </button>
+
                   <div className="p-1.5 text-slate-400">
                     {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                   </div>
@@ -161,7 +146,8 @@ export const ReferencesSection: React.FC<ReferencesSectionProps> = ({
                       <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Reference Full Name *</label>
                       <input
                         type="text"
-                        defaultValue={refItem.name}
+                        value={refItem.name}
+                        onChange={(e) => onUpdate?.(refItem.id, { ...refItem, name: e.target.value })}
                         placeholder="e.g. Dr. Jane Smith"
                         className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 py-2 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
                       />
@@ -171,7 +157,8 @@ export const ReferencesSection: React.FC<ReferencesSectionProps> = ({
                       <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Job Title / Relationship *</label>
                       <input
                         type="text"
-                        defaultValue={refItem.title}
+                        value={refItem.title}
+                        onChange={(e) => onUpdate?.(refItem.id, { ...refItem, title: e.target.value })}
                         placeholder="e.g. Engineering Director / Former Manager"
                         className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 py-2 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
                       />
@@ -181,7 +168,8 @@ export const ReferencesSection: React.FC<ReferencesSectionProps> = ({
                       <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Company / Institution *</label>
                       <input
                         type="text"
-                        defaultValue={refItem.company}
+                        value={refItem.company}
+                        onChange={(e) => onUpdate?.(refItem.id, { ...refItem, company: e.target.value })}
                         placeholder="e.g. Google"
                         className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 py-2 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
                       />
@@ -191,7 +179,8 @@ export const ReferencesSection: React.FC<ReferencesSectionProps> = ({
                       <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Email Address</label>
                       <input
                         type="email"
-                        defaultValue={refItem.email}
+                        value={refItem.email || ''}
+                        onChange={(e) => onUpdate?.(refItem.id, { ...refItem, email: e.target.value })}
                         placeholder="janesmith@example.com"
                         className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 py-2 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
                       />

@@ -60,6 +60,15 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
     }
   }
 
+  const handleUpdateFields = (fields: Partial<SampleResumeData>) => {
+    if (onUpdateResumeData && resumeData) {
+      onUpdateResumeData({
+        ...resumeData,
+        ...fields,
+      })
+    }
+  }
+
   return (
     <div className="flex flex-col h-full bg-slate-50/50 dark:bg-surface-l1 border border-slate-200/80 dark:border-border-subtle/40 rounded-2xl shadow-none overflow-hidden text-left font-sans transition-colors">
       {/* Structural Tab Container Switcher Bar for all 12 sections */}
@@ -112,9 +121,11 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
               headline: resumeData?.headline || '',
             }}
             onChange={(updated) => {
-              handleUpdateField('fullName', updated.fullName)
-              handleUpdateField('professionalTitle', updated.professionalTitle)
-              handleUpdateField('headline', updated.headline)
+              handleUpdateFields({
+                fullName: updated.fullName,
+                professionalTitle: updated.professionalTitle,
+                headline: updated.headline,
+              })
             }}
           />
         )}
@@ -131,12 +142,14 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
               github: resumeData?.github || '',
             }}
             onChange={(updated) => {
-              handleUpdateField('email', updated.email)
-              handleUpdateField('phone', updated.phone)
-              handleUpdateField('location', updated.location)
-              handleUpdateField('website', updated.website)
-              handleUpdateField('linkedin', updated.linkedin)
-              handleUpdateField('github', updated.github)
+              handleUpdateFields({
+                email: updated.email,
+                phone: updated.phone,
+                location: updated.location,
+                website: updated.website,
+                linkedin: updated.linkedin,
+                github: updated.github,
+              })
             }}
           />
         )}
@@ -148,7 +161,9 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
               maxCharacters: 300,
             }}
             onChange={(updated) => {
-              handleUpdateField('summary', updated.summaryText)
+              handleUpdateFields({
+                summary: updated.summaryText,
+              })
             }}
           />
         )}
@@ -305,14 +320,20 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
               const newLang = {
                 id: `lang-${Date.now()}`,
                 name: 'Language Name',
-                proficiency: 'Fluent',
+                proficiency: 'Fluent' as const,
               }
               handleUpdateField('languages', [...(resumeData?.languages || []), newLang])
             }}
-            onDelete={(id) => {
+            onDelete={(id: string) => {
               handleUpdateField(
                 'languages',
                 (resumeData?.languages || []).filter((item) => item.id !== id)
+              )
+            }}
+            onUpdate={(id: string, updated: any) => {
+              handleUpdateField(
+                'languages',
+                (resumeData?.languages || []).map((item) => (item.id === id ? updated : item))
               )
             }}
           />
@@ -329,16 +350,53 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
               }
               handleUpdateField('achievements', [...(resumeData?.achievements || []), newAch])
             }}
-            onDelete={(id) => {
+            onDelete={(id: string) => {
               handleUpdateField(
                 'achievements',
                 (resumeData?.achievements || []).filter((item) => item.id !== id)
               )
             }}
+            onUpdate={(id: string, updated: any) => {
+              handleUpdateField(
+                'achievements',
+                (resumeData?.achievements || []).map((item) => (item.id === id ? updated : item))
+              )
+            }}
           />
         )}
 
-        {activeSectionTab === 'custom' && <CustomSectionsSection />}
+        {activeSectionTab === 'custom' && (
+          <CustomSectionsSection
+            sections={resumeData?.customSections}
+            onAddSection={() => {
+              const newSec = {
+                id: `cust-${Date.now()}`,
+                sectionTitle: 'New Custom Section',
+                items: [
+                  {
+                    id: `cust-item-${Date.now()}`,
+                    title: 'Entry Title',
+                    subtitle: 'Subtitle',
+                    description: 'Description',
+                  },
+                ],
+              }
+              handleUpdateField('customSections', [...(resumeData?.customSections || []), newSec])
+            }}
+            onDeleteSection={(id: string) => {
+              handleUpdateField(
+                'customSections',
+                (resumeData?.customSections || []).filter((item) => item.id !== id)
+              )
+            }}
+            onUpdateSection={(id: string, updated: any) => {
+              handleUpdateField(
+                'customSections',
+                (resumeData?.customSections || []).map((item) => (item.id === id ? updated : item))
+              )
+            }}
+          />
+        )}
 
         {activeSectionTab === 'references' && (
           <ReferencesSection
@@ -354,10 +412,16 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
               }
               handleUpdateField('references', [...(resumeData?.references || []), newRef])
             }}
-            onDelete={(id) => {
+            onDelete={(id: string) => {
               handleUpdateField(
                 'references',
                 (resumeData?.references || []).filter((item) => item.id !== id)
+              )
+            }}
+            onUpdate={(id: string, updated: any) => {
+              handleUpdateField(
+                'references',
+                (resumeData?.references || []).map((item) => (item.id === id ? updated : item))
               )
             }}
           />

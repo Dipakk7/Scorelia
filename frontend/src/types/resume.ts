@@ -1,5 +1,6 @@
 export interface EducationItem {
   degree: string | null
+  fieldOfStudy?: string | null
   institution: string | null
   year: string | null
   raw_text: string | null

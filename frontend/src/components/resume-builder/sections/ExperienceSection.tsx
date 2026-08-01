@@ -133,12 +133,12 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               {/* Card Header Bar */}
               <div
                 onClick={() => toggleExpand(exp.id)}
-                className="flex items-center justify-between p-3.5 bg-white/80 dark:bg-surface-l2 cursor-pointer hover:bg-slate-100 dark:hover:bg-surface-l4 transition-colors border-b border-slate-200/80 dark:border-border-subtle"
+                className="flex items-center justify-between p-3.5 bg-[#DFDFE3] dark:bg-surface-l2 cursor-pointer hover:bg-[#D5D5DA] dark:hover:bg-surface-l4 transition-colors border-b border-slate-300 dark:border-border-subtle"
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  {/* Drag Handle Icon & Reorder Up/Down Controls */}
+                  {/* Drag Handle Icon & Reorder Controls */}
                   <div
-                    className="flex items-center gap-0.5 text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300"
+                    className="flex items-center gap-0.5 text-[#9196A0] dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-200"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <GripVertical size={16} className="cursor-grab active:cursor-grabbing" />
@@ -146,7 +146,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                       type="button"
                       disabled={idx === 0}
                       onClick={() => handleMove(idx, 'up')}
-                      className="p-0.5 hover:text-purple-600 dark:hover:text-purple-400 disabled:opacity-30 cursor-pointer focus:outline-none"
+                      className="p-0.5 text-[#9196A0] dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-300 disabled:opacity-30 cursor-pointer focus:outline-none transition-colors"
                       title="Move Up"
                       aria-label="Move position up"
                     >
@@ -156,7 +156,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                       type="button"
                       disabled={idx === items.length - 1}
                       onClick={() => handleMove(idx, 'down')}
-                      className="p-0.5 hover:text-purple-600 dark:hover:text-purple-400 disabled:opacity-30 cursor-pointer focus:outline-none"
+                      className="p-0.5 text-[#9196A0] dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-300 disabled:opacity-30 cursor-pointer focus:outline-none transition-colors"
                       title="Move Down"
                       aria-label="Move position down"
                     >
@@ -168,11 +168,11 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                     #{idx + 1}
                   </div>
                   <div className="min-w-0">
-                    <h4 className="text-xs font-bold text-slate-900 dark:text-white truncate m-0">
+                    <h4 className="text-xs font-bold text-[#3A3A41] dark:text-[#ECECF0] truncate m-0">
                       {exp.title || 'Untitled Position'}
                     </h4>
-                    <p className="text-[11px] text-slate-600 dark:text-slate-400 truncate m-0 font-sans">
-                      {exp.company} • {exp.startDate} - {exp.current ? 'Present' : exp.endDate} ({exp.location})
+                    <p className="text-[11px] font-medium text-[#696E78] dark:text-[#A0A5B2] m-0 font-sans leading-tight">
+                      {exp.company || 'Company'} {exp.startDate || exp.endDate ? `• ${exp.startDate} – ${exp.current ? 'Present' : exp.endDate}` : ''} {exp.location ? `(${exp.location})` : ''}
                     </p>
                   </div>
                 </div>
@@ -184,12 +184,12 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                       e.stopPropagation()
                       onDelete?.(exp.id)
                     }}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 hover:bg-slate-200 dark:hover:bg-white/10 cursor-pointer focus:outline-none"
+                    className="p-1.5 rounded-lg text-[#9196A0] dark:text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 hover:bg-slate-300/60 dark:hover:bg-white/10 cursor-pointer focus:outline-none transition-colors"
                     title="Delete Position"
                   >
                     <Trash2 size={14} />
                   </button>
-                  <div className="p-1.5 text-slate-400">
+                  <div className="p-1.5 text-[#9196A0] dark:text-slate-400">
                     {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                   </div>
                 </div>
@@ -208,7 +208,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                           onUpdate?.(exp.id, { ...exp, title: e.target.value })
                         }
                         placeholder="e.g. Senior Software Engineer"
-                        className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 py-2 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
+                        className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed box-border"
                       />
                     </div>
 
@@ -221,7 +221,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                           onUpdate?.(exp.id, { ...exp, company: e.target.value })
                         }
                         placeholder="e.g. Google"
-                        className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 py-2 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
+                        className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed box-border"
                       />
                     </div>
 
@@ -234,54 +234,87 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                           onUpdate?.(exp.id, { ...exp, location: e.target.value })
                         }
                         placeholder="e.g. San Francisco, CA or Remote"
-                        className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 py-2 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
+                        className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed box-border"
                       />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Start Date</label>
-                        <input
-                          type="text"
-                          value={exp.startDate}
-                          onChange={(e) =>
-                            onUpdate?.(exp.id, { ...exp, startDate: e.target.value })
-                          }
-                          placeholder="e.g. Jan 2024"
-                          className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 py-2 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
-                        />
+                    {/* Dates Row spanning full width with identical column widths */}
+                    <div className="sm:col-span-2 space-y-3">
+                      <div className="grid grid-cols-2 gap-4">
+                        {/* Start Date */}
+                        <div className="space-y-1.5 min-w-0">
+                          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                            Start Date
+                          </label>
+                          <input
+                            type="text"
+                            value={exp.startDate}
+                            onChange={(e) =>
+                              onUpdate?.(exp.id, { ...exp, startDate: e.target.value })
+                            }
+                            placeholder="e.g. Jan 2024"
+                            aria-label="Start Date"
+                            className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed box-border"
+                          />
+                        </div>
+
+                        {/* End Date */}
+                        <div className="space-y-1.5 min-w-0">
+                          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">
+                            End Date
+                          </label>
+                          <input
+                            type="text"
+                            value={exp.current ? 'Present' : exp.endDate}
+                            onChange={(e) =>
+                              onUpdate?.(exp.id, { ...exp, endDate: e.target.value })
+                            }
+                            disabled={exp.current}
+                            placeholder={exp.current ? 'Present' : 'e.g. May 2026'}
+                            aria-label="End Date"
+                            className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed transition-colors box-border"
+                          />
+                        </div>
                       </div>
-                      <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">End Date</label>
-                        <input
-                          type="text"
-                          value={exp.endDate}
-                          onChange={(e) =>
-                            onUpdate?.(exp.id, { ...exp, endDate: e.target.value })
-                          }
-                          disabled={exp.current}
-                          placeholder="e.g. Present"
-                          className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 py-2 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed transition-colors"
-                        />
+
+                      {/* Currently Working Here Checkbox */}
+                      <div className="pt-0.5">
+                        <label className="inline-flex items-center gap-2 text-xs font-medium text-slate-700 dark:text-slate-300 cursor-pointer select-none">
+                          <input
+                            type="checkbox"
+                            checked={exp.current}
+                            onChange={(e) => {
+                              const isChecked = e.target.checked
+                              onUpdate?.(exp.id, {
+                                ...exp,
+                                current: isChecked,
+                                endDate: isChecked ? 'Present' : exp.endDate === 'Present' ? '' : exp.endDate,
+                              })
+                            }}
+                            className="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-purple-600 focus:ring-purple-500/30 cursor-pointer"
+                          />
+                          <span>Currently Working Here</span>
+                        </label>
                       </div>
                     </div>
                   </div>
 
-                  {/* Bullet Points List */}
-                  <div className="space-y-2 pt-2 border-t border-slate-200/80 dark:border-border-subtle">
+                  {/* Bullet Points List with 10px extra top spacing */}
+                  <div className="space-y-2.5 pt-4 mt-2 border-t border-slate-200/80 dark:border-border-subtle">
                     <div className="flex items-center justify-between">
                       <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Key Responsibilities &amp; Achievements</label>
                       <button
                         type="button"
-                        className="text-[11px] font-bold text-purple-600 dark:text-purple-400 hover:underline flex items-center gap-1 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80 rounded"
+                        className="text-[11px] font-bold text-purple-700 dark:text-purple-300 hover:text-purple-800 dark:hover:text-purple-200 hover:underline flex items-center gap-1 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80 rounded transition-colors"
                       >
-                        <Sparkles size={11} /> AI Action Verbs
+                        <Sparkles size={11} className="text-purple-600 dark:text-purple-400" />
+                        <span>AI Action Verbs</span>
                       </button>
                     </div>
 
                     {exp.bullets.map((bullet, bIdx) => (
-                      <div key={bIdx} className="flex items-center gap-2">
-                        <span className="text-slate-400 dark:text-slate-500 font-mono text-xs">•</span>
+                      <div key={bIdx} className="flex items-center gap-2.5">
+                        <span className="text-slate-500 dark:text-slate-400 font-mono text-xs select-none">•</span>
                         <input
                           type="text"
                           value={bullet}
@@ -291,7 +324,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                             onUpdate?.(exp.id, { ...exp, bullets: newBullets })
                           }}
                           placeholder="Action verb + Context + Measurable Result (e.g. Increased API throughput by 40%)"
-                          className="flex-1 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3 py-1.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
+                          className="flex-1 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-lg px-3.5 h-9 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed box-border"
                         />
                         <button
                           type="button"
@@ -299,10 +332,10 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                             const newBullets = exp.bullets.filter((_, i) => i !== bIdx)
                             onUpdate?.(exp.id, { ...exp, bullets: newBullets })
                           }}
-                          className="p-1 text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 cursor-pointer focus:outline-none"
+                          className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 cursor-pointer focus:outline-none flex items-center justify-center shrink-0 ml-0.5"
                           title="Remove Bullet"
                         >
-                          <Trash2 size={13} />
+                          <Trash2 size={14} />
                         </button>
                       </div>
                     ))}

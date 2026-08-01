@@ -11,6 +11,7 @@ interface LanguagesSectionProps {
   items?: LanguageItem[]
   onAdd?: () => void
   onDelete?: (id: string) => void
+  onUpdate?: (id: string, updated: LanguageItem) => void
 }
 
 export const LanguagesSection: React.FC<LanguagesSectionProps> = ({
@@ -21,6 +22,7 @@ export const LanguagesSection: React.FC<LanguagesSectionProps> = ({
   ],
   onAdd,
   onDelete,
+  onUpdate,
 }) => {
   return (
     <div className="space-y-5 animate-fade-in text-left">
@@ -82,12 +84,14 @@ export const LanguagesSection: React.FC<LanguagesSectionProps> = ({
             <div className="flex-1 space-y-1">
               <input
                 type="text"
-                defaultValue={lang.name}
+                value={lang.name}
+                onChange={(e) => onUpdate?.(lang.id, { ...lang, name: e.target.value })}
                 placeholder="e.g. German"
                 className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-lg px-2.5 py-1 text-xs font-bold text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
               />
               <select
-                defaultValue={lang.proficiency}
+                value={lang.proficiency}
+                onChange={(e) => onUpdate?.(lang.id, { ...lang, proficiency: e.target.value as any })}
                 className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-lg px-2 py-1 text-[11px] font-medium text-[#111827] dark:text-slate-100 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors cursor-pointer"
               >
                 <option value="Native">Native / Bilingual</option>

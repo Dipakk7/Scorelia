@@ -84,13 +84,13 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
         </div>
         <div className="space-y-1 flex-1">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-900 dark:text-white">ATS Impact Tip</span>
-            <button type="button" className="text-[10px] text-purple-600 dark:text-purple-400 hover:underline cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80 rounded">
+            <span className="text-xs font-bold text-[#6D28D9] dark:text-purple-200">ATS Impact Tip</span>
+            <button type="button" className="text-[10px] font-semibold text-purple-700 dark:text-purple-300 hover:underline cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80 rounded transition-colors">
               Why this tip?
             </button>
           </div>
-          <p className="text-xs text-slate-700 dark:text-slate-300 font-sans leading-relaxed m-0">
-            Including target role keywords and 2–3 quantified achievements in your summary can boost ATS matching by up to <strong className="text-purple-700 dark:text-purple-300 font-bold">30%</strong>.
+          <p className="text-xs text-slate-700 dark:text-slate-200 font-sans leading-relaxed m-0">
+            Including target role keywords and 2–3 quantified achievements in your summary can boost ATS matching by up to <strong className="text-purple-800 dark:text-purple-300 font-bold">30%</strong>.
           </p>
         </div>
       </div>

@@ -35,6 +35,7 @@ export interface SampleResumeData {
   education: Array<{
     id: string
     degree: string
+    fieldOfStudy?: string
     institution: string
     location: string
     startDate: string
@@ -82,6 +83,16 @@ export interface SampleResumeData {
     phone?: string
   }>
   availableUponRequest?: boolean
+  customSections?: Array<{
+    id: string
+    sectionTitle: string
+    items: Array<{
+      id: string
+      title: string
+      subtitle?: string
+      description?: string
+    }>
+  }>
 }
 
 export const TEMPLATES_LIST: TemplateMetadata[] = [

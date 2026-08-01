@@ -114,7 +114,8 @@ export function parsedDataToSampleResume(
       const yearStr = typeof edu.year === 'string' ? edu.year : ''
       return {
         id: `edu-${idx}`,
-        degree: edu.degree || 'Degree',
+        degree: edu.degree || 'Bachelor of Technology (B.Tech)',
+        fieldOfStudy: edu.fieldOfStudy || 'Artificial Intelligence & Data Science',
         institution: edu.institution || 'Institution',
         location: 'India',
         startDate: yearStr.split('-')[0]?.trim() || '2020',
