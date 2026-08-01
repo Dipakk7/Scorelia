@@ -9,7 +9,6 @@ interface PreviewEducationProps {
 
 export const PreviewEducation: React.FC<PreviewEducationProps> = ({
   education,
-  accentColor = '#1e40af',
 }) => {
   if (!education || education.length === 0) {
     return <PreviewEmptyState sectionTitle="Education" />
@@ -17,24 +16,21 @@ export const PreviewEducation: React.FC<PreviewEducationProps> = ({
 
   return (
     <div className="space-y-2 break-inside-avoid">
-      <h2
-        className="text-xs font-bold tracking-wider font-display uppercase border-b pb-0.5 m-0"
-        style={{ color: accentColor, borderColor: `${accentColor}33` }}
-      >
+      <h2 className="text-[11px] font-bold tracking-widest font-display uppercase border-b border-slate-200/80 pb-0.5 m-0 text-slate-900">
         EDUCATION
       </h2>
       <div className="space-y-2">
         {education.map((item) => (
-          <div key={item.id} className="space-y-0.5 text-[11px] break-inside-avoid">
-            <div className="flex items-baseline justify-between font-bold text-slate-900">
-              <span>{item.degree}</span>
-              <span className="text-[10px] font-mono text-slate-500 font-normal">
-                {item.startDate} - {item.endDate}
+          <div key={item.id} className="space-y-0.5 text-[10.5px] break-inside-avoid">
+            <div className="flex items-baseline justify-between text-slate-900 text-[11px] leading-tight">
+              <span className="font-bold">{item.degree}</span>
+              <span className="text-[9.5px] font-mono text-slate-500 font-medium">
+                {item.startDate} – {item.endDate}
               </span>
             </div>
             <div className="flex items-baseline justify-between text-slate-700 font-medium">
-              <span style={{ color: accentColor }}>{item.institution}</span>
-              {item.gpa && <span className="text-[10px] text-slate-600 font-mono">GPA: {item.gpa}</span>}
+              <span className="font-semibold">{item.institution}</span>
+              {item.gpa && <span className="text-[9.5px] text-slate-500 font-mono">GPA: {item.gpa}</span>}
             </div>
           </div>
         ))}

@@ -83,7 +83,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
   return (
     <div className="space-y-5 animate-fade-in text-left">
       {/* Section Header */}
-      <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-3 transition-colors">
+      <div className="flex items-center justify-between border-b border-slate-200 dark:border-border-subtle pb-3 transition-colors">
         <div>
           <div className="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider font-mono">
             <Code size={14} />
@@ -109,14 +109,14 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
 
       {/* Empty State */}
       {categories.length === 0 && (
-        <div className="bg-slate-50 dark:bg-slate-900/40 border border-dashed border-slate-300 dark:border-white/15 rounded-xl p-8 text-center space-y-3 transition-colors">
+        <div className="bg-slate-50 dark:bg-surface-l3 border border-dashed border-slate-300 dark:border-border-subtle rounded-xl p-8 text-center space-y-3 transition-colors">
           <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center mx-auto border border-purple-200 dark:border-purple-500/20">
             <Code size={20} />
           </div>
           <div className="space-y-1">
-            <h4 className="text-sm font-bold text-slate-900 dark:text-white m-0">No Skills Added Yet</h4>
+            <h4 className="text-sm font-bold text-slate-900 dark:text-white m-0">No Skill Categories Added Yet</h4>
             <p className="text-xs text-slate-600 dark:text-slate-400 max-w-sm mx-auto m-0">
-              Add technical languages, frameworks, developer tools, and domain expertise.
+              Add technical skills, frameworks, tools, and languages relevant to your target role.
             </p>
           </div>
           <button
@@ -125,7 +125,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 cursor-pointer transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
           >
             <Plus size={13} />
-            <span>Add Skill Category</span>
+            <span>Add First Category</span>
           </button>
         </div>
       )}
@@ -135,9 +135,9 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
         {categories.map((cat, idx) => (
           <div
             key={cat.id}
-            className="bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl p-4 space-y-3 shadow-sm transition-colors group"
+            className="bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle rounded-xl p-4 space-y-3 shadow-sm transition-colors group"
           >
-            <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-white/5 pb-2">
+            <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-border-subtle pb-2">
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-0.5 text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300">
                   <GripVertical size={16} className="cursor-grab active:cursor-grabbing" />
@@ -168,7 +168,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
                   onChange={(e) =>
                     onUpdateCategory?.(cat.id, { ...cat, name: e.target.value })
                   }
-                  className="text-xs font-bold text-slate-900 dark:text-white bg-transparent border-b border-transparent hover:border-slate-300 dark:hover:border-white/20 focus:border-purple-500 focus:outline-none px-1 py-0.5 rounded transition-colors font-display"
+                  className="text-xs font-bold text-slate-900 dark:text-white bg-transparent border-b border-transparent hover:border-slate-300 dark:hover:border-border-elevated focus:border-purple-500 focus:outline-none px-1 py-0.5 rounded transition-colors font-display"
                 />
               </div>
 
@@ -213,7 +213,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
                       handleAddSkillTag(cat.id)
                     }
                   }}
-                  className="bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-lg px-2.5 py-1 text-xs font-medium text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 w-32 transition-colors"
+                  className="bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-lg px-2.5 py-1 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 w-32 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
                 />
               </div>
             </div>

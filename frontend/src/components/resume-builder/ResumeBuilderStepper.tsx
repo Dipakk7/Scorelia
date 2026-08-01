@@ -28,8 +28,8 @@ export const ResumeBuilderStepper: React.FC<ResumeBuilderStepperProps> = ({
   onStepClick,
 }) => {
   return (
-    <div className="w-full overflow-x-auto custom-scrollbar bg-white/80 dark:bg-[#0b0c14]/70 backdrop-blur-md border border-slate-200/80 dark:border-white/10 p-2 rounded-2xl transition-colors">
-      <nav className="flex items-center gap-1.5 min-w-max" role="tablist" aria-label="Resume builder step navigation">
+    <div className="w-full overflow-x-auto custom-scrollbar bg-slate-100/60 dark:bg-surface-l2/50 border border-slate-200/60 dark:border-border-subtle/40 px-2 py-2 rounded-xl transition-colors shadow-none">
+      <nav className="flex items-center gap-1 min-w-max" role="tablist" aria-label="Resume builder step navigation">
         {BUILDER_STEPS.map((step) => {
           const isActive = step.id === activeStep
           const isCompleted = step.id < activeStep
@@ -44,22 +44,22 @@ export const ResumeBuilderStepper: React.FC<ResumeBuilderStepperProps> = ({
               aria-label={`Step ${step.id}: ${step.label}`}
               onClick={() => onStepClick(step.id)}
               className={cn(
-                'flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer select-none border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
+                'flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium transition-all duration-150 cursor-pointer select-none border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
                 isActive
-                  ? 'bg-purple-50 dark:bg-purple-600/20 text-purple-900 dark:text-white border-purple-300 dark:border-purple-500/50 shadow-sm dark:shadow-purple-950/40'
+                  ? 'bg-purple-100/70 dark:bg-purple-600/20 text-purple-900 dark:text-purple-200 border-purple-300 dark:border-purple-500/40 font-semibold shadow-none'
                   : isCompleted
-                  ? 'bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/5 hover:bg-slate-200 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white'
-                  : 'bg-transparent text-slate-500 dark:text-slate-400 border-transparent hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-slate-200'
+                  ? 'bg-transparent text-slate-700 dark:text-slate-300 border-transparent hover:bg-slate-200/60 dark:hover:bg-surface-l3/60 hover:text-slate-900 dark:hover:text-white'
+                  : 'bg-transparent text-slate-500 dark:text-slate-400 border-transparent hover:bg-slate-200/50 dark:hover:bg-surface-l3/40 hover:text-slate-700 dark:hover:text-slate-300'
               )}
             >
               <span
                 className={cn(
-                  'flex items-center justify-center w-5 h-5 rounded-full text-[11px] font-mono font-extrabold transition-all',
+                  'flex items-center justify-center w-4.5 h-4.5 rounded-full text-[10px] font-mono font-bold transition-all shrink-0',
                   isActive
-                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-sm'
+                    ? 'bg-purple-600 text-white shadow-xs'
                     : isCompleted
-                    ? 'bg-purple-100 text-purple-700 dark:bg-purple-500/30 dark:text-purple-300 border border-purple-300 dark:border-purple-500/40'
-                    : 'bg-slate-200 text-slate-600 dark:bg-white/10 dark:text-slate-400'
+                    ? 'bg-purple-100 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-300/60 dark:border-purple-500/30'
+                    : 'bg-slate-200/60 dark:bg-surface-l4/60 text-slate-500 dark:text-slate-400 border border-slate-300/30 dark:border-border-subtle/30'
                 )}
               >
                 {step.id}

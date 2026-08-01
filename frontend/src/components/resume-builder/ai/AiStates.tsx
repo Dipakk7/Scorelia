@@ -3,7 +3,7 @@ import { Bot, Sparkles, AlertTriangle, CheckCircle2, MessageSquare } from 'lucid
 
 export const AiEmptyState: React.FC = () => {
   return (
-    <div className="p-6 text-center space-y-3 bg-slate-50 dark:bg-slate-900/40 border border-dashed border-slate-300 dark:border-white/15 rounded-xl transition-colors">
+    <div className="p-6 text-center space-y-3 bg-slate-50 dark:bg-surface-l3 border border-dashed border-slate-300 dark:border-border-subtle rounded-xl transition-colors">
       <div className="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center mx-auto border border-purple-200 dark:border-purple-500/20">
         <MessageSquare size={18} />
       </div>

@@ -50,7 +50,7 @@ export const AiSuggestionCard: React.FC<AiSuggestionCardProps> = ({
   }
 
   return (
-    <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 hover:border-purple-500/40 transition-all space-y-2.5 text-left">
+    <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle hover:border-purple-500/40 transition-all space-y-2.5 text-left">
       {/* Top Meta Bar */}
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-1.5">
@@ -89,7 +89,7 @@ export const AiSuggestionCard: React.FC<AiSuggestionCardProps> = ({
 
       {/* Expand Details Trigger */}
       {isExpanded && (
-        <div className="p-2.5 rounded-lg bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/5 text-[11px] text-slate-700 dark:text-slate-300 leading-relaxed space-y-1 transition-colors">
+        <div className="p-2.5 rounded-lg bg-white dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle text-[11px] text-slate-700 dark:text-slate-300 leading-relaxed space-y-1 transition-colors">
           <span className="text-[10px] font-bold uppercase font-mono text-purple-600 dark:text-purple-400">AI Rationale:</span>
           <p className="m-0 font-sans">{suggestion.detailText}</p>
         </div>

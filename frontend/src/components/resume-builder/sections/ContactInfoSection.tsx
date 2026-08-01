@@ -39,7 +39,7 @@ export const ContactInfoSection: React.FC<ContactInfoSectionProps> = ({
   return (
     <div className="space-y-5 animate-fade-in text-left">
       {/* Section Header */}
-      <div className="border-b border-slate-200 dark:border-white/10 pb-3 transition-colors">
+      <div className="border-b border-slate-200 dark:border-border-subtle pb-3 transition-colors">
         <div className="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider font-mono">
           <Mail size={14} />
           <span>Contact Details</span>
@@ -53,7 +53,7 @@ export const ContactInfoSection: React.FC<ContactInfoSectionProps> = ({
       </div>
 
       {/* Main Form Fields Container */}
-      <div className="bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl p-4 md:p-5 space-y-4 shadow-sm transition-colors">
+      <div className="bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle rounded-xl p-4 md:p-5 space-y-4 shadow-sm transition-colors">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Email */}
           <div className="space-y-1.5">
@@ -67,7 +67,7 @@ export const ContactInfoSection: React.FC<ContactInfoSectionProps> = ({
               onChange={(e) => handleFieldChange('email', e.target.value)}
               placeholder="e.g. alex@example.com"
               aria-label="Email Address"
-              className="w-full h-9 bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl px-3.5 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors"
+              className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
             />
           </div>
 
@@ -78,7 +78,7 @@ export const ContactInfoSection: React.FC<ContactInfoSectionProps> = ({
               <span>Phone Number <span className="text-pink-500 dark:text-pink-400">*</span></span>
             </label>
             <div className="flex items-center gap-2">
-              <div className="w-20 h-9 bg-slate-100 dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl px-2 text-xs font-mono font-medium text-slate-700 dark:text-slate-300 flex items-center justify-center shrink-0">
+              <div className="w-20 h-9 bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle rounded-xl px-2 text-xs font-mono font-medium text-slate-700 dark:text-slate-300 flex items-center justify-center shrink-0">
                 <span>🇮🇳 +91</span>
               </div>
               <input
@@ -87,7 +87,7 @@ export const ContactInfoSection: React.FC<ContactInfoSectionProps> = ({
                 onChange={(e) => handleFieldChange('phone', e.target.value)}
                 placeholder="e.g. 9876543210"
                 aria-label="Phone Number"
-                className="flex-1 h-9 bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl px-3.5 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors"
+                className="flex-1 h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
               />
             </div>
           </div>
@@ -104,7 +104,7 @@ export const ContactInfoSection: React.FC<ContactInfoSectionProps> = ({
               onChange={(e) => handleFieldChange('location', e.target.value)}
               placeholder="e.g. Mumbai, India or Remote"
               aria-label="Location"
-              className="w-full h-9 bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl px-3.5 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors"
+              className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
             />
           </div>
 
@@ -120,7 +120,7 @@ export const ContactInfoSection: React.FC<ContactInfoSectionProps> = ({
               onChange={(e) => handleFieldChange('linkedin', e.target.value)}
               placeholder="linkedin.com/in/username"
               aria-label="LinkedIn"
-              className="w-full h-9 bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl px-3.5 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors"
+              className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
             />
           </div>
 
@@ -136,7 +136,7 @@ export const ContactInfoSection: React.FC<ContactInfoSectionProps> = ({
               onChange={(e) => handleFieldChange('github', e.target.value)}
               placeholder="github.com/username"
               aria-label="GitHub Profile"
-              className="w-full h-9 bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl px-3.5 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors"
+              className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
             />
           </div>
 
@@ -152,7 +152,7 @@ export const ContactInfoSection: React.FC<ContactInfoSectionProps> = ({
               onChange={(e) => handleFieldChange('website', e.target.value)}
               placeholder="https://yourportfolio.com"
               aria-label="Portfolio URL"
-              className="w-full bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-white/10 rounded-xl px-3.5 py-2 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors"
+              className="w-full bg-white dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle rounded-xl px-3.5 py-2 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors"
             />
           </div>
         </div>

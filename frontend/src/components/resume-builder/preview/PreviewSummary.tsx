@@ -6,20 +6,17 @@ interface PreviewSummaryProps {
   accentColor?: string
 }
 
-export const PreviewSummary: React.FC<PreviewSummaryProps> = ({ summary, accentColor = '#1e40af' }) => {
+export const PreviewSummary: React.FC<PreviewSummaryProps> = ({ summary }) => {
   if (!summary) {
     return <PreviewEmptyState sectionTitle="Professional Summary" />
   }
 
   return (
     <div className="space-y-1">
-      <h2
-        className="text-xs font-bold tracking-wider font-display uppercase border-b pb-0.5 m-0"
-        style={{ color: accentColor, borderColor: `${accentColor}33` }}
-      >
+      <h2 className="text-[11px] font-bold tracking-widest font-display uppercase border-b border-slate-200/80 pb-0.5 m-0 text-slate-900">
         PROFESSIONAL SUMMARY
       </h2>
-      <p className="text-slate-700 text-[11px] leading-relaxed font-sans m-0">
+      <p className="text-slate-700 text-[10.5px] leading-relaxed font-sans m-0">
         {summary}
       </p>
     </div>

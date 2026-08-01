@@ -5,8 +5,8 @@ export const AtsInsightsPanel: React.FC = () => {
   return (
     <div className="space-y-4 text-left font-sans">
       {/* ATS Score Overview Card */}
-      <div className="bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl p-4 space-y-3 shadow-sm transition-colors">
-        <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-white/5 pb-2">
+      <div className="bg-slate-50 dark:bg-surface-l3 border border-slate-200/80 dark:border-border-subtle/40 rounded-xl p-4 space-y-3 shadow-none transition-colors">
+        <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-border-subtle pb-2">
           <div className="flex items-center gap-1.5">
             <Target size={14} className="text-purple-600 dark:text-purple-400" />
             <span className="text-xs font-bold text-slate-900 dark:text-white font-display">ATS Score Breakdown</span>
@@ -19,7 +19,7 @@ export const AtsInsightsPanel: React.FC = () => {
           <div className="relative w-20 h-20 shrink-0 flex items-center justify-center">
             <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
               <path
-                className="text-slate-200 dark:text-slate-800"
+                className="text-slate-200 dark:text-surface-l4"
                 strokeWidth="3.5"
                 stroke="currentColor"
                 fill="none"
@@ -47,7 +47,7 @@ export const AtsInsightsPanel: React.FC = () => {
               <span className="text-slate-600 dark:text-slate-400">Skills Coverage</span>
               <span className="font-bold text-slate-900 dark:text-white font-mono">94%</span>
             </div>
-            <div className="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+            <div className="w-full bg-slate-200 dark:bg-surface-l4 h-1.5 rounded-full overflow-hidden">
               <div className="bg-emerald-500 dark:bg-emerald-400 h-full rounded-full w-[94%]" />
             </div>
 
@@ -55,7 +55,7 @@ export const AtsInsightsPanel: React.FC = () => {
               <span className="text-slate-600 dark:text-slate-400">Experience Strength</span>
               <span className="font-bold text-slate-900 dark:text-white font-mono">88%</span>
             </div>
-            <div className="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+            <div className="w-full bg-slate-200 dark:bg-surface-l4 h-1.5 rounded-full overflow-hidden">
               <div className="bg-purple-600 dark:bg-purple-400 h-full rounded-full w-[88%]" />
             </div>
           </div>
@@ -63,7 +63,7 @@ export const AtsInsightsPanel: React.FC = () => {
       </div>
 
       {/* Missing Keywords Card */}
-      <div className="bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl p-4 space-y-2.5 shadow-sm transition-colors">
+      <div className="bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle rounded-xl p-4 space-y-2.5 shadow-sm transition-colors">
         <div className="flex items-center justify-between">
           <span className="text-xs font-bold text-slate-900 dark:text-white font-display flex items-center gap-1.5">
             <AlertCircle size={14} className="text-amber-600 dark:text-amber-400" />
@@ -89,7 +89,7 @@ export const AtsInsightsPanel: React.FC = () => {
       </div>
 
       {/* Formatting & Readability Checks */}
-      <div className="bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 rounded-xl p-4 space-y-2.5 shadow-sm transition-colors">
+      <div className="bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle rounded-xl p-4 space-y-2.5 shadow-sm transition-colors">
         <span className="text-xs font-bold text-slate-900 dark:text-white font-display flex items-center gap-1.5">
           <FileCheck size={14} className="text-purple-600 dark:text-purple-400" />
           <span>ATS Formatting Checks</span>
@@ -102,7 +102,7 @@ export const AtsInsightsPanel: React.FC = () => {
             { label: 'Standard Section Heading Syntax', status: 'Passed', pass: true },
             { label: 'Quantified Bullet Metrics Ratio', status: '80% (3 of 4 bullets)', pass: true },
           ].map((check, idx) => (
-            <div key={idx} className="flex items-center justify-between p-2 rounded-lg bg-white dark:bg-slate-950/40 border border-slate-200 dark:border-white/5">
+            <div key={idx} className="flex items-center justify-between p-2 rounded-lg bg-white dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle">
               <span className="text-slate-700 dark:text-slate-300 text-[11px] font-medium">{check.label}</span>
               <div className="flex items-center gap-1 text-[10px] font-bold font-mono text-emerald-600 dark:text-emerald-400">
                 <CheckCircle2 size={12} />

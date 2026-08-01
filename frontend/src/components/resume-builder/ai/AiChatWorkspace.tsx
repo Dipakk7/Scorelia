@@ -59,7 +59,7 @@ export const AiChatWorkspace: React.FC = () => {
   return (
     <div className="flex flex-col h-full space-y-3 text-left font-sans">
       {/* Top Controls Bar */}
-      <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-2.5 transition-colors">
+      <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-border-subtle/30 pb-2.5 transition-colors">
         <div className="flex items-center gap-2">
           <div className="p-1.5 rounded-xl bg-purple-100 dark:bg-purple-600/30 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-500/40">
             <Bot size={16} />
@@ -104,7 +104,7 @@ export const AiChatWorkspace: React.FC = () => {
                   'w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold font-mono',
                   msg.sender === 'user'
                     ? 'bg-purple-600 text-white shadow-sm'
-                    : 'bg-slate-200 dark:bg-slate-800 text-purple-700 dark:text-purple-300 border border-slate-300 dark:border-purple-500/30'
+                    : 'bg-slate-200 dark:bg-surface-l4 text-purple-700 dark:text-purple-300 border border-slate-300 dark:border-purple-500/30'
                 )}
               >
                 {msg.sender === 'user' ? <User size={13} /> : <Bot size={13} />}
@@ -116,7 +116,7 @@ export const AiChatWorkspace: React.FC = () => {
                   'p-3 rounded-xl text-xs leading-relaxed font-sans shadow-sm space-y-1',
                   msg.sender === 'user'
                     ? 'bg-purple-600 text-white rounded-tr-none'
-                    : 'bg-slate-100 dark:bg-slate-900/90 text-slate-900 dark:text-slate-200 border border-slate-200 dark:border-white/10 rounded-tl-none'
+                    : 'bg-slate-100 dark:bg-surface-l3 text-slate-900 dark:text-slate-200 border border-slate-200 dark:border-border-subtle rounded-tl-none'
                 )}
               >
                 <p className="m-0 whitespace-pre-wrap">{msg.text}</p>
@@ -159,7 +159,7 @@ export const AiChatWorkspace: React.FC = () => {
             }
           }}
           placeholder="Ask Scorelia AI to improve your resume..."
-          className="w-full bg-white dark:bg-slate-950/90 border border-slate-200 dark:border-white/10 rounded-xl pl-3 pr-10 py-2.5 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 resize-none transition-colors"
+          className="w-full bg-white dark:bg-surface-l4/80 border border-slate-200/80 dark:border-border-subtle/40 rounded-xl pl-3 pr-10 py-2.5 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 resize-none transition-colors"
         />
         <button
           type="button"

@@ -14,6 +14,13 @@
   --color-background: hsl(var(--background));
   --color-page: hsl(var(--background));
   --color-surface: var(--surface);
+  --color-surface-l0: var(--surface-l0);
+  --color-surface-l1: var(--surface-l1);
+  --color-surface-l2: var(--surface-l2);
+  --color-surface-l3: var(--surface-l3);
+  --color-surface-l4: var(--surface-l4);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-elevated: var(--border-elevated);
   --color-surface-hover: var(--surface-hover);
   --color-surface-elevated: var(--elevated);
   --color-surface-glass: var(--surface-glass);
@@ -243,6 +250,15 @@
   --input: 240 5.9% 90%;
   --ring: 250 95% 64%;
 
+  /* Surface Elevation System - Light Mode Default */
+  --surface-l0: #f8fafc;
+  --surface-l1: #ffffff;
+  --surface-l2: #f1f5f9;
+  --surface-l3: #ffffff;
+  --surface-l4: #f8fafc;
+  --border-subtle: rgba(226, 232, 240, 0.8);
+  --border-elevated: rgba(203, 213, 225, 0.8);
+
   /* Direct CSS Variable mappings */
   --surface: hsl(var(--card));
   --surface-hover: hsl(var(--accent));
@@ -405,6 +421,15 @@
   --border: 240 10% 20%;
   --input: 240 10% 18%;
   --ring: 250 95% 64%;
+
+  /* Surface Elevation System - Dark Mode Hierarchy Parity */
+  --surface-l0: #07080e;
+  --surface-l1: #0a0b12;
+  --surface-l2: #0e0f18;
+  --surface-l3: #121420;
+  --surface-l4: #171928;
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-elevated: rgba(255, 255, 255, 0.07);
 
   /* Direct CSS Variable mappings */
   --surface: hsl(var(--card));

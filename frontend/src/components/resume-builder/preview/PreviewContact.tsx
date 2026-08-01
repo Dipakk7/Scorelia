@@ -17,20 +17,24 @@ export const PreviewContact: React.FC<PreviewContactProps> = ({
   website,
   linkedin,
   github,
-  accentColor = '#1e40af',
 }) => {
+  const items = [
+    email && { key: 'email', val: email },
+    phone && { key: 'phone', val: phone },
+    location && { key: 'location', val: location },
+    linkedin && { key: 'linkedin', val: linkedin },
+    github && { key: 'github', val: github },
+    website && { key: 'website', val: website },
+  ].filter(Boolean) as { key: string; val: string }[]
+
   return (
-    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-slate-600 font-medium pt-1">
-      {email && <span>📧 {email}</span>}
-      {phone && <span>📞 {phone}</span>}
-      {location && <span>📍 {location}</span>}
-      {linkedin && (
-        <span style={{ color: accentColor }} className="font-semibold">
-          🌐 {linkedin}
-        </span>
-      )}
-      {github && <span>🐙 {github}</span>}
-      {website && <span className="text-purple-700">🔗 {website}</span>}
+    <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[10px] text-slate-600 font-medium pt-1">
+      {items.map((item, idx) => (
+        <React.Fragment key={item.key}>
+          {idx > 0 && <span className="text-slate-300 select-none">•</span>}
+          <span>{item.val}</span>
+        </React.Fragment>
+      ))}
     </div>
   )
 }

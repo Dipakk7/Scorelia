@@ -75,7 +75,7 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
   return (
     <div
       className={cn(
-        'flex flex-col h-full bg-white/90 dark:bg-[#0b0c14]/80 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-xl overflow-hidden text-left relative transition-colors',
+        'flex flex-col h-full bg-slate-50/50 dark:bg-surface-l1 border border-slate-200/80 dark:border-border-subtle/40 rounded-2xl shadow-none overflow-hidden text-left relative transition-colors',
         isFullscreen && 'fixed inset-0 z-50 rounded-none border-none'
       )}
     >
@@ -88,19 +88,19 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
       />
 
       {/* Sticky Top Preview Toolbar */}
-      <div className="sticky top-0 z-20 p-3 border-b border-slate-200 dark:border-white/10 flex flex-wrap items-center justify-between gap-3 bg-white/90 dark:bg-[#0b0c14]/90 backdrop-blur-md transition-colors">
+      <div className="sticky top-0 z-20 p-2.5 px-3.5 border-b border-slate-200/80 dark:border-border-subtle/30 flex flex-nowrap items-center justify-between gap-2.5 bg-white/90 dark:bg-surface-l2/50 backdrop-blur-md overflow-x-auto custom-scrollbar whitespace-nowrap transition-colors">
         {/* Left: Title, Active Template Picker Trigger & Live Badge */}
-        <div className="flex items-center gap-2.5">
-          <h3 className="text-xs font-bold text-slate-900 dark:text-white font-display m-0 flex items-center gap-1.5">
-            <FileText size={15} className="text-purple-600 dark:text-purple-400" />
-            <span>Document Preview</span>
+        <div className="flex items-center gap-2.5 shrink-0">
+          <h3 className="h-8 text-xs font-bold text-slate-900 dark:text-white font-display m-0 flex items-center gap-1.5">
+            <FileText size={14} className="text-purple-600 dark:text-purple-400" />
+            <span className="text-slate-800 dark:text-slate-200 font-bold">Document Preview</span>
           </h3>
 
           {/* Template Selector Trigger */}
           <button
             type="button"
             onClick={() => setIsGalleryOpen(true)}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-purple-50 dark:bg-purple-600/20 border border-purple-300 dark:border-purple-500/40 hover:bg-purple-100 dark:hover:bg-purple-600/30 text-purple-900 dark:text-purple-200 cursor-pointer transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+            className="h-8 flex items-center gap-1.5 px-2.5 rounded-lg text-xs font-semibold bg-purple-100/70 dark:bg-purple-600/20 border border-purple-300 dark:border-purple-500/40 hover:bg-purple-200/70 dark:hover:bg-purple-600/30 text-purple-900 dark:text-purple-200 cursor-pointer transition-all shadow-none focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
           >
             <Layout size={13} />
             <span>{activeTemplate.name}</span>
@@ -108,16 +108,16 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
           </button>
 
           {/* Live Status Pill */}
-          <span className="hidden sm:flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30 font-mono">
+          <span className="hidden sm:flex h-8 items-center gap-1.5 px-2.5 rounded-lg text-xs font-semibold bg-emerald-50 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30 font-mono">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
             Live
           </span>
         </div>
 
         {/* Right Toolbar Controls: Zoom (-/+, Fit Width, Fit Page, Zoom %), Device Toggles, Theme, Refresh, Fullscreen, Download */}
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex items-center gap-2 shrink-0">
           {/* Zoom Controls */}
-          <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-950 px-2 py-1 rounded-lg border border-slate-200 dark:border-white/10 text-xs font-mono text-slate-700 dark:text-slate-300">
+          <div className="h-8 flex items-center gap-1 bg-slate-100/70 dark:bg-surface-l4/80 px-2 rounded-lg border border-slate-200/80 dark:border-border-subtle/40 text-xs font-mono text-slate-700 dark:text-slate-300">
             <button
               type="button"
               onClick={() => handleZoom(-10)}
@@ -143,31 +143,31 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
           <button
             type="button"
             onClick={handleFitWidth}
-            className="hidden md:block px-2 py-1 rounded-lg text-[10px] font-bold bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+            className="hidden md:flex h-8 items-center px-2.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle hover:bg-slate-200 dark:hover:bg-surface-l3 text-slate-700 dark:text-slate-300 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
           >
             Fit Width
           </button>
           <button
             type="button"
             onClick={handleFitPage}
-            className="hidden md:block px-2 py-1 rounded-lg text-[10px] font-bold bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+            className="hidden md:flex h-8 items-center px-2.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle hover:bg-slate-200 dark:hover:bg-surface-l3 text-slate-700 dark:text-slate-300 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
           >
             Fit Page
           </button>
 
           {/* Page Selector Indicator */}
-          <span className="hidden sm:inline-block px-2 py-0.5 rounded text-[10px] font-mono text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
+          <span className="hidden sm:flex h-8 items-center px-2.5 rounded-lg text-xs font-mono text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle">
             Page 1 of 1
           </span>
 
           {/* Device Toggles */}
-          <div className="hidden sm:flex items-center bg-slate-100 dark:bg-slate-950 p-0.5 rounded-lg border border-slate-200 dark:border-white/10">
+          <div className="hidden sm:flex h-8 items-center bg-slate-100 dark:bg-surface-l4 p-0.5 rounded-lg border border-slate-200 dark:border-border-subtle">
             <button
               type="button"
               onClick={() => setPreviewDevice('desktop')}
               className={cn(
-                'p-1 rounded text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer',
-                previewDevice === 'desktop' && 'bg-white dark:bg-white/10 text-slate-900 dark:text-white font-bold shadow-sm'
+                'h-7 w-7 flex items-center justify-center rounded text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer',
+                previewDevice === 'desktop' && 'bg-white dark:bg-surface-l3 text-slate-900 dark:text-white font-bold shadow-sm'
               )}
               title="Desktop View"
             >
@@ -177,8 +177,8 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
               type="button"
               onClick={() => setPreviewDevice('tablet')}
               className={cn(
-                'p-1 rounded text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer',
-                previewDevice === 'tablet' && 'bg-white dark:bg-white/10 text-slate-900 dark:text-white font-bold shadow-sm'
+                'h-7 w-7 flex items-center justify-center rounded text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer',
+                previewDevice === 'tablet' && 'bg-white dark:bg-surface-l3 text-slate-900 dark:text-white font-bold shadow-sm'
               )}
               title="Tablet View"
             >
@@ -188,8 +188,8 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
               type="button"
               onClick={() => setPreviewDevice('mobile')}
               className={cn(
-                'p-1 rounded text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer',
-                previewDevice === 'mobile' && 'bg-white dark:bg-white/10 text-slate-900 dark:text-white font-bold shadow-sm'
+                'h-7 w-7 flex items-center justify-center rounded text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer',
+                previewDevice === 'mobile' && 'bg-white dark:bg-surface-l3 text-slate-900 dark:text-white font-bold shadow-sm'
               )}
               title="Mobile View"
             >
@@ -201,7 +201,7 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
           <button
             type="button"
             onClick={() => setPreviewTheme(previewTheme === 'light' ? 'dark' : 'light')}
-            className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+            className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
             title="Toggle Paper Theme"
             aria-label="Toggle Paper Theme"
           >
@@ -212,7 +212,7 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
           <button
             type="button"
             onClick={() => setZoomLevel(100)}
-            className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+            className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
             title="Reset Zoom & Refresh"
             aria-label="Reset Zoom & Refresh"
           >
@@ -223,7 +223,7 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
           <button
             type="button"
             onClick={() => setIsFullscreen(!isFullscreen)}
-            className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+            className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
             title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
             aria-label="Toggle Fullscreen"
           >
@@ -234,7 +234,7 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
           <button
             type="button"
             onClick={handleDownloadPDF}
-            className="p-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 cursor-pointer shadow-md transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+            className="w-8 h-8 flex items-center justify-center rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 cursor-pointer shadow-sm transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
             title="Download PDF"
             aria-label="Download PDF"
           >
@@ -244,12 +244,12 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
       </div>
 
       {/* A4 Paper Document Preview Container */}
-      <div className="flex-1 overflow-auto p-4 sm:p-6 md:p-8 lg:p-10 bg-slate-100/90 dark:bg-[#07080e]/95 flex justify-center items-start custom-scrollbar transition-colors">
-        {/* A4 Proportioned Canvas Wrapper - Always Pure White Paper with Crisp Print Typography */}
+      <div className="flex-1 overflow-auto p-3 sm:p-4 md:p-5 bg-slate-200/70 dark:bg-[#0c0d15] flex justify-center items-start custom-scrollbar transition-colors">
+        {/* A4 Proportioned Canvas Wrapper - Softened Eye-Friendly Paper Surface with Premium Elevation */}
         <div
           className={cn(
-            'w-full max-w-[720px] transition-all duration-200 ease-out transform-gpu origin-top mx-auto text-left rounded-sm border-none shadow-[0_20px_60px_-15px_rgba(0,0,0,0.25)] dark:shadow-[0_25px_70px_-15px_rgba(0,0,0,0.85)] ring-1 ring-slate-900/10 overflow-hidden print-document-canvas my-2 bg-white text-slate-900 selection:bg-purple-500/20 antialiased motion-reduce:transition-none',
-            previewTheme === 'dark' && 'ring-slate-400/20'
+            'w-full max-w-[850px] transition-all duration-200 ease-out transform-gpu origin-top mx-auto text-left rounded-sm border border-slate-300/60 dark:border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.28)] dark:shadow-[0_16px_48px_rgba(0,0,0,0.65)] ring-1 ring-slate-900/5 dark:ring-white/5 overflow-hidden print-document-canvas my-1 bg-[#FAFBFD] dark:bg-[#FAFBFC] print:bg-white text-slate-900 selection:bg-purple-500/20 antialiased motion-reduce:transition-none',
+            previewTheme === 'dark' && 'bg-[#181926] text-slate-100 ring-slate-400/20'
           )}
           style={{
             aspectRatio: '210 / 297', // Standard A4 proportions
@@ -262,7 +262,7 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
       </div>
 
       {/* Bottom Status Footer */}
-      <div className="p-3 border-t border-slate-200 dark:border-white/10 bg-white dark:bg-[#0b0c14] flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600 dark:text-slate-400 transition-colors">
+      <div className="py-2 px-3.5 border-t border-slate-200/80 dark:border-border-subtle/30 bg-white/90 dark:bg-surface-l2/40 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600 dark:text-slate-400 transition-colors">
         <div className="flex items-center gap-1.5">
           <CheckCircle2 size={14} className="text-emerald-600 dark:text-emerald-400" />
           <span>{saveStatus}</span>

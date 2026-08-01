@@ -155,7 +155,7 @@ export const ResumeBuilderShell: React.FC<ResumeBuilderShellProps> = ({
       />
 
       {/* Mobile/Tablet Panel View Selector */}
-      <div className="flex lg:hidden items-center bg-white/90 dark:bg-slate-900/80 p-1.5 rounded-2xl border border-slate-200 dark:border-white/10 gap-1 shadow-sm transition-colors">
+      <div className="flex lg:hidden items-center bg-white/90 dark:bg-surface-l2 p-1.5 rounded-2xl border border-slate-200 dark:border-border-subtle gap-1 shadow-sm transition-colors">
         <button
           type="button"
           onClick={() => setMobileActivePanel('editor')}

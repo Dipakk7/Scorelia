@@ -30,7 +30,7 @@ export const AiActionCard: React.FC<AiActionCardProps> = ({ action, onExecute })
   }
 
   return (
-    <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 hover:border-purple-500/40 transition-colors space-y-2.5 text-left group">
+    <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle hover:border-purple-500/40 transition-colors space-y-2.5 text-left group">
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2">
           <div className="p-1.5 rounded-lg bg-purple-100 dark:bg-purple-600/20 text-purple-700 dark:text-purple-400 group-hover:scale-105 transition-transform">
