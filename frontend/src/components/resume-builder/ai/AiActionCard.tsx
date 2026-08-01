@@ -30,17 +30,17 @@ export const AiActionCard: React.FC<AiActionCardProps> = ({ action, onExecute })
   }
 
   return (
-    <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle hover:border-purple-500/40 transition-colors space-y-2.5 text-left group">
+    <div className="px-3 py-2.5 rounded-[10px] bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle hover:border-purple-500/40 transition-colors space-y-1.5 text-left group shrink-0">
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-purple-100 dark:bg-purple-600/20 text-purple-700 dark:text-purple-400 group-hover:scale-105 transition-transform">
-            <Icon size={16} />
+          <div className="p-1 rounded-[10px] bg-purple-100 dark:bg-purple-600/20 text-purple-700 dark:text-purple-400 group-hover:scale-105 transition-transform shrink-0">
+            <Icon size={14} />
           </div>
           <div>
-            <h4 className="text-xs font-bold text-slate-900 dark:text-white font-display m-0">
+            <h4 className="text-xs font-bold text-slate-900 dark:text-white font-display m-0 leading-tight">
               {action.title}
             </h4>
-            <span className="text-[9px] font-mono text-slate-500 dark:text-slate-400 uppercase">
+            <span className="text-[9px] font-mono text-slate-500 dark:text-slate-400 uppercase leading-tight">
               {action.category}
             </span>
           </div>
@@ -52,12 +52,12 @@ export const AiActionCard: React.FC<AiActionCardProps> = ({ action, onExecute })
         </span>
       </div>
 
-      <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-snug m-0 font-sans">
+      <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-tight m-0 font-sans">
         {action.description}
       </p>
 
       {/* Action Button & Status Feedback */}
-      <div className="pt-1 flex justify-end">
+      <div className="pt-0.5 flex justify-end">
         {status === 'success' ? (
           <div className="flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 font-mono">
             <CheckCircle2 size={13} />
@@ -69,7 +69,7 @@ export const AiActionCard: React.FC<AiActionCardProps> = ({ action, onExecute })
             onClick={handleTrigger}
             disabled={status === 'loading'}
             className={cn(
-              'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
+              'flex items-center gap-1.5 px-2.5 py-1 rounded-[10px] text-xs font-bold transition-all cursor-pointer border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
               status === 'loading'
                 ? 'bg-purple-100 dark:bg-purple-950 text-purple-800 dark:text-purple-300 border-purple-300 dark:border-purple-500/30'
                 : 'bg-purple-100 dark:bg-purple-600/30 hover:bg-purple-200 dark:hover:bg-purple-600/50 text-purple-900 dark:text-purple-200 border-purple-300 dark:border-purple-500/40'

@@ -5,7 +5,7 @@ export const AtsInsightsPanel: React.FC = () => {
   return (
     <div className="space-y-4 text-left font-sans">
       {/* ATS Score Overview Card */}
-      <div className="bg-slate-50 dark:bg-surface-l3 border border-slate-200/80 dark:border-border-subtle/40 rounded-xl p-4 space-y-3 shadow-none transition-colors">
+      <div className="bg-slate-50 dark:bg-surface-l3 border border-slate-200/80 dark:border-border-subtle/40 rounded-[10px] p-4 space-y-3 shadow-none transition-colors">
         <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-border-subtle pb-2">
           <div className="flex items-center gap-1.5">
             <Target size={14} className="text-purple-600 dark:text-purple-400" />
@@ -63,7 +63,7 @@ export const AtsInsightsPanel: React.FC = () => {
       </div>
 
       {/* Missing Keywords Card */}
-      <div className="bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle rounded-xl p-4 space-y-2.5 shadow-sm transition-colors">
+      <div className="bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle rounded-[10px] p-4 space-y-2.5 shadow-sm transition-colors">
         <div className="flex items-center justify-between">
           <span className="text-xs font-bold text-slate-900 dark:text-white font-display flex items-center gap-1.5">
             <AlertCircle size={14} className="text-amber-600 dark:text-amber-400" />
@@ -89,7 +89,7 @@ export const AtsInsightsPanel: React.FC = () => {
       </div>
 
       {/* Formatting & Readability Checks */}
-      <div className="bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle rounded-xl p-4 space-y-2.5 shadow-sm transition-colors">
+      <div className="bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle rounded-[10px] p-4 space-y-2.5 shadow-sm transition-colors">
         <span className="text-xs font-bold text-slate-900 dark:text-white font-display flex items-center gap-1.5">
           <FileCheck size={14} className="text-purple-600 dark:text-purple-400" />
           <span>ATS Formatting Checks</span>
@@ -102,7 +102,7 @@ export const AtsInsightsPanel: React.FC = () => {
             { label: 'Standard Section Heading Syntax', status: 'Passed', pass: true },
             { label: 'Quantified Bullet Metrics Ratio', status: '80% (3 of 4 bullets)', pass: true },
           ].map((check, idx) => (
-            <div key={idx} className="flex items-center justify-between p-2 rounded-lg bg-white dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle">
+            <div key={idx} className="flex items-center justify-between p-2 rounded-[10px] bg-white dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle">
               <span className="text-slate-700 dark:text-slate-300 text-[11px] font-medium">{check.label}</span>
               <div className="flex items-center gap-1 text-[10px] font-bold font-mono text-emerald-600 dark:text-emerald-400">
                 <CheckCircle2 size={12} />

@@ -28,7 +28,6 @@ export const ResumeBuilderShell: React.FC<ResumeBuilderShellProps> = ({
   const queryClient = useQueryClient()
   const [activeStep, setActiveStep] = useState<number>(1)
   const [mobileActivePanel, setMobileActivePanel] = useState<'editor' | 'preview' | 'assistant'>('editor')
-  const effectiveResumeName = resumeName || initialResumeName
 
   // Fetch all resumes list from backend
   const { data: resumesResponse } = useQuery<any>({
@@ -52,6 +51,15 @@ export const ResumeBuilderShell: React.FC<ResumeBuilderShellProps> = ({
   const [resumeData, setResumeData] = useState<SampleResumeData>(() =>
     parsedDataToSampleResume(currentResumeRecord?.parsed_data, currentResumeRecord?.original_filename || initialResumeName)
   )
+
+  const effectiveResumeName =
+    currentResumeRecord?.original_filename ||
+    (resumeData?.professionalTitle
+      ? `${resumeData.professionalTitle} Resume`
+      : resumeData?.fullName
+      ? `${resumeData.fullName} Resume`
+      : resumeName || initialResumeName) ||
+    'Untitled Resume'
 
   const [saveStatus, setSaveStatus] = useState<string>('Auto-saved 1 min ago')
   const [isSaving, setIsSaving] = useState<boolean>(false)
@@ -137,10 +145,10 @@ export const ResumeBuilderShell: React.FC<ResumeBuilderShellProps> = ({
   ]
 
   return (
-    <div className="flex flex-col h-full min-h-[calc(100vh-5rem)] space-y-4 md:space-y-5 text-left font-sans animate-fade-in pb-4">
+    <div className="h-full flex flex-col gap-3 md:gap-3.5 text-left font-sans animate-fade-in min-h-0 overflow-hidden">
       {/* Top Header */}
       <ResumeBuilderHeader
-        resumeName={currentResumeRecord?.original_filename || effectiveResumeName}
+        resumeName={effectiveResumeName}
         activeStep={activeStep}
         totalSteps={8}
         completionPercentage={Math.round((activeStep / 8) * 100)}
@@ -155,7 +163,7 @@ export const ResumeBuilderShell: React.FC<ResumeBuilderShellProps> = ({
       />
 
       {/* Mobile/Tablet Panel View Selector */}
-      <div className="flex lg:hidden items-center bg-white/90 dark:bg-surface-l2 p-1.5 rounded-2xl border border-slate-200 dark:border-border-subtle gap-1 shadow-sm transition-colors">
+      <div className="flex lg:hidden items-center bg-white/90 dark:bg-surface-l2 p-1.5 rounded-2xl border border-slate-200 dark:border-border-subtle gap-1 shadow-sm transition-colors shrink-0">
         <button
           type="button"
           onClick={() => setMobileActivePanel('editor')}
@@ -197,12 +205,12 @@ export const ResumeBuilderShell: React.FC<ResumeBuilderShellProps> = ({
         </button>
       </div>
 
-      {/* Main 3-Column Workspace Grid */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 min-h-[650px] items-stretch">
+      {/* Main 3-Column Workspace Grid (Equal Height for Personal, Preview & Assistant) */}
+      <div className="flex-1 min-h-0 overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 items-stretch">
         {/* Left Editing Workspace Panel */}
         <div
           className={cn(
-            'lg:col-span-4 xl:col-span-4 h-full min-h-[600px]',
+            'lg:col-span-4 xl:col-span-4 h-full min-h-0 overflow-hidden',
             mobileActivePanel === 'editor' ? 'block' : 'hidden lg:block'
           )}
         >
@@ -219,7 +227,7 @@ export const ResumeBuilderShell: React.FC<ResumeBuilderShellProps> = ({
         {/* Center Resume Preview Panel */}
         <div
           className={cn(
-            'lg:col-span-5 xl:col-span-5 h-full min-h-[600px]',
+            'lg:col-span-5 xl:col-span-5 h-full min-h-0 overflow-hidden',
             mobileActivePanel === 'preview' ? 'block' : 'hidden lg:block'
           )}
         >
@@ -229,7 +237,7 @@ export const ResumeBuilderShell: React.FC<ResumeBuilderShellProps> = ({
         {/* Right AI & ATS Assistant Panel */}
         <div
           className={cn(
-            'lg:col-span-3 xl:col-span-3 h-full min-h-[600px]',
+            'lg:col-span-3 xl:col-span-3 h-full min-h-0 overflow-hidden',
             mobileActivePanel === 'assistant' ? 'block' : 'hidden lg:block'
           )}
         >

@@ -39,7 +39,7 @@ export const AiSuggestionCard: React.FC<AiSuggestionCardProps> = ({
 
   if (isApplied) {
     return (
-      <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-300 dark:border-emerald-500/30 flex items-center justify-between text-xs text-emerald-800 dark:text-emerald-300 transition-colors">
+      <div className="p-3 rounded-[10px] bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-300 dark:border-emerald-500/30 flex items-center justify-between text-xs text-emerald-800 dark:text-emerald-300 transition-colors">
         <div className="flex items-center gap-2">
           <CheckCircle2 size={15} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
           <span className="font-semibold font-mono">Applied: {suggestion.title}</span>
@@ -50,7 +50,7 @@ export const AiSuggestionCard: React.FC<AiSuggestionCardProps> = ({
   }
 
   return (
-    <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle hover:border-purple-500/40 transition-all space-y-2.5 text-left">
+    <div className="p-3.5 rounded-[10px] bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle hover:border-purple-500/40 transition-all space-y-2.5 text-left">
       {/* Top Meta Bar */}
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-1.5">

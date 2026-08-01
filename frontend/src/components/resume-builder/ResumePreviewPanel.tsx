@@ -75,7 +75,7 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
   return (
     <div
       className={cn(
-        'flex flex-col h-full bg-slate-50/50 dark:bg-surface-l1 border border-slate-200/80 dark:border-border-subtle/40 rounded-2xl shadow-none overflow-hidden text-left relative transition-colors',
+        'flex flex-col h-full min-h-0 bg-slate-50/50 dark:bg-surface-l1 border border-slate-200/80 dark:border-border-subtle/40 rounded-[10px] shadow-none overflow-hidden text-left relative transition-colors',
         isFullscreen && 'fixed inset-0 z-50 rounded-none border-none'
       )}
     >
@@ -88,14 +88,14 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
       />
 
       {/* Top Preview Toolbar Header Bar (Fixed-Width Controls, Horizontal Scroll Restored) */}
-      <div className="sticky top-0 z-20 h-[46px] min-h-[46px] px-3.5 bg-white dark:bg-surface-l2 border-b border-slate-200 dark:border-border-subtle overflow-x-auto overflow-y-hidden whitespace-nowrap scroll-smooth custom-scrollbar transition-colors box-border">
+      <div className="sticky top-0 z-20 h-[46px] min-h-[46px] shrink-0 flex-none px-3.5 bg-slate-100/60 dark:bg-surface-l2/50 border-b border-slate-200/80 dark:border-border-subtle/30 overflow-x-auto overflow-y-hidden whitespace-nowrap scroll-smooth custom-scrollbar transition-colors box-border">
         <div className="flex flex-nowrap items-center justify-between gap-4 min-w-max w-full h-full">
           {/* Left Section: Active Template & Live Status Indicator */}
           <div className="flex items-center gap-3 shrink-0 flex-none">
             <button
               type="button"
               onClick={() => setIsGalleryOpen(true)}
-              className="h-8 flex items-center gap-1.5 px-3 rounded-lg text-xs font-semibold bg-purple-100/70 dark:bg-purple-600/20 border border-purple-300 dark:border-purple-500/40 hover:bg-purple-200/70 dark:hover:bg-purple-600/30 text-purple-900 dark:text-purple-200 cursor-pointer transition-colors shadow-none focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80 shrink-0 flex-none"
+              className="h-8 flex items-center gap-1.5 px-3 rounded-[10px] text-xs font-semibold bg-purple-100/70 dark:bg-purple-600/20 border border-purple-300 dark:border-purple-500/40 hover:bg-purple-200/70 dark:hover:bg-purple-600/30 text-purple-900 dark:text-purple-200 cursor-pointer transition-colors shadow-none focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80 shrink-0 flex-none"
             >
               <Layout size={13} />
               <span>{activeTemplate.name}</span>
@@ -160,15 +160,15 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
             </span>
 
             {/* Group 3: View Mode Toggle Segmented Control (Exact Equal Segments) */}
-            <div className="hidden sm:inline-flex h-8 items-center bg-slate-100 dark:bg-surface-l4 p-0.5 rounded-lg border border-slate-200 dark:border-border-subtle shrink-0 flex-none gap-0.5">
+            <div className="hidden sm:inline-flex h-8 items-center bg-slate-100 dark:bg-surface-l4 p-0.5 rounded-[10px] border border-slate-200 dark:border-border-subtle shrink-0 flex-none gap-0.5">
               <button
                 type="button"
                 onClick={() => setPreviewDevice('desktop')}
                 className={cn(
                   'w-8 h-7 flex-none flex items-center justify-center rounded-md transition-colors cursor-pointer',
                   previewDevice === 'desktop'
-                    ? 'bg-white dark:bg-surface-l3 text-slate-900 dark:text-white font-bold shadow-sm border border-slate-200/80 dark:border-white/10'
-                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-purple-100/70 dark:bg-purple-600/20 border border-purple-300 dark:border-purple-500/40 text-purple-900 dark:text-purple-200 font-bold shadow-none'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-surface-l3/60 border border-transparent'
                 )}
                 title="Desktop View"
               >
@@ -180,8 +180,8 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
                 className={cn(
                   'w-8 h-7 flex-none flex items-center justify-center rounded-md transition-colors cursor-pointer',
                   previewDevice === 'tablet'
-                    ? 'bg-white dark:bg-surface-l3 text-slate-900 dark:text-white font-bold shadow-sm border border-slate-200/80 dark:border-white/10'
-                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-purple-100/70 dark:bg-purple-600/20 border border-purple-300 dark:border-purple-500/40 text-purple-900 dark:text-purple-200 font-bold shadow-none'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-surface-l3/60 border border-transparent'
                 )}
                 title="Tablet View"
               >
@@ -193,8 +193,8 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
                 className={cn(
                   'w-8 h-7 flex-none flex items-center justify-center rounded-md transition-colors cursor-pointer',
                   previewDevice === 'mobile'
-                    ? 'bg-white dark:bg-surface-l3 text-slate-900 dark:text-white font-bold shadow-sm border border-slate-200/80 dark:border-white/10'
-                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-purple-100/70 dark:bg-purple-600/20 border border-purple-300 dark:border-purple-500/40 text-purple-900 dark:text-purple-200 font-bold shadow-none'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-surface-l3/60 border border-transparent'
                 )}
                 title="Mobile View"
               >
@@ -208,7 +208,7 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
               <button
                 type="button"
                 onClick={() => setPreviewTheme(previewTheme === 'light' ? 'dark' : 'light')}
-                className="w-8 h-8 shrink-0 flex-none flex items-center justify-center rounded-lg bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-surface-l3 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+                className="w-8 h-8 shrink-0 flex-none flex items-center justify-center rounded-[10px] bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-surface-l3 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
                 title="Toggle Paper Theme"
                 aria-label="Toggle Paper Theme"
               >
@@ -219,7 +219,7 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
               <button
                 type="button"
                 onClick={() => setZoomLevel(100)}
-                className="w-8 h-8 shrink-0 flex-none flex items-center justify-center rounded-lg bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-surface-l3 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+                className="w-8 h-8 shrink-0 flex-none flex items-center justify-center rounded-[10px] bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-surface-l3 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
                 title="Reset Zoom & Refresh"
                 aria-label="Reset Zoom & Refresh"
               >
@@ -230,7 +230,7 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
               <button
                 type="button"
                 onClick={() => setIsFullscreen(!isFullscreen)}
-                className="w-8 h-8 shrink-0 flex-none flex items-center justify-center rounded-lg bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-surface-l3 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+                className="w-8 h-8 shrink-0 flex-none flex items-center justify-center rounded-[10px] bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-surface-l3 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
                 title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
                 aria-label="Toggle Fullscreen"
               >
@@ -241,7 +241,7 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
               <button
                 type="button"
                 onClick={handleDownloadPDF}
-                className="w-8 h-8 shrink-0 flex-none flex items-center justify-center rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 cursor-pointer shadow-sm transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+                className="w-8 h-8 shrink-0 flex-none flex items-center justify-center rounded-[10px] bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 cursor-pointer shadow-sm transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
                 title="Download PDF"
                 aria-label="Download PDF"
               >
@@ -253,7 +253,7 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
     </div>
 
       {/* A4 Paper Document Preview Container */}
-      <div className="flex-1 overflow-auto p-3 sm:p-4 md:p-5 bg-slate-200/70 dark:bg-[#0c0d15] flex justify-center items-start custom-scrollbar transition-colors">
+      <div className="flex-1 min-h-0 overflow-auto p-3 sm:p-4 md:p-5 bg-slate-200/70 dark:bg-[#0c0d15] flex justify-center items-start custom-scrollbar transition-colors">
         {/* A4 Proportioned Canvas Wrapper - Softened Eye-Friendly Paper Surface with Premium Elevation */}
         <div
           className={cn(
@@ -271,7 +271,7 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
       </div>
 
       {/* Bottom Status Footer */}
-      <div className="py-2 px-3.5 border-t border-slate-200/80 dark:border-border-subtle/30 bg-white/90 dark:bg-surface-l2/40 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600 dark:text-slate-400 transition-colors">
+      <div className="h-[46px] min-h-[46px] px-3.5 border-t border-slate-200/80 dark:border-border-subtle/30 bg-white/90 dark:bg-surface-l2/40 flex items-center justify-between gap-3 text-xs text-slate-600 dark:text-slate-400 transition-colors shrink-0 flex-none box-border">
         <div className="flex items-center gap-1.5">
           <CheckCircle2 size={14} className="text-emerald-600 dark:text-emerald-400" />
           <span>{saveStatus}</span>

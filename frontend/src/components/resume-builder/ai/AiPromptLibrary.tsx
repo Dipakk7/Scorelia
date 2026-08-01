@@ -63,7 +63,7 @@ export const AiPromptLibrary: React.FC<AiPromptLibraryProps> = ({ onSelectPrompt
             key={promptText}
             type="button"
             onClick={() => onSelectPrompt(promptText)}
-            className="px-2.5 py-1 rounded-xl text-[11px] font-medium bg-slate-100/80 dark:bg-surface-l4/70 hover:bg-purple-100/80 dark:hover:bg-purple-600/20 text-slate-700 dark:text-slate-300 hover:text-purple-900 dark:hover:text-purple-200 border border-slate-200/80 dark:border-border-subtle/40 hover:border-purple-300 dark:hover:border-purple-500/40 transition-all cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+            className="px-2.5 py-1 rounded-[10px] text-[11px] font-medium bg-slate-100/80 dark:bg-surface-l4/70 hover:bg-purple-100/80 dark:hover:bg-purple-600/20 text-slate-700 dark:text-slate-300 hover:text-purple-900 dark:hover:text-purple-200 border border-slate-200/80 dark:border-border-subtle/40 hover:border-purple-300 dark:hover:border-purple-500/40 transition-all cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
           >
             {promptText}
           </button>

@@ -41,7 +41,7 @@ export default function ResumesPage() {
   const activeResume = resumesArray[0]
 
   return (
-    <div className="w-full text-left animate-fade-in font-sans">
+    <div className="-m-4 md:-m-6 lg:-m-8 p-3 sm:p-4 lg:p-5 w-[calc(100%+2rem)] md:w-[calc(100%+3rem)] lg:w-[calc(100%+4rem)] h-[calc(100vh-4.25rem)] flex flex-col min-h-0 overflow-hidden text-left animate-fade-in font-sans">
       <ResumeBuilderShell
         resumeId={activeResume?.id}
         resumeName={activeResume?.original_filename || 'Dipak Khandagale Resume'}

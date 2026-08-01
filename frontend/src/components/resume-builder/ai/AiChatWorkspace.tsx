@@ -57,23 +57,23 @@ export const AiChatWorkspace: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col h-full space-y-3 text-left font-sans">
-      {/* Top Controls Bar */}
-      <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-border-subtle/30 pb-2.5 transition-colors">
-        <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-xl bg-purple-100 dark:bg-purple-600/30 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-500/40">
+    <div className="flex flex-col h-full min-h-0 overflow-hidden text-left font-sans p-4 space-y-3">
+      {/* Top Controls Bar (Fixed Header with unclipped padding and vertical centering) */}
+      <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-border-subtle/30 py-2 min-h-[48px] shrink-0 overflow-visible transition-colors">
+        <div className="flex items-center gap-2.5 min-w-0">
+          <div className="p-1.5 rounded-xl bg-purple-100 dark:bg-purple-600/30 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-500/40 shrink-0 flex items-center justify-center">
             <Bot size={16} />
           </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-xs font-bold text-slate-900 dark:text-white font-display">Scorelia AI Workspace</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
+          <div className="flex flex-col justify-center min-w-0 py-0.5">
+            <div className="flex items-center gap-1.5 leading-tight">
+              <span className="text-xs font-bold text-slate-900 dark:text-white font-display leading-tight truncate">Scorelia AI Workspace</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse shrink-0" />
             </div>
-            <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">Model: GPT-4o / Claude 3.5 Sonnet</span>
+            <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono leading-tight truncate">Model: GPT-4o / Claude 3.5 Sonnet</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 shrink-0">
           <button
             type="button"
             onClick={handleClearChat}
@@ -85,8 +85,8 @@ export const AiChatWorkspace: React.FC = () => {
         </div>
       </div>
 
-      {/* Messages Thread Container */}
-      <div className="flex-1 overflow-y-auto space-y-3 pr-1 max-h-[360px] custom-scrollbar">
+      {/* Messages Thread Container (Fills All Available Remaining Space & Scrolls) */}
+      <div className="flex-1 min-h-0 overflow-y-auto space-y-3 pr-1 custom-scrollbar">
         {messages.length === 0 ? (
           <AiEmptyState />
         ) : (
@@ -101,7 +101,7 @@ export const AiChatWorkspace: React.FC = () => {
               {/* Avatar */}
               <div
                 className={cn(
-                  'w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold font-mono',
+                  'w-7 h-7 rounded-[10px] flex items-center justify-center shrink-0 text-xs font-bold font-mono',
                   msg.sender === 'user'
                     ? 'bg-purple-600 text-white shadow-sm'
                     : 'bg-slate-200 dark:bg-surface-l4 text-purple-700 dark:text-purple-300 border border-slate-300 dark:border-purple-500/30'
@@ -113,7 +113,7 @@ export const AiChatWorkspace: React.FC = () => {
               {/* Message Bubble */}
               <div
                 className={cn(
-                  'p-3 rounded-xl text-xs leading-relaxed font-sans shadow-sm space-y-1',
+                  'p-3 rounded-[10px] text-xs leading-relaxed font-sans shadow-sm space-y-1',
                   msg.sender === 'user'
                     ? 'bg-purple-600 text-white rounded-tr-none'
                     : 'bg-slate-100 dark:bg-surface-l3 text-slate-900 dark:text-slate-200 border border-slate-200 dark:border-border-subtle rounded-tl-none'
@@ -136,38 +136,41 @@ export const AiChatWorkspace: React.FC = () => {
 
         {/* Thinking Skeleton */}
         {isThinking && (
-          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-purple-50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-500/20 text-xs text-purple-800 dark:text-purple-300">
+          <div className="flex items-center gap-2 p-2.5 rounded-[10px] bg-purple-50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-500/20 text-xs text-purple-800 dark:text-purple-300">
             <div className="w-3.5 h-3.5 rounded-full border-2 border-purple-600 dark:border-purple-400 border-t-transparent animate-spin shrink-0" />
             <span className="font-mono text-[11px] animate-pulse">Scorelia AI is composing response...</span>
           </div>
         )}
       </div>
 
-      {/* Suggested Prompt Chips */}
-      <AiPromptLibrary onSelectPrompt={(prompt) => handleSendMessage(prompt)} />
+      {/* Bottom Anchored Section (Suggested Prompts + Prompt Input Pinned via mt-auto shrink-0) */}
+      <div className="mt-auto shrink-0 space-y-3 pt-1">
+        <AiPromptLibrary onSelectPrompt={(prompt) => handleSendMessage(prompt)} />
 
-      {/* Prompt Composer Box */}
-      <div className="relative flex items-center pt-1">
-        <textarea
-          rows={2}
-          value={inputPrompt}
-          onChange={(e) => setInputPrompt(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-              e.preventDefault()
-              handleSendMessage()
-            }
-          }}
-          placeholder="Ask Scorelia AI to improve your resume..."
-          className="w-full bg-white dark:bg-surface-l4/80 border border-slate-200/80 dark:border-border-subtle/40 rounded-xl pl-3 pr-10 py-2.5 text-xs font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500/80 focus-visible:ring-2 focus-visible:ring-purple-500/80 resize-none transition-colors"
-        />
-        <button
-          type="button"
-          onClick={() => handleSendMessage()}
-          className="absolute right-2 top-3 p-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white cursor-pointer hover:opacity-90 transition-opacity shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
-        >
-          <Send size={13} />
-        </button>
+        <div className="relative flex items-center w-full">
+          <input
+            type="text"
+            value={inputPrompt}
+            onChange={(e) => setInputPrompt(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault()
+                handleSendMessage()
+              }
+            }}
+            placeholder="Ask Scorelia AI to improve your resume..."
+            className="w-full h-10 bg-slate-50 dark:bg-surface-l3 border border-slate-300/80 dark:border-border-subtle/80 rounded-[10px] pl-3.5 pr-11 text-xs font-medium text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 caret-purple-600 dark:caret-purple-400 focus:outline-none focus:border-purple-500 dark:focus:border-purple-400 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors shadow-inner"
+          />
+          <button
+            type="button"
+            onClick={() => handleSendMessage()}
+            className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white cursor-pointer hover:opacity-95 active:scale-95 transition-all shadow-sm flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80 shrink-0"
+            title="Send prompt"
+            aria-label="Send prompt"
+          >
+            <Send size={12} />
+          </button>
+        </div>
       </div>
     </div>
   )

@@ -28,7 +28,7 @@ export const ResumeBuilderStepper: React.FC<ResumeBuilderStepperProps> = ({
   onStepClick,
 }) => {
   return (
-    <div className="w-full overflow-x-auto custom-scrollbar bg-slate-100/60 dark:bg-surface-l2/50 border border-slate-200/60 dark:border-border-subtle/40 px-2 py-2 rounded-xl transition-colors shadow-none">
+    <div className="w-full shrink-0 flex-none overflow-x-auto custom-scrollbar bg-slate-100/60 dark:bg-surface-l2/50 border border-slate-200/60 dark:border-border-subtle/40 px-2 py-1.5 rounded-[10px] transition-colors shadow-none">
       <nav className="flex items-center gap-1 min-w-max" role="tablist" aria-label="Resume builder step navigation">
         {BUILDER_STEPS.map((step) => {
           const isActive = step.id === activeStep
@@ -44,7 +44,7 @@ export const ResumeBuilderStepper: React.FC<ResumeBuilderStepperProps> = ({
               aria-label={`Step ${step.id}: ${step.label}`}
               onClick={() => onStepClick(step.id)}
               className={cn(
-                'flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium transition-all duration-150 cursor-pointer select-none border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
+                'flex items-center gap-1.5 px-2.5 py-1 rounded-[10px] text-xs font-medium transition-all duration-150 cursor-pointer select-none border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
                 isActive
                   ? 'bg-purple-100/70 dark:bg-purple-600/20 text-purple-900 dark:text-purple-200 border-purple-300 dark:border-purple-500/40 font-semibold shadow-none'
                   : isCompleted

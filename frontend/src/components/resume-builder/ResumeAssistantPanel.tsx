@@ -46,9 +46,9 @@ export const ResumeAssistantPanel: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col h-full bg-slate-50/50 dark:bg-surface-l1 border border-slate-200/80 dark:border-border-subtle/40 rounded-2xl shadow-none overflow-hidden text-left font-sans transition-colors">
-      {/* Workspace Tabs Header Bar */}
-      <div className="flex items-center gap-1 p-2 bg-slate-100/60 dark:bg-surface-l2/50 border-b border-slate-200/80 dark:border-border-subtle/30 overflow-x-auto custom-scrollbar" role="tablist" aria-label="AI Assistant workspace tabs">
+    <div className="flex flex-col h-full min-h-0 bg-slate-50/50 dark:bg-surface-l1 border border-slate-200/80 dark:border-border-subtle/40 rounded-[10px] shadow-none overflow-hidden text-left font-sans transition-colors">
+      {/* Workspace Tabs Header Bar (Fixed Top) */}
+      <div className="h-[46px] min-h-[46px] flex items-center gap-1 p-2 bg-slate-100/60 dark:bg-surface-l2/50 border-b border-slate-200/80 dark:border-border-subtle/30 shrink-0 flex-none overflow-x-auto custom-scrollbar box-border" role="tablist" aria-label="AI Assistant workspace tabs">
         {[
           { id: 'chat', label: 'AI Chat', icon: Bot },
           { id: 'actions', label: 'Actions', icon: Sparkles },
@@ -66,7 +66,7 @@ export const ResumeAssistantPanel: React.FC = () => {
               aria-label={`${tab.label} workspace tab`}
               onClick={() => setActiveTab(tab.id as any)}
               className={cn(
-                'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer border select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
+                'flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] text-xs font-bold whitespace-nowrap transition-all cursor-pointer border select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
                 isActive
                   ? 'bg-purple-100/70 dark:bg-purple-600/20 text-purple-900 dark:text-purple-200 border-purple-300 dark:border-purple-500/40 shadow-none'
                   : 'bg-transparent text-slate-600 dark:text-slate-400 border-transparent hover:bg-slate-200/50 dark:hover:bg-surface-l4/50 hover:text-slate-900 dark:hover:text-slate-200'
@@ -79,12 +79,12 @@ export const ResumeAssistantPanel: React.FC = () => {
         })}
       </div>
 
-      {/* Workspace Active Body */}
-      <div className="flex-1 overflow-y-auto p-4 custom-scrollbar space-y-4">
+      {/* Workspace Active Content Area (Redistributed Flex Height) */}
+      <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
         {activeTab === 'chat' && <AiChatWorkspace />}
         {activeTab === 'actions' && <AiActionsList />}
         {activeTab === 'ats' && (
-          <div className="space-y-4">
+          <div className="flex-1 min-h-0 overflow-y-auto p-4 custom-scrollbar space-y-4">
             <AtsInsightsPanel />
 
             {/* AI Suggestions Cards Stack */}
@@ -111,7 +111,7 @@ export const ResumeAssistantPanel: React.FC = () => {
         )}
 
         {activeTab === 'template' && (
-          <div className="space-y-4">
+          <div className="flex-1 min-h-0 overflow-y-auto p-4 custom-scrollbar space-y-4">
             <div className="bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle rounded-xl p-4 space-y-3 shadow-sm">
               <div className="flex items-center justify-between border-b border-slate-200/80 dark:border-border-subtle pb-2">
                 <span className="text-xs font-bold text-slate-900 dark:text-white font-display">Active Template Card</span>
