@@ -65,14 +65,14 @@ export const ResumeIntelligenceHeader: React.FC<ResumeIntelligenceHeaderProps> =
               <div className="relative">
                 <button
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-xl bg-white border border-slate-200/90 text-xs font-semibold text-slate-800 hover:text-slate-900 hover:border-slate-300 shadow-xs dark:bg-slate-900/80 dark:border-slate-800 dark:text-slate-300 dark:hover:text-white dark:hover:border-slate-700 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+                  className="flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-xl bg-slate-100/90 border border-slate-200/90 text-xs font-bold text-slate-900 hover:bg-slate-200/70 hover:border-slate-300/90 shadow-xs dark:bg-slate-900/80 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-800/90 dark:hover:border-slate-700 transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
                   aria-expanded={isDropdownOpen}
                   aria-haspopup="listbox"
                   aria-label={`Selected Resume: ${currentTitle}. Click to change resume.`}
                 >
-                  <FileText className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
-                  <span className="max-w-[140px] truncate font-bold">{currentTitle}</span>
-                  <ChevronDown className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+                  <FileText className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400 shrink-0" />
+                  <span className="max-w-[140px] truncate font-bold text-slate-900 dark:text-white">{currentTitle}</span>
+                  <ChevronDown className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400 shrink-0" />
                 </button>
 
                 {isDropdownOpen && (
@@ -124,16 +124,17 @@ export const ResumeIntelligenceHeader: React.FC<ResumeIntelligenceHeaderProps> =
           </span>
 
           <Button
+            variant="outline"
             onClick={onReanalyze}
             disabled={isReanalyzing}
-            className="bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-200 text-xs md:text-sm font-semibold rounded-xl px-4 py-2.5 min-h-[44px] gap-2 transition-all cursor-pointer shadow-sm focus-visible:ring-2 focus-visible:ring-purple-500"
+            className="bg-slate-100/90 border border-slate-200/90 hover:bg-slate-200/70 hover:border-slate-300/90 text-slate-900 dark:bg-slate-900/80 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-800/90 dark:hover:border-slate-700 text-xs md:text-sm font-bold rounded-xl px-4 py-2.5 min-h-[44px] gap-2 transition-all duration-200 cursor-pointer shadow-xs focus-visible:ring-2 focus-visible:ring-purple-500"
           >
             {isReanalyzing ? (
-              <Loader2 className="w-4 h-4 text-purple-400 animate-spin" />
+              <Loader2 className="w-4 h-4 text-purple-600 dark:text-purple-400 animate-spin shrink-0" />
             ) : (
-              <Sparkles className="w-4 h-4 text-purple-400" />
+              <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0" />
             )}
-            <span>{isReanalyzing ? 'Re-analyzing...' : 'Re-analyze Resume'}</span>
+            <span className="text-slate-900 dark:text-slate-200 font-bold">{isReanalyzing ? 'Re-analyzing...' : 'Re-analyze Resume'}</span>
           </Button>
 
           <Button
