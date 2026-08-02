@@ -73,12 +73,12 @@ export const PriorityRecommendationCard: React.FC = () => {
             <div
               key={rec.id}
               className={cn(
-                'rounded-xl bg-slate-950/60 border transition-all duration-200 overflow-hidden',
+                'rounded-xl transition-all duration-200 overflow-hidden shadow-sm',
                 rec.completed
-                  ? 'border-emerald-500/40 bg-emerald-950/10 opacity-75'
+                  ? 'border border-emerald-500/40 bg-emerald-950/20 opacity-80'
                   : isExpanded
-                  ? 'border-purple-500/50 shadow-md'
-                  : 'border-slate-800/80 hover:border-purple-500/30'
+                  ? 'border border-purple-500/50 bg-[#161828] shadow-md'
+                  : 'border border-slate-800/80 bg-[#121422] hover:border-slate-700/80'
               )}
             >
               {/* Header Bar */}
@@ -98,7 +98,7 @@ export const PriorityRecommendationCard: React.FC = () => {
                       {rec.priority} Priority
                     </span>
 
-                    <span className="text-[10px] font-mono text-purple-300 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
+                    <span className="text-[10px] font-mono text-purple-300 bg-purple-500/15 px-2 py-0.5 rounded border border-purple-500/30">
                       {rec.category}
                     </span>
 
@@ -114,7 +114,7 @@ export const PriorityRecommendationCard: React.FC = () => {
                 </div>
 
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-xs font-bold font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">
+                  <span className="text-xs font-bold font-mono text-emerald-300 bg-emerald-500/15 px-2.5 py-1 rounded-lg border border-emerald-500/30">
                     {rec.estimatedImpact}
                   </span>
 
@@ -125,7 +125,7 @@ export const PriorityRecommendationCard: React.FC = () => {
                       'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer',
                       rec.completed
                         ? 'bg-emerald-500 text-white shadow-sm'
-                        : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700'
+                        : 'bg-[#181a2e] hover:bg-[#20233d] text-slate-200 border border-slate-700/80'
                     )}
                   >
                     <Check className="w-3.5 h-3.5" />
@@ -144,7 +144,7 @@ export const PriorityRecommendationCard: React.FC = () => {
 
               {/* Expandable Details */}
               {isExpanded && (
-                <div className="p-4 bg-slate-900/50 border-t border-slate-800/80 space-y-2 text-xs text-slate-300 animate-in fade-in duration-150">
+                <div className="p-4 bg-[#0e101a] border-t border-slate-800/80 space-y-2 text-xs text-slate-300 animate-in fade-in duration-150">
                   <p className="text-slate-300 leading-relaxed">{rec.description}</p>
                   <div className="font-semibold text-purple-300 pt-1">Implementation Steps:</div>
                   <ul className="list-disc list-inside space-y-1 text-slate-400 pl-1">

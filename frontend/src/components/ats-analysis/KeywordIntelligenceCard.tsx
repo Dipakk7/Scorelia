@@ -80,7 +80,7 @@ export const KeywordIntelligenceCard: React.FC = () => {
       </div>
 
       {/* Keyword Chips Feed */}
-      <div className="flex flex-wrap gap-2 max-h-64 overflow-y-auto p-1 scrollbar-none">
+      <div className="flex flex-wrap gap-2 max-h-64 overflow-y-auto p-3 bg-slate-950/90 border border-slate-800/80 rounded-xl shadow-inner scrollbar-none">
         {filtered.map((item) => {
           const isAdded = addedIds.has(item.id)
           const isMatched = item.category === 'matched'

@@ -51,18 +51,10 @@ export const ResumeIntelligenceHeader: React.FC<ResumeIntelligenceHeaderProps> =
 
   return (
     <header aria-label="Resume Intelligence Header" className="flex flex-col gap-5 mb-6">
-      {/* Top Breadcrumb & Actions Bar */}
+      {/* Top Actions Bar */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         {/* Left Title Block */}
         <div>
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-400 mb-1">
-            <span className="hover:text-slate-200 transition-colors">Resume Intelligence</span>
-            <span>&gt;</span>
-            <span className="text-slate-200 font-medium capitalize">
-              {String(currentTab).replace('-', ' ')}
-            </span>
-          </nav>
-
           <div className="flex items-center gap-3">
             <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white">
               Resume Intelligence

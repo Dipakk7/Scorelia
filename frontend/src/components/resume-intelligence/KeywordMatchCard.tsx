@@ -125,15 +125,15 @@ export const KeywordMatchCard: React.FC<KeywordMatchCardProps> = ({
 
       {/* Category Pills Selector */}
       <div className="mt-3 flex flex-col gap-2">
-        <div className="flex items-center gap-1 overflow-x-auto custom-scrollbar no-scrollbar pb-1">
+        <div className="flex items-center gap-1.5 overflow-x-auto custom-scrollbar no-scrollbar pb-1">
           {categoriesList.map((cat, idx) => (
             <button
               key={cat.category}
               onClick={() => setSelectedCategoryIdx(idx)}
               className={`px-3 py-2 min-h-[44px] rounded-lg text-[10px] font-semibold whitespace-nowrap transition-colors cursor-pointer flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 ${
                 selectedCategoryIdx === idx
-                  ? 'bg-purple-600/30 text-purple-200 border border-purple-500/40'
-                  : 'bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-slate-200'
+                  ? 'bg-purple-600/30 text-purple-200 border border-purple-500/40 shadow-sm'
+                  : 'bg-[#0e101b] text-slate-400 border border-slate-800/80 hover:text-slate-200 hover:bg-slate-800/50'
               }`}
               aria-selected={selectedCategoryIdx === idx}
               aria-label={`Select ${cat.category} keyword category`}
@@ -145,22 +145,22 @@ export const KeywordMatchCard: React.FC<KeywordMatchCardProps> = ({
 
         {/* Keyword Pills Preview Cloud */}
         {activeCategory && (
-          <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto custom-scrollbar p-2 bg-slate-950/60 rounded-xl border border-slate-900">
+          <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto custom-scrollbar p-2.5 bg-[#121422] rounded-xl border border-slate-800/80 shadow-sm">
             {matchedKeywordsList.slice(0, 4).map((kw) => (
               <span
                 key={kw}
-                className="inline-flex items-center gap-1 px-2 py-1 min-h-[32px] rounded-md text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                className="inline-flex items-center gap-1 px-2.5 py-1 min-h-[32px] rounded-lg text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"
               >
-                <CheckCircle2 className="w-2.5 h-2.5" />
+                <CheckCircle2 className="w-2.5 h-2.5 text-emerald-400" />
                 {kw}
               </span>
             ))}
             {missingKeywordsList.slice(0, 2).map((kw) => (
               <span
                 key={kw}
-                className="inline-flex items-center gap-1 px-2 py-1 min-h-[32px] rounded-md text-[10px] font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20"
+                className="inline-flex items-center gap-1 px-2.5 py-1 min-h-[32px] rounded-lg text-[10px] font-semibold bg-rose-500/15 text-rose-300 border border-rose-500/30"
               >
-                <XCircle className="w-2.5 h-2.5" />
+                <XCircle className="w-2.5 h-2.5 text-rose-400" />
                 {kw}
               </span>
             ))}

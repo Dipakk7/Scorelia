@@ -65,7 +65,7 @@ export const MiniMetricCards: React.FC<MiniMetricCardsProps> = React.memo(({
   metrics = defaultMetrics,
 }) => {
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 h-full">
+    <div className="grid grid-cols-2 grid-rows-2 gap-3 md:gap-3.5 h-full">
       {metrics.map((item) => {
         const trend = item.trend || [50, 60, 55, 70, 85, 90]
         const minVal = Math.min(...trend)
@@ -83,19 +83,19 @@ export const MiniMetricCards: React.FC<MiniMetricCardsProps> = React.memo(({
         return (
           <Card
             key={item.id}
-            className="bg-[#0b0c14]/90 border-slate-800/80 p-4 rounded-2xl flex flex-col justify-between backdrop-blur-md relative overflow-hidden shadow-md group hover:border-slate-700/80 hover:bg-slate-900/60 transition-all duration-300"
+            className="bg-[#0b0c14]/90 border-slate-800/80 p-3.5 sm:p-4 rounded-2xl flex flex-col justify-between backdrop-blur-md relative overflow-hidden shadow-md group hover:border-slate-700/80 hover:bg-slate-900/60 transition-all duration-300 min-h-0"
           >
             {/* Top Row: Value & Badge */}
             <div className="flex flex-col gap-1 z-10">
-              <div className="flex items-center justify-between gap-1">
-                <span className="text-2xl md:text-3xl font-extrabold text-white tracking-tight font-mono">
+              <div className="flex items-center justify-between gap-1.5">
+                <span className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight font-mono">
                   {item.value}
                 </span>
 
                 {item.badgeText && (
                   <span
                     className={cn(
-                      'text-[10px] font-bold px-2 py-0.5 rounded-full border flex items-center gap-1',
+                      'text-[10px] font-bold px-2 py-0.5 rounded-full border flex items-center gap-1 shrink-0',
                       item.badgeVariant === 'emerald' &&
                         'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
                       item.badgeVariant === 'amber' &&
@@ -122,7 +122,7 @@ export const MiniMetricCards: React.FC<MiniMetricCardsProps> = React.memo(({
             </div>
 
             {/* Bottom Row: Dynamic SVG Sparkline */}
-            <div className="mt-3 h-8 w-full relative z-0 opacity-80 group-hover:opacity-100 transition-opacity">
+            <div className="mt-2 h-6 sm:h-7 w-full relative z-0 opacity-80 group-hover:opacity-100 transition-opacity">
               <svg
                 className="w-full h-full overflow-visible"
                 viewBox="0 0 100 30"

@@ -101,21 +101,21 @@ export const CompetitorBenchmarkCard: React.FC<CompetitorBenchmarkCardProps> = (
         <div className="relative">
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="flex items-center gap-1.5 px-3 py-2 min-h-[44px] rounded-lg bg-slate-900 border border-slate-800 text-[11px] font-semibold text-slate-300 hover:text-white hover:border-slate-700 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+            className="flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-lg bg-[#161828] border border-slate-700/70 shadow-md text-xs transition-all cursor-pointer hover:bg-[#1e2136] hover:border-purple-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:border-purple-500"
             aria-haspopup="listbox"
             aria-expanded={isDropdownOpen}
             aria-label={`Select Role Benchmark. Current role: ${role}`}
           >
-            <Users className="w-3.5 h-3.5 text-purple-400" />
-            <span>{role}</span>
-            <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+            <Users className="w-3.5 h-3.5 text-purple-300 shrink-0" />
+            <span className="text-white font-bold text-xs">{role}</span>
+            <ChevronDown className={`w-3.5 h-3.5 text-slate-300 shrink-0 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180 text-purple-300' : ''}`} />
           </button>
 
           {isDropdownOpen && (
             <div
               role="listbox"
               aria-label="Target Role Benchmarks"
-              className="absolute right-0 top-full mt-1 w-48 bg-[#0f111a] border border-slate-800 rounded-xl shadow-2xl z-50 p-1 flex flex-col gap-0.5"
+              className="absolute right-0 top-full mt-1.5 w-48 bg-[#10121d] border border-slate-700/80 rounded-xl shadow-2xl backdrop-blur-md z-50 p-1 flex flex-col gap-0.5 animate-in fade-in duration-150"
             >
               {Object.keys(mapData).map((r) => (
                 <button
@@ -128,8 +128,8 @@ export const CompetitorBenchmarkCard: React.FC<CompetitorBenchmarkCardProps> = (
                   }}
                   className={`text-left px-2.5 py-2 min-h-[44px] rounded-lg text-xs transition-colors flex items-center ${
                     role === r
-                      ? 'bg-purple-600/20 text-purple-300 font-semibold'
-                      : 'text-slate-300 hover:bg-slate-800/60 hover:text-white'
+                      ? 'bg-purple-600/30 text-white font-bold border border-purple-500/40'
+                      : 'text-slate-200 hover:bg-[#1a1d30] hover:text-white font-medium'
                   }`}
                 >
                   {r}

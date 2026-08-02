@@ -145,7 +145,7 @@ export const KeywordAnalysisCard: React.FC = () => {
           <span className="text-[11px] text-slate-500">Click &apos;+ Add&apos; to include missing keyword in resume draft</span>
         </div>
 
-        <div className="flex flex-wrap gap-2 max-h-64 overflow-y-auto p-1 scrollbar-none">
+        <div className="flex flex-wrap gap-2 max-h-64 overflow-y-auto p-3 bg-slate-950/90 border border-slate-800/80 rounded-xl shadow-inner scrollbar-none">
           {filteredKeywords.map((k) => {
             const isAdded = addedKeywords.has(k.id)
             const isMatched = k.status === 'matched'

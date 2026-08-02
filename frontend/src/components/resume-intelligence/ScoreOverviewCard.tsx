@@ -51,15 +51,15 @@ export const ScoreOverviewCard: React.FC<ScoreOverviewCardProps> = React.memo(({
   )
 
   return (
-    <Card className="bg-[#0b0c14]/90 border-slate-800/80 p-5 md:p-6 rounded-2xl relative overflow-hidden backdrop-blur-md flex flex-col justify-between h-full shadow-lg">
-      <h3 className="text-sm font-semibold text-slate-200 mb-4 tracking-tight">
+    <Card className="bg-[#0b0c14]/90 border-slate-800/80 p-5 md:p-6 lg:p-7 rounded-2xl relative overflow-hidden backdrop-blur-md flex flex-col justify-between h-full shadow-lg">
+      <h3 className="text-sm font-semibold text-slate-200 mb-5 md:mb-6 tracking-tight">
         Resume Intelligence Score
       </h3>
 
-      <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center flex-1">
+      <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-start flex-1">
         {/* Left Side: Semi-Circular Gauge Meter */}
-        <div className="sm:col-span-5 flex flex-col items-center justify-center">
-          <div className="relative w-44 h-24 flex justify-center items-end">
+        <div className="sm:col-span-5 flex flex-col items-center justify-center text-center">
+          <div className="relative w-44 h-24 flex justify-center items-start overflow-hidden">
             <svg
               className="w-44 h-44 -rotate-180 transform"
               viewBox="0 0 160 160"
@@ -99,34 +99,34 @@ export const ScoreOverviewCard: React.FC<ScoreOverviewCardProps> = React.memo(({
             </svg>
 
             {/* Centered Score Label inside semi-circle */}
-            <div className="absolute inset-0 flex flex-col items-center justify-end pb-1">
+            <div className="absolute inset-0 flex flex-col items-center justify-end pb-1.5 pointer-events-none">
               <span className="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-none font-mono">
                 {animatedScore}
               </span>
-              <span className="text-xs text-slate-400 font-medium">/{maxScore}</span>
+              <span className="text-xs text-slate-400 font-medium mt-0.5">/{maxScore}</span>
             </div>
           </div>
 
           {/* Status Badge & Percentile Tooltip */}
-          <div className="flex flex-col items-center gap-1.5 mt-2">
+          <div className="flex flex-col items-center gap-1.5 mt-3">
             <span className="inline-flex items-center px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-sm">
               {statusText}
             </span>
 
             <Tooltip content="Your score places you higher than 82% of all analyzed candidate resumes in your target job tier.">
               <button
-                className="flex items-center gap-1 min-h-[44px] text-[11px] text-slate-400 hover:text-slate-200 font-medium transition-colors cursor-help focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+                className="flex items-center gap-1 min-h-[36px] text-[11px] text-slate-400 hover:text-slate-200 font-medium transition-colors cursor-help focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
                 aria-label={`Percentile Information: ${percentileText}`}
               >
                 <span>{percentileText}</span>
-                <Info className="w-3 h-3 text-slate-500" />
+                <Info className="w-3.5 h-3.5 text-slate-500" />
               </button>
             </Tooltip>
           </div>
         </div>
 
         {/* Right Side: Copy & Insights Action */}
-        <div className="sm:col-span-7 flex flex-col justify-center gap-3 text-center sm:text-left">
+        <div className="sm:col-span-7 flex flex-col justify-start gap-3 text-center sm:text-left pt-1">
           <h4 className="text-base md:text-lg font-bold text-white leading-snug">
             {headlineText}
           </h4>

@@ -159,7 +159,7 @@ export const AiChatWorkspace: React.FC = () => {
               }
             }}
             placeholder="Ask Scorelia AI to improve your resume..."
-            className="w-full h-10 bg-slate-50 dark:bg-surface-l3 border border-slate-300/80 dark:border-border-subtle/80 rounded-[10px] pl-3.5 pr-11 text-xs font-medium text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 caret-purple-600 dark:caret-purple-400 focus:outline-none focus:border-purple-500 dark:focus:border-purple-400 focus-visible:ring-2 focus-visible:ring-purple-500/80 transition-colors shadow-inner"
+            className="w-full h-10 bg-[#ebedf1] dark:bg-[#121422] border border-slate-300/90 dark:border-slate-800/80 rounded-[10px] pl-3.5 pr-11 text-xs font-semibold text-[#111827] dark:text-white placeholder:text-slate-600 dark:placeholder:text-slate-400 caret-purple-600 focus:outline-none focus:border-purple-500 focus-visible:ring-2 focus-visible:ring-purple-500/20 transition-colors shadow-xs"
           />
           <button
             type="button"

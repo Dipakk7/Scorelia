@@ -46,6 +46,21 @@ export const ContentInsightsCard: React.FC<ContentInsightsCardProps> = ({
     { label: 'Projects', value: `${currentStats.projectCount ?? 5} items`, status: 'Verified', icon: FolderGit2 },
   ]
 
+  const getStatusBadgeStyle = (status: string) => {
+    switch (status.toLowerCase()) {
+      case 'optimal':
+      case 'verified':
+      case 'good':
+        return 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+      case 'high':
+        return 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30'
+      case 'solid':
+        return 'bg-purple-500/15 text-purple-300 border-purple-500/30'
+      default:
+        return 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+    }
+  }
+
   return (
     <Card className="bg-[#0b0c14]/90 border-slate-800/80 p-5 rounded-2xl flex flex-col justify-between backdrop-blur-md h-full shadow-lg">
       <h3 className="text-sm font-semibold text-slate-200 tracking-tight mb-3">
@@ -58,18 +73,18 @@ export const ContentInsightsCard: React.FC<ContentInsightsCardProps> = ({
           return (
             <div
               key={idx}
-              className="flex flex-col justify-between p-2 rounded-xl bg-slate-900/60 border border-slate-800/50 hover:border-slate-700/80 transition-all"
+              className="flex flex-col justify-between p-2 rounded-xl bg-[#121422] border border-slate-800/80 hover:border-slate-700/80 transition-all shadow-sm"
             >
               <div className="flex items-center justify-between text-[11px] text-slate-400">
                 <div className="flex items-center gap-1.5 truncate">
                   <Icon className="w-3 h-3 text-purple-400 shrink-0" />
-                  <span className="truncate">{item.label}</span>
+                  <span className="truncate font-medium">{item.label}</span>
                 </div>
               </div>
 
               <div className="flex items-center justify-between mt-1">
-                <span className="font-mono font-bold text-slate-100 text-xs">{item.value}</span>
-                <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <span className="font-mono font-bold text-white text-xs">{item.value}</span>
+                <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full border ${getStatusBadgeStyle(item.status)}`}>
                   {item.status}
                 </span>
               </div>

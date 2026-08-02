@@ -66,12 +66,12 @@ export const AIIntelligenceSidebar: React.FC<AIIntelligenceSidebarProps> = ({
         {/* AI Header */}
         <div className="flex items-center justify-between border-b border-slate-800/60 pb-3">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-purple-600/20 border border-purple-500/30 text-purple-400">
+            <div className="p-2 rounded-xl bg-purple-600/30 border border-purple-500/50 text-purple-300 shadow-sm">
               <Bot className="w-4 h-4 text-purple-300" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-slate-100">Scorelia AI Assistant</span>
+                <span className="text-xs font-extrabold text-white tracking-tight">Scorelia AI Assistant</span>
                 <span className="flex items-center gap-1 text-[10px] font-semibold text-emerald-400">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   Online
@@ -89,9 +89,9 @@ export const AIIntelligenceSidebar: React.FC<AIIntelligenceSidebarProps> = ({
                 },
               ])
             }
-            className="flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-900 border border-slate-800 text-[10px] font-semibold text-slate-300 hover:text-white hover:border-slate-700 transition-all cursor-pointer"
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[#ebedf1] hover:bg-[#e1e5eb] border border-slate-300/90 text-[11px] font-bold text-[#111827] dark:bg-[#161828] dark:hover:bg-[#1f2238] dark:border-slate-700/70 dark:text-slate-200 dark:hover:text-white transition-all cursor-pointer shadow-xs dark:shadow-md"
           >
-            <Plus className="w-3 h-3" />
+            <Plus className="w-3.5 h-3.5 text-[#111827] dark:text-slate-300 stroke-[2.5] dark:stroke-[2]" />
             <span>New Chat</span>
           </button>
         </div>
@@ -119,10 +119,10 @@ export const AIIntelligenceSidebar: React.FC<AIIntelligenceSidebarProps> = ({
             <button
               key={item.label}
               onClick={() => handlePillClick(item.label)}
-              className="text-left px-2 py-1.5 rounded-lg bg-slate-900/80 hover:bg-purple-950/40 border border-slate-800 hover:border-purple-800/40 text-[11px] font-medium text-slate-300 hover:text-purple-200 transition-all truncate cursor-pointer flex items-center justify-between gap-1"
+              className="text-left px-2.5 py-1.5 rounded-lg bg-[#ebedf1] hover:bg-[#e1e5eb] border border-slate-300/90 hover:border-purple-400 text-[11px] transition-all truncate cursor-pointer flex items-center justify-between gap-1 shadow-xs dark:bg-[#161828] dark:hover:bg-[#1f2238] dark:border-slate-700/70 dark:hover:border-purple-500/40 dark:shadow-md"
             >
-              <span className="truncate">{item.label}</span>
-              <span className="text-[9px] font-bold text-purple-400 shrink-0 font-mono">
+              <span className="truncate text-[#111827] dark:text-slate-100 font-bold">{item.label}</span>
+              <span className="text-[9px] font-extrabold text-purple-800 dark:text-purple-300 shrink-0 font-mono bg-purple-500/15 border border-purple-500/30 dark:bg-purple-500/20 px-1.5 py-0.5 rounded">
                 {item.badge}
               </span>
             </button>
@@ -137,14 +137,14 @@ export const AIIntelligenceSidebar: React.FC<AIIntelligenceSidebarProps> = ({
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Ask me anything about your resume..."
-            className="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-3 py-2 pr-9 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+            className="w-full bg-[#ebedf1] dark:bg-[#121422] border border-slate-300/90 dark:border-slate-800/80 rounded-xl px-3 py-2 pr-9 text-xs font-semibold text-[#111827] dark:text-slate-100 placeholder:text-slate-600 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all shadow-xs"
           />
           <button
             onClick={handleSend}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-lg text-purple-400 hover:text-purple-300 transition-colors cursor-pointer"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-lg text-purple-700 dark:text-purple-400 hover:text-purple-900 dark:hover:text-purple-300 transition-colors cursor-pointer"
             aria-label="Send Message"
           >
-            <Send className="w-3.5 h-3.5" />
+            <Send className="w-3.5 h-3.5 stroke-[2.5]" />
           </button>
         </div>
       </Card>
@@ -233,17 +233,17 @@ export const AIIntelligenceSidebar: React.FC<AIIntelligenceSidebarProps> = ({
 
               <ul className="flex flex-col gap-2 pt-1">
                 {MOCK_AI_INSIGHTS_DATA.priorityRecommendations.map((item) => (
-                  <li key={item.id} className="flex flex-col gap-1 p-2 rounded-xl bg-slate-900/60 border border-slate-800/60">
+                  <li key={item.id} className="flex flex-col gap-1.5 p-2.5 rounded-xl bg-[#121422] border border-slate-800/80 shadow-sm">
                     <div className="flex items-center justify-between text-xs">
                       <div className="flex items-center gap-1.5">
                         <AlertCircle className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                        <span className="font-semibold text-slate-100">{item.title}</span>
+                        <span className="font-bold text-white">{item.title}</span>
                       </div>
-                      <span className="text-[10px] font-bold text-emerald-400 font-mono bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.2 rounded-full">
+                      <span className="text-[10px] font-bold text-emerald-300 font-mono bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-full">
                         {item.impactText}
                       </span>
                     </div>
-                    <span className="text-[11px] text-slate-400 pl-5 leading-snug">
+                    <span className="text-[11px] text-slate-400 pl-5 leading-snug font-medium">
                       {item.explanation}
                     </span>
                   </li>
@@ -255,14 +255,14 @@ export const AIIntelligenceSidebar: React.FC<AIIntelligenceSidebarProps> = ({
           <div className="flex flex-col gap-3 text-xs text-slate-300">
             <p className="text-slate-400">High impact priority action steps for your resume:</p>
             {MOCK_AI_INSIGHTS_DATA.priorityRecommendations.map((rec) => (
-              <div key={rec.id} className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center justify-between gap-2">
+              <div key={rec.id} className="p-3 rounded-xl bg-[#121422] border border-slate-800/80 shadow-sm flex items-center justify-between gap-2">
                 <div className="flex flex-col">
-                  <span className="font-semibold text-slate-200">{rec.title}</span>
-                  <span className="text-[11px] text-slate-400">{rec.explanation}</span>
+                  <span className="font-bold text-white">{rec.title}</span>
+                  <span className="text-[11px] text-slate-400 font-medium">{rec.explanation}</span>
                 </div>
                 <button
                   onClick={() => toast.success(`Executing: ${rec.suggestedAction}`)}
-                  className="px-2.5 py-1 rounded-lg bg-purple-600/30 text-purple-300 border border-purple-500/40 text-[10px] font-semibold whitespace-nowrap hover:bg-purple-600/50 transition-colors cursor-pointer"
+                  className="px-2.5 py-1 rounded-lg bg-purple-600/30 text-purple-200 border border-purple-500/40 text-[10px] font-semibold whitespace-nowrap hover:bg-purple-600/50 transition-colors cursor-pointer"
                 >
                   {rec.suggestedAction}
                 </button>

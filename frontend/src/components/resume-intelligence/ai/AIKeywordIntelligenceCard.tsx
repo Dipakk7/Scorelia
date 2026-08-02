@@ -96,42 +96,44 @@ export const AIKeywordIntelligenceCard: React.FC<AIKeywordIntelligenceCardProps>
 
               {/* Expanded Keyword Cloud */}
               {isExpanded && (
-                <div className="flex flex-col gap-2 pt-2 border-t border-slate-800/60">
-                  <div>
-                    <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block mb-1.5">
-                      Matched ({cat.matched.length})
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {cat.matched.map((kw) => (
-                        <span
-                          key={kw}
-                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-xs font-medium bg-emerald-500/10 text-emerald-300 border border-emerald-500/20"
-                        >
-                          <CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0" />
-                          {kw}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {cat.missing.length > 0 && (
-                    <div className="mt-1">
-                      <span className="text-[10px] font-bold text-rose-400 uppercase tracking-wider block mb-1.5">
-                        Missing Critical ({cat.missing.length})
+                <div className="flex flex-col gap-2 pt-2.5 border-t border-slate-800/60">
+                  <div className="p-3 bg-slate-950/90 border border-slate-800/80 rounded-xl shadow-inner space-y-2.5">
+                    <div>
+                      <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block mb-1.5">
+                        Matched ({cat.matched.length})
                       </span>
                       <div className="flex flex-wrap gap-1.5">
-                        {cat.missing.map((kw) => (
+                        {cat.matched.map((kw) => (
                           <span
                             key={kw}
-                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-xs font-medium bg-rose-500/10 text-rose-300 border border-rose-500/20"
+                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-xs font-medium bg-emerald-500/10 text-emerald-300 border border-emerald-500/20"
                           >
-                            <XCircle className="w-3 h-3 text-rose-400 shrink-0" />
+                            <CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0" />
                             {kw}
                           </span>
                         ))}
                       </div>
                     </div>
-                  )}
+
+                    {cat.missing.length > 0 && (
+                      <div className="mt-1">
+                        <span className="text-[10px] font-bold text-rose-400 uppercase tracking-wider block mb-1.5">
+                          Missing Critical ({cat.missing.length})
+                        </span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {cat.missing.map((kw) => (
+                            <span
+                              key={kw}
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-xs font-medium bg-rose-500/10 text-rose-300 border border-rose-500/20"
+                            >
+                              <XCircle className="w-3 h-3 text-rose-400 shrink-0" />
+                              {kw}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
             </div>

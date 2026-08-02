@@ -270,13 +270,13 @@ export const QualityRadarCard: React.FC<QualityRadarCardProps> = ({
       </div>
 
       {/* Dynamic Hover Tooltip / Recommendation Footnote */}
-      <div className="mt-2 min-h-[48px] p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-start gap-2 text-xs">
+      <div className="mt-2 min-h-[48px] p-2.5 rounded-xl bg-[#121422] border border-slate-800/80 shadow-sm flex items-start gap-2 text-xs">
         <Info className="w-3.5 h-3.5 text-purple-400 shrink-0 mt-0.5" />
         <div className="flex flex-col gap-0.5">
-          <span className="font-bold text-slate-200">
+          <span className="font-bold text-white">
             {activePoint ? activePoint.label : 'Hover over any axis to inspect AI analysis'}
           </span>
-          <span className="text-[11px] text-slate-400 leading-snug">
+          <span className="text-[11px] text-slate-400 font-medium leading-snug">
             {activePoint
               ? activePoint.suggestion || activePoint.description
               : 'Radar compares your resume against top 10% hired candidates.'}
