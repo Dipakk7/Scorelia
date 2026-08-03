@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Card } from '@/components/ui/Card'
-import { KeyRound, CheckCircle2, XCircle, ChevronDown, ChevronUp, Sparkles } from 'lucide-react'
+import { KeyRound, CheckCircle2, XCircle, ChevronDown, Sparkles } from 'lucide-react'
+import { cn } from '@/lib/utils'
 import type { KeywordCategoryItem } from '@/components/resume-intelligence/KeywordMatchCard'
 
 interface AIKeywordIntelligenceCardProps {
@@ -40,25 +41,25 @@ export const AIKeywordIntelligenceCard: React.FC<AIKeywordIntelligenceCardProps>
   }
 
   return (
-    <Card className="bg-[#0b0c14]/90 border-slate-800/80 p-5 md:p-6 rounded-2xl flex flex-col justify-between backdrop-blur-md h-full shadow-lg">
+    <Card className="bg-[#0b0c14]/95 border border-slate-800/90 p-5 md:p-6 rounded-2xl flex flex-col justify-between backdrop-blur-md h-full shadow-xl select-none">
       {/* Header */}
-      <div className="flex items-center justify-between gap-2 mb-4">
-        <div className="flex items-center gap-2">
-          <div className="p-2 rounded-xl bg-purple-600/20 border border-purple-500/30 text-purple-300">
-            <KeyRound className="w-4 h-4 text-purple-300" />
+      <div className="flex items-center justify-between gap-3 mb-5">
+        <div className="flex items-center gap-3">
+          <div className="p-2.5 rounded-xl bg-purple-600/20 border border-purple-500/30 text-purple-300 shadow-xs shrink-0">
+            <KeyRound className="w-5 h-5 text-purple-300" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-slate-100 tracking-tight">
+            <h3 className="text-base font-extrabold text-white tracking-tight">
               Categorized Keyword Intelligence
             </h3>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-xs font-medium text-slate-400 mt-0.5">
               ATS keyword density analysis across domain skill buckets
             </p>
           </div>
         </div>
 
-        <span className="flex items-center gap-1 text-xs font-bold text-purple-300 bg-purple-500/10 border border-purple-500/20 px-2.5 py-1 rounded-full">
-          <Sparkles className="w-3 h-3 text-purple-400" />
+        <span className="hidden sm:flex items-center gap-1.5 text-xs font-bold text-purple-300 bg-purple-500/10 border border-purple-500/20 px-3 py-1 rounded-full shrink-0 shadow-xs">
+          <Sparkles className="w-3.5 h-3.5 text-purple-400" />
           Market Aligned
         </span>
       </div>
@@ -73,67 +74,73 @@ export const AIKeywordIntelligenceCard: React.FC<AIKeywordIntelligenceCardProps>
           return (
             <div
               key={cat.category}
-              className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col gap-2.5 transition-all hover:border-slate-700/80"
+              className="rounded-2xl bg-[#0e101c] border border-slate-800/90 overflow-hidden transition-all duration-200 hover:border-purple-500/40"
             >
-              <div
+              <button
+                type="button"
                 onClick={() => toggleCategory(cat.category)}
-                className="flex items-center justify-between cursor-pointer"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    toggleCategory(cat.category)
+                  }
+                }}
+                className="w-full p-4 flex items-center justify-between gap-3 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+                aria-expanded={isExpanded}
               >
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold text-slate-100">{cat.category}</span>
-                  <span className="text-[10px] font-bold px-2 py-0.2 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
+                <div className="flex items-center gap-2.5 flex-wrap min-w-0">
+                  <span className="text-xs sm:text-sm font-extrabold text-white truncate">{cat.category}</span>
+                  <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono shrink-0">
                     {matchPercent}% Match
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2 text-slate-400">
-                  <span className="text-[11px] font-mono">
+                <div className="flex items-center gap-3 shrink-0 text-slate-400">
+                  <span className="text-xs font-mono font-bold text-slate-300">
                     {cat.matched.length}/{totalCatKeywords}
                   </span>
-                  {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                  <ChevronDown className={cn('w-4 h-4 text-purple-400 transition-transform duration-200', isExpanded && 'rotate-180')} />
                 </div>
-              </div>
+              </button>
 
               {/* Expanded Keyword Cloud */}
               {isExpanded && (
-                <div className="flex flex-col gap-2 pt-2.5 border-t border-slate-800/60">
-                  <div className="p-3 bg-slate-950/90 border border-slate-800/80 rounded-xl shadow-inner space-y-2.5">
+                <div className="p-4 bg-[#07080e]/90 border-t border-slate-800/80 shadow-inner flex flex-col gap-4">
+                  <div>
+                    <span className="text-xs font-extrabold text-emerald-400 uppercase tracking-wider block mb-2">
+                      Matched Keywords ({cat.matched.length})
+                    </span>
+                    <div className="flex flex-wrap gap-2">
+                      {cat.matched.map((kw) => (
+                        <span
+                          key={kw}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 shadow-xs transition-all hover:bg-emerald-500/20 hover:border-emerald-500/40 cursor-default"
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                          {kw}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {cat.missing.length > 0 && (
                     <div>
-                      <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block mb-1.5">
-                        Matched ({cat.matched.length})
+                      <span className="text-xs font-extrabold text-rose-400 uppercase tracking-wider block mb-2">
+                        Missing Critical Keywords ({cat.missing.length})
                       </span>
-                      <div className="flex flex-wrap gap-1.5">
-                        {cat.matched.map((kw) => (
+                      <div className="flex flex-wrap gap-2">
+                        {cat.missing.map((kw) => (
                           <span
                             key={kw}
-                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-xs font-medium bg-emerald-500/10 text-emerald-300 border border-emerald-500/20"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-rose-500/15 text-rose-300 border border-rose-500/30 shadow-xs transition-all hover:bg-rose-500/20 hover:border-rose-500/40 cursor-default"
                           >
-                            <CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0" />
+                            <XCircle className="w-3.5 h-3.5 text-rose-400 shrink-0" />
                             {kw}
                           </span>
                         ))}
                       </div>
                     </div>
-
-                    {cat.missing.length > 0 && (
-                      <div className="mt-1">
-                        <span className="text-[10px] font-bold text-rose-400 uppercase tracking-wider block mb-1.5">
-                          Missing Critical ({cat.missing.length})
-                        </span>
-                        <div className="flex flex-wrap gap-1.5">
-                          {cat.missing.map((kw) => (
-                            <span
-                              key={kw}
-                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-xs font-medium bg-rose-500/10 text-rose-300 border border-rose-500/20"
-                            >
-                              <XCircle className="w-3 h-3 text-rose-400 shrink-0" />
-                              {kw}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                  )}
                 </div>
               )}
             </div>
