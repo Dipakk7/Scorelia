@@ -132,7 +132,7 @@ export const ResumeIntelligenceHeader: React.FC<ResumeIntelligenceHeaderProps> =
 
         {/* Right Header Actions */}
         <div className="flex items-center gap-2.5 flex-wrap">
-          <span className="text-xs text-slate-600 dark:text-slate-400 mr-2 font-mono hidden sm:inline-block">
+          <span className="text-xs text-slate-400 mr-2 font-mono hidden sm:inline-block">
             {lastAnalyzedText}
           </span>
 
@@ -140,19 +140,25 @@ export const ResumeIntelligenceHeader: React.FC<ResumeIntelligenceHeaderProps> =
             variant="outline"
             onClick={onReanalyze}
             disabled={isReanalyzing}
-            className="bg-slate-100/90 border border-slate-200/90 hover:bg-slate-200/70 hover:border-slate-300/90 text-slate-900 dark:bg-slate-900/80 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-800/90 dark:hover:border-slate-700 text-xs md:text-sm font-bold rounded-xl px-4 py-2.5 min-h-[44px] gap-2 transition-all duration-200 cursor-pointer shadow-xs focus-visible:ring-2 focus-visible:ring-purple-500"
+            className={cn(
+              'bg-[#18152e]/90 border border-purple-500/30 text-white text-xs md:text-sm font-bold rounded-xl px-4 py-2.5 min-h-[44px] gap-2 shadow-xs shadow-purple-950/30 backdrop-blur-sm transition-all duration-200 cursor-pointer select-none',
+              'bg-gradient-to-r from-purple-950/40 via-[#18152e] to-purple-950/40',
+              'hover:bg-[#201c3d] hover:border-purple-500/50 hover:shadow-md hover:shadow-purple-500/15 hover:text-white hover:-translate-y-[1px]',
+              'active:bg-[#18152e] active:border-purple-500/60 active:scale-[0.98] active:translate-y-0',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e]'
+            )}
           >
             {isReanalyzing ? (
-              <Loader2 className="w-4 h-4 text-purple-600 dark:text-purple-400 animate-spin shrink-0" />
+              <Loader2 className="w-4 h-4 text-purple-400 animate-spin shrink-0" />
             ) : (
-              <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0" />
+              <Sparkles className="w-4 h-4 text-purple-400 shrink-0 filter drop-shadow-[0_0_6px_rgba(168,85,247,0.5)]" />
             )}
-            <span className="text-slate-900 dark:text-slate-200 font-bold">{isReanalyzing ? 'Re-analyzing...' : 'Re-analyze Resume'}</span>
+            <span className="text-white font-bold">{isReanalyzing ? 'Re-analyzing...' : 'Re-analyze Resume'}</span>
           </Button>
 
           <Button
             onClick={onDownloadReport}
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs md:text-sm font-semibold rounded-xl px-4 py-2.5 min-h-[44px] gap-2 shadow-lg shadow-purple-950/50 transition-all cursor-pointer border-0 focus-visible:ring-2 focus-visible:ring-purple-500"
+            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 active:scale-[0.98] text-white text-xs md:text-sm font-semibold rounded-xl px-4 py-2.5 min-h-[44px] gap-2 shadow-lg shadow-purple-950/50 transition-all cursor-pointer border-0 focus-visible:ring-2 focus-visible:ring-purple-500"
           >
             <Download className="w-4 h-4" />
             <span>Download Intelligence Report</span>
