@@ -1,5 +1,5 @@
 import React from 'react'
-import { Sun, Bell } from 'lucide-react'
+import { Bell } from 'lucide-react'
 import { Avatar } from '@/components/ui/Avatar'
 import { cn } from '@/lib/utils'
 
@@ -18,14 +18,6 @@ export const SettingsToolbar: React.FC<SettingsToolbarProps> = ({
 }) => {
   return (
     <div className={cn('flex items-center gap-2 sm:gap-3', className)}>
-      {/* Theme Toggle Button */}
-      <button
-        type="button"
-        aria-label="Toggle Theme"
-        className="relative p-2 text-[var(--muted)] hover:text-[var(--heading)] bg-[var(--surface-elevated)] hover:bg-[var(--surface-hover)] border border-[var(--border)] rounded-[var(--radius-md)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
-      >
-        <Sun className="w-4 h-4" />
-      </button>
 
       {/* Notifications Button */}
       <button

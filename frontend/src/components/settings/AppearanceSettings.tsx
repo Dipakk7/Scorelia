@@ -1,5 +1,5 @@
 import React from 'react'
-import { Palette, Sun, Moon, Laptop, Check, Eye } from 'lucide-react'
+import { Palette, Laptop, Check, Eye } from 'lucide-react'
 import { SettingsCategoryLayout } from './SettingsCategoryLayout'
 import { SettingsCategorySection } from './SettingsCategorySection'
 import { PreferenceToggle } from './PreferenceToggle'
@@ -17,7 +17,6 @@ export const AppearanceSettings: React.FC = () => {
   const updateAppearanceMutation = useUpdateAppearanceMutation()
   const updateAccessMutation = useUpdateAccessibilityMutation()
 
-  const currentTheme = settings?.theme || appearance.currentTheme
   const currentAccent = settings?.accent_color || appearance.accentColor
   const currentDensity = settings?.density || appearance.density
   const currentFontSize = settings?.font_size || appearance.fontSize
@@ -26,10 +25,6 @@ export const AppearanceSettings: React.FC = () => {
   const reducedMotion = pData?.reduced_motion ?? false
   const highContrast = pData?.high_contrast ?? false
   const keyboardNav = pData?.keyboard_navigation ?? true
-
-  const handleThemeChange = (theme: string) => {
-    updateAppearanceMutation.mutate({ theme })
-  }
 
   const handleAccentChange = (accent_color: string) => {
     updateAppearanceMutation.mutate({ accent_color })
@@ -43,50 +38,8 @@ export const AppearanceSettings: React.FC = () => {
     <SettingsCategoryLayout
       icon={<Palette className="w-5 h-5 text-[var(--primary)]" />}
       title="Appearance & Interface"
-      subtitle="Customize application theme, accent colors, visual density, and accessibility preferences."
+      subtitle="Customize application accent colors, visual density, and accessibility preferences."
     >
-      {/* 1. Theme Selection */}
-      <SettingsCategorySection
-        title="Theme Mode"
-        description="Select your preferred color interface mode."
-        icon={<Sun className="w-4 h-4" />}
-      >
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {[
-            { id: 'dark', label: 'Dark Mode', icon: Moon, desc: 'Sleek obsidian theme' },
-            { id: 'light', label: 'Light Mode', icon: Sun, desc: 'High clarity day theme' },
-            { id: 'system', label: 'System Default', icon: Laptop, desc: 'Sync with device OS' },
-          ].map((mode) => {
-            const Icon = mode.icon
-            const isSelected = currentTheme === mode.id
-            return (
-              <button
-                key={mode.id}
-                type="button"
-                onClick={() => handleThemeChange(mode.id)}
-                disabled={updateAppearanceMutation.isPending}
-                className={cn(
-                  'p-4 rounded-lg border text-left flex flex-col justify-between space-y-3 transition-all',
-                  isSelected
-                    ? 'border-[var(--primary)] bg-[var(--primary)]/10 ring-2 ring-[var(--primary)]/30'
-                    : 'border-[var(--border)] bg-[var(--surface)] hover:border-[var(--primary)]/40'
-                )}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="p-2 rounded-md bg-[var(--surface-elevated)] text-[var(--heading)]">
-                    <Icon className="w-4 h-4" />
-                  </div>
-                  {isSelected && <Check className="w-4 h-4 text-[var(--primary)]" />}
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-[var(--heading)]">{mode.label}</h4>
-                  <p className="text-[10px] text-[var(--muted)]">{mode.desc}</p>
-                </div>
-              </button>
-            )
-          })}
-        </div>
-      </SettingsCategorySection>
 
       {/* 2. Accent Color Palette */}
       <SettingsCategorySection

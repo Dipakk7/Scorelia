@@ -1,7 +1,7 @@
 /* eslint-disable react/only-export-components */
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect } from 'react'
 
-export type Theme = 'dark' | 'light' | 'system'
+export type Theme = 'dark'
 
 interface ThemeProviderState {
   theme: Theme
@@ -9,7 +9,7 @@ interface ThemeProviderState {
 }
 
 const initialState: ThemeProviderState = {
-  theme: 'system',
+  theme: 'dark',
   setTheme: () => null,
 }
 
@@ -23,54 +23,19 @@ interface ThemeProviderProps {
 
 export function ThemeProvider({
   children,
-  defaultTheme = 'system',
-  storageKey = 'scorelia-theme',
   ...props
 }: ThemeProviderProps) {
-  const [theme, setThemeState] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
-  )
-
   useEffect(() => {
     const root = window.document.documentElement
-
-    const applyTheme = (targetTheme: Theme) => {
-      let resolvedTheme: 'dark' | 'light' = 'dark'
-
-      if (targetTheme === 'system') {
-        resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-          ? 'dark'
-          : 'light'
-      } else {
-        resolvedTheme = targetTheme
-      }
-
-      root.classList.remove('light', 'dark')
-      root.classList.add(resolvedTheme)
-      root.setAttribute('data-theme', resolvedTheme)
-      root.style.colorScheme = resolvedTheme
-    }
-
-    applyTheme(theme)
-
-    // Listen to system theme preference changes if theme === 'system'
-    if (theme === 'system') {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-      const handleSystemThemeChange = () => {
-        applyTheme('system')
-      }
-
-      mediaQuery.addEventListener('change', handleSystemThemeChange)
-      return () => mediaQuery.removeEventListener('change', handleSystemThemeChange)
-    }
-  }, [theme])
+    root.classList.remove('light')
+    root.classList.add('dark')
+    root.setAttribute('data-theme', 'dark')
+    root.style.colorScheme = 'dark'
+  }, [])
 
   const value = {
-    theme,
-    setTheme: (newTheme: Theme) => {
-      localStorage.setItem(storageKey, newTheme)
-      setThemeState(newTheme)
-    },
+    theme: 'dark' as Theme,
+    setTheme: () => {},
   }
 
   return (

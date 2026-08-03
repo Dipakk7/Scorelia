@@ -22,7 +22,7 @@ class SystemSettingsUpdate(BaseModel):
     sound_effects: bool | None = Field(default=None, description="Enable UI sound effects")
 
 class AppearanceSettingsUpdate(BaseModel):
-    theme: str | None = Field(default=None, description="Color mode theme (dark, light, system)")
+    theme: str | None = Field(default=None, description="Color mode theme (dark)")
     accent_color: str | None = Field(default=None, description="Primary accent color (indigo, emerald, blue, cyan, amber, rose)")
     density: str | None = Field(default=None, description="Workspace padding density (comfortable, compact, spacious)")
     font_size: str | None = Field(default=None, description="Typography scale (sm, md, lg)")

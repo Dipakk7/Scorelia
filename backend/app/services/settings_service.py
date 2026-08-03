@@ -10,7 +10,7 @@ class SettingsService:
 
     ALLOWED_LANGUAGES = {"en-US", "en-GB", "es", "fr", "de", "hi"}
     ALLOWED_TIMEZONES = {"Asia/Kolkata", "UTC", "EST", "PST", "GMT", "CET"}
-    ALLOWED_THEMES = {"dark", "light", "system"}
+    ALLOWED_THEMES = {"dark"}
     ALLOWED_ACCENT_COLORS = {"indigo", "emerald", "blue", "cyan", "amber", "rose"}
     ALLOWED_DENSITIES = {"comfortable", "compact", "spacious"}
     ALLOWED_FONT_SIZES = {"sm", "md", "lg"}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Plus, Bell, Sun, User } from 'lucide-react'
+import { Plus, Bell, User } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/providers/AuthProvider'
 import { Avatar } from '@/components/ui/Avatar'
@@ -8,7 +8,6 @@ export interface TopActionBarProps {
   className?: string
   onNewAgentClick?: () => void
   onNotificationClick?: () => void
-  onThemeToggleClick?: () => void
   onProfileClick?: () => void
 }
 
@@ -16,7 +15,6 @@ export function TopActionBar({
   className,
   onNewAgentClick,
   onNotificationClick,
-  onThemeToggleClick,
   onProfileClick,
 }: TopActionBarProps) {
   const { user } = useAuth()
@@ -52,16 +50,6 @@ export function TopActionBar({
       >
         <Bell size={16} />
         <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-purple-500 ring-2 ring-[#0b0c14]" />
-      </button>
-
-      {/* 4. Theme Toggle Button */}
-      <button
-        onClick={onThemeToggleClick}
-        type="button"
-        aria-label="Toggle theme"
-        className="p-2 rounded-xl bg-[#111322] border border-white/10 hover:border-white/20 text-slate-300 hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
-      >
-        <Sun size={16} />
       </button>
 
       {/* 5. Profile Menu */}

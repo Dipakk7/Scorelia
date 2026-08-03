@@ -1,5 +1,5 @@
 import React from 'react'
-import { Sparkles, Download, Video, ChevronDown, Search, Bell, Sun, CheckCircle2 } from 'lucide-react'
+import { Sparkles, Download, Video, ChevronDown, Search, Bell, CheckCircle2 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Avatar } from '@/components/ui/Avatar'
 import { useAuth } from '@/providers/AuthProvider'
@@ -47,11 +47,6 @@ export function InterviewPrepHeader({
           <button className="relative p-2 rounded-xl bg-[#121320] border border-white/10 text-slate-300 hover:text-white hover:border-white/20 transition-all cursor-pointer">
             <Bell className="h-4 w-4" />
             <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-purple-500 ring-2 ring-[#0b0c14]" />
-          </button>
-
-          {/* Theme Toggle */}
-          <button className="p-2 rounded-xl bg-[#121320] border border-white/10 text-slate-300 hover:text-white hover:border-white/20 transition-all cursor-pointer">
-            <Sun className="h-4 w-4" />
           </button>
 
           {/* Profile Avatar */}

@@ -11,8 +11,8 @@ def test_settings_service_validation():
 
     # Allowed themes
     assert "dark" in SettingsService.ALLOWED_THEMES
-    assert "light" in SettingsService.ALLOWED_THEMES
-    assert "system" in SettingsService.ALLOWED_THEMES
+    assert "light" not in SettingsService.ALLOWED_THEMES
+    assert "system" not in SettingsService.ALLOWED_THEMES
 
     # Allowed accent colors
     assert "indigo" in SettingsService.ALLOWED_ACCENT_COLORS

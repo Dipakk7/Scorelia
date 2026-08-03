@@ -1,13 +1,11 @@
 import { useState } from 'react'
-import { Menu, Sun, Moon, Monitor, LogOut, User as UserIcon, Settings, Bell, Trash2, Check, Search, Gift } from 'lucide-react'
+import { Menu, LogOut, User as UserIcon, Settings, Bell, Trash2, Check, Gift } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 
 import api from '@/api/api'
 import { useAuth } from '@/providers/AuthProvider'
-import { useTheme } from '@/providers/ThemeProvider'
-import type { Theme } from '@/providers/ThemeProvider'
 import { Avatar } from '@/components/ui/Avatar'
 import { EmptyNotificationsState } from '@/components/ui/EmptyState'
 import {
@@ -28,14 +26,12 @@ interface NavbarProps {
 
 export function Navbar({ onMenuToggle, className }: NavbarProps) {
   const { user, logout } = useAuth()
-  const { theme, setTheme } = useTheme()
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
   // Controlled states for dropdown popovers to guarantee click responsiveness
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const [isNotifOpen, setIsNotifOpen] = useState(false)
-  const [isThemeOpen, setIsThemeOpen] = useState(false)
 
   // Query notifications count and list
   const { data: notifData } = useQuery({
@@ -85,11 +81,6 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
       toast.success('Notification deleted')
     },
   })
-
-  const handleThemeChange = (newTheme: Theme) => {
-    setTheme(newTheme)
-    setIsThemeOpen(false)
-  }
 
   const handleSearchClick = () => {
     // Dispatch Command+K event to open CommandPalette
@@ -221,62 +212,6 @@ export function Navbar({ onMenuToggle, className }: NavbarProps) {
                 ))
               )}
             </div>
-          </DropdownContent>
-        </Dropdown>
-
-        {/* Theme Toggle Dropdown */}
-        <Dropdown open={isThemeOpen} onOpenChange={setIsThemeOpen}>
-          <DropdownTrigger asChild>
-            <button
-              type="button"
-              onClick={() => setIsThemeOpen((prev) => !prev)}
-              className="p-2 rounded-xl text-[var(--muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--heading)] cursor-pointer focus:outline-none transition-all duration-200 hover:scale-105 active:scale-95"
-              aria-label="Select theme"
-            >
-              {theme === 'light' && <Sun size={18} className="text-amber-500" />}
-              {theme === 'dark' && <Moon size={18} className="text-purple-400" />}
-              {theme === 'system' && <Monitor size={18} className="text-[var(--heading)]" />}
-            </button>
-          </DropdownTrigger>
-          <DropdownContent className="w-36 bg-[var(--surface)] border-[var(--border)] text-[var(--body)] z-50 shadow-2xl" align="end">
-            <DropdownLabel className="text-[10px] uppercase font-extrabold tracking-widest text-[var(--muted)]">Appearance</DropdownLabel>
-            <DropdownSeparator className="bg-[var(--border)]" />
-            <DropdownItem
-              onClick={() => handleThemeChange('light')}
-              className={cn(
-                'cursor-pointer rounded-lg m-0.5 flex items-center justify-between text-xs transition-colors',
-                theme === 'light' ? 'text-purple-500 font-bold bg-[var(--surface-hover)]' : 'hover:bg-[var(--surface-hover)]'
-              )}
-            >
-              <div className="flex items-center">
-                <Sun size={14} className="mr-2 text-amber-500" /> Light
-              </div>
-              {theme === 'light' && <Check size={14} className="text-purple-500" />}
-            </DropdownItem>
-            <DropdownItem
-              onClick={() => handleThemeChange('dark')}
-              className={cn(
-                'cursor-pointer rounded-lg m-0.5 flex items-center justify-between text-xs transition-colors',
-                theme === 'dark' ? 'text-purple-400 font-bold bg-[var(--surface-hover)]' : 'hover:bg-[var(--surface-hover)]'
-              )}
-            >
-              <div className="flex items-center">
-                <Moon size={14} className="mr-2 text-purple-400" /> Dark
-              </div>
-              {theme === 'dark' && <Check size={14} className="text-purple-400" />}
-            </DropdownItem>
-            <DropdownItem
-              onClick={() => handleThemeChange('system')}
-              className={cn(
-                'cursor-pointer rounded-lg m-0.5 flex items-center justify-between text-xs transition-colors',
-                theme === 'system' ? 'text-purple-400 font-bold bg-[var(--surface-hover)]' : 'hover:bg-[var(--surface-hover)]'
-              )}
-            >
-              <div className="flex items-center">
-                <Monitor size={14} className="mr-2" /> System
-              </div>
-              {theme === 'system' && <Check size={14} className="text-purple-400" />}
-            </DropdownItem>
           </DropdownContent>
         </Dropdown>
 
