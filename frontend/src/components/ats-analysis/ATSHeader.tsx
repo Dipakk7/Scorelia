@@ -5,7 +5,6 @@ import {
   Sparkles,
   ArrowRight,
   CheckCircle2,
-  ChevronRight,
   FileCheck,
   Search,
   SlidersHorizontal,
@@ -49,18 +48,10 @@ export const ATSHeader: React.FC<ATSHeaderProps> = memo(({
 }) => {
   return (
     <header className="flex flex-col gap-6 mb-6">
-      {/* Top Breadcrumb & Actions Row */}
+      {/* Top Title & Actions Row */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        {/* Title & Breadcrumb */}
+        {/* Title Block */}
         <div className="space-y-1.5">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-400 font-medium">
-            <span>ATS Analysis</span>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-500" />
-            <span className="text-purple-400 font-semibold capitalize">
-              {(activeTab || 'overview').replace('-', ' ')}
-            </span>
-          </nav>
-
           <div className="flex flex-wrap items-center gap-3">
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-sans">
               ATS Analysis
