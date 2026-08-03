@@ -296,13 +296,13 @@ export default function ATSAnalysisPage() {
                     {(activeTab === 'overview' || activeTab === 'detailed-report') && (
                       <div className="space-y-5 sm:space-y-6">
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
-                          {/* Left Column (6 cols): System Compatibility, Optimization Timeline, Formatting Audit, Section Scores */}
+                          {/* Left Column (6 cols): System Compatibility, Recruiter Feedback, Formatting Audit, Section Scores */}
                           <div className="lg:col-span-6 space-y-5 sm:space-y-6 flex flex-col">
                             <ATSWidgetErrorBoundary sectionName="ATS System Compatibility">
                               <ATSCompatibilityCard />
                             </ATSWidgetErrorBoundary>
-                            <ATSWidgetErrorBoundary sectionName="Optimization Sequence">
-                              <OptimizationTimeline />
+                            <ATSWidgetErrorBoundary sectionName="Recruiter Feedback">
+                              <RecruiterFeedbackCard data={recruiterFeedback} />
                             </ATSWidgetErrorBoundary>
                             <ATSWidgetErrorBoundary sectionName="Formatting Audit">
                               <FormattingAnalysisCard />
@@ -312,10 +312,10 @@ export default function ATSAnalysisPage() {
                             </ATSWidgetErrorBoundary>
                           </div>
 
-                          {/* Right Column (6 cols): Recruiter Feedback, Risk Analysis, Industry Peer Benchmark, Readiness Master Checklist */}
+                          {/* Right Column (6 cols): Optimization Sequence, Risk Analysis, Industry Peer Benchmark, Readiness Master Checklist */}
                           <div className="lg:col-span-6 space-y-5 sm:space-y-6 flex flex-col">
-                            <ATSWidgetErrorBoundary sectionName="Recruiter Feedback">
-                              <RecruiterFeedbackCard data={recruiterFeedback} />
+                            <ATSWidgetErrorBoundary sectionName="Optimization Sequence">
+                              <OptimizationTimeline />
                             </ATSWidgetErrorBoundary>
                             <ATSWidgetErrorBoundary sectionName="Risk Analysis">
                               <RiskAnalysisCard />
