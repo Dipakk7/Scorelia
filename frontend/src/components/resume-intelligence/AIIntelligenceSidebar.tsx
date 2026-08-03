@@ -89,9 +89,9 @@ export const AIIntelligenceSidebar: React.FC<AIIntelligenceSidebarProps> = ({
                 },
               ])
             }
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[#ebedf1] hover:bg-[#e1e5eb] border border-slate-300/90 text-[11px] font-bold text-[#111827] dark:bg-[#161828] dark:hover:bg-[#1f2238] dark:border-slate-700/70 dark:text-slate-200 dark:hover:text-white transition-all cursor-pointer shadow-xs dark:shadow-md"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#141628] hover:bg-[#1c1f36] border border-slate-700/80 text-[11px] font-extrabold text-slate-200 hover:text-white transition-all duration-200 cursor-pointer shadow-sm active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
           >
-            <Plus className="w-3.5 h-3.5 text-[#111827] dark:text-slate-300 stroke-[2.5] dark:stroke-[2]" />
+            <Plus className="w-3.5 h-3.5 text-purple-400 shrink-0 stroke-[2.5]" />
             <span>New Chat</span>
           </button>
         </div>
@@ -104,8 +104,8 @@ export const AIIntelligenceSidebar: React.FC<AIIntelligenceSidebarProps> = ({
               className={cn(
                 'p-3 rounded-xl text-xs leading-relaxed max-w-[95%]',
                 m.sender === 'ai'
-                  ? 'bg-purple-950/30 border border-purple-900/40 text-slate-200 self-start rounded-tl-none'
-                  : 'bg-purple-600 text-white font-medium self-end rounded-tr-none'
+                  ? 'bg-purple-950/30 border border-purple-900/40 text-slate-200 self-start rounded-tl-none font-medium'
+                  : 'bg-purple-600 text-white font-bold self-end rounded-tr-none shadow-sm'
               )}
             >
               {m.text}
@@ -119,10 +119,10 @@ export const AIIntelligenceSidebar: React.FC<AIIntelligenceSidebarProps> = ({
             <button
               key={item.label}
               onClick={() => handlePillClick(item.label)}
-              className="text-left px-2.5 py-1.5 rounded-lg bg-[#ebedf1] hover:bg-[#e1e5eb] border border-slate-300/90 hover:border-purple-400 text-[11px] transition-all truncate cursor-pointer flex items-center justify-between gap-1 shadow-xs dark:bg-[#161828] dark:hover:bg-[#1f2238] dark:border-slate-700/70 dark:hover:border-purple-500/40 dark:shadow-md"
+              className="text-left px-3 py-2 rounded-xl bg-[#141628] hover:bg-[#1c1f36] border border-slate-700/80 hover:border-purple-500/50 text-[11px] font-bold text-slate-200 hover:text-white transition-all duration-200 truncate cursor-pointer flex items-center justify-between gap-1.5 shadow-xs active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             >
-              <span className="truncate text-[#111827] dark:text-slate-100 font-bold">{item.label}</span>
-              <span className="text-[9px] font-extrabold text-purple-800 dark:text-purple-300 shrink-0 font-mono bg-purple-500/15 border border-purple-500/30 dark:bg-purple-500/20 px-1.5 py-0.5 rounded">
+              <span className="truncate text-white font-bold">{item.label}</span>
+              <span className="text-[9px] font-extrabold text-purple-300 shrink-0 font-mono bg-purple-500/20 border border-purple-500/30 px-1.5 py-0.5 rounded">
                 {item.badge}
               </span>
             </button>
@@ -137,11 +137,11 @@ export const AIIntelligenceSidebar: React.FC<AIIntelligenceSidebarProps> = ({
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Ask me anything about your resume..."
-            className="w-full bg-[#ebedf1] dark:bg-[#121422] border border-slate-300/90 dark:border-slate-800/80 rounded-xl px-3 py-2 pr-9 text-xs font-semibold text-[#111827] dark:text-slate-100 placeholder:text-slate-600 dark:placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all shadow-xs"
+            className="w-full bg-[#0e101c] border border-slate-800/90 rounded-xl px-3.5 py-2.5 pr-9 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all shadow-inner"
           />
           <button
             onClick={handleSend}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-lg text-purple-700 dark:text-purple-400 hover:text-purple-900 dark:hover:text-purple-300 transition-colors cursor-pointer"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 rounded-lg text-purple-400 hover:text-purple-300 transition-colors cursor-pointer"
             aria-label="Send Message"
           >
             <Send className="w-3.5 h-3.5 stroke-[2.5]" />

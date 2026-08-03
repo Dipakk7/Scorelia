@@ -169,7 +169,7 @@ export const ResumeIntelligenceHeader: React.FC<ResumeIntelligenceHeaderProps> =
       {/* Primary Module Navigation Tabs */}
       <nav
         aria-label="Resume Intelligence Views"
-        className="flex items-center gap-1 overflow-x-auto custom-scrollbar no-scrollbar border-b border-slate-800/80 pb-px"
+        className="flex items-center gap-1.5 overflow-x-auto custom-scrollbar no-scrollbar border-b border-slate-800/80 pb-px"
       >
         {tabs.map((tab) => {
           const isActive = currentTab === tab.id
@@ -178,10 +178,10 @@ export const ResumeIntelligenceHeader: React.FC<ResumeIntelligenceHeaderProps> =
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
               className={cn(
-                'px-4 py-3 min-h-[44px] text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer relative border-b-2 -mb-px flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500',
+                'px-4 py-3 min-h-[44px] text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer relative border-b-2 -mb-px flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500',
                 isActive
-                  ? 'text-white border-purple-500 bg-purple-500/10 rounded-t-xl'
-                  : 'text-slate-400 border-transparent hover:text-slate-200 hover:bg-slate-900/40 rounded-t-xl'
+                  ? 'text-white font-extrabold border-purple-500 bg-purple-500/15 rounded-t-xl shadow-xs'
+                  : 'text-slate-400 border-transparent hover:text-slate-200 hover:bg-slate-900/50 rounded-t-xl'
               )}
               aria-current={isActive ? 'page' : undefined}
             >
