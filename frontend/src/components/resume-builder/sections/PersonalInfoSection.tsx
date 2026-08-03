@@ -30,24 +30,24 @@ export const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
   return (
     <div className="space-y-5 animate-fade-in text-left">
       {/* Section Header */}
-      <div className="border-b border-slate-200 dark:border-border-subtle pb-3 transition-colors">
-        <div className="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider font-mono">
+      <div className="border-b border-slate-800/80 pb-3">
+        <div className="flex items-center gap-2 text-xs font-extrabold text-purple-400 uppercase tracking-wider font-mono">
           <User size={14} />
           <span>Personal Details</span>
         </div>
-        <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display mt-0.5 m-0">
+        <h3 className="text-base md:text-lg font-extrabold text-white font-display mt-0.5 m-0">
           Personal Information
         </h3>
-        <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 font-sans">
+        <p className="text-xs text-slate-300 mt-1 font-sans font-medium">
           Provide your legal name, headline, and professional title as they should appear at the top of your resume.
         </p>
       </div>
 
       {/* Main Form Fields Container */}
-      <div className="bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle rounded-[10px] p-4 md:p-5 space-y-4 shadow-none transition-colors">
+      <div className="bg-[#121424]/95 border border-slate-800/90 rounded-2xl p-4 md:p-5 space-y-4 shadow-sm">
         {/* Profile Photo Upload Row */}
-        <div className="flex items-center gap-4 pb-3 border-b border-slate-200/80 dark:border-border-subtle">
-          <div className="relative w-12 h-12 rounded-full bg-slate-200 dark:bg-surface-l4 border border-purple-500/30 flex items-center justify-center text-purple-700 dark:text-purple-300 shrink-0 overflow-hidden group">
+        <div className="flex items-center gap-4 pb-3 border-b border-slate-800/80">
+          <div className="relative w-12 h-12 rounded-full bg-slate-900 border border-purple-500/40 flex items-center justify-center text-purple-300 shrink-0 overflow-hidden group shadow-inner">
             <span className="text-base font-black font-display">
               {data.fullName ? data.fullName.split(' ').map((n) => n[0]).join('').slice(0, 2) : 'DK'}
             </span>
@@ -55,12 +55,12 @@ export const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
               <Camera size={16} className="text-white" />
             </div>
           </div>
-          <div className="space-y-1">
-            <h4 className="text-xs font-bold text-slate-900 dark:text-white m-0">Profile Picture (Optional)</h4>
-            <p className="text-[11px] text-slate-600 dark:text-slate-400 m-0">JPG or PNG under 2MB. Preferred for EU &amp; creative templates.</p>
+          <div className="space-y-0.5">
+            <h4 className="text-xs font-bold text-white m-0">Profile Picture (Optional)</h4>
+            <p className="text-[11px] text-slate-400 m-0">JPG or PNG under 2MB. Preferred for EU &amp; creative templates.</p>
             <button
               type="button"
-              className="text-[11px] font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 cursor-pointer hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80 rounded"
+              className="text-[11px] font-bold text-purple-400 hover:text-purple-300 cursor-pointer hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded"
             >
               Upload Photo
             </button>
@@ -70,8 +70,8 @@ export const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
         {/* Inputs Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center justify-between">
-              <span>Full Name <span className="text-pink-500 dark:text-pink-400">*</span></span>
+            <label className="text-xs font-bold text-slate-200 flex items-center justify-between">
+              <span>Full Name <span className="text-pink-400">*</span></span>
             </label>
             <input
               type="text"
@@ -79,13 +79,13 @@ export const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
               onChange={(e) => handleFieldChange('fullName', e.target.value)}
               placeholder="e.g. Dipak Khandagale"
               aria-label="Full Name"
-              className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-[10px] px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
+              className="w-full h-10 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl px-3.5 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center justify-between">
-              <span>Professional Title <span className="text-pink-500 dark:text-pink-400">*</span></span>
+            <label className="text-xs font-bold text-slate-200 flex items-center justify-between">
+              <span>Professional Title <span className="text-pink-400">*</span></span>
             </label>
             <input
               type="text"
@@ -93,14 +93,14 @@ export const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
               onChange={(e) => handleFieldChange('professionalTitle', e.target.value)}
               placeholder="e.g. Senior AI/ML Engineer"
               aria-label="Professional Title"
-              className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-[10px] px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
+              className="w-full h-10 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl px-3.5 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
             />
           </div>
 
           <div className="sm:col-span-2 space-y-1.5">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center justify-between">
+            <label className="text-xs font-bold text-slate-200 flex items-center justify-between">
               <span>Headline / Subtitle</span>
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">Optional</span>
+              <span className="text-[10px] text-slate-400 font-mono">Optional</span>
             </label>
             <input
               type="text"
@@ -108,7 +108,7 @@ export const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
               onChange={(e) => handleFieldChange('headline', e.target.value)}
               placeholder="e.g. Specializing in NLP, PyTorch &amp; High-Performance Distributed Systems"
               aria-label="Headline"
-              className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-[10px] px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
+              className="w-full h-10 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl px-3.5 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
             />
           </div>
         </div>

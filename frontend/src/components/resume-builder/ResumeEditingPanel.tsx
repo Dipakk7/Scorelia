@@ -70,9 +70,9 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
   }
 
   return (
-    <div className="flex flex-col h-full min-h-0 bg-slate-50/50 dark:bg-surface-l1 border border-slate-200/80 dark:border-border-subtle/40 rounded-[10px] shadow-none overflow-hidden text-left font-sans transition-colors">
+    <div className="flex flex-col h-full min-h-0 bg-[#0b0c14]/95 border border-slate-800/90 rounded-2xl shadow-xl overflow-hidden text-left font-sans transition-colors">
       {/* Structural Tab Container Switcher Bar for all 12 sections */}
-      <div className="h-[46px] min-h-[46px] flex items-center gap-1 p-2 bg-slate-100/60 dark:bg-surface-l2/50 border-b border-slate-200/80 dark:border-border-subtle/30 overflow-x-auto custom-scrollbar shrink-0 flex-none box-border" role="tablist" aria-label="Resume section editor tabs">
+      <div className="h-[48px] min-h-[48px] flex items-center gap-1.5 p-2 bg-[#0e101c] border-b border-slate-800/80 overflow-x-auto custom-scrollbar shrink-0 flex-none box-border" role="tablist" aria-label="Resume section editor tabs">
         {[
           { id: 'personal', label: 'Personal', icon: User },
           { id: 'contact', label: 'Contact', icon: Mail },
@@ -98,13 +98,13 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
               aria-label={`${tab.label} section`}
               onClick={() => setActiveSectionTab(tab.id)}
               className={cn(
-                'flex items-center gap-1.5 px-3 py-1.5 rounded-[10px] text-xs font-bold whitespace-nowrap transition-all cursor-pointer border select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
+                'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer border select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500',
                 isActive
-                  ? 'bg-purple-100/70 dark:bg-purple-600/20 text-purple-900 dark:text-purple-200 border-purple-300 dark:border-purple-500/40 shadow-none'
-                  : 'bg-transparent text-slate-600 dark:text-slate-400 border-transparent hover:bg-slate-200/50 dark:hover:bg-surface-l4/50 hover:text-slate-900 dark:hover:text-slate-200'
+                  ? 'bg-purple-600/20 text-white border-purple-500/50 shadow-xs'
+                  : 'bg-transparent text-slate-400 border-transparent hover:bg-slate-900/60 hover:text-slate-200'
               )}
             >
-              <Icon size={13} className={isActive ? 'text-purple-600 dark:text-purple-400' : 'text-slate-400 dark:text-slate-500'} />
+              <Icon size={13} className={isActive ? 'text-purple-400' : 'text-slate-400'} />
               <span>{tab.label}</span>
             </button>
           )
@@ -206,33 +206,38 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
             onAdd={() => {
               const newEdu = {
                 id: `edu-${Date.now()}`,
-                degree: 'New Qualification',
-                institution: 'University',
-                location: 'Location',
-                startDate: '2022',
-                endDate: '2026',
+                degree: 'Bachelor of Technology',
+                field: 'Computer Science',
+                institution: 'University Name',
+                startDate: '2020',
+                endDate: '2024',
               }
               handleUpdateField('education', [...(resumeData?.education || []), newEdu])
             }}
-            onDelete={(id) => {
+            onDelete={(id: string) => {
               handleUpdateField(
                 'education',
                 (resumeData?.education || []).filter((item) => item.id !== id)
               )
             }}
-            onUpdate={(id, updated) => {
+            onUpdate={(id: string, updated: any) => {
               handleUpdateField(
                 'education',
                 (resumeData?.education || []).map((item) => (item.id === id ? updated : item))
               )
             }}
-            onReorder={(reordered) => handleUpdateField('education', reordered)}
           />
         )}
 
         {activeSectionTab === 'skills' && (
           <SkillsSection
             categories={resumeData?.skills}
+            onUpdateCategory={(catId, updatedCat) => {
+              const updatedSkills = (resumeData?.skills || []).map((cat) =>
+                cat.id === catId ? updatedCat : cat
+              )
+              handleUpdateField('skills', updatedSkills)
+            }}
             onAddCategory={() => {
               const newCat = {
                 id: `cat-${Date.now()}`,
@@ -241,19 +246,12 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
               }
               handleUpdateField('skills', [...(resumeData?.skills || []), newCat])
             }}
-            onDeleteCategory={(id) => {
+            onDeleteCategory={(catId) => {
               handleUpdateField(
                 'skills',
-                (resumeData?.skills || []).filter((item) => item.id !== id)
+                (resumeData?.skills || []).filter((cat) => cat.id !== catId)
               )
             }}
-            onUpdateCategory={(id, updated) => {
-              handleUpdateField(
-                'skills',
-                (resumeData?.skills || []).map((item) => (item.id === id ? updated : item))
-              )
-            }}
-            onReorder={(reordered) => handleUpdateField('skills', reordered)}
           />
         )}
 
@@ -263,25 +261,25 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
             onAdd={() => {
               const newProj = {
                 id: `proj-${Date.now()}`,
-                name: 'New Technical Project',
-                subtitle: 'Tech Stack',
-                bullets: ['Key system capability or result.'],
+                title: 'New Key Project',
+                description: 'Brief overview of technical architecture and outcomes.',
+                technologies: ['React', 'Node.js'],
+                bullets: ['Key outcome or metric.'],
               }
               handleUpdateField('projects', [...(resumeData?.projects || []), newProj])
             }}
-            onDelete={(id) => {
+            onDelete={(id: string) => {
               handleUpdateField(
                 'projects',
                 (resumeData?.projects || []).filter((item) => item.id !== id)
               )
             }}
-            onUpdate={(id, updated) => {
+            onUpdate={(id: string, updated: any) => {
               handleUpdateField(
                 'projects',
                 (resumeData?.projects || []).map((item) => (item.id === id ? updated : item))
               )
             }}
-            onReorder={(reordered) => handleUpdateField('projects', reordered)}
           />
         )}
 
@@ -291,25 +289,24 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
             onAdd={() => {
               const newCert = {
                 id: `cert-${Date.now()}`,
-                name: 'Certification Title',
-                issuer: 'Organization',
-                date: '2025',
+                name: 'Certification Name',
+                issuer: 'Issuer Organization',
+                issueDate: '2024',
               }
               handleUpdateField('certifications', [...(resumeData?.certifications || []), newCert])
             }}
-            onDelete={(id) => {
+            onDelete={(id: string) => {
               handleUpdateField(
                 'certifications',
                 (resumeData?.certifications || []).filter((item) => item.id !== id)
               )
             }}
-            onUpdate={(id, updated) => {
+            onUpdate={(id: string, updated: any) => {
               handleUpdateField(
                 'certifications',
                 (resumeData?.certifications || []).map((item) => (item.id === id ? updated : item))
               )
             }}
-            onReorder={(reordered) => handleUpdateField('certifications', reordered)}
           />
         )}
 
@@ -319,8 +316,8 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
             onAdd={() => {
               const newLang = {
                 id: `lang-${Date.now()}`,
-                name: 'Language Name',
-                proficiency: 'Fluent' as const,
+                language: 'Language Name',
+                proficiency: 'Fluent',
               }
               handleUpdateField('languages', [...(resumeData?.languages || []), newLang])
             }}
@@ -345,8 +342,8 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
             onAdd={() => {
               const newAch = {
                 id: `ach-${Date.now()}`,
-                title: 'Achievement Title',
-                description: 'Description of accomplishment.',
+                title: 'Key Achievement Title',
+                description: 'Details of recognition or metric.',
               }
               handleUpdateField('achievements', [...(resumeData?.achievements || []), newAch])
             }}
@@ -369,30 +366,23 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
           <CustomSectionsSection
             sections={resumeData?.customSections}
             onAddSection={() => {
-              const newSec = {
-                id: `cust-${Date.now()}`,
-                sectionTitle: 'New Custom Section',
-                items: [
-                  {
-                    id: `cust-item-${Date.now()}`,
-                    title: 'Entry Title',
-                    subtitle: 'Subtitle',
-                    description: 'Description',
-                  },
-                ],
+              const newCustom = {
+                id: `custom-${Date.now()}`,
+                title: 'New Custom Section',
+                items: [{ id: `citem-${Date.now()}`, title: 'Item Title', description: 'Item description' }],
               }
-              handleUpdateField('customSections', [...(resumeData?.customSections || []), newSec])
+              handleUpdateField('customSections', [...(resumeData?.customSections || []), newCustom])
             }}
-            onDeleteSection={(id: string) => {
+            onDeleteSection={(secId: string) => {
               handleUpdateField(
                 'customSections',
-                (resumeData?.customSections || []).filter((item) => item.id !== id)
+                (resumeData?.customSections || []).filter((sec) => sec.id !== secId)
               )
             }}
-            onUpdateSection={(id: string, updated: any) => {
+            onUpdateSection={(secId: string, updatedSec: any) => {
               handleUpdateField(
                 'customSections',
-                (resumeData?.customSections || []).map((item) => (item.id === id ? updated : item))
+                (resumeData?.customSections || []).map((sec) => (sec.id === secId ? updatedSec : sec))
               )
             }}
           />
@@ -429,10 +419,10 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
       </div>
 
       {/* Left Editing Workspace Sticky Bottom Action Toolbar */}
-      <div className="h-[46px] min-h-[46px] px-3.5 border-t border-slate-200/80 dark:border-border-subtle/30 bg-white/90 dark:bg-surface-l2/40 flex items-center justify-between gap-3 text-xs transition-colors shrink-0 flex-none box-border">
+      <div className="h-[48px] min-h-[48px] px-3.5 border-t border-slate-800/80 bg-[#0e101c] flex items-center justify-between gap-3 text-xs transition-colors shrink-0 flex-none box-border">
         <button
           type="button"
-          className="px-3 py-1.5 rounded-[10px] text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-surface-l4 transition-all duration-150 ease-out active:scale-[0.98] transform-gpu motion-reduce:transition-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+          className="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-900/60 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
         >
           Discard Changes
         </button>
@@ -442,14 +432,14 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
             type="button"
             onClick={onSaveDraft}
             disabled={isSaving}
-            className="px-3.5 py-1.5 rounded-[10px] text-xs font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-surface-l4 border border-slate-200 dark:border-border-subtle hover:bg-slate-200 dark:hover:bg-surface-l3 transition-all duration-150 ease-out active:scale-[0.98] transform-gpu motion-reduce:transition-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+            className="px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-200 hover:text-white bg-[#141628] hover:bg-[#1c1f36] border border-slate-700/80 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
           >
             {isSaving ? 'Saving...' : 'Save Draft'}
           </button>
           <button
             type="button"
             onClick={() => onStepChange(Math.min(activeStep + 1, 8))}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-[10px] text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 border border-purple-500/30 shadow-sm transition-all duration-150 ease-out active:scale-[0.98] transform-gpu motion-reduce:transition-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+            className="flex items-center gap-1.5 px-4 py-1.5 rounded-xl text-xs font-extrabold text-white bg-purple-600 hover:bg-purple-500 border border-purple-500/40 shadow-sm shadow-purple-950/40 transition-all cursor-pointer active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
           >
             <span>Save &amp; Continue</span>
             <ArrowRight size={13} />

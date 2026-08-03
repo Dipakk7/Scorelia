@@ -163,15 +163,15 @@ export const ResumeBuilderShell: React.FC<ResumeBuilderShellProps> = ({
       />
 
       {/* Mobile/Tablet Panel View Selector */}
-      <div className="flex lg:hidden items-center bg-white/90 dark:bg-surface-l2 p-1.5 rounded-2xl border border-slate-200 dark:border-border-subtle gap-1 shadow-sm transition-colors shrink-0">
+      <div className="flex lg:hidden items-center bg-[#0b0c14]/90 p-1.5 rounded-2xl border border-slate-800/90 gap-1 shadow-sm transition-colors shrink-0">
         <button
           type="button"
           onClick={() => setMobileActivePanel('editor')}
           className={cn(
-            'flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
+            'flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500',
             mobileActivePanel === 'editor'
-              ? 'bg-purple-600 text-white border-purple-400 shadow-md'
-              : 'bg-transparent text-slate-600 dark:text-slate-400 border-transparent hover:text-slate-900 dark:hover:text-white'
+              ? 'bg-purple-600 text-white border-purple-500 shadow-md'
+              : 'bg-transparent text-slate-400 border-transparent hover:text-slate-200'
           )}
         >
           <PenTool size={14} />
@@ -181,10 +181,10 @@ export const ResumeBuilderShell: React.FC<ResumeBuilderShellProps> = ({
           type="button"
           onClick={() => setMobileActivePanel('preview')}
           className={cn(
-            'flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
+            'flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500',
             mobileActivePanel === 'preview'
-              ? 'bg-purple-600 text-white border-purple-400 shadow-md'
-              : 'bg-transparent text-slate-600 dark:text-slate-400 border-transparent hover:text-slate-900 dark:hover:text-white'
+              ? 'bg-purple-600 text-white border-purple-500 shadow-md'
+              : 'bg-transparent text-slate-400 border-transparent hover:text-slate-200'
           )}
         >
           <Eye size={14} />
@@ -194,10 +194,10 @@ export const ResumeBuilderShell: React.FC<ResumeBuilderShellProps> = ({
           type="button"
           onClick={() => setMobileActivePanel('assistant')}
           className={cn(
-            'flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80',
+            'flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500',
             mobileActivePanel === 'assistant'
-              ? 'bg-purple-600 text-white border-purple-400 shadow-md'
-              : 'bg-transparent text-slate-600 dark:text-slate-400 border-transparent hover:text-slate-900 dark:hover:text-white'
+              ? 'bg-purple-600 text-white border-purple-500 shadow-md'
+              : 'bg-transparent text-slate-400 border-transparent hover:text-slate-200'
           )}
         >
           <Bot size={14} />
