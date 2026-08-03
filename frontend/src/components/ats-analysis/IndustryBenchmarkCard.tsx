@@ -14,7 +14,7 @@ export const IndustryBenchmarkCard: React.FC<IndustryBenchmarkCardProps> = ({
   const categoryComparison = safeData?.categoryComparison ?? []
 
   return (
-    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-5 shadow-lg space-y-3.5 h-full flex flex-col justify-between">
+    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-5 shadow-lg space-y-3.5 h-auto">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
