@@ -65,9 +65,9 @@ export const AIConfidenceCard: React.FC<AIConfidenceCardProps> = ({
     },
   ]
 
-  // SVG ring dimensions
-  const radius = 22
-  const strokeWidth = 4.5
+  // Enlarged SVG ring dimensions (45% larger: 80px container, 31px radius)
+  const radius = 31
+  const strokeWidth = 5.5
   const circumference = 2 * Math.PI * radius
 
   return (
@@ -82,25 +82,31 @@ export const AIConfidenceCard: React.FC<AIConfidenceCardProps> = ({
             AI Engine Confidence
           </h3>
         </div>
-        <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+        <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full">
           <ShieldCheck className="w-3 h-3 text-emerald-400 shrink-0" />
           Verified
         </span>
       </div>
 
-      {/* 2x2 Analytics Layout */}
-      <div className="grid grid-cols-2 gap-2.5 flex-1 items-stretch">
+      {/* 2x2 Analytics Grid with Enlarged Focal Progress Rings */}
+      <div className="grid grid-cols-2 gap-3 flex-1 items-stretch">
         {items.map((item) => {
           const dashOffset = circumference * (1 - item.score / 100)
 
           return (
             <div
               key={item.id}
-              className="flex flex-col items-center justify-center p-3 rounded-xl bg-[#121424]/90 border border-slate-800/80 shadow-sm hover:border-purple-500/40 hover:bg-[#17192d] transition-all duration-200 group text-center"
+              className="relative flex flex-col items-center justify-center p-3.5 rounded-xl bg-[#131526]/95 border border-slate-800/90 shadow-sm hover:border-purple-500/50 hover:bg-[#181b32] hover:-translate-y-0.5 transition-all duration-200 group text-center overflow-hidden"
             >
-              {/* Circular Progress Ring */}
-              <div className="relative w-14 h-14 flex items-center justify-center">
-                <svg viewBox="0 0 54 54" className="w-full h-full transform -rotate-90 overflow-visible">
+              {/* Radial Faint Ambient Background Glow */}
+              <div
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full blur-xl opacity-20 pointer-events-none transition-opacity duration-300 group-hover:opacity-40"
+                style={{ backgroundColor: item.strokeColor }}
+              />
+
+              {/* Enlarged Focal Progress Ring (80px x 80px) */}
+              <div className="relative w-20 h-20 flex items-center justify-center shrink-0">
+                <svg viewBox="0 0 76 76" className="w-full h-full transform -rotate-90 overflow-visible">
                   <defs>
                     <linearGradient id={item.gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stopColor={item.gradStops.start} />
@@ -110,19 +116,19 @@ export const AIConfidenceCard: React.FC<AIConfidenceCardProps> = ({
 
                   {/* Dark Track Ring */}
                   <circle
-                    cx="27"
-                    cy="27"
+                    cx="38"
+                    cy="38"
                     r={radius}
                     stroke="#1e293b"
                     strokeWidth={strokeWidth}
                     fill="none"
-                    strokeOpacity="0.8"
+                    strokeOpacity="0.75"
                   />
 
                   {/* Gradient Progress Ring */}
                   <circle
-                    cx="27"
-                    cy="27"
+                    cx="38"
+                    cy="38"
                     r={radius}
                     stroke={`url(#${item.gradientId})`}
                     strokeWidth={strokeWidth}
@@ -134,16 +140,16 @@ export const AIConfidenceCard: React.FC<AIConfidenceCardProps> = ({
                   />
                 </svg>
 
-                {/* Percentage text inside circle */}
+                {/* Percentage text inside ring */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-mono text-xs font-black text-white tracking-tighter">
+                  <span className="font-mono text-sm sm:text-base font-black text-white tracking-tight drop-shadow-xs">
                     {item.score}%
                   </span>
                 </div>
               </div>
 
               {/* Metric Label Underneath */}
-              <span className="text-[10.5px] font-bold text-slate-300 leading-tight mt-2 transition-colors group-hover:text-white">
+              <span className="text-[10px] font-bold text-slate-300 leading-tight mt-2 transition-colors group-hover:text-white max-w-[130px]">
                 {item.label}
               </span>
             </div>
