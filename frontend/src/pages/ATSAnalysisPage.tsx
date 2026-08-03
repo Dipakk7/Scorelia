@@ -283,7 +283,7 @@ export default function ATSAnalysisPage() {
                 bottomContent={
                   <>
                     {(activeTab === 'overview' || activeTab === 'detailed-report') && (
-                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
                         {/* Row 1: Keyword Intelligence (7 cols) + ATS System Compatibility (5 cols) */}
                         <div className="lg:col-span-7 flex flex-col h-full">
                           <ATSWidgetErrorBoundary sectionName="Keyword Intelligence">
@@ -347,7 +347,7 @@ export default function ATSAnalysisPage() {
                     )}
 
                     {activeTab === 'keyword-match' && (
-                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
                         <div className="lg:col-span-7 flex flex-col h-full">
                           <ATSWidgetErrorBoundary sectionName="Keyword Intelligence">
                             <KeywordIntelligenceCard />
@@ -362,7 +362,7 @@ export default function ATSAnalysisPage() {
                     )}
 
                     {activeTab === 'format-check' && (
-                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
                         <div className="lg:col-span-6 flex flex-col h-full">
                           <ATSWidgetErrorBoundary sectionName="Formatting Audit">
                             <FormattingAnalysisCard />
@@ -382,7 +382,7 @@ export default function ATSAnalysisPage() {
                     )}
 
                     {activeTab === 'content-optimization' && (
-                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
                         <div className="lg:col-span-6 flex flex-col h-full">
                           <ATSWidgetErrorBoundary sectionName="Section Scores Breakdown">
                             <SectionScoresCard />
@@ -397,7 +397,7 @@ export default function ATSAnalysisPage() {
                     )}
 
                     {activeTab === 'ats-simulation' && (
-                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
                         <div className="lg:col-span-6 flex flex-col h-full">
                           <ATSWidgetErrorBoundary sectionName="Recruiter Feedback">
                             <RecruiterFeedbackCard data={recruiterFeedback} />
