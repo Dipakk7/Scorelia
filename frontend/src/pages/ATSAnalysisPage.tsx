@@ -248,7 +248,16 @@ export default function ATSAnalysisPage() {
                     )}
 
                     {/* Tab Views Filtering */}
-                    {(activeTab === 'overview' || activeTab === 'detailed-report') && null}
+                    {(activeTab === 'overview' || activeTab === 'detailed-report') && (
+                      <>
+                        <ATSWidgetErrorBoundary sectionName="Priority Recommendations">
+                          <PriorityRecommendationCard />
+                        </ATSWidgetErrorBoundary>
+                        <ATSWidgetErrorBoundary sectionName="Keyword Intelligence">
+                          <KeywordIntelligenceCard />
+                        </ATSWidgetErrorBoundary>
+                      </>
+                    )}
 
                     {activeTab === 'keyword-match' && (
                       <>
@@ -258,7 +267,13 @@ export default function ATSAnalysisPage() {
                       </>
                     )}
 
-                    {activeTab === 'content-optimization' && null}
+                    {activeTab === 'content-optimization' && (
+                      <>
+                        <ATSWidgetErrorBoundary sectionName="Priority Recommendations">
+                          <PriorityRecommendationCard />
+                        </ATSWidgetErrorBoundary>
+                      </>
+                    )}
                   </div>
                 }
                 rightSidebar={
@@ -279,30 +294,23 @@ export default function ATSAnalysisPage() {
                 bottomContent={
                   <>
                     {(activeTab === 'overview' || activeTab === 'detailed-report') && (
-                      <div className="grid grid-cols-1 md:grid-cols-12 lg:grid-cols-12 gap-6 items-stretch">
-                        {/* Row 1: AI Missing Keyword Intelligence (35% / 4 cols) + AI Priority Recommendations (65% / 8 cols) */}
-                        <div className="md:col-span-6 lg:col-span-4 flex flex-col h-full">
-                          <ATSWidgetErrorBoundary sectionName="Keyword Intelligence">
-                            <KeywordIntelligenceCard />
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
+                        {/* Row 1: System Compatibility (7 cols) + Recruiter Feedback (5 cols) */}
+                        <div className="lg:col-span-7 flex flex-col h-full">
+                          <ATSWidgetErrorBoundary sectionName="ATS System Compatibility">
+                            <ATSCompatibilityCard />
                           </ATSWidgetErrorBoundary>
                         </div>
-                        <div className="md:col-span-6 lg:col-span-8 flex flex-col h-full">
-                          <ATSWidgetErrorBoundary sectionName="Priority Recommendations">
-                            <PriorityRecommendationCard />
-                          </ATSWidgetErrorBoundary>
-                        </div>
-
-                        {/* Row 2: Recruiter & Hiring Manager Perspective (Full Width / 12 cols) */}
-                        <div className="lg:col-span-12">
+                        <div className="lg:col-span-5 flex flex-col h-full">
                           <ATSWidgetErrorBoundary sectionName="Recruiter Feedback">
                             <RecruiterFeedbackCard data={recruiterFeedback} />
                           </ATSWidgetErrorBoundary>
                         </div>
 
-                        {/* Row 3: ATS System Compatibility (7 cols) + Risk Analysis (5 cols) */}
+                        {/* Row 2: Optimization Timeline (7 cols) + Risk Analysis (5 cols) */}
                         <div className="lg:col-span-7 flex flex-col h-full">
-                          <ATSWidgetErrorBoundary sectionName="ATS System Compatibility">
-                            <ATSCompatibilityCard />
+                          <ATSWidgetErrorBoundary sectionName="Optimization Sequence">
+                            <OptimizationTimeline />
                           </ATSWidgetErrorBoundary>
                         </div>
                         <div className="lg:col-span-5 flex flex-col h-full">
@@ -311,19 +319,19 @@ export default function ATSAnalysisPage() {
                           </ATSWidgetErrorBoundary>
                         </div>
 
-                        {/* Row 4: Optimization Sequence (7 cols) + Industry Peer Benchmark (5 cols) */}
-                        <div className="lg:col-span-7 flex flex-col h-full">
-                          <ATSWidgetErrorBoundary sectionName="Optimization Sequence">
-                            <OptimizationTimeline />
-                          </ATSWidgetErrorBoundary>
-                        </div>
-                        <div className="lg:col-span-5 flex flex-col h-full">
+                        {/* Row 3: Industry Peer Benchmark (6 cols) + Readiness Master Checklist (6 cols) */}
+                        <div className="lg:col-span-6 flex flex-col h-full">
                           <ATSWidgetErrorBoundary sectionName="Industry Peer Benchmark">
                             <IndustryBenchmarkCard />
                           </ATSWidgetErrorBoundary>
                         </div>
+                        <div className="lg:col-span-6 flex flex-col h-full">
+                          <ATSWidgetErrorBoundary sectionName="Readiness Master Checklist">
+                            <ATSChecklistCard />
+                          </ATSWidgetErrorBoundary>
+                        </div>
 
-                        {/* Row 5: Formatting Audit (6 cols) + Section Scores Breakdown (6 cols) */}
+                        {/* Row 4: Formatting Audit (6 cols) + Section Scores Breakdown (6 cols) */}
                         <div className="lg:col-span-6 flex flex-col h-full">
                           <ATSWidgetErrorBoundary sectionName="Formatting Audit">
                             <FormattingAnalysisCard />
@@ -335,13 +343,8 @@ export default function ATSAnalysisPage() {
                           </ATSWidgetErrorBoundary>
                         </div>
 
-                        {/* Row 6: Readiness Master Checklist (6 cols) + ATS Parser Preview (6 cols) */}
-                        <div className="lg:col-span-6 flex flex-col h-full">
-                          <ATSWidgetErrorBoundary sectionName="Readiness Master Checklist">
-                            <ATSChecklistCard />
-                          </ATSWidgetErrorBoundary>
-                        </div>
-                        <div className="lg:col-span-6 flex flex-col h-full">
+                        {/* Row 5: ATS Parser Preview (12 cols) */}
+                        <div className="lg:col-span-12">
                           <ATSWidgetErrorBoundary sectionName="ATS Parser Preview">
                             <ParserPreviewCard />
                           </ATSWidgetErrorBoundary>
