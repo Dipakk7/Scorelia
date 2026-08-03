@@ -312,13 +312,13 @@ export default function ATSAnalysisPage() {
                             </ATSWidgetErrorBoundary>
                           </div>
 
-                          {/* Right Column (6 cols): Optimization Sequence, Risk Analysis, Industry Peer Benchmark, Readiness Master Checklist */}
+                          {/* Right Column (6 cols): Risk Analysis, Optimization Sequence, Industry Peer Benchmark, Readiness Master Checklist */}
                           <div className="lg:col-span-6 space-y-5 sm:space-y-6 flex flex-col">
-                            <ATSWidgetErrorBoundary sectionName="Optimization Sequence">
-                              <OptimizationTimeline />
-                            </ATSWidgetErrorBoundary>
                             <ATSWidgetErrorBoundary sectionName="Risk Analysis">
                               <RiskAnalysisCard />
+                            </ATSWidgetErrorBoundary>
+                            <ATSWidgetErrorBoundary sectionName="Optimization Sequence">
+                              <OptimizationTimeline />
                             </ATSWidgetErrorBoundary>
                             <ATSWidgetErrorBoundary sectionName="Industry Peer Benchmark">
                               <IndustryBenchmarkCard />
