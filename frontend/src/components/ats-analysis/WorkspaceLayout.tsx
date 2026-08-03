@@ -12,7 +12,7 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({
   bottomContent,
 }) => {
   return (
-    <main aria-label="ATS Analysis Main Workspace" className="space-y-6">
+    <main aria-label="ATS Analysis Main Workspace" className="space-y-5 sm:space-y-6">
       {/* Main Grid: Left Content (58-60%) vs Right Sidebar (40-42%) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
         {/* Left Column (58-60%) */}
