@@ -57,19 +57,19 @@ export const AiChatWorkspace: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col h-full min-h-0 overflow-hidden text-left font-sans p-4 space-y-3">
-      {/* Top Controls Bar (Fixed Header with unclipped padding and vertical centering) */}
-      <div className="flex items-center justify-between border-b border-slate-800/80 py-2 min-h-[48px] shrink-0 overflow-visible transition-colors">
+    <div className="flex flex-col h-full min-h-0 overflow-hidden text-left font-sans p-4 space-y-3.5 bg-[#0b0c14]">
+      {/* Top Controls Bar (Fixed Header) */}
+      <div className="flex items-center justify-between border-b border-slate-800/80 pb-2.5 min-h-[48px] shrink-0 overflow-visible">
         <div className="flex items-center gap-2.5 min-w-0">
-          <div className="p-1.5 rounded-xl bg-purple-600/20 text-purple-300 border border-purple-500/40 shrink-0 flex items-center justify-center">
+          <div className="p-1.5 rounded-xl bg-purple-600/20 text-purple-400 border border-purple-500/30 shrink-0 flex items-center justify-center">
             <Bot size={16} />
           </div>
-          <div className="flex flex-col justify-center min-w-0 py-0.5">
-            <div className="flex items-center gap-1.5 leading-tight">
+          <div className="flex flex-col justify-center min-w-0">
+            <div className="flex items-center gap-2">
               <span className="text-xs font-extrabold text-white tracking-tight leading-tight truncate">Scorelia AI Workspace</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" title="Online" />
             </div>
-            <span className="text-[10px] text-slate-400 font-mono font-medium leading-tight truncate">Model: GPT-4o / Claude 3.5 Sonnet</span>
+            <span className="text-[10px] text-slate-400 font-mono font-medium leading-tight truncate mt-0.5">Model: GPT-4o / Claude 3.5 Sonnet</span>
           </div>
         </div>
 
@@ -85,8 +85,8 @@ export const AiChatWorkspace: React.FC = () => {
         </div>
       </div>
 
-      {/* Messages Thread Container (Fills All Available Remaining Space & Scrolls) */}
-      <div className="flex-1 min-h-0 overflow-y-auto space-y-3 pr-1 custom-scrollbar">
+      {/* Messages Thread Container */}
+      <div className="flex-1 min-h-0 overflow-y-auto space-y-3.5 pr-1 custom-scrollbar">
         {messages.length === 0 ? (
           <AiEmptyState />
         ) : (
@@ -101,10 +101,10 @@ export const AiChatWorkspace: React.FC = () => {
               {/* Avatar */}
               <div
                 className={cn(
-                  'w-7 h-7 rounded-xl flex items-center justify-center shrink-0 text-xs font-bold font-mono',
+                  'w-7 h-7 rounded-xl flex items-center justify-center shrink-0 text-xs font-bold font-mono shadow-xs',
                   msg.sender === 'user'
-                    ? 'bg-purple-600 text-white shadow-sm'
-                    : 'bg-slate-900 text-purple-300 border border-purple-500/30'
+                    ? 'bg-purple-600 text-white'
+                    : 'bg-[#121424] text-purple-400 border border-purple-500/30'
                 )}
               >
                 {msg.sender === 'user' ? <User size={13} /> : <Bot size={13} />}
@@ -113,17 +113,17 @@ export const AiChatWorkspace: React.FC = () => {
               {/* Message Bubble */}
               <div
                 className={cn(
-                  'p-3 rounded-2xl text-xs leading-relaxed font-sans shadow-sm space-y-1',
+                  'p-3.5 rounded-2xl text-xs leading-relaxed font-sans space-y-1',
                   msg.sender === 'user'
-                    ? 'bg-purple-600 text-white rounded-tr-none'
-                    : 'bg-[#121424]/95 text-slate-100 border border-slate-800/90 rounded-tl-none'
+                    ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-tr-none shadow-md shadow-purple-950/30 font-semibold'
+                    : 'bg-[#121424]/95 text-slate-100 border border-slate-800/90 rounded-tl-none shadow-sm'
                 )}
               >
                 <p className="m-0 whitespace-pre-wrap">{msg.text}</p>
                 {msg.isStreaming && <AiStreamingCursor />}
                 <div
                   className={cn(
-                    'text-[9px] font-mono pt-1 text-right',
+                    'text-[10px] font-mono mt-1.5 text-right',
                     msg.sender === 'user' ? 'text-purple-200' : 'text-slate-400'
                   )}
                 >
@@ -136,14 +136,14 @@ export const AiChatWorkspace: React.FC = () => {
 
         {/* Thinking Skeleton */}
         {isThinking && (
-          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-purple-950/30 border border-purple-500/30 text-xs text-purple-300">
+          <div className="flex items-center gap-2 p-3 rounded-2xl bg-purple-950/30 border border-purple-500/30 text-xs text-purple-300">
             <div className="w-3.5 h-3.5 rounded-full border-2 border-purple-400 border-t-transparent animate-spin shrink-0" />
             <span className="font-mono text-[11px] animate-pulse">Scorelia AI is composing response...</span>
           </div>
         )}
       </div>
 
-      {/* Bottom Anchored Section (Suggested Prompts + Prompt Input Pinned via mt-auto shrink-0) */}
+      {/* Bottom Anchored Section (Suggested Prompts + Scorelia Chat Input) */}
       <div className="mt-auto shrink-0 space-y-3 pt-1">
         <AiPromptLibrary onSelectPrompt={(prompt) => handleSendMessage(prompt)} />
 
