@@ -127,7 +127,7 @@ export const SectionAnalysisCard: React.FC<SectionAnalysisCardProps> = ({
         <div className="flex flex-col gap-5 mt-5 pt-4 border-t border-slate-800/60">
           {/* Sub-Navigation Tabs */}
           <div className="flex items-center justify-between border-b border-slate-800/80 pb-px">
-            <div className="flex items-center gap-1 sm:gap-2 text-xs font-semibold overflow-x-auto custom-scrollbar">
+            <div className="flex items-center gap-1 sm:gap-2 text-xs font-semibold overflow-x-auto no-scrollbar scrollbar-none">
               <button
                 type="button"
                 onClick={() => setActiveSubTab('review')}

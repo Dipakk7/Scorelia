@@ -75,7 +75,7 @@ export const SectionNavPanel: React.FC<SectionNavPanelProps> = ({
       </div>
 
       {/* Nav Items List */}
-      <nav aria-label="Resume Sections Navigation" className="flex flex-col gap-1.5 max-h-[520px] overflow-y-auto custom-scrollbar pr-1">
+      <nav aria-label="Resume Sections Navigation" className="flex flex-col gap-1.5 max-h-[520px] overflow-y-auto no-scrollbar scrollbar-none">
         {sections.map((section) => {
           const Icon = getSectionIcon(section.id)
           const isActive = activeSectionId === section.id
