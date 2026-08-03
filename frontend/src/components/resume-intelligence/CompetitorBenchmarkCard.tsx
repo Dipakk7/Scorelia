@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react'
 import { Card } from '@/components/ui/Card'
 import { ArrowRight, ChevronDown, Users } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 export interface RoleBenchmarkData {
   role: string
@@ -79,43 +80,44 @@ export const CompetitorBenchmarkCard: React.FC<CompetitorBenchmarkCardProps> = (
   }, [activeData.averageScore])
 
   return (
-    <Card className="bg-[#0b0c14]/90 border-slate-800/80 p-5 rounded-2xl flex flex-col justify-between backdrop-blur-md h-full shadow-lg relative">
+    <Card className="bg-[#0b0c14]/95 border border-slate-800/90 p-5 md:p-6 rounded-2xl flex flex-col justify-between backdrop-blur-md h-full shadow-xl relative select-none">
       {/* Screen Reader Text Description for Chart */}
       <div className="sr-only">
         Competitor benchmark analysis for role {role}. Your candidate score is {activeData.userScore} points, placing you in the top {topPercentile}% compared to {activeData.totalCandidates} candidates with an average score of {activeData.averageScore}.
       </div>
 
       {/* Header & Role Dropdown */}
-      <div className="flex items-start justify-between gap-2 mb-2">
+      <div className="flex items-center justify-between gap-3 mb-3">
         <div>
-          <h3 className="text-sm font-semibold text-slate-200 tracking-tight">
+          <h3 className="text-base font-extrabold text-white tracking-tight">
             Competitor Benchmark
           </h3>
-          <p className="text-[11px] text-slate-400 mt-0.5">
-            Ranked <span className="text-purple-300 font-bold">Top {topPercentile}%</span> among{' '}
-            <span className="text-slate-300 font-semibold">{(activeData.totalCandidates || 14200).toLocaleString()}</span> candidates.
+          <p className="text-xs font-medium text-slate-400 mt-0.5">
+            Ranked <span className="text-purple-300 font-extrabold">Top {topPercentile}%</span> among{' '}
+            <span className="text-slate-200 font-bold">{(activeData.totalCandidates || 14200).toLocaleString()}</span> candidates.
           </p>
         </div>
 
         {/* Role Selector Dropdown */}
         <div className="relative">
           <button
+            type="button"
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-lg bg-[#161828] border border-slate-700/70 shadow-md text-xs transition-all cursor-pointer hover:bg-[#1e2136] hover:border-purple-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:border-purple-500"
+            className="flex items-center gap-2.5 px-3.5 py-2 min-h-[40px] rounded-xl bg-[#141628] border border-slate-700/80 shadow-md text-xs font-bold text-white transition-all cursor-pointer hover:bg-[#1c1f36] hover:border-purple-500/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             aria-haspopup="listbox"
             aria-expanded={isDropdownOpen}
             aria-label={`Select Role Benchmark. Current role: ${role}`}
           >
             <Users className="w-3.5 h-3.5 text-purple-300 shrink-0" />
-            <span className="text-white font-bold text-xs">{role}</span>
-            <ChevronDown className={`w-3.5 h-3.5 text-slate-300 shrink-0 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180 text-purple-300' : ''}`} />
+            <span className="truncate max-w-[140px] sm:max-w-[180px]">{role}</span>
+            <ChevronDown className={cn('w-4 h-4 text-slate-300 shrink-0 transition-transform duration-200', isDropdownOpen && 'rotate-180 text-purple-300')} />
           </button>
 
           {isDropdownOpen && (
             <div
               role="listbox"
               aria-label="Target Role Benchmarks"
-              className="absolute right-0 top-full mt-1.5 w-48 bg-[#10121d] border border-slate-700/80 rounded-xl shadow-2xl backdrop-blur-md z-50 p-1 flex flex-col gap-0.5 animate-in fade-in duration-150"
+              className="absolute right-0 top-full mt-2 w-56 bg-[#101222] border border-slate-700/90 rounded-2xl shadow-2xl backdrop-blur-xl z-50 p-1.5 flex flex-col gap-1 animate-in fade-in zoom-in-95 duration-150"
             >
               {Object.keys(mapData).map((r) => (
                 <button
@@ -126,13 +128,15 @@ export const CompetitorBenchmarkCard: React.FC<CompetitorBenchmarkCardProps> = (
                     setRole(r)
                     setIsDropdownOpen(false)
                   }}
-                  className={`text-left px-2.5 py-2 min-h-[44px] rounded-lg text-xs transition-colors flex items-center ${
+                  className={cn(
+                    'text-left px-3.5 py-2.5 rounded-xl text-xs transition-all flex items-center justify-between gap-2 cursor-pointer border',
                     role === r
-                      ? 'bg-purple-600/30 text-white font-bold border border-purple-500/40'
-                      : 'text-slate-200 hover:bg-[#1a1d30] hover:text-white font-medium'
-                  }`}
+                      ? 'bg-purple-600/30 text-white font-extrabold border-purple-500/50 shadow-xs'
+                      : 'text-slate-300 hover:bg-slate-900/80 hover:text-white hover:border-slate-700/60 font-semibold border-transparent'
+                  )}
                 >
-                  {r}
+                  <span className="truncate">{r}</span>
+                  {role === r && <span className="w-1.5 h-1.5 rounded-full bg-purple-400 shrink-0" />}
                 </button>
               ))}
             </div>
@@ -141,43 +145,46 @@ export const CompetitorBenchmarkCard: React.FC<CompetitorBenchmarkCardProps> = (
       </div>
 
       {/* SVG Bell Curve Chart */}
-      <div className="flex-1 flex flex-col justify-center py-2 relative">
+      <div className="flex-1 flex flex-col justify-center py-3 relative">
         <svg viewBox="0 0 240 85" className="w-full h-auto overflow-visible" role="img" aria-label="Normal Distribution Bell Curve Chart">
           <defs>
             <linearGradient id="bellCurveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.1" />
-              <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.2" />
-              <stop offset="100%" stopColor="#10b981" stopOpacity="0.4" />
+              <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.08" />
+              <stop offset="50%" stopColor="#a855f7" stopOpacity="0.22" />
+              <stop offset="100%" stopColor="#10b981" stopOpacity="0.35" />
             </linearGradient>
           </defs>
 
           <path
             d="M 10,75 Q 60,75 90,50 T 120,20 T 150,50 Q 180,75 230,75"
             fill="url(#bellCurveGradient)"
-            stroke="#6366f1"
-            strokeWidth="2"
+            stroke="#a855f7"
+            strokeWidth="2.5"
+            strokeLinecap="round"
           />
 
-          <line x1="10" y1="75" x2="230" y2="75" stroke="#1e293b" strokeWidth="1.5" />
+          <line x1="10" y1="75" x2="230" y2="75" stroke="#334155" strokeWidth="1.5" />
 
+          {/* Average Indicator Line */}
           <line
             x1={avgX}
             y1="75"
             x2={avgX}
             y2="30"
             stroke="#64748b"
-            strokeWidth="1"
-            strokeDasharray="2 2"
+            strokeWidth="1.5"
+            strokeDasharray="3 3"
           />
           <text
             x={avgX}
             y="24"
             textAnchor="middle"
-            className="fill-slate-400 text-[8px] font-medium"
+            className="fill-slate-400 text-[8px] font-bold font-mono"
           >
             Avg ({activeData.averageScore})
           </text>
 
+          {/* User Score Pin Line */}
           <line
             x1={pinX}
             y1="75"
@@ -185,43 +192,45 @@ export const CompetitorBenchmarkCard: React.FC<CompetitorBenchmarkCardProps> = (
             y2="38"
             stroke="#38bdf8"
             strokeWidth="1.5"
-            strokeDasharray="2 2"
+            strokeDasharray="3 3"
             className="transition-all duration-700 ease-out"
           />
           <circle
             cx={pinX}
             cy="38"
-            r="4"
+            r="5"
             fill="#38bdf8"
-            stroke="#0b0c14"
-            strokeWidth="2"
-            className="transition-all duration-700 ease-out"
+            stroke="#07080e"
+            strokeWidth="2.5"
+            className="transition-all duration-700 ease-out filter drop-shadow-[0_0_8px_rgba(56,189,248,0.6)]"
           />
 
-          <g className="transition-all duration-700 ease-out" transform={`translate(${pinX - 25}, 12)`}>
-            <rect x="0" y="0" width="50" height="18" rx="9" fill="#0f172a" stroke="#38bdf8" strokeWidth="1" />
-            <text x="25" y="12" textAnchor="middle" className="fill-sky-300 text-[9px] font-extrabold font-mono">
+          {/* User Top Percentile Badge Overlay */}
+          <g className="transition-all duration-700 ease-out" transform={`translate(${pinX - 28}, 10)`}>
+            <rect x="0" y="0" width="56" height="20" rx="10" fill="#0f172a" stroke="#38bdf8" strokeWidth="1.2" className="shadow-md" />
+            <text x="28" y="13" textAnchor="middle" className="fill-sky-300 text-[9.5px] font-extrabold font-mono">
               Top {topPercentile}%
             </text>
           </g>
         </svg>
 
-        <div className="flex justify-between items-center text-[10px] text-slate-400 font-medium px-1 mt-1">
+        <div className="flex justify-between items-center text-xs text-slate-400 font-semibold px-2 mt-2">
           <span>Bottom 10%</span>
-          <span className="text-slate-300 font-semibold">Average ({activeData.averageScore})</span>
+          <span className="text-slate-200 font-bold font-mono">Average ({activeData.averageScore})</span>
           <span>Top 10%</span>
         </div>
       </div>
 
       {/* Footer Link */}
-      <div className="pt-3 mt-3 border-t border-slate-800/60 flex justify-center">
+      <div className="pt-3 mt-3 border-t border-slate-800/80 flex justify-center">
         <button
+          type="button"
           onClick={onViewBenchmarkReport}
-          className="inline-flex items-center gap-1.5 min-h-[44px] text-xs font-semibold text-purple-400 hover:text-purple-300 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-purple-400 hover:text-purple-300 hover:bg-purple-500/10 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
           aria-label="View Detailed Benchmark Report"
         >
           <span>View Benchmark Report</span>
-          <ArrowRight className="w-3.5 h-3.5" />
+          <ArrowRight className="w-4 h-4" />
         </button>
       </div>
     </Card>
