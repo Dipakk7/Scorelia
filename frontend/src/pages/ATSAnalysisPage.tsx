@@ -126,14 +126,14 @@ export default function ATSAnalysisPage() {
   // Handle Empty Resume State (User has no uploaded resumes)
   if (!isResumesLoading && (!resumes || resumes.length === 0)) {
     return (
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-12">
+      <div className="w-full max-w-[1920px] mx-auto py-12">
         <EmptyResumeState onUploadClick={handleUploadRedirect} />
       </div>
     )
   }
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <div className="w-full max-w-[1920px] mx-auto space-y-6 text-slate-100 selection:bg-purple-500/30">
       <motion.div
         variants={containerVariants}
         initial="initial"
