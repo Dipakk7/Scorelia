@@ -253,11 +253,11 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
     </div>
 
       {/* A4 Paper Document Preview Container */}
-      <div className="flex-1 min-h-0 overflow-auto p-3 sm:p-4 md:p-5 bg-slate-200/70 dark:bg-[#0c0d15] flex justify-center items-start custom-scrollbar transition-colors">
+      <div className="flex-1 min-h-0 overflow-auto p-3 sm:p-4 md:p-5 bg-[#0c0d15] flex justify-center items-start custom-scrollbar transition-colors">
         {/* A4 Proportioned Canvas Wrapper - Softened Eye-Friendly Paper Surface with Premium Elevation */}
         <div
           className={cn(
-            'w-full max-w-[850px] transition-all duration-200 ease-out transform-gpu origin-top mx-auto text-left rounded-sm border border-slate-300/60 dark:border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.28)] dark:shadow-[0_16px_48px_rgba(0,0,0,0.65)] ring-1 ring-slate-900/5 dark:ring-white/5 overflow-hidden print-document-canvas my-1 bg-[#FAFBFD] dark:bg-[#FAFBFC] print:bg-white text-slate-900 selection:bg-purple-500/20 antialiased motion-reduce:transition-none',
+            'w-full max-w-[850px] transition-all duration-200 ease-out transform-gpu origin-top mx-auto text-left rounded-sm border border-slate-800/80 shadow-[0_16px_48px_rgba(0,0,0,0.65)] ring-1 ring-white/5 overflow-hidden print-document-canvas my-1 bg-[#FAFBFC] print:bg-white text-slate-900 selection:bg-purple-500/20 antialiased motion-reduce:transition-none',
             previewTheme === 'dark' && 'bg-[#181926] text-slate-100 ring-slate-400/20'
           )}
           style={{
@@ -271,18 +271,18 @@ export const ResumePreviewPanel: React.FC<ResumePreviewPanelProps> = ({
       </div>
 
       {/* Bottom Status Footer */}
-      <div className="h-[46px] min-h-[46px] px-3.5 border-t border-slate-200/80 dark:border-border-subtle/30 bg-white/90 dark:bg-surface-l2/40 flex items-center justify-between gap-3 text-xs text-slate-600 dark:text-slate-400 transition-colors shrink-0 flex-none box-border">
-        <div className="flex items-center gap-1.5">
-          <CheckCircle2 size={14} className="text-emerald-600 dark:text-emerald-400" />
-          <span>{saveStatus}</span>
+      <div className="h-[48px] min-h-[48px] px-4 border-t border-slate-800/80 bg-[#0e101c] flex items-center justify-between gap-3 text-xs font-medium text-slate-300 transition-colors shrink-0 flex-none box-border">
+        <div className="flex items-center gap-1.5 font-mono">
+          <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
+          <span className="text-slate-300 font-semibold">{saveStatus}</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <Lock size={13} className="text-purple-600 dark:text-purple-400" />
-          <span>All changes are secure</span>
+          <Lock size={13} className="text-purple-400 shrink-0" />
+          <span className="text-slate-400">All changes are secure</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <ShieldCheck size={14} className="text-blue-600 dark:text-blue-400" />
-          <span>Your data is private</span>
+          <ShieldCheck size={14} className="text-sky-400 shrink-0" />
+          <span className="text-slate-400">Your data is private</span>
         </div>
       </div>
     </div>

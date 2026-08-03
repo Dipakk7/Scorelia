@@ -598,7 +598,7 @@ these tokens.
   text-transform: uppercase;
 }
 
-/* Custom Scrollbar for premium feel */
+/* Custom Scrollbar for premium dark feel */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -609,16 +609,17 @@ these tokens.
 }
 
 .dark ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: var(--radius-sm);
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 9999px;
+  border: none;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--muted-color);
+  background: rgba(168, 85, 247, 0.4);
 }
 
 /* Glassmorphism Classes built on tokens */
