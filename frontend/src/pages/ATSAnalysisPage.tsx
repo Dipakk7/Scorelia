@@ -185,7 +185,7 @@ export default function ATSAnalysisPage() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -8 }}
               transition={{ duration: 0.2 }}
-              className="space-y-6"
+              className="space-y-5 sm:space-y-6"
             >
               {/* ATS Score Overview Hero Card */}
               <ATSWidgetErrorBoundary sectionName="ATS Score Overview">
@@ -208,7 +208,7 @@ export default function ATSAnalysisPage() {
               {/* Main Workspace Grid (70% Left / 30% Right Sidebar) */}
               <WorkspaceLayout
                 leftContent={
-                  <div className="space-y-6">
+                  <div className="space-y-5 sm:space-y-6">
                     {/* Section-by-Section Workspace */}
                     {currentSectionDetail && (
                       <motion.div
@@ -216,7 +216,7 @@ export default function ATSAnalysisPage() {
                         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 6 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="space-y-6"
+                        className="space-y-5 sm:space-y-6"
                       >
                         <ATSWidgetErrorBoundary sectionName="Section Analysis Workspace">
                           <SectionAnalysisWorkspace section={currentSectionDetail} />
@@ -249,14 +249,14 @@ export default function ATSAnalysisPage() {
 
                     {/* Tab Views Filtering */}
                     {(activeTab === 'overview' || activeTab === 'detailed-report') && (
-                      <>
+                      <div className="space-y-5 sm:space-y-6">
                         <ATSWidgetErrorBoundary sectionName="Priority Recommendations">
                           <PriorityRecommendationCard />
                         </ATSWidgetErrorBoundary>
                         <ATSWidgetErrorBoundary sectionName="Keyword Intelligence">
                           <KeywordIntelligenceCard />
                         </ATSWidgetErrorBoundary>
-                      </>
+                      </div>
                     )}
 
                     {activeTab === 'keyword-match' && (
@@ -277,7 +277,7 @@ export default function ATSAnalysisPage() {
                   </div>
                 }
                 rightSidebar={
-                  <div className="space-y-6">
+                  <div className="space-y-5 sm:space-y-6">
                     {currentSectionDetail && (
                       <ATSWidgetErrorBoundary sectionName="Section Summary Sidebar">
                         <SectionSidebar section={currentSectionDetail} />
