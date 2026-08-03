@@ -10,7 +10,7 @@ export const OptimizationTimeline: React.FC = () => {
     mockOptimizationTimeline.find((s) => s.id === selectedStepId) || mockOptimizationTimeline[1]
 
   return (
-    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-5 shadow-lg space-y-4">
+    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-5 shadow-lg space-y-3.5 h-full flex flex-col justify-between">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
