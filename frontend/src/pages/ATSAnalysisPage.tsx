@@ -294,43 +294,57 @@ export default function ATSAnalysisPage() {
                 bottomContent={
                   <>
                     {(activeTab === 'overview' || activeTab === 'detailed-report') && (
-                      <div className="space-y-5 sm:space-y-6">
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
-                          {/* Left Column (6 cols): System Compatibility, Recruiter Feedback, Formatting Audit, Section Scores */}
-                          <div className="lg:col-span-6 space-y-5 sm:space-y-6 flex flex-col">
-                            <ATSWidgetErrorBoundary sectionName="ATS System Compatibility">
-                              <ATSCompatibilityCard />
-                            </ATSWidgetErrorBoundary>
-                            <ATSWidgetErrorBoundary sectionName="Recruiter Feedback">
-                              <RecruiterFeedbackCard data={recruiterFeedback} />
-                            </ATSWidgetErrorBoundary>
-                            <ATSWidgetErrorBoundary sectionName="Formatting Audit">
-                              <FormattingAnalysisCard />
-                            </ATSWidgetErrorBoundary>
-                            <ATSWidgetErrorBoundary sectionName="Section Scores Breakdown">
-                              <SectionScoresCard />
-                            </ATSWidgetErrorBoundary>
-                          </div>
-
-                          {/* Right Column (6 cols): Risk Analysis, Optimization Sequence, Industry Peer Benchmark, Readiness Master Checklist */}
-                          <div className="lg:col-span-6 space-y-5 sm:space-y-6 flex flex-col">
-                            <ATSWidgetErrorBoundary sectionName="Risk Analysis">
-                              <RiskAnalysisCard />
-                            </ATSWidgetErrorBoundary>
-                            <ATSWidgetErrorBoundary sectionName="Optimization Sequence">
-                              <OptimizationTimeline />
-                            </ATSWidgetErrorBoundary>
-                            <ATSWidgetErrorBoundary sectionName="Industry Peer Benchmark">
-                              <IndustryBenchmarkCard />
-                            </ATSWidgetErrorBoundary>
-                            <ATSWidgetErrorBoundary sectionName="Readiness Master Checklist">
-                              <ATSChecklistCard />
-                            </ATSWidgetErrorBoundary>
-                          </div>
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
+                        {/* Row 1: Full-width ATS System Compatibility Matrix (12 cols) */}
+                        <div className="lg:col-span-12">
+                          <ATSWidgetErrorBoundary sectionName="ATS System Compatibility">
+                            <ATSCompatibilityCard />
+                          </ATSWidgetErrorBoundary>
                         </div>
 
-                        {/* Full-width ATS Parser Preview */}
-                        <div>
+                        {/* Row 2: Recruiter Feedback (7 cols) + Risk Analysis (5 cols) */}
+                        <div className="lg:col-span-7 flex flex-col h-full">
+                          <ATSWidgetErrorBoundary sectionName="Recruiter Feedback">
+                            <RecruiterFeedbackCard data={recruiterFeedback} />
+                          </ATSWidgetErrorBoundary>
+                        </div>
+                        <div className="lg:col-span-5 flex flex-col h-full">
+                          <ATSWidgetErrorBoundary sectionName="Risk Analysis">
+                            <RiskAnalysisCard />
+                          </ATSWidgetErrorBoundary>
+                        </div>
+
+                        {/* Row 3: Optimization Timeline (7 cols) + Industry Peer Benchmark (5 cols) */}
+                        <div className="lg:col-span-7 flex flex-col h-full">
+                          <ATSWidgetErrorBoundary sectionName="Optimization Sequence">
+                            <OptimizationTimeline />
+                          </ATSWidgetErrorBoundary>
+                        </div>
+                        <div className="lg:col-span-5 flex flex-col h-full">
+                          <ATSWidgetErrorBoundary sectionName="Industry Peer Benchmark">
+                            <IndustryBenchmarkCard />
+                          </ATSWidgetErrorBoundary>
+                        </div>
+
+                        {/* Row 4: Formatting Audit (6 cols) + Section Scores Breakdown (6 cols) */}
+                        <div className="lg:col-span-6 flex flex-col h-full">
+                          <ATSWidgetErrorBoundary sectionName="Formatting Audit">
+                            <FormattingAnalysisCard />
+                          </ATSWidgetErrorBoundary>
+                        </div>
+                        <div className="lg:col-span-6 flex flex-col h-full">
+                          <ATSWidgetErrorBoundary sectionName="Section Scores Breakdown">
+                            <SectionScoresCard />
+                          </ATSWidgetErrorBoundary>
+                        </div>
+
+                        {/* Row 5: Readiness Master Checklist (6 cols) + ATS Parser Preview (6 cols) */}
+                        <div className="lg:col-span-6 flex flex-col h-full">
+                          <ATSWidgetErrorBoundary sectionName="Readiness Master Checklist">
+                            <ATSChecklistCard />
+                          </ATSWidgetErrorBoundary>
+                        </div>
+                        <div className="lg:col-span-6 flex flex-col h-full">
                           <ATSWidgetErrorBoundary sectionName="ATS Parser Preview">
                             <ParserPreviewCard />
                           </ATSWidgetErrorBoundary>

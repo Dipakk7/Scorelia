@@ -39,7 +39,7 @@ export const ATSCompatibilityCard: React.FC = () => {
       </div>
 
       {/* Systems Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5">
         {filteredSystems.map((sys) => {
           const isSelected = selectedSystem?.id === sys.id
           return (
