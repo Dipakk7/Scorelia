@@ -48,27 +48,27 @@ export const ATSHeader: React.FC<ATSHeaderProps> = memo(({
 }) => {
   return (
     <header className="flex flex-col gap-6 mb-6">
-      {/* Top Title & Actions Row */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        {/* Title Block */}
-        <div className="space-y-1.5">
-          <div className="flex flex-wrap items-center gap-3">
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-sans">
+      {/* Top Title & Actions Hero Section */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-4 md:p-6 rounded-2xl bg-[#121426] border border-white/10 bg-gradient-to-r from-[#14162a] via-[#111324] to-[#14162a] shadow-lg shadow-purple-950/10 transition-all duration-200">
+        {/* Left Title Block */}
+        <div>
+          <div className="flex items-center gap-3 flex-wrap">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight text-white drop-shadow-xs">
               ATS Analysis
             </h1>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
               <CheckCircle2 className="w-3.5 h-3.5" />
               Status: Ready for Analysis
             </span>
           </div>
 
-          <p className="text-sm text-slate-400 max-w-2xl leading-relaxed">
+          <p className="text-xs md:text-sm text-slate-300/80 max-w-2xl leading-relaxed mt-1.5">
             Analyze your resume for Applicant Tracking System compatibility and improve your chances of getting shortlisted.
           </p>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 self-start md:self-auto w-full md:w-auto">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0 w-full md:w-auto">
           {/* Refresh Button */}
           <button
             type="button"
