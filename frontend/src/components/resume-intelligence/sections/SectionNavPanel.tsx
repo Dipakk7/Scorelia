@@ -56,26 +56,26 @@ export const SectionNavPanel: React.FC<SectionNavPanelProps> = ({
   const completedCount = sections.filter((s) => s.score >= 80).length
 
   return (
-    <Card className="bg-[#0b0c14]/90 border-slate-800/80 p-4 rounded-2xl flex flex-col gap-3 backdrop-blur-md shadow-lg sticky top-6">
+    <Card className="bg-[#0b0c14]/95 border border-slate-800/90 p-4 sm:p-5 rounded-2xl flex flex-col gap-4 backdrop-blur-md shadow-xl select-none">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-slate-800/60 pb-3">
+      <div className="flex items-center justify-between border-b border-slate-800/80 pb-3.5">
         <div>
-          <h3 className="text-xs font-bold text-slate-100 uppercase tracking-wider">
+          <h3 className="text-xs font-extrabold text-white uppercase tracking-wider">
             Section Navigator
           </h3>
-          <p className="text-[10px] text-slate-400 mt-0.5">
-            {completedCount}/{sections.length} Sections Optimized
+          <p className="text-[11px] font-medium text-slate-400 mt-0.5">
+            {completedCount} of {sections.length} Sections Optimized
           </p>
         </div>
 
-        <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full font-mono">
-          <CheckCircle2 className="w-3 h-3" />
+        <span className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full font-mono shrink-0">
+          <CheckCircle2 className="w-3.5 h-3.5" />
           {Math.round((completedCount / sections.length) * 100)}% Complete
         </span>
       </div>
 
       {/* Nav Items List */}
-      <nav aria-label="Resume Sections Navigation" className="flex flex-col gap-1 max-h-[520px] overflow-y-auto custom-scrollbar pr-1">
+      <nav aria-label="Resume Sections Navigation" className="flex flex-col gap-1.5 max-h-[520px] overflow-y-auto custom-scrollbar pr-1">
         {sections.map((section) => {
           const Icon = getSectionIcon(section.id)
           const isActive = activeSectionId === section.id
@@ -84,19 +84,26 @@ export const SectionNavPanel: React.FC<SectionNavPanelProps> = ({
             <button
               key={section.id}
               onClick={() => onSelectSection(section.id)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  onSelectSection(section.id)
+                }
+              }}
               className={cn(
-                'w-full text-left px-3 py-2.5 rounded-xl text-xs font-medium transition-all flex items-center justify-between gap-2 cursor-pointer focus:outline-none focus:ring-1 focus:ring-purple-500',
+                'w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold transition-all duration-200 flex items-center justify-between gap-3 cursor-pointer select-none',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e]',
                 isActive
-                  ? 'bg-purple-600/20 text-white font-bold border border-purple-500/40 shadow-sm'
-                  : 'text-slate-400 hover:bg-slate-900/60 hover:text-slate-200 border border-transparent'
+                  ? 'bg-purple-600/20 text-white font-extrabold border border-purple-500/50 shadow-md shadow-purple-950/40 scale-[1.01]'
+                  : 'text-slate-300 hover:bg-slate-900/80 hover:text-white hover:border-slate-700/80 border border-transparent hover:translate-x-0.5'
               )}
               aria-current={isActive ? 'true' : undefined}
             >
-              <div className="flex items-center gap-2.5 truncate">
+              <div className="flex items-center gap-2.5 min-w-0">
                 <Icon
                   className={cn(
-                    'w-3.5 h-3.5 shrink-0',
-                    isActive ? 'text-purple-400' : 'text-slate-500'
+                    'w-4 h-4 shrink-0 transition-colors',
+                    isActive ? 'text-purple-400' : 'text-slate-500 group-hover:text-slate-300'
                   )}
                 />
                 <span className="truncate">{section.sectionName}</span>
@@ -104,7 +111,7 @@ export const SectionNavPanel: React.FC<SectionNavPanelProps> = ({
 
               <span
                 className={cn(
-                  'text-[10px] font-bold font-mono px-2 py-0.5 rounded-full shrink-0 border',
+                  'text-[10px] font-bold font-mono px-2.5 py-0.5 rounded-full shrink-0 border transition-colors',
                   section.score >= 90
                     ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                     : section.score >= 80
