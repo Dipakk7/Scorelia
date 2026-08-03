@@ -17,7 +17,7 @@ export const AiChatWorkspace: React.FC = () => {
     {
       id: 'msg-1',
       sender: 'assistant',
-      text: 'Hi Dipak! I am Scorelia AI. I can analyze your resume against target ATS schemas, rewrite bullet points with action verbs, and suggest high-impact keywords.',
+      text: "Hi Dipak! 👋\nLet's optimize your resume for ATS, recruiters, and your target role. Choose a prompt below or ask me anything.",
       timestamp: '11:15 AM',
     },
   ])
@@ -61,7 +61,7 @@ export const AiChatWorkspace: React.FC = () => {
       {/* Top Controls Bar (Fixed Header) */}
       <div className="flex items-center justify-between border-b border-slate-800/80 pb-2.5 min-h-[48px] shrink-0 overflow-visible">
         <div className="flex items-center gap-2.5 min-w-0">
-          <div className="p-1.5 rounded-xl bg-purple-600/20 text-purple-400 border border-purple-500/30 shrink-0 flex items-center justify-center">
+          <div className="p-1.5 rounded-xl bg-purple-600/20 text-purple-400 border border-purple-500/30 shrink-0 flex items-center justify-center shadow-xs">
             <Bot size={16} />
           </div>
           <div className="flex flex-col justify-center min-w-0">
@@ -86,7 +86,7 @@ export const AiChatWorkspace: React.FC = () => {
       </div>
 
       {/* Messages Thread Container */}
-      <div className="flex-1 min-h-0 overflow-y-auto space-y-3.5 pr-1 custom-scrollbar">
+      <div className="flex-1 min-h-0 overflow-y-auto space-y-4 pr-1 custom-scrollbar">
         {messages.length === 0 ? (
           <AiEmptyState />
         ) : (
@@ -101,30 +101,30 @@ export const AiChatWorkspace: React.FC = () => {
               {/* Avatar */}
               <div
                 className={cn(
-                  'w-7 h-7 rounded-xl flex items-center justify-center shrink-0 text-xs font-bold font-mono shadow-xs',
+                  'w-8 h-8 rounded-xl flex items-center justify-center shrink-0 text-xs font-bold font-mono transition-all',
                   msg.sender === 'user'
-                    ? 'bg-purple-600 text-white'
-                    : 'bg-[#121424] text-purple-400 border border-purple-500/30'
+                    ? 'bg-purple-600 text-white shadow-sm'
+                    : 'bg-gradient-to-br from-purple-600 to-indigo-700 text-white border border-purple-400/30 shadow-md shadow-purple-500/20'
                 )}
               >
-                {msg.sender === 'user' ? <User size={13} /> : <Bot size={13} />}
+                {msg.sender === 'user' ? <User size={14} /> : <Bot size={14} />}
               </div>
 
               {/* Message Bubble */}
               <div
                 className={cn(
-                  'p-3.5 rounded-2xl text-xs leading-relaxed font-sans space-y-1',
+                  'p-4 rounded-[18px] text-xs sm:text-[13px] leading-relaxed font-sans space-y-1 transition-all',
                   msg.sender === 'user'
                     ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-tr-none shadow-md shadow-purple-950/30 font-semibold'
-                    : 'bg-[#121424]/95 text-slate-100 border border-slate-800/90 rounded-tl-none shadow-sm'
+                    : 'bg-gradient-to-br from-purple-950/40 via-[#121424] to-indigo-950/30 text-slate-100 border border-purple-500/30 hover:border-purple-500/50 rounded-tl-none shadow-md shadow-purple-950/40 font-medium'
                 )}
               >
                 <p className="m-0 whitespace-pre-wrap">{msg.text}</p>
                 {msg.isStreaming && <AiStreamingCursor />}
                 <div
                   className={cn(
-                    'text-[10px] font-mono mt-1.5 text-right',
-                    msg.sender === 'user' ? 'text-purple-200' : 'text-slate-400'
+                    'text-[10px] font-mono mt-2 text-right',
+                    msg.sender === 'user' ? 'text-purple-200' : 'text-purple-300/70'
                   )}
                 >
                   {msg.timestamp}
