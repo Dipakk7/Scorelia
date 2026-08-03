@@ -8,6 +8,7 @@ import { AnalyticsHeroSkeleton } from './AnalyticsHeroSkeleton'
 
 interface AnalyticsHeroDashboardProps {
   data?: AnalyticsHeroOverviewData
+  selectedKpiId?: string
   isLoading?: boolean
   isEmpty?: boolean
   onExportReport?: () => void
@@ -20,6 +21,7 @@ interface AnalyticsHeroDashboardProps {
 
 export function AnalyticsHeroDashboard({
   data = analyticsHeroMockData,
+  selectedKpiId,
   isLoading = false,
   isEmpty = false,
   onExportReport,
@@ -52,6 +54,7 @@ export function AnalyticsHeroDashboard({
       {/* KPI Overview Grid */}
       <AnalyticsKPIGrid
         kpis={data.kpis}
+        selectedKpiId={selectedKpiId}
         isEmpty={isEmpty}
         onCardClick={onCardClick}
         onRetrySync={onRefreshData}

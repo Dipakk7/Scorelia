@@ -1,5 +1,6 @@
 import React from 'react'
 import { ResponsiveContainer, AreaChart, Area } from 'recharts'
+import { cn } from '@/lib/utils'
 
 export interface SparklineMetricProps {
   title: string
@@ -11,6 +12,8 @@ export interface SparklineMetricProps {
   strokeColor: string
   fillColor: string
   chartData?: { value: number }[]
+  isSelected?: boolean
+  onClick?: () => void
 }
 
 const DEFAULT_SPARKLINE_DATA = [
@@ -33,6 +36,8 @@ export const SparklineMetricCard: React.FC<SparklineMetricProps> = React.memo(({
   strokeColor,
   fillColor,
   chartData = DEFAULT_SPARKLINE_DATA,
+  isSelected = false,
+  onClick,
 }) => {
   // Ensure chartData is safe for Recharts area rendering
   const safeData = React.useMemo(() => {
@@ -44,7 +49,20 @@ export const SparklineMetricCard: React.FC<SparklineMetricProps> = React.memo(({
   return (
     <div
       tabIndex={0}
-      className="p-4 rounded-2xl bg-[var(--surface)] border border-[var(--border)] backdrop-blur-md space-y-2 hover:border-[var(--primary)]/30 hover:-translate-y-0.5 hover:shadow-[var(--shadow-md)] transition-all duration-200 shadow-[var(--shadow-sm)] select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]/50"
+      role={onClick ? 'button' : undefined}
+      aria-pressed={onClick ? isSelected : undefined}
+      aria-selected={onClick ? isSelected : undefined}
+      onClick={onClick}
+      className={cn(
+        'p-4 rounded-2xl bg-[#0f101c] transition-all duration-200 space-y-2 select-none',
+        'hover:bg-[#15172a] hover:border-purple-500/40 hover:-translate-y-0.5 hover:shadow-md',
+        'active:scale-[0.98]',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e]',
+        onClick && 'cursor-pointer',
+        isSelected
+          ? 'border border-purple-500 shadow-[0_0_16px_rgba(168,85,247,0.3)] scale-[1.01]'
+          : 'border border-white/10 shadow-sm'
+      )}
     >
       <div className="flex items-center justify-between">
         <span className="text-xs font-semibold text-[var(--muted-color)] truncate">{title}</span>

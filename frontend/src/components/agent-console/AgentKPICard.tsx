@@ -20,6 +20,8 @@ export interface AgentKPICardProps {
   iconBgClass: string
   iconColorClass: string
   isHighlighted?: boolean
+  isSelected?: boolean
+  onClick?: () => void
   progressProps?: {
     current: number
     total: number
@@ -42,6 +44,8 @@ function AgentKPICardComponent({
   iconBgClass,
   iconColorClass,
   isHighlighted = false,
+  isSelected = false,
+  onClick,
   progressProps,
   className,
 }: AgentKPICardProps) {
@@ -57,15 +61,25 @@ function AgentKPICardComponent({
     />
   )
 
+  const activeSelected = isSelected || isHighlighted
+
   return (
     <div
       id={`kpi-card-${id}`}
       tabIndex={0}
+      role={onClick ? 'button' : undefined}
+      aria-pressed={onClick ? activeSelected : undefined}
+      aria-selected={onClick ? activeSelected : undefined}
+      onClick={onClick}
       className={cn(
-        'group relative p-4 sm:p-5 rounded-2xl bg-[#111322] border transition-all duration-300 shadow-xl flex flex-col justify-between overflow-hidden text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50',
-        isHighlighted
-          ? 'border-purple-500/50 shadow-purple-950/40 bg-gradient-to-b from-[#15172b] to-[#111322]'
-          : 'border-white/10 hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-2xl',
+        'group relative p-4 sm:p-5 rounded-2xl bg-[#111322] transition-all duration-300 flex flex-col justify-between overflow-hidden text-left select-none',
+        'hover:bg-[#16182c] hover:border-purple-500/40 hover:-translate-y-0.5',
+        'active:scale-[0.98]',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e]',
+        onClick && 'cursor-pointer',
+        activeSelected
+          ? 'border border-purple-500 shadow-[0_0_16px_rgba(168,85,247,0.3)] scale-[1.01]'
+          : 'border border-white/10 shadow-xl',
         className
       )}
     >

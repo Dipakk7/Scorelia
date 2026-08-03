@@ -116,6 +116,7 @@ export function GitHubIntelligencePage() {
         {/* 1. Hero Dashboard (Header, Toolbar & 7 Interactive KPI Cards) */}
         <GitHubHeroDashboard
           data={githubHeroMockData}
+          selectedKpiId={selectedKPI?.id}
           isLoading={isLoading}
           isEmpty={false}
           currentTabLabel={activeTabLabel}

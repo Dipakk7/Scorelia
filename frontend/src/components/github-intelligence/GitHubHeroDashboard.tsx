@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils'
 
 export interface GitHubHeroDashboardProps {
   data?: GitHubHeroData
+  selectedKpiId?: string
   isLoading?: boolean
   isEmpty?: boolean
   currentTabLabel?: string
@@ -23,6 +24,7 @@ export interface GitHubHeroDashboardProps {
 
 export const GitHubHeroDashboard: React.FC<GitHubHeroDashboardProps> = ({
   data = githubHeroMockData,
+  selectedKpiId,
   isLoading = false,
   isEmpty = false,
   currentTabLabel = 'Overview',
@@ -59,6 +61,7 @@ export const GitHubHeroDashboard: React.FC<GitHubHeroDashboardProps> = ({
       {/* 3. 7 KPI Card Responsive Grid */}
       <GitHubKPIGrid
         metrics={data.kpis}
+        selectedKpiId={selectedKpiId}
         isLoading={isLoading}
         onCardClick={onKPICardClick}
       />

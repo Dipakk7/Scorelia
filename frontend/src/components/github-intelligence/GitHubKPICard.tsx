@@ -17,6 +17,7 @@ import { cn } from '@/lib/utils'
 export interface GitHubKPICardProps {
   kpi?: GitHubKPIMetric
   isLoading?: boolean
+  isSelected?: boolean
   onClick?: () => void
   className?: string
 }
@@ -47,6 +48,7 @@ const STATUS_COLOR_CLASSES: Record<
 export const GitHubKPICard: React.FC<GitHubKPICardProps> = ({
   kpi,
   isLoading = false,
+  isSelected = false,
   onClick,
   className,
 }) => {
@@ -71,11 +73,17 @@ export const GitHubKPICard: React.FC<GitHubKPICardProps> = ({
       tabIndex={0}
       role="button"
       onClick={onClick}
+      aria-pressed={isSelected}
+      aria-selected={isSelected}
       aria-label={`${kpi.title}: ${kpi.value}, ${kpi.trend} ${kpi.comparisonLabel}`}
       className={cn(
-        'group relative p-3.5 sm:p-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md shadow-sm',
-        'hover:border-purple-500/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 text-left select-none flex flex-col justify-between space-y-3',
+        'group relative p-3.5 sm:p-4 rounded-2xl bg-[#0f101c] transition-all duration-200 cursor-pointer text-left select-none flex flex-col justify-between space-y-3',
+        'hover:bg-[#15172a] hover:border-purple-500/40 hover:shadow-md hover:-translate-y-0.5',
+        'active:scale-[0.98]',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e]',
+        isSelected
+          ? 'border border-purple-500 shadow-[0_0_16px_rgba(168,85,247,0.3)] scale-[1.01]'
+          : 'border border-white/10 shadow-sm',
         className
       )}
     >
@@ -84,7 +92,7 @@ export const GitHubKPICard: React.FC<GitHubKPICardProps> = ({
         <div className={cn('p-2 rounded-xl border flex items-center justify-center shrink-0', colorStyles.bg)}>
           <IconComponent className={cn('h-4 w-4', colorStyles.text)} />
         </div>
-        <span className="text-[11px] font-semibold text-[var(--muted)] truncate group-hover:text-[var(--heading)] transition-colors">
+        <span className={cn('text-[11px] font-semibold transition-colors truncate', isSelected ? 'text-purple-200 font-bold' : 'text-[var(--muted)] group-hover:text-[var(--heading)]')}>
           {kpi.title}
         </span>
       </div>

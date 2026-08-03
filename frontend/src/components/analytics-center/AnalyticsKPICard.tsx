@@ -2,12 +2,14 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Users, UserCheck, CheckCircle2, Target, Clock, Star } from 'lucide-react'
 import { useScoreliaReducedMotion } from '@/lib/motion'
+import { cn } from '@/lib/utils'
 import type { KPIMetricItem } from '@/data/analyticsHeroMockData'
 import { AnalyticsTrendBadge } from './AnalyticsTrendBadge'
 import { AnalyticsSparkline } from './AnalyticsSparkline'
 
 interface AnalyticsKPICardProps {
   kpi: KPIMetricItem
+  isSelected?: boolean
   onClick?: () => void
   className?: string
 }
@@ -21,7 +23,7 @@ const iconMap = {
   Star,
 }
 
-export function AnalyticsKPICard({ kpi, onClick, className = '' }: AnalyticsKPICardProps) {
+export function AnalyticsKPICard({ kpi, isSelected = false, onClick, className = '' }: AnalyticsKPICardProps) {
   const shouldReduceMotion = useScoreliaReducedMotion()
   const IconComponent = iconMap[kpi.iconName] || Users
 
@@ -33,7 +35,6 @@ export function AnalyticsKPICard({ kpi, onClick, className = '' }: AnalyticsKPIC
           scale: 1.015,
           y: -2,
           boxShadow: '0 12px 24px -6px rgba(0, 0, 0, 0.4), 0 0 16px rgba(168, 85, 247, 0.15)',
-          borderColor: 'rgba(168, 85, 247, 0.4)',
         },
     tap: shouldReduceMotion ? {} : { scale: 0.98 },
   }
@@ -48,9 +49,20 @@ export function AnalyticsKPICard({ kpi, onClick, className = '' }: AnalyticsKPIC
       whileTap="tap"
       tabIndex={0}
       onClick={onClick}
-      role="article"
+      role="button"
+      aria-pressed={isSelected}
+      aria-selected={isSelected}
       aria-label={`${kpi.title}: ${kpi.value}. ${kpi.trend} change: ${kpi.percentageChange}%`}
-      className={`group relative flex flex-col justify-between p-4 rounded-2xl bg-[#0f101c] border border-white/10 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50 min-h-[148px] ${className}`}
+      className={cn(
+        'group relative flex flex-col justify-between p-4 rounded-2xl bg-[#0f101c] transition-all duration-200 cursor-pointer select-none min-h-[148px]',
+        'hover:bg-[#15172a] hover:border-purple-500/40 hover:shadow-md',
+        'active:scale-[0.98]',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e]',
+        isSelected
+          ? 'border border-purple-500 shadow-[0_0_16px_rgba(168,85,247,0.3)] scale-[1.01]'
+          : 'border border-white/10 shadow-sm',
+        className
+      )}
     >
       {/* Header: Icon Pill & Title */}
       <div className="flex items-center gap-3 mb-2">
@@ -59,7 +71,7 @@ export function AnalyticsKPICard({ kpi, onClick, className = '' }: AnalyticsKPIC
         >
           <IconComponent size={18} className="stroke-[2]" aria-hidden="true" />
         </div>
-        <span className="text-xs font-semibold text-slate-400 group-hover:text-slate-200 transition-colors truncate">
+        <span className={cn('text-xs font-semibold transition-colors truncate', isSelected ? 'text-purple-200 font-bold' : 'text-slate-400 group-hover:text-slate-200')}>
           {kpi.title}
         </span>
       </div>

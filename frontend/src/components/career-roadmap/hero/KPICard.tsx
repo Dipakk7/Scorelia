@@ -9,7 +9,9 @@ import type { KPICardData, KPICardAccent } from '@/types/careerRoadmap'
 
 export interface KPICardProps {
   data: KPICardData
+  isSelected?: boolean
   onActionClick?: (cardId: string) => void
+  onClick?: () => void
   className?: string
 }
 
@@ -36,7 +38,7 @@ const ACCENT_STYLES: Record<KPICardAccent, { iconContainer: string; textAccent: 
   },
 }
 
-export const KPICard = memo(function KPICard({ data, onActionClick, className }: KPICardProps) {
+export const KPICard = memo(function KPICard({ data, isSelected = false, onActionClick, onClick, className }: KPICardProps) {
   const shouldReduceMotion = useScoreliaReducedMotion()
   const cardVariants = getCardVariants(shouldReduceMotion)
   const styles = ACCENT_STYLES[data.accentColor] || ACCENT_STYLES.purple
@@ -85,8 +87,19 @@ export const KPICard = memo(function KPICard({ data, onActionClick, className }:
   return (
     <motion.div variants={cardVariants} whileHover="hover" whileTap="tap" className="h-full">
       <Card
+        tabIndex={0}
+        role={onClick ? 'button' : undefined}
+        aria-pressed={onClick ? isSelected : undefined}
+        aria-selected={onClick ? isSelected : undefined}
+        onClick={onClick}
         className={cn(
-          'p-4 bg-[#121320] border border-white/10 rounded-2xl hover:border-purple-500/30 transition-all duration-200 shadow-sm flex flex-col justify-between h-full text-left',
+          'p-4 rounded-2xl bg-[#121320] transition-all duration-200 flex flex-col justify-between h-full text-left select-none',
+          'hover:bg-[#16182c] hover:border-purple-500/40 hover:shadow-md',
+          'active:scale-[0.98]',
+          onClick && 'cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e]',
+          isSelected
+            ? 'border border-purple-500 shadow-[0_0_16px_rgba(168,85,247,0.3)] scale-[1.01]'
+            : 'border border-white/10 shadow-sm',
           className
         )}
       >

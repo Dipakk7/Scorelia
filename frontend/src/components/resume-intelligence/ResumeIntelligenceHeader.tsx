@@ -53,11 +53,11 @@ export const ResumeIntelligenceHeader: React.FC<ResumeIntelligenceHeaderProps> =
   return (
     <header aria-label="Resume Intelligence Header" className="flex flex-col gap-5 mb-6">
       {/* Top Actions Bar Hero Section */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-r from-slate-100/80 via-slate-50 to-slate-100/60 border border-slate-200/80 rounded-2xl p-4 md:p-5 shadow-xs backdrop-blur-sm dark:bg-transparent dark:bg-none dark:border-0 dark:p-0 dark:shadow-none transition-all duration-200">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-4 md:p-6 rounded-2xl bg-[#121426] border border-white/10 bg-gradient-to-r from-[#14162a] via-[#111324] to-[#14162a] shadow-lg shadow-purple-950/10 transition-all duration-200">
         {/* Left Title Block */}
         <div>
           <div className="flex items-center gap-3 flex-wrap">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight text-white drop-shadow-xs">
               Resume Intelligence
             </h1>
 
@@ -66,25 +66,25 @@ export const ResumeIntelligenceHeader: React.FC<ResumeIntelligenceHeaderProps> =
               <Dropdown open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
                 <DropdownTrigger asChild>
                   <button
-                    className="flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-xl bg-slate-100/90 border border-slate-200/90 text-xs font-bold text-slate-900 hover:bg-slate-200/70 hover:border-slate-300/90 shadow-xs dark:bg-slate-900/80 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-800/90 dark:hover:border-slate-700 transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+                    className="flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-xl bg-slate-900/90 border border-slate-700/80 text-xs font-bold text-slate-100 hover:bg-slate-800 hover:border-purple-500/40 shadow-xs transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
                     aria-label={`Selected Resume: ${currentTitle}. Click to change resume.`}
                   >
-                    <FileText className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400 shrink-0" />
-                    <span className="max-w-[140px] truncate font-bold text-slate-900 dark:text-white">{currentTitle}</span>
-                    <ChevronDown className={cn('w-3.5 h-3.5 text-slate-600 dark:text-slate-400 shrink-0 transition-transform duration-200', isDropdownOpen && 'rotate-180')} />
+                    <FileText className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+                    <span className="max-w-[140px] truncate font-bold text-white">{currentTitle}</span>
+                    <ChevronDown className={cn('w-3.5 h-3.5 text-slate-400 shrink-0 transition-transform duration-200', isDropdownOpen && 'rotate-180')} />
                   </button>
                 </DropdownTrigger>
 
                 <DropdownContent
                   align="start"
                   sideOffset={8}
-                  className="w-72 sm:w-80 bg-white dark:bg-[#0f111a] border border-slate-200/90 dark:border-slate-800/90 shadow-2xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.85)] rounded-2xl p-3 sm:p-4 flex flex-col gap-2 z-[9999] opacity-100"
+                  className="w-72 sm:w-80 bg-[#0f111a] border border-slate-800/90 shadow-2xl shadow-[0_20px_50px_rgba(0,0,0,0.85)] rounded-2xl p-3 sm:p-4 flex flex-col gap-2 z-[9999] opacity-100"
                 >
-                  <div className="flex items-center justify-between px-1 pb-2 border-b border-slate-100 dark:border-slate-800/80 mb-0.5">
-                    <span className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                  <div className="flex items-center justify-between px-1 pb-2 border-b border-slate-800/80 mb-0.5">
+                    <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">
                       Select Target Resume
                     </span>
-                    <span className="text-[10px] font-mono font-medium text-slate-400 dark:text-slate-500">
+                    <span className="text-[10px] font-mono font-medium text-slate-500">
                       {safeResumesList.length} Available
                     </span>
                   </div>
@@ -101,21 +101,21 @@ export const ResumeIntelligenceHeader: React.FC<ResumeIntelligenceHeaderProps> =
                         className={cn(
                           'w-full text-left px-3 py-2.5 min-h-[46px] rounded-xl text-xs transition-all duration-150 flex items-center justify-between gap-3 cursor-pointer focus:outline-none',
                           currentTitle === r.title
-                            ? 'bg-purple-50 text-purple-900 border border-purple-200/90 dark:bg-purple-600/20 dark:text-purple-300 dark:border-purple-500/30 font-bold shadow-xs'
-                            : 'text-slate-800 dark:text-slate-200 hover:bg-slate-100/90 hover:text-slate-900 dark:hover:bg-slate-800/70 dark:hover:text-white border border-transparent font-medium'
+                            ? 'bg-purple-600/20 text-purple-300 border border-purple-500/30 font-bold shadow-xs'
+                            : 'text-slate-200 hover:bg-slate-800/70 hover:text-white border border-transparent font-medium'
                         )}
                       >
                         <div className="flex items-center gap-2.5 min-w-0">
                           <FileText
                             className={cn(
                               'w-4 h-4 shrink-0',
-                              currentTitle === r.title ? 'text-purple-600 dark:text-purple-400' : 'text-slate-400 dark:text-slate-500'
+                              currentTitle === r.title ? 'text-purple-400' : 'text-slate-500'
                             )}
                           />
                           <span className="truncate max-w-[190px] sm:max-w-[210px] font-semibold">{r.title}</span>
                         </div>
                         {currentTitle === r.title && (
-                          <CheckCircle2 className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0" />
+                          <CheckCircle2 className="w-4 h-4 text-purple-400 shrink-0" />
                         )}
                       </DropdownItem>
                     ))}
@@ -125,7 +125,7 @@ export const ResumeIntelligenceHeader: React.FC<ResumeIntelligenceHeaderProps> =
             )}
           </div>
 
-          <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400 mt-1.5 font-medium">
+          <p className="text-xs md:text-sm text-slate-300 mt-1.5 font-medium">
             Deep analysis of your resume to help you stand out
           </p>
         </div>

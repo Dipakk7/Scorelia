@@ -94,8 +94,8 @@
   --color-slate-600: var(--body);
   --color-slate-700: var(--body);
   --color-slate-800: var(--surface);
-  --color-slate-900: var(--heading);
-  --color-slate-950: var(--heading);
+  --color-slate-900: var(--surface-l2);
+  --color-slate-950: var(--surface-l0);
 
   /* Compatibility slate helper mappings (used in the codebase) */
   --color-slate-55: hsl(var(--background));
@@ -113,7 +113,7 @@
   --color-slate-805: var(--surface);
   --color-slate-850: var(--surface);
   --color-slate-855: var(--surface);
-  --color-slate-905: var(--heading);
+  --color-slate-905: var(--surface-l1);
 
   /* Compatibility rose, emerald, amber mappings */
   --color-rose-250: hsl(var(--destructive));
@@ -1023,6 +1023,29 @@ html {
 
 svg.lucide {
   stroke-width: 1.75px !important;
+}
+
+/* Eradicate any browser or framework light background defaults on active/focus/selected states */
+button,
+[role="button"],
+[tabindex] {
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+[role="button"]:active,
+button:active,
+[tabindex]:active {
+  color: inherit !important;
+}
+
+[role="button"][aria-pressed="true"],
+[role="button"][aria-selected="true"],
+[aria-selected="true"],
+[data-state="active"],
+[data-state="selected"] {
+  border-color: rgba(168, 85, 247, 0.9) !important;
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.3) !important;
+  color: inherit !important;
 }
 
 /* Printable Resume A4 Stylesheet */

@@ -92,6 +92,7 @@ export function AnalyticsCenterPage() {
       <motion.div variants={itemVariants}>
         <AnalyticsHeroDashboard
           data={heroData}
+          selectedKpiId={selectedKPI?.id}
           isLoading={isLoading}
           onRefreshData={handleRefreshData}
           onCustomizeDashboard={() => setIsPersonalizationOpen(true)}

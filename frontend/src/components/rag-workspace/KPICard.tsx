@@ -6,6 +6,7 @@ import { KPITrend } from './KPITrend'
 import { cn } from '@/lib/utils'
 
 export interface KPICardProps {
+  id?: string
   title: string
   numericValue?: number
   stringValue?: string
@@ -17,6 +18,8 @@ export interface KPICardProps {
   icon: LucideIcon
   iconBgColor?: string
   iconColor?: string
+  isSelected?: boolean
+  onClick?: () => void
   className?: string
 }
 
@@ -32,12 +35,25 @@ export function KPICard({
   icon: Icon,
   iconBgColor = 'bg-purple-500/10 border-purple-500/20',
   iconColor = 'text-purple-400',
+  isSelected = false,
+  onClick,
   className
 }: KPICardProps) {
   return (
     <div
+      tabIndex={0}
+      role={onClick ? 'button' : undefined}
+      aria-pressed={onClick ? isSelected : undefined}
+      aria-selected={onClick ? isSelected : undefined}
+      onClick={onClick}
       className={cn(
-        'group relative p-4 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 hover:border-white/20 transition-all duration-200 shadow-md hover:shadow-xl flex flex-col justify-between overflow-hidden text-left min-h-[120px]',
+        'group relative p-4 rounded-2xl bg-[#0e0f1a] transition-all duration-200 flex flex-col justify-between overflow-hidden text-left min-h-[120px] select-none',
+        'hover:bg-[#15172a] hover:border-purple-500/40 hover:shadow-xl',
+        'active:scale-[0.98]',
+        onClick && 'cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e]',
+        isSelected
+          ? 'border border-purple-500 shadow-[0_0_16px_rgba(168,85,247,0.3)] scale-[1.01]'
+          : 'border border-white/10 shadow-md',
         className
       )}
     >

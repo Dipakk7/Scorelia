@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 
 export interface GitHubKPIGridProps {
   metrics?: GitHubKPIMetric[]
+  selectedKpiId?: string
   isLoading?: boolean
   onCardClick?: (kpi: GitHubKPIMetric) => void
   className?: string
@@ -13,6 +14,7 @@ export interface GitHubKPIGridProps {
 
 export const GitHubKPIGrid: React.FC<GitHubKPIGridProps> = ({
   metrics = githubHeroMockData.kpis,
+  selectedKpiId,
   isLoading = false,
   onCardClick,
   className,
@@ -43,6 +45,7 @@ export const GitHubKPIGrid: React.FC<GitHubKPIGridProps> = ({
         <GitHubKPICard
           key={kpi.id}
           kpi={kpi}
+          isSelected={selectedKpiId === kpi.id}
           onClick={() => onCardClick?.(kpi)}
         />
       ))}

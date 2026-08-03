@@ -31,8 +31,10 @@ export const MetricCard: React.FC<MetricCardProps> = ({
 
   return (
     <div
+      tabIndex={0}
+      role={onClick ? 'button' : undefined}
       onClick={onClick}
-      className="relative overflow-hidden rounded-xl bg-slate-900/90 border border-slate-800/90 p-4 transition-all duration-200 hover:border-purple-500/40 hover:shadow-lg hover:shadow-purple-500/5 hover:-translate-y-0.5 flex flex-col justify-between space-y-3 cursor-pointer group"
+      className="relative overflow-hidden rounded-xl bg-slate-900/90 border border-slate-800/90 p-4 transition-all duration-200 hover:bg-[#16182c] hover:border-purple-500/40 active:bg-[#121424] active:border-purple-500/60 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e] hover:shadow-lg hover:shadow-purple-500/5 hover:-translate-y-0.5 flex flex-col justify-between space-y-3 cursor-pointer group select-none"
     >
       {/* Header: Icon & Status Badge */}
       <div className="flex items-center justify-between">

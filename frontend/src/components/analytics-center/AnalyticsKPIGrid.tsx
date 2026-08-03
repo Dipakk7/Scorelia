@@ -6,6 +6,7 @@ import { EmptyHeroState } from './EmptyHeroState'
 
 interface AnalyticsKPIGridProps {
   kpis?: KPIMetricItem[]
+  selectedKpiId?: string
   onCardClick?: (kpi: KPIMetricItem) => void
   onRetrySync?: () => void
   isEmpty?: boolean
@@ -14,6 +15,7 @@ interface AnalyticsKPIGridProps {
 
 export function AnalyticsKPIGrid({
   kpis = analyticsHeroMockData.kpis,
+  selectedKpiId,
   onCardClick,
   onRetrySync,
   isEmpty = false,
@@ -33,6 +35,7 @@ export function AnalyticsKPIGrid({
         <AnalyticsKPICard
           key={kpi.id}
           kpi={kpi}
+          isSelected={selectedKpiId === kpi.id}
           onClick={() => onCardClick?.(kpi)}
         />
       ))}
