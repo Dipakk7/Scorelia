@@ -95,9 +95,14 @@ export const AIKeywordIntelligenceCard: React.FC<AIKeywordIntelligenceCardProps>
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3 shrink-0 text-slate-400">
-                  <span className="text-xs font-mono font-bold text-slate-300">
-                    {cat.matched.length}/{totalCatKeywords}
+                <div className="flex items-center gap-2.5 shrink-0 text-slate-400">
+                  <span
+                    className="text-xs font-semibold text-slate-300 flex items-center gap-1.5 bg-[#121424] border border-slate-700/60 px-2.5 py-1 rounded-xl shadow-xs"
+                    title={`${cat.matched.length} of ${totalCatKeywords} keywords matched`}
+                    aria-label={`${cat.matched.length} of ${totalCatKeywords} keywords matched`}
+                  >
+                    <span className="font-mono font-extrabold text-white">{cat.matched.length}/{totalCatKeywords}</span>
+                    <span className="text-[10px] text-slate-300 font-bold uppercase tracking-wider">Matched</span>
                   </span>
                   <ChevronDown className={cn('w-4 h-4 text-purple-400 transition-transform duration-200', isExpanded && 'rotate-180')} />
                 </div>
