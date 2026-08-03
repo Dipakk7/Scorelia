@@ -73,6 +73,14 @@ export const CompetitorBenchmarkCard: React.FC<CompetitorBenchmarkCardProps> = (
     return minX + ((activeData.userPercentile || 80) / 100) * (maxX - minX)
   }, [activeData.userPercentile])
 
+  // Exact Gaussian height math to keep marker glued to the distribution curve
+  const pinY = useMemo(() => {
+    const p = (activeData.userPercentile || 80) / 100
+    const t = (p - 0.5) * 2.2
+    const heightFactor = Math.exp(-2.8 * t * t)
+    return 75 - heightFactor * 57
+  }, [activeData.userPercentile])
+
   const avgX = useMemo(() => {
     const minX = 20
     const maxX = 220
@@ -146,75 +154,105 @@ export const CompetitorBenchmarkCard: React.FC<CompetitorBenchmarkCardProps> = (
 
       {/* SVG Bell Curve Chart */}
       <div className="flex-1 flex flex-col justify-center py-3 relative">
-        <svg viewBox="0 0 240 85" className="w-full h-auto overflow-visible" role="img" aria-label="Normal Distribution Bell Curve Chart">
+        <svg viewBox="0 0 240 85" className="w-full h-auto overflow-visible transition-all duration-300" role="img" aria-label="Normal Distribution Bell Curve Chart">
           <defs>
-            <linearGradient id="bellCurveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.08" />
-              <stop offset="50%" stopColor="#a855f7" stopOpacity="0.22" />
-              <stop offset="100%" stopColor="#10b981" stopOpacity="0.35" />
+            {/* Vertical Area Fill Gradient */}
+            <linearGradient id="bellCurveFillGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#a855f7" stopOpacity="0.30" />
+              <stop offset="60%" stopColor="#8b5cf6" stopOpacity="0.10" />
+              <stop offset="100%" stopColor="#0b0c14" stopOpacity="0.0" />
+            </linearGradient>
+            {/* Symmetrical Stroke Multi-stop Gradient */}
+            <linearGradient id="bellCurveStrokeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#6366f1" />
+              <stop offset="50%" stopColor="#a855f7" />
+              <stop offset="100%" stopColor="#10b981" />
             </linearGradient>
           </defs>
 
+          {/* Symmetrical Gaussian Area Fill */}
           <path
-            d="M 10,75 Q 60,75 90,50 T 120,20 T 150,50 Q 180,75 230,75"
-            fill="url(#bellCurveGradient)"
-            stroke="#a855f7"
-            strokeWidth="2.5"
+            d="M 10,75 C 65,75 85,18 120,18 C 155,18 175,75 230,75 L 230,75 L 10,75 Z"
+            fill="url(#bellCurveFillGradient)"
+          />
+
+          {/* Crisp Symmetrical Gaussian Curve Stroke */}
+          <path
+            d="M 10,75 C 65,75 85,18 120,18 C 155,18 175,75 230,75"
+            fill="none"
+            stroke="url(#bellCurveStrokeGradient)"
+            strokeWidth="2"
             strokeLinecap="round"
           />
 
-          <line x1="10" y1="75" x2="230" y2="75" stroke="#334155" strokeWidth="1.5" />
+          {/* Baseline */}
+          <line x1="10" y1="75" x2="230" y2="75" stroke="#334155" strokeWidth="1" />
 
-          {/* Average Indicator Line */}
+          {/* Average Score Indicator Line */}
           <line
             x1={avgX}
             y1="75"
             x2={avgX}
             y2="30"
             stroke="#64748b"
-            strokeWidth="1.5"
-            strokeDasharray="3 3"
+            strokeWidth="1"
+            strokeDasharray="2 2"
+            strokeOpacity="0.6"
           />
           <text
             x={avgX}
             y="24"
             textAnchor="middle"
-            className="fill-slate-400 text-[8px] font-bold font-mono"
+            className="fill-slate-400 text-[8px] font-bold font-mono select-none"
           >
             Avg ({activeData.averageScore})
           </text>
 
-          {/* User Score Pin Line */}
+          {/* Candidate Position Line */}
           <line
             x1={pinX}
             y1="75"
             x2={pinX}
-            y2="38"
+            y2={pinY}
             stroke="#38bdf8"
-            strokeWidth="1.5"
-            strokeDasharray="3 3"
+            strokeWidth="1"
+            strokeDasharray="2 2"
+            strokeOpacity="0.7"
             className="transition-all duration-700 ease-out"
           />
+
+          {/* Candidate Marker Pulse Ring */}
           <circle
             cx={pinX}
-            cy="38"
-            r="5"
-            fill="#38bdf8"
-            stroke="#07080e"
-            strokeWidth="2.5"
-            className="transition-all duration-700 ease-out filter drop-shadow-[0_0_8px_rgba(56,189,248,0.6)]"
+            cy={pinY}
+            r="8"
+            fill="none"
+            stroke="#38bdf8"
+            strokeWidth="1"
+            className="animate-ping opacity-30 transition-all duration-700 ease-out"
           />
 
-          {/* User Top Percentile Badge Overlay */}
-          <g className="transition-all duration-700 ease-out" transform={`translate(${pinX - 28}, 10)`}>
-            <rect x="0" y="0" width="56" height="20" rx="10" fill="#0f172a" stroke="#38bdf8" strokeWidth="1.2" className="shadow-md" />
-            <text x="28" y="13" textAnchor="middle" className="fill-sky-300 text-[9.5px] font-extrabold font-mono">
+          {/* Candidate Marker Point */}
+          <circle
+            cx={pinX}
+            cy={pinY}
+            r="4"
+            fill="#38bdf8"
+            stroke="#07080e"
+            strokeWidth="2"
+            className="transition-all duration-700 ease-out filter drop-shadow-[0_0_6px_rgba(56,189,248,0.7)]"
+          />
+
+          {/* Refined Top Percentile Badge Overlay (Reduced size, perfect alignment) */}
+          <g className="transition-all duration-700 ease-out" transform={`translate(${pinX - 24}, ${pinY - 26})`}>
+            <rect x="0" y="0" width="48" height="18" rx="9" fill="#0f172a" stroke="#38bdf8" strokeWidth="1" className="shadow-md" />
+            <text x="24" y="12" textAnchor="middle" className="fill-sky-300 text-[8.5px] font-extrabold font-mono tracking-tight">
               Top {topPercentile}%
             </text>
           </g>
         </svg>
 
-        <div className="flex justify-between items-center text-xs text-slate-400 font-semibold px-2 mt-2">
+        <div className="flex justify-between items-center text-[11px] text-slate-400 font-semibold px-2 mt-2 select-none">
           <span>Bottom 10%</span>
           <span className="text-slate-200 font-bold font-mono">Average ({activeData.averageScore})</span>
           <span>Top 10%</span>
