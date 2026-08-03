@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card } from '@/components/ui/Card'
-import { ShieldAlert, AlertCircle, Info, Wrench } from 'lucide-react'
+import { ShieldAlert, AlertCircle, AlertTriangle, Info, Wrench, Sparkles, ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { ATSWarningItem } from '@/lib/mock-ai-insights'
 
@@ -40,82 +40,100 @@ export const AIRiskAnalysisCard: React.FC<AIRiskAnalysisCardProps> = ({
   const warningsList = warnings && warnings.length > 0 ? warnings : defaultWarnings
 
   return (
-    <Card className="bg-[#0b0c14]/90 border-slate-800/80 p-5 md:p-6 rounded-2xl flex flex-col justify-between backdrop-blur-md h-full shadow-lg">
+    <Card className="bg-[#0b0c14]/95 border border-slate-800/90 p-5 md:p-6 rounded-2xl flex flex-col justify-between backdrop-blur-md h-full shadow-xl select-none">
       {/* Header */}
-      <div className="flex items-center justify-between gap-2 mb-4">
-        <div className="flex items-center gap-2">
-          <div className="p-2 rounded-xl bg-rose-600/20 border border-rose-500/30 text-rose-300">
-            <ShieldAlert className="w-4 h-4" />
+      <div className="flex items-center justify-between gap-2 pb-4 border-b border-slate-800/80 mb-4">
+        <div className="flex items-center gap-3">
+          <div className="p-2.5 rounded-xl bg-rose-600/20 border border-rose-500/30 text-rose-300 shadow-xs shrink-0">
+            <ShieldAlert className="w-4 h-4 text-rose-300 filter drop-shadow-[0_0_4px_rgba(244,63,94,0.4)]" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-slate-100 tracking-tight">
+            <h3 className="text-base md:text-lg font-extrabold text-white tracking-tight">
               ATS Risk & Formatting Diagnostics
             </h3>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-xs font-medium text-slate-400 mt-0.5">
               Flags potential issues that cause ATS parsing rejections
             </p>
           </div>
         </div>
 
-        <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20 font-mono">
+        <span className="flex items-center gap-1.5 text-xs font-black text-rose-400 font-mono bg-rose-500/15 border border-rose-500/30 px-3 py-1 rounded-full shadow-xs shrink-0">
           {warningsList.length} Risks Flagged
         </span>
       </div>
 
       {/* Warnings List */}
-      <div className="flex flex-col gap-3 flex-1 justify-center">
+      <div className="flex flex-col gap-3.5 flex-1 justify-center">
         {warningsList.map((item) => (
           <div
             key={item.id}
-            className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col gap-2 hover:border-slate-700/80 transition-all"
+            className={cn(
+              'p-4 rounded-xl bg-[#121424]/95 border border-slate-800/90 shadow-sm hover:border-slate-700/90 hover:bg-[#16182c] hover:-translate-y-0.5 transition-all duration-200 flex flex-col gap-3 group relative overflow-hidden',
+              item.severity === 'Critical' && 'border-l-4 border-l-rose-500',
+              item.severity === 'Warning' && 'border-l-4 border-l-amber-500',
+              item.severity === 'Info' && 'border-l-4 border-l-sky-500'
+            )}
           >
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2">
+            {/* Top Title & Enterprise Severity Chip */}
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5 min-w-0">
                 {item.severity === 'Critical' && (
-                  <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+                  <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 stroke-[2.5]" />
                 )}
                 {item.severity === 'Warning' && (
-                  <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
+                  <AlertCircle className="w-4 h-4 text-amber-400 shrink-0 stroke-[2.5]" />
                 )}
                 {item.severity === 'Info' && (
-                  <Info className="w-4 h-4 text-sky-400 shrink-0" />
+                  <Info className="w-4 h-4 text-sky-400 shrink-0 stroke-[2.5]" />
                 )}
 
-                <span className="text-xs font-bold text-slate-100 tracking-tight">
+                <h4 className="text-xs md:text-sm font-extrabold text-white tracking-tight truncate">
                   {item.title}
-                </span>
+                </h4>
               </div>
 
+              {/* Enterprise Severity Chip */}
               <span
                 className={cn(
-                  'text-[10px] font-bold px-2 py-0.2 rounded-full border font-mono',
+                  'text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border font-mono uppercase tracking-wider shrink-0 shadow-xs',
                   item.severity === 'Critical' &&
-                    'bg-rose-500/10 text-rose-400 border-rose-500/20',
+                    'bg-rose-500/20 text-rose-300 border-rose-500/40',
                   item.severity === 'Warning' &&
-                    'bg-amber-500/10 text-amber-400 border-amber-500/20',
+                    'bg-amber-500/20 text-amber-300 border-amber-500/40',
                   item.severity === 'Info' &&
-                    'bg-sky-500/10 text-sky-400 border-sky-500/20'
+                    'bg-sky-500/20 text-sky-300 border-sky-500/40'
                 )}
               >
                 {item.severity}
               </span>
             </div>
 
-            <p className="text-xs text-slate-300 pl-6 leading-relaxed">
+            {/* Diagnostic Explanation */}
+            <p className="text-xs text-slate-300 font-medium leading-relaxed">
               {item.explanation}
             </p>
 
-            <div className="ml-6 mt-1 p-2 rounded-lg bg-slate-950/60 border border-slate-900 flex items-center justify-between gap-2 text-xs">
-              <span className="text-purple-300 font-medium truncate">
-                💡 <strong className="font-semibold text-slate-200">Fix:</strong> {item.recommendedFix}
-              </span>
+            {/* Fix Recommendation Box & Auto Fix Button */}
+            <div className="p-3.5 rounded-xl bg-purple-950/20 border border-purple-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-inner">
+              <div className="flex items-start gap-2.5 min-w-0">
+                <Sparkles className="w-4 h-4 text-purple-400 shrink-0 mt-0.5 filter drop-shadow-[0_0_4px_rgba(168,85,247,0.5)]" />
+                <div className="flex flex-col min-w-0">
+                  <span className="text-[10px] font-extrabold text-purple-300 uppercase tracking-wider">
+                    Fix Recommendation
+                  </span>
+                  <span className="text-xs text-slate-200 font-semibold leading-relaxed mt-0.5">
+                    {item.recommendedFix}
+                  </span>
+                </div>
+              </div>
 
               <button
                 onClick={() => onFixClick?.(item.id)}
-                className="shrink-0 inline-flex items-center gap-1 text-[11px] font-semibold text-purple-400 hover:text-purple-300 transition-colors cursor-pointer"
+                className="shrink-0 self-end sm:self-center inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-purple-600/20 hover:bg-purple-600 border border-purple-500/40 hover:border-purple-400 text-purple-200 hover:text-white text-xs font-extrabold transition-all duration-200 cursor-pointer shadow-xs hover:shadow-md hover:shadow-purple-500/20 hover:scale-[1.02] active:scale-[0.98]"
               >
-                <Wrench className="w-3 h-3" />
+                <Wrench className="w-3.5 h-3.5 text-purple-300 group-hover:text-white shrink-0" />
                 <span>Auto Fix</span>
+                <ArrowRight className="w-3.5 h-3.5 text-purple-300 group-hover:text-white shrink-0 transition-transform group-hover:translate-x-0.5" />
               </button>
             </div>
           </div>
@@ -126,3 +144,4 @@ export const AIRiskAnalysisCard: React.FC<AIRiskAnalysisCardProps> = ({
 }
 
 export default AIRiskAnalysisCard
+
