@@ -253,9 +253,6 @@ export default function ATSAnalysisPage() {
                         <ATSWidgetErrorBoundary sectionName="Priority Recommendations">
                           <PriorityRecommendationCard />
                         </ATSWidgetErrorBoundary>
-                        <ATSWidgetErrorBoundary sectionName="Keyword Intelligence">
-                          <KeywordIntelligenceCard />
-                        </ATSWidgetErrorBoundary>
                       </>
                     )}
 
@@ -294,9 +291,12 @@ export default function ATSAnalysisPage() {
                 bottomContent={
                   <>
                     {(activeTab === 'overview' || activeTab === 'detailed-report') && (
-                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
-                        {/* Row 1: System Compatibility (7 cols) + Recruiter Feedback (5 cols) */}
-                        <div className="lg:col-span-7 flex flex-col h-full">
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                        {/* Section 1: Left column (60% / 7 cols: Keyword Intelligence + ATS System Compatibility) vs Right column (40% / 5 cols: Recruiter Feedback spanning combined height) */}
+                        <div className="lg:col-span-7 space-y-6 flex flex-col justify-between">
+                          <ATSWidgetErrorBoundary sectionName="Keyword Intelligence">
+                            <KeywordIntelligenceCard />
+                          </ATSWidgetErrorBoundary>
                           <ATSWidgetErrorBoundary sectionName="ATS System Compatibility">
                             <ATSCompatibilityCard />
                           </ATSWidgetErrorBoundary>
