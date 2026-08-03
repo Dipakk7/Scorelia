@@ -27,16 +27,16 @@ export const LanguagesSection: React.FC<LanguagesSectionProps> = ({
   return (
     <div className="space-y-5 animate-fade-in text-left">
       {/* Section Header */}
-      <div className="flex items-center justify-between border-b border-slate-200 dark:border-border-subtle pb-3 transition-colors">
+      <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider font-mono">
+          <div className="flex items-center gap-2 text-xs font-extrabold text-purple-400 uppercase tracking-wider font-mono">
             <Languages size={14} />
             <span>Linguistic Proficiency</span>
           </div>
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display mt-0.5 m-0">
+          <h3 className="text-base md:text-lg font-extrabold text-white font-display mt-0.5 m-0">
             Languages Spoken
           </h3>
-          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 font-sans">
+          <p className="text-xs text-slate-300 mt-1 font-sans font-medium">
             Add foreign and native languages along with your fluency level.
           </p>
         </div>
@@ -44,7 +44,7 @@ export const LanguagesSection: React.FC<LanguagesSectionProps> = ({
         <button
           type="button"
           onClick={onAdd}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 border border-purple-400/30 shadow-sm cursor-pointer transition-all active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+          className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 border border-purple-400/30 shadow-sm cursor-pointer transition-all active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
         >
           <Plus size={14} />
           <span>Add Language</span>
@@ -53,20 +53,20 @@ export const LanguagesSection: React.FC<LanguagesSectionProps> = ({
 
       {/* Empty State */}
       {items.length === 0 && (
-        <div className="bg-slate-50 dark:bg-surface-l3 border border-dashed border-slate-300 dark:border-border-subtle rounded-xl p-8 text-center space-y-3 transition-colors">
-          <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center mx-auto border border-purple-200 dark:border-purple-500/20">
+        <div className="bg-[#121424]/95 border border-dashed border-slate-800/90 rounded-2xl p-8 text-center space-y-3">
+          <div className="w-12 h-12 rounded-full bg-purple-600/20 text-purple-400 flex items-center justify-center mx-auto border border-purple-500/30">
             <Languages size={20} />
           </div>
           <div className="space-y-1">
-            <h4 className="text-sm font-bold text-slate-900 dark:text-white m-0">No Languages Added Yet</h4>
-            <p className="text-xs text-slate-600 dark:text-slate-400 max-w-sm mx-auto m-0">
+            <h4 className="text-sm font-bold text-white m-0">No Languages Added Yet</h4>
+            <p className="text-xs text-slate-300 max-w-sm mx-auto m-0 font-medium">
               Multilingual skills are valuable for global engineering teams.
             </p>
           </div>
           <button
             type="button"
             onClick={onAdd}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 cursor-pointer transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 cursor-pointer transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
           >
             <Plus size={13} />
             <span>Add First Language</span>
@@ -79,7 +79,7 @@ export const LanguagesSection: React.FC<LanguagesSectionProps> = ({
         {items.map((lang) => (
           <div
             key={lang.id}
-            className="bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle rounded-xl p-3.5 flex items-center justify-between gap-3 shadow-sm hover:border-purple-500/40 transition-colors"
+            className="bg-[#121424]/95 border border-slate-800/90 rounded-2xl p-3.5 flex items-center justify-between gap-3 shadow-sm hover:border-slate-700/80 transition-all"
           >
             <div className="flex-1 space-y-1">
               <input
@@ -87,12 +87,12 @@ export const LanguagesSection: React.FC<LanguagesSectionProps> = ({
                 value={lang.name}
                 onChange={(e) => onUpdate?.(lang.id, { ...lang, name: e.target.value })}
                 placeholder="e.g. German"
-                className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-lg px-2.5 py-1 text-xs font-bold text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
+                className="w-full bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-lg px-2.5 py-1.5 text-xs font-bold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
               />
               <select
                 value={lang.proficiency}
                 onChange={(e) => onUpdate?.(lang.id, { ...lang, proficiency: e.target.value as any })}
-                className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-lg px-2 py-1 text-[11px] font-medium text-[#111827] dark:text-slate-100 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors cursor-pointer"
+                className="w-full bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-lg px-2 py-1.5 text-[11px] font-semibold text-slate-200 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all cursor-pointer"
               >
                 <option value="Native">Native / Bilingual</option>
                 <option value="Fluent">Fluent / Full Professional</option>
@@ -105,7 +105,7 @@ export const LanguagesSection: React.FC<LanguagesSectionProps> = ({
             <button
               type="button"
               onClick={() => onDelete?.(lang.id)}
-              className="p-1.5 text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 cursor-pointer rounded-lg hover:bg-slate-200 dark:hover:bg-white/5 focus:outline-none"
+              className="p-1.5 text-slate-400 hover:text-pink-400 cursor-pointer rounded-lg hover:bg-slate-800/80 focus:outline-none"
               title="Remove Language"
             >
               <Trash2 size={14} />

@@ -66,27 +66,27 @@ export const ContactInfoSection: React.FC<ContactInfoSectionProps> = ({
   return (
     <div className="space-y-5 animate-fade-in text-left">
       {/* Section Header */}
-      <div className="border-b border-slate-200 dark:border-border-subtle pb-3 transition-colors">
-        <div className="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider font-mono">
+      <div className="border-b border-slate-800/80 pb-3">
+        <div className="flex items-center gap-2 text-xs font-extrabold text-purple-400 uppercase tracking-wider font-mono">
           <Mail size={14} />
           <span>Contact Details</span>
         </div>
-        <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display mt-0.5 m-0">
+        <h3 className="text-base md:text-lg font-extrabold text-white font-display mt-0.5 m-0">
           Contact Information &amp; Social Links
         </h3>
-        <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 font-sans">
+        <p className="text-xs text-slate-300 mt-1 font-sans font-medium">
           How recruiters can contact you and inspect your portfolio or codebase repositories.
         </p>
       </div>
 
       {/* Main Form Fields Container */}
-      <div className="bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle rounded-xl p-4 md:p-5 space-y-4 shadow-sm transition-colors min-w-0 w-full overflow-hidden">
+      <div className="bg-[#121424]/95 border border-slate-800/90 rounded-2xl p-4 md:p-5 space-y-4 shadow-sm min-w-0 w-full overflow-hidden">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 min-w-0 w-full">
           {/* Email Address */}
           <div className="space-y-1.5 min-w-0 w-full overflow-hidden">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-              <Mail size={12} className="text-purple-600 dark:text-purple-400" />
-              <span>Email Address <span className="text-pink-500 dark:text-pink-400">*</span></span>
+            <label className="text-xs font-bold text-slate-200 flex items-center gap-1">
+              <Mail size={12} className="text-purple-400" />
+              <span>Email Address <span className="text-pink-400">*</span></span>
             </label>
             <input
               type="email"
@@ -94,15 +94,15 @@ export const ContactInfoSection: React.FC<ContactInfoSectionProps> = ({
               onChange={(e) => handleFieldChange('email', e.target.value)}
               placeholder="e.g. alex@example.com"
               aria-label="Email Address"
-              className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed box-border overflow-hidden"
+              className="w-full h-10 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl px-3.5 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all box-border overflow-hidden"
             />
           </div>
 
           {/* Location */}
           <div className="space-y-1.5 min-w-0 w-full overflow-hidden">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-              <MapPin size={12} className="text-purple-600 dark:text-purple-400" />
-              <span>Location / City, Country <span className="text-pink-500 dark:text-pink-400">*</span></span>
+            <label className="text-xs font-bold text-slate-200 flex items-center gap-1">
+              <MapPin size={12} className="text-purple-400" />
+              <span>Location / City, Country <span className="text-pink-400">*</span></span>
             </label>
             <input
               type="text"
@@ -110,22 +110,22 @@ export const ContactInfoSection: React.FC<ContactInfoSectionProps> = ({
               onChange={(e) => handleFieldChange('location', e.target.value)}
               placeholder="e.g. Mumbai, India or Remote"
               aria-label="Location"
-              className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed box-border overflow-hidden"
+              className="w-full h-10 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl px-3.5 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all box-border overflow-hidden"
             />
           </div>
 
           {/* Phone Number Group (Full Width Row) */}
           <div className="sm:col-span-2 space-y-1.5 min-w-0 w-full">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-              <Phone size={12} className="text-purple-600 dark:text-purple-400" />
-              <span>Phone Number <span className="text-pink-500 dark:text-pink-400">*</span></span>
+            <label className="text-xs font-bold text-slate-200 flex items-center gap-1">
+              <Phone size={12} className="text-purple-400" />
+              <span>Phone Number <span className="text-pink-400">*</span></span>
             </label>
             <div className="flex items-center gap-3 w-full">
               <select
                 value={currentCountryCode}
                 onChange={(e) => handleCountryCodeChange(e.target.value)}
                 aria-label="Country Code"
-                className="w-[110px] shrink-0 flex-none h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-2.5 text-xs font-mono font-medium text-[#111827] dark:text-slate-100 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors cursor-pointer box-border"
+                className="w-[110px] shrink-0 flex-none h-10 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl px-2.5 text-xs font-mono font-semibold text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all cursor-pointer box-border"
               >
                 <option value="+91">🇮🇳 +91</option>
                 <option value="+1">🇺🇸 +1</option>
@@ -144,15 +144,15 @@ export const ContactInfoSection: React.FC<ContactInfoSectionProps> = ({
                 onChange={(e) => handlePhoneChange(e.target.value)}
                 placeholder="9876543210"
                 aria-label="Mobile Number"
-                className="flex-1 min-w-0 w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed box-border"
+                className="flex-1 min-w-0 w-full h-10 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl px-3.5 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all box-border"
               />
             </div>
           </div>
 
           {/* LinkedIn URL */}
           <div className="space-y-1.5 min-w-0 w-full overflow-hidden">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-              <Globe size={12} className="text-purple-600 dark:text-purple-400" />
+            <label className="text-xs font-bold text-slate-200 flex items-center gap-1">
+              <Globe size={12} className="text-purple-400" />
               <span>LinkedIn Profile URL</span>
             </label>
             <input
@@ -161,14 +161,14 @@ export const ContactInfoSection: React.FC<ContactInfoSectionProps> = ({
               onChange={(e) => handleFieldChange('linkedin', e.target.value)}
               placeholder="linkedin.com/in/username"
               aria-label="LinkedIn"
-              className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed box-border overflow-hidden"
+              className="w-full h-10 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl px-3.5 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all box-border overflow-hidden"
             />
           </div>
 
           {/* GitHub Profile */}
           <div className="space-y-1.5 min-w-0 w-full overflow-hidden">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-              <Github size={12} className="text-purple-600 dark:text-purple-400" />
+            <label className="text-xs font-bold text-slate-200 flex items-center gap-1">
+              <Github size={12} className="text-purple-400" />
               <span>GitHub Profile URL</span>
             </label>
             <input
@@ -177,14 +177,14 @@ export const ContactInfoSection: React.FC<ContactInfoSectionProps> = ({
               onChange={(e) => handleFieldChange('github', e.target.value)}
               placeholder="github.com/username"
               aria-label="GitHub Profile"
-              className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed box-border overflow-hidden"
+              className="w-full h-10 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl px-3.5 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all box-border overflow-hidden"
             />
           </div>
 
           {/* Portfolio / Website */}
           <div className="sm:col-span-2 space-y-1.5 min-w-0 w-full overflow-hidden">
-            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1">
-              <LinkIcon size={12} className="text-purple-600 dark:text-purple-400" />
+            <label className="text-xs font-bold text-slate-200 flex items-center gap-1">
+              <LinkIcon size={12} className="text-purple-400" />
               <span>Portfolio / Website URL</span>
             </label>
             <input
@@ -193,7 +193,7 @@ export const ContactInfoSection: React.FC<ContactInfoSectionProps> = ({
               onChange={(e) => handleFieldChange('website', e.target.value)}
               placeholder="https://yourportfolio.com"
               aria-label="Portfolio URL"
-              className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed box-border overflow-hidden"
+              className="w-full h-10 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl px-3.5 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all box-border overflow-hidden"
             />
           </div>
         </div>

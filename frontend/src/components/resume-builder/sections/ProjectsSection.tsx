@@ -69,16 +69,16 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   return (
     <div className="space-y-5 animate-fade-in text-left">
       {/* Section Header */}
-      <div className="flex items-center justify-between border-b border-slate-200 dark:border-border-subtle pb-3 transition-colors">
+      <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider font-mono">
+          <div className="flex items-center gap-2 text-xs font-extrabold text-purple-400 uppercase tracking-wider font-mono">
             <FolderGit2 size={14} />
             <span>Key Projects</span>
           </div>
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display mt-0.5 m-0">
+          <h3 className="text-base md:text-lg font-extrabold text-white font-display mt-0.5 m-0">
             Portfolio &amp; Open Source Projects
           </h3>
-          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 font-sans">
+          <p className="text-xs text-slate-300 mt-1 font-sans font-medium">
             Showcase technical projects, GitHub repositories, systems built, and product links. Drag to reorder.
           </p>
         </div>
@@ -86,7 +86,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         <button
           type="button"
           onClick={onAdd}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 border border-purple-400/30 shadow-sm cursor-pointer transition-all active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+          className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 border border-purple-400/30 shadow-sm cursor-pointer transition-all active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
         >
           <Plus size={14} />
           <span>Add Project</span>
@@ -95,20 +95,20 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
       {/* Empty State */}
       {items.length === 0 && (
-        <div className="bg-slate-50 dark:bg-surface-l3 border border-dashed border-slate-300 dark:border-border-subtle rounded-xl p-8 text-center space-y-3 transition-colors">
-          <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center mx-auto border border-purple-200 dark:border-purple-500/20">
+        <div className="bg-[#121424]/95 border border-dashed border-slate-800/90 rounded-2xl p-8 text-center space-y-3">
+          <div className="w-12 h-12 rounded-full bg-purple-600/20 text-purple-400 flex items-center justify-center mx-auto border border-purple-500/30">
             <FolderGit2 size={20} />
           </div>
           <div className="space-y-1">
-            <h4 className="text-sm font-bold text-slate-900 dark:text-white m-0">No Projects Added Yet</h4>
-            <p className="text-xs text-slate-600 dark:text-slate-400 max-w-sm mx-auto m-0">
+            <h4 className="text-sm font-bold text-white m-0">No Projects Added Yet</h4>
+            <p className="text-xs text-slate-300 max-w-sm mx-auto m-0 font-medium">
               Highlight key projects, hackathon wins, and production applications built.
             </p>
           </div>
           <button
             type="button"
             onClick={onAdd}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 cursor-pointer transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 cursor-pointer transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
           >
             <Plus size={13} />
             <span>Add First Project</span>
@@ -123,17 +123,17 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           return (
             <div
               key={proj.id}
-              className="bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle rounded-xl overflow-hidden shadow-sm transition-colors group"
+              className="bg-[#121424]/95 border border-slate-800/90 rounded-2xl overflow-hidden shadow-sm group"
             >
               {/* Header Bar */}
               <div
                 onClick={() => toggleExpand(proj.id)}
-                className="flex items-center justify-between p-3.5 bg-white/80 dark:bg-surface-l2 cursor-pointer hover:bg-slate-100 dark:hover:bg-surface-l4 transition-colors border-b border-slate-200/80 dark:border-border-subtle"
+                className="flex items-center justify-between p-3.5 bg-[#0e101c] cursor-pointer hover:bg-slate-900/90 transition-colors border-b border-slate-800/80"
               >
                 <div className="flex items-center gap-2.5 min-w-0">
                   {/* Reorder Handle & Arrow Controls */}
                   <div
-                    className="flex items-center gap-0.5 text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300"
+                    className="flex items-center gap-0.5 text-slate-400 group-hover:text-slate-200"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <GripVertical size={16} className="cursor-grab active:cursor-grabbing" />
@@ -141,7 +141,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                       type="button"
                       disabled={idx === 0}
                       onClick={() => handleMove(idx, 'up')}
-                      className="p-0.5 hover:text-purple-600 dark:hover:text-purple-400 disabled:opacity-30 cursor-pointer focus:outline-none"
+                      className="p-0.5 hover:text-purple-400 disabled:opacity-30 cursor-pointer focus:outline-none"
                       title="Move Up"
                       aria-label="Move project up"
                     >
@@ -151,7 +151,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                       type="button"
                       disabled={idx === items.length - 1}
                       onClick={() => handleMove(idx, 'down')}
-                      className="p-0.5 hover:text-purple-600 dark:hover:text-purple-400 disabled:opacity-30 cursor-pointer focus:outline-none"
+                      className="p-0.5 hover:text-purple-400 disabled:opacity-30 cursor-pointer focus:outline-none"
                       title="Move Down"
                       aria-label="Move project down"
                     >
@@ -159,14 +159,14 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                     </button>
                   </div>
 
-                  <div className="p-1.5 rounded-lg bg-purple-100 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300 font-mono font-extrabold text-xs">
+                  <div className="p-1.5 rounded-lg bg-purple-600/20 text-purple-300 font-mono font-extrabold text-xs border border-purple-500/30">
                     #{idx + 1}
                   </div>
                   <div className="min-w-0">
-                    <h4 className="text-xs font-bold text-slate-900 dark:text-white truncate m-0">
+                    <h4 className="text-xs font-bold text-white truncate m-0">
                       {proj.name || 'Untitled Project'}
                     </h4>
-                    <p className="text-[11px] text-slate-600 dark:text-slate-400 truncate m-0 font-sans">
+                    <p className="text-[11px] text-slate-300 truncate m-0 font-sans font-medium">
                       {proj.subtitle || (proj.techStack || []).join(', ')}
                     </p>
                   </div>
@@ -179,7 +179,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                       e.stopPropagation()
                       onDelete?.(proj.id)
                     }}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 hover:bg-slate-200 dark:hover:bg-white/10 cursor-pointer focus:outline-none"
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-pink-400 hover:bg-slate-800/80 cursor-pointer focus:outline-none"
                     title="Delete Project"
                   >
                     <Trash2 size={14} />
@@ -192,10 +192,10 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
               {/* Body */}
               {isExpanded && (
-                <div className="p-4 md:p-5 space-y-4 border-t border-slate-200/80 dark:border-border-subtle">
+                <div className="p-4 md:p-5 space-y-4 border-t border-slate-800/80">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="sm:col-span-2 space-y-1.5">
-                      <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Project Title *</label>
+                      <label className="text-xs font-bold text-slate-200">Project Title *</label>
                       <input
                         type="text"
                         value={proj.name}
@@ -203,12 +203,12 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                           onUpdate?.(proj.id, { ...proj, name: e.target.value })
                         }
                         placeholder="e.g. Scorelia AI Platform"
-                        className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 py-2 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
+                        className="w-full h-10 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl px-3.5 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 font-sans">Live Demo URL</label>
+                      <label className="text-xs font-bold text-slate-200 font-sans">Live Demo URL</label>
                       <input
                         type="text"
                         value={proj.liveUrl || ''}
@@ -216,12 +216,12 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                           onUpdate?.(proj.id, { ...proj, liveUrl: e.target.value })
                         }
                         placeholder="https://myproject.com"
-                        className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 py-2 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
+                        className="w-full h-10 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl px-3.5 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 font-sans">GitHub Repo</label>
+                      <label className="text-xs font-bold text-slate-200 font-sans">GitHub Repo</label>
                       <input
                         type="text"
                         value={proj.githubUrl || ''}
@@ -229,17 +229,17 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                           onUpdate?.(proj.id, { ...proj, githubUrl: e.target.value })
                         }
                         placeholder="github.com/user/project"
-                        className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 py-2 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
+                        className="w-full h-10 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl px-3.5 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
                       />
                     </div>
                   </div>
 
                   {/* Bullet Points List */}
-                  <div className="space-y-2 pt-2 border-t border-slate-200/80 dark:border-border-subtle">
-                    <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Project Features &amp; Technical Highlights</label>
+                  <div className="space-y-2 pt-2 border-t border-slate-800/80">
+                    <label className="text-xs font-bold text-slate-200">Project Features &amp; Technical Highlights</label>
                     {proj.bullets.map((b, bIdx) => (
                       <div key={bIdx} className="flex items-center gap-2">
-                        <span className="text-slate-400 dark:text-slate-500 font-mono text-xs">•</span>
+                        <span className="text-purple-400 font-mono text-xs">•</span>
                         <input
                           type="text"
                           value={b}
@@ -249,7 +249,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                             onUpdate?.(proj.id, { ...proj, bullets: newBullets })
                           }}
                           placeholder="Describe what you built, architecture used, and results achieved"
-                          className="flex-1 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3 py-1.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed"
+                          className="flex-1 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl px-3 py-2 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
                         />
                         <button
                           type="button"
@@ -257,7 +257,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                             const newBullets = proj.bullets.filter((_, i) => i !== bIdx)
                             onUpdate?.(proj.id, { ...proj, bullets: newBullets })
                           }}
-                          className="p-1 text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 cursor-pointer focus:outline-none"
+                          className="p-1 text-slate-400 hover:text-pink-400 cursor-pointer focus:outline-none"
                         >
                           <Trash2 size={13} />
                         </button>
@@ -271,7 +271,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                           bullets: [...proj.bullets, 'New key project highlight or feature.'],
                         })
                       }}
-                      className="text-xs font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 flex items-center gap-1 cursor-pointer pt-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80 rounded"
+                      className="text-xs font-bold text-purple-400 hover:text-purple-300 flex items-center gap-1 cursor-pointer pt-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded"
                     >
                       <Plus size={13} /> Add Highlight
                     </button>

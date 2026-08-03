@@ -43,16 +43,16 @@ export const CustomSectionsSection: React.FC<CustomSectionsSectionProps> = ({
   return (
     <div className="space-y-5 animate-fade-in text-left">
       {/* Section Header */}
-      <div className="flex items-center justify-between border-b border-slate-200 dark:border-border-subtle pb-3 transition-colors">
+      <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider font-mono">
+          <div className="flex items-center gap-2 text-xs font-extrabold text-purple-400 uppercase tracking-wider font-mono">
             <Sliders size={14} />
             <span>Custom Sections</span>
           </div>
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display mt-0.5 m-0">
+          <h3 className="text-base md:text-lg font-extrabold text-white font-display mt-0.5 m-0">
             User-Defined Resume Sections
           </h3>
-          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 font-sans">
+          <p className="text-xs text-slate-300 mt-1 font-sans font-medium">
             Add non-standard sections such as Publications, Speaking Engagements, Patents, or Volunteer Work.
           </p>
         </div>
@@ -60,7 +60,7 @@ export const CustomSectionsSection: React.FC<CustomSectionsSectionProps> = ({
         <button
           type="button"
           onClick={onAddSection}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 border border-purple-400/30 shadow-sm cursor-pointer transition-all active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+          className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 border border-purple-400/30 shadow-sm cursor-pointer transition-all active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
         >
           <Plus size={14} />
           <span>Add Custom Section</span>
@@ -69,20 +69,20 @@ export const CustomSectionsSection: React.FC<CustomSectionsSectionProps> = ({
 
       {/* Empty State */}
       {sections.length === 0 && (
-        <div className="bg-slate-50 dark:bg-surface-l3 border border-dashed border-slate-300 dark:border-border-subtle rounded-xl p-8 text-center space-y-3 transition-colors">
-          <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center mx-auto border border-purple-200 dark:border-purple-500/20">
+        <div className="bg-[#121424]/95 border border-dashed border-slate-800/90 rounded-2xl p-8 text-center space-y-3">
+          <div className="w-12 h-12 rounded-full bg-purple-600/20 text-purple-400 flex items-center justify-center mx-auto border border-purple-500/30">
             <Sliders size={20} />
           </div>
           <div className="space-y-1">
-            <h4 className="text-sm font-bold text-slate-900 dark:text-white m-0">No Custom Sections Created</h4>
-            <p className="text-xs text-slate-600 dark:text-slate-400 max-w-sm mx-auto m-0">
+            <h4 className="text-sm font-bold text-white m-0">No Custom Sections Created</h4>
+            <p className="text-xs text-slate-300 max-w-sm mx-auto m-0 font-medium">
               Create tailored sections to highlight unique experience or specialized activities.
             </p>
           </div>
           <button
             type="button"
             onClick={onAddSection}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 cursor-pointer transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white bg-purple-600 hover:bg-purple-500 cursor-pointer transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
           >
             <Plus size={13} />
             <span>Create Custom Section</span>
@@ -109,22 +109,22 @@ export const CustomSectionsSection: React.FC<CustomSectionsSectionProps> = ({
           return (
             <div
               key={sec.id}
-              className="bg-slate-50 dark:bg-surface-l3 border border-slate-200 dark:border-border-subtle rounded-xl overflow-hidden shadow-sm transition-colors"
+              className="bg-[#121424]/95 border border-slate-800/90 rounded-2xl overflow-hidden shadow-sm group"
             >
               {/* Header Bar */}
               <div
                 onClick={() => toggleExpand(sec.id)}
-                className="flex items-center justify-between p-3.5 bg-[#DFDFE3] dark:bg-surface-l2 cursor-pointer hover:bg-[#D5D5DA] dark:hover:bg-surface-l4 transition-colors border-b border-slate-300 dark:border-border-subtle"
+                className="flex items-center justify-between p-3.5 bg-[#0e101c] cursor-pointer hover:bg-slate-900/90 transition-colors border-b border-slate-800/80"
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="p-1.5 rounded-lg bg-purple-100 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300 font-mono font-extrabold text-xs">
+                  <div className="p-1.5 rounded-lg bg-purple-600/20 text-purple-300 font-mono font-extrabold text-xs border border-purple-500/30">
                     <Sliders size={14} />
                   </div>
                   <div className="min-w-0">
-                    <h4 className="text-xs font-bold text-[#3A3A41] dark:text-[#ECECF0] truncate m-0">
+                    <h4 className="text-xs font-bold text-white truncate m-0">
                       {sec.sectionTitle || 'Custom Section'}
                     </h4>
-                    <p className="text-[11px] font-medium text-[#696E78] dark:text-[#A0A5B2] truncate m-0 font-sans">
+                    <p className="text-[11px] font-medium text-slate-300 truncate m-0 font-sans">
                       {sec.items.length} {sec.items.length === 1 ? 'entry' : 'entries'}
                     </p>
                   </div>
@@ -137,12 +137,12 @@ export const CustomSectionsSection: React.FC<CustomSectionsSectionProps> = ({
                       e.stopPropagation()
                       onDeleteSection?.(sec.id)
                     }}
-                    className="p-1.5 rounded-lg text-[#9196A0] dark:text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 hover:bg-slate-300/60 dark:hover:bg-white/10 cursor-pointer focus:outline-none transition-colors"
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-pink-400 hover:bg-slate-800/80 cursor-pointer focus:outline-none transition-colors"
                     title="Delete Section"
                   >
                     <Trash2 size={14} />
                   </button>
-                  <div className="p-1.5 text-[#9196A0] dark:text-slate-400">
+                  <div className="p-1.5 text-slate-400">
                     {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                   </div>
                 </div>
@@ -150,36 +150,36 @@ export const CustomSectionsSection: React.FC<CustomSectionsSectionProps> = ({
 
               {/* Form Body */}
               {isExpanded && (
-                <div className="p-4 md:p-5 space-y-4 border-t border-slate-200/80 dark:border-border-subtle">
+                <div className="p-4 md:p-5 space-y-4 border-t border-slate-800/80">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Custom Section Title *</label>
+                    <label className="text-xs font-bold text-slate-200">Custom Section Title *</label>
                     <input
                       type="text"
                       value={sec.sectionTitle}
                       onChange={(e) => onUpdateSection?.(sec.id, { ...sec, sectionTitle: e.target.value })}
                       placeholder="e.g. Publications &amp; Speaking"
                       aria-label="Custom Section Title"
-                      className="w-full h-9 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 hover:border-[#9CA3AF] dark:hover:border-slate-600 rounded-xl px-3.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] dark:placeholder:text-slate-500 focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors disabled:bg-[#E5E7EB] dark:disabled:bg-surface-l2 disabled:text-[#9CA3AF] disabled:cursor-not-allowed box-border"
+                      className="w-full h-10 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl px-3.5 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all box-border"
                     />
                   </div>
 
                   {/* Section Entries Cards List */}
-                  <div className="space-y-3 pt-2 border-t border-slate-200/80 dark:border-border-subtle">
+                  <div className="space-y-3 pt-2 border-t border-slate-800/80">
                     <div className="flex items-center justify-between">
-                      <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Section Entries</label>
-                      <span className="text-[11px] text-slate-500 dark:text-slate-400 font-sans font-medium">
+                      <label className="text-xs font-bold text-slate-200">Section Entries</label>
+                      <span className="text-[11px] text-slate-300 font-sans font-medium">
                         {sec.items.length} {sec.items.length === 1 ? 'item' : 'items'}
                       </span>
                     </div>
 
                     {/* Empty State inside section */}
                     {sec.items.length === 0 && (
-                      <div className="bg-purple-50/50 dark:bg-purple-950/20 border border-dashed border-purple-200 dark:border-purple-500/30 rounded-xl p-5 text-center space-y-2 transition-colors">
-                        <p className="text-xs text-slate-600 dark:text-slate-400 m-0">No entries in this section yet.</p>
+                      <div className="bg-[#0e101c] border border-dashed border-slate-800/90 rounded-xl p-5 text-center space-y-2">
+                        <p className="text-xs text-slate-300 font-medium m-0">No entries in this section yet.</p>
                         <button
                           type="button"
                           onClick={handleAddItem}
-                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-purple-600 dark:text-purple-400 bg-purple-100/80 dark:bg-purple-500/20 hover:bg-purple-200/80 dark:hover:bg-purple-500/30 cursor-pointer transition-colors"
+                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-purple-400 bg-purple-600/20 hover:bg-purple-600/30 cursor-pointer transition-colors border border-purple-500/30"
                         >
                           <Plus size={13} />
                           <span>Add your first custom achievement</span>
@@ -194,14 +194,14 @@ export const CustomSectionsSection: React.FC<CustomSectionsSectionProps> = ({
                       return (
                         <div
                           key={item.id}
-                          className="bg-white dark:bg-surface-l2/90 border border-slate-200 dark:border-border-subtle/70 hover:border-purple-300 dark:hover:border-purple-500/40 rounded-xl p-4 space-y-3 transition-colors shadow-sm relative group/card"
+                          className="bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl p-4 space-y-3 transition-colors shadow-sm relative group/card"
                         >
                           {isEditing ? (
                             /* Editing Inputs Mode */
                             <div className="space-y-3">
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div className="space-y-1">
-                                  <label className="text-[11px] font-semibold text-slate-600 dark:text-slate-400">Entry Title / Role *</label>
+                                  <label className="text-[11px] font-bold text-slate-200">Entry Title / Role *</label>
                                   <input
                                     type="text"
                                     value={item.title}
@@ -213,11 +213,11 @@ export const CustomSectionsSection: React.FC<CustomSectionsSectionProps> = ({
                                     }}
                                     placeholder="Lead AI Workshop Mentor"
                                     aria-label="Entry Title"
-                                    className="w-full h-8 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 rounded-lg px-3 text-xs font-semibold text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors"
+                                    className="w-full h-9 bg-[#121424] border border-slate-800/90 rounded-lg px-3 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
                                   />
                                 </div>
                                 <div className="space-y-1">
-                                  <label className="text-[11px] font-semibold text-slate-600 dark:text-slate-400">Organization / Date</label>
+                                  <label className="text-[11px] font-bold text-slate-200">Organization / Date</label>
                                   <input
                                     type="text"
                                     value={item.subtitle || ''}
@@ -229,12 +229,12 @@ export const CustomSectionsSection: React.FC<CustomSectionsSectionProps> = ({
                                     }}
                                     placeholder="Student Developer Club"
                                     aria-label="Organization"
-                                    className="w-full h-8 bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 rounded-lg px-3 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 transition-colors"
+                                    className="w-full h-9 bg-[#121424] border border-slate-800/90 rounded-lg px-3 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
                                   />
                                 </div>
                               </div>
                               <div className="space-y-1">
-                                <label className="text-[11px] font-semibold text-slate-600 dark:text-slate-400">Description / Details</label>
+                                <label className="text-[11px] font-bold text-slate-200">Description / Details</label>
                                 <textarea
                                   rows={2}
                                   value={item.description || ''}
@@ -246,7 +246,7 @@ export const CustomSectionsSection: React.FC<CustomSectionsSectionProps> = ({
                                   }}
                                   placeholder="Organized hands-on bootcamps for 200+ engineering students."
                                   aria-label="Description"
-                                  className="w-full bg-[#F3F4F6] dark:bg-surface-l4/90 border border-[#D1D5DB] dark:border-border-subtle/50 rounded-lg p-2.5 text-xs font-medium text-[#111827] dark:text-slate-100 placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#8B5CF6] focus:ring-2 focus:ring-[#8B5CF6]/20 resize-none transition-colors"
+                                  className="w-full bg-[#121424] border border-slate-800/90 rounded-lg p-2.5 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 resize-none transition-all"
                                 />
                               </div>
                               <div className="flex items-center justify-end gap-2 pt-1">
@@ -264,16 +264,16 @@ export const CustomSectionsSection: React.FC<CustomSectionsSectionProps> = ({
                             /* Structured Display Mode */
                             <div className="flex items-start justify-between gap-4">
                               <div className="space-y-1 flex-1 min-w-0">
-                                <h5 className="text-xs font-semibold text-[#111827] dark:text-slate-100 truncate m-0">
+                                <h5 className="text-xs font-bold text-white truncate m-0">
                                   {item.title || 'Untitled Entry'}
                                 </h5>
                                 {item.subtitle && (
-                                  <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium m-0 truncate">
+                                  <p className="text-[11px] text-slate-300 font-medium m-0 truncate">
                                     {item.subtitle}
                                   </p>
                                 )}
                                 {item.description && (
-                                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-sans mt-2 m-0">
+                                  <p className="text-xs text-slate-300 leading-relaxed font-sans mt-2 m-0 font-medium">
                                     {item.description}
                                   </p>
                                 )}
@@ -284,7 +284,7 @@ export const CustomSectionsSection: React.FC<CustomSectionsSectionProps> = ({
                                 <button
                                   type="button"
                                   onClick={() => setEditingItemId(item.id)}
-                                  className="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 cursor-pointer focus:outline-none transition-colors"
+                                  className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/80 cursor-pointer focus:outline-none transition-colors"
                                   title="Edit Entry"
                                 >
                                   <Pencil size={13} />
@@ -295,7 +295,7 @@ export const CustomSectionsSection: React.FC<CustomSectionsSectionProps> = ({
                                     const updatedItems = sec.items.filter((it) => it.id !== item.id)
                                     onUpdateSection?.(sec.id, { ...sec, items: updatedItems })
                                   }}
-                                  className="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 hover:bg-slate-100 dark:hover:bg-white/10 cursor-pointer focus:outline-none transition-colors"
+                                  className="p-1.5 rounded-lg text-slate-400 hover:text-pink-400 hover:bg-slate-800/80 cursor-pointer focus:outline-none transition-colors"
                                   title="Delete Entry"
                                 >
                                   <Trash2 size={13} />
@@ -311,7 +311,7 @@ export const CustomSectionsSection: React.FC<CustomSectionsSectionProps> = ({
                       <button
                         type="button"
                         onClick={handleAddItem}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-500/10 border border-purple-200 dark:border-purple-500/30 cursor-pointer transition-colors pt-1"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-purple-400 hover:bg-purple-600/20 border border-purple-500/30 cursor-pointer transition-colors pt-1"
                       >
                         <Plus size={13} />
                         <span>Add Custom Entry</span>
