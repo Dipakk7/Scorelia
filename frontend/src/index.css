@@ -598,7 +598,12 @@ these tokens.
   text-transform: uppercase;
 }
 
-/* Custom Scrollbar for premium dark feel */
+/* Custom Scrollbars for premium 2026 SaaS dark theme */
+* {
+  scrollbar-color: #3A3D4E transparent;
+  scrollbar-width: thin;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -608,18 +613,66 @@ these tokens.
   background: transparent;
 }
 
+::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+
 .dark ::-webkit-scrollbar-track {
   background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.2);
-  border-radius: 9999px;
+  background: #3A3D4E;
+  border-radius: 999px;
   border: none;
+  outline: none;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(168, 85, 247, 0.4);
+  background: #555B70;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.custom-scrollbar {
+  scrollbar-color: #3A3D4E transparent;
+  scrollbar-width: thin;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #3A3D4E;
+  border-radius: 999px;
+  border: none;
+  outline: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555B70;
+}
+
+.custom-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 /* Glassmorphism Classes built on tokens */

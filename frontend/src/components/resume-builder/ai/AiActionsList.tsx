@@ -95,16 +95,16 @@ interface AiActionsListProps {
 export const AiActionsList: React.FC<AiActionsListProps> = ({ onExecuteAction }) => {
   return (
     <div className="flex flex-col h-full min-h-0 overflow-hidden text-left font-sans p-4 space-y-3">
-      <div className="h-[46px] min-h-[46px] flex items-center justify-between border-b border-slate-200 dark:border-white/10 py-2 shrink-0 overflow-visible transition-colors box-border">
-        <span className="text-xs font-bold text-slate-900 dark:text-white font-display leading-snug truncate">
+      <div className="h-[48px] min-h-[48px] flex items-center justify-between border-b border-slate-800/80 py-2 shrink-0 overflow-visible transition-colors box-border">
+        <span className="text-xs font-extrabold text-white font-display leading-snug truncate">
           AI One-Click Optimizations
         </span>
-        <span className="text-[10px] font-mono text-purple-600 dark:text-purple-400 font-semibold shrink-0">
+        <span className="text-[10px] font-mono text-purple-300 font-bold shrink-0">
           9 Smart Actions
         </span>
       </div>
 
-      <div className="flex-1 min-h-0 overflow-y-auto space-y-2.5 pr-1 custom-scrollbar">
+      <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden space-y-2.5 pr-1 custom-scrollbar">
         {AI_ACTIONS_DATA.map((action) => (
           <AiActionCard key={action.id} action={action} onExecute={onExecuteAction} />
         ))}
