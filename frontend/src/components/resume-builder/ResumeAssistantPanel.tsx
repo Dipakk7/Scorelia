@@ -48,35 +48,41 @@ export const ResumeAssistantPanel: React.FC = () => {
   return (
     <div className="flex flex-col h-full min-h-0 bg-[#0b0c14]/95 border border-slate-800/90 rounded-2xl shadow-xl overflow-hidden text-left font-sans transition-colors">
       {/* Workspace Tabs Header Bar (Fixed Top) */}
-      <div className="h-[48px] min-h-[48px] flex items-center gap-1.5 p-2 bg-[#0e101c] border-b border-slate-800/80 shrink-0 flex-none overflow-x-auto custom-scrollbar box-border" role="tablist" aria-label="AI Assistant workspace tabs">
-        {[
-          { id: 'chat', label: 'AI Chat', icon: Bot },
-          { id: 'actions', label: 'Actions', icon: Sparkles },
-          { id: 'ats', label: 'ATS Insights', icon: Target },
-          { id: 'template', label: 'Active Template', icon: Layout },
-        ].map((tab) => {
-          const Icon = tab.icon
-          const isActive = activeTab === tab.id
-          return (
-            <button
-              key={tab.id}
-              type="button"
-              role="tab"
-              aria-selected={isActive}
-              aria-label={`${tab.label} workspace tab`}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={cn(
-                'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer border select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500',
-                isActive
-                  ? 'bg-purple-600/20 text-white border-purple-500/50 shadow-xs'
-                  : 'bg-transparent text-slate-400 border-transparent hover:bg-slate-900/60 hover:text-slate-200'
-              )}
-            >
-              <Icon size={13} className={isActive ? 'text-purple-400' : 'text-slate-400'} />
-              <span>{tab.label}</span>
-            </button>
-          )
-        })}
+      <div
+        className="h-[48px] min-h-[48px] px-3 flex items-center bg-[#0e101c] border-b border-slate-800/80 overflow-x-auto custom-scrollbar shrink-0 flex-none box-border scroll-smooth"
+        role="tablist"
+        aria-label="AI Assistant workspace tabs"
+      >
+        <div className="flex items-center gap-2 min-w-max shrink-0 flex-none">
+          {[
+            { id: 'chat', label: 'AI Chat', icon: Bot },
+            { id: 'actions', label: 'Actions', icon: Sparkles },
+            { id: 'ats', label: 'ATS Insights', icon: Target },
+            { id: 'template', label: 'Active Template', icon: Layout },
+          ].map((tab) => {
+            const Icon = tab.icon
+            const isActive = activeTab === tab.id
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-label={`${tab.label} workspace tab`}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={cn(
+                  'inline-flex items-center gap-2 px-3.5 py-1.5 h-8 min-h-[32px] rounded-xl text-xs font-bold whitespace-nowrap shrink-0 flex-none transition-all cursor-pointer border select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500',
+                  isActive
+                    ? 'bg-purple-600/20 text-white border-purple-500/50 shadow-xs font-extrabold'
+                    : 'bg-transparent text-slate-400 border-transparent hover:bg-slate-900/60 hover:text-slate-200'
+                )}
+              >
+                <Icon size={14} className={cn('shrink-0', isActive ? 'text-purple-400' : 'text-slate-400')} />
+                <span className="whitespace-nowrap tracking-tight">{tab.label}</span>
+              </button>
+            )
+          })}
+        </div>
       </div>
 
       {/* Workspace Active Content Area (Redistributed Flex Height) */}

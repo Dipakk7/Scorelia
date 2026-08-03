@@ -28,8 +28,8 @@ export const ResumeBuilderStepper: React.FC<ResumeBuilderStepperProps> = ({
   onStepClick,
 }) => {
   return (
-    <div className="w-full shrink-0 flex-none overflow-x-auto custom-scrollbar bg-[#0b0c14]/90 border border-slate-800/90 px-2 py-1.5 rounded-xl shadow-xs">
-      <nav className="flex items-center gap-1.5 min-w-max" role="tablist" aria-label="Resume builder step navigation">
+    <div className="w-full shrink-0 flex-none overflow-x-auto custom-scrollbar bg-[#0b0c14]/90 border border-slate-800/90 px-3 py-1.5 rounded-xl shadow-xs scroll-smooth">
+      <nav className="flex items-center gap-2 min-w-max shrink-0 flex-none" role="tablist" aria-label="Resume builder step navigation">
         {BUILDER_STEPS.map((step) => {
           const isActive = step.id === activeStep
           const isCompleted = step.id < activeStep
@@ -44,7 +44,7 @@ export const ResumeBuilderStepper: React.FC<ResumeBuilderStepperProps> = ({
               aria-label={`Step ${step.id}: ${step.label}`}
               onClick={() => onStepClick(step.id)}
               className={cn(
-                'flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer select-none border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500',
+                'inline-flex items-center gap-2 px-3.5 py-1.5 h-8 min-h-[32px] rounded-xl text-xs font-semibold whitespace-nowrap shrink-0 flex-none transition-all duration-200 cursor-pointer select-none border focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500',
                 isActive
                   ? 'bg-purple-600/20 text-white border-purple-500/50 font-extrabold shadow-xs'
                   : isCompleted

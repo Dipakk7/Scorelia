@@ -72,43 +72,49 @@ export const ResumeEditingPanel: React.FC<ResumeEditingPanelProps> = ({
   return (
     <div className="flex flex-col h-full min-h-0 bg-[#0b0c14]/95 border border-slate-800/90 rounded-2xl shadow-xl overflow-hidden text-left font-sans transition-colors">
       {/* Structural Tab Container Switcher Bar for all 12 sections */}
-      <div className="h-[48px] min-h-[48px] flex items-center gap-1.5 p-2 bg-[#0e101c] border-b border-slate-800/80 overflow-x-auto custom-scrollbar shrink-0 flex-none box-border" role="tablist" aria-label="Resume section editor tabs">
-        {[
-          { id: 'personal', label: 'Personal', icon: User },
-          { id: 'contact', label: 'Contact', icon: Mail },
-          { id: 'summary', label: 'Summary', icon: FileText },
-          { id: 'experience', label: 'Experience', icon: Briefcase },
-          { id: 'education', label: 'Education', icon: GraduationCap },
-          { id: 'skills', label: 'Skills', icon: Code },
-          { id: 'projects', label: 'Projects', icon: FolderGit2 },
-          { id: 'certifications', label: 'Certifications', icon: Award },
-          { id: 'languages', label: 'Languages', icon: LanguagesIcon },
-          { id: 'achievements', label: 'Achievements', icon: Sparkles },
-          { id: 'custom', label: 'Custom', icon: Sliders },
-          { id: 'references', label: 'References', icon: UserCheck },
-        ].map((tab) => {
-          const Icon = tab.icon
-          const isActive = activeSectionTab === tab.id
-          return (
-            <button
-              key={tab.id}
-              type="button"
-              role="tab"
-              aria-selected={isActive}
-              aria-label={`${tab.label} section`}
-              onClick={() => setActiveSectionTab(tab.id)}
-              className={cn(
-                'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer border select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500',
-                isActive
-                  ? 'bg-purple-600/20 text-white border-purple-500/50 shadow-xs'
-                  : 'bg-transparent text-slate-400 border-transparent hover:bg-slate-900/60 hover:text-slate-200'
-              )}
-            >
-              <Icon size={13} className={isActive ? 'text-purple-400' : 'text-slate-400'} />
-              <span>{tab.label}</span>
-            </button>
-          )
-        })}
+      <div
+        className="h-[48px] min-h-[48px] px-3 flex items-center bg-[#0e101c] border-b border-slate-800/80 overflow-x-auto custom-scrollbar shrink-0 flex-none box-border scroll-smooth"
+        role="tablist"
+        aria-label="Resume section editor tabs"
+      >
+        <div className="flex items-center gap-2 min-w-max shrink-0 flex-none">
+          {[
+            { id: 'personal', label: 'Personal', icon: User },
+            { id: 'contact', label: 'Contact', icon: Mail },
+            { id: 'summary', label: 'Summary', icon: FileText },
+            { id: 'experience', label: 'Experience', icon: Briefcase },
+            { id: 'education', label: 'Education', icon: GraduationCap },
+            { id: 'skills', label: 'Skills', icon: Code },
+            { id: 'projects', label: 'Projects', icon: FolderGit2 },
+            { id: 'certifications', label: 'Certifications', icon: Award },
+            { id: 'languages', label: 'Languages', icon: LanguagesIcon },
+            { id: 'achievements', label: 'Achievements', icon: Sparkles },
+            { id: 'custom', label: 'Custom', icon: Sliders },
+            { id: 'references', label: 'References', icon: UserCheck },
+          ].map((tab) => {
+            const Icon = tab.icon
+            const isActive = activeSectionTab === tab.id
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-label={`${tab.label} section`}
+                onClick={() => setActiveSectionTab(tab.id)}
+                className={cn(
+                  'inline-flex items-center gap-2 px-3.5 py-1.5 h-8 min-h-[32px] rounded-xl text-xs font-bold whitespace-nowrap shrink-0 flex-none transition-all cursor-pointer border select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500',
+                  isActive
+                    ? 'bg-purple-600/20 text-white border-purple-500/50 shadow-xs font-extrabold'
+                    : 'bg-transparent text-slate-400 border-transparent hover:bg-slate-900/60 hover:text-slate-200'
+                )}
+              >
+                <Icon size={14} className={cn('shrink-0', isActive ? 'text-purple-400' : 'text-slate-400')} />
+                <span className="whitespace-nowrap tracking-tight">{tab.label}</span>
+              </button>
+            )
+          })}
+        </div>
       </div>
 
       {/* Main Scrollable Editing Workspace Body */}
