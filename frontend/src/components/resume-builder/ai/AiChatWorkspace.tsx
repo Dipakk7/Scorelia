@@ -147,7 +147,8 @@ export const AiChatWorkspace: React.FC = () => {
       <div className="mt-auto shrink-0 space-y-3 pt-1">
         <AiPromptLibrary onSelectPrompt={(prompt) => handleSendMessage(prompt)} />
 
-        <div className="relative flex items-center w-full">
+        {/* Unified Scorelia AI Chat Input Container (Encompasses Input + Send Button) */}
+        <div className="group flex items-center justify-between gap-2 w-full h-11 bg-[#0e101c] border border-purple-500/25 hover:border-purple-500/45 focus-within:border-purple-500 focus-within:ring-2 focus-within:ring-purple-500/25 focus-within:shadow-[0_0_16px_rgba(168,85,247,0.2)] rounded-xl px-3 py-1.5 transition-all duration-200 shadow-inner box-border">
           <input
             type="text"
             value={inputPrompt}
@@ -159,12 +160,13 @@ export const AiChatWorkspace: React.FC = () => {
               }
             }}
             placeholder="Ask Scorelia AI to improve your resume..."
-            className="w-full h-10 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl pl-3.5 pr-11 text-xs font-semibold text-white placeholder:text-slate-400/80 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-200 shadow-inner box-border"
+            aria-label="Ask Scorelia AI to improve your resume"
+            className="w-full h-full bg-transparent border-0 outline-none focus:outline-none focus:ring-0 text-xs font-semibold text-white placeholder:text-slate-400 leading-normal flex-1 min-w-0 pr-2 shadow-none"
           />
           <button
             type="button"
             onClick={() => handleSendMessage()}
-            className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white cursor-pointer hover:opacity-95 hover:scale-[1.03] active:scale-95 transition-all duration-200 shadow-md shadow-purple-950/40 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 shrink-0"
+            className="w-7 h-7 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white cursor-pointer hover:opacity-95 hover:scale-[1.05] active:scale-95 transition-all duration-200 shadow-md shadow-purple-950/50 flex items-center justify-center shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             title="Send prompt"
             aria-label="Send prompt"
           >
