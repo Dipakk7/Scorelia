@@ -159,12 +159,12 @@ export const AiChatWorkspace: React.FC = () => {
               }
             }}
             placeholder="Ask Scorelia AI to improve your resume..."
-            className="w-full h-10 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl pl-3.5 pr-11 text-xs font-semibold text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all shadow-xs"
+            className="w-full h-10 bg-[#0e101c] border border-slate-800/90 hover:border-slate-700/80 rounded-xl pl-3.5 pr-11 text-xs font-semibold text-white placeholder:text-slate-400/80 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-200 shadow-inner box-border"
           />
           <button
             type="button"
             onClick={() => handleSendMessage()}
-            className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white cursor-pointer hover:opacity-95 active:scale-95 transition-all shadow-sm flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 shrink-0"
+            className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white cursor-pointer hover:opacity-95 hover:scale-[1.03] active:scale-95 transition-all duration-200 shadow-md shadow-purple-950/40 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 shrink-0"
             title="Send prompt"
             aria-label="Send prompt"
           >
