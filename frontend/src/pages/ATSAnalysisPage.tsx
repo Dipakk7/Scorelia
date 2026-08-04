@@ -295,38 +295,38 @@ export default function ATSAnalysisPage() {
                   <>
                     {(activeTab === 'overview' || activeTab === 'detailed-report') && (
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
-                        {/* Row 1: Full-width ATS System Compatibility Matrix (12 cols) */}
+                        {/* Tier 1: Enterprise System Compatibility Matrix Banner (100% / 12 cols) */}
                         <div className="lg:col-span-12">
                           <ATSWidgetErrorBoundary sectionName="ATS System Compatibility">
                             <ATSCompatibilityCard />
                           </ATSWidgetErrorBoundary>
                         </div>
 
-                        {/* Row 2: Recruiter Feedback (7 cols) + Risk Analysis (5 cols) */}
-                        <div className="lg:col-span-7">
+                        {/* Tier 2: Recruiter Perspective (66% / 8 cols) + Risk Analysis (34% / 4 cols) */}
+                        <div className="lg:col-span-8">
                           <ATSWidgetErrorBoundary sectionName="Recruiter Feedback">
                             <RecruiterFeedbackCard data={recruiterFeedback} />
                           </ATSWidgetErrorBoundary>
                         </div>
-                        <div className="lg:col-span-5">
+                        <div className="lg:col-span-4">
                           <ATSWidgetErrorBoundary sectionName="Risk Analysis">
                             <RiskAnalysisCard />
                           </ATSWidgetErrorBoundary>
                         </div>
 
-                        {/* Row 3: Optimization Timeline (7 cols) + Industry Peer Benchmark (5 cols) */}
-                        <div className="lg:col-span-7">
+                        {/* Tier 3: Optimization Sequence (66% / 8 cols) + Industry Peer Benchmark (34% / 4 cols) */}
+                        <div className="lg:col-span-8">
                           <ATSWidgetErrorBoundary sectionName="Optimization Sequence">
                             <OptimizationTimeline />
                           </ATSWidgetErrorBoundary>
                         </div>
-                        <div className="lg:col-span-5">
+                        <div className="lg:col-span-4">
                           <ATSWidgetErrorBoundary sectionName="Industry Peer Benchmark">
                             <IndustryBenchmarkCard />
                           </ATSWidgetErrorBoundary>
                         </div>
 
-                        {/* Row 4: Formatting Audit (6 cols) + Section Scores Breakdown (6 cols) */}
+                        {/* Tier 4: Formatting Audit (50% / 6 cols) + Section Performance Scores (50% / 6 cols) */}
                         <div className="lg:col-span-6">
                           <ATSWidgetErrorBoundary sectionName="Formatting Audit">
                             <FormattingAnalysisCard />
@@ -338,14 +338,14 @@ export default function ATSAnalysisPage() {
                           </ATSWidgetErrorBoundary>
                         </div>
 
-                        {/* Row 5: Readiness Master Checklist (12 cols) */}
+                        {/* Tier 5: Readiness Master Checklist Banner (100% / 12 cols) */}
                         <div className="lg:col-span-12">
                           <ATSWidgetErrorBoundary sectionName="Readiness Master Checklist">
                             <ATSChecklistCard />
                           </ATSWidgetErrorBoundary>
                         </div>
 
-                        {/* Row 6: ATS Parser Simulation Preview (12 cols) */}
+                        {/* Tier 6: ATS Parser Simulation Preview Hero (100% / 12 cols) */}
                         <div className="lg:col-span-12">
                           <ATSWidgetErrorBoundary sectionName="ATS Parser Preview">
                             <ParserPreviewCard />
@@ -366,12 +366,12 @@ export default function ATSAnalysisPage() {
 
                     {activeTab === 'format-check' && (
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
-                        <div className="lg:col-span-7">
+                        <div className="lg:col-span-8">
                           <ATSWidgetErrorBoundary sectionName="Formatting Audit">
                             <FormattingAnalysisCard />
                           </ATSWidgetErrorBoundary>
                         </div>
-                        <div className="lg:col-span-5">
+                        <div className="lg:col-span-4">
                           <ATSWidgetErrorBoundary sectionName="Risk Analysis">
                             <RiskAnalysisCard />
                           </ATSWidgetErrorBoundary>
@@ -401,12 +401,12 @@ export default function ATSAnalysisPage() {
 
                     {activeTab === 'ats-simulation' && (
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
-                        <div className="lg:col-span-7">
+                        <div className="lg:col-span-8">
                           <ATSWidgetErrorBoundary sectionName="Recruiter Feedback">
                             <RecruiterFeedbackCard data={recruiterFeedback} />
                           </ATSWidgetErrorBoundary>
                         </div>
-                        <div className="lg:col-span-5">
+                        <div className="lg:col-span-4">
                           <ATSWidgetErrorBoundary sectionName="ATS System Compatibility">
                             <ATSCompatibilityCard />
                           </ATSWidgetErrorBoundary>
