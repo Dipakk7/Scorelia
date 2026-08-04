@@ -216,34 +216,46 @@ export default function ATSAnalysisPage() {
                         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 6 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="space-y-5 sm:space-y-6"
+                        className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start"
                       >
-                        <ATSWidgetErrorBoundary sectionName="Section Analysis Workspace">
-                          <SectionAnalysisWorkspace section={currentSectionDetail} />
-                        </ATSWidgetErrorBoundary>
+                        <div className="lg:col-span-12">
+                          <ATSWidgetErrorBoundary sectionName="Section Analysis Workspace">
+                            <SectionAnalysisWorkspace section={currentSectionDetail} />
+                          </ATSWidgetErrorBoundary>
+                        </div>
 
-                        <ATSWidgetErrorBoundary sectionName="Section Keyword Coverage">
-                          <SectionKeywordCoverageCard keywords={currentSectionDetail.keywords} />
-                        </ATSWidgetErrorBoundary>
+                        <div className="lg:col-span-6">
+                          <ATSWidgetErrorBoundary sectionName="Section Keyword Coverage">
+                            <SectionKeywordCoverageCard keywords={currentSectionDetail.keywords} />
+                          </ATSWidgetErrorBoundary>
+                        </div>
 
-                        <ATSWidgetErrorBoundary sectionName="Section Formatting Review">
-                          <SectionFormattingReviewCard formattingChecks={currentSectionDetail.formattingChecks} />
-                        </ATSWidgetErrorBoundary>
+                        <div className="lg:col-span-6">
+                          <ATSWidgetErrorBoundary sectionName="Section Formatting Review">
+                            <SectionFormattingReviewCard formattingChecks={currentSectionDetail.formattingChecks} />
+                          </ATSWidgetErrorBoundary>
+                        </div>
 
-                        <ATSWidgetErrorBoundary sectionName="Section Content Quality">
-                          <SectionContentQualityCard contentQuality={currentSectionDetail.contentQuality} />
-                        </ATSWidgetErrorBoundary>
+                        <div className="lg:col-span-6">
+                          <ATSWidgetErrorBoundary sectionName="Section Content Quality">
+                            <SectionContentQualityCard contentQuality={currentSectionDetail.contentQuality} />
+                          </ATSWidgetErrorBoundary>
+                        </div>
 
-                        <ATSWidgetErrorBoundary sectionName="Section ATS Rewrite">
-                          <SectionATSRewriteCard
-                            currentContent={currentSectionDetail.currentContent}
-                            suggestedRewrite={currentSectionDetail.suggestedRewrite}
-                          />
-                        </ATSWidgetErrorBoundary>
+                        <div className="lg:col-span-6">
+                          <ATSWidgetErrorBoundary sectionName="Section ATS Rewrite">
+                            <SectionATSRewriteCard
+                              currentContent={currentSectionDetail.currentContent}
+                              suggestedRewrite={currentSectionDetail.suggestedRewrite}
+                            />
+                          </ATSWidgetErrorBoundary>
+                        </div>
 
-                        <ATSWidgetErrorBoundary sectionName="Section Improvement Sequence">
-                          <SectionImprovementTimelineCard timeline={currentSectionDetail.timeline} />
-                        </ATSWidgetErrorBoundary>
+                        <div className="lg:col-span-12">
+                          <ATSWidgetErrorBoundary sectionName="Section Improvement Sequence">
+                            <SectionImprovementTimelineCard timeline={currentSectionDetail.timeline} />
+                          </ATSWidgetErrorBoundary>
+                        </div>
                       </motion.div>
                     )}
 
