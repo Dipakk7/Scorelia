@@ -37,21 +37,34 @@ export const SectionNavigationPanel: React.FC<SectionNavigationPanelProps> = ({
   const shouldReduceMotion = useScoreliaReducedMotion()
 
   return (
-    <nav aria-label="Resume Section Navigation" className="w-full">
-      <div className="flex items-center justify-between mb-2.5">
-        <h3 className="text-sm font-bold text-slate-100 tracking-tight flex items-center gap-2">
-          <FileText className="w-4 h-4 text-purple-400" />
-          Section-by-Section ATS Analysis Navigation
-        </h3>
-        <span className="text-xs text-slate-400 font-mono">8 Sections Evaluated</span>
+    <nav aria-label="Resume Section Navigation" className="w-full space-y-3.5">
+      {/* Header Row */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-0.5">
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-xl bg-purple-500/20 border border-purple-400/30 text-purple-300 shadow-sm shrink-0 flex items-center justify-center">
+            <FileText className="w-4.5 h-4.5 text-purple-400" />
+          </div>
+          <div>
+            <h3 className="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              <span>Section-by-Section ATS Analysis Navigation</span>
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed mt-0.5">
+              Select a section to inspect detailed criteria checks, scores, and AI recommendations.
+            </p>
+          </div>
+        </div>
+
+        <span className="text-xs font-mono font-bold text-slate-200 bg-slate-900/90 border border-slate-700/80 px-3 py-1.5 rounded-xl shadow-sm self-start sm:self-auto shrink-0">
+          8 Sections Evaluated
+        </span>
       </div>
 
-      {/* Grid Container For Full Width Distribution */}
+      {/* 8 Full-Width Equalized Responsive Section Chips */}
       <div className="w-full">
         <div
           role="tablist"
           aria-label="Resume Section Tabs"
-          className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 w-full p-1"
+          className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 w-full"
         >
           {mockSectionsList.map((sec) => {
             const isSelected = selectedSectionId === sec.id
@@ -65,41 +78,49 @@ export const SectionNavigationPanel: React.FC<SectionNavigationPanelProps> = ({
                 type="button"
                 role="tab"
                 aria-selected={isSelected}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
+                whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
                 onClick={() => onSelectSection(sec.id)}
                 className={cn(
-                  'relative flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-xl border text-xs font-medium transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none w-full justify-start',
+                  'relative flex items-center gap-2.5 px-3 py-2.5 min-h-[52px] rounded-xl border text-xs transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none w-full justify-start group select-none',
                   isSelected
-                    ? 'bg-purple-600/30 text-white border-purple-500/60 shadow-md font-semibold'
-                    : 'bg-slate-900/80 text-slate-300 border-slate-800 hover:border-purple-500/30 hover:bg-slate-800/60'
+                    ? 'bg-gradient-to-r from-purple-950/70 to-slate-900/90 text-white border-purple-500/60 shadow-md shadow-purple-500/10 font-bold'
+                    : 'bg-gradient-to-b from-slate-900/90 to-slate-950/90 text-slate-300 border-slate-800/90 hover:border-purple-500/40 hover:bg-slate-900 hover:shadow-md hover:-translate-y-0.5'
                 )}
               >
                 {isSelected && (
                   <motion.div
                     layoutId="activeSectionIndicator"
-                    className="absolute inset-0 bg-purple-500/10 rounded-xl border border-purple-400/30 pointer-events-none"
+                    className="absolute inset-0 bg-purple-500/15 rounded-xl border border-purple-400/40 pointer-events-none shadow-sm"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
 
                 <div
                   className={cn(
-                    'p-1.5 rounded-lg shrink-0 relative z-10',
+                    'p-2 rounded-xl shrink-0 relative z-10 flex items-center justify-center transition-colors shadow-inner',
                     isSelected
-                      ? 'bg-purple-500/30 text-purple-200'
-                      : 'bg-purple-500/10 text-purple-400'
+                      ? 'bg-purple-500/30 border border-purple-400/40 text-purple-200'
+                      : 'bg-purple-500/15 border border-purple-500/25 text-purple-300 group-hover:bg-purple-500/25 group-hover:border-purple-400/30'
                   )}
                 >
-                  <Icon className="w-3.5 h-3.5" />
+                  <Icon className="w-4 h-4" />
                 </div>
 
                 <div className="space-y-0.5 text-left relative z-10 min-w-0 flex-1">
-                  <div className="font-semibold text-slate-100 truncate text-[11px] sm:text-xs">{sec.name}</div>
-                  <div className="flex items-center gap-1 text-[10px] font-mono">
-                    <span className="text-purple-300 font-bold">{sec.score}%</span>
-                    <span>•</span>
+                  <div
+                    className={cn(
+                      'font-bold truncate text-xs transition-colors',
+                      isSelected ? 'text-white' : 'text-slate-200 group-hover:text-white'
+                    )}
+                  >
+                    {sec.name}
+                  </div>
+                  <div className="flex items-center gap-1.5 text-[10px] font-mono">
+                    <span className="text-purple-300 font-extrabold">{sec.score}%</span>
+                    <span className="text-slate-600 font-sans">•</span>
                     <span
                       className={cn(
+                        'font-bold',
                         isExcellent
                           ? 'text-emerald-400'
                           : isWarning
