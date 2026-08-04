@@ -366,12 +366,12 @@ export default function ATSAnalysisPage() {
 
                     {activeTab === 'format-check' && (
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
-                        <div className="lg:col-span-6 flex flex-col">
+                        <div className="lg:col-span-7">
                           <ATSWidgetErrorBoundary sectionName="Formatting Audit">
                             <FormattingAnalysisCard />
                           </ATSWidgetErrorBoundary>
                         </div>
-                        <div className="lg:col-span-6 flex flex-col">
+                        <div className="lg:col-span-5">
                           <ATSWidgetErrorBoundary sectionName="Risk Analysis">
                             <RiskAnalysisCard />
                           </ATSWidgetErrorBoundary>
@@ -386,12 +386,12 @@ export default function ATSAnalysisPage() {
 
                     {activeTab === 'content-optimization' && (
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
-                        <div className="lg:col-span-6 flex flex-col">
+                        <div className="lg:col-span-6">
                           <ATSWidgetErrorBoundary sectionName="Section Scores Breakdown">
                             <SectionScoresCard />
                           </ATSWidgetErrorBoundary>
                         </div>
-                        <div className="lg:col-span-6 flex flex-col">
+                        <div className="lg:col-span-6">
                           <ATSWidgetErrorBoundary sectionName="Optimization Sequence">
                             <OptimizationTimeline />
                           </ATSWidgetErrorBoundary>
@@ -401,12 +401,12 @@ export default function ATSAnalysisPage() {
 
                     {activeTab === 'ats-simulation' && (
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
-                        <div className="lg:col-span-6 flex flex-col">
+                        <div className="lg:col-span-7">
                           <ATSWidgetErrorBoundary sectionName="Recruiter Feedback">
                             <RecruiterFeedbackCard data={recruiterFeedback} />
                           </ATSWidgetErrorBoundary>
                         </div>
-                        <div className="lg:col-span-6 flex flex-col">
+                        <div className="lg:col-span-5">
                           <ATSWidgetErrorBoundary sectionName="ATS System Compatibility">
                             <ATSCompatibilityCard />
                           </ATSWidgetErrorBoundary>
