@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Clock, CheckCircle2, ArrowRight, Play, Sparkles } from 'lucide-react'
+import { Clock, CheckCircle2, ArrowRight, Play, Sparkles, TrendingUp, Zap } from 'lucide-react'
 import { mockOptimizationTimeline, type TimelineStepItem } from '@/lib/ats-ai-mock-data'
 import { cn } from '@/lib/utils'
 
@@ -10,10 +10,12 @@ export const OptimizationTimeline: React.FC = () => {
     mockOptimizationTimeline.find((s) => s.id === selectedStepId) || mockOptimizationTimeline[1]
 
   const completedCount = mockOptimizationTimeline.filter((s) => s.status === 'completed').length
+  const totalSteps = mockOptimizationTimeline.length
+  const progressPercent = Math.round((completedCount / totalSteps) * 100)
 
   return (
     <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-5 shadow-xl space-y-4 h-full flex flex-col justify-between">
-      {/* Header */}
+      {/* 1. Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
           <div className="p-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-300 shadow-sm shrink-0 flex items-center justify-center">
@@ -31,13 +33,55 @@ export const OptimizationTimeline: React.FC = () => {
 
         <div className="flex items-center gap-2 shrink-0 self-start sm:self-auto">
           <span className="text-xs font-mono font-bold text-purple-300 bg-purple-500/15 px-2.5 py-0.5 rounded-full border border-purple-500/30 shadow-sm">
-            6 Steps Workflow ({completedCount}/6 Done)
+            6 Steps Workflow ({completedCount}/{totalSteps} Done)
           </span>
         </div>
       </div>
 
-      {/* Timeline Steps Interactive Sequence Bar */}
-      <div className="w-full p-2 rounded-xl bg-slate-950/80 border border-slate-800/90 shadow-inner">
+      {/* 2. Workflow Analytics Summary KPI Grid (Fills empty vertical space) */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+        <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-1.5 shadow-inner">
+          <div className="flex items-center justify-between text-[11px] text-slate-400 font-sans">
+            <span>Overall Progress</span>
+            <span className="font-mono font-bold text-purple-300">{progressPercent}%</span>
+          </div>
+          <div className="h-1.5 w-full bg-slate-900 border border-slate-800/80 rounded-full overflow-hidden p-0.5 shadow-inner">
+            <div
+              className="h-full bg-gradient-to-r from-purple-500 to-emerald-400 rounded-full transition-all duration-500"
+              style={{ width: `${progressPercent}%` }}
+            />
+          </div>
+        </div>
+
+        <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-0.5 shadow-inner">
+          <span className="text-[10px] text-slate-400 font-sans block">Remaining Time</span>
+          <div className="text-xs sm:text-sm font-bold text-slate-100 font-mono flex items-center gap-1">
+            <Clock className="w-3.5 h-3.5 text-purple-400" /> 30 Mins
+          </div>
+        </div>
+
+        <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-0.5 shadow-inner">
+          <span className="text-[10px] text-slate-400 font-sans block">Potential ATS Boost</span>
+          <div className="text-xs sm:text-sm font-bold text-emerald-400 font-mono flex items-center gap-1">
+            <TrendingUp className="w-3.5 h-3.5" /> +18 Points
+          </div>
+        </div>
+
+        <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-0.5 shadow-inner">
+          <span className="text-[10px] text-slate-400 font-sans block">Optimization Stage</span>
+          <div className="text-xs sm:text-sm font-bold text-purple-300 truncate font-sans flex items-center gap-1">
+            <Zap className="w-3.5 h-3.5 text-purple-400 shrink-0" /> Phase 2: Keywords
+          </div>
+        </div>
+      </div>
+
+      {/* 3. Timeline Steps Interactive Sequence Stepper Bar */}
+      <div className="w-full p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/90 shadow-inner space-y-2">
+        <div className="flex items-center justify-between text-[11px] text-slate-400 font-mono px-1">
+          <span className="font-semibold text-slate-300">Optimization Roadmap Sequence</span>
+          <span>Click step to inspect & execute</span>
+        </div>
+
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 w-full">
           {mockOptimizationTimeline.map((step) => {
             const isSelected = selectedStepId === step.id
@@ -83,10 +127,10 @@ export const OptimizationTimeline: React.FC = () => {
         </div>
       </div>
 
-      {/* Selected Step Detailed View Card */}
+      {/* 4. Selected Step Detailed View Card */}
       <div className="p-4 rounded-xl bg-slate-950/80 border border-purple-500/30 shadow-inner flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-in fade-in duration-150">
         <div className="space-y-1.5 flex-1 min-w-0">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className="text-xs font-mono font-bold text-purple-400">
               Step {selectedStep.stepNumber} of 6
             </span>
@@ -112,7 +156,7 @@ export const OptimizationTimeline: React.FC = () => {
 
         <button
           type="button"
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-xl shadow-md cursor-pointer shrink-0 transition-all focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none"
+          className="inline-flex items-center justify-center gap-2 px-4.5 py-2.5 text-xs font-bold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-xl shadow-md cursor-pointer shrink-0 transition-all focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none"
         >
           <Play className="w-3.5 h-3.5" />
           <span>{selectedStep.actionLabel}</span>
