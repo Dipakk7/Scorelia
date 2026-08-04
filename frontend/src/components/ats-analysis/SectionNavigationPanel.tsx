@@ -37,7 +37,7 @@ export const SectionNavigationPanel: React.FC<SectionNavigationPanelProps> = ({
   const shouldReduceMotion = useScoreliaReducedMotion()
 
   return (
-    <nav aria-label="Resume Section Navigation" className="mb-6">
+    <nav aria-label="Resume Section Navigation" className="w-full">
       <div className="flex items-center justify-between mb-2.5">
         <h3 className="text-sm font-bold text-slate-100 tracking-tight flex items-center gap-2">
           <FileText className="w-4 h-4 text-purple-400" />
@@ -46,12 +46,12 @@ export const SectionNavigationPanel: React.FC<SectionNavigationPanelProps> = ({
         <span className="text-xs text-slate-400 font-mono">8 Sections Evaluated</span>
       </div>
 
-      {/* Responsive Horizontal Scrollable Container */}
-      <div className="overflow-x-auto pb-2 scrollbar-none">
+      {/* Grid Container For Full Width Distribution */}
+      <div className="w-full">
         <div
           role="tablist"
           aria-label="Resume Section Tabs"
-          className="flex items-center gap-2.5 min-w-max p-1"
+          className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 w-full p-1"
         >
           {mockSectionsList.map((sec) => {
             const isSelected = selectedSectionId === sec.id
@@ -68,7 +68,7 @@ export const SectionNavigationPanel: React.FC<SectionNavigationPanelProps> = ({
                 whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
                 onClick={() => onSelectSection(sec.id)}
                 className={cn(
-                  'relative flex items-center gap-2.5 px-4 py-2.5 min-h-[44px] rounded-xl border text-xs font-medium transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none',
+                  'relative flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-xl border text-xs font-medium transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none w-full justify-start',
                   isSelected
                     ? 'bg-purple-600/30 text-white border-purple-500/60 shadow-md font-semibold'
                     : 'bg-slate-900/80 text-slate-300 border-slate-800 hover:border-purple-500/30 hover:bg-slate-800/60'
@@ -90,12 +90,12 @@ export const SectionNavigationPanel: React.FC<SectionNavigationPanelProps> = ({
                       : 'bg-purple-500/10 text-purple-400'
                   )}
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon className="w-3.5 h-3.5" />
                 </div>
 
-                <div className="space-y-0.5 text-left relative z-10">
-                  <div className="font-semibold text-slate-100">{sec.name}</div>
-                  <div className="flex items-center gap-2 text-[10px] font-mono">
+                <div className="space-y-0.5 text-left relative z-10 min-w-0 flex-1">
+                  <div className="font-semibold text-slate-100 truncate text-[11px] sm:text-xs">{sec.name}</div>
+                  <div className="flex items-center gap-1 text-[10px] font-mono">
                     <span className="text-purple-300 font-bold">{sec.score}%</span>
                     <span>•</span>
                     <span
@@ -109,11 +109,6 @@ export const SectionNavigationPanel: React.FC<SectionNavigationPanelProps> = ({
                     >
                       {sec.status}
                     </span>
-                    {sec.issueCount > 0 && (
-                      <span className="text-amber-400 bg-amber-500/10 px-1 rounded">
-                        {sec.issueCount} issue
-                      </span>
-                    )}
                   </div>
                 </div>
               </motion.button>

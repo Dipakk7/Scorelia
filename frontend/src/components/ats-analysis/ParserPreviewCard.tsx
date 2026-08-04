@@ -52,7 +52,7 @@ export const ParserPreviewCard: React.FC = () => {
       {/* Dual Panel Comparison Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
         {/* Left Panel: Original Visual Resume Document */}
-        <div className="lg:col-span-6 rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-3 flex flex-col justify-between">
+        <div className="lg:col-span-6 rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-3 flex flex-col justify-between h-full">
           <div className="flex items-center justify-between border-b border-slate-800/80 pb-2">
             <span className="text-xs font-semibold text-slate-200 flex items-center gap-2">
               <FileText className="w-4 h-4 text-purple-400" />
@@ -61,7 +61,7 @@ export const ParserPreviewCard: React.FC = () => {
             <span className="text-[10px] font-mono text-slate-400">Software_Engineer_Resume.pdf</span>
           </div>
 
-          <pre className="font-sans text-xs text-slate-300 whitespace-pre-wrap leading-relaxed max-h-64 overflow-y-auto p-3 rounded-lg bg-slate-900/60 border border-slate-800/50">
+          <pre className="font-sans text-xs text-slate-300 whitespace-pre-wrap leading-relaxed min-h-[180px] max-h-72 overflow-y-auto p-3 rounded-lg bg-slate-900/60 border border-slate-800/50 flex-1">
             {mockParserPreview.originalPreviewText}
           </pre>
 
@@ -79,7 +79,7 @@ export const ParserPreviewCard: React.FC = () => {
         </div>
 
         {/* Right Panel: ATS Parsed Output (Text or JSON) */}
-        <div className="lg:col-span-6 rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-3 flex flex-col justify-between">
+        <div className="lg:col-span-6 rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-3 flex flex-col justify-between h-full">
           <div className="flex items-center justify-between border-b border-slate-800/80 pb-2">
             <span className="text-xs font-semibold text-slate-200 flex items-center gap-2">
               <Code2 className="w-4 h-4 text-emerald-400" />
@@ -89,7 +89,7 @@ export const ParserPreviewCard: React.FC = () => {
           </div>
 
           {viewMode === 'text' ? (
-            <div className="font-mono text-xs text-slate-300 space-y-2 max-h-64 overflow-y-auto p-3 rounded-lg bg-slate-900/60 border border-slate-800/50">
+            <div className="font-mono text-xs text-slate-300 space-y-2 min-h-[180px] max-h-72 overflow-y-auto p-3 rounded-lg bg-slate-900/60 border border-slate-800/50 flex-1">
               <div className="text-emerald-400 font-bold">[PARSED CONTACT DATA]</div>
               <div>Name: {mockParserPreview.parsedJsonOutput.contact.name}</div>
               <div>Role: {mockParserPreview.parsedJsonOutput.contact.title}</div>
@@ -105,7 +105,7 @@ export const ParserPreviewCard: React.FC = () => {
               </div>
             </div>
           ) : (
-            <pre className="font-mono text-[11px] text-emerald-300 whitespace-pre-wrap max-h-64 overflow-y-auto p-3 rounded-lg bg-slate-900/60 border border-slate-800/50">
+            <pre className="font-mono text-[11px] text-emerald-300 whitespace-pre-wrap min-h-[180px] max-h-72 overflow-y-auto p-3 rounded-lg bg-slate-900/60 border border-slate-800/50 flex-1">
               {JSON.stringify(mockParserPreview.parsedJsonOutput, null, 2)}
             </pre>
           )}

@@ -23,7 +23,7 @@ export const SectionATSRewriteCard: React.FC<SectionATSRewriteCardProps> = ({
   }
 
   return (
-    <div className="rounded-2xl bg-gradient-to-r from-purple-950/80 via-slate-900 to-indigo-950/80 border border-purple-500/30 p-5 shadow-xl space-y-4">
+    <div className="rounded-2xl bg-gradient-to-r from-purple-950/80 via-slate-900 to-indigo-950/80 border border-purple-500/30 p-4 sm:p-5 shadow-xl space-y-4 h-full flex flex-col justify-between">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
@@ -65,29 +65,29 @@ export const SectionATSRewriteCard: React.FC<SectionATSRewriteCardProps> = ({
       </div>
 
       {/* Side-by-Side Dual Panel Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch flex-1">
         {/* Left Panel: Current Section Content */}
-        <div className="p-4 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-2">
+        <div className="p-4 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-2 flex flex-col justify-between h-full">
           <div className="flex items-center justify-between text-xs font-semibold text-slate-300 border-b border-slate-800 pb-2">
             <span className="flex items-center gap-1.5">
               <FileText className="w-3.5 h-3.5 text-slate-400" /> Current Section Text
             </span>
             <span className="text-[10px] font-mono text-slate-500">Original Draft</span>
           </div>
-          <pre className="font-sans text-xs text-slate-300 whitespace-pre-wrap leading-relaxed max-h-48 overflow-y-auto p-2.5 rounded-lg bg-slate-900/60 border border-slate-800/50">
+          <pre className="font-sans text-xs text-slate-300 whitespace-pre-wrap leading-relaxed min-h-[160px] max-h-64 overflow-y-auto p-3 rounded-lg bg-slate-900/60 border border-slate-800/50 flex-1">
             {currentContent}
           </pre>
         </div>
 
         {/* Right Panel: Suggested ATS-Friendly Version */}
-        <div className="p-4 rounded-xl bg-slate-950/70 border border-purple-500/30 space-y-2">
+        <div className="p-4 rounded-xl bg-slate-950/70 border border-purple-500/30 space-y-2 flex flex-col justify-between h-full">
           <div className="flex items-center justify-between text-xs font-semibold text-purple-300 border-b border-slate-800 pb-2">
             <span className="flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-purple-400" /> Suggested ATS-Friendly Version
             </span>
             <span className="text-[10px] font-mono text-emerald-400">Highlighted Diff</span>
           </div>
-          <pre className="font-sans text-xs text-slate-200 whitespace-pre-wrap leading-relaxed max-h-48 overflow-y-auto p-2.5 rounded-lg bg-purple-950/20 border border-purple-500/20 text-purple-100">
+          <pre className="font-sans text-xs text-slate-200 whitespace-pre-wrap leading-relaxed min-h-[160px] max-h-64 overflow-y-auto p-3 rounded-lg bg-purple-950/20 border border-purple-500/20 text-purple-100 flex-1">
             {suggestedRewrite}
           </pre>
         </div>

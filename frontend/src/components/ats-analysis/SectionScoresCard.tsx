@@ -11,7 +11,7 @@ export const SectionScoresCard: React.FC = () => {
   }
 
   return (
-    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-5 shadow-lg space-y-3.5 h-auto">
+    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-5 shadow-lg space-y-3.5 h-full flex flex-col justify-between">
       {/* Section Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -30,7 +30,7 @@ export const SectionScoresCard: React.FC = () => {
       </div>
 
       {/* 7 Section Score Accordion Cards */}
-      <div className="space-y-3">
+      <div className="space-y-2.5 flex-1">
         {mockSectionScores.map((sec) => {
           const isExpanded = expandedSectionId === sec.id
           const isExcellent = sec.statusType === 'excellent'

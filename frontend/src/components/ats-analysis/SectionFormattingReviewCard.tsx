@@ -22,7 +22,7 @@ export const SectionFormattingReviewCard: React.FC<SectionFormattingReviewCardPr
   }, [])
 
   return (
-    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-5 shadow-lg space-y-4">
+    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-5 shadow-lg space-y-4 h-full flex flex-col justify-between">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -41,7 +41,7 @@ export const SectionFormattingReviewCard: React.FC<SectionFormattingReviewCardPr
       </div>
 
       {/* Grid of Items */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 flex-1">
         {safeChecks.map((item) => {
           const isExpanded = expandedId === item.id
           const isPass = item.status === 'pass'

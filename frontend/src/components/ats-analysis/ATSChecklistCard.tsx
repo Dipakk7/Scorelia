@@ -52,7 +52,7 @@ export const ATSChecklistCard: React.FC = () => {
             key={item.id}
             onClick={() => toggleCheck(item.id)}
             className={cn(
-              'p-3.5 rounded-xl border transition-all duration-150 cursor-pointer flex items-center justify-between gap-3 select-none',
+              'p-3 sm:p-3.5 rounded-xl border transition-all duration-150 cursor-pointer flex items-center justify-between gap-3 select-none',
               item.completed
                 ? 'bg-slate-950/70 border-slate-800/80 text-slate-300'
                 : 'bg-purple-950/20 border-purple-500/30 text-white shadow-sm'

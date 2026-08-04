@@ -29,7 +29,7 @@ export const KeywordIntelligenceCard: React.FC = () => {
   })
 
   return (
-    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-5 shadow-lg space-y-3.5">
+    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-5 shadow-lg space-y-3.5 h-full flex flex-col justify-between">
       {/* Header & Search */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
@@ -80,7 +80,7 @@ export const KeywordIntelligenceCard: React.FC = () => {
       </div>
 
       {/* Keyword Chips Feed */}
-      <div className="flex flex-wrap gap-2 max-h-64 overflow-y-auto p-3 bg-slate-950/90 border border-slate-800/80 rounded-xl shadow-inner scrollbar-none">
+      <div className="flex flex-wrap gap-2 min-h-[200px] max-h-96 overflow-y-auto p-3 bg-slate-950/90 border border-slate-800/80 rounded-xl shadow-inner scrollbar-none w-full flex-1">
         {filtered.map((item) => {
           const isAdded = addedIds.has(item.id)
           const isMatched = item.category === 'matched'

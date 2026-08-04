@@ -20,7 +20,7 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({ onStartAnalysis }) => {
   return (
-    <aside aria-label="ATS Analysis Sidebar" className="space-y-5">
+    <aside aria-label="ATS Analysis Sidebar" className="space-y-5 flex flex-col justify-between h-full">
       {/* 1. Analysis Summary Card */}
       <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-5 shadow-lg space-y-3.5">
         <div className="flex items-center justify-between">
@@ -33,30 +33,30 @@ export const Sidebar: React.FC<SidebarProps> = ({ onStartAnalysis }) => {
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-          <div className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/60 space-y-0.5">
+        <div className="grid grid-cols-2 gap-2.5 text-xs font-mono">
+          <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/60 space-y-1">
             <span className="text-slate-500 font-sans text-[11px]">Total Checks</span>
-            <div className="text-sm font-bold text-white">
+            <div className="text-base font-bold text-white">
               {mockSidebarData.analysisSummary.totalChecks}
             </div>
           </div>
-          <div className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/60 space-y-0.5">
+          <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/60 space-y-1">
             <span className="text-slate-500 font-sans text-[11px]">Passed Checks</span>
-            <div className="text-sm font-bold text-emerald-400 flex items-center gap-1">
+            <div className="text-base font-bold text-emerald-400 flex items-center gap-1">
               <CheckCircle2 className="w-3.5 h-3.5" />
               {mockSidebarData.analysisSummary.passedChecks}
             </div>
           </div>
-          <div className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/60 space-y-0.5">
+          <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/60 space-y-1">
             <span className="text-slate-500 font-sans text-[11px]">Warnings</span>
-            <div className="text-sm font-bold text-amber-400 flex items-center gap-1">
+            <div className="text-base font-bold text-amber-400 flex items-center gap-1">
               <AlertTriangle className="w-3.5 h-3.5" />
               {mockSidebarData.analysisSummary.warningChecks}
             </div>
           </div>
-          <div className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/60 space-y-0.5">
+          <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/60 space-y-1">
             <span className="text-slate-500 font-sans text-[11px]">Passed Rate</span>
-            <div className="text-sm font-bold text-purple-300">90%</div>
+            <div className="text-base font-bold text-purple-300">90%</div>
           </div>
         </div>
       </div>
@@ -74,9 +74,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ onStartAnalysis }) => {
         </div>
 
         <div className="space-y-2 text-xs font-mono">
-          <div className="flex items-center justify-between p-2.5 rounded-lg bg-slate-950/50 border border-slate-800/60">
-            <span className="text-slate-400 font-sans">File Name</span>
-            <span className="text-slate-200 truncate max-w-[140px]" title="Software_Engineer_Resume.pdf">
+          <div className="flex items-center justify-between p-2.5 rounded-lg bg-slate-950/50 border border-slate-800/60 gap-2">
+            <span className="text-slate-400 font-sans shrink-0">File Name</span>
+            <span className="text-slate-200 truncate text-right font-medium" title="Software_Engineer_Resume.pdf">
               Software_Engineer_Resume.pdf
             </span>
           </div>
@@ -151,13 +151,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ onStartAnalysis }) => {
       </div>
 
       {/* 5. Helpful Resources Card */}
-      <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-5 shadow-lg space-y-3">
+      <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-5 shadow-lg space-y-3 flex-1 flex flex-col justify-between">
         <h3 className="text-sm font-bold text-slate-100 flex items-center gap-2">
           <BookOpen className="w-4 h-4 text-purple-400" />
           Helpful Resources
         </h3>
 
-        <div className="space-y-1.5 text-xs">
+        <div className="space-y-1.5 text-xs flex-1 flex flex-col justify-around">
           {mockSidebarData.resources.map((res, idx) => (
             <a
               key={idx}
@@ -165,7 +165,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onStartAnalysis }) => {
               onClick={(e) => e.preventDefault()}
               className="flex items-center justify-between p-2 rounded-lg text-slate-300 hover:text-purple-300 hover:bg-purple-500/10 transition-colors"
             >
-              <span className="truncate max-w-[200px]">{res.title}</span>
+              <span className="truncate flex-1 pr-2">{res.title}</span>
               <ExternalLink className="w-3.5 h-3.5 text-slate-500 shrink-0" />
             </a>
           ))}

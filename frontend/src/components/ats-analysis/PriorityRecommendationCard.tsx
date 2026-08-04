@@ -83,7 +83,7 @@ export const PriorityRecommendationCard: React.FC = () => {
             >
               {/* Header Bar */}
               <div className="p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-                <div className="space-y-1 sm:max-w-[70%]">
+                <div className="space-y-1 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
                     <span
                       className={cn(
@@ -144,7 +144,7 @@ export const PriorityRecommendationCard: React.FC = () => {
 
               {/* Expandable Details */}
               {isExpanded && (
-                <div className="px-3.5 py-3 bg-[#0e101a] border-t border-slate-800/80 space-y-1.5 text-xs text-slate-300 animate-in fade-in duration-150">
+                <div className="px-3.5 py-2.5 bg-[#0e101a] border-t border-slate-800/80 space-y-1.5 text-xs text-slate-300 animate-in fade-in duration-150">
                   <p className="text-slate-300 leading-relaxed">{rec.description}</p>
                   <div className="font-semibold text-purple-300 pt-0.5">Implementation Steps:</div>
                   <ul className="list-disc list-inside space-y-0.5 text-slate-400 pl-1">

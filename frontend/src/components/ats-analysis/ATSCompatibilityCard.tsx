@@ -39,7 +39,7 @@ export const ATSCompatibilityCard: React.FC = () => {
       </div>
 
       {/* Systems Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5 items-stretch">
         {filteredSystems.map((sys) => {
           const isSelected = selectedSystem?.id === sys.id
           return (
@@ -47,7 +47,7 @@ export const ATSCompatibilityCard: React.FC = () => {
               key={sys.id}
               onClick={() => setSelectedSystem(isSelected ? null : sys)}
               className={cn(
-                'p-4 rounded-xl bg-slate-950/60 border transition-all duration-200 cursor-pointer space-y-3',
+                'p-3.5 sm:p-4 rounded-xl bg-slate-950/60 border transition-all duration-200 cursor-pointer flex flex-col justify-between space-y-3 h-full',
                 isSelected
                   ? 'border-purple-500/60 bg-purple-950/20 shadow-md ring-1 ring-purple-500/30'
                   : 'border-slate-800/80 hover:border-purple-500/30 hover:bg-slate-950/80'

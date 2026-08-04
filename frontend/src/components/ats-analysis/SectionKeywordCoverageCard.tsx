@@ -36,7 +36,7 @@ export const SectionKeywordCoverageCard: React.FC<SectionKeywordCoverageCardProp
   }, [safeKeywords, filterTab, searchQuery])
 
   return (
-    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-5 shadow-lg space-y-4">
+    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-5 shadow-lg space-y-4 h-full flex flex-col justify-between">
       {/* Header & Search */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
@@ -85,7 +85,7 @@ export const SectionKeywordCoverageCard: React.FC<SectionKeywordCoverageCardProp
       </div>
 
       {/* Chips Feed */}
-      <div className="flex flex-wrap gap-2 max-h-48 overflow-y-auto p-1 scrollbar-none">
+      <div className="flex flex-wrap gap-2 min-h-[140px] max-h-72 overflow-y-auto p-2 bg-slate-950/80 rounded-xl border border-slate-800/80 scrollbar-none flex-1">
         {filtered.map((item) => {
           const isAdded = addedIds.has(item.id)
           const isMatched = item.category === 'matched'

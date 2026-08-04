@@ -22,21 +22,21 @@ export const ATSHeroCard: React.FC<ATSHeroCardProps> = memo(({
   const buttonVariants = getButtonVariants(shouldReduceMotion)
 
   return (
-    <section aria-label="ATS Score Overview" className="mb-6">
+    <section aria-label="ATS Score Overview" className="w-full">
       <motion.div
         variants={cardVariants}
         initial="initial"
         whileHover="hover"
         whileTap="tap"
-        className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900/95 via-slate-900/90 to-slate-950/95 border border-slate-800/90 p-5 sm:p-6 shadow-xl backdrop-blur-md transition-colors"
+        className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900/95 via-slate-900/90 to-slate-950/95 border border-slate-800/90 p-5 sm:p-5.5 shadow-xl backdrop-blur-md transition-colors"
       >
         {/* Glow Accent Effects */}
         <div className="absolute -top-24 -left-24 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
           {/* Left Column: Overall ATS Score Circular Gauge */}
-          <div className="lg:col-span-4 flex flex-col items-center text-center p-5 rounded-xl bg-slate-950/70 border border-slate-800/80 shadow-inner">
+          <div className="lg:col-span-4 flex flex-col items-center justify-between text-center p-5 rounded-xl bg-slate-950/70 border border-slate-800/80 shadow-inner h-full">
             <div className="flex items-center justify-between w-full text-xs text-slate-400 mb-1">
               <span className="font-semibold text-slate-200 flex items-center gap-1.5">
                 <Award className="w-4 h-4 text-purple-400" />
@@ -49,11 +49,11 @@ export const ATSHeroCard: React.FC<ATSHeroCardProps> = memo(({
             </div>
 
             {/* Score Ring Visualization */}
-            <div className="relative my-2">
+            <div className="relative my-2 flex items-center justify-center">
               <ScoreRing
                 value={safeData.overallScore ?? 92}
                 max={safeData.maxScore ?? 100}
-                size={148}
+                size={152}
                 strokeWidth={10}
                 color="--success"
                 trackColor="--border"
@@ -61,13 +61,13 @@ export const ATSHeroCard: React.FC<ATSHeroCardProps> = memo(({
               />
             </div>
 
-            <div className="space-y-1">
+            <div className="space-y-1 w-full">
               <span className="inline-flex items-center gap-1 px-3 py-0.5 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-300 border border-purple-500/20">
                 <CheckCircle2 className="w-3.5 h-3.5 text-purple-400" />
                 {safeData.percentile || 'Top 10%'}
               </span>
 
-              <p className="text-xs text-slate-400 mt-2 max-w-xs leading-relaxed">
+              <p className="text-xs text-slate-400 mt-2 leading-relaxed">
                 Your resume is highly likely to pass ATS screening across top enterprise platforms.
               </p>
             </div>
@@ -88,7 +88,7 @@ export const ATSHeroCard: React.FC<ATSHeroCardProps> = memo(({
           </div>
 
           {/* Right Column: Score Summary Breakdown across 6 criteria */}
-          <div className="lg:col-span-8 space-y-4">
+          <div className="lg:col-span-8 flex flex-col justify-between p-5 rounded-xl bg-slate-950/70 border border-slate-800/80 shadow-inner h-full space-y-4">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
@@ -105,12 +105,12 @@ export const ATSHeroCard: React.FC<ATSHeroCardProps> = memo(({
             </div>
 
             {/* 6 Category Breakdown Cards */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3.5 flex-1">
               {scoreBreakdown.map((item, idx) => (
                 <motion.div
                   key={idx}
                   whileHover={shouldReduceMotion ? {} : { y: -2 }}
-                  className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800/80 hover:border-purple-500/40 transition-all space-y-2 group cursor-pointer"
+                  className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 hover:border-purple-500/40 transition-all flex flex-col justify-between space-y-2 group cursor-pointer"
                 >
                   <div className="flex items-center justify-between">
                     <span className="w-6 h-6 rounded-md bg-purple-500/15 border border-purple-500/30 text-purple-300 flex items-center justify-center text-[11px] font-bold font-mono">
@@ -132,15 +132,16 @@ export const ATSHeroCard: React.FC<ATSHeroCardProps> = memo(({
                   </div>
 
                   {/* Progress Line */}
-                  <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-purple-500 to-emerald-400 rounded-full transition-all duration-500"
-                      style={{ width: `${item.score}%` }}
-                    />
-                  </div>
-
-                  <div className="text-[10px] text-purple-400 hover:underline font-medium">
-                    Why this score?
+                  <div className="space-y-1">
+                    <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-gradient-to-r from-purple-500 to-emerald-400 rounded-full transition-all duration-500"
+                        style={{ width: `${item.score}%` }}
+                      />
+                    </div>
+                    <div className="text-[10px] text-purple-400 hover:underline font-medium">
+                      Why this score?
+                    </div>
                   </div>
                 </motion.div>
               ))}

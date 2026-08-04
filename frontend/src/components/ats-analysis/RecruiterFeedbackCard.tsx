@@ -14,7 +14,7 @@ export const RecruiterFeedbackCard: React.FC<RecruiterFeedbackCardProps> = ({
   const weaknesses = safeData?.weaknesses ?? []
 
   return (
-    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-5 shadow-lg space-y-3.5 h-auto">
+    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-5 shadow-lg space-y-3.5 h-full flex flex-col justify-between">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
@@ -31,22 +31,22 @@ export const RecruiterFeedbackCard: React.FC<RecruiterFeedbackCardProps> = ({
           </div>
         </div>
 
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 shrink-0">
           <Award className="w-3.5 h-3.5" />
           {safeData?.verdict ?? 'Strong Candidate'}
         </span>
       </div>
 
       {/* Main Grid: First Impression & Interview Readiness */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch flex-1">
         {/* Left Column: Strengths & Weaknesses */}
-        <div className="md:col-span-8 space-y-3">
+        <div className="md:col-span-8 space-y-3 flex flex-col justify-between h-full">
           <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-1.5">
             <span className="text-[11px] font-mono text-purple-400 uppercase font-bold">First Impression</span>
             <div className="text-sm font-bold text-white tracking-tight">{safeData?.firstImpression ?? ''}</div>
           </div>
 
-          <div className="space-y-2 text-xs">
+          <div className="space-y-2 text-xs flex-1">
             <div className="font-semibold text-emerald-400 flex items-center gap-1.5">
               <CheckCircle2 className="w-4 h-4" /> Key Strengths:
             </div>
@@ -70,7 +70,7 @@ export const RecruiterFeedbackCard: React.FC<RecruiterFeedbackCardProps> = ({
         </div>
 
         {/* Right Column: Recruiter Notes & Readiness Gauge */}
-        <div className="md:col-span-4 p-4 rounded-xl bg-slate-950/70 border border-slate-800/80 flex flex-col justify-between space-y-3">
+        <div className="md:col-span-4 p-4 rounded-xl bg-slate-950/70 border border-slate-800/80 flex flex-col justify-between space-y-3 h-full">
           <div className="space-y-2">
             <span className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
               <MessageSquare className="w-3.5 h-3.5 text-purple-400" />

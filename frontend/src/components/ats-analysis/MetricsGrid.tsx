@@ -26,7 +26,7 @@ interface MetricsGridProps {
 
 export const MetricsGrid: React.FC<MetricsGridProps> = ({ onMetricSelect }) => {
   return (
-    <section aria-label="Quick Performance Metrics" className="mb-6">
+    <section aria-label="Quick Performance Metrics" className="w-full">
       <div className="flex items-center justify-between mb-3.5">
         <h3 className="text-sm font-bold text-slate-100 tracking-tight flex items-center gap-2">
           <Layers className="w-4 h-4 text-purple-400" />
@@ -36,7 +36,7 @@ export const MetricsGrid: React.FC<MetricsGridProps> = ({ onMetricSelect }) => {
       </div>
 
       {/* Responsive Grid: Desktop 3 cols x 2 rows, Tablet 2 cols, Mobile 1 col */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 items-stretch">
         {mockQuickMetrics.map((item) => {
           const IconComponent = ICON_MAP[item.id] || Layers
           return (

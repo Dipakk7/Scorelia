@@ -20,7 +20,7 @@ export const SectionImprovementTimelineCard: React.FC<SectionImprovementTimeline
   }
 
   return (
-    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-5 shadow-lg space-y-4">
+    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-5 shadow-lg space-y-3.5">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -39,7 +39,7 @@ export const SectionImprovementTimelineCard: React.FC<SectionImprovementTimeline
       </div>
 
       {/* Step Cards */}
-      <div className="space-y-3">
+      <div className="space-y-2.5">
         {timeline.map((item) => {
           const isHigh = item.priority === 'High'
 

@@ -14,16 +14,16 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({
   return (
     <main aria-label="ATS Analysis Main Workspace" className="space-y-6">
       {/* Main Grid: Left Content (70%) vs Right Sidebar (30%) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         {/* Left Column (70%) */}
-        <section aria-label="Main Analysis Cards" className="lg:col-span-8 space-y-6">
+        <section aria-label="Main Analysis Cards" className="lg:col-span-8 space-y-6 flex flex-col justify-between h-full">
           {leftContent}
         </section>
 
         {/* Right Sidebar (30%) */}
-        <div className="lg:col-span-4">
+        <aside aria-label="Analysis Sidebar Column" className="lg:col-span-4 flex flex-col justify-between h-full">
           {rightSidebar}
-        </div>
+        </aside>
       </div>
 
       {/* Bottom Full Width Content Area (e.g. AI Recommendation Banner) */}

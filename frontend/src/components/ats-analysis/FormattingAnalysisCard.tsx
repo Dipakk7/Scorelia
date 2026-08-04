@@ -14,7 +14,7 @@ export const FormattingAnalysisCard: React.FC = () => {
   const warningCount = mockFormattingAudit.filter((f) => f.status === 'warning').length
 
   return (
-    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-5 shadow-lg space-y-3.5 h-auto">
+    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-5 shadow-lg space-y-3.5 h-full flex flex-col justify-between">
       {/* Section Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
@@ -40,7 +40,7 @@ export const FormattingAnalysisCard: React.FC = () => {
       </div>
 
       {/* Audit Checklist Grid (8 Items) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 flex-1">
         {mockFormattingAudit.map((item) => {
           const isExpanded = expandedId === item.id
           const isPass = item.status === 'pass'

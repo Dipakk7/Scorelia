@@ -61,25 +61,25 @@ export const SectionAnalysisWorkspace: React.FC<SectionAnalysisWorkspaceProps> =
       </div>
 
       {/* Recruiter & ATS Notes Blocks */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
         {/* Recruiter Perspective Notes */}
-        <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-2">
+        <div className="p-4.5 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-2 flex flex-col justify-between h-full">
           <div className="flex items-center gap-2 text-xs font-semibold text-purple-300">
             <UserCheck className="w-4 h-4 text-purple-400" />
             Recruiter Perspective
           </div>
-          <p className="text-xs text-slate-300 leading-relaxed italic">
+          <p className="text-xs text-slate-300 leading-relaxed italic flex-1">
             &quot;{section.recruiterNotes}&quot;
           </p>
         </div>
 
         {/* ATS Parser Notes */}
-        <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-2">
+        <div className="p-4.5 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-2 flex flex-col justify-between h-full">
           <div className="flex items-center gap-2 text-xs font-semibold text-emerald-400">
             <Cpu className="w-4 h-4 text-emerald-400" />
             ATS Parser Simulation Notes
           </div>
-          <p className="text-xs text-slate-300 leading-relaxed">
+          <p className="text-xs text-slate-300 leading-relaxed flex-1">
             {section.atsNotes}
           </p>
         </div>

@@ -14,7 +14,7 @@ export const IndustryBenchmarkCard: React.FC<IndustryBenchmarkCardProps> = ({
   const categoryComparison = safeData?.categoryComparison ?? []
 
   return (
-    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-5 shadow-lg space-y-3.5 h-auto">
+    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-5 shadow-lg space-y-3.5 h-full flex flex-col justify-between">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
@@ -27,21 +27,21 @@ export const IndustryBenchmarkCard: React.FC<IndustryBenchmarkCardProps> = ({
           </p>
         </div>
 
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-purple-500/15 text-purple-300 border border-purple-500/30">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-purple-500/15 text-purple-300 border border-purple-500/30 shrink-0">
           <TrendingUp className="w-3.5 h-3.5" />
           Candidate: {safeData?.candidatePercentile ?? 92}nd Percentile
         </span>
       </div>
 
       {/* 4 Level Cohort Comparison Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 items-stretch">
         {benchmarks.map((bm, idx) => {
           const isCandidateLevel = bm.score === 92
 
           return (
             <div
               key={idx}
-              className={`p-3.5 rounded-xl border transition-all space-y-2 ${
+              className={`p-3.5 rounded-xl border transition-all flex flex-col justify-between space-y-2 h-full ${
                 isCandidateLevel
                   ? 'bg-purple-950/30 border-purple-500/50 shadow-md ring-1 ring-purple-500/30'
                   : 'bg-slate-950/60 border-slate-800/80'

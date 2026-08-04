@@ -28,17 +28,17 @@ export const SectionSidebar: React.FC<SectionSidebarProps> = ({ section }) => {
         </div>
 
         <div className="space-y-2 text-xs font-mono">
-          <div className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/60 flex justify-between">
-            <span className="text-slate-400 font-sans">Section Name</span>
-            <span className="text-slate-200 font-bold font-sans truncate max-w-[130px]">{section?.name ?? 'Section'}</span>
+          <div className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/60 flex justify-between items-center gap-2">
+            <span className="text-slate-400 font-sans shrink-0">Section Name</span>
+            <span className="text-slate-200 font-bold font-sans truncate text-right">{section?.name ?? 'Section'}</span>
           </div>
 
-          <div className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/60 flex justify-between">
+          <div className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/60 flex justify-between items-center">
             <span className="text-slate-400 font-sans">Status</span>
             <span className="text-emerald-400 font-bold font-sans">{section?.status ?? 'Good'}</span>
           </div>
 
-          <div className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/60 flex justify-between">
+          <div className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/60 flex justify-between items-center">
             <span className="text-slate-400 font-sans">Keywords Analyzed</span>
             <span className="text-purple-300 font-bold">{keywordsCount} Tokens</span>
           </div>
@@ -72,9 +72,9 @@ export const SectionSidebar: React.FC<SectionSidebarProps> = ({ section }) => {
 
         <div className="space-y-2 text-xs">
           {timeline.map((item, idx) => (
-            <div key={idx} className="p-2.5 rounded-xl bg-slate-950/50 border border-slate-800/60 flex items-center justify-between">
-              <span className="font-semibold text-slate-200 truncate max-w-[170px]">{item?.title ?? 'Step'}</span>
-              <span className="text-[10px] font-mono text-emerald-400 font-bold">{item?.estimatedImpact ?? ''}</span>
+            <div key={idx} className="p-2.5 rounded-xl bg-slate-950/50 border border-slate-800/60 flex items-center justify-between gap-2">
+              <span className="font-semibold text-slate-200 truncate flex-1">{item?.title ?? 'Step'}</span>
+              <span className="text-[10px] font-mono text-emerald-400 font-bold shrink-0">{item?.estimatedImpact ?? ''}</span>
             </div>
           ))}
         </div>

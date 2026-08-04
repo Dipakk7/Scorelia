@@ -34,7 +34,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       tabIndex={0}
       role={onClick ? 'button' : undefined}
       onClick={onClick}
-      className="relative overflow-hidden rounded-xl bg-slate-900/90 border border-slate-800/90 p-4 transition-all duration-200 hover:bg-[#16182c] hover:border-purple-500/40 active:bg-[#121424] active:border-purple-500/60 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e] hover:shadow-lg hover:shadow-purple-500/5 hover:-translate-y-0.5 flex flex-col justify-between space-y-3 cursor-pointer group select-none"
+      className="relative overflow-hidden rounded-xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-4.5 transition-all duration-200 hover:bg-[#16182c] hover:border-purple-500/40 active:bg-[#121424] active:border-purple-500/60 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e] hover:shadow-lg hover:shadow-purple-500/5 hover:-translate-y-0.5 flex flex-col justify-between space-y-3 cursor-pointer group select-none h-full"
     >
       {/* Header: Icon & Status Badge */}
       <div className="flex items-center justify-between">
@@ -49,7 +49,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
 
         <span
           className={cn(
-            'text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full border',
+            'text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full border shrink-0',
             isExcellent
               ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
               : isWarning
@@ -62,7 +62,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       </div>
 
       {/* Score & Visual Progress Bar */}
-      <div className="space-y-1.5">
+      <div className="space-y-1.5 flex-1 flex flex-col justify-center">
         <div className="flex items-baseline justify-between">
           <div className="flex items-baseline gap-1">
             <span className="text-2xl font-bold font-mono text-white tracking-tight">
@@ -95,12 +95,12 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       </div>
 
       {/* Footer Description */}
-      <div className="flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-800/60 pt-2">
-        <span className="truncate max-w-[200px]">{description}</span>
+      <div className="flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-800/60 pt-2 gap-2">
+        <span className="flex-1 pr-2 leading-tight">{description}</span>
         <button
           type="button"
           aria-label={`View details for ${title}`}
-          className="inline-flex items-center gap-0.5 text-purple-400 group-hover:text-purple-300 font-medium"
+          className="inline-flex items-center gap-0.5 text-purple-400 group-hover:text-purple-300 font-medium shrink-0"
         >
           <span>View</span>
           <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
