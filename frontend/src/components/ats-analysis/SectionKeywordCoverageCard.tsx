@@ -36,17 +36,21 @@ export const SectionKeywordCoverageCard: React.FC<SectionKeywordCoverageCardProp
   }, [safeKeywords, filterTab, searchQuery])
 
   return (
-    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-5 shadow-lg space-y-4 h-full flex flex-col justify-between">
+    <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-5 shadow-xl space-y-4 h-full flex flex-col justify-between">
       {/* Header & Search */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <h3 className="text-base font-bold text-slate-100 tracking-tight flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
+          <div className="p-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-300 shadow-sm shrink-0 flex items-center justify-center">
             <Search className="w-4 h-4 text-purple-400" />
-            Section Keyword Coverage
-          </h3>
-          <p className="text-xs text-slate-400">
-            Keyword density and token coverage specifically for this section.
-          </p>
+          </div>
+          <div>
+            <h3 className="text-sm sm:text-base font-bold text-slate-100 tracking-tight">
+              Section Keyword Coverage
+            </h3>
+            <p className="text-xs text-slate-400 font-normal mt-0.5">
+              Keyword density and token coverage specifically for this section.
+            </p>
+          </div>
         </div>
 
         <div className="relative w-full sm:w-48">
@@ -56,13 +60,13 @@ export const SectionKeywordCoverageCard: React.FC<SectionKeywordCoverageCardProp
             placeholder="Search keywords..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-950/70 border border-slate-800 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-purple-500/50"
+            className="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-purple-500/50 shadow-inner"
           />
         </div>
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex flex-wrap items-center gap-1.5 p-1 bg-slate-950 rounded-xl border border-slate-800">
+      <div className="flex flex-wrap items-center gap-1.5 p-1 bg-slate-950/80 rounded-xl border border-slate-800/90 shadow-inner">
         {[
           { id: 'all', label: `All (${safeKeywords.length})` },
           { id: 'matched', label: 'Matched' },
@@ -75,8 +79,8 @@ export const SectionKeywordCoverageCard: React.FC<SectionKeywordCoverageCardProp
             className={cn(
               'px-3 py-1 text-xs font-mono rounded-lg transition-colors cursor-pointer',
               filterTab === tab.id
-                ? 'bg-purple-600/30 text-purple-200 font-semibold border border-purple-500/30'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-purple-500/20 text-purple-200 font-bold border border-purple-500/30 shadow-sm'
+                : 'text-slate-400 hover:text-slate-200 font-medium'
             )}
           >
             {tab.label}
@@ -85,7 +89,7 @@ export const SectionKeywordCoverageCard: React.FC<SectionKeywordCoverageCardProp
       </div>
 
       {/* Chips Feed */}
-      <div className="flex flex-wrap gap-2 min-h-[140px] max-h-72 overflow-y-auto p-2 bg-slate-950/80 rounded-xl border border-slate-800/80 scrollbar-none flex-1">
+      <div className="flex flex-wrap gap-2 min-h-[140px] max-h-72 overflow-y-auto p-3 bg-slate-950/80 rounded-xl border border-slate-800/90 shadow-inner scrollbar-none flex-1">
         {filtered.map((item) => {
           const isAdded = addedIds.has(item.id)
           const isMatched = item.category === 'matched'
@@ -95,18 +99,18 @@ export const SectionKeywordCoverageCard: React.FC<SectionKeywordCoverageCardProp
             <div
               key={item.id}
               className={cn(
-                'inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-mono transition-all duration-200',
+                'inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-mono transition-all duration-200 shadow-sm',
                 isMatched
-                  ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/25'
+                  ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
                   : isMissing
-                  ? 'bg-rose-500/10 text-rose-300 border-rose-500/25'
-                  : 'bg-purple-500/10 text-purple-300 border-purple-500/25'
+                  ? 'bg-rose-500/15 text-rose-300 border-rose-500/30'
+                  : 'bg-purple-500/15 text-purple-300 border-purple-500/30'
               )}
             >
-              <span className="font-semibold">{item.keyword}</span>
+              <span className="font-bold">{item.keyword}</span>
 
               {isMatched && (
-                <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded font-sans">
+                <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded font-sans font-bold">
                   {item.frequency}x
                 </span>
               )}
@@ -116,7 +120,7 @@ export const SectionKeywordCoverageCard: React.FC<SectionKeywordCoverageCardProp
                   type="button"
                   onClick={() => toggleAdd(item.id)}
                   className={cn(
-                    'inline-flex items-center gap-1 text-[11px] font-sans font-semibold px-2 py-0.5 rounded-lg transition-all cursor-pointer',
+                    'inline-flex items-center gap-1 text-[11px] font-sans font-bold px-2 py-0.5 rounded-md transition-all cursor-pointer',
                     isAdded
                       ? 'bg-emerald-500 text-white shadow-sm'
                       : 'bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/30'
