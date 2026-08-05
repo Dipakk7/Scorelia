@@ -119,22 +119,26 @@ export const ATSHeader: React.FC<ATSHeaderProps> = memo(({
             return (
               <button
                 key={tab.id}
+                type="button"
                 role="tab"
+                id={`tab-${tab.id}`}
+                aria-controls={`panel-${tab.id}`}
                 aria-selected={isActive}
+                tabIndex={isActive ? 0 : -1}
                 onClick={() => onTabChange(tab.id)}
                 className={cn(
-                  'relative flex items-center gap-2 px-4 py-2.5 min-h-[44px] rounded-lg text-xs font-medium transition-all focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none whitespace-nowrap cursor-pointer',
+                  'relative flex items-center gap-2 px-4 py-2.5 min-h-[44px] rounded-lg text-xs transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none whitespace-nowrap cursor-pointer select-none z-10',
                   isActive
-                    ? 'text-white font-semibold bg-purple-600/30 border border-purple-500/40 shadow-sm'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+                    ? 'text-white font-bold bg-purple-600/40 border border-purple-500/50 shadow-md shadow-purple-950/20'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 font-medium'
                 )}
               >
-                <Icon className={cn('w-4 h-4', isActive ? 'text-purple-400' : 'text-slate-400')} />
-                <span>{tab.label}</span>
+                <Icon className={cn('w-4 h-4 relative z-10 transition-colors duration-200 pointer-events-none', isActive ? 'text-purple-200' : 'text-slate-400')} />
+                <span className={cn('relative z-10 transition-colors duration-200 pointer-events-none', isActive ? 'text-white font-bold' : 'text-slate-400')}>{tab.label}</span>
                 {isActive && (
                   <motion.div
                     layoutId="activeTabIndicator"
-                    className="absolute inset-0 bg-purple-500/10 rounded-lg border border-purple-400/30 pointer-events-none"
+                    className="absolute inset-0 bg-purple-500/20 rounded-lg border border-purple-400/50 pointer-events-none z-0"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}

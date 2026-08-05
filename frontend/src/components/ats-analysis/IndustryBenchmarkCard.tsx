@@ -119,7 +119,7 @@ export const IndustryBenchmarkCard: React.FC<IndustryBenchmarkCardProps> = ({
                       <span
                         className={cn(
                           'text-[10px] font-semibold font-mono transition-colors duration-200',
-                          isSelected ? 'text-purple-300' : 'text-slate-500'
+                          isSelected ? 'text-purple-300' : 'text-slate-400'
                         )}
                       >
                         %
@@ -190,7 +190,7 @@ export const IndustryBenchmarkCard: React.FC<IndustryBenchmarkCardProps> = ({
                     <span className="text-slate-400 font-medium">
                       Avg: <strong className="text-slate-300 font-semibold">{cat.benchmarkScore}%</strong>
                     </span>
-                    <span className="text-slate-700">•</span>
+                    <span className="text-slate-500">•</span>
                     <span className="text-emerald-400 font-bold">
                       You: {cat.candidateScore}%
                     </span>

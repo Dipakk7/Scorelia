@@ -105,6 +105,10 @@ export default function ATSAnalysisPage() {
     setIsExportModalOpen(false)
   }, [])
 
+  const handleTabChange = useCallback((tab: ATSTab) => {
+    setActiveTab(tab)
+  }, [])
+
   const exportPayload: ATSReportPayload = useMemo(() => ({
     resumeTitle: selectedResumeTitle || 'Software_Engineer_Resume.pdf',
     exportDate: new Date().toLocaleDateString(),
@@ -145,7 +149,7 @@ export default function ATSAnalysisPage() {
           <ATSWidgetErrorBoundary sectionName="ATS Header">
             <ATSHeader
               activeTab={activeTab}
-              onTabChange={setActiveTab}
+              onTabChange={handleTabChange}
               onRefresh={handleReanalyze}
               onExportClick={handleOpenExportModal}
               isRefreshing={isReanalyzing || isAtsLoading}
@@ -170,7 +174,7 @@ export default function ATSAnalysisPage() {
           </ATSWidgetErrorBoundary>
         </motion.div>
 
-        {/* Dynamic Workspace Layout with Refresh / Loading Simulation */}
+        {/* Dynamic Workspace Layout - Renders ONLY the Active Tab's Section */}
         {isAtsLoading || isReanalyzing ? (
           <div className="space-y-6">
             <ATSHeroSkeleton />
@@ -181,87 +185,29 @@ export default function ATSAnalysisPage() {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
+              id={`panel-${activeTab}`}
+              role="tabpanel"
+              aria-labelledby={`tab-${activeTab}`}
               initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -8 }}
               transition={{ duration: 0.2 }}
               className="space-y-5 sm:space-y-6"
             >
-              {/* ATS Score Overview Hero Card */}
-              <ATSWidgetErrorBoundary sectionName="ATS Score Overview">
-                <ATSHeroCard data={atsOverviewData} onAnalyzeClick={handleReanalyze} />
-              </ATSWidgetErrorBoundary>
+              {/* 1. OVERVIEW SECTION */}
+              {activeTab === 'overview' && (
+                <div className="space-y-5 sm:space-y-6">
+                  <ATSWidgetErrorBoundary sectionName="ATS Score Overview">
+                    <ATSHeroCard data={atsOverviewData} onAnalyzeClick={handleReanalyze} />
+                  </ATSWidgetErrorBoundary>
 
-              {/* Quick Performance Metrics Grid */}
-              <ATSWidgetErrorBoundary sectionName="Performance Metrics Grid">
-                <MetricsGrid />
-              </ATSWidgetErrorBoundary>
+                  <ATSWidgetErrorBoundary sectionName="Performance Metrics Grid">
+                    <MetricsGrid />
+                  </ATSWidgetErrorBoundary>
 
-              {/* Section Navigation Panel */}
-              <ATSWidgetErrorBoundary sectionName="Section Navigation">
-                <SectionNavigationPanel
-                  selectedSectionId={selectedSectionId}
-                  onSelectSection={setSelectedSectionId}
-                />
-              </ATSWidgetErrorBoundary>
-
-              {/* Main Workspace Grid (70% Left / 30% Right Sidebar) */}
-              <WorkspaceLayout
-                leftContent={
-                  <div className="space-y-5 sm:space-y-6 flex flex-col justify-between h-full">
-                    {/* Section-by-Section Workspace */}
-                    {currentSectionDetail && (
-                      <motion.div
-                        key={selectedSectionId}
-                        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch"
-                      >
-                        <div className="lg:col-span-12">
-                          <ATSWidgetErrorBoundary sectionName="Section Analysis Workspace">
-                            <SectionAnalysisWorkspace section={currentSectionDetail} />
-                          </ATSWidgetErrorBoundary>
-                        </div>
-
-                        <div className="lg:col-span-6 flex flex-col">
-                          <ATSWidgetErrorBoundary sectionName="Section Keyword Coverage">
-                            <SectionKeywordCoverageCard keywords={currentSectionDetail.keywords} />
-                          </ATSWidgetErrorBoundary>
-                        </div>
-
-                        <div className="lg:col-span-6 flex flex-col">
-                          <ATSWidgetErrorBoundary sectionName="Section Formatting Review">
-                            <SectionFormattingReviewCard formattingChecks={currentSectionDetail.formattingChecks} />
-                          </ATSWidgetErrorBoundary>
-                        </div>
-
-                        <div className="lg:col-span-6 flex flex-col">
-                          <ATSWidgetErrorBoundary sectionName="Section Content Quality">
-                            <SectionContentQualityCard contentQuality={currentSectionDetail.contentQuality} />
-                          </ATSWidgetErrorBoundary>
-                        </div>
-
-                        <div className="lg:col-span-6 flex flex-col">
-                          <ATSWidgetErrorBoundary sectionName="Section ATS Rewrite">
-                            <SectionATSRewriteCard
-                              currentContent={currentSectionDetail.currentContent}
-                              suggestedRewrite={currentSectionDetail.suggestedRewrite}
-                            />
-                          </ATSWidgetErrorBoundary>
-                        </div>
-
-                        <div className="lg:col-span-12">
-                          <ATSWidgetErrorBoundary sectionName="Section Improvement Sequence">
-                            <SectionImprovementTimelineCard timeline={currentSectionDetail.timeline} />
-                          </ATSWidgetErrorBoundary>
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {/* Tab Views Filtering */}
-                    {(activeTab === 'overview' || activeTab === 'detailed-report') && (
-                      <div className="space-y-5 sm:space-y-6 flex-1 flex flex-col justify-between">
+                  <WorkspaceLayout
+                    leftContent={
+                      <div className="space-y-5 sm:space-y-6">
                         <ATSWidgetErrorBoundary sectionName="Priority Recommendations">
                           <PriorityRecommendationCard />
                         </ATSWidgetErrorBoundary>
@@ -269,54 +215,24 @@ export default function ATSAnalysisPage() {
                           <KeywordIntelligenceCard />
                         </ATSWidgetErrorBoundary>
                       </div>
-                    )}
-
-                    {activeTab === 'keyword-match' && (
-                      <div className="flex-1 flex flex-col justify-between">
-                        <ATSWidgetErrorBoundary sectionName="Keyword Intelligence">
-                          <KeywordIntelligenceCard />
+                    }
+                    rightSidebar={
+                      <div className="space-y-5 sm:space-y-6">
+                        <ATSWidgetErrorBoundary sectionName="AI Health Summary Sidebar">
+                          <AIInsightsSidebar />
+                        </ATSWidgetErrorBoundary>
+                        <ATSWidgetErrorBoundary sectionName="ATS Details Sidebar">
+                          <Sidebar onStartAnalysis={handleReanalyze} />
                         </ATSWidgetErrorBoundary>
                       </div>
-                    )}
-
-                    {activeTab === 'content-optimization' && (
-                      <div className="flex-1 flex flex-col justify-between">
-                        <ATSWidgetErrorBoundary sectionName="Priority Recommendations">
-                          <PriorityRecommendationCard />
-                        </ATSWidgetErrorBoundary>
-                      </div>
-                    )}
-                  </div>
-                }
-                rightSidebar={
-                  <div className="space-y-5 sm:space-y-6 flex flex-col justify-between h-full">
-                    {currentSectionDetail && (
-                      <ATSWidgetErrorBoundary sectionName="Section Summary Sidebar">
-                        <SectionSidebar section={currentSectionDetail} />
-                      </ATSWidgetErrorBoundary>
-                    )}
-                    <ATSWidgetErrorBoundary sectionName="AI Health Summary Sidebar">
-                      <AIInsightsSidebar />
-                    </ATSWidgetErrorBoundary>
-                    <div className="flex-1 flex flex-col">
-                      <ATSWidgetErrorBoundary sectionName="ATS Details Sidebar">
-                        <Sidebar onStartAnalysis={handleReanalyze} />
-                      </ATSWidgetErrorBoundary>
-                    </div>
-                  </div>
-                }
-                bottomContent={
-                  <>
-                    {(activeTab === 'overview' || activeTab === 'detailed-report') && (
+                    }
+                    bottomContent={
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
-                        {/* Tier 1: Enterprise System Compatibility Matrix Banner (100% / 12 cols) */}
                         <div className="lg:col-span-12">
                           <ATSWidgetErrorBoundary sectionName="ATS System Compatibility">
                             <ATSCompatibilityCard />
                           </ATSWidgetErrorBoundary>
                         </div>
-
-                        {/* Tier 2: Recruiter Perspective (66% / 8 cols) + Risk Analysis (34% / 4 cols) */}
                         <div className="lg:col-span-8 flex flex-col">
                           <ATSWidgetErrorBoundary sectionName="Recruiter Feedback">
                             <RecruiterFeedbackCard data={recruiterFeedback} />
@@ -327,8 +243,6 @@ export default function ATSAnalysisPage() {
                             <RiskAnalysisCard />
                           </ATSWidgetErrorBoundary>
                         </div>
-
-                        {/* Tier 3: Optimization Sequence (66% / 8 cols) + Industry Peer Benchmark (34% / 4 cols) */}
                         <div className="lg:col-span-8 flex flex-col">
                           <ATSWidgetErrorBoundary sectionName="Optimization Sequence">
                             <OptimizationTimeline />
@@ -339,36 +253,32 @@ export default function ATSAnalysisPage() {
                             <IndustryBenchmarkCard />
                           </ATSWidgetErrorBoundary>
                         </div>
-
-                        {/* Tier 4: Formatting Audit (50% / 6 cols) + Section Performance Scores (50% / 6 cols) */}
-                        <div className="lg:col-span-6 flex flex-col">
-                          <ATSWidgetErrorBoundary sectionName="Formatting Audit">
-                            <FormattingAnalysisCard />
-                          </ATSWidgetErrorBoundary>
-                        </div>
-                        <div className="lg:col-span-6 flex flex-col">
-                          <ATSWidgetErrorBoundary sectionName="Section Scores Breakdown">
-                            <SectionScoresCard />
-                          </ATSWidgetErrorBoundary>
-                        </div>
-
-                        {/* Tier 5: Readiness Master Checklist Banner (100% / 12 cols) */}
-                        <div className="lg:col-span-12">
-                          <ATSWidgetErrorBoundary sectionName="Readiness Master Checklist">
-                            <ATSChecklistCard />
-                          </ATSWidgetErrorBoundary>
-                        </div>
-
-                        {/* Tier 6: ATS Parser Simulation Preview Hero (100% / 12 cols) */}
-                        <div className="lg:col-span-12">
-                          <ATSWidgetErrorBoundary sectionName="ATS Parser Preview">
-                            <ParserPreviewCard />
-                          </ATSWidgetErrorBoundary>
-                        </div>
                       </div>
-                    )}
+                    }
+                  />
+                </div>
+              )}
 
-                    {activeTab === 'keyword-match' && (
+              {/* 2. KEYWORD MATCH SECTION */}
+              {activeTab === 'keyword-match' && (
+                <div className="space-y-5 sm:space-y-6">
+                  <WorkspaceLayout
+                    leftContent={
+                      <ATSWidgetErrorBoundary sectionName="Keyword Intelligence">
+                        <KeywordIntelligenceCard />
+                      </ATSWidgetErrorBoundary>
+                    }
+                    rightSidebar={
+                      <div className="space-y-5 sm:space-y-6">
+                        <ATSWidgetErrorBoundary sectionName="AI Health Summary Sidebar">
+                          <AIInsightsSidebar />
+                        </ATSWidgetErrorBoundary>
+                        <ATSWidgetErrorBoundary sectionName="ATS Details Sidebar">
+                          <Sidebar onStartAnalysis={handleReanalyze} />
+                        </ATSWidgetErrorBoundary>
+                      </div>
+                    }
+                    bottomContent={
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
                         <div className="lg:col-span-12">
                           <ATSWidgetErrorBoundary sectionName="Keyword Match & Density">
@@ -376,29 +286,68 @@ export default function ATSAnalysisPage() {
                           </ATSWidgetErrorBoundary>
                         </div>
                       </div>
-                    )}
+                    }
+                  />
+                </div>
+              )}
 
-                    {activeTab === 'format-check' && (
+              {/* 3. FORMAT CHECK SECTION */}
+              {activeTab === 'format-check' && (
+                <div className="space-y-5 sm:space-y-6">
+                  <WorkspaceLayout
+                    leftContent={
+                      <ATSWidgetErrorBoundary sectionName="Formatting Audit">
+                        <FormattingAnalysisCard />
+                      </ATSWidgetErrorBoundary>
+                    }
+                    rightSidebar={
+                      <div className="space-y-5 sm:space-y-6">
+                        <ATSWidgetErrorBoundary sectionName="AI Health Summary Sidebar">
+                          <AIInsightsSidebar />
+                        </ATSWidgetErrorBoundary>
+                        <ATSWidgetErrorBoundary sectionName="ATS Details Sidebar">
+                          <Sidebar onStartAnalysis={handleReanalyze} />
+                        </ATSWidgetErrorBoundary>
+                      </div>
+                    }
+                    bottomContent={
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
-                        <div className="lg:col-span-8">
-                          <ATSWidgetErrorBoundary sectionName="Formatting Audit">
-                            <FormattingAnalysisCard />
-                          </ATSWidgetErrorBoundary>
-                        </div>
-                        <div className="lg:col-span-4">
+                        <div className="lg:col-span-6">
                           <ATSWidgetErrorBoundary sectionName="Risk Analysis">
                             <RiskAnalysisCard />
                           </ATSWidgetErrorBoundary>
                         </div>
-                        <div className="lg:col-span-12">
+                        <div className="lg:col-span-6">
                           <ATSWidgetErrorBoundary sectionName="Readiness Master Checklist">
                             <ATSChecklistCard />
                           </ATSWidgetErrorBoundary>
                         </div>
                       </div>
-                    )}
+                    }
+                  />
+                </div>
+              )}
 
-                    {activeTab === 'content-optimization' && (
+              {/* 4. CONTENT OPTIMIZATION SECTION */}
+              {activeTab === 'content-optimization' && (
+                <div className="space-y-5 sm:space-y-6">
+                  <WorkspaceLayout
+                    leftContent={
+                      <ATSWidgetErrorBoundary sectionName="Priority Recommendations">
+                        <PriorityRecommendationCard />
+                      </ATSWidgetErrorBoundary>
+                    }
+                    rightSidebar={
+                      <div className="space-y-5 sm:space-y-6">
+                        <ATSWidgetErrorBoundary sectionName="AI Health Summary Sidebar">
+                          <AIInsightsSidebar />
+                        </ATSWidgetErrorBoundary>
+                        <ATSWidgetErrorBoundary sectionName="ATS Details Sidebar">
+                          <Sidebar onStartAnalysis={handleReanalyze} />
+                        </ATSWidgetErrorBoundary>
+                      </div>
+                    }
+                    bottomContent={
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
                         <div className="lg:col-span-6">
                           <ATSWidgetErrorBoundary sectionName="Section Scores Breakdown">
@@ -411,18 +360,136 @@ export default function ATSAnalysisPage() {
                           </ATSWidgetErrorBoundary>
                         </div>
                       </div>
-                    )}
+                    }
+                  />
+                </div>
+              )}
 
-                    {activeTab === 'ats-simulation' && (
+              {/* 5. ATS SIMULATION SECTION */}
+              {activeTab === 'ats-simulation' && (
+                <div className="space-y-5 sm:space-y-6">
+                  <WorkspaceLayout
+                    leftContent={
+                      <ATSWidgetErrorBoundary sectionName="ATS System Compatibility">
+                        <ATSCompatibilityCard />
+                      </ATSWidgetErrorBoundary>
+                    }
+                    rightSidebar={
+                      <div className="space-y-5 sm:space-y-6">
+                        <ATSWidgetErrorBoundary sectionName="AI Health Summary Sidebar">
+                          <AIInsightsSidebar />
+                        </ATSWidgetErrorBoundary>
+                        <ATSWidgetErrorBoundary sectionName="ATS Details Sidebar">
+                          <Sidebar onStartAnalysis={handleReanalyze} />
+                        </ATSWidgetErrorBoundary>
+                      </div>
+                    }
+                    bottomContent={
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
-                        <div className="lg:col-span-8">
+                        <div className="lg:col-span-6">
                           <ATSWidgetErrorBoundary sectionName="Recruiter Feedback">
                             <RecruiterFeedbackCard data={recruiterFeedback} />
                           </ATSWidgetErrorBoundary>
                         </div>
-                        <div className="lg:col-span-4">
-                          <ATSWidgetErrorBoundary sectionName="ATS System Compatibility">
-                            <ATSCompatibilityCard />
+                        <div className="lg:col-span-6">
+                          <ATSWidgetErrorBoundary sectionName="ATS Parser Preview">
+                            <ParserPreviewCard />
+                          </ATSWidgetErrorBoundary>
+                        </div>
+                      </div>
+                    }
+                  />
+                </div>
+              )}
+
+              {/* 6. DETAILED REPORT SECTION */}
+              {activeTab === 'detailed-report' && (
+                <div className="space-y-5 sm:space-y-6">
+                  <ATSWidgetErrorBoundary sectionName="Section Navigation">
+                    <SectionNavigationPanel
+                      selectedSectionId={selectedSectionId}
+                      onSelectSection={setSelectedSectionId}
+                    />
+                  </ATSWidgetErrorBoundary>
+
+                  <WorkspaceLayout
+                    leftContent={
+                      currentSectionDetail && (
+                        <motion.div
+                          key={selectedSectionId}
+                          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch"
+                        >
+                          <div className="lg:col-span-12">
+                            <ATSWidgetErrorBoundary sectionName="Section Analysis Workspace">
+                              <SectionAnalysisWorkspace section={currentSectionDetail} />
+                            </ATSWidgetErrorBoundary>
+                          </div>
+                          <div className="lg:col-span-6 flex flex-col">
+                            <ATSWidgetErrorBoundary sectionName="Section Keyword Coverage">
+                              <SectionKeywordCoverageCard keywords={currentSectionDetail.keywords} />
+                            </ATSWidgetErrorBoundary>
+                          </div>
+                          <div className="lg:col-span-6 flex flex-col">
+                            <ATSWidgetErrorBoundary sectionName="Section Formatting Review">
+                              <SectionFormattingReviewCard formattingChecks={currentSectionDetail.formattingChecks} />
+                            </ATSWidgetErrorBoundary>
+                          </div>
+                          <div className="lg:col-span-6 flex flex-col">
+                            <ATSWidgetErrorBoundary sectionName="Section Content Quality">
+                              <SectionContentQualityCard contentQuality={currentSectionDetail.contentQuality} />
+                            </ATSWidgetErrorBoundary>
+                          </div>
+                          <div className="lg:col-span-6 flex flex-col">
+                            <ATSWidgetErrorBoundary sectionName="Section ATS Rewrite">
+                              <SectionATSRewriteCard
+                                currentContent={currentSectionDetail.currentContent}
+                                suggestedRewrite={currentSectionDetail.suggestedRewrite}
+                              />
+                            </ATSWidgetErrorBoundary>
+                          </div>
+                          <div className="lg:col-span-12">
+                            <ATSWidgetErrorBoundary sectionName="Section Improvement Sequence">
+                              <SectionImprovementTimelineCard timeline={currentSectionDetail.timeline} />
+                            </ATSWidgetErrorBoundary>
+                          </div>
+                        </motion.div>
+                      )
+                    }
+                    rightSidebar={
+                      <div className="space-y-5 sm:space-y-6 flex flex-col justify-between h-full">
+                        {currentSectionDetail && (
+                          <ATSWidgetErrorBoundary sectionName="Section Summary Sidebar">
+                            <SectionSidebar section={currentSectionDetail} />
+                          </ATSWidgetErrorBoundary>
+                        )}
+                        <ATSWidgetErrorBoundary sectionName="AI Health Summary Sidebar">
+                          <AIInsightsSidebar />
+                        </ATSWidgetErrorBoundary>
+                        <div className="flex-1 flex flex-col">
+                          <ATSWidgetErrorBoundary sectionName="ATS Details Sidebar">
+                            <Sidebar onStartAnalysis={handleReanalyze} />
+                          </ATSWidgetErrorBoundary>
+                        </div>
+                      </div>
+                    }
+                    bottomContent={
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
+                        <div className="lg:col-span-6 flex flex-col">
+                          <ATSWidgetErrorBoundary sectionName="Formatting Audit">
+                            <FormattingAnalysisCard />
+                          </ATSWidgetErrorBoundary>
+                        </div>
+                        <div className="lg:col-span-6 flex flex-col">
+                          <ATSWidgetErrorBoundary sectionName="Section Scores Breakdown">
+                            <SectionScoresCard />
+                          </ATSWidgetErrorBoundary>
+                        </div>
+                        <div className="lg:col-span-12">
+                          <ATSWidgetErrorBoundary sectionName="Readiness Master Checklist">
+                            <ATSChecklistCard />
                           </ATSWidgetErrorBoundary>
                         </div>
                         <div className="lg:col-span-12">
@@ -431,10 +498,10 @@ export default function ATSAnalysisPage() {
                           </ATSWidgetErrorBoundary>
                         </div>
                       </div>
-                    )}
-                  </>
-                }
-              />
+                    }
+                  />
+                </div>
+              )}
             </motion.div>
           </AnimatePresence>
         )}
