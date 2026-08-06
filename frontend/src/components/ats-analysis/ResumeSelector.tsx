@@ -1,6 +1,7 @@
 import React, { useState, useCallback, memo } from 'react'
 import { FileText, ChevronDown, Check, Clock, Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { VersionBadge } from '@/components/ui/VersionBadge'
 
 export interface ResumeOption {
   id: string
@@ -85,9 +86,7 @@ export const ResumeSelector: React.FC<ResumeSelectorProps> = memo(({
                 </span>
 
                 {/* Version Badge */}
-                <span className="inline-flex items-center h-6 px-2.5 rounded-full text-[11px] font-mono font-bold text-slate-300 bg-slate-800/80 border border-slate-700/60">
-                  {currentResume?.version ?? 'v1.0'}
-                </span>
+                <VersionBadge version={currentResume?.version ?? 'v1.0'} variant="subtle" />
 
                 {/* Status Badge */}
                 <span

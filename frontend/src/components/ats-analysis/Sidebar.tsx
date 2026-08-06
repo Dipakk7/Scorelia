@@ -13,6 +13,7 @@ import {
   AlertTriangle,
 } from 'lucide-react'
 import { mockSidebarData } from '@/lib/ats-mock-data'
+import { VersionBadge } from '@/components/ui/VersionBadge'
 
 interface SidebarProps {
   onStartAnalysis?: () => void
@@ -71,9 +72,7 @@ export const SidebarMetaCard: React.FC = () => (
           </div>
           <h3 className="text-sm font-bold text-slate-100 tracking-tight">Resume Details</h3>
         </div>
-        <span className="text-[10px] font-mono text-slate-300 bg-slate-800/90 px-2 py-0.5 rounded border border-slate-700 shrink-0">
-          v1.0
-        </span>
+        <VersionBadge version="v1.0" variant="subtle" />
       </div>
 
       <div className="space-y-2 text-xs font-mono">

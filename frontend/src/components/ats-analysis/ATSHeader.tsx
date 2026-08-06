@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import { VersionBadge } from '@/components/ui/VersionBadge'
 
 export type ATSTab =
   | 'overview'
@@ -76,7 +77,7 @@ export const ATSHeader: React.FC<ATSHeaderProps> = memo(({
             <span className="font-semibold text-white bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-700/80 flex items-center gap-2">
               <FileText className="w-3.5 h-3.5 text-purple-400" />
               Software_Engineer_Resume.pdf
-              <span className="text-[10px] font-mono text-purple-300 bg-purple-500/20 px-1.5 py-0.5 rounded">v1.0</span>
+              <VersionBadge version="v1.0" />
             </span>
           </div>
         </div>
