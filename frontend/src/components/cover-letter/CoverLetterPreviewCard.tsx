@@ -402,7 +402,7 @@ export const CoverLetterPreviewCard: React.FC<CoverLetterPreviewCardProps> = ({
 
       {/* 3. AUTHENTIC DOCUMENT PAPER CANVAS */}
       <div
-        className={`rounded-xl border border-slate-800 bg-[#0b0c13] space-y-6 text-slate-100 shadow-2xl shadow-black/80 transition-all ${
+        className={`rounded-xl border border-slate-800 bg-[#0b0c13] space-y-6 text-slate-100 shadow-2xl shadow-black/80 transition-all max-h-[720px] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-800 ${
           styleSettings.fontFamily === 'Georgia'
             ? 'font-serif'
             : styleSettings.fontFamily === 'JetBrains Mono'

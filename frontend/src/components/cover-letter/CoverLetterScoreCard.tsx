@@ -72,7 +72,7 @@ export const CoverLetterScoreCardComponent: React.FC<CoverLetterScoreCardProps> 
   const verifiedCount = checklist.filter((c) => c.checked).length
 
   return (
-    <div className="rounded-2xl bg-[#121426] border border-white/10 bg-gradient-to-r from-[#14162a] via-[#111324] to-[#14162a] p-4 sm:p-6 shadow-lg shadow-purple-950/10 space-y-6 text-left transition-all">
+    <div className="rounded-2xl bg-[#121426] border border-white/10 bg-gradient-to-r from-[#14162a] via-[#111324] to-[#14162a] p-4 sm:p-5 md:p-6 shadow-lg shadow-purple-950/10 space-y-4 sm:space-y-5 text-left transition-all">
       {/* Title Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800/80">
         <div>

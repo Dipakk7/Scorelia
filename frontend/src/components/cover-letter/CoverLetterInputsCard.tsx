@@ -269,7 +269,7 @@ export const CoverLetterInputsCard: React.FC<CoverLetterInputsCardProps> = ({
         <div className="relative">
           <textarea
             id="setup-jd-textarea"
-            rows={7}
+            rows={5}
             value={jobDescription}
             onChange={(e) => setJobDescription(e.target.value)}
             placeholder="Paste target job description details here. Include key responsibilities, qualifications, and required technical skills for optimal AI tailoring..."

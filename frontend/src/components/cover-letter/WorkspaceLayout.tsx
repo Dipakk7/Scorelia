@@ -17,22 +17,22 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({
   return (
     <main
       aria-label="Cover Letter Generator Workspace"
-      className={cn('space-y-6 w-full max-w-full overflow-x-hidden', className)}
+      className={cn('space-y-4 w-full max-w-full overflow-x-hidden text-left', className)}
     >
       {/* Responsive Workspace Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Main Workspace (Left 70% on Desktop, Full width on Tablet/Mobile) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 items-start">
+        {/* Main Workspace (Left Column) */}
         <section
           aria-label="Cover Letter Builder Workspace"
-          className="lg:col-span-8 space-y-6 w-full min-w-0"
+          className="lg:col-span-8 space-y-4 w-full min-w-0"
         >
           {leftContent}
         </section>
 
-        {/* Right Sidebar (30% on Desktop, Full width stacked on Tablet/Mobile) */}
+        {/* Right Sidebar */}
         <aside
           aria-label="Cover Letter Analysis and Tools Sidebar"
-          className="lg:col-span-4 space-y-6 w-full min-w-0"
+          className="lg:col-span-4 space-y-4 w-full min-w-0"
         >
           {rightSidebar}
         </aside>

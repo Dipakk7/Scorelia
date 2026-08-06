@@ -267,7 +267,7 @@ export const AIEnhancementToolsCard: React.FC<AIEnhancementToolsCardProps> = ({
                     {isProcessing ? <Loader2 className="w-4 h-4 animate-spin" /> : isSelected ? <Check className="w-4 h-4 text-emerald-400" /> : tool.icon}
                   </div>
 
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
+                  <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
                     {tool.categoryLabel}
                   </span>
                 </div>
@@ -282,7 +282,7 @@ export const AIEnhancementToolsCard: React.FC<AIEnhancementToolsCardProps> = ({
                 </div>
               </div>
 
-              <div className="pt-3 flex items-center justify-between border-t border-slate-800/80 mt-3 w-full text-[10px] font-extrabold">
+              <div className="pt-3 flex items-center justify-between border-t border-slate-800/80 mt-3 w-full text-[11px] font-bold">
                 <span className="text-emerald-400">{tool.impactBadge}</span>
                 <span className="text-purple-300 group-hover:underline">Apply Action →</span>
               </div>
