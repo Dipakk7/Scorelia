@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useRef, useEffect } from 'react'
 import {
   RefreshCw,
   Download,
@@ -32,10 +32,10 @@ interface ATSHeaderProps {
 
 const TABS: { id: ATSTab; label: string; icon: React.ElementType }[] = [
   { id: 'overview', label: 'Overview', icon: FileCheck },
-  { id: 'keyword-match', label: 'Keyword Match', icon: Search },
+  { id: 'keyword-match', label: 'ATS Keywords', icon: Search },
   { id: 'format-check', label: 'Format Check', icon: SlidersHorizontal },
-  { id: 'content-optimization', label: 'Content Optimization', icon: Sparkles },
-  { id: 'ats-simulation', label: 'ATS Simulation', icon: Cpu },
+  { id: 'content-optimization', label: 'Content Details', icon: Sparkles },
+  { id: 'ats-simulation', label: 'Recruiter View', icon: Cpu },
   { id: 'detailed-report', label: 'Detailed Report', icon: FileText },
 ]
 
@@ -46,8 +46,16 @@ export const ATSHeader: React.FC<ATSHeaderProps> = memo(({
   onExportClick,
   isRefreshing = false,
 }) => {
+  const activeTabRef = useRef<HTMLButtonElement | null>(null)
+
+  useEffect(() => {
+    if (activeTabRef.current) {
+      activeTabRef.current.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+    }
+  }, [activeTab])
+
   return (
-    <header className="flex flex-col gap-6 mb-6">
+    <header className="flex flex-col gap-4 mb-4">
       {/* Top Title & Actions Hero Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-4 md:p-6 rounded-2xl bg-[#121426] border border-white/10 bg-gradient-to-r from-[#14162a] via-[#111324] to-[#14162a] shadow-lg shadow-purple-950/10 transition-all duration-200">
         {/* Left Title Block */}
@@ -106,8 +114,8 @@ export const ATSHeader: React.FC<ATSHeaderProps> = memo(({
         </div>
       </div>
 
-      {/* Navigation Sub-Tabs Bar */}
-      <div className="overflow-x-auto pb-1 scrollbar-none">
+      {/* Navigation Sticky Sub-Tabs Bar */}
+      <div className="sticky top-2 z-30 backdrop-blur-md bg-slate-950/85 border border-slate-800/80 p-1.5 rounded-2xl shadow-xl transition-all overflow-x-auto scrollbar-none">
         <nav
           role="tablist"
           aria-label="ATS Analysis Workspace Sections"
@@ -119,6 +127,7 @@ export const ATSHeader: React.FC<ATSHeaderProps> = memo(({
             return (
               <button
                 key={tab.id}
+                ref={isActive ? activeTabRef : null}
                 type="button"
                 role="tab"
                 id={`tab-${tab.id}`}

@@ -33,7 +33,7 @@ export const KeywordAnalysisCard: React.FC = () => {
   const suggestedCount = mockKeywords.filter((k) => k.status === 'suggested').length
 
   return (
-    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-5 shadow-lg space-y-5">
+    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-3.5 sm:p-4 shadow-lg space-y-3.5">
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>

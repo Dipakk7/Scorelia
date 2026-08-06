@@ -13,9 +13,9 @@ import { mockAiSidebarData } from '@/lib/ats-ai-mock-data'
 
 export const AIInsightsSidebar: React.FC = () => {
   return (
-    <aside aria-label="AI Insights Sidebar" className="space-y-5">
+    <aside aria-label="AI Insights Sidebar" className="space-y-4">
       {/* 1. AI Summary Card */}
-      <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-5 shadow-lg space-y-3.5">
+      <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-3.5 sm:p-4 shadow-lg space-y-2.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="p-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-300 shadow-sm shrink-0 flex items-center justify-center">
@@ -53,7 +53,7 @@ export const AIInsightsSidebar: React.FC = () => {
       </div>
 
       {/* 2. Quick Tips Card */}
-      <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-5 shadow-lg space-y-3.5">
+      <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-3.5 sm:p-4 shadow-lg space-y-2.5">
         <div className="flex items-center gap-2.5">
           <div className="p-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-300 shadow-sm shrink-0 flex items-center justify-center">
             <Lightbulb className="w-4 h-4 text-purple-400" />
@@ -67,7 +67,7 @@ export const AIInsightsSidebar: React.FC = () => {
           {mockAiSidebarData.quickTips.map((tip, idx) => (
             <div
               key={idx}
-              className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 leading-relaxed shadow-sm flex items-start gap-2.5"
+              className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 leading-relaxed shadow-sm flex items-start gap-2"
             >
               <span className="text-purple-400 font-bold shrink-0 mt-0.5">•</span>
               <span className="flex-1">{tip}</span>
@@ -77,7 +77,7 @@ export const AIInsightsSidebar: React.FC = () => {
       </div>
 
       {/* 3. Recent Recommendations Applied */}
-      <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-5 shadow-lg space-y-3.5">
+      <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-3.5 sm:p-4 shadow-lg space-y-2.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="p-1.5 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 shadow-sm shrink-0 flex items-center justify-center">

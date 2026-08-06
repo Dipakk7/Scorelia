@@ -22,7 +22,7 @@ export const SectionFormattingReviewCard: React.FC<SectionFormattingReviewCardPr
   }, [])
 
   return (
-    <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-5 shadow-xl space-y-4 h-full flex flex-col justify-between">
+    <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-3.5 sm:p-4 shadow-xl space-y-3 h-full flex flex-col justify-between">
       {/* Header */}
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">

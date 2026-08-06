@@ -23,7 +23,7 @@ export const SectionATSRewriteCard: React.FC<SectionATSRewriteCardProps> = ({
   }
 
   return (
-    <div className="rounded-2xl bg-gradient-to-r from-purple-950/80 via-slate-900 to-indigo-950/80 border border-purple-500/30 p-4 sm:p-5 shadow-xl space-y-4 h-full flex flex-col justify-between">
+    <div className="rounded-2xl bg-gradient-to-r from-purple-950/80 via-slate-900 to-indigo-950/80 border border-purple-500/30 p-3.5 sm:p-4 shadow-xl space-y-3 h-full flex flex-col justify-between">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3">

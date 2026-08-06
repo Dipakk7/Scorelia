@@ -25,9 +25,9 @@ export const PriorityRecommendationCard: React.FC = () => {
   const completedCount = items.filter((i) => i.completed).length
 
   return (
-    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4 sm:p-4.5 shadow-lg space-y-3">
+    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-3.5 sm:p-4 shadow-lg space-y-2.5">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
         <div>
           <h3 className="text-base font-bold text-slate-100 tracking-tight flex items-center gap-2">
             <Zap className="w-4 h-4 text-purple-400" />
@@ -50,7 +50,7 @@ export const PriorityRecommendationCard: React.FC = () => {
               key={tab.id}
               onClick={() => setPriorityFilter(tab.id as any)}
               className={cn(
-                'px-2.5 py-1 text-xs font-mono rounded-lg transition-colors cursor-pointer',
+                'px-2 py-0.5 text-xs font-mono rounded-lg transition-colors cursor-pointer',
                 priorityFilter === tab.id
                   ? 'bg-purple-600/30 text-purple-200 font-semibold border border-purple-500/30'
                   : 'text-slate-400 hover:text-slate-200'
@@ -63,7 +63,7 @@ export const PriorityRecommendationCard: React.FC = () => {
       </div>
 
       {/* Recommendation Items Feed */}
-      <div className="space-y-3">
+      <div className="space-y-2.5">
         {filteredItems.map((rec) => {
           const isExpanded = expandedId === rec.id
           const isHigh = rec.priority === 'High'
@@ -82,7 +82,7 @@ export const PriorityRecommendationCard: React.FC = () => {
               )}
             >
               {/* Header Bar */}
-              <div className="p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+              <div className="p-2.5 sm:p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div className="space-y-1 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
                     <span

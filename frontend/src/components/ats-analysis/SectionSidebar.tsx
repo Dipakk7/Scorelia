@@ -14,9 +14,9 @@ export const SectionSidebar: React.FC<SectionSidebarProps> = ({ section }) => {
   const timeline = section?.timeline ?? []
 
   return (
-    <aside aria-label="Section Analysis Sidebar" className="space-y-5">
+    <aside aria-label="Section Analysis Sidebar" className="space-y-4">
       {/* 1. Section Summary Card */}
-      <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-5 shadow-lg space-y-3.5">
+      <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-3.5 sm:p-4 shadow-lg space-y-2.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="p-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-300 shadow-sm shrink-0 flex items-center justify-center">

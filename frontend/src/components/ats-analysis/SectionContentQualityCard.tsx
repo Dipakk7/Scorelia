@@ -13,7 +13,7 @@ export const SectionContentQualityCard: React.FC<SectionContentQualityCardProps>
   const safeQuality = Array.isArray(contentQuality) ? contentQuality : []
 
   return (
-    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-5 shadow-lg space-y-4">
+    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-3.5 sm:p-4 shadow-lg space-y-3">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>

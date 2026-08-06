@@ -28,16 +28,16 @@ export const ATSHeroCard: React.FC<ATSHeroCardProps> = memo(({
         initial="initial"
         whileHover="hover"
         whileTap="tap"
-        className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900/95 via-slate-900/90 to-slate-950/95 border border-slate-800/90 p-5 sm:p-5.5 shadow-xl backdrop-blur-md transition-colors"
+        className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900/95 via-slate-900/90 to-slate-950/95 border border-slate-800/90 p-4 sm:p-4.5 shadow-xl backdrop-blur-md transition-colors"
       >
         {/* Glow Accent Effects */}
         <div className="absolute -top-24 -left-24 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
+        <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
           {/* Left Column: Overall ATS Score Circular Gauge */}
-          <div className="lg:col-span-4 flex flex-col items-center justify-between text-center p-5 rounded-xl bg-slate-950/70 border border-slate-800/80 shadow-inner h-full">
-            <div className="flex items-center justify-between w-full text-xs text-slate-400 mb-1">
+          <div className="lg:col-span-4 flex flex-col items-center justify-between text-center p-4 rounded-xl bg-slate-950/70 border border-slate-800/80 shadow-inner h-full">
+            <div className="flex items-center justify-between w-full text-xs text-slate-400 mb-0.5">
               <span className="font-semibold text-slate-200 flex items-center gap-1.5">
                 <Award className="w-4 h-4 text-purple-400" />
                 ATS Score
@@ -49,12 +49,12 @@ export const ATSHeroCard: React.FC<ATSHeroCardProps> = memo(({
             </div>
 
             {/* Score Ring Visualization */}
-            <div className="relative my-2 flex items-center justify-center">
+            <div className="relative my-1 flex items-center justify-center">
               <ScoreRing
                 value={safeData.overallScore ?? 92}
                 max={safeData.maxScore ?? 100}
-                size={152}
-                strokeWidth={10}
+                size={136}
+                strokeWidth={9}
                 color="--success"
                 trackColor="--border"
                 subLabel="EXCELLENT"
@@ -62,12 +62,12 @@ export const ATSHeroCard: React.FC<ATSHeroCardProps> = memo(({
             </div>
 
             <div className="space-y-1 w-full">
-              <span className="inline-flex items-center gap-1 px-3 py-0.5 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-300 border border-purple-500/20">
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-300 border border-purple-500/20">
                 <CheckCircle2 className="w-3.5 h-3.5 text-purple-400" />
                 {safeData.percentile || 'Top 10%'}
               </span>
 
-              <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+              <p className="text-xs text-slate-400 mt-1 leading-relaxed">
                 Your resume is highly likely to pass ATS screening across top enterprise platforms.
               </p>
             </div>
@@ -79,16 +79,16 @@ export const ATSHeroCard: React.FC<ATSHeroCardProps> = memo(({
               whileHover="hover"
               whileTap="tap"
               onClick={onAnalyzeClick}
-              className="mt-4 inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 min-h-[44px] text-xs font-semibold text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 rounded-xl shadow-lg shadow-purple-600/25 border border-purple-500/30 cursor-pointer focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none"
+              className="mt-3 inline-flex items-center justify-center gap-2 w-full px-3.5 py-2 text-xs font-semibold text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 rounded-xl shadow-lg shadow-purple-600/25 border border-purple-500/30 cursor-pointer focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none"
             >
-              <Sparkles className="w-4 h-4 text-purple-200" />
+              <Sparkles className="w-3.5 h-3.5 text-purple-200" />
               <span>Re-analyze Resume</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </motion.button>
           </div>
 
           {/* Right Column: Score Summary Breakdown across 6 criteria */}
-          <div className="lg:col-span-8 flex flex-col justify-between p-5 rounded-xl bg-slate-950/70 border border-slate-800/80 shadow-inner h-full space-y-4">
+          <div className="lg:col-span-8 flex flex-col justify-between p-4 rounded-xl bg-slate-950/70 border border-slate-800/80 shadow-inner h-full space-y-3">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
@@ -105,12 +105,12 @@ export const ATSHeroCard: React.FC<ATSHeroCardProps> = memo(({
             </div>
 
             {/* 6 Category Breakdown Cards */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3.5 flex-1">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 flex-1">
               {scoreBreakdown.map((item, idx) => (
                 <motion.div
                   key={idx}
                   whileHover={shouldReduceMotion ? {} : { y: -2 }}
-                  className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80 hover:border-purple-500/40 transition-all flex flex-col justify-between space-y-2 group cursor-pointer"
+                  className="p-3 rounded-xl bg-slate-900/90 border border-slate-800/80 hover:border-purple-500/40 transition-all flex flex-col justify-between space-y-1.5 group cursor-pointer"
                 >
                   <div className="flex items-center justify-between">
                     <span className="w-6 h-6 rounded-md bg-purple-500/15 border border-purple-500/30 text-purple-300 flex items-center justify-center text-[11px] font-bold font-mono">

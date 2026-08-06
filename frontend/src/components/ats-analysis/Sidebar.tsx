@@ -20,9 +20,9 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({ onStartAnalysis }) => {
   return (
-    <aside aria-label="ATS Analysis Sidebar" className="space-y-5 flex flex-col justify-between h-full">
+    <aside aria-label="ATS Analysis Sidebar" className="space-y-4">
       {/* 1. Analysis Summary Card */}
-      <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-5 shadow-lg space-y-3.5">
+      <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-3.5 sm:p-4 shadow-lg space-y-2.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="p-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-300 shadow-sm shrink-0 flex items-center justify-center">
@@ -35,36 +35,36 @@ export const Sidebar: React.FC<SidebarProps> = ({ onStartAnalysis }) => {
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-2.5 text-xs font-mono">
-          <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-1 shadow-inner">
+        <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+          <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-0.5 shadow-inner">
             <span className="text-slate-400 font-sans text-[11px]">Total Checks</span>
-            <div className="text-base font-bold text-white">
+            <div className="text-sm font-bold text-white">
               {mockSidebarData.analysisSummary.totalChecks}
             </div>
           </div>
-          <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-1 shadow-inner">
+          <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-0.5 shadow-inner">
             <span className="text-slate-400 font-sans text-[11px]">Passed Checks</span>
-            <div className="text-base font-bold text-emerald-400 flex items-center gap-1">
+            <div className="text-sm font-bold text-emerald-400 flex items-center gap-1">
               <CheckCircle2 className="w-3.5 h-3.5" />
               {mockSidebarData.analysisSummary.passedChecks}
             </div>
           </div>
-          <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-1 shadow-inner">
+          <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-0.5 shadow-inner">
             <span className="text-slate-400 font-sans text-[11px]">Warnings</span>
-            <div className="text-base font-bold text-amber-400 flex items-center gap-1">
+            <div className="text-sm font-bold text-amber-400 flex items-center gap-1">
               <AlertTriangle className="w-3.5 h-3.5" />
               {mockSidebarData.analysisSummary.warningChecks}
             </div>
           </div>
-          <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-1 shadow-inner">
+          <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-0.5 shadow-inner">
             <span className="text-slate-400 font-sans text-[11px]">Passed Rate</span>
-            <div className="text-base font-bold text-purple-300">90%</div>
+            <div className="text-sm font-bold text-purple-300">90%</div>
           </div>
         </div>
       </div>
 
       {/* 2. Resume Information Details Card */}
-      <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-5 shadow-lg space-y-3.5">
+      <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-3.5 sm:p-4 shadow-lg space-y-2.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="p-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-300 shadow-sm shrink-0 flex items-center justify-center">
@@ -103,7 +103,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onStartAnalysis }) => {
       </div>
 
       {/* 3. Recent Reports Scans History Card */}
-      <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-5 shadow-lg space-y-3.5">
+      <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-3.5 sm:p-4 shadow-lg space-y-2.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="p-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-300 shadow-sm shrink-0 flex items-center justify-center">
@@ -118,7 +118,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onStartAnalysis }) => {
           {mockSidebarData.recentReports.map((rep) => (
             <div
               key={rep.id}
-              className="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 hover:border-purple-500/30 transition-all duration-200 flex items-center justify-between cursor-pointer shadow-sm"
+              className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 hover:border-purple-500/30 transition-all duration-200 flex items-center justify-between cursor-pointer shadow-sm"
             >
               <div className="space-y-0.5">
                 <div className="text-xs font-semibold text-slate-200">{rep.target}</div>
@@ -133,7 +133,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onStartAnalysis }) => {
       </div>
 
       {/* 4. Quick Actions Card */}
-      <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-5 shadow-lg space-y-3.5">
+      <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-3.5 sm:p-4 shadow-lg space-y-2.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="p-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-300 shadow-sm shrink-0 flex items-center justify-center">

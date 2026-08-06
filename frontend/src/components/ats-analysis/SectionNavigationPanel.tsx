@@ -37,7 +37,7 @@ export const SectionNavigationPanel: React.FC<SectionNavigationPanelProps> = ({
   const shouldReduceMotion = useScoreliaReducedMotion()
 
   return (
-    <nav aria-label="Resume Section Navigation" className="w-full space-y-3.5">
+    <nav aria-label="Resume Section Navigation" className="w-full space-y-2.5">
       {/* Header Row */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 px-0.5">
         <div className="flex items-center gap-2.5">
@@ -64,7 +64,7 @@ export const SectionNavigationPanel: React.FC<SectionNavigationPanelProps> = ({
         <div
           role="tablist"
           aria-label="Resume Section Tabs"
-          className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 w-full"
+          className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 w-full"
         >
           {mockSectionsList.map((sec) => {
             const isSelected = selectedSectionId === sec.id

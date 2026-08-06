@@ -64,12 +64,12 @@ export const ResumeSelector: React.FC<ResumeSelectorProps> = memo(({
       : 'Resume ready for ATS analysis • Choose a resume to begin AI-powered compatibility scoring'
 
   return (
-    <section aria-label="Resume Selector" className="mb-6">
-      <div className="group relative overflow-hidden rounded-2xl bg-[#121426] border border-white/10 bg-gradient-to-r from-[#14162a] via-[#111324] to-[#14162a] p-4 sm:p-6 shadow-xl shadow-purple-950/10 transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl hover:shadow-purple-950/25 hover:border-purple-500/30 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-purple-400/30 before:to-transparent">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-5">
+    <section aria-label="Resume Selector" className="mb-5">
+      <div className="group relative overflow-hidden rounded-2xl bg-[#121426] border border-white/10 bg-gradient-to-r from-[#14162a] via-[#111324] to-[#14162a] p-3.5 sm:p-4 shadow-xl shadow-purple-950/10 transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl hover:shadow-purple-950/25 hover:border-purple-500/30 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-purple-400/30 before:to-transparent">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           {/* Active Resume Details */}
-          <div className="flex items-center gap-4">
-            <div className="relative flex items-center justify-center p-3.5 rounded-2xl bg-gradient-to-br from-purple-500/20 via-indigo-500/10 to-purple-500/5 border border-purple-500/30 text-purple-300 shadow-md shadow-purple-950/40 shrink-0 group-hover:scale-105 transition-transform duration-300">
+          <div className="flex items-center gap-3">
+            <div className="relative flex items-center justify-center p-3 rounded-2xl bg-gradient-to-br from-purple-500/20 via-indigo-500/10 to-purple-500/5 border border-purple-500/30 text-purple-300 shadow-md shadow-purple-950/40 shrink-0 group-hover:scale-105 transition-transform duration-300">
               <FileText className="w-6 h-6 sm:w-7 sm:h-7 text-purple-300 filter drop-shadow-[0_0_8px_rgba(168,85,247,0.4)]" />
               <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-purple-500/30 border border-purple-400/50 flex items-center justify-center">
                 <Sparkles className="w-2 h-2 text-purple-200" />

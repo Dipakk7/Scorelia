@@ -35,13 +35,13 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       role={onClick ? 'button' : undefined}
       onClick={onClick}
       className={cn(
-        'relative overflow-hidden rounded-xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-4.5 sm:p-5 transition-all duration-200 hover:bg-slate-900 hover:border-purple-500/40 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e] shadow-md hover:shadow-lg hover:shadow-purple-500/10 hover:-translate-y-0.5 flex flex-col justify-between space-y-4 cursor-pointer group select-none h-full'
+        'relative overflow-hidden rounded-xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-3.5 sm:p-4 transition-all duration-200 hover:bg-slate-900 hover:border-purple-500/40 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e] shadow-md hover:shadow-lg hover:shadow-purple-500/10 hover:-translate-y-0.5 flex flex-col justify-between space-y-2.5 cursor-pointer group select-none h-full'
       )}
     >
       {/* Header: Icon & Status Badge */}
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5 min-w-0">
-          <div className="p-2 rounded-xl bg-purple-500/15 border border-purple-500/30 text-purple-300 group-hover:bg-purple-500/25 group-hover:border-purple-400/40 transition-colors shadow-inner shrink-0">
+          <div className="p-1.5 rounded-xl bg-purple-500/15 border border-purple-500/30 text-purple-300 group-hover:bg-purple-500/25 group-hover:border-purple-400/40 transition-colors shadow-inner shrink-0">
             <IconComponent className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
           </div>
           <h4 className="text-xs sm:text-sm font-bold text-slate-100 group-hover:text-white transition-colors tracking-tight truncate">
