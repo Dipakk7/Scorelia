@@ -14,7 +14,7 @@ import { ATSHeader, type ATSTab } from '@/components/ats-analysis/ATSHeader'
 import { ResumeSelector, type ResumeOption } from '@/components/ats-analysis/ResumeSelector'
 import { ATSHeroCard } from '@/components/ats-analysis/ATSHeroCard'
 import { MetricsGrid } from '@/components/ats-analysis/MetricsGrid'
-import { Sidebar } from '@/components/ats-analysis/Sidebar'
+import { Sidebar, SidebarMetaCard, RecentReportsCard, QuickActionsCard, HelpfulResourcesCard } from '@/components/ats-analysis/Sidebar'
 
 // Phase 2 Components
 import { ATSCompatibilityCard } from '@/components/ats-analysis/ATSCompatibilityCard'
@@ -206,16 +206,25 @@ export default function ATSAnalysisPage() {
                   </div>
                 </div>
 
-                {/* Row 5: AI Health & Resume Meta Sidebars (6:6 Grid) */}
+                {/* Row 5: Balanced Final Meta & Resource Grid (6:6 Grid) */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
-                  <div className="lg:col-span-6 flex flex-col">
+                  <div className="lg:col-span-6 flex flex-col space-y-5 sm:space-y-6">
                     <ATSWidgetErrorBoundary sectionName="AI Health Summary Sidebar">
                       <AIInsightsSidebar />
                     </ATSWidgetErrorBoundary>
+                    <ATSWidgetErrorBoundary sectionName="Helpful Resources">
+                      <HelpfulResourcesCard />
+                    </ATSWidgetErrorBoundary>
                   </div>
-                  <div className="lg:col-span-6 flex flex-col">
-                    <ATSWidgetErrorBoundary sectionName="ATS Details Sidebar">
-                      <Sidebar onStartAnalysis={handleReanalyze} />
+                  <div className="lg:col-span-6 flex flex-col space-y-5 sm:space-y-6">
+                    <ATSWidgetErrorBoundary sectionName="Analysis Summary & Resume Details">
+                      <SidebarMetaCard />
+                    </ATSWidgetErrorBoundary>
+                    <ATSWidgetErrorBoundary sectionName="Recent Reports">
+                      <RecentReportsCard />
+                    </ATSWidgetErrorBoundary>
+                    <ATSWidgetErrorBoundary sectionName="Quick Actions">
+                      <QuickActionsCard onStartAnalysis={handleReanalyze} />
                     </ATSWidgetErrorBoundary>
                   </div>
                 </div>
@@ -237,16 +246,25 @@ export default function ATSAnalysisPage() {
                   <KeywordAnalysisCard />
                 </ATSWidgetErrorBoundary>
 
-                {/* Row 2: AI Health Summary & Resume Meta (6:6 Grid) */}
+                {/* Row 2: Balanced Final Meta & Resource Grid (6:6 Grid) */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
-                  <div className="lg:col-span-6 flex flex-col">
+                  <div className="lg:col-span-6 flex flex-col space-y-5 sm:space-y-6">
                     <ATSWidgetErrorBoundary sectionName="AI Health Summary Sidebar">
                       <AIInsightsSidebar />
                     </ATSWidgetErrorBoundary>
+                    <ATSWidgetErrorBoundary sectionName="Helpful Resources">
+                      <HelpfulResourcesCard />
+                    </ATSWidgetErrorBoundary>
                   </div>
-                  <div className="lg:col-span-6 flex flex-col">
-                    <ATSWidgetErrorBoundary sectionName="ATS Details Sidebar">
-                      <Sidebar onStartAnalysis={handleReanalyze} />
+                  <div className="lg:col-span-6 flex flex-col space-y-5 sm:space-y-6">
+                    <ATSWidgetErrorBoundary sectionName="Analysis Summary & Resume Details">
+                      <SidebarMetaCard />
+                    </ATSWidgetErrorBoundary>
+                    <ATSWidgetErrorBoundary sectionName="Recent Reports">
+                      <RecentReportsCard />
+                    </ATSWidgetErrorBoundary>
+                    <ATSWidgetErrorBoundary sectionName="Quick Actions">
+                      <QuickActionsCard onStartAnalysis={handleReanalyze} />
                     </ATSWidgetErrorBoundary>
                   </div>
                 </div>
@@ -282,16 +300,25 @@ export default function ATSAnalysisPage() {
                   </div>
                 </div>
 
-                {/* Row 3: AI Health & Resume Meta (6:6 Grid) */}
+                {/* Row 3: Balanced Final Meta & Resource Grid (6:6 Grid) */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
-                  <div className="lg:col-span-6 flex flex-col">
+                  <div className="lg:col-span-6 flex flex-col space-y-5 sm:space-y-6">
                     <ATSWidgetErrorBoundary sectionName="AI Health Summary Sidebar">
                       <AIInsightsSidebar />
                     </ATSWidgetErrorBoundary>
+                    <ATSWidgetErrorBoundary sectionName="Helpful Resources">
+                      <HelpfulResourcesCard />
+                    </ATSWidgetErrorBoundary>
                   </div>
-                  <div className="lg:col-span-6 flex flex-col">
-                    <ATSWidgetErrorBoundary sectionName="ATS Details Sidebar">
-                      <Sidebar onStartAnalysis={handleReanalyze} />
+                  <div className="lg:col-span-6 flex flex-col space-y-5 sm:space-y-6">
+                    <ATSWidgetErrorBoundary sectionName="Analysis Summary & Resume Details">
+                      <SidebarMetaCard />
+                    </ATSWidgetErrorBoundary>
+                    <ATSWidgetErrorBoundary sectionName="Recent Reports">
+                      <RecentReportsCard />
+                    </ATSWidgetErrorBoundary>
+                    <ATSWidgetErrorBoundary sectionName="Quick Actions">
+                      <QuickActionsCard onStartAnalysis={handleReanalyze} />
                     </ATSWidgetErrorBoundary>
                   </div>
                 </div>
@@ -323,16 +350,25 @@ export default function ATSAnalysisPage() {
                   <ParserPreviewCard />
                 </ATSWidgetErrorBoundary>
 
-                {/* Row 4: AI Health & Resume Meta (6:6 Grid) */}
+                {/* Row 4: Balanced Final Meta & Resource Grid (6:6 Grid) */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
-                  <div className="lg:col-span-6 flex flex-col">
+                  <div className="lg:col-span-6 flex flex-col space-y-5 sm:space-y-6">
                     <ATSWidgetErrorBoundary sectionName="AI Health Summary Sidebar">
                       <AIInsightsSidebar />
                     </ATSWidgetErrorBoundary>
+                    <ATSWidgetErrorBoundary sectionName="Helpful Resources">
+                      <HelpfulResourcesCard />
+                    </ATSWidgetErrorBoundary>
                   </div>
-                  <div className="lg:col-span-6 flex flex-col">
-                    <ATSWidgetErrorBoundary sectionName="ATS Details Sidebar">
-                      <Sidebar onStartAnalysis={handleReanalyze} />
+                  <div className="lg:col-span-6 flex flex-col space-y-5 sm:space-y-6">
+                    <ATSWidgetErrorBoundary sectionName="Analysis Summary & Resume Details">
+                      <SidebarMetaCard />
+                    </ATSWidgetErrorBoundary>
+                    <ATSWidgetErrorBoundary sectionName="Recent Reports">
+                      <RecentReportsCard />
+                    </ATSWidgetErrorBoundary>
+                    <ATSWidgetErrorBoundary sectionName="Quick Actions">
+                      <QuickActionsCard onStartAnalysis={handleReanalyze} />
                     </ATSWidgetErrorBoundary>
                   </div>
                 </div>
@@ -415,16 +451,25 @@ export default function ATSAnalysisPage() {
                       </div>
                     </div>
 
-                    {/* Row 6: Section Summary & AI Health (6:6 Grid) */}
+                    {/* Row 6: Balanced Final Meta & Resource Grid (6:6 Grid) */}
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
-                      <div className="lg:col-span-6 flex flex-col">
+                      <div className="lg:col-span-6 flex flex-col space-y-5 sm:space-y-6">
                         <ATSWidgetErrorBoundary sectionName="Section Summary Sidebar">
                           <SectionSidebar section={currentSectionDetail} />
                         </ATSWidgetErrorBoundary>
+                        <ATSWidgetErrorBoundary sectionName="Helpful Resources">
+                          <HelpfulResourcesCard />
+                        </ATSWidgetErrorBoundary>
                       </div>
-                      <div className="lg:col-span-6 flex flex-col">
+                      <div className="lg:col-span-6 flex flex-col space-y-5 sm:space-y-6">
                         <ATSWidgetErrorBoundary sectionName="AI Health Summary Sidebar">
                           <AIInsightsSidebar />
+                        </ATSWidgetErrorBoundary>
+                        <ATSWidgetErrorBoundary sectionName="Recent Reports">
+                          <RecentReportsCard />
+                        </ATSWidgetErrorBoundary>
+                        <ATSWidgetErrorBoundary sectionName="Quick Actions">
+                          <QuickActionsCard onStartAnalysis={handleReanalyze} />
                         </ATSWidgetErrorBoundary>
                       </div>
                     </div>
