@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Search, Plus, Check, Filter, Sparkles, AlertTriangle } from 'lucide-react'
+import { Search, Plus, Check, Filter, Sparkles, AlertTriangle, Target, Gauge, Zap } from 'lucide-react'
 import { mockKeywords, type KeywordItem } from '@/lib/ats-mock-data'
 import { cn } from '@/lib/utils'
 
-type FilterTab = 'all' | 'matched' | 'missing' | 'suggested'
+type FilterTab = 'all' | 'matched' | 'missing' | 'suggested' | 'high-impact'
 
 export const KeywordAnalysisCard: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<FilterTab>('all')
@@ -22,27 +22,66 @@ export const KeywordAnalysisCard: React.FC = () => {
     })
   }
 
-  const filteredKeywords = mockKeywords.filter((k) => {
-    const matchesFilter = activeFilter === 'all' || k.status === activeFilter
-    const matchesSearch = k.keyword.toLowerCase().includes(searchQuery.toLowerCase())
-    return matchesFilter && matchesSearch
-  })
-
+  const highImpactCount = mockKeywords.filter((k) => k.importance === 'High').length
   const matchedCount = mockKeywords.filter((k) => k.status === 'matched').length
   const missingCount = mockKeywords.filter((k) => k.status === 'missing').length
   const suggestedCount = mockKeywords.filter((k) => k.status === 'suggested').length
 
+  const filteredKeywords = mockKeywords.filter((k) => {
+    const matchesFilter =
+      activeFilter === 'all'
+        ? true
+        : activeFilter === 'high-impact'
+        ? k.importance === 'High'
+        : k.status === activeFilter
+    const matchesSearch = k.keyword.toLowerCase().includes(searchQuery.toLowerCase())
+    return matchesFilter && matchesSearch
+  })
+
   return (
-    <div className="rounded-2xl bg-slate-900/90 border border-slate-800/90 p-3.5 sm:p-4 shadow-lg space-y-3.5">
-      {/* Section Header */}
+    <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 via-slate-900/90 to-slate-950/95 border border-slate-800/90 p-4 sm:p-5 shadow-xl space-y-4">
+      {/* 1. Target Role & Density Health Context Bar */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3 rounded-xl bg-slate-950/70 border border-slate-800/80">
+        <div className="flex items-center gap-2.5">
+          <div className="p-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-400">
+            <Target className="w-4 h-4" />
+          </div>
+          <div>
+            <div className="text-[10px] text-slate-400 font-mono uppercase">Target Role</div>
+            <div className="text-xs font-bold text-white">Senior Software Engineer</div>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2.5">
+          <div className="p-1.5 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+            <Gauge className="w-4 h-4" />
+          </div>
+          <div>
+            <div className="text-[10px] text-slate-400 font-mono uppercase">Keyword Density</div>
+            <div className="text-xs font-bold text-emerald-400 font-mono">3.2% (Optimal)</div>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2.5">
+          <div className="p-1.5 rounded-lg bg-amber-500/15 border border-amber-500/30 text-amber-400">
+            <Zap className="w-4 h-4" />
+          </div>
+          <div>
+            <div className="text-[10px] text-slate-400 font-mono uppercase">Critical Missing</div>
+            <div className="text-xs font-bold text-amber-300 font-mono">{missingCount} High Impact Keywords</div>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. Section Header & Search Bar */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h3 className="text-base font-bold text-slate-100 tracking-tight flex items-center gap-2">
             <Search className="w-4 h-4 text-purple-400" />
-            Keyword Match & Density Analysis
+            AI Keyword Intelligence Workspace
           </h3>
           <p className="text-xs text-slate-400">
-            Compare target job description keywords against your resume text.
+            Compare target job description keywords against your resume text in real time.
           </p>
         </div>
 
@@ -59,11 +98,11 @@ export const KeywordAnalysisCard: React.FC = () => {
         </div>
       </div>
 
-      {/* Top Visual Summary Row: Donut Chart & Counters */}
+      {/* 3. Top Visual Summary Row: Donut Chart & Filter Pills */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
         {/* Donut Graphic Visual */}
         <div className="md:col-span-5 flex items-center justify-center gap-4">
-          <div className="relative w-28 h-28 flex items-center justify-center shrink-0">
+          <div className="relative w-24 h-24 flex items-center justify-center shrink-0">
             <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
               <circle cx="50" cy="50" r="38" stroke="currentColor" strokeWidth="10" className="text-slate-800" fill="transparent" />
               <circle
@@ -98,26 +137,27 @@ export const KeywordAnalysisCard: React.FC = () => {
           <div className="space-y-1 text-xs font-mono">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-              <span className="text-slate-300">Matched: 78% (10)</span>
+              <span className="text-slate-300">Matched: 78% ({matchedCount})</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-rose-400" />
-              <span className="text-slate-300">Missing: 18% (6)</span>
+              <span className="text-slate-300">Missing: 18% ({missingCount})</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-slate-600" />
-              <span className="text-slate-400">Irrelevant: 4% (4)</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-purple-400" />
+              <span className="text-slate-300">Suggested: ({suggestedCount})</span>
             </div>
           </div>
         </div>
 
         {/* Filter Pills */}
-        <div className="md:col-span-7 flex flex-wrap items-center gap-2 border-t md:border-t-0 md:border-l border-slate-800 pt-3 md:pt-0 md:pl-4">
+        <div className="md:col-span-7 flex flex-wrap items-center gap-1.5 border-t md:border-t-0 md:border-l border-slate-800 pt-3 md:pt-0 md:pl-4">
           <span className="text-xs font-medium text-slate-400 flex items-center gap-1 w-full sm:w-auto mb-1 sm:mb-0">
             <Filter className="w-3.5 h-3.5 text-purple-400" /> Filter:
           </span>
           {[
             { id: 'all', label: `All (${mockKeywords.length})` },
+            { id: 'high-impact', label: `High Impact (${highImpactCount})` },
             { id: 'matched', label: `Matched (${matchedCount})` },
             { id: 'missing', label: `Missing (${missingCount})` },
             { id: 'suggested', label: `Suggested (${suggestedCount})` },
@@ -126,7 +166,7 @@ export const KeywordAnalysisCard: React.FC = () => {
               key={tab.id}
               onClick={() => setActiveFilter(tab.id as FilterTab)}
               className={cn(
-                'px-3 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer',
+                'px-2.5 py-1 rounded-lg text-xs font-medium transition-all cursor-pointer',
                 activeFilter === tab.id
                   ? 'bg-purple-600/30 text-purple-200 border border-purple-500/40 shadow-sm font-semibold'
                   : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800'
@@ -138,7 +178,7 @@ export const KeywordAnalysisCard: React.FC = () => {
         </div>
       </div>
 
-      {/* Keywords Chips Container */}
+      {/* 4. Keywords Chips Container */}
       <div className="space-y-3">
         <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
           <span>Keywords List ({filteredKeywords.length})</span>
@@ -166,13 +206,13 @@ export const KeywordAnalysisCard: React.FC = () => {
                 <span className="font-semibold">{k.keyword}</span>
 
                 {isMatched && (
-                  <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded font-sans">
+                  <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded font-sans font-bold">
                     {k.frequency}x
                   </span>
                 )}
 
                 {k.importance === 'High' && (
-                  <span className="inline-flex items-center gap-0.5 text-[9px] font-sans px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-400 border border-amber-500/20">
+                  <span className="inline-flex items-center gap-0.5 text-[9px] font-sans px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-400 border border-amber-500/20 font-bold">
                     <AlertTriangle className="w-2.5 h-2.5" /> High
                   </span>
                 )}
@@ -202,6 +242,14 @@ export const KeywordAnalysisCard: React.FC = () => {
             )
           })}
         </div>
+      </div>
+
+      {/* 5. AI Keyword Optimization Callout Strip */}
+      <div className="p-3 rounded-xl bg-purple-950/40 border border-purple-500/30 text-xs text-slate-200 leading-relaxed flex items-start gap-2.5">
+        <Sparkles className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+        <span>
+          <strong className="text-white font-bold">AI Keyword Insight:</strong> Adding missing high-impact keywords like <code className="text-purple-300 font-mono">Kubernetes</code>, <code className="text-purple-300 font-mono">GraphQL</code>, and <code className="text-purple-300 font-mono">System Architecture</code> directly into your Experience section will boost your ATS Keyword Match from <strong className="text-emerald-400">78%</strong> to <strong className="text-emerald-400">92%</strong>.
+        </span>
       </div>
     </div>
   )

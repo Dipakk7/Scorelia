@@ -1,5 +1,5 @@
 import React from 'react'
-import { UserCheck, CheckCircle2, AlertCircle, Award, MessageSquare } from 'lucide-react'
+import { UserCheck, CheckCircle2, AlertCircle, Award, MessageSquare, Sparkles, UserCheck as UserIcon, Zap } from 'lucide-react'
 import { mockRecruiterFeedback, type RecruiterFeedbackData } from '@/lib/ats-ai-mock-data'
 
 interface RecruiterFeedbackCardProps {
@@ -14,8 +14,41 @@ export const RecruiterFeedbackCard: React.FC<RecruiterFeedbackCardProps> = ({
   const weaknesses = safeData?.weaknesses ?? []
 
   return (
-    <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-3.5 sm:p-4 shadow-xl space-y-3 h-full flex flex-col justify-between">
-      {/* Header */}
+    <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 via-slate-900/90 to-slate-950/95 border border-slate-800/90 p-4 sm:p-5 shadow-xl space-y-4 h-full flex flex-col justify-between">
+      {/* 1. Executive Recruiter KPI Bar */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3 rounded-xl bg-slate-950/70 border border-slate-800/80">
+        <div className="flex items-center gap-2.5">
+          <div className="p-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-400">
+            <UserIcon className="w-4 h-4" />
+          </div>
+          <div>
+            <div className="text-[10px] text-slate-400 font-mono uppercase">Recruiter Rating</div>
+            <div className="text-xs font-bold text-white font-mono">9.4 / 10 (Favorable)</div>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2.5">
+          <div className="p-1.5 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+            <Zap className="w-4 h-4" />
+          </div>
+          <div>
+            <div className="text-[10px] text-slate-400 font-mono uppercase">Interview Likelihood</div>
+            <div className="text-xs font-bold text-emerald-400 font-mono">90% (High Confidence)</div>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2.5">
+          <div className="p-1.5 rounded-lg bg-cyan-500/15 border border-cyan-500/30 text-cyan-400">
+            <Award className="w-4 h-4" />
+          </div>
+          <div>
+            <div className="text-[10px] text-slate-400 font-mono uppercase">Hiring Verdict</div>
+            <div className="text-xs font-bold text-cyan-300 font-mono">{safeData?.verdict ?? 'Strong Candidate'}</div>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
           <div className="p-1.5 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-300 shadow-sm shrink-0 flex items-center justify-center">
@@ -26,7 +59,7 @@ export const RecruiterFeedbackCard: React.FC<RecruiterFeedbackCardProps> = ({
               Recruiter & Hiring Manager Perspective
             </h3>
             <p className="text-xs text-slate-400 font-normal mt-0.5">
-              Simulated feedback based on senior engineering recruiter screening patterns.
+              Simulated screening evaluation based on enterprise recruiter patterns (Greenhouse, Lever, LinkedIn).
             </p>
           </div>
         </div>
@@ -37,12 +70,12 @@ export const RecruiterFeedbackCard: React.FC<RecruiterFeedbackCardProps> = ({
         </span>
       </div>
 
-      {/* Main Grid: First Impression & Interview Readiness */}
+      {/* 3. Main Grid: First Impression & Interview Readiness */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch flex-1">
         {/* Left Column: Strengths & Weaknesses */}
-        <div className="md:col-span-8 space-y-3.5 flex flex-col justify-between h-full">
+        <div className="md:col-span-8 space-y-3 flex flex-col justify-between h-full">
           <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-1 shadow-inner">
-            <span className="text-[10px] font-mono text-purple-400 uppercase font-bold tracking-wider block">First Impression</span>
+            <span className="text-[10px] font-mono text-purple-400 uppercase font-bold tracking-wider block">6-Second Skim Impression</span>
             <div className="text-xs sm:text-sm font-bold text-slate-100 tracking-tight leading-snug">{safeData?.firstImpression ?? ''}</div>
           </div>
 
@@ -51,7 +84,7 @@ export const RecruiterFeedbackCard: React.FC<RecruiterFeedbackCardProps> = ({
               <div className="p-1 rounded-md bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 shrink-0">
                 <CheckCircle2 className="w-3.5 h-3.5" />
               </div>
-              <span>Key Strengths:</span>
+              <span>Key Hiring Strengths:</span>
             </div>
             <ul className="space-y-1.5 text-xs text-slate-300 leading-relaxed">
               {strengths.map((str, idx) => (
@@ -68,7 +101,7 @@ export const RecruiterFeedbackCard: React.FC<RecruiterFeedbackCardProps> = ({
               <div className="p-1 rounded-md bg-amber-500/15 border border-amber-500/30 text-amber-400 shrink-0">
                 <AlertCircle className="w-3.5 h-3.5" />
               </div>
-              <span>Gaps & Areas for Improvement:</span>
+              <span>Recruiter Concerns & Improvement Gaps:</span>
             </div>
             <ul className="space-y-1.5 text-xs text-slate-300 leading-relaxed">
               {weaknesses.map((weak, idx) => (
@@ -97,7 +130,7 @@ export const RecruiterFeedbackCard: React.FC<RecruiterFeedbackCardProps> = ({
 
           <div className="space-y-2 border-t border-slate-800/80 pt-3">
             <div className="flex items-center justify-between text-xs font-mono">
-              <span className="text-slate-400 font-sans font-medium">Interview Readiness</span>
+              <span className="text-slate-400 font-sans font-medium">Interview Shortlist Readiness</span>
               <span className="text-emerald-400 font-bold font-mono">{safeData?.interviewReadiness ?? 90}%</span>
             </div>
             <div className="h-2 w-full bg-slate-950 border border-slate-800/80 rounded-full overflow-hidden p-0.5 shadow-inner">
@@ -108,6 +141,14 @@ export const RecruiterFeedbackCard: React.FC<RecruiterFeedbackCardProps> = ({
             </div>
           </div>
         </div>
+      </div>
+
+      {/* 4. AI Executive Recruiter Insight Callout Strip */}
+      <div className="p-3 rounded-xl bg-purple-950/40 border border-purple-500/30 text-xs text-slate-200 leading-relaxed flex items-start gap-2.5">
+        <Sparkles className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+        <span>
+          <strong className="text-white font-bold">AI Recruiter Insight:</strong> Your resume successfully passes the initial 6-second recruiter skim due to prominent metrics and standard structure. Primary enhancement is quantifying cloud architecture leadership results.
+        </span>
       </div>
     </div>
   )

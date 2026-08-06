@@ -1,5 +1,5 @@
 import React from 'react'
-import { FileText, UserCheck, Cpu } from 'lucide-react'
+import { FileText, UserCheck, Cpu, Sparkles } from 'lucide-react'
 import { ScoreRing } from '@/components/ui/ScoreRing'
 import type { SectionDetailData } from '@/lib/ats-section-mock-data'
 import { cn } from '@/lib/utils'
@@ -16,7 +16,7 @@ export const SectionAnalysisWorkspace: React.FC<SectionAnalysisWorkspaceProps> =
   const isWarning = (section.score ?? 0) < 90
 
   return (
-    <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-3.5 sm:p-4 shadow-xl space-y-3.5">
+    <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 via-slate-900/90 to-slate-950/95 border border-slate-800/90 p-4 sm:p-5 shadow-xl space-y-4">
       {/* Header Row */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-start sm:items-center gap-3 min-w-0">
@@ -90,6 +90,14 @@ export const SectionAnalysisWorkspace: React.FC<SectionAnalysisWorkspaceProps> =
             {section.atsNotes}
           </p>
         </div>
+      </div>
+
+      {/* AI Section Intelligence Callout Strip */}
+      <div className="p-3 rounded-xl bg-purple-950/40 border border-purple-500/30 text-xs text-slate-200 leading-relaxed flex items-start gap-2.5">
+        <Sparkles className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+        <span>
+          <strong className="text-white font-bold">AI Section Intelligence:</strong> Optimizing action verbs and adding 2 missing domain keywords to <span className="text-purple-300 font-semibold">{section.name}</span> will raise section score to <strong className="text-emerald-400">98 / 100</strong>.
+        </span>
       </div>
     </div>
   )

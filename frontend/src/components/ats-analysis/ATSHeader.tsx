@@ -18,7 +18,6 @@ export type ATSTab =
   | 'overview'
   | 'keyword-match'
   | 'format-check'
-  | 'content-optimization'
   | 'ats-simulation'
   | 'detailed-report'
 
@@ -28,13 +27,14 @@ interface ATSHeaderProps {
   onRefresh: () => void
   onExportClick?: () => void
   isRefreshing?: boolean
+  selectedResumeId?: string
+  onSelectResume?: (resume: any) => void
 }
 
 const TABS: { id: ATSTab; label: string; icon: React.ElementType }[] = [
   { id: 'overview', label: 'Overview', icon: FileCheck },
   { id: 'keyword-match', label: 'ATS Keywords', icon: Search },
-  { id: 'format-check', label: 'Format Check', icon: SlidersHorizontal },
-  { id: 'content-optimization', label: 'Content Details', icon: Sparkles },
+  { id: 'format-check', label: 'Format & Risk', icon: SlidersHorizontal },
   { id: 'ats-simulation', label: 'Recruiter View', icon: Cpu },
   { id: 'detailed-report', label: 'Detailed Report', icon: FileText },
 ]
@@ -58,21 +58,27 @@ export const ATSHeader: React.FC<ATSHeaderProps> = memo(({
     <header className="flex flex-col gap-4 mb-4">
       {/* Top Title & Actions Hero Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-4 md:p-6 rounded-2xl bg-[#121426] border border-white/10 bg-gradient-to-r from-[#14162a] via-[#111324] to-[#14162a] shadow-lg shadow-purple-950/10 transition-all duration-200">
-        {/* Left Title Block */}
-        <div>
+        {/* Left Title & Integrated Target Resume Dropdown */}
+        <div className="space-y-2">
           <div className="flex items-center gap-3 flex-wrap">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight text-white drop-shadow-xs">
+            <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white drop-shadow-xs">
               ATS Analysis
             </h1>
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
               <CheckCircle2 className="w-3.5 h-3.5" />
-              Status: Ready for Analysis
+              Status: Ready
             </span>
           </div>
 
-          <p className="text-xs md:text-sm text-slate-300/80 max-w-2xl leading-relaxed mt-1.5">
-            Analyze your resume for Applicant Tracking System compatibility and improve your chances of getting shortlisted.
-          </p>
+          {/* Target Resume Meta Pill */}
+          <div className="flex items-center gap-2 text-xs text-slate-300">
+            <span className="text-slate-400">Target Resume:</span>
+            <span className="font-semibold text-white bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-700/80 flex items-center gap-2">
+              <FileText className="w-3.5 h-3.5 text-purple-400" />
+              Software_Engineer_Resume.pdf
+              <span className="text-[10px] font-mono text-purple-300 bg-purple-500/20 px-1.5 py-0.5 rounded">v1.0</span>
+            </span>
+          </div>
         </div>
 
         {/* Action Buttons */}
