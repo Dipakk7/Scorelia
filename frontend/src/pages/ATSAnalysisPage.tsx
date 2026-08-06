@@ -136,12 +136,12 @@ export default function ATSAnalysisPage() {
   }
 
   return (
-    <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-5 sm:space-y-6 text-slate-100 selection:bg-purple-500/30">
+    <div className="w-full px-2.5 sm:px-4 lg:px-6 py-4 sm:py-5 space-y-4 sm:space-y-5 text-slate-100 selection:bg-purple-500/30">
       <motion.div
         variants={containerVariants}
         initial="initial"
         animate="animate"
-        className="space-y-5 sm:space-y-6"
+        className="space-y-4 sm:space-y-5"
       >
         {/* ATS Header */}
         <motion.div variants={sectionVariants}>
@@ -160,7 +160,7 @@ export default function ATSAnalysisPage() {
 
         {/* Dynamic Workspace Layout */}
         {isAtsLoading || isReanalyzing ? (
-          <div className="space-y-5 sm:space-y-6">
+          <div className="space-y-4 sm:space-y-5">
             <ATSHeroSkeleton />
             <ATSMetricsSkeleton />
             <ATSWorkspaceSkeleton />
@@ -175,7 +175,7 @@ export default function ATSAnalysisPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -8 }}
                 transition={{ duration: 0.2 }}
-                className="space-y-5 sm:space-y-6"
+                className="space-y-4 sm:space-y-5"
               >
                 {/* Row 1: Executive Command Hero (12 cols) */}
                 <ATSWidgetErrorBoundary sectionName="ATS Score Overview">
