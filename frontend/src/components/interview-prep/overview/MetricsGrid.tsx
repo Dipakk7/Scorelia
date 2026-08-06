@@ -67,11 +67,11 @@ export function MetricsGrid({ metrics = [], isLoading = false, isEmpty = false, 
                   </span>
                 </div>
 
-                {/* 2. Large Center Area: Perfect Semicircle Gauge, Score, /100, Excellent */}
-                <div className="flex flex-col items-center justify-center my-auto space-y-1.5 py-1">
-                  {/* Gauge Arc with Score & /100 inside SVG */}
+                {/* 2. Large Center Area: Refined SVG Semicircle Gauge, Score, /100, Excellent */}
+                <div className="flex flex-col items-center justify-center my-auto space-y-1 py-1">
+                  {/* Gauge Arc with Score & /100 inside padded SVG canvas */}
                   <div className="flex items-center justify-center">
-                    <svg className="w-24 h-13" viewBox="0 0 100 56">
+                    <svg className="w-22 h-13" viewBox="0 0 100 58">
                       <defs>
                         <linearGradient id="readiness-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                           <stop offset="0%" stopColor="#10b981" />
@@ -80,35 +80,35 @@ export function MetricsGrid({ metrics = [], isLoading = false, isEmpty = false, 
                       </defs>
                       {/* Background Arc Track */}
                       <path
-                        d="M 14,48 A 36,36 0 0,1 86,48"
+                        d="M 18,48 A 32,32 0 0,1 82,48"
                         fill="none"
                         stroke="#1e2030"
-                        strokeWidth="6"
+                        strokeWidth="4.5"
                         strokeLinecap="round"
                       />
                       {/* Colored Progress Arc */}
                       <path
-                        d="M 14,48 A 36,36 0 0,1 86,48"
+                        d="M 18,48 A 32,32 0 0,1 82,48"
                         fill="none"
                         stroke="url(#readiness-gradient)"
-                        strokeWidth="6"
-                        strokeDasharray="113.1"
-                        strokeDashoffset="14.7"
+                        strokeWidth="4.5"
+                        strokeDasharray="100.5"
+                        strokeDashoffset="13.1"
                         strokeLinecap="round"
                       />
                       {/* Score Value */}
-                      <text x="50" y="33" textAnchor="middle" className="text-xl font-black font-mono fill-white">
+                      <text x="50" y="34" textAnchor="middle" className="text-xl font-black font-mono fill-white">
                         {Number(metric.value) || 87}
                       </text>
                       {/* /100 Label */}
-                      <text x="50" y="45" textAnchor="middle" className="text-[9.5px] font-semibold fill-slate-400">
+                      <text x="50" y="46" textAnchor="middle" className="text-[9px] font-semibold fill-slate-400">
                         /100
                       </text>
                     </svg>
                   </div>
 
-                  {/* Excellent Label beneath /100 */}
-                  <Badge className="bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold px-2.5 py-0.5 rounded-md h-5 mt-1.5">
+                  {/* Excellent Label beneath /100 with ~12px spacing */}
+                  <Badge className="bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold px-2.5 py-0.5 rounded-md h-5 mt-3">
                     {metric.readinessTag || 'Excellent'}
                   </Badge>
                 </div>
