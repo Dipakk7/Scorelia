@@ -3,7 +3,6 @@ import {
   RefreshCw,
   Download,
   Sparkles,
-  ArrowLeft,
   CheckCircle2,
   FileText,
   Building,
@@ -63,13 +62,6 @@ export const CoverLetterHeader: React.FC<CoverLetterHeaderProps> = memo(({
         {/* Left Title & Integrated Target Context Pills */}
         <div className="space-y-2.5">
           <div className="flex items-center gap-3 flex-wrap">
-            <a
-              href="/dashboard"
-              className="p-2 rounded-xl border border-slate-700/80 bg-slate-900/80 text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
-              aria-label="Back to Dashboard"
-            >
-              <ArrowLeft className="w-4 h-4" />
-            </a>
             <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white drop-shadow-xs m-0">
               Cover Letter Generator
             </h1>
