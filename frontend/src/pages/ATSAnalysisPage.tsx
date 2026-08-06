@@ -136,7 +136,7 @@ export default function ATSAnalysisPage() {
   }
 
   return (
-    <div className="w-full px-2.5 sm:px-4 lg:px-6 py-4 sm:py-5 space-y-4 sm:space-y-5 text-slate-100 selection:bg-purple-500/30">
+    <div className="-m-4 md:-m-6 lg:-m-8 p-3 sm:p-4 lg:p-5 w-[calc(100%+2rem)] md:w-[calc(100%+3rem)] lg:w-[calc(100%+4rem)] space-y-4 sm:space-y-5 text-slate-100 selection:bg-purple-500/30 font-sans">
       <motion.div
         variants={containerVariants}
         initial="initial"
