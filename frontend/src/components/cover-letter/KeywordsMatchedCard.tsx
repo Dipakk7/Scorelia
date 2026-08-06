@@ -21,8 +21,8 @@ export const KeywordsMatchedCardComponent: React.FC = () => {
     <SidebarCard
       title={
         <div className="flex items-center gap-2">
-          <Target size={16} className="text-emerald-400" />
-          <span className="font-extrabold text-sm text-[var(--heading)]">Matched & Missing Keywords</span>
+          <Target className="w-4 h-4 text-emerald-400" />
+          <span className="font-extrabold text-sm text-white">Matched & Missing Keywords</span>
         </div>
       }
       action={
@@ -35,12 +35,12 @@ export const KeywordsMatchedCardComponent: React.FC = () => {
         {/* Coverage Progress Bar */}
         <div className="space-y-1">
           <div className="flex justify-between text-xs font-bold">
-            <span className="text-[var(--heading)]">Keyword Alignment</span>
+            <span className="text-slate-300">Keyword Alignment</span>
             <span className="text-emerald-400">
               {matchedCount} matched / {missingCount} missing
             </span>
           </div>
-          <div className="h-2 w-full rounded-full bg-[var(--surface-hover)] overflow-hidden">
+          <div className="h-2 w-full rounded-full bg-slate-800 overflow-hidden">
             <div
               className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-400"
               style={{ width: `${matchPercentage}%` }}
@@ -49,14 +49,14 @@ export const KeywordsMatchedCardComponent: React.FC = () => {
         </div>
 
         {/* Tab Filters */}
-        <div className="flex items-center gap-1 bg-[var(--surface-hover)]/60 p-1 rounded-xl border border-[var(--border)] text-xs font-bold">
+        <div className="flex items-center gap-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800 text-xs font-bold">
           <button
             type="button"
             onClick={() => setActiveTab('all')}
             className={`flex-1 py-1 rounded-lg text-center transition-colors cursor-pointer border-none ${
               activeTab === 'all'
-                ? 'bg-[var(--primary)] text-white shadow-sm'
-                : 'text-[var(--muted)] hover:text-[var(--heading)] bg-transparent'
+                ? 'bg-purple-600/40 text-white border border-purple-500/40 shadow-sm font-bold'
+                : 'text-slate-400 hover:text-slate-200 bg-transparent font-medium'
             }`}
           >
             All ({totalCount})
@@ -66,8 +66,8 @@ export const KeywordsMatchedCardComponent: React.FC = () => {
             onClick={() => setActiveTab('matched')}
             className={`flex-1 py-1 rounded-lg text-center transition-colors cursor-pointer border-none ${
               activeTab === 'matched'
-                ? 'bg-emerald-500 text-white shadow-sm'
-                : 'text-[var(--muted)] hover:text-[var(--heading)] bg-transparent'
+                ? 'bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 shadow-sm font-bold'
+                : 'text-slate-400 hover:text-slate-200 bg-transparent font-medium'
             }`}
           >
             Matched ({matchedCount})
@@ -77,8 +77,8 @@ export const KeywordsMatchedCardComponent: React.FC = () => {
             onClick={() => setActiveTab('missing')}
             className={`flex-1 py-1 rounded-lg text-center transition-colors cursor-pointer border-none ${
               activeTab === 'missing'
-                ? 'bg-rose-500 text-white shadow-sm'
-                : 'text-[var(--muted)] hover:text-[var(--heading)] bg-transparent'
+                ? 'bg-rose-500/30 text-rose-300 border border-rose-500/40 shadow-sm font-bold'
+                : 'text-slate-400 hover:text-slate-200 bg-transparent font-medium'
             }`}
           >
             Missing ({missingCount})
@@ -90,16 +90,16 @@ export const KeywordsMatchedCardComponent: React.FC = () => {
           {filteredKeywords.map((kw) => (
             <span
               key={kw.name}
-              className={`inline-flex items-center gap-1 text-[11px] font-extrabold px-2.5 py-1 rounded-full border transition-all ${
+              className={`inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full border transition-all ${
                 kw.status === 'matched'
                   ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                   : 'bg-rose-500/10 text-rose-400 border-rose-500/20'
               }`}
             >
               {kw.status === 'matched' ? (
-                <CheckCircle2 size={11} className="text-emerald-400" />
+                <CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0" />
               ) : (
-                <AlertCircle size={11} className="text-rose-400" />
+                <AlertCircle className="w-3 h-3 text-rose-400 shrink-0" />
               )}
               <span>{kw.name}</span>
             </span>

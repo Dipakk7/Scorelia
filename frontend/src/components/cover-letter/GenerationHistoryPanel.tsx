@@ -16,8 +16,8 @@ export const GenerationHistoryPanel: React.FC<GenerationHistoryPanelProps> = ({
     <SidebarCard
       title={
         <div className="flex items-center gap-2">
-          <Clock size={16} className="text-purple-400" />
-          <span className="font-extrabold text-sm text-[var(--heading)]">Generation History</span>
+          <Clock className="w-4 h-4 text-purple-400" />
+          <span className="font-extrabold text-sm text-white">AI Generation Audit Logs</span>
         </div>
       }
     >
@@ -25,10 +25,10 @@ export const GenerationHistoryPanel: React.FC<GenerationHistoryPanelProps> = ({
         {logs.map((log) => (
           <div
             key={log.id}
-            className="p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-hover)]/30 hover:bg-[var(--surface-hover)] transition-colors space-y-1.5"
+            className="p-3 rounded-xl border border-slate-800 bg-slate-900/60 hover:bg-slate-900 transition-colors space-y-1.5"
           >
             <div className="flex items-center justify-between gap-2">
-              <span className="font-bold text-xs text-[var(--heading)] truncate">
+              <span className="font-bold text-xs text-white truncate">
                 {log.jobTitle} at {log.companyName}
               </span>
               <span className="px-2 py-0.5 rounded text-[10px] font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
@@ -36,7 +36,7 @@ export const GenerationHistoryPanel: React.FC<GenerationHistoryPanelProps> = ({
               </span>
             </div>
 
-            <div className="flex items-center justify-between text-[11px] text-[var(--muted)] font-medium">
+            <div className="flex items-center justify-between text-[11px] text-slate-400 font-medium">
               <span>
                 {log.templateName} • {log.tone}
               </span>
@@ -44,9 +44,9 @@ export const GenerationHistoryPanel: React.FC<GenerationHistoryPanelProps> = ({
               <button
                 type="button"
                 onClick={() => onRestoreGeneration?.(log)}
-                className="flex items-center gap-1 text-[11px] font-bold text-[var(--primary)] hover:underline cursor-pointer border-none bg-transparent p-0"
+                className="flex items-center gap-1 text-[11px] font-bold text-purple-300 hover:text-white transition-colors cursor-pointer border-none bg-transparent p-0"
               >
-                <RotateCcw size={10} />
+                <RotateCcw className="w-3 h-3 text-purple-400" />
                 <span>Restore {log.versionLabel}</span>
               </button>
             </div>

@@ -1,29 +1,23 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { AlertCircle, RefreshCw } from 'lucide-react'
 import { useScoreliaReducedMotion, getContainerVariants, getSectionVariants } from '@/lib/motion'
 import { useCoverLetter } from '@/hooks/useCoverLetter'
-import { CoverLetterHeader } from '@/components/cover-letter/CoverLetterHeader'
-import { CoverLetterStepsBar } from '@/components/cover-letter/CoverLetterStepsBar'
+import { CoverLetterHeader, type CoverLetterTab } from '@/components/cover-letter/CoverLetterHeader'
 import { WorkspaceLayout } from '@/components/cover-letter/WorkspaceLayout'
+import { CoverLetterSidebar } from '@/components/cover-letter/CoverLetterSidebar'
 import { CoverLetterInputsCard } from '@/components/cover-letter/CoverLetterInputsCard'
 import { CoverLetterPreviewCard } from '@/components/cover-letter/CoverLetterPreviewCard'
 import { AIEnhancementToolsCard } from '@/components/cover-letter/AIEnhancementToolsCard'
-import { CoverLetterQuickActions } from '@/components/cover-letter/CoverLetterQuickActions'
 import { AIGenerationProgressPanel } from '@/components/cover-letter/AIGenerationProgressPanel'
 import { VersionHistoryPanel } from '@/components/cover-letter/VersionHistoryPanel'
 import { GenerationHistoryPanel } from '@/components/cover-letter/GenerationHistoryPanel'
 import { CoverLetterScoreCard } from '@/components/cover-letter/CoverLetterScoreCard'
-import { KeywordsMatchedCard } from '@/components/cover-letter/KeywordsMatchedCard'
-import { AIAssistantCard } from '@/components/cover-letter/AIAssistantCard'
 import { SmartSuggestionsCard } from '@/components/cover-letter/SmartSuggestionsCard'
-import { CoverLetterTemplatesCard } from '@/components/cover-letter/CoverLetterTemplatesCard'
-import { DocumentStylePanel, defaultDocumentStyleSettings, type DocumentStyleSettings } from '@/components/cover-letter/DocumentStylePanel'
-import { PersonalizationInsightsCard } from '@/components/cover-letter/PersonalizationInsightsCard'
+import { defaultDocumentStyleSettings, type DocumentStyleSettings } from '@/components/cover-letter/DocumentStylePanel'
 import { CompareVersionsModal } from '@/components/cover-letter/CompareVersionsModal'
 import { ExportCoverLetterModal } from '@/components/cover-letter/ExportCoverLetterModal'
 import { LoadingSkeleton } from '@/components/cover-letter/LoadingSkeleton'
-import { EmptyState } from '@/components/cover-letter/EmptyState'
 import {
   mockCoverLetterVersions,
   type MockCoverLetterContent,
@@ -50,9 +44,8 @@ export default function CoverLetterPage() {
     adaptedActiveContent,
   } = useCoverLetter()
 
-  const [currentStep, setCurrentStep] = useState(3)
+  const [activeTab, setActiveTab] = useState<CoverLetterTab>('editor')
   const [selectedTemplateId, setSelectedTemplateId] = useState('modern')
-  const [viewState, setViewState] = useState<'workspace' | 'skeleton' | 'empty'>('workspace')
 
   // Style Settings state
   const [styleSettings, setStyleSettings] = useState<DocumentStyleSettings>(defaultDocumentStyleSettings)
@@ -86,7 +79,7 @@ export default function CoverLetterPage() {
 
   const handleCompleteGeneration = () => {
     setIsGenerating(false)
-    setCurrentStep(3)
+    setActiveTab('editor')
   }
 
   const handleCancelGeneration = () => {
@@ -116,7 +109,7 @@ export default function CoverLetterPage() {
       {
         onSettled: () => {
           setIsGenerating(false)
-          setCurrentStep(3)
+          setActiveTab('editor')
         },
       }
     )
@@ -147,24 +140,9 @@ export default function CoverLetterPage() {
     navigator.clipboard?.writeText(text)
   }
 
-  const handleDuplicateVersion = () => {
-    const newVer: MockCoverLetterContent = {
-      ...activeVersion,
-      id: `v-${Date.now()}`,
-      versionNumber: 2,
-      versionLabel: `Version 2 — Custom Edit`,
-      createdAt: 'Just now',
-    }
-    setActiveVersion(newVer)
-  }
-
   const handleResetDraft = () => {
     setActiveVersion(adaptedActiveContent)
     setStyleSettings(defaultDocumentStyleSettings)
-  }
-
-  const handleToggleFavorite = () => {
-    setActiveVersion((prev) => ({ ...prev, isFavorite: !prev.isFavorite }))
   }
 
   const handleRestoreFromHistory = (log: GenerationHistoryLog) => {
@@ -175,208 +153,225 @@ export default function CoverLetterPage() {
 
   const isLoading = resumesQuery.isLoading || historyQuery.isLoading
 
+  // Selected metadata titles for Header display
+  const selectedResumeTitle = adaptedResumes[0]?.title ?? 'Dipak_Khandagale_AI_Engineer.pdf'
+
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="space-y-6 max-w-full overflow-x-hidden p-4 sm:p-6 text-left selection:bg-purple-500/30"
-    >
-      {/* Top Header */}
-      <CoverLetterHeader
-        onGenerateClick={handleStartGeneration}
-        onExportClick={() => setIsExportOpen(true)}
-      />
-
-      {/* Inline Error Card with Retry */}
-      {errorMessage && (
-        <motion.div
-          variants={itemVariants}
-          className="p-4 rounded-2xl border border-rose-500/30 bg-rose-500/10 text-xs text-rose-300 flex items-center justify-between gap-3 animate-fade-in"
-        >
-          <div className="flex items-center gap-2">
-            <AlertCircle size={16} className="text-rose-400 shrink-0" />
-            <span>{errorMessage}</span>
-          </div>
-          <button
-            type="button"
-            onClick={() => setErrorMessage(null)}
-            className="flex items-center gap-1 px-3 py-1 rounded-xl bg-rose-500/20 text-rose-200 font-bold hover:bg-rose-500/30 border-none cursor-pointer"
-          >
-            <RefreshCw size={11} />
-            <span>Dismiss</span>
-          </button>
-        </motion.div>
-      )}
-
-      {/* Side-by-Side Compare Versions Modal */}
-      <CompareVersionsModal
-        isOpen={isCompareOpen}
-        onClose={() => setIsCompareOpen(false)}
-        originalVersion={mockCoverLetterVersions[0]}
-        activeVersion={activeVersion}
-      />
-
-      {/* Export Document Modal */}
-      <ExportCoverLetterModal
-        isOpen={isExportOpen}
-        onClose={() => setIsExportOpen(false)}
-        content={activeVersion}
-        styleSettings={styleSettings}
-      />
-
-      {/* Workspace View Mode Pill Bar */}
+    <div className="-m-4 md:-m-6 lg:-m-8 p-3 sm:p-4 lg:p-5 w-[calc(100%+2rem)] md:w-[calc(100%+3rem)] lg:w-[calc(100%+4rem)] space-y-4 sm:space-y-5 text-slate-100 selection:bg-purple-500/30 font-sans">
       <motion.div
-        variants={itemVariants}
-        className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-2xl border border-[var(--border)] bg-[var(--surface)] text-xs"
+        variants={containerVariants}
+        initial="initial"
+        animate="animate"
+        className="space-y-4 sm:space-y-5"
       >
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className="font-bold text-[var(--heading)] font-sans">Phase 9 Production Verification Edition:</span>
-          <div className="flex items-center gap-1 bg-[var(--surface-hover)]/60 p-1 rounded-xl border border-[var(--border)]">
-            <button
-              type="button"
-              onClick={() => setViewState('workspace')}
-              className={`px-3 py-1 rounded-lg font-bold transition-all cursor-pointer border-none ${
-                viewState === 'workspace'
-                  ? 'bg-[var(--primary)] text-white shadow-sm'
-                  : 'bg-transparent text-[var(--muted)] hover:text-[var(--heading)]'
-              }`}
-            >
-              Verified Workspace
-            </button>
-            <button
-              type="button"
-              onClick={() => setViewState('skeleton')}
-              className={`px-3 py-1 rounded-lg font-bold transition-all cursor-pointer border-none ${
-                viewState === 'skeleton'
-                  ? 'bg-[var(--primary)] text-white shadow-sm'
-                  : 'bg-transparent text-[var(--muted)] hover:text-[var(--heading)]'
-              }`}
-            >
-              Skeleton Shimmer
-            </button>
-            <button
-              type="button"
-              onClick={() => setViewState('empty')}
-              className={`px-3 py-1 rounded-lg font-bold transition-all cursor-pointer border-none ${
-                viewState === 'empty'
-                  ? 'bg-[var(--primary)] text-white shadow-sm'
-                  : 'bg-transparent text-[var(--muted)] hover:text-[var(--heading)]'
-              }`}
-            >
-              Empty State
-            </button>
-          </div>
-        </div>
-
-        <button
-          type="button"
-          onClick={() => setIsExportOpen(true)}
-          className="text-xs font-bold text-emerald-400 hover:underline cursor-pointer bg-transparent border-none p-0"
-        >
-          Export (.pdf, .docx, .md, .txt, .json) ⚡
-        </button>
-      </motion.div>
-
-      {/* Step Navigation Wizard */}
-      <CoverLetterStepsBar currentStep={currentStep} onSelectStep={setCurrentStep} />
-
-      {/* Dynamic View Rendering */}
-      {isLoading || viewState === 'skeleton' ? (
-        <LoadingSkeleton />
-      ) : viewState === 'empty' ? (
-        <EmptyState
-          onAction={() => {
-            setViewState('workspace')
-          }}
+        {/* Top Executive Header & Workspace Tab Bar */}
+        <CoverLetterHeader
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          onGenerateClick={handleStartGeneration}
+          onExportClick={() => setIsExportOpen(true)}
+          onRefreshClick={handleResetDraft}
+          isGenerating={isGenerating || generateMutation.isPending}
+          selectedResumeTitle={selectedResumeTitle}
+          companyName="Google"
+          jobTitle="Senior AI Engineer"
         />
-      ) : (
-        <WorkspaceLayout
-          leftContent={
-            <>
-              {/* Multi-Stage AI Generation Timeline Modal / Progress Overlay */}
-              {isGenerating && (
-                <AIGenerationProgressPanel
-                  onComplete={handleCompleteGeneration}
-                  onCancel={handleCancelGeneration}
+
+        {/* Inline Error Card with Dismiss */}
+        {errorMessage && (
+          <motion.div
+            variants={itemVariants}
+            className="p-4 rounded-2xl border border-rose-500/30 bg-rose-500/10 text-xs text-rose-300 flex items-center justify-between gap-3 animate-fade-in"
+          >
+            <div className="flex items-center gap-2">
+              <AlertCircle size={16} className="text-rose-400 shrink-0" />
+              <span>{errorMessage}</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setErrorMessage(null)}
+              className="flex items-center gap-1 px-3 py-1 rounded-xl bg-rose-500/20 text-rose-200 font-bold hover:bg-rose-500/30 border-none cursor-pointer"
+            >
+              <RefreshCw size={11} />
+              <span>Dismiss</span>
+            </button>
+          </motion.div>
+        )}
+
+        {/* Side-by-Side Compare Versions Modal */}
+        <CompareVersionsModal
+          isOpen={isCompareOpen}
+          onClose={() => setIsCompareOpen(false)}
+          originalVersion={mockCoverLetterVersions[0]}
+          activeVersion={activeVersion}
+        />
+
+        {/* Export Document Modal */}
+        <ExportCoverLetterModal
+          isOpen={isExportOpen}
+          onClose={() => setIsExportOpen(false)}
+          content={activeVersion}
+          styleSettings={styleSettings}
+        />
+
+        {/* Dynamic Workspace View Switching */}
+        {isLoading ? (
+          <LoadingSkeleton />
+        ) : (
+          <AnimatePresence mode="wait">
+            {/* WORKSPACE TAB 1: SETUP & TARGET JOB */}
+            {activeTab === 'setup' && (
+              <motion.div
+                key="workspace-setup"
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -8 }}
+                transition={{ duration: 0.2 }}
+              >
+                <WorkspaceLayout
+                  leftContent={
+                    <CoverLetterInputsCard
+                      resumes={adaptedResumes}
+                      isGenerating={generateMutation.isPending || isGenerating}
+                      onStartGeneration={handleStartGeneration}
+                      onGenerateClick={handleGenerateSubmit}
+                    />
+                  }
+                  rightSidebar={
+                    <CoverLetterSidebar
+                      activeWorkspaceTab={activeTab}
+                      activeVersionId={activeVersion.id}
+                      selectedTemplateId={selectedTemplateId}
+                      onSelectTemplate={setSelectedTemplateId}
+                      onSelectVersion={setActiveVersion}
+                      onOpenCompareModal={() => setIsCompareOpen(true)}
+                      onRestoreGeneration={handleRestoreFromHistory}
+                    />
+                  }
                 />
-              )}
+              </motion.div>
+            )}
 
-              {/* Document Personalization & Style Settings Panel */}
-              <DocumentStylePanel
-                settings={styleSettings}
-                onUpdateSettings={handleUpdateStyleSettings}
-              />
+            {/* WORKSPACE TAB 2: WRITING STUDIO */}
+            {activeTab === 'editor' && (
+              <motion.div
+                key="workspace-editor"
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -8 }}
+                transition={{ duration: 0.2 }}
+              >
+                <WorkspaceLayout
+                  leftContent={
+                    <>
+                      {isGenerating && (
+                        <AIGenerationProgressPanel
+                          onComplete={handleCompleteGeneration}
+                          onCancel={handleCancelGeneration}
+                        />
+                      )}
 
-              {/* Quick Actions Toolbar */}
-              <CoverLetterQuickActions
-                onCopyText={handleCopyText}
-                onDuplicateVersion={handleDuplicateVersion}
-                onResetDraft={handleResetDraft}
-                onToggleFavorite={handleToggleFavorite}
-                onDownloadClick={() => setIsExportOpen(true)}
-                isFavorite={activeVersion.isFavorite}
-              />
+                      <CoverLetterPreviewCard
+                        activeVersion={activeVersion}
+                        selectedTemplateId={selectedTemplateId}
+                        onTemplateChange={setSelectedTemplateId}
+                        isGenerating={isGenerating}
+                        styleSettings={styleSettings}
+                        onUpdateStyleSettings={handleUpdateStyleSettings}
+                        onCopyText={handleCopyText}
+                        onExportClick={() => setIsExportOpen(true)}
+                      />
+                    </>
+                  }
+                  rightSidebar={
+                    <CoverLetterSidebar
+                      activeWorkspaceTab={activeTab}
+                      activeVersionId={activeVersion.id}
+                      selectedTemplateId={selectedTemplateId}
+                      onSelectTemplate={setSelectedTemplateId}
+                      onSelectVersion={setActiveVersion}
+                      onOpenCompareModal={() => setIsCompareOpen(true)}
+                      onRestoreGeneration={handleRestoreFromHistory}
+                    />
+                  }
+                />
+              </motion.div>
+            )}
 
-              {/* Inputs Card */}
-              <CoverLetterInputsCard
-                resumes={adaptedResumes}
-                isGenerating={generateMutation.isPending || isGenerating}
-                onStartGeneration={handleStartGeneration}
-                onGenerateClick={handleGenerateSubmit}
-              />
+            {/* WORKSPACE TAB 3: AI OPTIMIZATION */}
+            {activeTab === 'optimization' && (
+              <motion.div
+                key="workspace-optimization"
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -8 }}
+                transition={{ duration: 0.2 }}
+              >
+                <WorkspaceLayout
+                  leftContent={
+                    <>
+                      <AIEnhancementToolsCard
+                        onApplyToolTransformation={handleApplyToolTransformation}
+                      />
+                      <SmartSuggestionsCard />
+                    </>
+                  }
+                  rightSidebar={
+                    <CoverLetterSidebar
+                      activeWorkspaceTab={activeTab}
+                      activeVersionId={activeVersion.id}
+                      selectedTemplateId={selectedTemplateId}
+                      onSelectTemplate={setSelectedTemplateId}
+                      onSelectVersion={setActiveVersion}
+                      onOpenCompareModal={() => setIsCompareOpen(true)}
+                      onRestoreGeneration={handleRestoreFromHistory}
+                    />
+                  }
+                />
+              </motion.div>
+            )}
 
-              {/* Cover Letter Preview & Inline Editor Card */}
-              <CoverLetterPreviewCard
-                activeVersion={activeVersion}
-                selectedTemplateId={selectedTemplateId}
-                onTemplateChange={setSelectedTemplateId}
-                isGenerating={isGenerating}
-                styleSettings={styleSettings}
-              />
-
-              {/* 8 AI Enhancement Actions Panel */}
-              <AIEnhancementToolsCard
-                onApplyToolTransformation={handleApplyToolTransformation}
-              />
-            </>
-          }
-          rightSidebar={
-            <>
-              {/* Personalization Insights Widget */}
-              <PersonalizationInsightsCard />
-
-              {/* Version History & Edit Log Drawer */}
-              <VersionHistoryPanel
-                activeVersionId={activeVersion.id}
-                onSelectVersion={setActiveVersion}
-                onOpenCompareModal={() => setIsCompareOpen(true)}
-              />
-
-              {/* Cover Letter Score Gauge & Sub-Metrics */}
-              <CoverLetterScoreCard />
-
-              {/* Matched & Missing Keywords */}
-              <KeywordsMatchedCard />
-
-              {/* Scorelia AI Assistant Chat */}
-              <AIAssistantCard />
-
-              {/* Generation History Log */}
-              <GenerationHistoryPanel onRestoreGeneration={handleRestoreFromHistory} />
-
-              {/* Smart Suggestions */}
-              <SmartSuggestionsCard />
-
-              {/* Cover Letter Templates Picker */}
-              <CoverLetterTemplatesCard
-                selectedTemplateId={selectedTemplateId}
-                onSelectTemplate={setSelectedTemplateId}
-              />
-            </>
-          }
-        />
-      )}
-    </motion.div>
+            {/* WORKSPACE TAB 4: REVIEW & EXPORT */}
+            {activeTab === 'review' && (
+              <motion.div
+                key="workspace-review"
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -8 }}
+                transition={{ duration: 0.2 }}
+              >
+                <WorkspaceLayout
+                  leftContent={
+                    <>
+                      <CoverLetterScoreCard
+                        onExportClick={() => setIsExportOpen(true)}
+                        onCopyClick={handleCopyText}
+                      />
+                      <VersionHistoryPanel
+                        activeVersionId={activeVersion.id}
+                        onSelectVersion={setActiveVersion}
+                        onOpenCompareModal={() => setIsCompareOpen(true)}
+                      />
+                      <GenerationHistoryPanel onRestoreGeneration={handleRestoreFromHistory} />
+                    </>
+                  }
+                  rightSidebar={
+                    <CoverLetterSidebar
+                      activeWorkspaceTab={activeTab}
+                      activeVersionId={activeVersion.id}
+                      selectedTemplateId={selectedTemplateId}
+                      onSelectTemplate={setSelectedTemplateId}
+                      onSelectVersion={setActiveVersion}
+                      onOpenCompareModal={() => setIsCompareOpen(true)}
+                      onRestoreGeneration={handleRestoreFromHistory}
+                    />
+                  }
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        )}
+      </motion.div>
+    </div>
   )
 }

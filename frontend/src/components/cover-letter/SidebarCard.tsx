@@ -23,29 +23,29 @@ export const SidebarCard: React.FC<SidebarCardProps> = ({
   return (
     <div
       className={cn(
-        'rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/30 transition-all duration-300 w-full min-w-0',
+        'rounded-2xl bg-[#121426] border border-white/10 bg-gradient-to-r from-[#14162a] via-[#111324] to-[#14162a] p-4 sm:p-5 shadow-lg shadow-purple-950/10 transition-all duration-300 w-full min-w-0 text-left text-slate-100',
         className
       )}
     >
       {(title || action || icon) && (
         <div
           className={cn(
-            'flex items-center justify-between gap-3 pb-3.5 mb-4 border-b border-[var(--border)]',
+            'flex items-center justify-between gap-3 pb-3 mb-3.5 border-b border-slate-800/80',
             headerClassName
           )}
         >
           <div className="flex items-center gap-2.5 min-w-0">
-            {icon && <div className="text-[var(--primary)] shrink-0">{icon}</div>}
+            {icon && <div className="text-purple-400 shrink-0">{icon}</div>}
             <div className="min-w-0 text-left">
               {typeof title === 'string' ? (
-                <h4 className="font-display font-extrabold text-sm text-[var(--heading)] truncate m-0 leading-tight">
+                <h4 className="font-extrabold text-sm text-white truncate m-0 leading-tight">
                   {title}
                 </h4>
               ) : (
                 title
               )}
               {subtitle && (
-                <p className="text-[11px] text-[var(--muted)] font-medium truncate m-0 mt-0.5 leading-tight">
+                <p className="text-[11px] text-slate-400 font-medium truncate m-0 mt-0.5 leading-tight">
                   {subtitle}
                 </p>
               )}
