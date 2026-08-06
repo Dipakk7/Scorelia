@@ -14,7 +14,6 @@ import { ATSHeader, type ATSTab } from '@/components/ats-analysis/ATSHeader'
 import { ResumeSelector, type ResumeOption } from '@/components/ats-analysis/ResumeSelector'
 import { ATSHeroCard } from '@/components/ats-analysis/ATSHeroCard'
 import { MetricsGrid } from '@/components/ats-analysis/MetricsGrid'
-import { WorkspaceLayout } from '@/components/ats-analysis/WorkspaceLayout'
 import { Sidebar } from '@/components/ats-analysis/Sidebar'
 
 // Phase 2 Components
