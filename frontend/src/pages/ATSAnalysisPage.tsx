@@ -242,9 +242,6 @@ export default function ATSAnalysisPage() {
                       <ATSWidgetErrorBoundary sectionName="AI Health Summary Sidebar">
                         <AIInsightsSidebar />
                       </ATSWidgetErrorBoundary>
-                      <ATSWidgetErrorBoundary sectionName="ATS Details Sidebar">
-                        <Sidebar onStartAnalysis={handleReanalyze} />
-                      </ATSWidgetErrorBoundary>
                     </div>
                   }
                 />
@@ -394,11 +391,6 @@ export default function ATSAnalysisPage() {
                             <SectionImprovementTimelineCard timeline={currentSectionDetail.timeline} />
                           </ATSWidgetErrorBoundary>
                         </div>
-                        <div className="lg:col-span-12">
-                          <ATSWidgetErrorBoundary sectionName="Section Scores Breakdown">
-                            <SectionScoresCard />
-                          </ATSWidgetErrorBoundary>
-                        </div>
                       </motion.div>
                     )
                   }
@@ -409,6 +401,9 @@ export default function ATSAnalysisPage() {
                           <SectionSidebar section={currentSectionDetail} />
                         </ATSWidgetErrorBoundary>
                       )}
+                      <ATSWidgetErrorBoundary sectionName="Section Scores Breakdown">
+                        <SectionScoresCard />
+                      </ATSWidgetErrorBoundary>
                       <ATSWidgetErrorBoundary sectionName="AI Health Summary Sidebar">
                         <AIInsightsSidebar />
                       </ATSWidgetErrorBoundary>
