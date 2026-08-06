@@ -240,14 +240,14 @@
   --secondary: 180 85% 55%;
   --secondary-foreground: 240 25% 4%;
   --muted: 240 10% 16%;
-  --muted-foreground: 215 15% 65%;
+  --muted-foreground: 215 20% 75%;
   --accent: 250 95% 15%;
   --accent-foreground: 210 40% 98%;
   --success: 142 70% 45%;
   --warning: 38 92% 50%;
   --destructive: 350 80% 55%;
-  --border: 240 10% 20%;
-  --input: 240 10% 18%;
+  --border: 240 12% 25%;
+  --input: 240 10% 20%;
   --ring: 250 95% 64%;
 
   /* Surface Elevation System - Dark Mode Hierarchy Parity */
@@ -256,8 +256,8 @@
   --surface-l2: #0e0f18;
   --surface-l3: #121420;
   --surface-l4: #171928;
-  --border-subtle: rgba(255, 255, 255, 0.04);
-  --border-elevated: rgba(255, 255, 255, 0.07);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-elevated: rgba(255, 255, 255, 0.12);
 
   /* Direct CSS Variable mappings */
   --surface: hsl(var(--card));
@@ -412,14 +412,14 @@
   --secondary: 180 85% 55%;
   --secondary-foreground: 240 25% 4%;
   --muted: 240 10% 16%;
-  --muted-foreground: 215 15% 65%;
+  --muted-foreground: 215 20% 75%;
   --accent: 250 95% 15%;
   --accent-foreground: 210 40% 98%;
   --success: 142 70% 45%;
   --warning: 38 92% 50%;
   --destructive: 350 80% 55%;
-  --border: 240 10% 20%;
-  --input: 240 10% 18%;
+  --border: 240 12% 25%;
+  --input: 240 10% 20%;
   --ring: 250 95% 64%;
 
   /* Surface Elevation System - Dark Mode Hierarchy Parity */
@@ -428,8 +428,8 @@
   --surface-l2: #0e0f18;
   --surface-l3: #121420;
   --surface-l4: #171928;
-  --border-subtle: rgba(255, 255, 255, 0.04);
-  --border-elevated: rgba(255, 255, 255, 0.07);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-elevated: rgba(255, 255, 255, 0.12);
 
   /* Direct CSS Variable mappings */
   --surface: hsl(var(--card));

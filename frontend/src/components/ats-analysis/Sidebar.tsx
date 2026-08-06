@@ -37,27 +37,27 @@ export const SidebarMetaCard: React.FC = () => (
 
       <div className="grid grid-cols-2 gap-2 text-xs font-mono">
         <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-0.5 shadow-inner">
-          <span className="text-slate-400 font-sans text-[11px]">Total Checks</span>
+          <span className="text-slate-300 font-sans text-[11px]">Total Checks</span>
           <div className="text-sm font-bold text-white">
             {mockSidebarData.analysisSummary.totalChecks}
           </div>
         </div>
         <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-0.5 shadow-inner">
-          <span className="text-slate-400 font-sans text-[11px]">Passed Checks</span>
+          <span className="text-slate-300 font-sans text-[11px]">Passed Checks</span>
           <div className="text-sm font-bold text-emerald-400 flex items-center gap-1">
             <CheckCircle2 className="w-3.5 h-3.5" />
             {mockSidebarData.analysisSummary.passedChecks}
           </div>
         </div>
         <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-0.5 shadow-inner">
-          <span className="text-slate-400 font-sans text-[11px]">Warnings</span>
+          <span className="text-slate-300 font-sans text-[11px]">Warnings</span>
           <div className="text-sm font-bold text-amber-400 flex items-center gap-1">
             <AlertTriangle className="w-3.5 h-3.5" />
             {mockSidebarData.analysisSummary.warningChecks}
           </div>
         </div>
         <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 space-y-0.5 shadow-inner">
-          <span className="text-slate-400 font-sans text-[11px]">Passed Rate</span>
+          <span className="text-slate-300 font-sans text-[11px]">Passed Rate</span>
           <div className="text-sm font-bold text-purple-300">90%</div>
         </div>
       </div>
@@ -77,24 +77,24 @@ export const SidebarMetaCard: React.FC = () => (
 
       <div className="space-y-2 text-xs font-mono">
         <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 gap-2 shadow-inner">
-          <span className="text-slate-400 font-sans shrink-0">File Name</span>
+          <span className="text-slate-300 font-sans shrink-0">File Name</span>
           <span className="text-slate-100 truncate text-right font-medium" title="Software_Engineer_Resume.pdf">
             Software_Engineer_Resume.pdf
           </span>
         </div>
 
         <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 shadow-inner">
-          <span className="text-slate-400 font-sans">Last Analyzed</span>
+          <span className="text-slate-300 font-sans">Last Analyzed</span>
           <span className="text-emerald-400 font-sans text-[11px] font-semibold">May 18, 2026</span>
         </div>
 
         <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 shadow-inner">
-          <span className="text-slate-400 font-sans">Page Count</span>
+          <span className="text-slate-300 font-sans">Page Count</span>
           <span className="text-slate-200 font-sans">2 Pages</span>
         </div>
 
         <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 shadow-inner">
-          <span className="text-slate-400 font-sans">File Size</span>
+          <span className="text-slate-300 font-sans">File Size</span>
           <span className="text-slate-200 font-sans">185 KB</span>
         </div>
       </div>
