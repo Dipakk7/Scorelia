@@ -4,9 +4,6 @@ import {
   Download,
   Sparkles,
   CheckCircle2,
-  FileText,
-  Building,
-  Briefcase,
   SlidersHorizontal,
   Edit3,
   Target,
@@ -59,35 +56,15 @@ export const CoverLetterHeader: React.FC<CoverLetterHeaderProps> = memo(({
     <header className="flex flex-col gap-4 mb-4 text-left">
       {/* Top Title & Actions Hero Section matching ATS Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-4 md:p-6 rounded-2xl bg-[#121426] border border-white/10 bg-gradient-to-r from-[#14162a] via-[#111324] to-[#14162a] shadow-lg shadow-purple-950/10 transition-all duration-200">
-        {/* Left Title & Integrated Target Context Pills */}
-        <div className="space-y-2.5">
-          <div className="flex items-center gap-3 flex-wrap">
-            <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white drop-shadow-xs m-0">
-              Cover Letter Generator
-            </h1>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              <CheckCircle2 className="w-3.5 h-3.5" />
-              <span>{isGenerating ? 'Status: Generating...' : 'Status: Ready'}</span>
-            </span>
-          </div>
-
-          {/* Target Metadata Context Pills */}
-          <div className="flex items-center gap-2 text-xs text-slate-300 flex-wrap">
-            <span className="font-semibold text-white bg-slate-900/90 px-2.5 py-1 rounded-lg border border-slate-700/80 flex items-center gap-1.5">
-              <FileText className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-              <span className="truncate max-w-[180px]">{selectedResumeTitle}</span>
-            </span>
-            <span className="text-slate-500">•</span>
-            <span className="font-semibold text-white bg-slate-900/90 px-2.5 py-1 rounded-lg border border-slate-700/80 flex items-center gap-1.5">
-              <Building className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
-              <span>{companyName}</span>
-            </span>
-            <span className="text-slate-500">•</span>
-            <span className="font-semibold text-white bg-slate-900/90 px-2.5 py-1 rounded-lg border border-slate-700/80 flex items-center gap-1.5">
-              <Briefcase className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-              <span>{jobTitle}</span>
-            </span>
-          </div>
+        {/* Left Title */}
+        <div className="flex items-center gap-3 flex-wrap">
+          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white drop-shadow-xs m-0">
+            Cover Letter Generator
+          </h1>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <CheckCircle2 className="w-3.5 h-3.5" />
+            <span>{isGenerating ? 'Status: Generating...' : 'Status: Ready'}</span>
+          </span>
         </div>
 
         {/* Action Buttons (Single Entry Point) */}
