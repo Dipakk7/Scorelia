@@ -66,7 +66,7 @@ export function InterviewCopilotWorkspace() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-5 text-left"
+      className="space-y-4 sm:space-y-5 text-left"
     >
       {/* 1. Header */}
       <CopilotHeader
@@ -76,37 +76,41 @@ export function InterviewCopilotWorkspace() {
       />
 
       {/* 2. Main 12-Column Responsive Grid Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
         {/* AI Chat Workspace (8 Columns) */}
-        <div className="lg:col-span-8 space-y-4">
-          {/* Suggested Quick Prompt Chips */}
-          <SuggestedPrompts
-            prompts={data.suggestedPrompts}
-            onSelectPrompt={(text) => setComposerValue(text)}
-          />
+        <div className="lg:col-span-8 space-y-4 sm:space-y-5 flex flex-col justify-between">
+          <div className="space-y-4 sm:space-y-5">
+            {/* Suggested Quick Prompt Chips */}
+            <SuggestedPrompts
+              prompts={data.suggestedPrompts}
+              onSelectPrompt={(text) => setComposerValue(text)}
+            />
 
-          {/* Scrollable Conversation Thread */}
-          <CopilotConversation messages={messages} isTyping={isSending} />
+            {/* Scrollable Conversation Thread */}
+            <CopilotConversation messages={messages} isTyping={isSending} />
 
-          {/* Multiline Prompt Composer */}
-          <PromptComposer
-            value={composerValue}
-            onChange={setComposerValue}
-            onSend={handleSendMessage}
-          />
+            {/* Multiline Prompt Composer */}
+            <PromptComposer
+              value={composerValue}
+              onChange={setComposerValue}
+              onSend={handleSendMessage}
+            />
 
-          {/* Recommended Copilot Quick Actions */}
-          <RecommendedActionsCard />
+            {/* Recommended Copilot Quick Actions */}
+            <RecommendedActionsCard />
+          </div>
         </div>
 
         {/* AI Context & Copilot Sidebar (4 Columns) */}
-        <div className="lg:col-span-4 space-y-4">
-          <ResumeContextCard resume={data.resumeContext} />
-          <JobContextCard job={data.jobContext} />
-          <STARCoachCard coach={data.starCoach} />
-          <CodingAssistantCard assistant={data.codingAssistant} />
-          <InterviewTipsCard />
-          <CopilotSidebar sidebarData={data.sidebarData} />
+        <div className="lg:col-span-4 space-y-4 sm:space-y-5 flex flex-col justify-between">
+          <div className="space-y-4 sm:space-y-5">
+            <ResumeContextCard resume={data.resumeContext} />
+            <JobContextCard job={data.jobContext} />
+            <STARCoachCard coach={data.starCoach} />
+            <CodingAssistantCard assistant={data.codingAssistant} />
+            <InterviewTipsCard />
+            <CopilotSidebar sidebarData={data.sidebarData} />
+          </div>
         </div>
       </div>
     </motion.main>

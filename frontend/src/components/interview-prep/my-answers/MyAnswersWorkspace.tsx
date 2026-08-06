@@ -89,7 +89,7 @@ export function MyAnswersWorkspace() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-5 text-left"
+      className="space-y-4 sm:space-y-5 text-left"
     >
       {/* 1. Header */}
       <MyAnswersHeader
@@ -108,27 +108,29 @@ export function MyAnswersWorkspace() {
       />
 
       {/* 4. Split Layout (History List on Left, Detail & Feedback on Right) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
         {/* Left Column: Answer History List (5 Columns) */}
-        <div className="lg:col-span-5 space-y-3">
-          <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-            Answer Attempts ({filteredAnswers.length})
-          </h3>
-          {isLoading ? (
-            <div className="p-6 text-center text-slate-400 text-xs">Loading answers...</div>
-          ) : (
-            <AnswerHistoryList
-              answers={filteredAnswers}
-              selectedId={selectedAnswerId}
-              onSelectAnswer={(ans) => setSelectedAnswerId(ans.id)}
-              onToggleBookmark={handleToggleBookmark}
-              onToggleFavorite={handleToggleFavorite}
-            />
-          )}
+        <div className="lg:col-span-5 space-y-3 flex flex-col justify-between">
+          <div className="space-y-3">
+            <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+              Answer Attempts ({filteredAnswers.length})
+            </h3>
+            {isLoading ? (
+              <div className="p-6 text-center text-slate-400 text-xs">Loading answers...</div>
+            ) : (
+              <AnswerHistoryList
+                answers={filteredAnswers}
+                selectedId={selectedAnswerId}
+                onSelectAnswer={(ans) => setSelectedAnswerId(ans.id)}
+                onToggleBookmark={handleToggleBookmark}
+                onToggleFavorite={handleToggleFavorite}
+              />
+            )}
+          </div>
         </div>
 
         {/* Right Column: Answer Detail & AI Feedback Panels (7 Columns) */}
-        <div className="lg:col-span-7 space-y-4">
+        <div className="lg:col-span-7 space-y-4 sm:space-y-5 flex flex-col">
           <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider">
             Attempt Review & Model Comparison
           </h3>

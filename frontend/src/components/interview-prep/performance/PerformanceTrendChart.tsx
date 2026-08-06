@@ -11,9 +11,9 @@ export interface PerformanceTrendChartProps {
 export function PerformanceTrendChart({ trendPoints }: PerformanceTrendChartProps) {
   const [hoveredPoint, setHoveredPoint] = useState<PerformanceTrendPoint | null>(null)
 
-  const width = 500
+  const width = 520
   const height = 180
-  const padding = 30
+  const padding = 42
 
   const maxVal = 100
   const minVal = 50
@@ -35,7 +35,7 @@ export function PerformanceTrendChart({ trendPoints }: PerformanceTrendChartProp
     <Card className="bg-[#10121e]/90 border border-white/10 rounded-2xl p-5 hover:border-purple-500/30 transition-all space-y-4 text-left">
       <CardHeader className="p-0 pb-3 flex flex-row items-center justify-between border-b border-white/10">
         <div className="flex items-center gap-2">
-          <div className="p-2 rounded-xl bg-purple-500/20 text-purple-400">
+          <div className="p-2 rounded-xl bg-purple-500/20 text-purple-400 shrink-0">
             <TrendingUp className="h-5 w-5" />
           </div>
           <div>
@@ -50,11 +50,11 @@ export function PerformanceTrendChart({ trendPoints }: PerformanceTrendChartProp
 
         <div className="flex items-center gap-4 text-xs font-semibold">
           <div className="flex items-center gap-1.5 text-purple-300">
-            <span className="h-2.5 w-2.5 rounded-full bg-purple-500" />
+            <span className="h-2.5 w-2.5 rounded-full bg-purple-500 shadow-sm shadow-purple-500/50" />
             <span>Your Score</span>
           </div>
           <div className="flex items-center gap-1.5 text-emerald-400">
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+            <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50" />
             <span>Target Benchmark</span>
           </div>
         </div>
@@ -62,7 +62,7 @@ export function PerformanceTrendChart({ trendPoints }: PerformanceTrendChartProp
 
       <CardContent className="p-0 space-y-3">
         {/* SVG Line Chart */}
-        <div className="relative w-full overflow-x-auto">
+        <div className="relative w-full overflow-hidden" onMouseLeave={() => setHoveredPoint(null)}>
           <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-44 overflow-visible">
             {/* Grid lines */}
             {[60, 70, 80, 90, 100].map((val) => (
@@ -72,16 +72,16 @@ export function PerformanceTrendChart({ trendPoints }: PerformanceTrendChartProp
                   y1={getY(val)}
                   x2={width - padding}
                   y2={getY(val)}
-                  stroke="#ffffff10"
+                  stroke="#ffffff12"
                   strokeDasharray="3 3"
                 />
                 <text
-                  x={padding - 8}
-                  y={getY(val) + 4}
+                  x={padding - 10}
+                  y={getY(val) + 3}
                   fill="#94a3b8"
-                  fontSize="9"
+                  fontSize="10"
                   textAnchor="end"
-                  className="font-mono"
+                  className="font-mono font-medium"
                 >
                   {val}%
                 </text>
@@ -107,6 +107,7 @@ export function PerformanceTrendChart({ trendPoints }: PerformanceTrendChartProp
               stroke="#a855f7"
               strokeWidth="3"
               strokeLinecap="round"
+              strokeLinejoin="round"
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}
               transition={{ duration: 1 }}
@@ -118,16 +119,16 @@ export function PerformanceTrendChart({ trendPoints }: PerformanceTrendChartProp
                 <circle
                   cx={getX(i)}
                   cy={getY(pt.score)}
-                  r="5"
-                  className="fill-purple-400 stroke-[#10121e] stroke-2 hover:r-7 transition-all"
+                  r={hoveredPoint?.label === pt.label ? '6' : '4.5'}
+                  className="fill-purple-400 stroke-[#10121e] stroke-2 transition-all duration-200"
                 />
                 <text
                   x={getX(i)}
                   y={height - 8}
-                  fill="#94a3b8"
+                  fill={hoveredPoint?.label === pt.label ? '#f8fafc' : '#94a3b8'}
                   fontSize="10"
                   textAnchor="middle"
-                  className="font-sans font-semibold"
+                  className="font-sans font-semibold transition-colors"
                 >
                   {pt.label}
                 </text>
@@ -137,11 +138,17 @@ export function PerformanceTrendChart({ trendPoints }: PerformanceTrendChartProp
 
           {/* Hover Tooltip */}
           {hoveredPoint && (
-            <div className="absolute top-2 right-2 p-2.5 rounded-xl bg-[#141627] border border-purple-500/30 text-xs shadow-xl space-y-0.5">
-              <span className="font-bold text-white block">{hoveredPoint.label} Performance</span>
-              <span className="text-purple-300 font-mono block">Score: {hoveredPoint.score}%</span>
-              <span className="text-emerald-400 font-mono block">Target: {hoveredPoint.targetScore}%</span>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="absolute top-2 right-2 p-2.5 rounded-xl bg-[#141627]/95 border border-purple-500/30 text-xs shadow-2xl backdrop-blur-md space-y-1 pointer-events-none z-20"
+            >
+              <span className="font-bold text-white block tracking-tight">{hoveredPoint.label} Performance</span>
+              <div className="flex items-center gap-3 text-[11px]">
+                <span className="text-purple-300 font-mono font-bold">Score: {hoveredPoint.score}%</span>
+                <span className="text-emerald-400 font-mono font-bold">Target: {hoveredPoint.targetScore}%</span>
+              </div>
+            </motion.div>
           )}
         </div>
       </CardContent>

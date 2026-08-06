@@ -40,7 +40,7 @@ export function SkillBreakdownChart({ skills }: SkillBreakdownChartProps) {
     <Card className="bg-[#10121e]/90 border border-white/10 rounded-2xl p-5 hover:border-purple-500/30 transition-all space-y-4 text-left">
       <CardHeader className="p-0 pb-3 flex flex-row items-center justify-between border-b border-white/10">
         <div className="flex items-center gap-2">
-          <div className="p-2 rounded-xl bg-purple-500/20 text-purple-400">
+          <div className="p-2 rounded-xl bg-purple-500/20 text-purple-400 shrink-0">
             <Brain className="h-5 w-5" />
           </div>
           <div>
@@ -61,32 +61,32 @@ export function SkillBreakdownChart({ skills }: SkillBreakdownChartProps) {
             const badgeStyle = getBadgeStyle(s.proficiencyBadge)
 
             return (
-              <div key={i} className="p-3 rounded-xl bg-[#141627] border border-white/5 space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 truncate">
-                    <div className="p-1.5 rounded-lg bg-purple-500/10 text-purple-400 shrink-0">
-                      <Icon className="h-3.5 w-3.5" />
+              <div key={i} className="p-3.5 rounded-xl bg-[#141627] border border-white/10 hover:border-white/20 transition-all space-y-2.5">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <div className="p-1.5 rounded-lg bg-purple-500/15 text-purple-300 shrink-0 border border-purple-500/20">
+                      <Icon className="h-4 w-4" />
                     </div>
-                    <span className="font-bold text-white truncate">{s.skillName}</span>
+                    <span className="font-bold text-white text-xs truncate">{s.skillName}</span>
                   </div>
 
-                  <Badge className={`text-[10px] font-bold py-0.5 px-2 rounded ${badgeStyle}`}>
+                  <Badge className={`text-[10px] font-bold py-0.5 px-2.5 rounded-lg border ${badgeStyle} shrink-0`}>
                     {s.proficiencyBadge}
                   </Badge>
                 </div>
 
-                <div className="space-y-1">
+                <div className="space-y-1.5">
                   <div className="flex items-center justify-between text-[11px]">
-                    <span className="text-slate-400 font-medium">{s.trendText}</span>
-                    <span className="font-bold text-white font-mono">{s.scorePercent}%</span>
+                    <span className="text-slate-400 font-medium truncate">{s.trendText}</span>
+                    <span className="font-bold text-white font-mono ml-2 shrink-0">{s.scorePercent}%</span>
                   </div>
 
-                  <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                  <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${s.scorePercent}%` }}
-                      transition={{ duration: 0.5, delay: i * 0.05 }}
-                      className="h-full bg-gradient-to-r from-purple-500 to-emerald-500 rounded-full"
+                      transition={{ duration: 0.6, delay: i * 0.05 }}
+                      className="h-full bg-gradient-to-r from-purple-500 via-indigo-500 to-emerald-400 rounded-full shadow-sm"
                     />
                   </div>
                 </div>

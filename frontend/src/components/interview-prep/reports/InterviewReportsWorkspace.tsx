@@ -31,7 +31,7 @@ export function InterviewReportsWorkspace() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-5 text-left"
+      className="space-y-4 sm:space-y-5 text-left"
     >
       {/* 1. Header */}
       <ReportsHeader
@@ -40,9 +40,9 @@ export function InterviewReportsWorkspace() {
       />
 
       {/* 2. Main 12-Column Responsive Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
         {/* Main Reports Content Area (8 Columns) */}
-        <div className="lg:col-span-8 space-y-5">
+        <div className="lg:col-span-8 space-y-4 sm:space-y-5">
           <ReportSummaryCard summary={data.summary} />
           <InterviewReportCard reports={data.availableReports} />
           <PerformanceReportCard />
@@ -51,9 +51,11 @@ export function InterviewReportsWorkspace() {
         </div>
 
         {/* Export & Timeline Sidebar (4 Columns) */}
-        <div className="lg:col-span-4 space-y-5">
-          <ExportPanel exportFormats={data.exportFormats} />
-          <ReportTimeline timeline={data.timeline} />
+        <div className="lg:col-span-4 space-y-4 sm:space-y-5 flex flex-col justify-between">
+          <div className="space-y-4 sm:space-y-5">
+            <ExportPanel exportFormats={data.exportFormats} />
+            <ReportTimeline timeline={data.timeline} />
+          </div>
         </div>
       </div>
     </motion.main>

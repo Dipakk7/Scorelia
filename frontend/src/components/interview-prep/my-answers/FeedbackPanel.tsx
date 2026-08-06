@@ -74,7 +74,7 @@ export function FeedbackPanel({ feedback }: FeedbackPanelProps) {
         </div>
 
         {/* Detailed Criteria Scores */}
-        <div className="space-y-2.5 pt-2 border-t border-white/5">
+        <div className="space-y-2.5 pt-2 border-t border-white/10">
           <span className="text-xs font-bold text-white block">
             Detailed Performance Metrics Breakdown
           </span>
@@ -83,7 +83,7 @@ export function FeedbackPanel({ feedback }: FeedbackPanelProps) {
             {scores.map((s, i) => {
               const Icon = s.icon
               return (
-                <div key={i} className="p-2.5 rounded-xl bg-[#141627] border border-white/5 space-y-1">
+                <div key={i} className="p-2.5 rounded-xl bg-[#141627] border border-white/10 hover:border-white/20 transition-all space-y-1.5">
                   <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-1.5 text-slate-300 font-medium truncate">
                       <Icon className="h-3.5 w-3.5 text-purple-400 shrink-0" />
@@ -91,12 +91,12 @@ export function FeedbackPanel({ feedback }: FeedbackPanelProps) {
                     </div>
                     <span className="font-bold text-white font-mono shrink-0 ml-2">{s.value}%</span>
                   </div>
-                  <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                  <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${s.value}%` }}
                       transition={{ duration: 0.5, delay: i * 0.05 }}
-                      className="h-full bg-gradient-to-r from-purple-500 to-emerald-500 rounded-full"
+                      className="h-full bg-gradient-to-r from-purple-500 via-indigo-500 to-emerald-400 rounded-full shadow-sm"
                     />
                   </div>
                 </div>

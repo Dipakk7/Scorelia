@@ -44,7 +44,7 @@ export function QuestionBankFilters({
           <select
             value={filters.difficulty}
             onChange={(e) => onChangeFilter({ difficulty: e.target.value })}
-            className="w-full bg-[#141627] border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500/50 cursor-pointer"
+            className="w-full bg-[#141627] border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/40 transition-all cursor-pointer"
           >
             {difficulties.map((d) => (
               <option key={d} value={d} className="bg-[#141627] text-white">
@@ -62,7 +62,7 @@ export function QuestionBankFilters({
           <select
             value={filters.questionType}
             onChange={(e) => onChangeFilter({ questionType: e.target.value })}
-            className="w-full bg-[#141627] border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500/50 cursor-pointer"
+            className="w-full bg-[#141627] border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/40 transition-all cursor-pointer"
           >
             {questionTypes.map((t) => (
               <option key={t} value={t} className="bg-[#141627] text-white">
@@ -80,7 +80,7 @@ export function QuestionBankFilters({
           <select
             value={filters.experience}
             onChange={(e) => onChangeFilter({ experience: e.target.value })}
-            className="w-full bg-[#141627] border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500/50 cursor-pointer"
+            className="w-full bg-[#141627] border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/40 transition-all cursor-pointer"
           >
             {experienceLevels.map((exp) => (
               <option key={exp} value={exp} className="bg-[#141627] text-white">
@@ -98,7 +98,7 @@ export function QuestionBankFilters({
           <select
             value={filters.company}
             onChange={(e) => onChangeFilter({ company: e.target.value })}
-            className="w-full bg-[#141627] border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500/50 cursor-pointer"
+            className="w-full bg-[#141627] border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/40 transition-all cursor-pointer"
           >
             {companies.map((c) => (
               <option key={c} value={c} className="bg-[#141627] text-white">

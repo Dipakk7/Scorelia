@@ -39,12 +39,12 @@ export function MockInterviewsWorkspace() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-5 text-left"
+      className="space-y-4 sm:space-y-5 text-left"
     >
       {/* Top Split Layout: Configuration Form (8 Cols) vs Real-time Summary Card (4 Cols) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
         {/* Left Column: Form Setup Panel (8 Columns) */}
-        <div className="lg:col-span-8">
+        <div className="lg:col-span-8 flex flex-col">
           <InterviewSetupPanel
             config={setupConfig}
             onChangeConfig={(updated) => setSetupConfig((prev) => ({ ...prev, ...updated }))}
@@ -57,7 +57,7 @@ export function MockInterviewsWorkspace() {
         </div>
 
         {/* Right Column: Real-time Config Summary & Start Section (4 Columns) */}
-        <div className="lg:col-span-4 space-y-5">
+        <div className="lg:col-span-4 flex flex-col space-y-4 sm:space-y-5">
           <InterviewSummaryCard
             config={setupConfig}
             resumes={resumes}

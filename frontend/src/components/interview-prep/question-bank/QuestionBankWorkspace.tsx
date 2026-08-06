@@ -101,7 +101,7 @@ export function QuestionBankWorkspace() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-5"
+      className="space-y-4 sm:space-y-5 text-left"
     >
       {/* 1. Question Bank Header */}
       <QuestionBankHeader
@@ -115,7 +115,7 @@ export function QuestionBankWorkspace() {
       {summary && <PracticeSummaryCard summary={summary} />}
 
       {/* 3. Main Question Bank Section (Sidebar + Grid) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
         {/* Category Sidebar (3 Columns) */}
         <div className="lg:col-span-3">
           <QuestionCategorySidebar
@@ -126,47 +126,49 @@ export function QuestionBankWorkspace() {
         </div>
 
         {/* Main Content Area (9 Columns) */}
-        <div className="lg:col-span-9 space-y-4">
-          {/* Search Bar */}
-          <QuestionBankSearch
-            value={filters.searchQuery}
-            onChange={(val) => setFilters((prev) => ({ ...prev, searchQuery: val }))}
-          />
+        <div className="lg:col-span-9 space-y-4 sm:space-y-5 flex flex-col justify-between">
+          <div className="space-y-4 sm:space-y-5">
+            {/* Search Bar */}
+            <QuestionBankSearch
+              value={filters.searchQuery}
+              onChange={(val) => setFilters((prev) => ({ ...prev, searchQuery: val }))}
+            />
 
-          {/* Filter Options */}
-          <QuestionBankFilters
-            filters={filters}
-            onChangeFilter={(updated) => setFilters((prev) => ({ ...prev, ...updated }))}
-            onResetFilters={handleResetFilters}
-          />
+            {/* Filter Options */}
+            <QuestionBankFilters
+              filters={filters}
+              onChangeFilter={(updated) => setFilters((prev) => ({ ...prev, ...updated }))}
+              onResetFilters={handleResetFilters}
+            />
 
-          {/* Question Cards Grid */}
-          {isLoading ? (
-            <div className="p-8 text-center bg-[#10121e]/90 border border-white/10 rounded-2xl text-slate-400 text-xs font-medium">
-              Loading questions...
-            </div>
-          ) : filteredQuestions.length === 0 ? (
-            <div className="p-8 text-center bg-[#10121e]/90 border border-white/10 rounded-2xl text-slate-400 text-xs font-medium space-y-2">
-              <p>No questions found matching your filter criteria.</p>
-              <button
-                onClick={handleResetFilters}
-                className="text-purple-400 font-bold underline cursor-pointer hover:text-purple-300"
-              >
-                Reset all filters
-              </button>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {filteredQuestions.map((q) => (
-                <QuestionCard
-                  key={q.id}
-                  question={q}
-                  onPreview={setSelectedQuestionForPreview}
-                  onToggleBookmark={handleToggleBookmark}
-                />
-              ))}
-            </div>
-          )}
+            {/* Question Cards Grid */}
+            {isLoading ? (
+              <div className="p-8 text-center bg-[#10121e]/90 border border-white/10 rounded-2xl text-slate-400 text-xs font-medium">
+                Loading questions...
+              </div>
+            ) : filteredQuestions.length === 0 ? (
+              <div className="p-8 text-center bg-[#10121e]/90 border border-white/10 rounded-2xl text-slate-400 text-xs font-medium space-y-2">
+                <p>No questions found matching your filter criteria.</p>
+                <button
+                  onClick={handleResetFilters}
+                  className="text-purple-400 font-bold underline cursor-pointer hover:text-purple-300"
+                >
+                  Reset all filters
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+                {filteredQuestions.map((q) => (
+                  <QuestionCard
+                    key={q.id}
+                    question={q}
+                    onPreview={setSelectedQuestionForPreview}
+                    onToggleBookmark={handleToggleBookmark}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 

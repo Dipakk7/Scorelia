@@ -28,12 +28,13 @@ export function AnswerFilters({
           value={filters.searchQuery}
           onChange={(e) => onChangeFilter({ searchQuery: e.target.value })}
           placeholder="Filter answers by question title, target company, or skill..."
-          className="w-full bg-[#141627] border border-white/10 rounded-xl pl-10 pr-10 py-2.5 text-xs text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-purple-500/50"
+          className="w-full bg-[#141627] border border-white/10 rounded-xl pl-10 pr-10 py-2.5 text-xs text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/40 transition-all"
         />
         {filters.searchQuery && (
           <button
+            type="button"
             onClick={() => onChangeFilter({ searchQuery: '' })}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white cursor-pointer"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white cursor-pointer focus:outline-none focus:ring-1 focus:ring-purple-500/40 rounded"
           >
             <X className="h-3.5 w-3.5" />
           </button>
@@ -52,7 +53,7 @@ export function AnswerFilters({
           <select
             value={filters.source}
             onChange={(e) => onChangeFilter({ source: e.target.value })}
-            className="bg-[#141627] border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500/50 cursor-pointer"
+            className="bg-[#141627] border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/40 transition-all cursor-pointer"
           >
             {sources.map((s) => (
               <option key={s} value={s} className="bg-[#141627] text-white">
@@ -65,7 +66,7 @@ export function AnswerFilters({
           <select
             value={filters.questionType}
             onChange={(e) => onChangeFilter({ questionType: e.target.value })}
-            className="bg-[#141627] border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500/50 cursor-pointer"
+            className="bg-[#141627] border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/40 transition-all cursor-pointer"
           >
             {questionTypes.map((t) => (
               <option key={t} value={t} className="bg-[#141627] text-white">
@@ -78,7 +79,7 @@ export function AnswerFilters({
           <select
             value={filters.difficulty}
             onChange={(e) => onChangeFilter({ difficulty: e.target.value })}
-            className="bg-[#141627] border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500/50 cursor-pointer"
+            className="bg-[#141627] border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/40 transition-all cursor-pointer"
           >
             {difficulties.map((d) => (
               <option key={d} value={d} className="bg-[#141627] text-white">

@@ -25,7 +25,7 @@ export function InterviewPrepPage() {
       initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
-      className="space-y-5 p-4 sm:p-6 text-left max-w-[1600px] mx-auto font-sans"
+      className="-m-4 md:-m-6 lg:-m-8 p-3 sm:p-4 lg:p-5 w-[calc(100%+2rem)] md:w-[calc(100%+3rem)] lg:w-[calc(100%+4rem)] space-y-4 sm:space-y-5 text-slate-100 selection:bg-purple-500/30 font-sans"
     >
       {/* 1. Header */}
       <InterviewPrepHeader
@@ -38,9 +38,9 @@ export function InterviewPrepPage() {
 
       {/* 3. Overview Dashboard Workspace Layout */}
       {activeTab === 'overview' && (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
           {/* Workspace Area (8 Columns) */}
-          <div className="lg:col-span-8 space-y-4">
+          <div className="lg:col-span-8 space-y-4 sm:space-y-5">
             <InterviewPrepWorkspace
               overviewData={overviewData}
               isLoading={isLoading}
@@ -50,7 +50,7 @@ export function InterviewPrepPage() {
           </div>
 
           {/* Sidebar Area (4 Columns) */}
-          <div className="lg:col-span-4 space-y-4">
+          <div className="lg:col-span-4 space-y-4 sm:space-y-5">
             <InterviewPrepSidebar
               sidebarData={overviewData?.aiSidebarData}
               isLoading={isLoading}

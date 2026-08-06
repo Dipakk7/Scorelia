@@ -29,7 +29,7 @@ export function InterviewPrepWorkspace({
   const isEmpty = propIsEmpty ?? (!overviewData && !isLoading)
 
   return (
-    <div className="space-y-4 text-left">
+    <div className="space-y-4 sm:space-y-5 text-left">
       {/* 1. Dashboard Metrics Grid */}
       <MetricsGrid
         metrics={overviewData?.metrics}
@@ -39,7 +39,7 @@ export function InterviewPrepWorkspace({
       />
 
       {/* 2. Main Content Grid (Upcoming + Recommendations) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 items-stretch">
         <UpcomingInterviewCard
           upcomingInterview={overviewData?.upcomingInterview}
           isLoading={isLoading}
@@ -55,7 +55,7 @@ export function InterviewPrepWorkspace({
       </div>
 
       {/* 3. Practice Topics & Question Bank Summary Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 items-stretch">
         <PracticeTopicsCard
           topics={overviewData?.practiceTopics}
           isLoading={isLoading}

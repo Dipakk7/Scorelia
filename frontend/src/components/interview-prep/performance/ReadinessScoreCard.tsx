@@ -88,33 +88,33 @@ export function ReadinessScoreCard({
         </div>
 
         {/* Milestone & Target Details */}
-        <div className="flex-1 space-y-3 w-full">
+        <div className="flex-1 space-y-3.5 w-full">
           {/* Target Progress Bar */}
-          <div className="space-y-1">
+          <div className="space-y-1.5">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-300 font-semibold flex items-center gap-1">
-                <Target className="h-3.5 w-3.5 text-purple-400" />
+              <span className="text-slate-300 font-semibold flex items-center gap-1.5">
+                <Target className="h-3.5 w-3.5 text-purple-400 shrink-0" />
                 Target Progress ({score}% / {targetScore}%)
               </span>
               <span className="font-bold text-purple-300 font-mono">
                 {Math.round((score / targetScore) * 100)}% Complete
               </span>
             </div>
-            <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+            <div className="h-2.5 w-full bg-white/10 rounded-full overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${(score / targetScore) * 100}%` }}
                 transition={{ duration: 0.8 }}
-                className="h-full bg-gradient-to-r from-purple-500 to-emerald-500 rounded-full"
+                className="h-full bg-gradient-to-r from-purple-500 via-indigo-500 to-emerald-400 rounded-full shadow-sm"
               />
             </div>
           </div>
 
           {/* Next Milestone Note */}
-          <div className="p-3 rounded-xl bg-purple-950/30 border border-purple-500/20 text-xs space-y-0.5">
-            <span className="text-slate-400 font-medium block">Next Milestone Goal:</span>
+          <div className="p-3 rounded-xl bg-purple-950/40 border border-purple-500/25 text-xs space-y-0.5 hover:border-purple-500/40 transition-all">
+            <span className="text-slate-400 font-medium block text-[11px]">Next Milestone Goal:</span>
             <span className="font-bold text-purple-300 flex items-center gap-1.5">
-              <Sparkles className="h-3.5 w-3.5 text-amber-400" />
+              <Sparkles className="h-3.5 w-3.5 text-amber-400 shrink-0" />
               {nextMilestone} (+3 points remaining)
             </span>
           </div>

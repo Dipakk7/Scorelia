@@ -29,20 +29,20 @@ export function PerformanceWorkspace() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-5 text-left"
+      className="space-y-4 sm:space-y-5 text-left"
     >
       {/* 1. Header */}
       <PerformanceHeader overallScore={data.readinessGaugeScore} />
 
       {/* 2. Main 12-Column Grid Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
         {/* Analytics Main Area (8 Columns) */}
-        <div className="lg:col-span-8 space-y-5">
+        <div className="lg:col-span-8 space-y-4 sm:space-y-5">
           {/* Analytics Metric Summary Cards (6 Cards) */}
           <AnalyticsSummaryCards cards={data.summaryCards} />
 
           {/* Readiness Score & Goal Tracker Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 items-stretch">
             <ReadinessScoreCard
               score={data.readinessGaugeScore}
               readinessTag={data.readinessTag}
@@ -57,7 +57,7 @@ export function PerformanceWorkspace() {
           <SkillBreakdownChart skills={data.skillBreakdown} />
 
           {/* Monthly Interview History & Strengths/Weaknesses Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 items-stretch">
             <InterviewHistoryChart historyTrends={data.historyTrends} />
             <StrengthWeaknessPanel data={data.strengthsWeaknesses} />
           </div>
@@ -70,7 +70,7 @@ export function PerformanceWorkspace() {
         </div>
 
         {/* Performance Insights Sidebar (4 Columns) */}
-        <div className="lg:col-span-4">
+        <div className="lg:col-span-4 flex flex-col justify-between">
           <PerformanceSidebar sidebarData={data.performanceSidebar} />
         </div>
       </div>
