@@ -14,7 +14,7 @@ export const OptimizationTimeline: React.FC = () => {
   const progressPercent = Math.round((completedCount / totalSteps) * 100)
 
   return (
-    <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800/90 p-3.5 sm:p-4 shadow-xl h-full flex flex-col justify-start gap-3">
+    <div className="rounded-2xl bg-gradient-to-b from-slate-900/95 via-slate-900/90 to-slate-950/95 border border-slate-800/90 p-3.5 sm:p-4 shadow-xl space-y-3 h-full flex flex-col justify-between">
       {/* 1. Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
