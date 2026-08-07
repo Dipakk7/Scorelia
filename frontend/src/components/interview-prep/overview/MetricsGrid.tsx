@@ -69,9 +69,9 @@ export function MetricsGrid({ metrics = [], isLoading = false, isEmpty = false, 
 
                 {/* 2. Large Center Area: +15% Scaled SVG Semicircle Gauge, Score, /100, Excellent */}
                 <div className="flex flex-col items-center justify-center my-auto space-y-1 py-0.5">
-                  {/* Gauge Arc with 15px+ safe canvas padding on all sides */}
+                  {/* Gauge Arc with safe canvas padding on all sides */}
                   <div className="flex items-center justify-center">
-                    <svg className="w-32 h-18 max-w-full" viewBox="0 0 120 72">
+                    <svg className="w-32 h-18 max-w-full" viewBox="0 0 120 68">
                       <defs>
                         <linearGradient id="readiness-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                           <stop offset="0%" stopColor="#10b981" />
@@ -80,20 +80,20 @@ export function MetricsGrid({ metrics = [], isLoading = false, isEmpty = false, 
                       </defs>
                       {/* Background Arc Track */}
                       <path
-                        d="M 18,58 A 42,42 0 0,1 102,58"
+                        d="M 16,56 A 44,44 0 0,1 104,56"
                         fill="none"
                         stroke="#1e2030"
-                        strokeWidth="5"
+                        strokeWidth="3.5"
                         strokeLinecap="round"
                       />
                       {/* Colored Progress Arc */}
                       <path
-                        d="M 18,58 A 42,42 0 0,1 102,58"
+                        d="M 16,56 A 44,44 0 0,1 104,56"
                         fill="none"
                         stroke="url(#readiness-gradient)"
-                        strokeWidth="5"
-                        strokeDasharray="131.95"
-                        strokeDashoffset="17.15"
+                        strokeWidth="3.5"
+                        strokeDasharray="138.23"
+                        strokeDashoffset="17.97"
                         strokeLinecap="round"
                       />
                       {/* Score Value */}
@@ -101,7 +101,7 @@ export function MetricsGrid({ metrics = [], isLoading = false, isEmpty = false, 
                         {Number(metric.value) || 87}
                       </text>
                       {/* /100 Label */}
-                      <text x="60" y="52" textAnchor="middle" className="text-[9.5px] font-semibold fill-slate-400">
+                      <text x="60" y="51" textAnchor="middle" className="text-[9.5px] font-semibold fill-slate-400">
                         /100
                       </text>
                     </svg>
@@ -149,18 +149,18 @@ export function MetricsGrid({ metrics = [], isLoading = false, isEmpty = false, 
                     )}
                   </div>
 
-                  {/* Sparkline chart with safe padding */}
+                  {/* Sparkline chart with safe horizontal SVG padding */}
                   {metric.sparklinePoints && (
                     <div className="h-6 w-full py-0.5 px-0.5 overflow-hidden">
-                      <svg className="w-full h-full" viewBox="0 0 100 30" preserveAspectRatio="none">
+                      <svg className="w-full h-full" viewBox="0 0 108 30" preserveAspectRatio="none">
                         <path
-                          d="M 0,25 Q 20,10 40,20 T 80,8 T 100,5"
+                          d="M 4,24 Q 24,10 48,18 T 80,10 T 100,6"
                           fill="none"
                           stroke="#10b981"
                           strokeWidth="2.5"
                           strokeLinecap="round"
                         />
-                        <circle cx="100" cy="5" r="3" fill="#10b981" />
+                        <circle cx="100" cy="6" r="3" fill="#10b981" />
                       </svg>
                     </div>
                   )}

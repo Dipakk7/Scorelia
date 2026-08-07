@@ -93,19 +93,19 @@ export function PracticeTopicsCard({
   }
 
   return (
-    <Card className="bg-[#10121e]/90 border border-white/10 rounded-2xl p-5 hover:border-purple-500/30 transition-all flex flex-col justify-between h-full">
-      <CardHeader className="p-0 pb-4 flex flex-row items-center justify-between">
+    <Card className="bg-[#10121e]/90 border border-white/10 rounded-2xl p-5 sm:p-5.5 hover:border-purple-500/30 transition-all flex flex-col justify-between h-full text-left">
+      <CardHeader className="p-0 pb-4.5 flex flex-row items-center justify-between">
         <CardTitle className="text-base font-bold text-white tracking-tight">
           Practice by Topic
         </CardTitle>
-        <button className="text-xs font-semibold text-purple-400 hover:text-purple-300 flex items-center gap-1 cursor-pointer whitespace-nowrap">
+        <button className="text-xs font-semibold text-purple-400 hover:text-purple-300 flex items-center gap-1 cursor-pointer whitespace-nowrap transition-colors">
           <span>View all topics</span>
           <ArrowRight className="h-3.5 w-3.5" />
         </button>
       </CardHeader>
 
-      <CardContent className="p-0">
-        <div className="space-y-2">
+      <CardContent className="p-0 flex-1 flex flex-col justify-between">
+        <div className="space-y-2.5 my-auto">
           {topics.map((topic, index) => {
             const Icon = getIcon(topic.iconName)
             const iconBg = getColorTheme(topic.colorTheme)
@@ -116,7 +116,7 @@ export function PracticeTopicsCard({
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.25, delay: index * 0.04 }}
-                className="flex items-center justify-between p-2.5 rounded-xl bg-[#141627] border border-white/5 hover:border-white/15 transition-all cursor-pointer group"
+                className="flex items-center justify-between p-3 rounded-xl bg-[#141627] border border-white/5 hover:border-white/15 transition-all cursor-pointer group"
               >
                 <div className="flex items-center gap-3">
                   <div className={`p-2 rounded-lg ${iconBg}`}>
