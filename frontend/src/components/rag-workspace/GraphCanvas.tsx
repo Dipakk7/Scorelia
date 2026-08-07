@@ -57,14 +57,14 @@ export function GraphCanvas({
   return (
     <div
       className={cn(
-        'relative w-full h-[520px] rounded-2xl bg-[#0b0c14] border border-white/10 overflow-hidden shadow-inner flex items-center justify-center select-none',
+        'relative w-full h-[600px] sm:h-[650px] lg:h-[680px] rounded-2xl bg-[#0b0c14] border border-white/10 overflow-hidden shadow-inner flex items-center justify-center select-none',
         className
       )}
     >
       {/* SVG Interactive Canvas */}
       <svg
         className="w-full h-full cursor-grab active:cursor-grabbing"
-        viewBox="0 0 900 550"
+        viewBox="0 0 900 620"
         style={{ transform: `scale(${zoomLevel})`, transformOrigin: 'center center', transition: 'transform 0.2s ease-out' }}
       >
         <defs>

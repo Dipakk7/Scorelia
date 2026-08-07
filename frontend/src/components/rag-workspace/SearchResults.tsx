@@ -34,7 +34,7 @@ export function SearchResults({ documents, onViewAll, className }: SearchResults
         )}
       </div>
 
-      <div className="space-y-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
         {documents.map((doc) => (
           <RetrievedDocumentCard key={doc.id} document={doc} />
         ))}

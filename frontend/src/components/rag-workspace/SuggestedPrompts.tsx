@@ -15,21 +15,21 @@ export function SuggestedPrompts({
   className
 }: SuggestedPromptsProps) {
   return (
-    <div className={cn('space-y-2 text-left', className)}>
-      <div className="flex items-center gap-1.5 text-xs text-slate-400">
+    <div className={cn('space-y-2 text-left select-none', className)}>
+      <div className="flex items-center gap-1.5 text-xs text-[var(--muted)]">
         <Sparkles size={13} className="text-purple-400 shrink-0" />
-        <span className="font-semibold uppercase tracking-wider text-[10px]">Suggested Prompts</span>
+        <span className="font-bold uppercase tracking-wider text-[10px]">Suggested Prompts</span>
       </div>
 
-      <div className="flex flex-wrap gap-1.5">
+      <div className="flex flex-wrap gap-2">
         {prompts.map((prompt, i) => (
           <button
             key={i}
             type="button"
             onClick={() => onSelectPrompt(prompt)}
-            className="px-3 py-1.5 rounded-xl bg-[#121320] border border-white/5 hover:border-purple-500/30 hover:bg-purple-950/20 text-xs font-medium text-slate-300 hover:text-purple-300 transition-all cursor-pointer truncate max-w-xs active:scale-95"
+            className="px-3 py-1.5 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)] hover:border-purple-500/40 hover:bg-purple-500/10 text-xs font-medium text-[var(--heading)] hover:text-purple-300 transition-all duration-200 cursor-pointer truncate max-w-xs active:scale-95 shadow-sm border-none"
           >
-            {prompt}
+            ✨ {prompt}
           </button>
         ))}
       </div>

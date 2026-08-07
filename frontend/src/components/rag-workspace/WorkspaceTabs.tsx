@@ -5,11 +5,12 @@ import {
   BarChart3,
   FileText,
   Settings,
-  FileSpreadsheet
+  FileSpreadsheet,
+  Network
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-export type RAGTabId = 'collections' | 'query' | 'analytics' | 'documents' | 'settings' | 'reports'
+export type RAGTabId = 'collections' | 'documents' | 'query' | 'knowledge-graph' | 'analytics' | 'reports' | 'settings'
 
 export interface WorkspaceTabsProps {
   activeTab: RAGTabId
@@ -24,9 +25,10 @@ export function WorkspaceTabs({
 }: WorkspaceTabsProps) {
   const tabs: { id: RAGTabId; label: string; icon: any }[] = [
     { id: 'collections', label: 'Collections', icon: FolderArchive },
-    { id: 'query', label: 'Query Playground', icon: Terminal },
-    { id: 'analytics', label: 'Retrieval Analytics', icon: BarChart3 },
     { id: 'documents', label: 'Documents', icon: FileText },
+    { id: 'query', label: 'Query Playground', icon: Terminal },
+    { id: 'knowledge-graph', label: 'Knowledge Graph', icon: Network },
+    { id: 'analytics', label: 'Analytics', icon: BarChart3 },
     { id: 'reports', label: 'Reports & Export', icon: FileSpreadsheet },
     { id: 'settings', label: 'Settings', icon: Settings }
   ]

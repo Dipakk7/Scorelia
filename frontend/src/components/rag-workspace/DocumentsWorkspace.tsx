@@ -11,6 +11,7 @@ import { UploadQueue } from './UploadQueue'
 import { DocumentsTable } from './DocumentsTable'
 import { DocumentPreviewDrawer } from './DocumentPreviewDrawer'
 import { EmptyDocumentsState } from './EmptyDocumentsState'
+import { DocumentPipelinePanel } from './DocumentPipelinePanel'
 import { cn } from '@/lib/utils'
 
 export interface DocumentsWorkspaceProps {
@@ -82,44 +83,52 @@ export function DocumentsWorkspace({ className }: DocumentsWorkspaceProps) {
       aria-label="Documents Workspace"
       className={cn('space-y-6 text-left', className)}
     >
-      {/* 1. Header */}
+      {/* 1. Metrics Header */}
       <DocumentsHeader
         indexedCount={documents.filter((d) => d.status === 'Indexed').length}
         processingCount={documents.filter((d) => d.status === 'Processing').length}
         failedCount={documents.filter((d) => d.status === 'Failed').length}
       />
 
-      {/* 2. Toolbar */}
-      <DocumentsToolbar
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-        statusFilter={statusFilter}
-        onStatusFilterChange={setStatusFilter}
-        sortOption={sortOption}
-        onSortChange={setSortOption}
-        onUploadClick={handleUploadClick}
-      />
+      {/* 2. Main 2-Column Responsive Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Main Document Table & Toolbar (8 cols) */}
+        <div className="lg:col-span-8 space-y-6">
+          <DocumentsToolbar
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            statusFilter={statusFilter}
+            onStatusFilterChange={setStatusFilter}
+            sortOption={sortOption}
+            onSortChange={setSortOption}
+            onUploadClick={handleUploadClick}
+          />
 
-      {/* 3. Upload Queue */}
-      <UploadQueue
-        items={uploadQueue}
-        onItemAction={(id, action) => {
-          if (action === 'cancel') setUploadQueue((prev) => prev.filter((u) => u.id !== id))
-        }}
-      />
+          <UploadQueue
+            items={uploadQueue}
+            onItemAction={(id, action) => {
+              if (action === 'cancel') setUploadQueue((prev) => prev.filter((u) => u.id !== id))
+            }}
+          />
 
-      {/* 4. Documents Table or Empty State */}
-      {filteredDocuments.length > 0 ? (
-        <DocumentsTable
-          documents={filteredDocuments}
-          onSelectDocument={setSelectedDocument}
-          onDeleteDocument={handleDeleteDocument}
-        />
-      ) : (
-        <EmptyDocumentsState onUploadClick={handleUploadClick} />
-      )}
+          {filteredDocuments.length > 0 ? (
+            <DocumentsTable
+              documents={filteredDocuments}
+              onSelectDocument={setSelectedDocument}
+              onDeleteDocument={handleDeleteDocument}
+            />
+          ) : (
+            <EmptyDocumentsState onUploadClick={handleUploadClick} />
+          )}
+        </div>
 
-      {/* 5. Document Preview Drawer */}
+        {/* Ingestion Pipeline Side Panel (4 cols) */}
+        <div className="lg:col-span-4 space-y-6">
+          <DocumentPipelinePanel />
+        </div>
+      </div>
+
+      {/* Document Preview Drawer */}
       {selectedDocument && (
         <DocumentPreviewDrawer
           document={selectedDocument}
@@ -132,3 +141,4 @@ export function DocumentsWorkspace({ className }: DocumentsWorkspaceProps) {
 }
 
 export default DocumentsWorkspace
+

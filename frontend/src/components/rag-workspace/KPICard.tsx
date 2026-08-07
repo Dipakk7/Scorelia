@@ -50,10 +50,10 @@ export function KPICard({
         'group relative p-4 rounded-2xl bg-[var(--surface)] transition-all duration-200 flex flex-col justify-between overflow-hidden text-left h-full min-h-[120px] select-none',
         'hover:bg-[var(--surface-hover)] hover:border-purple-500/40 hover:shadow-xl',
         'active:scale-[0.98]',
-        onClick && 'cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e]',
+        onClick && 'cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)]',
         isSelected
           ? 'border border-purple-500 shadow-[0_0_16px_rgba(168,85,247,0.3)] scale-[1.01]'
-          : 'border border-[var(--border)] shadow-sm',
+          : 'border border-[var(--border)] shadow-[var(--shadow-sm)]',
         className
       )}
     >
@@ -67,7 +67,7 @@ export function KPICard({
         </div>
         <button
           type="button"
-          className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 opacity-60 sm:opacity-0 group-hover:opacity-100 transition-opacity focus:outline-none focus-visible:ring-1 focus-visible:ring-purple-500/50"
+          className="p-1 rounded-lg text-[var(--muted)] hover:text-[var(--heading)] hover:bg-[var(--surface-hover)] opacity-60 sm:opacity-0 group-hover:opacity-100 transition-opacity focus:outline-none focus-visible:ring-1 focus-visible:ring-purple-500/50 border-none bg-transparent cursor-pointer"
           aria-label={`Options for ${title}`}
         >
           <MoreVertical size={14} />
@@ -76,10 +76,10 @@ export function KPICard({
 
       {/* Middle Row: Metric Label & Large Animated Numeric Value */}
       <div className="space-y-0.5 my-1">
-        <span className="text-xs font-medium text-slate-400 block truncate tracking-tight">
+        <span className="text-xs font-semibold text-[var(--muted)] block truncate tracking-tight">
           {title}
         </span>
-        <div className="text-2xl font-black tracking-tight text-white font-sans">
+        <div className="text-2xl font-black tracking-tight text-[var(--heading)] font-sans">
           {numericValue !== undefined ? (
             <CountUpText
               value={numericValue}
@@ -111,3 +111,4 @@ export function KPICard({
 }
 
 export default KPICard
+

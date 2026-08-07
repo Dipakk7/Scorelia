@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useScoreliaReducedMotion, getContainerVariants, getSectionVariants } from '@/lib/motion'
-import { Breadcrumb } from '@/components/rag-workspace/Breadcrumb'
 import { HeroDashboard } from '@/components/rag-workspace/HeroDashboard'
 import { WorkspaceTabs } from '@/components/rag-workspace/WorkspaceTabs'
 import type { RAGTabId } from '@/components/rag-workspace/WorkspaceTabs'
@@ -17,50 +16,41 @@ export function RAGWorkspacePage() {
   const itemVariants = getSectionVariants(shouldReduceMotion)
 
   const handleAddNewCollection = () => {
-    // Phase 2 placeholder action
+    setActiveTab('collections')
   }
 
   const handleOpenKnowledgeGraph = () => {
-    // Phase 2 placeholder action
+    setActiveTab('knowledge-graph')
   }
 
   return (
-    <div className="-m-4 md:-m-6 lg:-m-8 p-3 sm:p-4 lg:p-5 w-[calc(100%+2rem)] md:w-[calc(100%+3rem)] lg:w-[calc(100%+4rem)] space-y-4 sm:space-y-5 text-slate-100 selection:bg-purple-500/30 font-sans max-w-[1920px] mx-auto">
+    <div className="-m-4 md:-m-6 lg:-m-8 p-3 sm:p-4 lg:p-5 w-[calc(100%+2rem)] md:w-[calc(100%+3rem)] lg:w-[calc(100%+4rem)] space-y-4 sm:space-y-5 text-slate-100 selection:bg-purple-500/30 font-sans max-w-[1920px] mx-auto text-left">
       <motion.div
         variants={containerVariants}
         initial="initial"
         animate="animate"
-        className="space-y-4 sm:space-y-5 text-left"
+        className="space-y-4 sm:space-y-5"
       >
-        {/* 1. Breadcrumb Navigation */}
-        <motion.div variants={itemVariants}>
-          <Breadcrumb />
-        </motion.div>
-
-        {/* 2. Master Hero Dashboard Section (Header, Actions & KPI Overview Grid) */}
+        {/* 1. Dynamic Page Header & Actions */}
         <motion.div variants={itemVariants}>
           <HeroDashboard
             onAddNewCollection={handleAddNewCollection}
             onOpenKnowledgeGraph={handleOpenKnowledgeGraph}
+            showKpiGrid={false}
           />
         </motion.div>
 
-        {/* 3. Workspace Navigation Tabs */}
+        {/* 2. Workspace Navigation Tabs */}
         <motion.div variants={itemVariants}>
           <WorkspaceTabs activeTab={activeTab} onTabChange={setActiveTab} />
         </motion.div>
 
-        {/* 4. Main Responsive Workspace Layout */}
+        {/* 3. Main Specialized Workspace Layout */}
         <motion.div variants={itemVariants} id={`workspace-tabpanel-${activeTab}`}>
           <WorkspaceLayout activeTab={activeTab} />
         </motion.div>
 
-        {/* 5. Bottom Statistics & System Metrics Container */}
-        <motion.div variants={itemVariants} className="pt-1">
-          <BottomMetrics />
-        </motion.div>
-
-        {/* 6. Page Footer Placeholder */}
+        {/* 4. Page Footer */}
         <motion.div variants={itemVariants}>
           <PageFooter />
         </motion.div>
@@ -70,4 +60,5 @@ export function RAGWorkspacePage() {
 }
 
 export default RAGWorkspacePage
+
 
