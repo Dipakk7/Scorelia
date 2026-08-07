@@ -16,11 +16,13 @@ import type { ChatMessageData } from '@/types/careerRoadmap'
 export interface CareerAssistantProps {
   initialMessages?: ChatMessageData[]
   className?: string
+  mode?: 'full' | 'chat-only'
 }
 
 export function CareerAssistant({
   initialMessages,
   className,
+  mode = 'full',
 }: CareerAssistantProps) {
   const {
     messages: hookMessages,
@@ -79,6 +81,20 @@ export function CareerAssistant({
 
   if (isLoading && messages.length === 0) {
     return <SkeletonAssistant />
+  }
+
+  if (mode === 'chat-only') {
+    return (
+      <div className={cn('space-y-4 sm:space-y-5 text-left', className)}>
+        {/* Interactive Consultation AI Workspace */}
+        <Card className="p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-4 shadow-sm hover:border-purple-500/30 transition-all text-left">
+          <AssistantHeader onNewChat={handleNewChat} onClearChat={handleClearChat} />
+          <Conversation messages={messages} isTyping={isSending} />
+          <SuggestedPrompts prompts={suggestedPrompts.length > 0 ? suggestedPrompts : undefined} onSelectPrompt={handleSendMessage} />
+          <PromptComposer onSendMessage={handleSendMessage} />
+        </Card>
+      </div>
+    )
   }
 
   return (

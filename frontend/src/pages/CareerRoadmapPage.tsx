@@ -9,6 +9,11 @@ import { CareerRoadmapSidebar } from '@/components/career-roadmap/CareerRoadmapS
 import ReportsWorkspace from '@/components/career-roadmap/reports/ReportsWorkspace'
 import { CareerRoadmapError } from '@/components/career-roadmap/common/CareerRoadmapError'
 import { useCareerRoadmap } from '@/hooks/useCareerRoadmap'
+import { useCareerAssistant } from '@/hooks/useCareerAssistant'
+import { SessionSummaryCard } from '@/components/career-roadmap/assistant/SessionSummaryCard'
+import { RecommendedActionsCard } from '@/components/career-roadmap/assistant/RecommendedActionsCard'
+import { CareerInsightsCard } from '@/components/career-roadmap/assistant/CareerInsightsCard'
+import { CareerTipsCard } from '@/components/career-roadmap/jobs/CareerTipsCard'
 
 export function CareerRoadmapPage() {
   const shouldReduceMotion = useScoreliaReducedMotion()
@@ -17,6 +22,7 @@ export function CareerRoadmapPage() {
 
   const [activeTab, setActiveTab] = useState<RoadmapTabId>('roadmap')
   const { isError, refetch } = useCareerRoadmap()
+  const { sessionSummary, recommendedActions, insights } = useCareerAssistant()
 
   const handleDownloadRoadmap = () => {
     // UI placeholder action
@@ -33,6 +39,8 @@ export function CareerRoadmapPage() {
       </div>
     )
   }
+
+  const isAdaptiveWorkspace = activeTab === 'resources' || activeTab === 'progress-tracker'
 
   return (
     <div className="-m-4 md:-m-6 lg:-m-8 p-3 sm:p-4 lg:p-5 w-[calc(100%+2rem)] md:w-[calc(100%+3rem)] lg:w-[calc(100%+4rem)] space-y-4 sm:space-y-5 text-slate-100 selection:bg-purple-500/30 font-sans text-left">
@@ -61,8 +69,35 @@ export function CareerRoadmapPage() {
             <main aria-label="Career Reports Workspace" className="w-full max-w-full overflow-x-hidden">
               <ReportsWorkspace />
             </main>
+          ) : isAdaptiveWorkspace ? (
+            <main
+              key={`adaptive-${activeTab}`}
+              aria-label="Career Roadmap Adaptive Workspace"
+              className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 items-start w-full max-w-full overflow-x-hidden"
+            >
+              {/* Main Content Workspace Stack (Flowing naturally under short cards) */}
+              <section
+                aria-label="Career Roadmap Main Content"
+                className="lg:col-span-8 space-y-4 sm:space-y-5 w-full min-w-0"
+              >
+                <CareerRoadmapWorkspace activeTab={activeTab} />
+                <SessionSummaryCard summary={sessionSummary} />
+                <RecommendedActionsCard actions={recommendedActions.length > 0 ? recommendedActions : undefined} />
+                <CareerInsightsCard insights={insights} />
+                <CareerTipsCard />
+              </section>
+
+              {/* Right Sidebar Stack */}
+              <aside
+                aria-label="Career Roadmap Sidebar"
+                className="lg:col-span-4 space-y-4 sm:space-y-5 w-full min-w-0"
+              >
+                <CareerRoadmapSidebar mode="chat-only" />
+              </aside>
+            </main>
           ) : (
             <main
+              key={`standard-${activeTab}`}
               aria-label="Career Roadmap Main Workspace"
               className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 items-start w-full max-w-full overflow-x-hidden"
             >
@@ -79,7 +114,7 @@ export function CareerRoadmapPage() {
                 aria-label="Career Roadmap Sidebar"
                 className="lg:col-span-4 space-y-4 sm:space-y-5 w-full min-w-0"
               >
-                <CareerRoadmapSidebar />
+                <CareerRoadmapSidebar mode="full" />
               </aside>
             </main>
           )}
