@@ -1,7 +1,5 @@
 import React from 'react'
 import { Sparkles } from 'lucide-react'
-import { Breadcrumb } from '../Breadcrumb'
-import { LastUpdatedBadge } from './LastUpdatedBadge'
 import { HeroActions } from './HeroActions'
 import { KPIGrid } from './KPIGrid'
 import { SkeletonHero } from '../common/SkeletonHero'
@@ -34,32 +32,29 @@ export function CareerRoadmapHero({
   if (!data) return null
 
   return (
-    <div className={cn('space-y-6 text-left', className)}>
-      {/* Top Header Section */}
-      <header className="space-y-4 text-left">
-        {/* Breadcrumb Navigation */}
-        <div className="flex items-center justify-between">
-          <Breadcrumb />
-        </div>
-
-        {/* Title Banner & Header Actions */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pt-1">
-          {/* Title & Subtitle */}
-          <div className="space-y-1 text-left">
-            <div className="flex items-center gap-2.5">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2 m-0">
+    <div className={cn('space-y-4 sm:space-y-5 text-left', className)}>
+      {/* Executive Workspace Header Banner Container */}
+      <header className="text-left">
+        {/* Master Executive Card (Layer 1 Title & Layer 3 Actions Container) */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 p-5 md:p-6 rounded-2xl bg-[#121426] border border-white/10 bg-gradient-to-r from-[#14162a] via-[#111324] to-[#14162a] shadow-lg shadow-purple-950/10 transition-all duration-200">
+          {/* Layer 1: Title & Subtitle Area */}
+          <div className="space-y-1.5 text-left min-w-0 flex-1">
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5 m-0 leading-snug">
                 <span>{data.title}</span>
-                <Sparkles className="h-6 w-6 text-purple-400 fill-purple-400/20 shrink-0 drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]" aria-hidden="true" />
+                <Sparkles
+                  className="h-6 w-6 text-purple-400 fill-purple-400/20 shrink-0 drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]"
+                  aria-hidden="true"
+                />
               </h1>
             </div>
-            <p className="text-xs sm:text-sm text-slate-400 font-medium m-0">
+            <p className="text-xs sm:text-sm text-slate-400 font-medium m-0 max-w-2xl leading-relaxed">
               {data.subtitle}
             </p>
           </div>
 
-          {/* Status Badge & Actions */}
-          <div className="flex flex-wrap items-center gap-3">
-            <LastUpdatedBadge timestamp={data.lastUpdated} />
+          {/* Layer 3: Primary Action Area */}
+          <div className="shrink-0 w-full md:w-auto">
             <HeroActions
               onDownloadRoadmap={onDownloadRoadmap}
               onRegenerateRoadmap={onRegenerateRoadmap}
@@ -68,7 +63,7 @@ export function CareerRoadmapHero({
         </div>
       </header>
 
-      {/* KPI Cards Grid */}
+      {/* Layer 2: Executive KPI Area */}
       <KPIGrid kpis={data.kpis} onCardAction={onCardAction} />
     </div>
   )

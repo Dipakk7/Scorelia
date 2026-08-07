@@ -234,3 +234,43 @@ export interface ProductivityInsightData {
   longestStreakDays: number
   mostProductiveDay: string
 }
+
+export interface JobOpportunityItem {
+  id: string
+  title: string
+  company: string
+  companyInitials: string
+  location: string
+  isRemote: boolean
+  salary: string
+  matchScore: number
+  matchingSkills: string[]
+  missingSkills: string[]
+  featured?: boolean
+  postedAgo: string
+  jobType: string
+  experienceLevel: string
+}
+
+export interface JobMatchSummaryData {
+  totalMatches: number
+  highMatchCount: number
+  avgSalaryRange: string
+  topSkillDemand: string
+}
+
+export interface SkillMatchInsightData {
+  category: string
+  matchingSkills: string[]
+  missingSkills: string[]
+  recommendedSkills: string[]
+}
+
+export interface ApplicationRecommendationItem {
+  id: string
+  title: string
+  company: string
+  tip: string
+  readinessScore: number
+  actionText: string
+}

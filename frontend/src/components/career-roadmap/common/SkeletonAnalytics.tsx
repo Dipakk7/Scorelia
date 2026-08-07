@@ -10,7 +10,7 @@ export function SkeletonAnalytics() {
           <Skeleton key={i} className="h-24 rounded-2xl bg-white/10" />
         ))}
       </div>
-      <Card className="p-6 bg-[#121320] border border-white/10 rounded-2xl space-y-4">
+      <Card className="p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-4 shadow-sm">
         <Skeleton className="h-6 w-48 bg-white/10" />
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {Array.from({ length: 6 }).map((_, i) => (

@@ -73,7 +73,7 @@ export function MessageList({ messages, isTyping, className }: MessageListProps)
 
               {/* Optional Code Snippet */}
               {msg.codeSnippet && (
-                <div className="rounded-lg bg-[#121320] border border-white/10 p-2.5 font-mono text-[11px] text-purple-300 overflow-x-auto space-y-1">
+                <div className="rounded-lg bg-[#0b0c14] border border-white/10 p-2.5 font-mono text-[11px] text-purple-300 overflow-x-auto space-y-1">
                   <div className="flex items-center gap-1.5 text-[10px] text-slate-400 font-sans border-b border-white/5 pb-1">
                     <Terminal className="h-3 w-3 text-purple-400" aria-hidden="true" />
                     <span>Learning Target Config</span>

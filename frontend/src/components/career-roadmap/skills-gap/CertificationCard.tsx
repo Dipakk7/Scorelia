@@ -28,7 +28,7 @@ export function CertificationCard({
   }
 
   return (
-    <Card className={cn('p-5 sm:p-6 bg-[#121320] border border-white/10 rounded-2xl space-y-4 shadow-sm text-left', className)}>
+    <Card className={cn('p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-4 shadow-sm hover:border-purple-500/30 transition-all text-left', className)}>
       <div className="flex items-center justify-between">
         <div className="space-y-0.5">
           <h3 className="text-base font-bold text-white tracking-tight flex items-center gap-2 m-0">
@@ -81,11 +81,11 @@ export function CertificationCard({
                 variant="outline"
                 size="sm"
                 onClick={() => onEnroll?.(cert.id)}
-                className="w-full justify-center text-xs font-semibold py-1.5 rounded-lg border-white/10 bg-white/5 hover:bg-white/10 hover:text-white cursor-pointer focus-visible:ring-2 focus-visible:ring-purple-500/50"
+                className="w-full justify-center text-xs font-semibold py-2.5 min-h-[44px] rounded-xl border-white/15 bg-[#121426] hover:bg-white/10 hover:text-white cursor-pointer focus-visible:ring-2 focus-visible:ring-purple-500/50"
                 aria-label={`Action for ${cert.title}`}
               >
                 <span>{cert.actionText}</span>
-                <ArrowRight className="h-3 w-3 ml-1 text-slate-400" aria-hidden="true" />
+                <ArrowRight className="h-3.5 w-3.5 ml-1 text-slate-400" aria-hidden="true" />
               </Button>
             </div>
           </div>

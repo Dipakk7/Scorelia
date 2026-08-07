@@ -68,7 +68,7 @@ export const MilestoneCard = memo(function MilestoneCard({
     <motion.div variants={cardVariants} whileHover="hover" whileTap="tap" className="h-full">
       <Card
         className={cn(
-          'p-5 bg-[#121320] border border-white/10 rounded-2xl space-y-4 shadow-sm hover:border-purple-500/30 transition-all text-left flex flex-col justify-between h-full',
+          'p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-4 shadow-sm hover:border-purple-500/30 transition-all text-left flex flex-col justify-between h-full',
           className
         )}
       >

@@ -21,6 +21,10 @@ import type {
   NextStepPlannerItem,
   ProgressHistoryItem,
   ProductivityInsightData,
+  JobOpportunityItem,
+  JobMatchSummaryData,
+  SkillMatchInsightData,
+  ApplicationRecommendationItem,
 } from '@/types/careerRoadmap'
 
 export const careerRoadmapHeroMockData: CareerRoadmapHeroData = {
@@ -482,3 +486,111 @@ export const productivityInsightsMockData: ProductivityInsightData = {
   longestStreakDays: 24,
   mostProductiveDay: 'Thursday',
 }
+
+export const jobMatchSummaryMockData: JobMatchSummaryData = {
+  totalMatches: 24,
+  highMatchCount: 14,
+  avgSalaryRange: '$125K – $165K',
+  topSkillDemand: 'Python, PyTorch, RAG',
+}
+
+export const jobOpportunitiesMockData: JobOpportunityItem[] = [
+  {
+    id: 'job-1',
+    title: 'Senior AI/ML Engineer',
+    company: 'Anthropic',
+    companyInitials: 'AN',
+    location: 'San Francisco, CA',
+    isRemote: true,
+    salary: '$160,000 - $210,000',
+    matchScore: 94,
+    matchingSkills: ['Python', 'PyTorch', 'LangChain', 'FastAPI', 'Pandas'],
+    missingSkills: ['Docker', 'Kubernetes'],
+    featured: true,
+    postedAgo: '2 hours ago',
+    jobType: 'Full-time',
+    experienceLevel: 'Mid–Senior',
+  },
+  {
+    id: 'job-2',
+    title: 'Machine Learning Infrastructure Engineer',
+    company: 'Databricks',
+    companyInitials: 'DB',
+    location: 'San Jose, CA',
+    isRemote: true,
+    salary: '$150,000 - $195,000',
+    matchScore: 88,
+    matchingSkills: ['Python', 'Scikit-learn', 'SQL', 'FastAPI'],
+    missingSkills: ['AWS MLOps', 'Kubeflow'],
+    featured: true,
+    postedAgo: '5 hours ago',
+    jobType: 'Full-time',
+    experienceLevel: 'Entry–Mid',
+  },
+  {
+    id: 'job-3',
+    title: 'Generative AI Developer',
+    company: 'Scale AI',
+    companyInitials: 'SA',
+    location: 'New York, NY',
+    isRemote: false,
+    salary: '$140,000 - $180,000',
+    matchScore: 85,
+    matchingSkills: ['Python', 'Transformers', 'FastAPI', 'Vector DB'],
+    missingSkills: ['LangGraph', 'Ray'],
+    featured: false,
+    postedAgo: '1 day ago',
+    jobType: 'Full-time',
+    experienceLevel: 'Mid Level',
+  },
+  {
+    id: 'job-4',
+    title: 'Junior AI Software Engineer',
+    company: 'Perplexity AI',
+    companyInitials: 'PX',
+    location: 'Remote',
+    isRemote: true,
+    salary: '$120,000 - $155,000',
+    matchScore: 91,
+    matchingSkills: ['Python', 'Pandas', 'FastAPI', 'REST APIs', 'Git'],
+    missingSkills: ['Redis'],
+    featured: false,
+    postedAgo: '2 days ago',
+    jobType: 'Full-time',
+    experienceLevel: 'Entry Level',
+  },
+]
+
+export const skillMatchInsightMockData: SkillMatchInsightData[] = [
+  {
+    category: 'Core AI & ML',
+    matchingSkills: ['Python', 'NumPy', 'Pandas', 'Scikit-learn', 'PyTorch'],
+    missingSkills: ['TensorFlow (Legacy)'],
+    recommendedSkills: ['LangChain RAG', 'Transformers fine-tuning'],
+  },
+  {
+    category: 'MLOps & Infrastructure',
+    matchingSkills: ['FastAPI', 'Git', 'Linux CLI'],
+    missingSkills: ['Docker Containerization', 'Kubernetes Cluster Setup', 'MLflow Tracking'],
+    recommendedSkills: ['Docker Desktop Hands-on', 'AWS SageMaker pipelines'],
+  },
+]
+
+export const applicationRecommendationsMockData: ApplicationRecommendationItem[] = [
+  {
+    id: 'rec-1',
+    title: 'Tailor Resume for Anthropic AI Role',
+    company: 'Anthropic',
+    tip: 'Add RAG vector database & FastAPI benchmarks to your resume key achievements.',
+    readinessScore: 94,
+    actionText: 'Optimize Resume →',
+  },
+  {
+    id: 'rec-2',
+    title: 'Add Containerization to Scale AI Application',
+    company: 'Scale AI',
+    tip: 'Completing Phase 2 MLOps Docker module will boost match score from 85% to 96%.',
+    readinessScore: 85,
+    actionText: 'Start Docker Module →',
+  },
+]

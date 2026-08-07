@@ -54,7 +54,7 @@ export const RoadmapPhaseCard = memo(function RoadmapPhaseCard({
     <motion.div variants={cardVariants} whileHover="hover" whileTap="tap" className="h-full">
       <Card
         className={cn(
-          'p-5 sm:p-6 bg-[#121320] border rounded-2xl transition-all duration-200 shadow-sm flex flex-col justify-between h-full text-left',
+          'p-4.5 sm:p-5 bg-[#121426] border rounded-2xl transition-all duration-200 shadow-sm flex flex-col justify-between h-full text-left',
           statusStyle.borderClass,
           className
         )}
@@ -71,7 +71,7 @@ export const RoadmapPhaseCard = memo(function RoadmapPhaseCard({
               </span>
             </div>
             <span className="text-xs text-slate-400 font-semibold flex items-center gap-1">
-              <Clock className="h-3 w-3 text-slate-500" aria-hidden="true" />
+              <Clock className="h-3.5 w-3.5 text-slate-500" aria-hidden="true" />
               <span>{phase.months}</span>
             </span>
           </div>
@@ -143,7 +143,7 @@ export const RoadmapPhaseCard = memo(function RoadmapPhaseCard({
           </div>
         </div>
 
-        {/* Footer Meta & View Details Button Placeholder */}
+        {/* Footer Meta & View Details Button */}
         <div className="pt-4 mt-4 border-t border-white/5 space-y-3">
           <div className="flex items-center justify-between text-[11px] font-medium text-slate-400">
             <span className="flex items-center gap-1">
@@ -160,7 +160,7 @@ export const RoadmapPhaseCard = memo(function RoadmapPhaseCard({
             variant="outline"
             size="sm"
             onClick={() => onExpandDetails?.(phase.id)}
-            className="w-full justify-center text-xs font-semibold text-slate-200 border-white/15 bg-[#0b0c14] hover:bg-white/10 hover:text-white rounded-xl py-2 cursor-pointer transition-all focus-visible:ring-2 focus-visible:ring-purple-500/50"
+            className="w-full justify-center text-xs font-semibold text-slate-200 border-white/15 bg-[#0b0c14] hover:bg-white/10 hover:text-white rounded-xl py-2.5 min-h-[44px] cursor-pointer transition-all focus-visible:ring-2 focus-visible:ring-purple-500/50"
             aria-label={`View details for Phase ${phase.phaseNumber}: ${phase.title}`}
           >
             <span>View Details</span>

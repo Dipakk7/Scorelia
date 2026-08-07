@@ -93,7 +93,7 @@ export const KPICard = memo(function KPICard({ data, isSelected = false, onActio
         aria-selected={onClick ? isSelected : undefined}
         onClick={onClick}
         className={cn(
-          'p-4 rounded-2xl bg-[#121320] transition-all duration-200 flex flex-col justify-between h-full text-left select-none',
+          'p-4 sm:p-4.5 rounded-2xl bg-[#121426] transition-all duration-200 flex flex-col justify-between h-full text-left select-none',
           'hover:bg-[#16182c] hover:border-purple-500/40 hover:shadow-md',
           'active:scale-[0.98]',
           onClick && 'cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e]',
@@ -105,11 +105,11 @@ export const KPICard = memo(function KPICard({ data, isSelected = false, onActio
       >
         {/* Top Header Label & Visual */}
         <div className="flex items-start justify-between gap-3">
-          <div className="space-y-1 min-w-0">
-            <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block truncate">
+          <div className="space-y-1 min-w-0 flex-1">
+            <span className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider block truncate">
               {data.label}
             </span>
-            <div className="text-lg sm:text-xl font-extrabold text-white tracking-tight truncate">
+            <div className="text-xl sm:text-2xl font-extrabold text-white tracking-tight truncate">
               {data.value}
             </div>
           </div>

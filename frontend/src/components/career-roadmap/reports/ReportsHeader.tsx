@@ -21,7 +21,7 @@ export function ReportsHeader({
   className,
 }: ReportsHeaderProps) {
   return (
-    <div className={cn('flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 sm:p-6 bg-[#121320] border border-white/10 rounded-2xl shadow-sm text-left', className)}>
+    <div className={cn('flex flex-col md:flex-row md:items-center justify-between gap-4 p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl shadow-sm hover:border-purple-500/30 transition-all text-left', className)}>
       <div className="space-y-1">
         <div className="flex items-center gap-2">
           <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 shrink-0">

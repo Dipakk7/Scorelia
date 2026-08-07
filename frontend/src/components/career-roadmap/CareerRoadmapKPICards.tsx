@@ -106,8 +106,8 @@ export function CareerRoadmapKPICards() {
               aria-selected={isSelected}
               onClick={() => setSelectedId(card.id)}
               className={cn(
-                'p-4 rounded-2xl bg-[#121320] transition-all duration-200 flex flex-col justify-between cursor-pointer select-none',
-                'hover:bg-[#16182c] hover:border-purple-500/40 hover:shadow-md',
+                'p-4.5 sm:p-5 rounded-2xl bg-[#121426] transition-all duration-200 flex flex-col justify-between cursor-pointer select-none',
+                'hover:border-purple-500/30 hover:shadow-md',
                 'active:scale-[0.98]',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e]',
                 isSelected

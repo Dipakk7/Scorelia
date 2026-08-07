@@ -15,7 +15,7 @@ export function SessionSummaryCard({
   className,
 }: SessionSummaryCardProps) {
   return (
-    <Card className={cn('p-5 bg-[#121320] border border-white/10 rounded-2xl space-y-3.5 shadow-sm text-left', className)}>
+    <Card className={cn('p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-3.5 shadow-sm text-left hover:border-purple-500/30 transition-all', className)}>
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-bold text-white tracking-tight flex items-center gap-1.5 m-0">
           <Sparkles className="h-4 w-4 text-purple-400 shrink-0" aria-hidden="true" />

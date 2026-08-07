@@ -48,7 +48,7 @@ export function ShareReportDialog({
     >
       <Card
         className={cn(
-          'w-full max-w-lg p-6 bg-[#121320] border border-white/10 rounded-3xl space-y-5 shadow-2xl text-left relative',
+          'w-full max-w-lg p-5 sm:p-6 bg-[#121426] border border-white/10 rounded-2xl space-y-5 shadow-2xl text-left relative',
           className
         )}
       >

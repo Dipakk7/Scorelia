@@ -18,7 +18,7 @@ export function SkillsGapOverview({
   return (
     <div className={cn('grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left', className)}>
       {/* 1. Overall Skill Readiness */}
-      <Card className="p-4 bg-[#121320] border border-white/10 rounded-2xl flex items-center justify-between shadow-sm">
+      <Card className="p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl flex items-center justify-between shadow-sm hover:border-purple-500/30 transition-all">
         <div className="space-y-1">
           <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
             Overall Readiness
@@ -40,7 +40,7 @@ export function SkillsGapOverview({
       </Card>
 
       {/* 2. Gap Score */}
-      <Card className="p-4 bg-[#121320] border border-white/10 rounded-2xl flex items-center justify-between shadow-sm">
+      <Card className="p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl flex items-center justify-between shadow-sm hover:border-purple-500/30 transition-all">
         <div className="space-y-1">
           <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
             Gap Score
@@ -58,7 +58,7 @@ export function SkillsGapOverview({
       </Card>
 
       {/* 3. Skills Completed */}
-      <Card className="p-4 bg-[#121320] border border-white/10 rounded-2xl flex items-center justify-between shadow-sm">
+      <Card className="p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl flex items-center justify-between shadow-sm hover:border-purple-500/30 transition-all">
         <div className="space-y-1">
           <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
             Skills Completed
@@ -76,7 +76,7 @@ export function SkillsGapOverview({
       </Card>
 
       {/* 4. Market Alignment */}
-      <Card className="p-4 bg-[#121320] border border-white/10 rounded-2xl flex items-center justify-between shadow-sm">
+      <Card className="p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl flex items-center justify-between shadow-sm hover:border-purple-500/30 transition-all">
         <div className="space-y-1">
           <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
             Market Alignment

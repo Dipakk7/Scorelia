@@ -35,7 +35,7 @@ export function RecommendedActionsCard({
   }
 
   return (
-    <Card className={cn('p-5 bg-[#121320] border border-white/10 rounded-2xl space-y-4 shadow-sm text-left', className)}>
+    <Card className={cn('p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-4 shadow-sm text-left hover:border-purple-500/30 transition-all', className)}>
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-bold text-white tracking-tight m-0">
           Recommended Actions

@@ -4,7 +4,7 @@ import { Skeleton } from '@/components/ui/Skeleton'
 
 export function SkeletonAssistant() {
   return (
-    <Card className="p-5 bg-[#121320] border border-white/10 rounded-2xl space-y-4">
+    <Card className="p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-4 shadow-sm">
       <div className="flex justify-between items-center">
         <Skeleton className="h-6 w-36 bg-white/10" />
         <Skeleton className="h-5 w-16 rounded-full bg-white/10" />

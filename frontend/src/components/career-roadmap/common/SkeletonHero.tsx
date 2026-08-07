@@ -4,7 +4,7 @@ import { Skeleton } from '@/components/ui/Skeleton'
 
 export function SkeletonHero() {
   return (
-    <Card className="p-6 bg-[#121320] border border-white/10 rounded-3xl space-y-6">
+    <Card className="p-5 sm:p-6 bg-[#121426] border border-white/10 rounded-2xl space-y-6 shadow-sm">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-2">
           <Skeleton className="h-4 w-24 bg-white/10" />

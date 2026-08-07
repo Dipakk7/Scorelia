@@ -18,7 +18,7 @@ export function CareerRoadmapError({
   className,
 }: CareerRoadmapErrorProps) {
   return (
-    <Card className={cn('p-8 sm:p-12 bg-[#121320] border border-rose-500/20 rounded-3xl text-center space-y-4 shadow-sm text-left', className)}>
+    <Card className={cn('p-6 sm:p-8 bg-[#121426] border border-rose-500/30 rounded-2xl text-center space-y-4 shadow-sm max-w-xl mx-auto my-4', className)}>
       <div className="mx-auto h-12 w-12 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400">
         <AlertTriangle className="h-6 w-6" aria-hidden="true" />
       </div>
@@ -37,9 +37,9 @@ export function CareerRoadmapError({
             variant="outline"
             size="sm"
             onClick={onRetry}
-            className="flex items-center gap-2 text-xs font-semibold py-2 px-4 rounded-xl border-white/10 bg-white/5 hover:bg-white/10 text-white cursor-pointer"
+            className="flex items-center gap-2 text-xs font-semibold py-2.5 px-4 min-h-[44px] rounded-xl border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-200 cursor-pointer"
           >
-            <RefreshCw className="h-3.5 w-3.5" aria-hidden="true" />
+            <RefreshCw className="h-4 w-4" aria-hidden="true" />
             <span>Retry Loading</span>
           </Button>
         </div>

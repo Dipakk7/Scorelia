@@ -17,7 +17,7 @@ export function GoalTracker({
   className,
 }: GoalTrackerProps) {
   return (
-    <Card className={cn('p-5 sm:p-6 bg-[#121320] border border-white/10 rounded-2xl space-y-5 shadow-sm text-left', className)}>
+    <Card className={cn('p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-5 shadow-sm hover:border-purple-500/30 transition-all text-left', className)}>
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/5 pb-4">
         <div className="flex items-center gap-3">

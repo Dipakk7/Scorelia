@@ -34,9 +34,9 @@ export function TimelineContainer({
   }
 
   return (
-    <div className={cn('space-y-6 text-left', className)}>
+    <div className={cn('space-y-4 sm:space-y-5 text-left', className)}>
       {/* Main 12-Month Roadmap Workspace Card */}
-      <Card className="p-5 sm:p-6 bg-[#121320] border border-white/10 rounded-2xl space-y-6 shadow-sm">
+      <Card className="p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-5 shadow-sm hover:border-purple-500/30 transition-all">
         {/* Workspace Card Header & View Toggle */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-4">
           <div className="space-y-1 text-left">

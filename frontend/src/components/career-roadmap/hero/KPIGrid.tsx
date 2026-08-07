@@ -23,7 +23,7 @@ export const KPIGrid = memo(function KPIGrid({ kpis, onCardAction, className }: 
         initial="initial"
         animate="animate"
         className={cn(
-          'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4',
+          'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-5',
           className
         )}
       >

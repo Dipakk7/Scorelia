@@ -9,7 +9,7 @@ export interface ReportFooterProps {
 
 export function ReportFooter({ className }: ReportFooterProps) {
   return (
-    <Card className={cn('p-4 bg-[#121320] border border-white/10 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-left shadow-sm select-none', className)}>
+    <Card className={cn('p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-left shadow-sm hover:border-purple-500/30 transition-all select-none', className)}>
       <div className="flex items-center gap-2">
         <div className="p-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-400 shrink-0">
           <Sparkles className="h-4 w-4" aria-hidden="true" />

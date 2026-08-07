@@ -31,24 +31,24 @@ export function SkillsGapAnalytics({ className }: SkillsGapAnalyticsProps) {
   }
 
   return (
-    <div className={cn('space-y-6 text-left', className)}>
+    <div className={cn('space-y-4 sm:space-y-5 text-left', className)}>
       {/* 1. Overview KPIs */}
       <SkillsGapOverview overview={skillsOverview} />
 
-      {/* 2. Recommended Learning Path Sequence */}
-      <LearningPathCard steps={learningPath.length > 0 ? learningPath : undefined} />
+      {/* 2. Priority Learning Matrix (2x2 Quick Wins vs Strategic) */}
+      <PriorityMatrix items={priorityMatrix.length > 0 ? priorityMatrix : undefined} />
 
-      {/* 3. Skill Categories Grid (9 categories) */}
+      {/* 3. Skill Categories Grid (Tracked Skills) */}
       <SkillCategoryGrid categories={skillCategories.length > 0 ? skillCategories : undefined} />
 
       {/* 4. Top Missing Skills */}
       <MissingSkillsCard skills={missingSkills.length > 0 ? missingSkills : undefined} />
 
-      {/* 5. 2x2 Priority Matrix */}
-      <PriorityMatrix items={priorityMatrix.length > 0 ? priorityMatrix : undefined} />
-
-      {/* 6. Market Demand & Salary Insights */}
+      {/* 5. Market Demand & Salary Insights */}
       <MarketDemandCard marketData={marketDemand} />
+
+      {/* 6. Recommended Learning Path Sequence */}
+      <LearningPathCard steps={learningPath.length > 0 ? learningPath : undefined} />
 
       {/* 7. Industry Certification Recommendations */}
       <CertificationCard certifications={certificationRecommendations.length > 0 ? certificationRecommendations : undefined} />

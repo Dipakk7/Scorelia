@@ -20,7 +20,7 @@ export function PriorityMatrix({
   const reevaluate = items.filter((i) => i.quadrant === 'reevaluate')
 
   return (
-    <Card className={cn('p-5 sm:p-6 bg-[#121320] border border-white/10 rounded-2xl space-y-4 shadow-sm text-left', className)}>
+    <Card className={cn('p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-4 shadow-sm hover:border-purple-500/30 transition-all text-left', className)}>
       <div className="space-y-0.5 text-left">
         <h3 className="text-base font-bold text-white tracking-tight m-0">
           Learning Priority Matrix

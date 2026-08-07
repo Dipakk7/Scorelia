@@ -1,4 +1,15 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import {
+  Map,
+  Target,
+  Flag,
+  FileText,
+  BookOpen,
+  Briefcase,
+  TrendingUp,
+} from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export type RoadmapTabId =
@@ -13,6 +24,7 @@ export type RoadmapTabId =
 export interface TabItem {
   id: RoadmapTabId
   label: string
+  icon: LucideIcon
 }
 
 export interface CareerRoadmapTabsProps {
@@ -22,13 +34,13 @@ export interface CareerRoadmapTabsProps {
 }
 
 export const ROADMAP_TABS: TabItem[] = [
-  { id: 'roadmap', label: 'Roadmap' },
-  { id: 'skills-gap', label: 'Skills Gap' },
-  { id: 'milestones', label: 'Milestones' },
-  { id: 'reports', label: 'Reports & Export' },
-  { id: 'resources', label: 'Resources' },
-  { id: 'recommended-jobs', label: 'Recommended Jobs' },
-  { id: 'progress-tracker', label: 'Progress Tracker' },
+  { id: 'roadmap', label: 'Roadmap', icon: Map },
+  { id: 'skills-gap', label: 'Skills Gap', icon: Target },
+  { id: 'milestones', label: 'Milestones', icon: Flag },
+  { id: 'reports', label: 'Reports & Export', icon: FileText },
+  { id: 'resources', label: 'Resources', icon: BookOpen },
+  { id: 'recommended-jobs', label: 'Recommended Jobs', icon: Briefcase },
+  { id: 'progress-tracker', label: 'Progress Tracker', icon: TrendingUp },
 ]
 
 export function CareerRoadmapTabs({
@@ -36,23 +48,34 @@ export function CareerRoadmapTabs({
   onTabChange,
   className,
 }: CareerRoadmapTabsProps) {
+  const activeTabRef = useRef<HTMLButtonElement | null>(null)
+
+  useEffect(() => {
+    if (activeTabRef.current) {
+      activeTabRef.current.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+    }
+  }, [activeTab])
+
   return (
     <div
       className={cn(
-        'w-full border-b border-white/10 overflow-x-auto scrollbar-none focus:outline-none',
+        'sticky top-2 z-30 backdrop-blur-md bg-slate-950/85 border border-slate-800/80 p-1.5 rounded-2xl shadow-xl transition-all overflow-x-auto scrollbar-none focus:outline-none',
         className
       )}
     >
       <nav
         role="tablist"
-        aria-label="Career Roadmap Sections"
-        className="flex items-center gap-6 sm:gap-8 min-w-max pb-px"
+        aria-label="Career Roadmap Workspace Sections"
+        className="flex items-center gap-1.5 p-1 bg-slate-900/70 border border-slate-800/80 rounded-xl w-max min-w-full sm:min-w-0"
       >
         {ROADMAP_TABS.map((tab) => {
+          const Icon = tab.icon
           const isActive = activeTab === tab.id
           return (
             <button
               key={tab.id}
+              ref={isActive ? activeTabRef : null}
+              type="button"
               role="tab"
               id={`tab-${tab.id}`}
               aria-selected={isActive}
@@ -70,19 +93,28 @@ export function CareerRoadmapTabs({
                 }
               }}
               className={cn(
-                'relative py-3.5 min-h-[44px] text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer border-none bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50 rounded-t-lg',
+                'group relative flex items-center justify-center gap-2 px-3.5 sm:px-4 py-2.5 min-h-[44px] rounded-lg text-xs sm:text-sm transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none whitespace-nowrap cursor-pointer select-none border-none z-10',
                 isActive
-                  ? 'text-white font-bold'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'text-white font-bold bg-purple-600/40 border border-purple-500/50 shadow-md shadow-purple-950/20'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 font-medium bg-transparent'
               )}
             >
-              <span>{tab.label}</span>
+              <Icon
+                className={cn(
+                  'w-4 h-4 relative z-10 transition-colors duration-200 pointer-events-none shrink-0',
+                  isActive ? 'text-purple-300' : 'text-slate-400 group-hover:text-slate-200'
+                )}
+                aria-hidden="true"
+              />
+              <span className={cn('relative z-10 transition-colors duration-200 pointer-events-none', isActive ? 'text-white font-bold' : 'text-slate-400')}>
+                {tab.label}
+              </span>
 
-              {/* Active Tab Highlight Indicator Bar */}
               {isActive && (
-                <span
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full shadow-[0_0_8px_rgba(168,85,247,0.8)]"
-                  aria-hidden="true"
+                <motion.div
+                  layoutId="activeRoadmapTabIndicator"
+                  className="absolute inset-0 bg-purple-500/20 rounded-lg border border-purple-400/50 pointer-events-none z-0"
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                 />
               )}
             </button>

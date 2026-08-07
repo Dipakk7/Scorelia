@@ -81,19 +81,23 @@ export function CareerAssistant({
   }
 
   return (
-    <div className={cn('space-y-5 text-left', className)}>
-      {/* Main AI Assistant Card */}
-      <Card className="p-5 bg-[#121320] border border-white/10 rounded-2xl space-y-4 shadow-sm text-left">
+    <div className={cn('space-y-4 sm:space-y-5 text-left', className)}>
+      {/* 1. Today's Focus & Session Summary */}
+      <SessionSummaryCard summary={sessionSummary} />
+
+      {/* 2. Recommended Quick Actions */}
+      <RecommendedActionsCard actions={recommendedActions.length > 0 ? recommendedActions : undefined} />
+
+      {/* 3. Personalized Career Insights */}
+      <CareerInsightsCard insights={insights} />
+
+      {/* 4. Interactive Consultation AI Workspace */}
+      <Card className="p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-4 shadow-sm hover:border-purple-500/30 transition-all text-left">
         <AssistantHeader onNewChat={handleNewChat} onClearChat={handleClearChat} />
         <Conversation messages={messages} isTyping={isSending} />
         <SuggestedPrompts prompts={suggestedPrompts.length > 0 ? suggestedPrompts : undefined} onSelectPrompt={handleSendMessage} />
         <PromptComposer onSendMessage={handleSendMessage} />
       </Card>
-
-      {/* Auxiliary Analytics & Actions Cards */}
-      <CareerInsightsCard insights={insights} />
-      <RecommendedActionsCard actions={recommendedActions.length > 0 ? recommendedActions : undefined} />
-      <SessionSummaryCard summary={sessionSummary} />
     </div>
   )
 }

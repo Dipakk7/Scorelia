@@ -49,7 +49,7 @@ export function CareerRoadmapHeader({
           <Button
             variant="outline"
             onClick={onDownloadRoadmap}
-            className="flex items-center gap-2 px-4 py-2.5 min-h-[44px] text-xs font-semibold text-slate-200 border-white/15 bg-[#121320] hover:bg-white/10 hover:text-white rounded-xl transition-all cursor-pointer shadow-sm focus-visible:ring-2 focus-visible:ring-purple-500/50"
+            className="flex items-center gap-2 px-4 py-2.5 min-h-[44px] text-xs font-semibold text-slate-200 border-white/15 bg-[#121426] hover:bg-white/10 hover:text-white rounded-xl transition-all cursor-pointer shadow-sm focus-visible:ring-2 focus-visible:ring-purple-500/50"
             aria-label="Download Roadmap"
           >
             <Download className="h-4 w-4 text-slate-300 shrink-0" />

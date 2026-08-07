@@ -29,13 +29,13 @@ export function ViewToggle({ viewMode, onViewChange, className }: ViewToggleProp
         aria-pressed={viewMode === 'timeline'}
         onClick={() => onViewChange('timeline')}
         className={cn(
-          'flex items-center gap-1.5 px-3 py-1.5 min-h-[36px] sm:min-h-[32px] text-xs font-semibold rounded-lg transition-all cursor-pointer border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50',
+          'flex items-center gap-1.5 px-3.5 py-2 min-h-[44px] text-xs font-semibold rounded-lg transition-all cursor-pointer border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50',
           viewMode === 'timeline'
             ? 'bg-purple-600 text-white shadow-md shadow-purple-950/40 font-bold'
             : 'bg-transparent text-slate-400 hover:text-white hover:bg-white/5'
         )}
       >
-        <Calendar className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+        <Calendar className="h-4 w-4 shrink-0" aria-hidden="true" />
         <span>Timeline</span>
       </button>
 
@@ -45,13 +45,13 @@ export function ViewToggle({ viewMode, onViewChange, className }: ViewToggleProp
         aria-pressed={viewMode === 'board'}
         onClick={() => onViewChange('board')}
         className={cn(
-          'flex items-center gap-1.5 px-3 py-1.5 min-h-[36px] sm:min-h-[32px] text-xs font-semibold rounded-lg transition-all cursor-pointer border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50',
+          'flex items-center gap-1.5 px-3.5 py-2 min-h-[44px] text-xs font-semibold rounded-lg transition-all cursor-pointer border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50',
           viewMode === 'board'
             ? 'bg-purple-600 text-white shadow-md shadow-purple-950/40 font-bold'
             : 'bg-transparent text-slate-400 hover:text-white hover:bg-white/5'
         )}
       >
-        <LayoutGrid className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+        <LayoutGrid className="h-4 w-4 shrink-0" aria-hidden="true" />
         <span>Board</span>
       </button>
     </div>

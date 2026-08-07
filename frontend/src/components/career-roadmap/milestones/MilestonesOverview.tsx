@@ -18,7 +18,7 @@ export function MilestonesOverview({
   return (
     <div className={cn('grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-left select-none', className)}>
       {/* 1. Completed Milestones */}
-      <Card className="p-4 bg-[#121320] border border-white/10 rounded-2xl flex items-center justify-between shadow-sm">
+      <Card className="p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl flex items-center justify-between shadow-sm hover:border-purple-500/30 transition-all">
         <div className="space-y-1">
           <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
             Completed Milestones
@@ -36,7 +36,7 @@ export function MilestonesOverview({
       </Card>
 
       {/* 2. Upcoming Milestones */}
-      <Card className="p-4 bg-[#121320] border border-white/10 rounded-2xl flex items-center justify-between shadow-sm">
+      <Card className="p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl flex items-center justify-between shadow-sm hover:border-purple-500/30 transition-all">
         <div className="space-y-1">
           <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
             Upcoming Goals
@@ -54,7 +54,7 @@ export function MilestonesOverview({
       </Card>
 
       {/* 3. Current Streak */}
-      <Card className="p-4 bg-[#121320] border border-white/10 rounded-2xl flex items-center justify-between shadow-sm">
+      <Card className="p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl flex items-center justify-between shadow-sm hover:border-purple-500/30 transition-all">
         <div className="space-y-1">
           <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
             Current Streak
@@ -73,7 +73,7 @@ export function MilestonesOverview({
       </Card>
 
       {/* 4. Overall Completion */}
-      <Card className="p-4 bg-[#121320] border border-white/10 rounded-2xl flex items-center justify-between shadow-sm">
+      <Card className="p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl flex items-center justify-between shadow-sm hover:border-purple-500/30 transition-all">
         <div className="space-y-1">
           <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
             Overall Completion

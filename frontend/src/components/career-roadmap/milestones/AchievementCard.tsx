@@ -33,7 +33,7 @@ export const AchievementCard = memo(function AchievementCard({ achievement, clas
     <motion.div variants={cardVariants} whileHover="hover" whileTap="tap" className="h-full">
       <Card
         className={cn(
-          'p-4 bg-[#121320] border border-white/10 rounded-2xl space-y-3 shadow-sm hover:border-amber-500/30 transition-all text-left flex flex-col justify-between h-full',
+          'p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-3 shadow-sm hover:border-amber-500/30 transition-all text-left flex flex-col justify-between h-full',
           className
         )}
       >

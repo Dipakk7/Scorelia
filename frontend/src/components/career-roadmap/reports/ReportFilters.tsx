@@ -41,7 +41,7 @@ export function ReportFilters({
   }
 
   return (
-    <Card className={cn('p-4 sm:p-5 bg-[#121320] border border-white/10 rounded-2xl space-y-3.5 shadow-sm text-left', className)}>
+    <Card className={cn('p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-3.5 shadow-sm hover:border-purple-500/30 transition-all text-left', className)}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Filter className="h-4 w-4 text-purple-400 shrink-0" aria-hidden="true" />

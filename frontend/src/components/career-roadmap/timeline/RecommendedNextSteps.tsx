@@ -38,7 +38,7 @@ export function RecommendedNextSteps({
   }
 
   return (
-    <Card className={cn('p-5 sm:p-6 bg-[#121320] border border-white/10 rounded-2xl space-y-4 shadow-sm text-left', className)}>
+    <Card className={cn('p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-4 shadow-sm text-left hover:border-purple-500/30 transition-all', className)}>
       {/* Title */}
       <div className="space-y-0.5 text-left">
         <h3 className="text-base font-bold text-white tracking-tight flex items-center gap-2 m-0">
@@ -94,7 +94,7 @@ export function RecommendedNextSteps({
                   variant={step.btnVariant}
                   size="sm"
                   onClick={() => onStepAction?.(step.id)}
-                  className="w-full justify-center text-xs font-semibold py-2 rounded-xl cursor-pointer focus-visible:ring-2 focus-visible:ring-purple-500/50"
+                  className="w-full justify-center text-xs font-semibold py-2.5 min-h-[44px] rounded-xl cursor-pointer focus-visible:ring-2 focus-visible:ring-purple-500/50"
                   aria-label={`${step.action} for ${step.title}`}
                 >
                   <span>{step.action}</span>
