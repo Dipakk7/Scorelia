@@ -32,7 +32,7 @@ export function BulkActionsPanel({
   }
 
   return (
-    <div className={cn('p-4 rounded-2xl bg-[#0e0f1a] border border-purple-500/40 shadow-xl text-left space-y-3', className)}>
+    <div className={cn('p-4 rounded-2xl bg-slate-900/95 border border-purple-500/40 shadow-2xl text-left space-y-3', className)}>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3 text-xs text-white font-bold">
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/30">
@@ -67,7 +67,7 @@ export function BulkActionsPanel({
           <button
             type="button"
             onClick={() => handleActionClick('reindex')}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#121320] border border-white/10 hover:border-white/20 text-slate-300 text-xs font-semibold cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white text-xs font-semibold cursor-pointer"
           >
             <RefreshCw size={13} className="text-purple-400" />
             <span>Reindex</span>
@@ -76,7 +76,7 @@ export function BulkActionsPanel({
           <button
             type="button"
             onClick={() => handleActionClick('export')}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#121320] border border-white/10 hover:border-white/20 text-slate-300 text-xs font-semibold cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white text-xs font-semibold cursor-pointer"
           >
             <Download size={13} className="text-blue-400" />
             <span>Export</span>
@@ -85,7 +85,7 @@ export function BulkActionsPanel({
           <button
             type="button"
             onClick={() => handleActionClick('archive')}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#121320] border border-white/10 hover:border-white/20 text-slate-300 text-xs font-semibold cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white text-xs font-semibold cursor-pointer"
           >
             <Archive size={13} className="text-amber-400" />
             <span>Archive</span>

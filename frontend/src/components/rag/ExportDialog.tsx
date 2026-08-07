@@ -88,13 +88,13 @@ export function ExportDialog({
               type="text"
               value={fileName}
               onChange={(e) => setFileName(e.target.value)}
-              className="w-full text-xs py-2.5 px-3 border border-border rounded-xl bg-slate-50/50 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 placeholder-slate-405 focus:outline-none focus:ring-1 focus:ring-brand-500 font-sans font-medium transition-colors shadow-2xs h-10"
+              className="w-full text-xs py-2.5 px-3 border border-slate-800 rounded-xl bg-slate-950/80 text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20 font-sans font-medium transition-colors shadow-inner h-10"
             />
           </div>
 
           {/* Format selection */}
           <div className="space-y-2 text-left">
-            <label className="text-[9px] font-black text-muted-foreground uppercase tracking-widest block font-display leading-none">
+            <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest block font-display leading-none">
               Select Format
             </label>
             <div className="grid grid-cols-2 gap-3 text-left">
@@ -102,16 +102,16 @@ export function ExportDialog({
                 type="button"
                 onClick={() => setFormat('md')}
                 className={cn(
-                  'flex items-center gap-3 p-3 rounded-xl border text-left transition-all cursor-pointer shadow-2xs hover:shadow-sm border-slate-205 dark:border-slate-850 hover:border-slate-350 dark:hover:border-slate-750 bg-transparent',
+                  'flex items-center gap-3 p-3 rounded-xl border text-left transition-all cursor-pointer shadow-sm hover:shadow-md border-slate-800 bg-slate-950/70 hover:border-purple-500/40',
                   format === 'md'
-                    ? 'border-brand-500 bg-brand-500/5 dark:bg-brand-500/10'
+                    ? 'border-purple-500/60 bg-purple-500/15'
                     : ''
                 )}
               >
-                <FileCode size={20} className="text-brand-500 shrink-0" />
+                <FileCode size={20} className="text-purple-400 shrink-0" />
                 <div className="min-w-0">
-                  <span className="font-extrabold text-foreground block text-xs leading-none">Markdown</span>
-                  <span className="text-[9px] text-muted-foreground block mt-1 leading-none font-bold">Styled document (.md)</span>
+                  <span className="font-extrabold text-white block text-xs leading-none">Markdown</span>
+                  <span className="text-[9px] text-slate-400 block mt-1 leading-none font-bold">Styled document (.md)</span>
                 </div>
               </button>
 
@@ -119,16 +119,16 @@ export function ExportDialog({
                 type="button"
                 onClick={() => setFormat('txt')}
                 className={cn(
-                  'flex items-center gap-3 p-3 rounded-xl border text-left transition-all cursor-pointer shadow-2xs hover:shadow-sm border-slate-205 dark:border-slate-850 hover:border-slate-350 dark:hover:border-slate-750 bg-transparent',
+                  'flex items-center gap-3 p-3 rounded-xl border text-left transition-all cursor-pointer shadow-sm hover:shadow-md border-slate-800 bg-slate-950/70 hover:border-purple-500/40',
                   format === 'txt'
-                    ? 'border-brand-500 bg-brand-500/5 dark:bg-brand-500/10'
+                    ? 'border-purple-500/60 bg-purple-500/15'
                     : ''
                 )}
               >
-                <FileText size={20} className="text-slate-500 shrink-0" />
+                <FileText size={20} className="text-slate-400 shrink-0" />
                 <div className="min-w-0">
-                  <span className="font-extrabold text-foreground block text-xs leading-none">Plain Text</span>
-                  <span className="text-[9px] text-muted-foreground block mt-1 leading-none font-bold">Raw text file (.txt)</span>
+                  <span className="font-extrabold text-white block text-xs leading-none">Plain Text</span>
+                  <span className="text-[9px] text-slate-400 block mt-1 leading-none font-bold">Raw text file (.txt)</span>
                 </div>
               </button>
             </div>

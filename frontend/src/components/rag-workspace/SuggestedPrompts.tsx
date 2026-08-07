@@ -16,7 +16,7 @@ export function SuggestedPrompts({
 }: SuggestedPromptsProps) {
   return (
     <div className={cn('space-y-2 text-left select-none', className)}>
-      <div className="flex items-center gap-1.5 text-xs text-[var(--muted)]">
+      <div className="flex items-center gap-1.5 text-xs text-slate-400">
         <Sparkles size={13} className="text-purple-400 shrink-0" />
         <span className="font-bold uppercase tracking-wider text-[10px]">Suggested Prompts</span>
       </div>
@@ -27,7 +27,7 @@ export function SuggestedPrompts({
             key={i}
             type="button"
             onClick={() => onSelectPrompt(prompt)}
-            className="px-3 py-1.5 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)] hover:border-purple-500/40 hover:bg-purple-500/10 text-xs font-medium text-[var(--heading)] hover:text-purple-300 transition-all duration-200 cursor-pointer truncate max-w-xs active:scale-95 shadow-sm border-none"
+            className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-purple-600/20 border border-slate-800 hover:border-purple-500/40 text-xs font-medium text-slate-300 hover:text-white transition-all duration-200 cursor-pointer truncate max-w-xs active:scale-95 shadow-sm"
           >
             ✨ {prompt}
           </button>

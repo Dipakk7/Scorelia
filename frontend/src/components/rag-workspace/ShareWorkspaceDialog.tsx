@@ -45,30 +45,30 @@ export function ShareWorkspaceDialog({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200 select-none">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200 select-none">
       <div
         className={cn(
-          'w-full max-w-md p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left space-y-4 relative',
+          'w-full max-w-md p-6 rounded-2xl bg-slate-950/95 border border-slate-800/90 shadow-2xl text-left space-y-4 relative text-slate-100',
           className
         )}
       >
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-4 top-4 text-[var(--muted)] hover:text-[var(--heading)] border-none bg-transparent cursor-pointer"
+          className="absolute right-4 top-4 text-slate-400 hover:text-white border-none bg-transparent cursor-pointer"
         >
           <X size={18} />
         </button>
 
-        <div className="flex items-center gap-2 border-b border-[var(--border)] pb-3">
-          <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
+        <div className="flex items-center gap-2 border-b border-slate-800/80 pb-3">
+          <div className="p-2 rounded-xl bg-purple-500/15 border border-purple-500/30 text-purple-300 shadow-inner">
             <Share2 size={18} />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-[var(--heading)] tracking-tight font-sans">
+            <h3 className="text-sm font-bold text-white tracking-tight font-sans">
               Share RAG Workspace
             </h3>
-            <p className="text-xs text-[var(--muted)]">
+            <p className="text-xs text-slate-400">
               Generate secure access links for team members.
             </p>
           </div>
@@ -77,7 +77,7 @@ export function ShareWorkspaceDialog({
         <div className="space-y-3">
           {/* Permission Toggle */}
           <div>
-            <label className="text-xs font-bold text-[var(--muted)] uppercase tracking-wider block mb-1.5">
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
               Access Permission
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -87,8 +87,8 @@ export function ShareWorkspaceDialog({
                 className={cn(
                   'p-2.5 rounded-xl border text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2',
                   permission === 'Read-Only'
-                    ? 'bg-purple-500/10 border-purple-500/50 text-purple-400 font-bold'
-                    : 'bg-[var(--surface-hover)] border-[var(--border)] text-[var(--muted)] hover:text-[var(--heading)]'
+                    ? 'bg-purple-500/15 border-purple-500/50 text-purple-300 font-bold'
+                    : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
                 )}
               >
                 <Eye size={14} />

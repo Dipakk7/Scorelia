@@ -13,7 +13,7 @@ export function KnowledgeGraphButton({ onClick, className }: KnowledgeGraphButto
       onClick={onClick}
       type="button"
       className={cn(
-        'flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-[var(--surface)] hover:bg-[var(--surface-hover)] border border-[var(--border)] hover:border-purple-500/40 text-slate-200 hover:text-white text-xs font-semibold transition-all cursor-pointer shadow-sm active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50 h-10 select-none shrink-0',
+        'flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-purple-500/40 text-slate-200 hover:text-white text-xs font-semibold transition-all cursor-pointer shadow-sm active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 h-10 select-none shrink-0',
         className
       )}
       aria-label="Open Knowledge Graph visualization"

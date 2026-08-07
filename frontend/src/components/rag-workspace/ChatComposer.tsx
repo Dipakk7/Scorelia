@@ -47,14 +47,14 @@ export function ChatComposer({
           placeholder="Ask me anything..."
           aria-label="Chat input message"
           disabled={disabled}
-          className="w-full bg-[#121320] border border-white/10 focus:border-purple-500/50 rounded-xl py-2.5 pl-3 pr-20 text-xs sm:text-sm text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 resize-none font-sans custom-scrollbar"
+          className="w-full bg-slate-950/80 border border-slate-800 focus:border-purple-500/60 rounded-xl py-2.5 pl-3 pr-20 text-xs sm:text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20 resize-none font-sans custom-scrollbar shadow-inner"
         />
 
         <div className="absolute right-2 bottom-2.5 flex items-center gap-1">
           <button
             type="button"
             onClick={onAttachFile}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
             aria-label="Attach context file"
             title="Attach file"
           >

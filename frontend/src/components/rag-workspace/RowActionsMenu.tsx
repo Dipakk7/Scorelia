@@ -85,7 +85,7 @@ export function RowActionsMenu({
         <div
           role="menu"
           aria-orientation="vertical"
-          className="absolute right-0 mt-1 w-44 rounded-xl bg-[#121320] border border-white/10 shadow-2xl z-30 p-1 space-y-0.5 animate-in fade-in zoom-in-95 duration-100"
+          className="absolute right-0 mt-1 w-44 rounded-xl bg-slate-950 border border-slate-800 shadow-2xl z-30 p-1 space-y-0.5 animate-in fade-in zoom-in-95 duration-100"
         >
           {menuItems.map((item, index) => {
             const Icon = item.icon
@@ -93,7 +93,7 @@ export function RowActionsMenu({
 
             return (
               <React.Fragment key={item.label}>
-                {isSeparator && <div className="h-px bg-white/10 my-1" />}
+                {isSeparator && <div className="h-px bg-slate-800 my-1" />}
                 <button
                   type="button"
                   role="menuitem"

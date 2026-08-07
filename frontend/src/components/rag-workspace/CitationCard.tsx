@@ -14,20 +14,20 @@ export function CitationCard({ citation, onOpenSource, className }: CitationCard
   return (
     <div
       className={cn(
-        'p-3 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)] hover:border-purple-500/30 transition-colors text-left space-y-2 group select-none',
+        'p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 hover:border-purple-500/40 transition-colors text-left space-y-2 group select-none',
         className
       )}
     >
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2 min-w-0">
-          <div className="p-1.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20 shrink-0">
+          <div className="p-1.5 rounded-lg bg-purple-500/15 text-purple-300 border border-purple-500/30 shrink-0">
             <FileText size={14} />
           </div>
           <div className="min-w-0">
-            <h5 className="text-xs font-semibold text-[var(--heading)] truncate group-hover:text-purple-300 transition-colors">
+            <h5 className="text-xs font-semibold text-white truncate group-hover:text-purple-300 transition-colors">
               {citation.documentTitle}
             </h5>
-            <p className="text-[10px] text-[var(--muted)] font-mono">
+            <p className="text-[10px] text-slate-400 font-mono">
               Page {citation.pageNumber} • {citation.chunkId}
             </p>
           </div>
@@ -35,7 +35,7 @@ export function CitationCard({ citation, onOpenSource, className }: CitationCard
         <ConfidenceBadge score={citation.similarityScore} />
       </div>
 
-      <p className="text-[11px] text-[var(--heading)] line-clamp-2 leading-relaxed bg-[var(--surface)] p-2 rounded-lg border border-[var(--border)] font-sans">
+      <p className="text-[11px] text-slate-200 line-clamp-2 leading-relaxed bg-slate-900/90 p-2 rounded-lg border border-slate-800/80 font-sans">
         "{citation.snippet}"
       </p>
 

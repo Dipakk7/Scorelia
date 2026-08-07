@@ -33,8 +33,8 @@ export function KPICard({
   badgeText,
   subtext,
   icon: Icon,
-  iconBgColor = 'bg-purple-500/10 border-purple-500/20',
-  iconColor = 'text-purple-400',
+  iconBgColor = 'bg-purple-500/15 border-purple-500/30 shadow-inner',
+  iconColor = 'text-purple-300',
   isSelected = false,
   onClick,
   className
@@ -47,13 +47,13 @@ export function KPICard({
       aria-selected={onClick ? isSelected : undefined}
       onClick={onClick}
       className={cn(
-        'group relative p-4 rounded-2xl bg-[var(--surface)] transition-all duration-200 flex flex-col justify-between overflow-hidden text-left h-full min-h-[120px] select-none',
-        'hover:bg-[var(--surface-hover)] hover:border-purple-500/40 hover:shadow-xl',
+        'group relative p-4 sm:p-4.5 rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border transition-all duration-200 flex flex-col justify-between overflow-hidden text-left h-full min-h-[120px] select-none shadow-md',
+        'hover:bg-slate-900 hover:border-purple-500/40 hover:shadow-lg hover:shadow-purple-500/10 hover:-translate-y-0.5',
         'active:scale-[0.98]',
-        onClick && 'cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)]',
+        onClick && 'cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950',
         isSelected
-          ? 'border border-purple-500 shadow-[0_0_16px_rgba(168,85,247,0.3)] scale-[1.01]'
-          : 'border border-[var(--border)] shadow-[var(--shadow-sm)]',
+          ? 'border-purple-500 shadow-[0_0_20px_rgba(168,85,247,0.3)] scale-[1.01]'
+          : 'border-slate-800/90',
         className
       )}
     >
@@ -67,7 +67,7 @@ export function KPICard({
         </div>
         <button
           type="button"
-          className="p-1 rounded-lg text-[var(--muted)] hover:text-[var(--heading)] hover:bg-[var(--surface-hover)] opacity-60 sm:opacity-0 group-hover:opacity-100 transition-opacity focus:outline-none focus-visible:ring-1 focus-visible:ring-purple-500/50 border-none bg-transparent cursor-pointer"
+          className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 opacity-60 sm:opacity-0 group-hover:opacity-100 transition-opacity focus:outline-none focus-visible:ring-1 focus-visible:ring-purple-400 border-none bg-transparent cursor-pointer"
           aria-label={`Options for ${title}`}
         >
           <MoreVertical size={14} />
@@ -76,10 +76,10 @@ export function KPICard({
 
       {/* Middle Row: Metric Label & Large Animated Numeric Value */}
       <div className="space-y-0.5 my-1">
-        <span className="text-xs font-semibold text-[var(--muted)] block truncate tracking-tight">
+        <span className="text-xs font-bold text-slate-300 block truncate tracking-tight">
           {title}
         </span>
-        <div className="text-2xl font-black tracking-tight text-[var(--heading)] font-sans">
+        <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white font-mono">
           {numericValue !== undefined ? (
             <CountUpText
               value={numericValue}

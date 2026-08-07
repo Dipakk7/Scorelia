@@ -13,7 +13,7 @@ export function AddCollectionButton({ onClick, className }: AddCollectionButtonP
       onClick={onClick}
       type="button"
       className={cn(
-        'flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold transition-all shadow-md shadow-purple-900/30 hover:shadow-purple-900/50 hover:scale-[1.02] cursor-pointer active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50 h-10 border-none select-none shrink-0',
+        'flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold transition-all shadow-lg shadow-purple-600/25 hover:shadow-purple-600/40 border border-purple-500/30 hover:scale-[1.02] cursor-pointer active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 h-10 select-none shrink-0',
         className
       )}
       aria-label="Add new collection"

@@ -83,15 +83,15 @@ export function Conversation({
                 className={cn(
                   'p-4 rounded-2xl text-xs sm:text-sm leading-relaxed border font-sans shadow-md',
                   isUser
-                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-purple-500/30 font-medium'
-                    : 'bg-[#121320] text-slate-200 border-white/10'
+                    ? 'bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 text-white border-purple-500/30 font-medium'
+                    : 'bg-slate-900/90 text-slate-100 border-slate-800/80'
                 )}
               >
                 <div className="whitespace-pre-wrap">{msg.content}</div>
 
                 {/* Optional Code Snippet Block */}
                 {msg.codeSnippet && (
-                  <div className="mt-3 p-3 rounded-xl bg-[#0b0c14] border border-white/10 font-mono text-xs text-slate-300 relative group/code overflow-x-auto custom-scrollbar text-left">
+                  <div className="mt-3 p-3 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs text-slate-300 relative group/code overflow-x-auto custom-scrollbar text-left">
                     <div className="flex items-center justify-between text-[10px] text-slate-400 pb-1.5 border-b border-white/5 mb-2 select-none">
                       <span className="flex items-center gap-1 font-bold text-purple-400">
                         <Code size={12} /> TypeScript Code Snippet

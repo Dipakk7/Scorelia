@@ -40,12 +40,16 @@ export function HeroDashboard({
       animate="visible"
       aria-label="RAG Workspace Hero Dashboard"
       className={cn(
-        'p-5 sm:p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-purple-500/30 transition-all duration-300 space-y-4 text-left select-none',
+        'relative overflow-hidden p-5 sm:p-6 rounded-2xl bg-gradient-to-b from-[#14162a] via-[#111324] to-[#0d0f1e] border border-white/10 shadow-2xl shadow-purple-950/20 backdrop-blur-md transition-all duration-300 space-y-4 text-left select-none',
         className
       )}
     >
+      {/* Ambient Glow Effects */}
+      <div className="absolute -top-24 -left-24 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
+
       {/* Top Header & Actions Row */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-5">
+      <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-5">
         {/* Title & Subtitle */}
         <HeroHeader />
 
@@ -58,7 +62,11 @@ export function HeroDashboard({
       </div>
 
       {/* Optional KPI Grid */}
-      {showKpiGrid && <KPIGrid />}
+      {showKpiGrid && (
+        <div className="relative z-10">
+          <KPIGrid />
+        </div>
+      )}
     </motion.section>
   )
 }

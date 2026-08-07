@@ -34,13 +34,13 @@ export function AnswerPanel({
 
   if (!response) {
     return (
-      <Card className="border border-[var(--border)] bg-card/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
-        <CardContent className="py-16 text-center text-muted-foreground flex flex-col items-center justify-center gap-3.5">
-          <div className="h-12 w-12 rounded-full bg-[var(--surface-hover)]/30 flex items-center justify-center border border-[var(--border)]/60">
-            <Sparkles className="text-[var(--primary)] h-6 w-6 animate-pulse" />
+      <Card className="border border-slate-800/80 bg-slate-900/90 backdrop-blur-md rounded-2xl shadow-md hover:border-purple-500/40 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
+        <CardContent className="py-16 text-center text-slate-400 flex flex-col items-center justify-center gap-3.5">
+          <div className="h-12 w-12 rounded-2xl bg-purple-500/15 flex items-center justify-center border border-purple-500/30 text-purple-300 shadow-inner">
+            <Sparkles className="h-6 w-6 animate-pulse" />
           </div>
-          <h3 className="text-[var(--heading)] font-black font-display text-sm m-0 leading-none">No Answer Generated</h3>
-          <p className="max-w-xs text-xs text-[var(--muted)] leading-relaxed m-0 font-medium font-sans">
+          <h3 className="text-white font-black font-display text-sm m-0 leading-none">No Answer Generated</h3>
+          <p className="max-w-xs text-xs text-slate-400 leading-relaxed m-0 font-medium font-sans">
             Enter a question in the search bar above to query your Knowledge Base and generate an answer.
           </p>
           <Button
@@ -52,9 +52,9 @@ export function AnswerPanel({
                 searchInput.focus()
               }
             }}
-            className="text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer h-8.5 rounded-xl hover:border-[var(--primary)]/30 hover:bg-[var(--primary)]/5 mt-1"
+            className="text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer h-8.5 rounded-xl border border-slate-800 hover:border-purple-500/30 bg-slate-950/80 text-slate-200 hover:text-white mt-1"
           >
-            <Sparkles size={12} className="text-[var(--primary)] animate-pulse" />
+            <Sparkles size={12} className="text-purple-400 animate-pulse" />
             <span>Search Knowledge Base</span>
           </Button>
         </CardContent>
@@ -74,22 +74,22 @@ export function AnswerPanel({
   const isCacheHit = response.cache_status?.toUpperCase() === 'HIT'
 
   return (
-    <Card className="border border-[var(--border)] bg-card/70 backdrop-blur-md rounded-[var(--radius-card)] shadow-sm hover:border-[var(--primary)]/40 transition-all duration-300 overflow-hidden text-left flex flex-col h-full justify-between font-sans text-xs">
+    <Card className="border border-slate-800/80 bg-slate-900/90 backdrop-blur-md rounded-2xl shadow-md hover:border-purple-500/40 transition-all duration-300 overflow-hidden text-left flex flex-col h-full justify-between font-sans text-xs">
       <div>
-        <CardHeader className="pb-4 border-b border-[var(--border)]/60 text-left flex flex-row items-center justify-between gap-4">
+        <CardHeader className="pb-4 border-b border-slate-800/80 text-left flex flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <BrainCircuit className="text-brand-500 h-5 w-5 animate-pulse" />
+            <BrainCircuit className="text-purple-400 h-5 w-5 animate-pulse" />
             <div className="text-left space-y-1.5">
               <div className="flex items-center gap-2 flex-wrap">
-                <CardTitle className="text-sm font-black font-display text-foreground m-0 leading-none">
+                <CardTitle className="text-sm font-black font-display text-white m-0 leading-none">
                   AI Answer Panel
                 </CardTitle>
-                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider font-mono bg-brand-500/10 text-brand-500 border border-brand-500/20 select-none">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider font-mono bg-purple-500/15 text-purple-300 border border-purple-500/30 shadow-inner select-none">
                   <Sparkles size={9} />
                   <span>Scorelia Copilot</span>
                 </span>
               </div>
-              <CardDescription className="text-[10px] text-slate-500 dark:text-slate-405 leading-relaxed font-sans m-0 mt-1 font-medium">
+              <CardDescription className="text-[10px] text-slate-400 leading-relaxed font-sans m-0 mt-1 font-medium">
                 Synthesized from {response.retrieved_document_count} document sources.
               </CardDescription>
             </div>

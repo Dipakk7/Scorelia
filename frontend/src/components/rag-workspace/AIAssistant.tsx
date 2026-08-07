@@ -66,12 +66,12 @@ export function AIAssistant({ className }: AIAssistantProps) {
   return (
     <div
       aria-label="Scorelia AI Assistant Sidebar"
-      className={cn('p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left space-y-4', className)}
+      className={cn('p-5 rounded-2xl bg-slate-900/90 border border-slate-800/80 shadow-md text-left space-y-4 text-slate-100', className)}
     >
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-[var(--border)] pb-3">
+      <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
         <div className="flex items-center gap-2">
-          <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
+          <div className="p-2 rounded-xl bg-purple-500/15 border border-purple-500/30 text-purple-300 shadow-inner">
             <Bot size={18} />
           </div>
           <div>

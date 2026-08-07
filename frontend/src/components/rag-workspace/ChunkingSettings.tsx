@@ -8,39 +8,39 @@ export interface ChunkingSettingsProps {
 
 export function ChunkingSettings({ config, onChange }: ChunkingSettingsProps) {
   return (
-    <div className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left space-y-5 select-none">
-      <div className="border-b border-[var(--border)] pb-3">
-        <h3 className="text-sm font-bold text-[var(--heading)] uppercase tracking-wider">Document Chunking Strategy</h3>
-        <p className="text-xs text-[var(--muted)]">Configure text splitting boundaries, overlap, and token windows.</p>
+    <div className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800/80 shadow-md text-left space-y-5 select-none">
+      <div className="border-b border-slate-800/80 pb-3">
+        <h3 className="text-sm font-bold text-white uppercase tracking-wider">Document Chunking Strategy</h3>
+        <p className="text-xs text-slate-400">Configure text splitting boundaries, overlap, and token windows.</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
         <div className="space-y-1">
-          <label className="font-semibold text-[var(--heading)] block">Chunk Size (Tokens)</label>
+          <label className="font-semibold text-slate-200 block">Chunk Size (Tokens)</label>
           <input
             type="number"
             value={config.chunkSize}
             onChange={(e) => onChange({ ...config, chunkSize: Number(e.target.value) })}
-            className="w-full bg-[var(--surface-hover)] border border-[var(--border)] text-[var(--heading)] p-2.5 rounded-xl font-mono text-xs focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+            className="w-full bg-slate-950/80 border border-slate-800 text-slate-100 p-2.5 rounded-xl font-mono text-xs focus:outline-none focus:ring-2 focus:ring-purple-500/20 shadow-inner"
           />
         </div>
 
         <div className="space-y-1">
-          <label className="font-semibold text-[var(--heading)] block">Chunk Overlap (Tokens)</label>
+          <label className="font-semibold text-slate-200 block">Chunk Overlap (Tokens)</label>
           <input
             type="number"
             value={config.overlap}
             onChange={(e) => onChange({ ...config, overlap: Number(e.target.value) })}
-            className="w-full bg-[var(--surface-hover)] border border-[var(--border)] text-[var(--heading)] p-2.5 rounded-xl font-mono text-xs focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+            className="w-full bg-slate-950/80 border border-slate-800 text-slate-100 p-2.5 rounded-xl font-mono text-xs focus:outline-none focus:ring-2 focus:ring-purple-500/20 shadow-inner"
           />
         </div>
 
         <div className="space-y-1">
-          <label className="font-semibold text-[var(--heading)] block">Splitting Algorithm</label>
+          <label className="font-semibold text-slate-200 block">Splitting Algorithm</label>
           <select
             value={config.splitStrategy}
             onChange={(e) => onChange({ ...config, splitStrategy: e.target.value as any })}
-            className="w-full bg-[var(--surface-hover)] border border-[var(--border)] text-[var(--heading)] p-2.5 rounded-xl font-sans focus:outline-none focus:ring-2 focus:ring-purple-500/50 cursor-pointer"
+            className="w-full bg-slate-950/80 border border-slate-800 text-slate-100 p-2.5 rounded-xl font-sans focus:outline-none focus:ring-2 focus:ring-purple-500/20 cursor-pointer shadow-inner"
           >
             <option value="Recursive Character">Recursive Character Text Splitter</option>
             <option value="Token Based">Tiktoken / Tokenizer Window</option>
@@ -50,7 +50,7 @@ export function ChunkingSettings({ config, onChange }: ChunkingSettingsProps) {
         </div>
 
         <div className="space-y-1 flex items-center justify-between pt-4">
-          <span className="font-semibold text-[var(--heading)]">Preserve Document Metadata in Chunks</span>
+          <span className="font-semibold text-slate-200">Preserve Document Metadata in Chunks</span>
           <input
             type="checkbox"
             checked={config.includeMetadata}

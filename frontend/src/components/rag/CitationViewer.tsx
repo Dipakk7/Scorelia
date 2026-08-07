@@ -18,8 +18,8 @@ export function CitationViewer({
 
   if (citations.length === 0) {
     return (
-      <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
-        <CardContent className="py-8 text-center text-muted-foreground italic font-medium leading-relaxed">
+      <Card className="border border-slate-800/80 bg-slate-900/90 backdrop-blur-md rounded-2xl shadow-md text-left font-sans text-xs">
+        <CardContent className="py-8 text-center text-slate-400 italic font-medium leading-relaxed">
           No citations referenced in this response.
         </CardContent>
       </Card>
@@ -37,10 +37,10 @@ export function CitationViewer({
   }
 
   return (
-    <Card className="border border-border bg-card/70 backdrop-blur-md rounded-2xl shadow-sm hover:border-slate-350 dark:hover:border-slate-750 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
-      <CardHeader className="pb-4 border-b border-border/60 text-left">
-        <CardTitle className="text-sm font-black font-display text-foreground flex items-center gap-2 m-0 leading-none">
-          <BookOpen className="text-brand-500 h-4 w-4" />
+    <Card className="border border-slate-800/80 bg-slate-900/90 backdrop-blur-md rounded-2xl shadow-md hover:border-purple-500/40 transition-all duration-300 overflow-hidden text-left font-sans text-xs">
+      <CardHeader className="pb-4 border-b border-slate-800/80 text-left">
+        <CardTitle className="text-sm font-black font-display text-white flex items-center gap-2 m-0 leading-none">
+          <BookOpen className="text-purple-400 h-4 w-4" />
           <span>Source Attributions & Citations</span>
         </CardTitle>
       </CardHeader>
@@ -55,10 +55,10 @@ export function CitationViewer({
                 key={idx}
                 onClick={() => setSelectedCitationId(isSelected ? null : cit.chunk_id)}
                 className={cn(
-                  'p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 shadow-2xs hover:shadow-sm text-left',
+                  'p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 shadow-sm hover:shadow-md text-left',
                   isSelected
-                    ? 'border-brand-500 bg-brand-500/5 dark:bg-brand-500/10'
-                    : 'border-slate-205 dark:border-slate-850 bg-card/50 dark:bg-slate-900/30 hover:border-slate-300 dark:hover:border-slate-750'
+                    ? 'border-purple-500/60 bg-purple-500/15'
+                    : 'border-slate-800/80 bg-slate-950/70 hover:border-purple-500/30'
                 )}
               >
                 <div className="flex items-center gap-2.5 min-w-0 text-left">
