@@ -60,7 +60,7 @@ export function CareerInsightsCard({
   ]
 
   return (
-    <Card className={cn('p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-4 shadow-sm text-left hover:border-purple-500/30 transition-all', className)}>
+    <Card className={cn('p-4 sm:p-4.5 bg-[#121426] border border-white/10 rounded-2xl space-y-3 shadow-sm text-left hover:border-purple-500/30 transition-all', className)}>
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-bold text-white tracking-tight m-0">
           Career Insights
@@ -70,11 +70,11 @@ export function CareerInsightsCard({
         </span>
       </div>
 
-      <div className="grid grid-cols-2 gap-2.5">
+      <div className="grid grid-cols-2 gap-2">
         {metrics.map((item, idx) => (
           <div
             key={idx}
-            className="p-3 rounded-xl bg-[#0b0c14] border border-white/10 space-y-1 text-left"
+            className="p-2.5 rounded-xl bg-[#0b0c14] border border-white/10 space-y-0.5 text-left"
           >
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">

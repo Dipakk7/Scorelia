@@ -15,7 +15,7 @@ export function SessionSummaryCard({
   className,
 }: SessionSummaryCardProps) {
   return (
-    <Card className={cn('p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-3.5 shadow-sm text-left hover:border-purple-500/30 transition-all', className)}>
+    <Card className={cn('p-3.5 sm:p-4 bg-[#121426] border border-white/10 rounded-2xl space-y-2.5 shadow-sm text-left hover:border-purple-500/30 transition-all', className)}>
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-bold text-white tracking-tight flex items-center gap-1.5 m-0">
           <Sparkles className="h-4 w-4 text-purple-400 shrink-0" aria-hidden="true" />
@@ -27,9 +27,9 @@ export function SessionSummaryCard({
         </span>
       </div>
 
-      <div className="space-y-2 text-xs">
+      <div className="space-y-1.5 sm:space-y-2 text-xs">
         {/* Today Focus */}
-        <div className="p-2.5 rounded-xl bg-[#0b0c14] border border-white/10 space-y-1">
+        <div className="p-2 sm:p-2.5 rounded-xl bg-[#0b0c14] border border-white/10 space-y-0.5">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
             Today&apos;s Focus
           </span>
@@ -39,8 +39,8 @@ export function SessionSummaryCard({
         </div>
 
         {/* Goals & Stats Grid */}
-        <div className="grid grid-cols-2 gap-2 text-[11px]">
-          <div className="p-2 rounded-xl bg-[#0b0c14] border border-white/10 flex items-center gap-2">
+        <div className="grid grid-cols-2 gap-1.5 sm:gap-2 text-[11px]">
+          <div className="p-1.5 sm:p-2 rounded-xl bg-[#0b0c14] border border-white/10 flex items-center gap-1.5 sm:gap-2">
             <MessageSquare className="h-3.5 w-3.5 text-purple-400 shrink-0" aria-hidden="true" />
             <div>
               <span className="font-bold text-white block">{summary.aiSuggestionsCount}</span>
@@ -48,7 +48,7 @@ export function SessionSummaryCard({
             </div>
           </div>
 
-          <div className="p-2 rounded-xl bg-[#0b0c14] border border-white/10 flex items-center gap-2">
+          <div className="p-1.5 sm:p-2 rounded-xl bg-[#0b0c14] border border-white/10 flex items-center gap-1.5 sm:gap-2">
             <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 shrink-0" aria-hidden="true" />
             <div>
               <span className="font-bold text-white block">{summary.completedTopicsCount} Topics</span>
@@ -58,7 +58,7 @@ export function SessionSummaryCard({
         </div>
 
         {/* Goals Discussed Pills */}
-        <div className="space-y-1 pt-1">
+        <div className="space-y-1 pt-0.5">
           <span className="text-[10px] font-semibold text-slate-400 flex items-center gap-1">
             <Target className="h-3 w-3 text-blue-400" aria-hidden="true" />
             <span>Key Topics Discussed</span>

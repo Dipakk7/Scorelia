@@ -38,7 +38,7 @@ export function RecommendedNextSteps({
   }
 
   return (
-    <Card className={cn('p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-4 shadow-sm text-left hover:border-purple-500/30 transition-all', className)}>
+    <Card className={cn('p-3.5 sm:p-4 bg-[#121426] border border-white/10 rounded-2xl space-y-2.5 shadow-sm text-left hover:border-purple-500/30 transition-all', className)}>
       {/* Title */}
       <div className="space-y-0.5 text-left">
         <h3 className="text-base font-bold text-white tracking-tight flex items-center gap-2 m-0">
@@ -46,7 +46,7 @@ export function RecommendedNextSteps({
           <Sparkles className="h-4 w-4 text-purple-400 shrink-0" aria-hidden="true" />
         </h3>
         <p className="text-xs text-slate-400 font-medium m-0">
-          Based on your current progress & skill gaps
+          Based on your current progress &amp; skill gaps
         </p>
       </div>
 
@@ -55,12 +55,12 @@ export function RecommendedNextSteps({
         variants={containerVariants}
         initial="initial"
         animate="animate"
-        className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4"
+        className="grid grid-cols-1 gap-2"
       >
         {steps.map((step, idx) => (
           <motion.div key={step.id} variants={itemVariants} className="h-full">
-            <div className="p-4 rounded-xl bg-[#0b0c14] border border-white/10 space-y-3 flex flex-col justify-between h-full text-left hover:border-purple-500/30 transition-all">
-              <div className="space-y-2">
+            <div className="p-2.5 sm:p-3 rounded-xl bg-[#0b0c14] border border-white/10 space-y-2 flex flex-col justify-between h-full text-left hover:border-purple-500/30 transition-all">
+              <div className="space-y-1">
                 <div className="flex items-center justify-between">
                   <span className={cn('text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full inline-block', step.tagBg)}>
                     {step.type}
@@ -78,7 +78,7 @@ export function RecommendedNextSteps({
                 </p>
               </div>
 
-              <div className="space-y-2.5 pt-2 border-t border-white/5">
+              <div className="space-y-1.5 pt-1.5 border-t border-white/5">
                 <div className="flex items-center justify-between text-[10px] font-medium text-slate-400">
                   <span className="flex items-center gap-1">
                     <Clock className="h-3 w-3 text-slate-500" aria-hidden="true" />
@@ -94,7 +94,7 @@ export function RecommendedNextSteps({
                   variant={step.btnVariant}
                   size="sm"
                   onClick={() => onStepAction?.(step.id)}
-                  className="w-full justify-center text-xs font-semibold py-2.5 min-h-[44px] rounded-xl cursor-pointer focus-visible:ring-2 focus-visible:ring-purple-500/50"
+                  className="w-full justify-center text-xs font-semibold py-1.5 min-h-[38px] sm:min-h-[40px] rounded-xl cursor-pointer focus-visible:ring-2 focus-visible:ring-purple-500/50"
                   aria-label={`${step.action} for ${step.title}`}
                 >
                   <span>{step.action}</span>

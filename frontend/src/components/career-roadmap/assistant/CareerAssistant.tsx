@@ -7,6 +7,7 @@ import { PromptComposer } from './PromptComposer'
 import { CareerInsightsCard } from './CareerInsightsCard'
 import { RecommendedActionsCard } from './RecommendedActionsCard'
 import { SessionSummaryCard } from './SessionSummaryCard'
+import { RecommendedNextSteps } from '../timeline/RecommendedNextSteps'
 import { SkeletonAssistant } from '../common/SkeletonAssistant'
 import { useCareerAssistant } from '@/hooks/useCareerAssistant'
 import { cn } from '@/lib/utils'
@@ -82,7 +83,10 @@ export function CareerAssistant({
 
   return (
     <div className={cn('space-y-4 sm:space-y-5 text-left', className)}>
-      {/* 1. Today's Focus & Session Summary */}
+      {/* 1. Recommended Next Steps */}
+      <RecommendedNextSteps />
+
+      {/* 2. Today's Focus & Session Summary */}
       <SessionSummaryCard summary={sessionSummary} />
 
       {/* 2. Recommended Quick Actions */}

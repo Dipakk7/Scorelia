@@ -3,7 +3,6 @@ import { Card } from '@/components/ui/Card'
 import { ViewToggle } from './ViewToggle'
 import { TimelineView } from './TimelineView'
 import { BoardView } from './BoardView'
-import { RecommendedNextSteps } from './RecommendedNextSteps'
 import { SkeletonTimeline } from '../common/SkeletonTimeline'
 import { useRoadmapTimeline } from '@/hooks/useRoadmapTimeline'
 import { cn } from '@/lib/utils'
@@ -58,9 +57,6 @@ export function TimelineContainer({
           <BoardView phases={activePhases} onExpandDetails={onExpandPhaseDetails} />
         )}
       </Card>
-
-      {/* Recommended Next Steps Section */}
-      <RecommendedNextSteps onStepAction={onStepAction} />
     </div>
   )
 }

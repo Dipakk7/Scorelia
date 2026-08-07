@@ -35,7 +35,7 @@ export function RecommendedActionsCard({
   }
 
   return (
-    <Card className={cn('p-4.5 sm:p-5 bg-[#121426] border border-white/10 rounded-2xl space-y-4 shadow-sm text-left hover:border-purple-500/30 transition-all', className)}>
+    <Card className={cn('p-3.5 sm:p-4 bg-[#121426] border border-white/10 rounded-2xl space-y-3 shadow-sm text-left hover:border-purple-500/30 transition-all', className)}>
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-bold text-white tracking-tight m-0">
           Recommended Actions
@@ -43,23 +43,23 @@ export function RecommendedActionsCard({
         <span className="text-[10px] text-slate-400 font-medium">6 Quick Steps</span>
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-1.5 sm:space-y-2">
         {actions.map((act) => (
           <button
             key={act.id}
             type="button"
             onClick={() => onActionClick?.(act.id)}
-            className="w-full flex items-center justify-between p-2.5 rounded-xl bg-[#0b0c14] border border-white/10 hover:border-purple-500/40 hover:bg-white/5 transition-all text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50 min-h-[44px]"
+            className="w-full flex items-center justify-between p-2 sm:p-2.5 rounded-xl bg-[#0b0c14] border border-white/10 hover:border-purple-500/40 hover:bg-white/5 transition-all text-left cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50 min-h-[44px]"
           >
-            <div className="flex items-center gap-2.5 min-w-0">
+            <div className="flex items-center gap-2 min-w-0">
               <div className="p-1.5 rounded-lg bg-white/5 border border-white/10 shrink-0">
                 {renderActionIcon(act.iconName)}
               </div>
               <div className="truncate">
-                <span className="text-xs font-bold text-slate-200 group-hover:text-white block truncate">
+                <span className="text-xs font-bold text-slate-200 group-hover:text-white block truncate leading-tight">
                   {act.title}
                 </span>
-                <span className="text-[10px] text-slate-500 font-medium block">
+                <span className="text-[10px] text-slate-500 font-medium block leading-tight">
                   {act.category}
                 </span>
               </div>

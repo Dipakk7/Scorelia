@@ -101,7 +101,7 @@ export function ExportPanel({
         </span>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 gap-3">
         {exportFormats.map((fmt) => {
           const isDone = downloadedFormat === fmt.id
 
@@ -135,7 +135,7 @@ export function ExportPanel({
                 variant="outline"
                 size="sm"
                 onClick={fmt.action}
-                className="w-full justify-center text-xs font-semibold py-1.5 rounded-lg border-white/10 bg-white/5 hover:bg-white/10 hover:text-white cursor-pointer focus-visible:ring-2 focus-visible:ring-purple-500/50"
+                className="w-full justify-center text-xs font-semibold py-2.5 min-h-[44px] rounded-xl border-white/10 bg-white/5 hover:bg-white/10 hover:text-white cursor-pointer focus-visible:ring-2 focus-visible:ring-purple-500/50"
                 aria-label={fmt.actionText}
               >
                 <span>{isDone ? 'Exported!' : fmt.actionText}</span>
