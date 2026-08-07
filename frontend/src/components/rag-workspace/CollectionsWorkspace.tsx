@@ -232,11 +232,15 @@ export function CollectionsWorkspace({ className }: CollectionsWorkspaceProps) {
           )}
         </div>
 
-        {/* Right Column: Storage Allocation & Collection Activity (4 cols) */}
+        {/* Right Column: Storage Allocation Panel (4 cols) */}
         <div className="lg:col-span-4 space-y-6">
           <CollectionStoragePanel />
-          <ActivityFeed />
         </div>
+      </div>
+
+      {/* 3. Featured Full-Width Operational Audit Log & Event Stream */}
+      <div className="pt-2">
+        <ActivityFeed variant="full" />
       </div>
 
       {/* Slide-over Collection Details Drawer */}

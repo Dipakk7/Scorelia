@@ -80,6 +80,8 @@ export interface ActivityEvent {
   timestamp: string
   user: string
   iconType: 'index' | 'query' | 'embed' | 'update' | 'sync'
+  status?: 'success' | 'processing' | 'warning' | 'info'
+  source?: string
 }
 
 export interface DiagnosticsReport {
@@ -310,7 +312,9 @@ export const MOCK_ACTIVITY_FEED: ActivityEvent[] = [
     description: 'AI Research Papers collection re-indexed (124 docs, 872 chunks).',
     timestamp: '2 min ago',
     user: 'Dipak Khandagale',
-    iconType: 'index'
+    iconType: 'index',
+    status: 'success',
+    source: 'HNSW Indexer'
   },
   {
     id: 'evt-2',
@@ -318,7 +322,9 @@ export const MOCK_ACTIVITY_FEED: ActivityEvent[] = [
     description: 'Query "What is Retrieval-Augmented Generation?" returned 5 chunks.',
     timestamp: '15 min ago',
     user: 'System Worker',
-    iconType: 'query'
+    iconType: 'query',
+    status: 'success',
+    source: 'RAG API'
   },
   {
     id: 'evt-3',
@@ -326,7 +332,9 @@ export const MOCK_ACTIVITY_FEED: ActivityEvent[] = [
     description: 'Updated default embedding provider to nomic-embed-text:latest.',
     timestamp: '1 hr ago',
     user: 'Admin',
-    iconType: 'embed'
+    iconType: 'embed',
+    status: 'info',
+    source: 'Admin Studio'
   },
   {
     id: 'evt-4',
@@ -334,7 +342,9 @@ export const MOCK_ACTIVITY_FEED: ActivityEvent[] = [
     description: 'Snapshot created for 12 collections (153.4 MB).',
     timestamp: '2 hrs ago',
     user: 'Backup Task',
-    iconType: 'sync'
+    iconType: 'sync',
+    status: 'success',
+    source: 'Cron Manager'
   },
   {
     id: 'evt-5',
@@ -342,7 +352,9 @@ export const MOCK_ACTIVITY_FEED: ActivityEvent[] = [
     description: 'Imported 14 new documents into Company Knowledge Base.',
     timestamp: '3 hrs ago',
     user: 'Notion Sync',
-    iconType: 'update'
+    iconType: 'update',
+    status: 'processing',
+    source: 'Notion Webhook'
   }
 ]
 

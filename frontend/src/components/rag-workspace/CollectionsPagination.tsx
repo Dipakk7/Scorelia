@@ -30,7 +30,7 @@ export function CollectionsPagination({
     <div
       aria-label="Collections Pagination Controls"
       className={cn(
-        'flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-[var(--surface)] border border-[var(--border)] text-xs text-[var(--muted)] select-none shadow-[var(--shadow-sm)]',
+        'flex flex-col sm:flex-row items-center justify-between gap-4 p-5 sm:p-5.5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] hover:border-purple-500/30 transition-all duration-300 text-xs text-[var(--muted)] select-none shadow-[var(--shadow-sm)]',
         className
       )}
     >

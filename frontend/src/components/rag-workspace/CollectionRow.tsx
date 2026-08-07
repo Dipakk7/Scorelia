@@ -112,16 +112,16 @@ export function CollectionRow({
       )}
     >
       {/* Collection Name & Icon */}
-      <td className="py-3.5 px-4">
+      <td className="py-4.5 sm:py-5 px-5">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 shrink-0 group-hover:scale-105 transition-transform">
-            <IconComponent size={17} />
+          <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 shrink-0 group-hover:scale-105 transition-transform">
+            <IconComponent size={18} />
           </div>
           <div className="min-w-0">
-            <span className="font-bold text-[var(--heading)] block group-hover:text-purple-300 transition-colors truncate max-w-xs">
+            <span className="font-bold text-[var(--heading)] block group-hover:text-purple-300 transition-colors truncate max-w-xs text-xs sm:text-sm">
               {collection.name}
             </span>
-            <span className="text-[11px] text-[var(--muted)] block truncate max-w-xs">
+            <span className="text-[11px] text-[var(--muted)] block truncate max-w-xs mt-0.5">
               {collection.description}
             </span>
           </div>
@@ -129,37 +129,37 @@ export function CollectionRow({
       </td>
 
       {/* Documents */}
-      <td className="py-3.5 px-3 font-mono font-semibold text-[var(--heading)]">
+      <td className="py-4.5 sm:py-5 px-4 font-mono font-semibold text-[var(--heading)]">
         {collection.documentCount.toLocaleString()}
       </td>
 
       {/* Chunks */}
-      <td className="py-3.5 px-3 font-mono text-[var(--heading)]">
+      <td className="py-4.5 sm:py-5 px-4 font-mono text-[var(--heading)]">
         {collection.chunkCount.toLocaleString()}
       </td>
 
       {/* Embedding Model */}
-      <td className="py-3.5 px-3 font-mono text-[11px] text-[var(--muted)] whitespace-nowrap">
+      <td className="py-4.5 sm:py-5 px-4 font-mono text-[11px] text-[var(--muted)] whitespace-nowrap">
         {collection.embeddingModel}
       </td>
 
       {/* Status */}
-      <td className="py-3.5 px-3">
+      <td className="py-4.5 sm:py-5 px-4">
         <CollectionStatusBadge status={collection.status} />
       </td>
 
       {/* Health */}
-      <td className="py-3.5 px-3">
+      <td className="py-4.5 sm:py-5 px-4">
         <CollectionHealthIndicator health={collection.health} />
       </td>
 
       {/* Last Updated */}
-      <td className="py-3.5 px-3 text-[var(--muted)] text-[11px] whitespace-nowrap">
+      <td className="py-4.5 sm:py-5 px-4 text-[var(--muted)] text-[11px] whitespace-nowrap">
         {collection.updatedDate}
       </td>
 
       {/* Row Actions */}
-      <td className="py-3.5 px-3 text-right" onClick={(e) => e.stopPropagation()}>
+      <td className="py-4.5 sm:py-5 px-5 text-right" onClick={(e) => e.stopPropagation()}>
         <RowActionsMenu
           onOpen={() => onSelect(collection)}
           onRename={() => onAction?.('rename', collection)}

@@ -5,9 +5,6 @@ import { HeroDashboard } from '@/components/rag-workspace/HeroDashboard'
 import { WorkspaceTabs } from '@/components/rag-workspace/WorkspaceTabs'
 import type { RAGTabId } from '@/components/rag-workspace/WorkspaceTabs'
 import { WorkspaceLayout } from '@/components/rag-workspace/WorkspaceLayout'
-import { BottomMetrics } from '@/components/rag-workspace/BottomMetrics'
-import { PageFooter } from '@/components/rag-workspace/PageFooter'
-
 export function RAGWorkspacePage() {
   const shouldReduceMotion = useScoreliaReducedMotion()
   const [activeTab, setActiveTab] = useState<RAGTabId>('collections')
@@ -48,11 +45,6 @@ export function RAGWorkspacePage() {
         {/* 3. Main Specialized Workspace Layout */}
         <motion.div variants={itemVariants} id={`workspace-tabpanel-${activeTab}`}>
           <WorkspaceLayout activeTab={activeTab} />
-        </motion.div>
-
-        {/* 4. Page Footer */}
-        <motion.div variants={itemVariants}>
-          <PageFooter />
         </motion.div>
       </motion.div>
     </div>
