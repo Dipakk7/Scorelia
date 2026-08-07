@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Map } from 'lucide-react'
 import { useScoreliaReducedMotion, getContainerVariants, getSectionVariants } from '@/lib/motion'
 import { CareerRoadmapHero } from '@/components/career-roadmap/hero/CareerRoadmapHero'
 import { CareerRoadmapTabs } from '@/components/career-roadmap/CareerRoadmapTabs'
@@ -7,7 +8,10 @@ import type { RoadmapTabId } from '@/components/career-roadmap/CareerRoadmapTabs
 import { CareerRoadmapWorkspace } from '@/components/career-roadmap/CareerRoadmapWorkspace'
 import { CareerRoadmapSidebar } from '@/components/career-roadmap/CareerRoadmapSidebar'
 import ReportsWorkspace from '@/components/career-roadmap/reports/ReportsWorkspace'
+import { ExportPanel } from '@/components/career-roadmap/reports/ExportPanel'
 import { CareerRoadmapError } from '@/components/career-roadmap/common/CareerRoadmapError'
+import { WorkspaceSectionHeader } from '@/components/career-roadmap/common/WorkspaceSectionHeader'
+import { TimelineContainer } from '@/components/career-roadmap/timeline/TimelineContainer'
 import { useCareerRoadmap } from '@/hooks/useCareerRoadmap'
 import { useCareerAssistant } from '@/hooks/useCareerAssistant'
 import { SessionSummaryCard } from '@/components/career-roadmap/assistant/SessionSummaryCard'
@@ -69,6 +73,37 @@ export function CareerRoadmapPage() {
             <main aria-label="Career Reports Workspace" className="w-full max-w-full overflow-x-hidden">
               <ReportsWorkspace />
             </main>
+          ) : activeTab === 'roadmap' ? (
+            <main
+              key="roadmap-workspace"
+              aria-label="Career Execution Roadmap Workspace"
+              className="space-y-4 sm:space-y-5 text-left w-full max-w-full overflow-x-hidden"
+            >
+              <WorkspaceSectionHeader
+                title="Career Execution Roadmap"
+                subtitle="Step-by-step career progression phases, key target skills, and actionable learning milestones."
+                icon={Map}
+                badgeText="Interactive Timeline"
+              />
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 items-start w-full max-w-full">
+                {/* 12-Month Timeline Workspace (7 Columns on Desktop) */}
+                <section
+                  aria-label="Career Roadmap Timeline Content"
+                  className="lg:col-span-7 space-y-4 sm:space-y-5 w-full min-w-0"
+                >
+                  <TimelineContainer />
+                  <ExportPanel />
+                </section>
+
+                {/* Companion Panel & Sidebar (5 Columns on Desktop) */}
+                <aside
+                  aria-label="Career Roadmap Companion Panel"
+                  className="lg:col-span-5 space-y-4 sm:space-y-5 w-full min-w-0"
+                >
+                  <CareerRoadmapSidebar mode="full" />
+                </aside>
+              </div>
+            </main>
           ) : isAdaptiveWorkspace ? (
             <main
               key={`adaptive-${activeTab}`}
@@ -83,6 +118,7 @@ export function CareerRoadmapPage() {
                 <CareerRoadmapWorkspace activeTab={activeTab} />
                 <SessionSummaryCard summary={sessionSummary} />
                 <RecommendedActionsCard actions={recommendedActions.length > 0 ? recommendedActions : undefined} />
+                <ExportPanel />
                 <CareerInsightsCard insights={insights} />
                 <CareerTipsCard />
               </section>
@@ -107,6 +143,7 @@ export function CareerRoadmapPage() {
                 className="lg:col-span-8 space-y-4 sm:space-y-5 w-full min-w-0"
               >
                 <CareerRoadmapWorkspace activeTab={activeTab} />
+                <ExportPanel />
               </section>
 
               {/* Right Sidebar (4 Columns on Desktop) */}

@@ -39,12 +39,6 @@ export function CareerRoadmapWorkspace({ activeTab }: CareerRoadmapWorkspaceProp
         aria-labelledby="tab-roadmap"
         className="space-y-4 sm:space-y-5 text-left"
       >
-        <WorkspaceSectionHeader
-          title="Career Execution Roadmap"
-          subtitle="Step-by-step career progression phases, key target skills, and actionable learning milestones."
-          icon={Map}
-          badgeText="Interactive Timeline"
-        />
         <TimelineContainer />
       </motion.div>
     )
