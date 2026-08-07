@@ -64,17 +64,17 @@ export function BottomMetrics({ className }: BottomMetricsProps) {
         return (
           <div
             key={i}
-            className="p-4 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-md text-left flex flex-col justify-between"
+            className="p-4 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left flex flex-col justify-between"
           >
             <div className="flex items-center gap-2.5 mb-2">
               <div className={cn('p-2 rounded-xl border flex items-center justify-center shrink-0', m.iconColor)}>
                 <Icon size={16} />
               </div>
-              <span className="text-xs font-semibold text-slate-400 truncate">{m.title}</span>
+              <span className="text-xs font-semibold text-[var(--muted)] truncate">{m.title}</span>
             </div>
 
             <div className="flex items-baseline justify-between gap-1 mt-auto">
-              <div className="text-lg font-extrabold text-white font-mono">
+              <div className="text-lg font-extrabold text-[var(--heading)] font-mono">
                 {m.value}
               </div>
               {m.trend && (
@@ -83,7 +83,7 @@ export function BottomMetrics({ className }: BottomMetricsProps) {
                 </span>
               )}
               {m.subtext && (
-                <span className="text-[10px] text-slate-400 font-mono">
+                <span className="text-[10px] text-[var(--muted)] font-mono">
                   {m.subtext}
                 </span>
               )}
@@ -93,17 +93,17 @@ export function BottomMetrics({ className }: BottomMetricsProps) {
       })}
 
       {/* 6. System Diagnostics Card */}
-      <div className="p-4 rounded-2xl bg-gradient-to-br from-purple-900/30 to-indigo-900/30 border border-purple-500/30 shadow-md text-left flex flex-col justify-between">
+      <div className="p-4 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left flex flex-col justify-between">
         <div className="flex items-center gap-2 mb-2">
-          <div className="p-2 rounded-xl bg-purple-500/20 border border-purple-500/30 text-purple-300">
+          <div className="p-2 rounded-xl bg-purple-500/20 border border-purple-500/30 text-purple-400">
             <Activity size={16} />
           </div>
-          <span className="text-xs font-bold text-white">System Diagnostics</span>
+          <span className="text-xs font-bold text-[var(--heading)]">System Diagnostics</span>
         </div>
 
         <button
           type="button"
-          className="w-full flex items-center justify-between text-xs font-bold text-purple-300 hover:text-white bg-purple-600/30 hover:bg-purple-600/50 px-3 py-1.5 rounded-xl border border-purple-500/30 transition-all cursor-pointer"
+          className="w-full flex items-center justify-between text-xs font-bold text-purple-400 hover:text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 px-3 py-1.5 rounded-xl border border-purple-500/20 transition-all cursor-pointer border-none"
         >
           <span>Run full check</span>
           <ArrowRight size={14} />
@@ -114,3 +114,4 @@ export function BottomMetrics({ className }: BottomMetricsProps) {
 }
 
 export default BottomMetrics
+

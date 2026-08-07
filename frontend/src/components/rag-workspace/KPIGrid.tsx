@@ -80,7 +80,7 @@ export function KPIGrid({ className }: KPIGridProps) {
   return (
     <div
       aria-label="Key Performance Indicators Summary"
-      className={cn('grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 sm:gap-4', className)}
+      className={cn('grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 sm:gap-4 items-stretch', className)}
     >
       {kpis.map((kpi) => (
         <KPICard key={kpi.id} {...kpi} />
@@ -90,3 +90,4 @@ export function KPIGrid({ className }: KPIGridProps) {
 }
 
 export default KPIGrid
+

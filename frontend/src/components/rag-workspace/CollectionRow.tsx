@@ -48,7 +48,7 @@ export function CollectionRow({
       <div
         onClick={() => onSelect(collection)}
         className={cn(
-          'group relative p-5 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 hover:border-purple-500/40 hover:bg-[#121320] transition-all duration-200 shadow-md hover:shadow-xl cursor-pointer flex flex-col justify-between text-left',
+          'group relative p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] hover:border-purple-500/40 hover:bg-[var(--surface-hover)] transition-all duration-200 shadow-[var(--shadow-sm)] hover:shadow-xl cursor-pointer flex flex-col justify-between text-left select-none',
           className
         )}
       >
@@ -73,28 +73,28 @@ export function CollectionRow({
 
         {/* Title & Description */}
         <div className="space-y-1 my-2">
-          <h3 className="text-sm font-bold text-slate-100 group-hover:text-purple-300 transition-colors tracking-tight line-clamp-1">
+          <h3 className="text-sm font-bold text-[var(--heading)] group-hover:text-purple-300 transition-colors tracking-tight line-clamp-1">
             {collection.name}
           </h3>
-          <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+          <p className="text-xs text-[var(--muted)] line-clamp-2 leading-relaxed">
             {collection.description}
           </p>
         </div>
 
         {/* Metrics Grid inside Card */}
-        <div className="grid grid-cols-2 gap-2 my-3 p-2.5 rounded-xl bg-[#121320]/60 border border-white/5 text-xs">
+        <div className="grid grid-cols-2 gap-2 my-3 p-2.5 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)] text-xs">
           <div>
-            <span className="text-[10px] text-slate-400 block uppercase font-mono">Documents</span>
-            <span className="font-bold text-slate-200 font-mono">{collection.documentCount.toLocaleString()}</span>
+            <span className="text-[10px] text-[var(--muted)] block uppercase font-mono">Documents</span>
+            <span className="font-bold text-[var(--heading)] font-mono">{collection.documentCount.toLocaleString()}</span>
           </div>
           <div>
-            <span className="text-[10px] text-slate-400 block uppercase font-mono">Chunks</span>
-            <span className="font-bold text-slate-200 font-mono">{collection.chunkCount.toLocaleString()}</span>
+            <span className="text-[10px] text-[var(--muted)] block uppercase font-mono">Chunks</span>
+            <span className="font-bold text-[var(--heading)] font-mono">{collection.chunkCount.toLocaleString()}</span>
           </div>
         </div>
 
         {/* Footer info: Model & Health */}
-        <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+        <div className="pt-2 border-t border-[var(--border)] flex items-center justify-between text-[11px] text-[var(--muted)] font-mono">
           <span className="truncate max-w-[140px]">{collection.embeddingModel}</span>
           <CollectionHealthIndicator health={collection.health} />
         </div>
@@ -107,7 +107,7 @@ export function CollectionRow({
     <tr
       onClick={() => onSelect(collection)}
       className={cn(
-        'hover:bg-white/[0.03] transition-colors cursor-pointer group text-xs text-slate-300 border-b border-white/5 last:border-0',
+        'hover:bg-[var(--surface-hover)] transition-colors cursor-pointer group text-xs text-[var(--heading)] border-b border-[var(--border)] last:border-0',
         className
       )}
     >
@@ -118,10 +118,10 @@ export function CollectionRow({
             <IconComponent size={17} />
           </div>
           <div className="min-w-0">
-            <span className="font-bold text-slate-100 block group-hover:text-purple-300 transition-colors truncate max-w-xs">
+            <span className="font-bold text-[var(--heading)] block group-hover:text-purple-300 transition-colors truncate max-w-xs">
               {collection.name}
             </span>
-            <span className="text-[11px] text-slate-400 block truncate max-w-xs">
+            <span className="text-[11px] text-[var(--muted)] block truncate max-w-xs">
               {collection.description}
             </span>
           </div>
@@ -129,17 +129,17 @@ export function CollectionRow({
       </td>
 
       {/* Documents */}
-      <td className="py-3.5 px-3 font-mono font-semibold text-slate-200">
+      <td className="py-3.5 px-3 font-mono font-semibold text-[var(--heading)]">
         {collection.documentCount.toLocaleString()}
       </td>
 
       {/* Chunks */}
-      <td className="py-3.5 px-3 font-mono text-slate-300">
+      <td className="py-3.5 px-3 font-mono text-[var(--heading)]">
         {collection.chunkCount.toLocaleString()}
       </td>
 
       {/* Embedding Model */}
-      <td className="py-3.5 px-3 font-mono text-[11px] text-slate-300 whitespace-nowrap">
+      <td className="py-3.5 px-3 font-mono text-[11px] text-[var(--muted)] whitespace-nowrap">
         {collection.embeddingModel}
       </td>
 
@@ -154,7 +154,7 @@ export function CollectionRow({
       </td>
 
       {/* Last Updated */}
-      <td className="py-3.5 px-3 text-slate-400 text-[11px] whitespace-nowrap">
+      <td className="py-3.5 px-3 text-[var(--muted)] text-[11px] whitespace-nowrap">
         {collection.updatedDate}
       </td>
 
@@ -175,3 +175,4 @@ export function CollectionRow({
 }
 
 export default CollectionRow
+

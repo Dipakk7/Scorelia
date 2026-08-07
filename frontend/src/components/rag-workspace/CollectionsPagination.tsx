@@ -30,25 +30,25 @@ export function CollectionsPagination({
     <div
       aria-label="Collections Pagination Controls"
       className={cn(
-        'flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 text-xs text-slate-400 select-none',
+        'flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-[var(--surface)] border border-[var(--border)] text-xs text-[var(--muted)] select-none shadow-[var(--shadow-sm)]',
         className
       )}
     >
       {/* Items Count Summary */}
       <div className="flex items-center gap-3">
         <span>
-          Showing <strong className="text-slate-200 font-mono">{startItem}–{endItem}</strong> of{' '}
-          <strong className="text-slate-200 font-mono">{totalItems}</strong> Collections
+          Showing <strong className="text-[var(--heading)] font-mono">{startItem}–{endItem}</strong> of{' '}
+          <strong className="text-[var(--heading)] font-mono">{totalItems}</strong> Collections
         </span>
 
         {onPageSizeChange && (
-          <div className="flex items-center gap-1.5 ml-2 border-l border-white/10 pl-3">
+          <div className="flex items-center gap-1.5 ml-2 border-l border-[var(--border)] pl-3">
             <span className="text-[11px]">Per page</span>
             <select
               value={pageSize}
               onChange={(e) => onPageSizeChange(Number(e.target.value))}
               aria-label="Items per page"
-              className="bg-[#121320] border border-white/10 text-xs text-slate-200 px-2 py-1 rounded-lg focus:outline-none cursor-pointer"
+              className="bg-[var(--surface-hover)] border border-[var(--border)] text-xs text-[var(--heading)] px-2 py-1 rounded-lg focus:outline-none cursor-pointer"
             >
               <option value="5">5</option>
               <option value="10">10</option>
@@ -65,7 +65,7 @@ export function CollectionsPagination({
           disabled={currentPage <= 1}
           onClick={() => onPageChange(currentPage - 1)}
           aria-label="Previous page"
-          className="p-1.5 rounded-xl border border-white/10 text-slate-400 hover:text-white hover:bg-white/5 disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer"
+          className="p-1.5 rounded-xl border border-[var(--border)] text-[var(--muted)] hover:text-[var(--heading)] hover:bg-[var(--surface-hover)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer"
         >
           <ChevronLeft size={15} />
         </button>
@@ -78,8 +78,8 @@ export function CollectionsPagination({
             className={cn(
               'px-3 py-1 rounded-xl text-xs font-bold font-mono transition-colors cursor-pointer',
               page === currentPage
-                ? 'bg-purple-600 text-white shadow-md shadow-purple-900/40'
-                : 'border border-white/10 hover:bg-white/5 text-slate-300'
+                ? 'bg-purple-600 text-white shadow-md shadow-purple-900/40 border-none'
+                : 'border border-[var(--border)] hover:bg-[var(--surface-hover)] text-[var(--heading)]'
             )}
           >
             {page}
@@ -91,7 +91,7 @@ export function CollectionsPagination({
           disabled={currentPage >= totalPages}
           onClick={() => onPageChange(currentPage + 1)}
           aria-label="Next page"
-          className="p-1.5 rounded-xl border border-white/10 text-slate-400 hover:text-white hover:bg-white/5 disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer"
+          className="p-1.5 rounded-xl border border-[var(--border)] text-[var(--muted)] hover:text-[var(--heading)] hover:bg-[var(--surface-hover)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer"
         >
           <ChevronRight size={15} />
         </button>
@@ -101,3 +101,4 @@ export function CollectionsPagination({
 }
 
 export default CollectionsPagination
+

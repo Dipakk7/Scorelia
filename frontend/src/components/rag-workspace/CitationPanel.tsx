@@ -14,10 +14,10 @@ export function CitationPanel({ citations, onOpenSource, className }: CitationPa
   if (!citations || citations.length === 0) return null
 
   return (
-    <div className={cn('p-4 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-lg text-left space-y-3', className)}>
-      <div className="flex items-center gap-2 border-b border-white/10 pb-2.5">
+    <div className={cn('p-4 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left space-y-3 select-none', className)}>
+      <div className="flex items-center gap-2 border-b border-[var(--border)] pb-2.5">
         <BookMarked size={16} className="text-purple-400 shrink-0" />
-        <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+        <h4 className="text-xs font-bold text-[var(--heading)] uppercase tracking-wider">
           Source Citations ({citations.length})
         </h4>
       </div>

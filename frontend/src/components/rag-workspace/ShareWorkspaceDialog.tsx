@@ -45,30 +45,30 @@ export function ShareWorkspaceDialog({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200 select-none">
       <div
         className={cn(
-          'w-full max-w-md p-6 rounded-2xl bg-[#0e0f1a] border border-purple-500/30 shadow-2xl text-left space-y-4 relative',
+          'w-full max-w-md p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left space-y-4 relative',
           className
         )}
       >
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-4 top-4 text-slate-400 hover:text-white"
+          className="absolute right-4 top-4 text-[var(--muted)] hover:text-[var(--heading)] border-none bg-transparent cursor-pointer"
         >
           <X size={18} />
         </button>
 
-        <div className="flex items-center gap-2 border-b border-white/10 pb-3">
+        <div className="flex items-center gap-2 border-b border-[var(--border)] pb-3">
           <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
             <Share2 size={18} />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-white tracking-tight font-sans">
+            <h3 className="text-sm font-bold text-[var(--heading)] tracking-tight font-sans">
               Share RAG Workspace
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-[var(--muted)]">
               Generate secure access links for team members.
             </p>
           </div>
@@ -77,7 +77,7 @@ export function ShareWorkspaceDialog({
         <div className="space-y-3">
           {/* Permission Toggle */}
           <div>
-            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
+            <label className="text-xs font-bold text-[var(--muted)] uppercase tracking-wider block mb-1.5">
               Access Permission
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -87,8 +87,8 @@ export function ShareWorkspaceDialog({
                 className={cn(
                   'p-2.5 rounded-xl border text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2',
                   permission === 'Read-Only'
-                    ? 'bg-purple-600/20 border-purple-500/50 text-purple-300'
-                    : 'bg-[#121320] border-white/5 text-slate-400'
+                    ? 'bg-purple-500/10 border-purple-500/50 text-purple-400 font-bold'
+                    : 'bg-[var(--surface-hover)] border-[var(--border)] text-[var(--muted)] hover:text-[var(--heading)]'
                 )}
               >
                 <Eye size={14} />
@@ -101,8 +101,8 @@ export function ShareWorkspaceDialog({
                 className={cn(
                   'p-2.5 rounded-xl border text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2',
                   permission === 'Editable'
-                    ? 'bg-purple-600/20 border-purple-500/50 text-purple-300'
-                    : 'bg-[#121320] border-white/5 text-slate-400'
+                    ? 'bg-purple-500/10 border-purple-500/50 text-purple-400 font-bold'
+                    : 'bg-[var(--surface-hover)] border-[var(--border)] text-[var(--muted)] hover:text-[var(--heading)]'
                 )}
               >
                 <Edit3 size={14} />
@@ -113,13 +113,13 @@ export function ShareWorkspaceDialog({
 
           {/* Expiration Select */}
           <div>
-            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
+            <label className="text-xs font-bold text-[var(--muted)] uppercase tracking-wider block mb-1.5">
               Link Expiration
             </label>
             <select
               value={expiresInDays}
               onChange={(e) => setExpiresInDays(Number(e.target.value))}
-              className="w-full bg-[#121320] border border-white/10 rounded-xl p-2.5 text-xs text-white focus:outline-none cursor-pointer font-mono"
+              className="w-full bg-[var(--surface-hover)] border border-[var(--border)] rounded-xl p-2.5 text-xs text-[var(--heading)] focus:outline-none cursor-pointer font-mono"
             >
               <option value={1}>1 Day (24 Hours)</option>
               <option value={7}>7 Days (1 Week)</option>
@@ -129,8 +129,8 @@ export function ShareWorkspaceDialog({
           </div>
 
           {/* Password Protection Toggle */}
-          <div className="flex items-center justify-between p-3 rounded-xl bg-[#121320] border border-white/5">
-            <div className="flex items-center gap-2 text-xs text-slate-300 font-semibold">
+          <div className="flex items-center justify-between p-3 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)]">
+            <div className="flex items-center gap-2 text-xs text-[var(--heading)] font-semibold">
               <Lock size={14} className="text-purple-400" />
               <span>Require Access Password</span>
             </div>
@@ -144,7 +144,7 @@ export function ShareWorkspaceDialog({
 
           {/* Generated Link Box */}
           {generatedLink && (
-            <div className="p-3 rounded-xl bg-[#07080e] border border-purple-500/30 space-y-2">
+            <div className="p-3 rounded-xl bg-[var(--surface-hover)] border border-purple-500/30 space-y-2">
               <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400">
                 Active Secure Link
               </span>
@@ -153,12 +153,12 @@ export function ShareWorkspaceDialog({
                   type="text"
                   readOnly
                   value={generatedLink}
-                  className="flex-1 bg-transparent text-xs text-slate-200 font-mono focus:outline-none truncate"
+                  className="flex-1 bg-transparent text-xs text-[var(--heading)] font-mono focus:outline-none truncate"
                 />
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold flex items-center gap-1 cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold flex items-center gap-1 cursor-pointer border-none"
                 >
                   {copied ? <Check size={13} /> : <Copy size={13} />}
                   <span>{copied ? 'Copied' : 'Copy'}</span>
@@ -172,7 +172,7 @@ export function ShareWorkspaceDialog({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl bg-white/5 text-slate-300 text-xs font-semibold cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-[var(--surface-hover)] text-[var(--muted)] hover:text-[var(--heading)] border border-[var(--border)] text-xs font-semibold cursor-pointer"
             >
               Close
             </button>
@@ -180,7 +180,7 @@ export function ShareWorkspaceDialog({
               type="button"
               onClick={handleGenerate}
               disabled={isGenerating}
-              className="px-5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold shadow-md shadow-purple-900/40 cursor-pointer min-h-[44px]"
+              className="px-5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold shadow-md shadow-purple-900/40 cursor-pointer min-h-[40px] border-none"
             >
               {isGenerating ? 'Generating Link...' : 'Generate Share Link'}
             </button>
@@ -192,3 +192,4 @@ export function ShareWorkspaceDialog({
 }
 
 export default ShareWorkspaceDialog
+

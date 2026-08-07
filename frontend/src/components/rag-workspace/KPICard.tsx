@@ -47,13 +47,13 @@ export function KPICard({
       aria-selected={onClick ? isSelected : undefined}
       onClick={onClick}
       className={cn(
-        'group relative p-4 rounded-2xl bg-[#0e0f1a] transition-all duration-200 flex flex-col justify-between overflow-hidden text-left min-h-[120px] select-none',
-        'hover:bg-[#15172a] hover:border-purple-500/40 hover:shadow-xl',
+        'group relative p-4 rounded-2xl bg-[var(--surface)] transition-all duration-200 flex flex-col justify-between overflow-hidden text-left h-full min-h-[120px] select-none',
+        'hover:bg-[var(--surface-hover)] hover:border-purple-500/40 hover:shadow-xl',
         'active:scale-[0.98]',
         onClick && 'cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e]',
         isSelected
           ? 'border border-purple-500 shadow-[0_0_16px_rgba(168,85,247,0.3)] scale-[1.01]'
-          : 'border border-white/10 shadow-md',
+          : 'border border-[var(--border)] shadow-sm',
         className
       )}
     >

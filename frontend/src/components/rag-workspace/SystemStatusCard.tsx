@@ -15,7 +15,7 @@ export function SystemStatusCard({
   return (
     <div
       className={cn(
-        'flex items-center gap-2.5 px-3.5 py-1.5 rounded-xl bg-[#121320]/90 border border-white/10 text-slate-300 text-xs shadow-inner select-none',
+        'flex items-center gap-2.5 px-3.5 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs shadow-inner select-none h-10 backdrop-blur-md',
         className
       )}
     >
@@ -24,11 +24,12 @@ export function SystemStatusCard({
         <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
       </span>
       <div className="flex flex-col text-left leading-tight">
-        <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wider">{statusText}</span>
-        <span className="text-xs font-semibold text-slate-200">{subtext}</span>
+        <span className="text-[9px] font-bold text-emerald-400/80 uppercase tracking-wider">{statusText}</span>
+        <span className="text-xs font-bold text-emerald-300 truncate">{subtext}</span>
       </div>
     </div>
   )
 }
 
 export default SystemStatusCard
+

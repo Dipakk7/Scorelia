@@ -51,14 +51,14 @@ export function AuditLogs({ logs, className }: AuditLogsProps) {
   }
 
   return (
-    <div className={cn('p-5 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-lg text-left space-y-4', className)}>
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-3">
+    <div className={cn('p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left space-y-4 select-none', className)}>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[var(--border)] pb-3">
         <div>
-          <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 font-sans">
+          <h3 className="text-sm font-bold text-[var(--heading)] uppercase tracking-wider flex items-center gap-2 font-sans">
             <ShieldCheck size={16} className="text-purple-400" />
             Audit Trail & Security Logs
           </h3>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-[var(--muted)]">
             Real-time compliance audit trail of user actions, API calls, and administrative events.
           </p>
         </div>
@@ -66,20 +66,20 @@ export function AuditLogs({ logs, className }: AuditLogsProps) {
         {/* Search & Status Filter */}
         <div className="flex items-center gap-2">
           <div className="relative w-48 sm:w-56">
-            <Search size={14} className="absolute left-3 top-2.5 text-slate-400" />
+            <Search size={14} className="absolute left-3 top-2.5 text-[var(--muted)]" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Filter audit logs..."
-              className="w-full bg-[#121320] border border-white/10 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-purple-500/50"
+              className="w-full bg-[var(--surface-hover)] border border-[var(--border)] rounded-xl pl-8 pr-3 py-1.5 text-xs text-[var(--heading)] placeholder-[var(--muted)] focus:outline-none focus:border-purple-500/50"
             />
           </div>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as any)}
-            className="bg-[#121320] border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-slate-300 focus:outline-none cursor-pointer"
+            className="bg-[var(--surface-hover)] border border-[var(--border)] rounded-xl px-2.5 py-1.5 text-xs text-[var(--heading)] focus:outline-none cursor-pointer"
           >
             <option value="all">All Statuses</option>
             <option value="success">Success Only</option>
@@ -89,10 +89,10 @@ export function AuditLogs({ logs, className }: AuditLogsProps) {
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full text-left text-xs text-slate-300">
+      <div className="overflow-x-auto custom-scrollbar">
+        <table className="w-full text-left text-xs text-[var(--heading)]">
           <thead>
-            <tr className="border-b border-white/10 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+            <tr className="border-b border-[var(--border)] text-[11px] font-bold text-[var(--muted)] uppercase tracking-wider bg-[var(--surface-hover)]">
               <th className="py-2.5 px-3">Timestamp</th>
               <th className="py-2.5 px-3">User</th>
               <th className="py-2.5 px-3">Action</th>
@@ -102,20 +102,20 @@ export function AuditLogs({ logs, className }: AuditLogsProps) {
               <th className="py-2.5 px-3 text-right">Latency</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/5 font-mono text-[12px]">
+          <tbody className="divide-y divide-[var(--border)] font-mono text-[12px]">
             {filteredLogs.map((log) => (
               <tr
                 key={log.id}
                 onClick={() => setSelectedAudit(log)}
-                className="hover:bg-white/[0.03] transition-colors cursor-pointer"
+                className="hover:bg-[var(--surface-hover)] transition-colors cursor-pointer"
               >
-                <td className="py-3 px-3 text-slate-400 font-sans">{log.timestamp}</td>
-                <td className="py-3 px-3 font-semibold text-white font-sans">{log.user}</td>
-                <td className="py-3 px-3 text-purple-300 font-bold">{log.action}</td>
-                <td className="py-3 px-3 text-slate-300 font-sans truncate max-w-xs">{log.resource}</td>
+                <td className="py-3 px-3 text-[var(--muted)] font-sans">{log.timestamp}</td>
+                <td className="py-3 px-3 font-semibold text-[var(--heading)] font-sans">{log.user}</td>
+                <td className="py-3 px-3 text-purple-400 font-bold">{log.action}</td>
+                <td className="py-3 px-3 text-[var(--heading)] font-sans truncate max-w-xs">{log.resource}</td>
                 <td className="py-3 px-3">{getStatusBadge(log.status)}</td>
-                <td className="py-3 px-3 text-slate-400">{log.ipAddress}</td>
-                <td className="py-3 px-3 text-right font-bold text-slate-200">{log.durationMs}ms</td>
+                <td className="py-3 px-3 text-[var(--muted)]">{log.ipAddress}</td>
+                <td className="py-3 px-3 text-right font-bold text-[var(--heading)]">{log.durationMs}ms</td>
               </tr>
             ))}
           </tbody>
@@ -124,39 +124,39 @@ export function AuditLogs({ logs, className }: AuditLogsProps) {
 
       {/* Slide-over Audit Details Modal */}
       {selectedAudit && (
-        <div className="p-4 rounded-xl bg-[#121320] border border-purple-500/30 space-y-3">
-          <div className="flex items-center justify-between border-b border-white/10 pb-2">
-            <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+        <div className="p-4 rounded-xl bg-[var(--surface-hover)] border border-purple-500/30 space-y-3">
+          <div className="flex items-center justify-between border-b border-[var(--border)] pb-2">
+            <h4 className="text-xs font-bold text-[var(--heading)] uppercase tracking-wider">
               Audit Event Details — {selectedAudit.id}
             </h4>
             <button
               type="button"
               onClick={() => setSelectedAudit(null)}
-              className="text-slate-400 hover:text-white"
+              className="text-[var(--muted)] hover:text-[var(--heading)] border-none bg-transparent cursor-pointer"
             >
               <X size={14} />
             </button>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
             <div>
-              <span className="text-slate-400 block text-[10px]">USER:</span>
-              <span className="text-white font-bold">{selectedAudit.user}</span>
+              <span className="text-[var(--muted)] block text-[10px]">USER:</span>
+              <span className="text-[var(--heading)] font-bold">{selectedAudit.user}</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[10px]">ACTION:</span>
-              <span className="text-purple-300 font-bold">{selectedAudit.action}</span>
+              <span className="text-[var(--muted)] block text-[10px]">ACTION:</span>
+              <span className="text-purple-400 font-bold">{selectedAudit.action}</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[10px]">IP ADDRESS:</span>
-              <span className="text-slate-200">{selectedAudit.ipAddress}</span>
+              <span className="text-[var(--muted)] block text-[10px]">IP ADDRESS:</span>
+              <span className="text-[var(--heading)]">{selectedAudit.ipAddress}</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[10px]">LATENCY:</span>
-              <span className="text-slate-200">{selectedAudit.durationMs}ms</span>
+              <span className="text-[var(--muted)] block text-[10px]">LATENCY:</span>
+              <span className="text-[var(--heading)]">{selectedAudit.durationMs}ms</span>
             </div>
           </div>
           {selectedAudit.details && (
-            <pre className="p-3 rounded-lg bg-[#07080e] border border-white/5 text-[11px] text-slate-300 font-mono overflow-x-auto">
+            <pre className="p-3 rounded-lg bg-[var(--surface)] border border-[var(--border)] text-[11px] text-[var(--heading)] font-mono overflow-x-auto">
               {JSON.stringify(selectedAudit.details, null, 2)}
             </pre>
           )}
@@ -167,3 +167,4 @@ export function AuditLogs({ logs, className }: AuditLogsProps) {
 }
 
 export default AuditLogs
+

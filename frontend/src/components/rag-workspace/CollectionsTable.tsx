@@ -35,10 +35,10 @@ export function CollectionsTable({
   }
 
   return (
-    <div className={cn('overflow-x-auto custom-scrollbar rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-lg', className)}>
+    <div className={cn('overflow-x-auto custom-scrollbar rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] select-none', className)}>
       <table className="w-full text-left border-collapse min-w-[800px]" aria-label="Knowledge Collections Table">
         <thead>
-          <tr className="border-b border-white/10 text-[11px] font-bold text-slate-400 uppercase tracking-wider bg-[#121320]/80 sticky top-0 backdrop-blur-md z-10 select-none">
+          <tr className="border-b border-[var(--border)] text-[11px] font-bold text-[var(--muted)] uppercase tracking-wider bg-[var(--surface-hover)] sticky top-0 backdrop-blur-md z-10 select-none">
             <th className="py-3.5 px-4">Collection</th>
             <th className="py-3.5 px-3">Documents</th>
             <th className="py-3.5 px-3">Chunks</th>
@@ -49,7 +49,7 @@ export function CollectionsTable({
             <th className="py-3.5 px-3 text-right">Actions</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-white/5">
+        <tbody className="divide-y divide-[var(--border)]">
           {collections.map((col) => (
             <CollectionRow
               key={col.id}
@@ -66,3 +66,4 @@ export function CollectionsTable({
 }
 
 export default CollectionsTable
+

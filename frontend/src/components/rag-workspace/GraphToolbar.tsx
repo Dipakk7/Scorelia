@@ -58,24 +58,24 @@ export function GraphToolbar({
   ]
 
   return (
-    <div className={cn('p-3 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-lg text-left flex flex-wrap items-center justify-between gap-3', className)}>
+    <div className={cn('p-3 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left flex flex-wrap items-center justify-between gap-3 select-none', className)}>
       {/* 1. Zoom Controls */}
-      <div className="flex items-center gap-1 bg-[#121320] p-1 rounded-xl border border-white/5">
+      <div className="flex items-center gap-1 bg-[var(--surface-hover)] p-1 rounded-xl border border-[var(--border)]">
         <button
           type="button"
           onClick={onZoomIn}
-          className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+          className="p-1.5 rounded-lg text-[var(--muted)] hover:text-[var(--heading)] hover:bg-[var(--surface)] transition-colors cursor-pointer border-none"
           title="Zoom In"
         >
           <ZoomIn size={15} />
         </button>
-        <span className="text-[11px] font-mono text-purple-300 font-bold px-1.5 select-none">
+        <span className="text-[11px] font-mono text-purple-400 font-bold px-1.5 select-none">
           {Math.round(zoomLevel * 100)}%
         </span>
         <button
           type="button"
           onClick={onZoomOut}
-          className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+          className="p-1.5 rounded-lg text-[var(--muted)] hover:text-[var(--heading)] hover:bg-[var(--surface)] transition-colors cursor-pointer border-none"
           title="Zoom Out"
         >
           <ZoomOut size={15} />
@@ -83,7 +83,7 @@ export function GraphToolbar({
         <button
           type="button"
           onClick={onResetView}
-          className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+          className="p-1.5 rounded-lg text-[var(--muted)] hover:text-[var(--heading)] hover:bg-[var(--surface)] transition-colors cursor-pointer border-none"
           title="Reset View"
         >
           <RefreshCw size={14} />
@@ -91,7 +91,7 @@ export function GraphToolbar({
         <button
           type="button"
           onClick={onFitToScreen}
-          className="p-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+          className="p-1.5 rounded-lg text-[var(--muted)] hover:text-[var(--heading)] hover:bg-[var(--surface)] transition-colors cursor-pointer border-none"
           title="Fit to Screen"
         >
           <Maximize2 size={14} />
@@ -105,7 +105,7 @@ export function GraphToolbar({
           value={layoutMode}
           onChange={(e) => onLayoutModeChange(e.target.value as GraphLayoutMode)}
           aria-label="Graph Layout Algorithm"
-          className="bg-[#121320] border border-white/10 text-xs text-slate-200 px-3 py-1.5 rounded-xl focus:outline-none focus:ring-1 focus:ring-purple-500/50 cursor-pointer font-sans"
+          className="bg-[var(--surface-hover)] border border-[var(--border)] text-xs text-[var(--heading)] px-3 py-1.5 rounded-xl focus:outline-none focus:ring-1 focus:ring-purple-500/50 cursor-pointer font-sans"
         >
           {layouts.map((l) => (
             <option key={l} value={l}>
@@ -122,7 +122,7 @@ export function GraphToolbar({
           value={selectedNodeType}
           onChange={(e) => onNodeTypeFilterChange(e.target.value as any)}
           aria-label="Filter Node Types"
-          className="bg-[#121320] border border-white/10 text-xs text-slate-200 px-3 py-1.5 rounded-xl focus:outline-none focus:ring-1 focus:ring-purple-500/50 cursor-pointer font-sans"
+          className="bg-[var(--surface-hover)] border border-[var(--border)] text-xs text-[var(--heading)] px-3 py-1.5 rounded-xl focus:outline-none focus:ring-1 focus:ring-purple-500/50 cursor-pointer font-sans"
         >
           {nodeTypes.map((t) => (
             <option key={t.id} value={t.id}>
@@ -134,13 +134,13 @@ export function GraphToolbar({
 
       {/* 4. Node Search */}
       <div className="relative min-w-[160px] sm:min-w-[200px]">
-        <Search size={14} className="absolute left-3 top-2.5 text-slate-400" />
+        <Search size={14} className="absolute left-3 top-2.5 text-[var(--muted)]" />
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Search node..."
-          className="w-full bg-[#121320] border border-white/10 focus:border-purple-500/50 rounded-xl py-1.5 pl-8 pr-3 text-xs text-slate-200 placeholder-slate-400 focus:outline-none font-sans"
+          className="w-full bg-[var(--surface-hover)] border border-[var(--border)] focus:border-purple-500/50 rounded-xl py-1.5 pl-8 pr-3 text-xs text-[var(--heading)] placeholder-[var(--muted)] focus:outline-none font-sans"
         />
       </div>
 
@@ -151,8 +151,8 @@ export function GraphToolbar({
         className={cn(
           'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer',
           showLegend
-            ? 'bg-purple-600/20 border-purple-500/30 text-purple-300'
-            : 'bg-[#121320] border-white/10 text-slate-400 hover:text-white'
+            ? 'bg-purple-500/10 border-purple-500/30 text-purple-400'
+            : 'bg-[var(--surface-hover)] border-[var(--border)] text-[var(--muted)] hover:text-[var(--heading)]'
         )}
       >
         <Eye size={14} />
@@ -163,3 +163,4 @@ export function GraphToolbar({
 }
 
 export default GraphToolbar
+

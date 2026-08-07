@@ -14,14 +14,14 @@ export function HeroHeader({
   className
 }: HeroHeaderProps) {
   return (
-    <div className={cn('space-y-1', className)}>
+    <div className={cn('space-y-1.5 text-left', className)}>
       <div className="flex items-center gap-2">
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white font-sans flex items-center gap-2">
-          {title}
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[var(--heading)] font-sans flex items-center gap-2 m-0">
+          <span>{title}</span>
           <Sparkles className="w-5 h-5 text-purple-400 fill-purple-400/20 inline-block animate-pulse shrink-0" aria-hidden="true" />
         </h1>
       </div>
-      <p className="text-xs sm:text-sm text-slate-400 font-normal leading-relaxed">
+      <p className="text-xs sm:text-sm text-[var(--muted)] font-medium leading-relaxed m-0 max-w-xl">
         {subtitle}
       </p>
     </div>
@@ -29,3 +29,4 @@ export function HeroHeader({
 }
 
 export default HeroHeader
+

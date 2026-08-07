@@ -29,19 +29,19 @@ export function SidebarContainer() {
   ]
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6 text-left">
       {/* 1. Interactive AI Assistant Module */}
       <AIAssistant />
 
       {/* 2. Insights & Action Plan Card */}
-      <div className="p-5 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-lg text-left space-y-4">
-        <div className="flex items-center gap-4 border-b border-white/10 pb-3">
+      <div className="p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left space-y-4">
+        <div className="flex items-center gap-4 border-b border-[var(--border)] pb-3">
           <button
             type="button"
             onClick={() => setActiveTab('insights')}
             className={cn(
-              'text-xs font-bold transition-colors relative pb-1 cursor-pointer',
-              activeTab === 'insights' ? 'text-purple-400 border-b-2 border-purple-400' : 'text-slate-400 hover:text-slate-200'
+              'text-xs font-bold transition-colors relative pb-1 cursor-pointer border-none bg-transparent',
+              activeTab === 'insights' ? 'text-purple-400 border-b-2 border-purple-400 font-extrabold' : 'text-[var(--muted)] hover:text-[var(--heading)]'
             )}
           >
             Insights
@@ -50,8 +50,8 @@ export function SidebarContainer() {
             type="button"
             onClick={() => setActiveTab('actionPlan')}
             className={cn(
-              'text-xs font-bold transition-colors relative pb-1 cursor-pointer',
-              activeTab === 'actionPlan' ? 'text-purple-400 border-b-2 border-purple-400' : 'text-slate-400 hover:text-slate-200'
+              'text-xs font-bold transition-colors relative pb-1 cursor-pointer border-none bg-transparent',
+              activeTab === 'actionPlan' ? 'text-purple-400 border-b-2 border-purple-400 font-extrabold' : 'text-[var(--muted)] hover:text-[var(--heading)]'
             )}
           >
             Action Plan
@@ -59,20 +59,20 @@ export function SidebarContainer() {
         </div>
 
         <div className="flex items-center justify-between">
-          <h4 className="text-xs font-bold text-white uppercase tracking-wider">Recent Queries</h4>
-          <button type="button" className="text-[11px] font-semibold text-purple-400 hover:text-purple-300 flex items-center gap-1 cursor-pointer">
+          <h4 className="text-xs font-bold text-[var(--heading)] uppercase tracking-wider">Recent Queries</h4>
+          <button type="button" className="text-[11px] font-semibold text-purple-400 hover:text-purple-300 flex items-center gap-1 cursor-pointer bg-transparent border-none">
             <span>View all</span>
             <ArrowRight size={12} />
           </button>
         </div>
-        <p className="text-[11px] text-slate-400 -mt-2">Relevance score indicates retrieval confidence</p>
+        <p className="text-[11px] text-[var(--muted)] -mt-2">Relevance score indicates retrieval confidence</p>
 
         <div className="space-y-2">
           {recentQueries.map((q, i) => (
-            <div key={i} className="p-2.5 rounded-xl bg-[#121320] border border-white/5 flex items-center justify-between gap-2">
+            <div key={i} className="p-2.5 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)] flex items-center justify-between gap-2">
               <div className="min-w-0">
-                <p className="text-xs font-semibold text-slate-200 truncate">{q.query}</p>
-                <p className="text-[10px] text-slate-400">{q.time}</p>
+                <p className="text-xs font-semibold text-[var(--heading)] truncate">{q.query}</p>
+                <p className="text-[10px] text-[var(--muted)]">{q.time}</p>
               </div>
               <span className={cn('px-2 py-0.5 rounded-md text-[10px] font-mono font-bold shrink-0 border', q.badge)}>
                 {q.score}
@@ -83,8 +83,8 @@ export function SidebarContainer() {
       </div>
 
       {/* 3. Quick Actions Card */}
-      <div className="p-5 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-lg text-left space-y-4">
-        <h4 className="text-xs font-bold text-white uppercase tracking-wider">Quick Actions</h4>
+      <div className="p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left space-y-4">
+        <h4 className="text-xs font-bold text-[var(--heading)] uppercase tracking-wider">Quick Actions</h4>
         <div className="grid grid-cols-2 gap-2.5">
           {quickActions.map((act, i) => {
             const Icon = act.icon
@@ -92,15 +92,15 @@ export function SidebarContainer() {
               <button
                 key={i}
                 type="button"
-                className="p-3 rounded-xl bg-[#121320] border border-white/5 hover:border-white/20 text-left transition-all group cursor-pointer"
+                className="p-3 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)] hover:border-purple-500/30 text-left transition-all group cursor-pointer"
               >
                 <div className={cn('p-2 rounded-xl border w-fit mb-2 group-hover:scale-105 transition-transform', act.color)}>
                   <Icon size={16} />
                 </div>
-                <p className="text-xs font-bold text-slate-200 group-hover:text-purple-300 transition-colors leading-tight">
+                <p className="text-xs font-bold text-[var(--heading)] group-hover:text-purple-300 transition-colors leading-tight">
                   {act.label}
                 </p>
-                <p className="text-[10px] text-slate-400 mt-0.5 truncate">
+                <p className="text-[10px] text-[var(--muted)] mt-0.5 truncate">
                   {act.sub}
                 </p>
               </button>
@@ -113,3 +113,4 @@ export function SidebarContainer() {
 }
 
 export default SidebarContainer
+

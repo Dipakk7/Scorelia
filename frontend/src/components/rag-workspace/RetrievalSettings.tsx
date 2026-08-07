@@ -8,19 +8,19 @@ export interface RetrievalSettingsProps {
 
 export function RetrievalSettings({ config, onChange }: RetrievalSettingsProps) {
   return (
-    <div className="p-6 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-lg text-left space-y-5">
-      <div className="border-b border-white/10 pb-3">
-        <h3 className="text-sm font-bold text-white uppercase tracking-wider">Default Retrieval Settings</h3>
-        <p className="text-xs text-slate-400">Configure global search presets for all workspace RAG queries.</p>
+    <div className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left space-y-5 select-none">
+      <div className="border-b border-[var(--border)] pb-3">
+        <h3 className="text-sm font-bold text-[var(--heading)] uppercase tracking-wider">Default Retrieval Settings</h3>
+        <p className="text-xs text-[var(--muted)]">Configure global search presets for all workspace RAG queries.</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
         <div className="space-y-1">
-          <label className="font-semibold text-slate-300 block">Default Search Mode</label>
+          <label className="font-semibold text-[var(--heading)] block">Default Search Mode</label>
           <select
             value={config.defaultSearchType}
             onChange={(e) => onChange({ ...config, defaultSearchType: e.target.value as any })}
-            className="w-full bg-[#121320] border border-white/10 text-slate-200 p-2.5 rounded-xl font-sans"
+            className="w-full bg-[var(--surface-hover)] border border-[var(--border)] text-[var(--heading)] p-2.5 rounded-xl font-sans focus:outline-none focus:ring-2 focus:ring-purple-500/50 cursor-pointer"
           >
             <option value="Hybrid">Hybrid (Semantic + Keyword BM25)</option>
             <option value="Semantic">Semantic Vector Search Only</option>
@@ -29,7 +29,7 @@ export function RetrievalSettings({ config, onChange }: RetrievalSettingsProps) 
         </div>
 
         <div className="space-y-1">
-          <label className="font-semibold text-slate-300 block">Default Top-K Chunks ({config.defaultTopK})</label>
+          <label className="font-semibold text-[var(--heading)] block">Default Top-K Chunks ({config.defaultTopK})</label>
           <input
             type="range"
             min="3"
@@ -41,7 +41,7 @@ export function RetrievalSettings({ config, onChange }: RetrievalSettingsProps) 
         </div>
 
         <div className="space-y-1">
-          <label className="font-semibold text-slate-300 block">Temperature ({config.defaultTemperature.toFixed(1)})</label>
+          <label className="font-semibold text-[var(--heading)] block">Temperature ({config.defaultTemperature.toFixed(1)})</label>
           <input
             type="range"
             min="0"
@@ -54,11 +54,11 @@ export function RetrievalSettings({ config, onChange }: RetrievalSettingsProps) 
         </div>
 
         <div className="space-y-1">
-          <label className="font-semibold text-slate-300 block">Citation Mode</label>
+          <label className="font-semibold text-[var(--heading)] block">Citation Mode</label>
           <select
             value={config.citationMode}
             onChange={(e) => onChange({ ...config, citationMode: e.target.value as any })}
-            className="w-full bg-[#121320] border border-white/10 text-slate-200 p-2.5 rounded-xl font-sans"
+            className="w-full bg-[var(--surface-hover)] border border-[var(--border)] text-[var(--heading)] p-2.5 rounded-xl font-sans focus:outline-none focus:ring-2 focus:ring-purple-500/50 cursor-pointer"
           >
             <option value="Verbose">Verbose (Full snippets & page refs)</option>
             <option value="Compact">Compact (Minimal badge refs)</option>
@@ -71,3 +71,4 @@ export function RetrievalSettings({ config, onChange }: RetrievalSettingsProps) 
 }
 
 export default RetrievalSettings
+

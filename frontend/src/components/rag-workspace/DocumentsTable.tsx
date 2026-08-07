@@ -18,9 +18,9 @@ export function DocumentsTable({
   className
 }: DocumentsTableProps) {
   return (
-    <div className={cn('p-5 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-lg text-left space-y-4 overflow-x-auto custom-scrollbar', className)}>
-      <table className="w-full text-xs text-left text-slate-300">
-        <thead className="bg-[#121320] text-slate-400 font-mono text-[11px] uppercase border-b border-white/10">
+    <div className={cn('p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left space-y-4 overflow-x-auto custom-scrollbar select-none', className)}>
+      <table className="w-full text-xs text-left text-[var(--heading)]">
+        <thead className="bg-[var(--surface-hover)] text-[var(--muted)] font-mono text-[11px] uppercase border-b border-[var(--border)]">
           <tr>
             <th scope="col" className="p-3 font-semibold">Document Name</th>
             <th scope="col" className="p-3 font-semibold">Collection</th>
@@ -31,12 +31,12 @@ export function DocumentsTable({
             <th scope="col" className="p-3 font-semibold text-right">Actions</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-white/5">
+        <tbody className="divide-y divide-[var(--border)]">
           {documents.map((doc) => (
             <tr
               key={doc.id}
               onClick={() => onSelectDocument(doc)}
-              className="hover:bg-white/5 transition-colors cursor-pointer group"
+              className="hover:bg-[var(--surface-hover)] transition-colors cursor-pointer group"
             >
               {/* Document Name */}
               <td className="p-3">
@@ -45,10 +45,10 @@ export function DocumentsTable({
                     <FileText size={14} />
                   </div>
                   <div className="min-w-0">
-                    <span className="font-bold text-slate-100 group-hover:text-purple-300 transition-colors block truncate">
+                    <span className="font-bold text-[var(--heading)] group-hover:text-purple-300 transition-colors block truncate">
                       {doc.name}
                     </span>
-                    <span className="text-[10px] text-slate-400 font-mono block">
+                    <span className="text-[10px] text-[var(--muted)] font-mono block">
                       {doc.fileSize} • {doc.fileType}
                     </span>
                   </div>
@@ -56,12 +56,12 @@ export function DocumentsTable({
               </td>
 
               {/* Collection */}
-              <td className="p-3 font-mono font-medium text-slate-300 whitespace-nowrap">
+              <td className="p-3 font-mono font-medium text-[var(--heading)] whitespace-nowrap">
                 {doc.collection}
               </td>
 
               {/* Chunks */}
-              <td className="p-3 font-mono text-slate-200 whitespace-nowrap">
+              <td className="p-3 font-mono text-[var(--heading)] whitespace-nowrap">
                 <span className="flex items-center gap-1">
                   <Layers size={11} className="text-amber-400" />
                   {doc.chunkCount}
@@ -74,12 +74,12 @@ export function DocumentsTable({
               </td>
 
               {/* Embedding Model */}
-              <td className="p-3 font-mono text-slate-400 text-[11px] whitespace-nowrap">
+              <td className="p-3 font-mono text-[var(--muted)] text-[11px] whitespace-nowrap">
                 {doc.embeddingModel}
               </td>
 
               {/* Last Indexed */}
-              <td className="p-3 font-mono text-slate-400 text-[11px] whitespace-nowrap">
+              <td className="p-3 font-mono text-[var(--muted)] text-[11px] whitespace-nowrap">
                 {doc.lastIndexed}
               </td>
 
@@ -89,7 +89,7 @@ export function DocumentsTable({
                   <button
                     type="button"
                     onClick={() => onSelectDocument(doc)}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+                    className="p-1.5 rounded-lg text-[var(--muted)] hover:text-[var(--heading)] hover:bg-[var(--surface-hover)] transition-colors border-none cursor-pointer"
                     aria-label={`Preview document ${doc.name}`}
                   >
                     <Eye size={14} />
@@ -97,7 +97,7 @@ export function DocumentsTable({
                   <button
                     type="button"
                     onClick={() => onDeleteDocument(doc.id)}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+                    className="p-1.5 rounded-lg text-[var(--muted)] hover:text-rose-400 hover:bg-rose-500/10 transition-colors border-none cursor-pointer"
                     aria-label={`Delete document ${doc.name}`}
                   >
                     <Trash2 size={14} />
@@ -113,3 +113,4 @@ export function DocumentsTable({
 }
 
 export default DocumentsTable
+

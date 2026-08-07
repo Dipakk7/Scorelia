@@ -24,15 +24,15 @@ export interface SystemHealthSectionProps {
 
 export function SystemHealthSection({ className }: SystemHealthSectionProps) {
   return (
-    <div className={cn('grid grid-cols-1 lg:grid-cols-12 gap-6', className)}>
+    <div className={cn('grid grid-cols-1 lg:grid-cols-12 gap-6 select-none', className)}>
       {/* 1. Resource Usage & Embedding Stats (6 Columns on Desktop) */}
       <div className="lg:col-span-6 space-y-4 text-left">
         {/* Resource Usage Card */}
-        <div className="p-5 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-lg space-y-4">
-          <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
+        <div className="p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] space-y-4">
+          <div className="flex items-center justify-between border-b border-[var(--border)] pb-2.5">
             <div className="flex items-center gap-2">
               <Cpu size={16} className="text-purple-400 shrink-0" />
-              <h3 className="text-xs font-bold text-white uppercase tracking-wider">
+              <h3 className="text-xs font-bold text-[var(--heading)] uppercase tracking-wider">
                 Infrastructure Resource Utilization
               </h3>
             </div>
@@ -45,10 +45,10 @@ export function SystemHealthSection({ className }: SystemHealthSectionProps) {
             {/* CPU Bar */}
             <div className="space-y-1">
               <div className="flex justify-between font-mono">
-                <span className="text-slate-400">CPU Usage</span>
-                <span className="text-slate-200 font-bold">{MOCK_RESOURCE_USAGE.cpuPercent}%</span>
+                <span className="text-[var(--muted)]">CPU Usage</span>
+                <span className="text-[var(--heading)] font-bold">{MOCK_RESOURCE_USAGE.cpuPercent}%</span>
               </div>
-              <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+              <div className="w-full bg-[var(--border)] h-2 rounded-full overflow-hidden">
                 <div className="bg-purple-500 h-full rounded-full" style={{ width: `${MOCK_RESOURCE_USAGE.cpuPercent}%` }} />
               </div>
             </div>
@@ -56,10 +56,10 @@ export function SystemHealthSection({ className }: SystemHealthSectionProps) {
             {/* RAM Bar */}
             <div className="space-y-1">
               <div className="flex justify-between font-mono">
-                <span className="text-slate-400">Memory (RAM)</span>
-                <span className="text-slate-200 font-bold">{MOCK_RESOURCE_USAGE.ramUsedGB} GB / {MOCK_RESOURCE_USAGE.ramTotalGB} GB</span>
+                <span className="text-[var(--muted)]">Memory (RAM)</span>
+                <span className="text-[var(--heading)] font-bold">{MOCK_RESOURCE_USAGE.ramUsedGB} GB / {MOCK_RESOURCE_USAGE.ramTotalGB} GB</span>
               </div>
-              <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+              <div className="w-full bg-[var(--border)] h-2 rounded-full overflow-hidden">
                 <div
                   className="bg-indigo-500 h-full rounded-full"
                   style={{ width: `${(MOCK_RESOURCE_USAGE.ramUsedGB / MOCK_RESOURCE_USAGE.ramTotalGB) * 100}%` }}
@@ -70,10 +70,10 @@ export function SystemHealthSection({ className }: SystemHealthSectionProps) {
             {/* Disk Bar */}
             <div className="space-y-1">
               <div className="flex justify-between font-mono">
-                <span className="text-slate-400">Vector Storage (Disk)</span>
-                <span className="text-slate-200 font-bold">{MOCK_RESOURCE_USAGE.diskUsedMB} MB / 10 GB</span>
+                <span className="text-[var(--muted)]">Vector Storage (Disk)</span>
+                <span className="text-[var(--heading)] font-bold">{MOCK_RESOURCE_USAGE.diskUsedMB} MB / 10 GB</span>
               </div>
-              <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+              <div className="w-full bg-[var(--border)] h-2 rounded-full overflow-hidden">
                 <div
                   className="bg-emerald-400 h-full rounded-full"
                   style={{ width: `${(MOCK_RESOURCE_USAGE.diskUsedMB / MOCK_RESOURCE_USAGE.diskTotalMB) * 100}%` }}
@@ -85,24 +85,24 @@ export function SystemHealthSection({ className }: SystemHealthSectionProps) {
 
         {/* Embedding Stats Card & Index Health */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="p-4 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-lg space-y-2">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Embedding Provider</span>
-            <div className="font-mono text-xs font-bold text-purple-300 truncate">{MOCK_EMBEDDING_STATS.modelName}</div>
-            <div className="text-[11px] text-slate-400 font-mono space-y-0.5 pt-1">
-              <div className="flex justify-between"><span>Vectors:</span> <strong className="text-slate-200">{MOCK_EMBEDDING_STATS.totalVectors.toLocaleString()}</strong></div>
-              <div className="flex justify-between"><span>Dimensions:</span> <strong className="text-slate-200">{MOCK_EMBEDDING_STATS.dimensions}d</strong></div>
+          <div className="p-4 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] space-y-2">
+            <span className="text-[10px] font-bold text-[var(--muted)] uppercase tracking-wider block">Embedding Provider</span>
+            <div className="font-mono text-xs font-bold text-purple-400 truncate">{MOCK_EMBEDDING_STATS.modelName}</div>
+            <div className="text-[11px] text-[var(--muted)] font-mono space-y-0.5 pt-1">
+              <div className="flex justify-between"><span>Vectors:</span> <strong className="text-[var(--heading)]">{MOCK_EMBEDDING_STATS.totalVectors.toLocaleString()}</strong></div>
+              <div className="flex justify-between"><span>Dimensions:</span> <strong className="text-[var(--heading)]">{MOCK_EMBEDDING_STATS.dimensions}d</strong></div>
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-lg space-y-2">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Vector Indexes</span>
+          <div className="p-4 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] space-y-2">
+            <span className="text-[10px] font-bold text-[var(--muted)] uppercase tracking-wider block">Vector Indexes</span>
             <div className="flex items-center gap-2">
-              <span className="text-xl font-black text-white font-mono">{MOCK_INDEX_HEALTH.totalIndexes}</span>
-              <span className="text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+              <span className="text-xl font-black text-[var(--heading)] font-mono">{MOCK_INDEX_HEALTH.totalIndexes}</span>
+              <span className="text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
                 {MOCK_INDEX_HEALTH.healthyCount} Healthy
               </span>
             </div>
-            <div className="text-[11px] text-slate-400 font-mono flex items-center justify-between pt-1">
+            <div className="text-[11px] text-[var(--muted)] font-mono flex items-center justify-between pt-1">
               <span>Pending: {MOCK_INDEX_HEALTH.pendingCount}</span>
               <span className="text-rose-400 font-bold">Failed: {MOCK_INDEX_HEALTH.failedCount}</span>
             </div>
@@ -111,15 +111,15 @@ export function SystemHealthSection({ className }: SystemHealthSectionProps) {
       </div>
 
       {/* 2. Service Status List (6 Columns on Desktop) */}
-      <div className="lg:col-span-6 p-5 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-lg text-left space-y-4">
-        <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
+      <div className="lg:col-span-6 p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left space-y-4">
+        <div className="flex items-center justify-between border-b border-[var(--border)] pb-2.5">
           <div className="flex items-center gap-2">
             <Server size={16} className="text-blue-400 shrink-0" />
-            <h3 className="text-xs font-bold text-white uppercase tracking-wider">
+            <h3 className="text-xs font-bold text-[var(--heading)] uppercase tracking-wider">
               Core RAG Services Status
             </h3>
           </div>
-          <span className="text-[10px] font-mono text-slate-400">
+          <span className="text-[10px] font-mono text-[var(--muted)]">
             5/5 Operational
           </span>
         </div>
@@ -128,23 +128,23 @@ export function SystemHealthSection({ className }: SystemHealthSectionProps) {
           {MOCK_SYSTEM_SERVICES.map((srv, idx) => (
             <div
               key={idx}
-              className="p-3 rounded-xl bg-[#121320] border border-white/5 flex items-center justify-between gap-3 text-xs"
+              className="p-3 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)] flex items-center justify-between gap-3 text-xs"
             >
               <div className="flex items-center gap-2.5 min-w-0">
                 <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
                 <div className="min-w-0">
-                  <span className="font-bold text-slate-100 block truncate">{srv.name}</span>
-                  <span className="text-[10px] text-slate-400 block font-mono">{srv.category}</span>
+                  <span className="font-bold text-[var(--heading)] block truncate">{srv.name}</span>
+                  <span className="text-[10px] text-[var(--muted)] block font-mono">{srv.category}</span>
                 </div>
               </div>
 
               <div className="flex items-center gap-4 text-right font-mono text-[11px] shrink-0">
                 <div>
-                  <span className="text-slate-400 block text-[10px]">Latency</span>
-                  <span className="text-slate-200 font-bold">{srv.latencyMs} ms</span>
+                  <span className="text-[var(--muted)] block text-[10px]">Latency</span>
+                  <span className="text-[var(--heading)] font-bold">{srv.latencyMs} ms</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block text-[10px]">Uptime</span>
+                  <span className="text-[var(--muted)] block text-[10px]">Uptime</span>
                   <span className="text-emerald-400 font-bold">{srv.uptime}</span>
                 </div>
               </div>
@@ -157,3 +157,4 @@ export function SystemHealthSection({ className }: SystemHealthSectionProps) {
 }
 
 export default SystemHealthSection
+

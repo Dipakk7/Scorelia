@@ -37,13 +37,13 @@ export function DocumentPreviewDrawer({
       <div
         aria-label="Document Preview Drawer"
         className={cn(
-          'w-full max-w-xl h-full bg-[#0e0f1a] border-l border-white/10 p-6 overflow-y-auto custom-scrollbar text-left space-y-5 flex flex-col justify-between shadow-2xl',
+          'w-full max-w-xl h-full bg-[var(--surface)] border-l border-[var(--border)] p-6 overflow-y-auto custom-scrollbar text-left space-y-5 flex flex-col justify-between shadow-2xl',
           className
         )}
       >
         <div className="space-y-4">
           {/* Header */}
-          <div className="flex items-start justify-between gap-3 border-b border-white/10 pb-4">
+          <div className="flex items-start justify-between gap-3 border-b border-[var(--border)] pb-4">
             <div className="flex items-center gap-3 min-w-0">
               <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 shrink-0">
                 <FileText size={20} />

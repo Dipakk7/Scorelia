@@ -8,17 +8,17 @@ export interface NotificationSettingsProps {
 
 export function NotificationSettings({ config, onChange }: NotificationSettingsProps) {
   return (
-    <div className="p-6 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-lg text-left space-y-5">
-      <div className="border-b border-white/10 pb-3">
-        <h3 className="text-sm font-bold text-white uppercase tracking-wider">Alerts & Notification Preferences</h3>
-        <p className="text-xs text-slate-400">Choose when and how you receive alerts for RAG indexing operations.</p>
+    <div className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left space-y-5 select-none">
+      <div className="border-b border-[var(--border)] pb-3">
+        <h3 className="text-sm font-bold text-[var(--heading)] uppercase tracking-wider">Alerts & Notification Preferences</h3>
+        <p className="text-xs text-[var(--muted)]">Choose when and how you receive alerts for RAG indexing operations.</p>
       </div>
 
       <div className="space-y-4 text-xs">
-        <div className="flex items-center justify-between p-3 rounded-xl bg-[#121320] border border-white/5">
+        <div className="flex items-center justify-between p-3 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)]">
           <div>
-            <span className="font-bold text-slate-200 block">Processing Complete Notifications</span>
-            <span className="text-[11px] text-slate-400">Receive alert when large document batch finishes indexing.</span>
+            <span className="font-bold text-[var(--heading)] block">Processing Complete Notifications</span>
+            <span className="text-[11px] text-[var(--muted)]">Receive alert when large document batch finishes indexing.</span>
           </div>
           <input
             type="checkbox"
@@ -28,10 +28,10 @@ export function NotificationSettings({ config, onChange }: NotificationSettingsP
           />
         </div>
 
-        <div className="flex items-center justify-between p-3 rounded-xl bg-[#121320] border border-white/5">
+        <div className="flex items-center justify-between p-3 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)]">
           <div>
-            <span className="font-bold text-slate-200 block">Index Failure Alerts</span>
-            <span className="text-[11px] text-slate-400">High priority alert when vector embedding generation fails.</span>
+            <span className="font-bold text-[var(--heading)] block">Index Failure Alerts</span>
+            <span className="text-[11px] text-[var(--muted)]">High priority alert when vector embedding generation fails.</span>
           </div>
           <input
             type="checkbox"
@@ -41,10 +41,10 @@ export function NotificationSettings({ config, onChange }: NotificationSettingsP
           />
         </div>
 
-        <div className="flex items-center justify-between p-3 rounded-xl bg-[#121320] border border-white/5">
+        <div className="flex items-center justify-between p-3 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)]">
           <div>
-            <span className="font-bold text-slate-200 block">Diagnostics Warning Digest</span>
-            <span className="text-[11px] text-slate-400">Weekly report on missing embeddings or duplicate chunk warnings.</span>
+            <span className="font-bold text-[var(--heading)] block">Diagnostics Warning Digest</span>
+            <span className="text-[11px] text-[var(--muted)]">Weekly report on missing embeddings or duplicate chunk warnings.</span>
           </div>
           <input
             type="checkbox"
@@ -59,3 +59,4 @@ export function NotificationSettings({ config, onChange }: NotificationSettingsP
 }
 
 export default NotificationSettings
+

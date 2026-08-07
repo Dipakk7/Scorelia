@@ -48,7 +48,7 @@ export function WorkspaceTabs({
       role="tablist"
       aria-label="RAG Workspace Navigation Tabs"
       className={cn(
-        'flex items-center gap-1.5 p-1 rounded-2xl bg-[#0e0f1a]/80 border border-white/10 overflow-x-auto custom-scrollbar text-left',
+        'flex items-center gap-1.5 p-1.5 rounded-2xl bg-[var(--surface)]/80 border border-[var(--border)] shadow-[var(--shadow-sm)] backdrop-blur-md overflow-x-auto custom-scrollbar text-left select-none',
         className
       )}
     >
@@ -68,13 +68,13 @@ export function WorkspaceTabs({
             onKeyDown={(e) => handleKeyDown(e, idx)}
             type="button"
             className={cn(
-              'flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50 min-h-[44px]',
+              'flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer whitespace-nowrap select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50 min-h-[40px] border-none',
               isActive
                 ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-900/30 font-bold'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                : 'text-[var(--muted)] hover:text-[var(--heading)] hover:bg-[var(--surface-hover)]'
             )}
           >
-            <Icon size={15} className={cn('shrink-0', isActive ? 'text-white' : 'text-slate-400')} />
+            <Icon size={15} className={cn('shrink-0', isActive ? 'text-white' : 'text-[var(--muted)]')} />
             <span>{tab.label}</span>
           </button>
         )
@@ -84,3 +84,4 @@ export function WorkspaceTabs({
 }
 
 export default WorkspaceTabs
+

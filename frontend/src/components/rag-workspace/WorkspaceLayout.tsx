@@ -38,24 +38,21 @@ export function WorkspaceLayout({ activeTab, className }: WorkspaceLayoutProps) 
   }
 
   return (
-    <div className={cn('grid grid-cols-1 lg:grid-cols-12 gap-6 items-start', className)}>
-      {/* Left Workspace Column (Desktop ~65%, Tablet 7-cols, Mobile 1-col) */}
-      <div className="lg:col-span-7 xl:col-span-7 space-y-6">
+    <div className={cn('grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start', className)}>
+      {/* Primary Workspace Column (8 cols on desktop) */}
+      <div className="lg:col-span-8 space-y-5 sm:space-y-6">
         {renderTabContent()}
       </div>
 
-      {/* Center Column - Health, Performance & Top Docs (Desktop ~15-20%, Tablet 5-cols, Mobile 1-col) */}
-      <div className="lg:col-span-5 xl:col-span-2.5 space-y-6">
+      {/* Right Sidebar & System Health Column (4 cols on desktop) */}
+      <div className="lg:col-span-4 space-y-5 sm:space-y-6">
+        <SidebarContainer />
         <SystemHealthCard />
         <RetrievalPerformanceCard />
         <TopRetrievedDocsCard />
       </div>
-
-      {/* Right Sidebar Column - AI Assistant, Insights & Quick Actions (Desktop ~20%, Tablet 12-cols stacked, Mobile 1-col) */}
-      <div className="lg:col-span-12 xl:col-span-2.5 space-y-6">
-        <SidebarContainer />
-      </div>
     </div>
+
   )
 }
 

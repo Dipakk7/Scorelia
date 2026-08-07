@@ -28,7 +28,7 @@ export function AlertCenter({
 
   if (alerts.length === 0) {
     return (
-      <div className={cn('p-4 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 text-center text-xs text-slate-400', className)}>
+      <div className={cn('p-4 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-center text-xs text-[var(--muted)]', className)}>
         <CheckCircle2 size={20} className="text-emerald-400 mx-auto mb-1" />
         No active operational alerts. All RAG services operating normally.
       </div>
@@ -59,20 +59,20 @@ export function AlertCenter({
   }
 
   return (
-    <div className={cn('p-5 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-lg text-left space-y-3', className)}>
-      <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
+    <div className={cn('p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left space-y-3 select-none', className)}>
+      <div className="flex items-center justify-between border-b border-[var(--border)] pb-2.5">
         <div className="flex items-center gap-2">
           <Bell size={16} className="text-amber-400 shrink-0" />
-          <h3 className="text-xs font-bold text-white uppercase tracking-wider">
+          <h3 className="text-xs font-bold text-[var(--heading)] uppercase tracking-wider">
             Operational Alerts Center ({alerts.length})
           </h3>
         </div>
         <button
           type="button"
           onClick={() => setAlerts([])}
-          className="text-[10px] font-bold text-slate-400 hover:text-white uppercase tracking-wider cursor-pointer"
+          className="text-[11px] text-[var(--muted)] hover:text-[var(--heading)] transition-colors cursor-pointer bg-transparent border-none"
         >
-          Dismiss All
+          Clear all
         </button>
       </div>
 

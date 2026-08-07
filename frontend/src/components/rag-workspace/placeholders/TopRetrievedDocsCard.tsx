@@ -12,10 +12,10 @@ export function TopRetrievedDocsCard() {
   ]
 
   return (
-    <div className="p-5 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-lg text-left space-y-3">
+    <div className="p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left space-y-3">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-bold text-white tracking-tight">Top Retrieved Documents</h3>
-        <button type="button" className="text-xs font-semibold text-purple-400 hover:text-purple-300 flex items-center gap-1">
+        <h3 className="text-sm font-bold text-[var(--heading)] tracking-tight">Top Retrieved Documents</h3>
+        <button type="button" className="text-xs font-semibold text-purple-400 hover:text-purple-300 flex items-center gap-1 cursor-pointer bg-transparent border-none">
           <span>View all</span>
           <ArrowRight size={13} />
         </button>
@@ -25,17 +25,17 @@ export function TopRetrievedDocsCard() {
         {docs.map((doc, i) => (
           <div
             key={i}
-            className="flex items-center justify-between gap-3 p-2.5 rounded-xl bg-[#121320] border border-white/5 hover:border-white/10 transition-colors group"
+            className="flex items-center justify-between gap-3 p-2.5 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)] hover:border-purple-500/30 transition-colors group"
           >
             <div className="flex items-center gap-2.5 min-w-0">
               <div className="p-1.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20 shrink-0">
                 <FileText size={14} />
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-semibold text-slate-200 truncate group-hover:text-purple-300 transition-colors">
+                <p className="text-xs font-semibold text-[var(--heading)] truncate group-hover:text-purple-300 transition-colors">
                   {doc.name}
                 </p>
-                <p className="text-[10px] text-slate-400 truncate">
+                <p className="text-[10px] text-[var(--muted)] truncate">
                   {doc.collection}
                 </p>
               </div>
@@ -49,5 +49,6 @@ export function TopRetrievedDocsCard() {
     </div>
   )
 }
+
 
 export default TopRetrievedDocsCard

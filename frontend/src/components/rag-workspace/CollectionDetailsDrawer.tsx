@@ -79,13 +79,13 @@ export function CollectionDetailsDrawer({
         aria-modal="true"
         aria-label={`Details for collection ${collection.name}`}
         className={cn(
-          'relative w-full max-w-lg bg-[#0b0c14] border-l border-white/10 p-6 shadow-2xl overflow-y-auto z-10 flex flex-col justify-between custom-scrollbar animate-in slide-in-from-right duration-300',
+          'relative w-full max-w-lg bg-[var(--surface)] border-l border-[var(--border)] p-6 shadow-2xl overflow-y-auto z-10 flex flex-col justify-between custom-scrollbar animate-in slide-in-from-right duration-300',
           className
         )}
       >
         {/* Header */}
         <div className="space-y-6">
-          <div className="flex items-start justify-between gap-4 pb-4 border-b border-white/10">
+          <div className="flex items-start justify-between gap-4 pb-4 border-b border-[var(--border)]">
             <div className="flex items-center gap-3">
               <div className="p-3 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 shrink-0">
                 <IconComponent size={24} />

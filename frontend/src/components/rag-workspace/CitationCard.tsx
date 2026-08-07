@@ -14,7 +14,7 @@ export function CitationCard({ citation, onOpenSource, className }: CitationCard
   return (
     <div
       className={cn(
-        'p-3 rounded-xl bg-[#121320] border border-white/5 hover:border-purple-500/30 transition-colors text-left space-y-2 group',
+        'p-3 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)] hover:border-purple-500/30 transition-colors text-left space-y-2 group select-none',
         className
       )}
     >
@@ -24,10 +24,10 @@ export function CitationCard({ citation, onOpenSource, className }: CitationCard
             <FileText size={14} />
           </div>
           <div className="min-w-0">
-            <h5 className="text-xs font-semibold text-slate-200 truncate group-hover:text-purple-300 transition-colors">
+            <h5 className="text-xs font-semibold text-[var(--heading)] truncate group-hover:text-purple-300 transition-colors">
               {citation.documentTitle}
             </h5>
-            <p className="text-[10px] text-slate-400 font-mono">
+            <p className="text-[10px] text-[var(--muted)] font-mono">
               Page {citation.pageNumber} • {citation.chunkId}
             </p>
           </div>
@@ -35,7 +35,7 @@ export function CitationCard({ citation, onOpenSource, className }: CitationCard
         <ConfidenceBadge score={citation.similarityScore} />
       </div>
 
-      <p className="text-[11px] text-slate-300 line-clamp-2 leading-relaxed bg-[#0b0c14]/50 p-2 rounded-lg border border-white/5 font-sans">
+      <p className="text-[11px] text-[var(--heading)] line-clamp-2 leading-relaxed bg-[var(--surface)] p-2 rounded-lg border border-[var(--border)] font-sans">
         "{citation.snippet}"
       </p>
 
@@ -43,7 +43,7 @@ export function CitationCard({ citation, onOpenSource, className }: CitationCard
         <button
           type="button"
           onClick={() => onOpenSource?.(citation)}
-          className="flex items-center gap-1 text-[10px] font-bold text-purple-400 hover:text-purple-300 transition-colors cursor-pointer"
+          className="flex items-center gap-1 text-[10px] font-bold text-purple-400 hover:text-purple-300 transition-colors cursor-pointer border-none bg-transparent"
         >
           <span>Open Source</span>
           <ExternalLink size={11} />
@@ -54,3 +54,4 @@ export function CitationCard({ citation, onOpenSource, className }: CitationCard
 }
 
 export default CitationCard
+

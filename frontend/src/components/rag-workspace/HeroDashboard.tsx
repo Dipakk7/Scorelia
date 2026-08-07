@@ -37,15 +37,18 @@ export function HeroDashboard({
       initial="hidden"
       animate="visible"
       aria-label="RAG Workspace Hero Dashboard"
-      className={cn('space-y-6', className)}
+      className={cn(
+        'p-5 sm:p-6 rounded-2xl bg-[var(--surface)]/70 backdrop-blur-md border border-[var(--border)] shadow-[var(--shadow-sm)] hover:border-[var(--primary)]/30 transition-all duration-300 space-y-5 sm:space-y-6 text-left',
+        className
+      )}
     >
       {/* Top Header & Actions Row */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-5 pb-1">
         {/* Title & Subtitle */}
         <HeroHeader />
 
         {/* Action Controls Bar */}
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 shrink-0">
           <SystemStatusCard />
           <KnowledgeGraphButton onClick={onOpenKnowledgeGraph} />
           <AddCollectionButton onClick={onAddNewCollection} />
@@ -59,3 +62,4 @@ export function HeroDashboard({
 }
 
 export default HeroDashboard
+

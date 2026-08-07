@@ -40,7 +40,7 @@ export function CollectionsToolbar({
   return (
     <div
       className={cn(
-        'flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-md',
+        'flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left select-none',
         className
       )}
     >
@@ -48,7 +48,7 @@ export function CollectionsToolbar({
       <div className="relative flex-1 max-w-sm">
         <Search
           size={15}
-          className="absolute left-3 top-2.5 text-slate-400 pointer-events-none"
+          className="absolute left-3 top-2.5 text-[var(--muted)] pointer-events-none"
           aria-hidden="true"
         />
         <input
@@ -57,7 +57,7 @@ export function CollectionsToolbar({
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Search collections..."
           aria-label="Search knowledge collections"
-          className="w-full bg-[#121320] border border-white/10 hover:border-white/20 focus:border-purple-500/50 text-xs text-slate-200 placeholder-slate-400 pl-9 pr-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-colors"
+          className="w-full bg-[var(--surface-hover)] border border-[var(--border)] hover:border-purple-500/30 focus:border-purple-500/50 text-xs text-[var(--heading)] placeholder-[var(--muted)] pl-9 pr-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-colors"
         />
       </div>
 
@@ -65,12 +65,12 @@ export function CollectionsToolbar({
       <div className="flex flex-wrap items-center gap-2.5">
         {/* Status Filter */}
         <div className="flex items-center gap-1.5">
-          <span className="text-[11px] font-medium text-slate-400 hidden md:inline">Status</span>
+          <span className="text-[11px] font-medium text-[var(--muted)] hidden md:inline">Status</span>
           <select
             value={statusFilter}
             onChange={(e) => onStatusFilterChange(e.target.value as CollectionStatus | 'all')}
             aria-label="Filter collections by status"
-            className="bg-[#121320] border border-white/10 hover:border-white/20 text-xs text-slate-200 px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 cursor-pointer"
+            className="bg-[var(--surface-hover)] border border-[var(--border)] hover:border-purple-500/30 text-xs text-[var(--heading)] px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 cursor-pointer"
           >
             <option value="all">All Status</option>
             <option value="ready">Ready</option>
@@ -82,12 +82,12 @@ export function CollectionsToolbar({
 
         {/* Sort Dropdown */}
         <div className="flex items-center gap-1.5">
-          <span className="text-[11px] font-medium text-slate-400 hidden md:inline">Sort</span>
+          <span className="text-[11px] font-medium text-[var(--muted)] hidden md:inline">Sort</span>
           <select
             value={sortOption}
             onChange={(e) => onSortOptionChange(e.target.value as SortOption)}
             aria-label="Sort collections"
-            className="bg-[#121320] border border-white/10 hover:border-white/20 text-xs text-slate-200 px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 cursor-pointer"
+            className="bg-[var(--surface-hover)] border border-[var(--border)] hover:border-purple-500/30 text-xs text-[var(--heading)] px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 cursor-pointer"
           >
             <option value="updated">Recently Updated</option>
             <option value="newest">Newest First</option>
@@ -100,13 +100,13 @@ export function CollectionsToolbar({
         </div>
 
         {/* Table / Grid View Toggle */}
-        <div className="flex items-center p-1 rounded-xl bg-[#121320] border border-white/10">
+        <div className="flex items-center p-1 rounded-xl bg-[var(--surface-hover)] border border-[var(--border)]">
           <button
             type="button"
             onClick={() => onViewModeChange('table')}
             className={cn(
-              'p-1.5 rounded-lg transition-colors cursor-pointer focus:outline-none',
-              viewMode === 'table' ? 'bg-purple-600 text-white font-bold' : 'text-slate-400 hover:text-white'
+              'p-1.5 rounded-lg transition-colors cursor-pointer focus:outline-none border-none',
+              viewMode === 'table' ? 'bg-purple-600 text-white font-bold' : 'text-[var(--muted)] hover:text-[var(--heading)]'
             )}
             aria-label="Table view"
             aria-pressed={viewMode === 'table'}
@@ -117,8 +117,8 @@ export function CollectionsToolbar({
             type="button"
             onClick={() => onViewModeChange('grid')}
             className={cn(
-              'p-1.5 rounded-lg transition-colors cursor-pointer focus:outline-none',
-              viewMode === 'grid' ? 'bg-purple-600 text-white font-bold' : 'text-slate-400 hover:text-white'
+              'p-1.5 rounded-lg transition-colors cursor-pointer focus:outline-none border-none',
+              viewMode === 'grid' ? 'bg-purple-600 text-white font-bold' : 'text-[var(--muted)] hover:text-[var(--heading)]'
             )}
             aria-label="Grid view"
             aria-pressed={viewMode === 'grid'}
@@ -132,3 +132,4 @@ export function CollectionsToolbar({
 }
 
 export default CollectionsToolbar
+

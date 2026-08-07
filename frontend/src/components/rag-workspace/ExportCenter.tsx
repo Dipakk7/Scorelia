@@ -45,13 +45,13 @@ export function ExportCenter({
   }
 
   return (
-    <div className={cn('p-5 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-lg text-left space-y-4', className)}>
-      <div className="border-b border-white/10 pb-3">
-        <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 font-sans">
+    <div className={cn('p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left space-y-4 select-none', className)}>
+      <div className="border-b border-[var(--border)] pb-3">
+        <h3 className="text-sm font-bold text-[var(--heading)] uppercase tracking-wider flex items-center gap-2 font-sans">
           <Download size={16} className="text-purple-400" />
           Export Center
         </h3>
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-[var(--muted)]">
           Select export formats and target data layers to package workspace data.
         </p>
       </div>
@@ -59,7 +59,7 @@ export function ExportCenter({
       <div className="space-y-3">
         {/* Format Selector */}
         <div>
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
+          <span className="text-xs font-bold text-[var(--muted)] uppercase tracking-wider block mb-2">
             1. Select Export Format
           </span>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
@@ -75,11 +75,11 @@ export function ExportCenter({
                   className={cn(
                     'p-3 rounded-xl border text-xs font-bold transition-all cursor-pointer flex flex-col items-center gap-1.5',
                     isSelected
-                      ? 'bg-purple-600/20 border-purple-500/50 text-purple-300 shadow-md shadow-purple-900/30'
-                      : 'bg-[#121320] border-white/5 text-slate-300 hover:border-white/10'
+                      ? 'bg-purple-500/10 border-purple-500/50 text-purple-400 shadow-md shadow-purple-900/30'
+                      : 'bg-[var(--surface-hover)] border-[var(--border)] text-[var(--heading)] hover:border-purple-500/30'
                   )}
                 >
-                  <Icon size={16} className={isSelected ? 'text-purple-400' : 'text-slate-400'} />
+                  <Icon size={16} className={isSelected ? 'text-purple-400' : 'text-[var(--muted)]'} />
                   <span>{fmt.label}</span>
                 </button>
               )
@@ -89,7 +89,7 @@ export function ExportCenter({
 
         {/* Target Data Layers Checkboxes */}
         <div>
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
+          <span className="text-xs font-bold text-[var(--muted)] uppercase tracking-wider block mb-2">
             2. Select Data Targets ({selectedTargets.length} selected)
           </span>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -104,8 +104,8 @@ export function ExportCenter({
                   className={cn(
                     'p-2.5 rounded-xl border text-xs font-medium transition-all cursor-pointer flex items-center justify-between',
                     isChecked
-                      ? 'bg-purple-500/10 border-purple-500/30 text-purple-300 font-bold'
-                      : 'bg-[#121320] border-white/5 text-slate-400 hover:text-slate-200'
+                      ? 'bg-purple-500/10 border-purple-500/30 text-purple-400 font-bold'
+                      : 'bg-[var(--surface-hover)] border-[var(--border)] text-[var(--muted)] hover:text-[var(--heading)]'
                   )}
                 >
                   <span>{tgt}</span>
@@ -122,7 +122,7 @@ export function ExportCenter({
             type="button"
             onClick={() => onGenerateExport(selectedFormat, selectedTargets)}
             disabled={isExporting || selectedTargets.length === 0}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold transition-all shadow-md shadow-purple-900/40 cursor-pointer disabled:opacity-50 min-h-[44px]"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold transition-all shadow-md shadow-purple-900/40 cursor-pointer disabled:opacity-50 min-h-[40px] border-none"
           >
             <Download size={15} />
             <span>{isExporting ? 'Generating Export Bundle...' : `Generate ${selectedFormat} Export`}</span>
@@ -134,3 +134,4 @@ export function ExportCenter({
 }
 
 export default ExportCenter
+

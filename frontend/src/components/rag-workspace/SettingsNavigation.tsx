@@ -41,7 +41,7 @@ export function SettingsNavigation({
   ]
 
   return (
-    <div className={cn('p-2 rounded-2xl bg-[#0e0f1a]/90 border border-white/10 shadow-lg text-left flex flex-wrap gap-1.5', className)}>
+    <div className={cn('p-2 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-[var(--shadow-sm)] text-left flex flex-wrap gap-1.5 select-none', className)}>
       {tabs.map((t) => {
         const Icon = t.icon
         const isActive = activeTab === t.id
@@ -52,10 +52,10 @@ export function SettingsNavigation({
             type="button"
             onClick={() => onTabChange(t.id)}
             className={cn(
-              'flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer select-none whitespace-nowrap',
+              'flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer select-none whitespace-nowrap border-none',
               isActive
-                ? 'bg-purple-600 text-white shadow-md shadow-purple-900/40'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-900/30 font-bold'
+                : 'text-[var(--muted)] hover:text-[var(--heading)] hover:bg-[var(--surface-hover)]'
             )}
           >
             <Icon size={14} className={cn(isActive ? 'text-white' : 'text-purple-400')} />
@@ -68,3 +68,4 @@ export function SettingsNavigation({
 }
 
 export default SettingsNavigation
+
