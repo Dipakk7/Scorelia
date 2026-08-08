@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 import { useScoreliaReducedMotion } from '@/lib/motion'
-import { Breadcrumb } from '@/components/agent-console/Breadcrumb'
+import { AgentHeroHeader } from '@/components/agent-console/AgentHeroHeader'
 import { TopActionBar } from '@/components/agent-console/TopActionBar'
 import { HeroDashboard } from '@/components/agent-console/HeroDashboard'
 import { AgentWorkspaceTabs } from '@/components/agent-console/AgentWorkspaceTabs'
@@ -42,29 +42,21 @@ export function AgentConsolePage() {
   }
 
   const isTAKSection = activeTab === 'tasks' || activeTab === 'automations' || activeTab === 'knowledge'
-  const isAdminSection = activeTab === 'logs' || activeTab === 'reports' || activeTab === 'admin'
-
-  const mapAdminTab = (tab: AgentTabId) => {
-    if (tab === 'logs') return 'audit'
-    if (tab === 'reports') return 'reports'
-    if (tab === 'admin') return 'admin'
-    return 'audit'
-  }
 
   return (
     <motion.div
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="space-y-6 sm:space-y-7 text-left max-w-[1720px] mx-auto font-sans px-4 sm:px-6 lg:px-8 2xl:px-10 py-6 sm:py-7 pb-16 select-none"
+      className="space-y-5 sm:space-y-6 text-left max-w-[1720px] mx-auto font-sans px-4 sm:px-6 lg:px-8 2xl:px-10 py-5 sm:py-6 pb-16 select-none"
     >
-      {/* 1. Breadcrumb Navigation & Top Action Toolbar */}
-      <motion.div variants={itemVariants} className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <Breadcrumb currentTabLabel={activeTab} />
+      {/* 1. Master Page Header Row (Title & Description on Left, Action Controls on Right) */}
+      <motion.div variants={itemVariants} className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+        <AgentHeroHeader />
         <TopActionBar onNewAgentClick={handleNewAgentClick} />
       </motion.div>
 
-      {/* 2. Hero Dashboard Master Container (Rendered on Overview for high-level telemetry) */}
+      {/* 2. Hero KPI Grid (Rendered on Overview for high-level telemetry) */}
       {activeTab === 'overview' && (
         <motion.div variants={itemVariants}>
           <HeroDashboard onNewAgentClick={handleNewAgentClick} />

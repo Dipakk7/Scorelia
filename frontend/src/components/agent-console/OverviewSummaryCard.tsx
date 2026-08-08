@@ -66,9 +66,9 @@ export function OverviewSummaryCard({ className }: OverviewSummaryCardProps) {
               </div>
 
               <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 pt-1.5 border-t border-white/5">
-                <span>Tasks: <strong className="text-white font-bold">{agent.tasksCompleted ?? 0}</strong></span>
-                <span>Success: <strong className="text-emerald-400 font-bold">{agent.successRate}%</strong></span>
-                <span>Latency: <strong className="text-purple-300">{agent.avgResponseTime}</strong></span>
+                <span>Tasks: <strong className="text-white font-bold">{agent.tasksCompleted != null ? agent.tasksCompleted.toLocaleString() : '—'}</strong></span>
+                <span>Success: <strong className="text-emerald-400 font-bold">{agent.successRate != null ? `${agent.successRate}%` : '—'}</strong></span>
+                <span>Latency: <strong className="text-purple-300 font-bold">{agent.avgResponseTime || '—'}</strong></span>
               </div>
             </div>
           ))}

@@ -1,8 +1,10 @@
 import React from 'react'
-import { Plus, Bell, User } from 'lucide-react'
+import { Bell } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/providers/AuthProvider'
 import { Avatar } from '@/components/ui/Avatar'
+import { SystemStatusCard } from './SystemStatusCard'
+import { NewAgentButton } from './NewAgentButton'
 
 export interface TopActionBarProps {
   className?: string
@@ -21,27 +23,14 @@ export function TopActionBar({
   const displayName = user?.full_name || 'Dipak Khandagale'
 
   return (
-    <div className={cn('flex items-center gap-3 flex-wrap justify-end', className)}>
-      {/* 1. System Status Badge */}
-      <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#111322] border border-emerald-500/30 text-emerald-400 text-xs font-semibold shadow-inner">
-        <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-        </span>
-        <span className="text-xs font-medium text-slate-200">All Systems Operational</span>
-      </div>
+    <div className={cn('flex items-center gap-3 flex-wrap justify-end shrink-0', className)}>
+      {/* 1. System Status Card */}
+      <SystemStatusCard />
 
-      {/* 2. New Agent Button */}
-      <button
-        onClick={onNewAgentClick}
-        type="button"
-        className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition-all duration-150 cursor-pointer shadow-md shadow-purple-900/30 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
-      >
-        <Plus size={15} className="stroke-[2.5]" />
-        <span>New Agent</span>
-      </button>
+      {/* 2. Primary New Agent Button */}
+      <NewAgentButton onClick={onNewAgentClick} />
 
-      {/* 3. Notification Button */}
+      {/* 3. Notification Center Button */}
       <button
         onClick={onNotificationClick}
         type="button"
@@ -52,7 +41,7 @@ export function TopActionBar({
         <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-purple-500 ring-2 ring-[#0b0c14]" />
       </button>
 
-      {/* 5. Profile Menu */}
+      {/* 4. User Profile Avatar */}
       <button
         onClick={onProfileClick}
         type="button"

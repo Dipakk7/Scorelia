@@ -94,7 +94,7 @@ function AgentKPICardComponent({
       <div className="space-y-3 relative z-10">
         {/* Card Header Row */}
         <div className="flex items-center justify-between gap-2">
-          <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider block truncate">
+          <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider leading-tight pr-1">
             {title}
           </span>
           <div
