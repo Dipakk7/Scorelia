@@ -17,29 +17,31 @@ export const GoalProgressCard: React.FC<GoalProgressCardProps> = ({ goal, classN
   return (
     <div
       className={cn(
-        'p-3.5 sm:p-4 rounded-xl border border-slate-700/80 bg-slate-900/80 backdrop-blur-md shadow-sm space-y-2 font-sans text-xs text-left select-none',
+        'p-3.5 sm:p-4 rounded-xl border border-slate-700/80 bg-slate-900/80 backdrop-blur-md shadow-sm space-y-2 font-sans text-xs text-left select-none flex flex-col justify-between',
         className
       )}
     >
-      <div className="flex items-center justify-between gap-2">
-        <span className="font-bold text-white truncate">{goal.goal}</span>
-        <span className={cn('px-2 py-0.5 text-[9px] font-bold font-mono rounded-md border', statusColor)}>
+      <div className="flex items-start justify-between gap-2">
+        <span className="font-bold text-white leading-snug">{goal.goal}</span>
+        <span className={cn('px-2 py-0.5 text-[9px] font-bold font-mono rounded-md border shrink-0', statusColor)}>
           {goal.status}
         </span>
       </div>
 
-      <div className="flex items-baseline justify-between text-[11px] font-mono">
-        <span className="text-slate-400 font-sans">
-          <strong className="text-white font-mono">{goal.current}</strong> / {goal.target} {goal.unit}
-        </span>
-        <span className="font-bold text-purple-400 font-mono">{goal.progress}%</span>
-      </div>
+      <div className="space-y-1 pt-1">
+        <div className="flex items-baseline justify-between text-[11px] font-mono">
+          <span className="text-slate-400 font-sans">
+            <strong className="text-white font-mono">{goal.current}</strong> / {goal.target} {goal.unit}
+          </span>
+          <span className="font-bold text-purple-400 font-mono">{goal.progress}%</span>
+        </div>
 
-      <div className="h-1.5 w-full rounded-full bg-slate-800 overflow-hidden">
-        <div
-          className="h-full rounded-full bg-gradient-to-r from-sky-400 to-purple-500 transition-all duration-300"
-          style={{ width: `${Math.min(goal.progress, 100)}%` }}
-        />
+        <div className="h-1.5 w-full rounded-full bg-slate-800 overflow-hidden">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-sky-400 to-purple-500 transition-all duration-300"
+            style={{ width: `${Math.min(goal.progress, 100)}%` }}
+          />
+        </div>
       </div>
     </div>
   )

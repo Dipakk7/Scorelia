@@ -32,30 +32,30 @@ export const WeeklyEngineeringSummary: React.FC<WeeklyEngineeringSummaryProps> =
         </span>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-center text-xs font-sans">
-        <div className="p-2.5 rounded-xl border border-slate-700/80 bg-slate-900/80">
-          <div className="text-[9px] text-slate-400 font-medium font-sans">Commits</div>
-          <div className="text-base font-extrabold text-white mt-0.5 font-mono">{summary.commits}</div>
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 text-center text-xs font-sans">
+        <div className="p-3 rounded-xl border border-slate-700/80 bg-slate-900/80 flex flex-col justify-between items-center min-w-0">
+          <div className="text-[10px] text-slate-400 font-medium font-sans whitespace-nowrap">Commits</div>
+          <div className="text-base sm:text-lg font-extrabold text-white mt-1 font-mono">{summary.commits}</div>
         </div>
 
-        <div className="p-2.5 rounded-xl border border-slate-700/80 bg-slate-900/80">
-          <div className="text-[9px] text-slate-400 font-medium font-sans">PRs Merged</div>
-          <div className="text-base font-extrabold text-emerald-400 mt-0.5 font-mono">{summary.pullRequests}</div>
+        <div className="p-3 rounded-xl border border-slate-700/80 bg-slate-900/80 flex flex-col justify-between items-center min-w-0">
+          <div className="text-[10px] text-slate-400 font-medium font-sans whitespace-nowrap">PRs Merged</div>
+          <div className="text-base sm:text-lg font-extrabold text-emerald-400 mt-1 font-mono">{summary.pullRequests}</div>
         </div>
 
-        <div className="p-2.5 rounded-xl border border-slate-700/80 bg-slate-900/80">
-          <div className="text-[9px] text-slate-400 font-medium font-sans">Reviews</div>
-          <div className="text-base font-extrabold text-purple-400 mt-0.5 font-mono">{summary.reviews}</div>
+        <div className="p-3 rounded-xl border border-slate-700/80 bg-slate-900/80 flex flex-col justify-between items-center min-w-0">
+          <div className="text-[10px] text-slate-400 font-medium font-sans whitespace-nowrap">Reviews</div>
+          <div className="text-base sm:text-lg font-extrabold text-purple-400 mt-1 font-mono">{summary.reviews}</div>
         </div>
 
-        <div className="p-2.5 rounded-xl border border-slate-700/80 bg-slate-900/80">
-          <div className="text-[9px] text-slate-400 font-medium font-sans">Issues Closed</div>
-          <div className="text-base font-extrabold text-sky-400 mt-0.5 font-mono">{summary.issuesClosed}</div>
+        <div className="p-3 rounded-xl border border-slate-700/80 bg-slate-900/80 flex flex-col justify-between items-center min-w-0">
+          <div className="text-[10px] text-slate-400 font-medium font-sans whitespace-nowrap">Issues Closed</div>
+          <div className="text-base sm:text-lg font-extrabold text-sky-400 mt-1 font-mono">{summary.issuesClosed}</div>
         </div>
 
-        <div className="p-2.5 rounded-xl border border-slate-700/80 bg-slate-900/80">
-          <div className="text-[9px] text-slate-400 font-medium font-sans">Active Repos</div>
-          <div className="text-base font-extrabold text-amber-400 mt-0.5 font-mono">{summary.repositoriesWorked}</div>
+        <div className="p-3 rounded-xl border border-slate-700/80 bg-slate-900/80 flex flex-col justify-between items-center min-w-0 col-span-2 sm:col-span-1">
+          <div className="text-[10px] text-slate-400 font-medium font-sans whitespace-nowrap">Active Repos</div>
+          <div className="text-base sm:text-lg font-extrabold text-amber-400 mt-1 font-mono">{summary.repositoriesWorked}</div>
         </div>
       </div>
 

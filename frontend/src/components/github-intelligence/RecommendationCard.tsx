@@ -30,24 +30,26 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
         className
       )}
     >
-      <div className="flex items-start justify-between gap-2">
-        <div className="flex items-center gap-2.5 min-w-0">
-          <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-start gap-2.5 min-w-0 flex-1">
+          <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0 mt-0.5">
             <Lightbulb size={16} />
           </div>
-          <div className="font-bold text-sm text-white group-hover:text-amber-300 transition-colors truncate">
+          <div className="font-bold text-xs sm:text-sm text-white group-hover:text-amber-300 transition-colors leading-snug">
             {recommendation.title}
           </div>
         </div>
-        <InsightPriorityBadge priority={recommendation.priority} />
+        <div className="shrink-0">
+          <InsightPriorityBadge priority={recommendation.priority} />
+        </div>
       </div>
 
-      <p className="text-xs text-slate-300 leading-relaxed m-0 line-clamp-2 font-sans">
+      <p className="text-xs text-slate-300 leading-relaxed m-0 font-sans">
         {recommendation.description}
       </p>
 
-      <div className="flex flex-wrap items-center justify-between gap-2 pt-2.5 border-t border-amber-500/10 text-[10px]">
-        <div className="flex items-center gap-2 font-mono">
+      <div className="flex flex-wrap items-center justify-between gap-2.5 pt-2.5 border-t border-amber-500/10 text-[10px]">
+        <div className="flex flex-wrap items-center gap-2 font-mono">
           <span className="font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-md">
             {recommendation.expectedBenefit}
           </span>
@@ -62,7 +64,7 @@ export const RecommendationCard: React.FC<RecommendationCardProps> = ({
         <button
           type="button"
           onClick={() => onAction?.(recommendation)}
-          className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-bold rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md shadow-purple-950/20 transition-all cursor-pointer"
+          className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-bold rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md shadow-purple-950/20 transition-all cursor-pointer shrink-0 ml-auto"
         >
           <span>Apply Action</span>
           <ChevronRight size={13} />

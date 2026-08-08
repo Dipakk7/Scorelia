@@ -27,21 +27,21 @@ export const AIInsightCard: React.FC<AIInsightCardProps> = ({
         className
       )}
     >
-      <div className="flex items-start justify-between gap-2">
-        <div className="flex items-center gap-2.5 min-w-0">
-          <div className="p-2 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 shrink-0">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-start gap-2.5 min-w-0 flex-1">
+          <div className="p-2 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 shrink-0 mt-0.5">
             <Sparkles size={16} />
           </div>
-          <div className="min-w-0">
-            <div className="font-bold text-sm text-white truncate group-hover:text-purple-300 transition-colors">
+          <div className="min-w-0 flex-1">
+            <div className="font-bold text-xs sm:text-sm text-white group-hover:text-purple-300 transition-colors leading-snug">
               {insight.title}
             </div>
-            <div className="text-[10px] text-slate-400 font-medium flex items-center gap-2 mt-0.5">
+            <div className="text-[10px] text-slate-400 font-medium flex flex-wrap items-center gap-2 mt-1">
               <span className="font-mono uppercase text-purple-400 bg-purple-500/10 border border-purple-500/20 px-1.5 py-0.5 rounded text-[9px]">
                 {insight.category}
               </span>
               <span>•</span>
-              <span className="flex items-center gap-1 font-mono">
+              <span className="flex items-center gap-1 font-mono text-slate-400">
                 <Clock size={10} /> {insight.generatedAt}
               </span>
             </div>
@@ -63,17 +63,17 @@ export const AIInsightCard: React.FC<AIInsightCardProps> = ({
         </div>
       </div>
 
-      <p className="text-xs text-slate-300 leading-relaxed m-0 line-clamp-2 font-sans">
+      <p className="text-xs text-slate-300 leading-relaxed m-0 font-sans">
         {insight.description}
       </p>
 
-      <div className="flex items-center justify-between pt-2.5 border-t border-purple-500/10 text-[10px]">
+      <div className="flex items-center justify-between gap-2 pt-2.5 border-t border-purple-500/10 text-[10px]">
         <AIConfidenceBadge confidence={insight.confidence} level={insight.confidenceLevel} />
 
         <button
           type="button"
           onClick={() => onViewDetails?.(insight)}
-          className="inline-flex items-center gap-1 text-xs font-bold text-purple-400 hover:text-purple-300 transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1 text-xs font-bold text-purple-400 hover:text-purple-300 transition-colors cursor-pointer shrink-0"
         >
           <span>View Details</span>
           <ArrowRight size={13} />
