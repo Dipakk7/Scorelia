@@ -82,7 +82,7 @@ export function AgentWorkspaceTabs({
   return (
     <nav
       aria-label="Agent Console Workspace Sections"
-      className={cn('w-full border-b border-white/10 pb-1 text-left', className)}
+      className={cn('w-full border-b border-white/10 pb-2 text-left', className)}
     >
       <div
         ref={tabListRef}
@@ -105,10 +105,10 @@ export function AgentWorkspaceTabs({
               onClick={() => onTabChange?.(tab.id)}
               onKeyDown={(e) => handleKeyDown(e, idx)}
               className={cn(
-                'flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap border select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50',
+                'flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all duration-150 active:scale-95 cursor-pointer whitespace-nowrap border select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50',
                 isActive
                   ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-purple-400 shadow-md shadow-purple-950/50'
-                  : 'bg-[#0b0c14] text-slate-400 border-white/10 hover:text-slate-200 hover:bg-white/5'
+                  : 'bg-[#0b0c14] text-slate-300 border-white/10 hover:text-white hover:bg-white/5'
               )}
             >
               <Icon size={16} className={cn('transition-colors', isActive ? 'text-white' : 'text-slate-400')} />

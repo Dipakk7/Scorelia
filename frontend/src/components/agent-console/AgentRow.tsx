@@ -54,7 +54,7 @@ function AgentRowComponent({
             <span className="font-bold text-white text-xs tracking-tight">
               <HighlightText text={agent.name || ''} highlight={searchQuery} />
             </span>
-            <span className="text-[11px] text-slate-400 truncate max-w-[220px]">
+            <span className="text-[11px] text-slate-300 truncate max-w-[220px]">
               <HighlightText text={agent.description || ''} highlight={searchQuery} />
             </span>
           </div>
@@ -89,7 +89,7 @@ function AgentRowComponent({
       </td>
 
       {/* 7. Last Active */}
-      <td className="py-3.5 px-3 text-[11px] text-slate-400 whitespace-nowrap">
+      <td className="py-3.5 px-3 text-[11px] text-slate-300 whitespace-nowrap">
         {agent.lastActive || 'Just now'}
       </td>
 

@@ -38,9 +38,9 @@ export function AdministrationPanel({ className }: AdministrationPanelProps) {
       )}
 
       {/* Top Grid: Bulk Operations & Maintenance Actions */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
         {/* Bulk Operations (7 Columns) */}
-        <div className="lg:col-span-7 p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-4">
+        <div className="lg:col-span-7 p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-4 h-full flex flex-col justify-between">
           <div className="space-y-1">
             <h3 className="text-sm font-bold text-white tracking-tight flex items-center gap-2">
               <Shield size={16} className="text-purple-400" />
@@ -115,7 +115,7 @@ export function AdministrationPanel({ className }: AdministrationPanelProps) {
         </div>
 
         {/* Permission Overview (5 Columns) */}
-        <div className="lg:col-span-5 p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-4">
+        <div className="lg:col-span-5 p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-4 h-full flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-bold text-white tracking-tight flex items-center gap-2">
               <UserCheck size={16} className="text-emerald-400" />

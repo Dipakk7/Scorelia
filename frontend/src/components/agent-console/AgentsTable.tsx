@@ -22,8 +22,8 @@ export function AgentsTable({
 }: AgentsTableProps) {
   return (
     <div className={cn('w-full overflow-x-auto rounded-2xl border border-white/10 shadow-xl bg-[#111322]', className)}>
-      <table className="w-full text-left border-collapse font-sans">
-        <thead className="sticky top-0 z-10 bg-[#0b0c14] border-b border-white/10 text-[11px] font-bold text-slate-400 uppercase tracking-wider select-none">
+      <table className="w-full min-w-[720px] text-left border-collapse font-sans">
+        <thead className="sticky top-0 z-10 bg-[#0b0c14] border-b border-white/10 text-[11px] font-bold text-slate-300 uppercase tracking-wider select-none">
           <tr>
             <th scope="col" className="py-3.5 px-4">Agent</th>
             <th scope="col" className="py-3.5 px-3">Status</th>

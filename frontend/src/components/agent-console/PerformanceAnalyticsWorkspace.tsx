@@ -66,18 +66,18 @@ export function PerformanceAnalyticsWorkspace({
       />
 
       {/* 3. Executive Summary KPI Cards */}
-      <AnalyticsSummary />
+      <AnalyticsSummary timeRange={timeRange} />
 
       {/* 4. Main Performance Multi-Line Chart & Task Distribution Donut Chart */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
         {/* Left: Dual-Axis Line / Area Performance Chart (8 Columns) */}
-        <div className="lg:col-span-8">
-          <AgentPerformanceChart timeRange={timeRange} />
+        <div className="lg:col-span-8 h-full">
+          <AgentPerformanceChart timeRange={timeRange} className="h-full flex flex-col justify-between" />
         </div>
 
         {/* Right: Task Category Donut Chart (4 Columns) */}
-        <div className="lg:col-span-4">
-          <TaskDistributionChart />
+        <div className="lg:col-span-4 h-full">
+          <TaskDistributionChart className="h-full flex flex-col justify-between" />
         </div>
       </div>
 

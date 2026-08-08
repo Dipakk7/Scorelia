@@ -207,7 +207,7 @@ export function KnowledgeWorkspace({ className }: KnowledgeWorkspaceProps) {
       {filteredCollections.length === 0 ? (
         <EmptyKnowledgeState onResetFilters={() => setSearchQuery('')} />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 items-stretch">
           {filteredCollections.map((col) => (
             <div
               key={col.id}

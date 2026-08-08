@@ -13,7 +13,7 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
       return (
         <span
           className={cn(
-            'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-[11px] font-semibold border border-emerald-500/20 select-none',
+            'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 text-[11px] font-bold border border-emerald-500/30 select-none shadow-sm',
             className
           )}
         >
@@ -25,7 +25,7 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
       return (
         <span
           className={cn(
-            'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-300 text-[11px] font-semibold border border-purple-500/20 select-none',
+            'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-500/15 text-purple-200 text-[11px] font-bold border border-purple-500/30 select-none shadow-sm',
             className
           )}
         >
@@ -37,11 +37,11 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
       return (
         <span
           className={cn(
-            'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-500/10 text-slate-400 text-[11px] font-semibold border border-slate-500/20 select-none',
+            'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-500/15 text-slate-300 text-[11px] font-bold border border-slate-500/30 select-none',
             className
           )}
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+          <span className="h-1.5 w-1.5 rounded-full bg-slate-300" />
           Paused
         </span>
       )
@@ -49,11 +49,11 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
       return (
         <span
           className={cn(
-            'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-800/80 text-slate-500 text-[11px] font-semibold border border-slate-700/40 select-none',
+            'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-800/90 text-slate-400 text-[11px] font-bold border border-slate-700/50 select-none',
             className
           )}
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-slate-500" />
+          <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
           Offline
         </span>
       )
@@ -61,11 +61,11 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
       return (
         <span
           className={cn(
-            'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-500/10 text-rose-400 text-[11px] font-semibold border border-rose-500/20 select-none',
+            'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-500/15 text-rose-300 text-[11px] font-bold border border-rose-500/30 select-none shadow-sm',
             className
           )}
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse" />
+          <span className="h-1.5 w-1.5 rounded-full bg-rose-400 animate-pulse" />
           Error
         </span>
       )
@@ -73,7 +73,7 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
       return (
         <span
           className={cn(
-            'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 text-[11px] font-semibold border border-amber-500/20 select-none',
+            'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 text-[11px] font-bold border border-amber-500/30 select-none shadow-sm',
             className
           )}
         >
@@ -85,7 +85,7 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
       return (
         <span
           className={cn(
-            'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-500/10 text-slate-400 text-[11px] font-semibold border border-slate-500/20 select-none',
+            'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-500/15 text-slate-300 text-[11px] font-bold border border-slate-500/30 select-none',
             className
           )}
         >

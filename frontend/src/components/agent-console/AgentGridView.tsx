@@ -27,7 +27,7 @@ export function AgentGridView({
   return (
     <div
       className={cn(
-        'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 text-left',
+        'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 items-stretch text-left',
         className
       )}
     >
@@ -42,7 +42,7 @@ export function AgentGridView({
               onOpenDetails(agent)
             }
           }}
-          className="p-5 rounded-2xl bg-[#111322] border border-white/10 hover:border-purple-500/40 shadow-xl space-y-4 transition-all hover:-translate-y-1 cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+          className="p-5 rounded-2xl bg-[#111322] border border-white/10 hover:border-purple-500/40 shadow-xl space-y-4 transition-all hover:-translate-y-1 cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 h-full flex flex-col justify-between"
         >
           {/* Header row */}
           <div className="flex items-start justify-between gap-2">

@@ -39,7 +39,7 @@ export function ReportsWorkspace({ className }: ReportsWorkspaceProps) {
           <span>Available Executive Report Templates ({templates.length})</span>
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
           {templates.map((tmpl) => (
             <div
               key={tmpl.id}
@@ -95,9 +95,9 @@ export function ReportsWorkspace({ className }: ReportsWorkspaceProps) {
       <ExportCenter />
 
       {/* 3. Generated & Scheduled Reports Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch">
         {/* Generated History */}
-        <div className="p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-4">
+        <div className="p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-4 h-full flex flex-col justify-between">
           <h3 className="text-sm font-bold text-white tracking-tight flex items-center gap-2">
             <FileText size={16} className="text-emerald-400" />
             <span>Generated Reports History ({generatedReports.length})</span>

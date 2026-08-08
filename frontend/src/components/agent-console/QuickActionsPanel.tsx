@@ -50,7 +50,7 @@ export function QuickActionsPanel({ className }: QuickActionsPanelProps) {
               key={act.name}
               type="button"
               onClick={() => handleActionClick(act.name)}
-              className="p-3 rounded-xl bg-[#0b0c14] border border-white/10 hover:border-purple-500/40 text-slate-300 hover:text-white flex flex-col items-center text-center space-y-1.5 transition-all cursor-pointer hover:-translate-y-0.5 active:scale-95"
+              className="p-3 rounded-xl bg-[#0b0c14] border border-white/10 hover:border-purple-500/40 text-slate-200 hover:text-white flex flex-col items-center text-center space-y-1.5 transition-all duration-150 cursor-pointer hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
             >
               <Icon size={18} className={act.color} />
               <span className="font-semibold text-[11px] leading-tight line-clamp-2">{act.name}</span>

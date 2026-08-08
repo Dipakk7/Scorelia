@@ -22,7 +22,7 @@ export function HeroDashboard({
   }
 
   return (
-    <section aria-label="Hero Dashboard Overview" className={cn('space-y-6 text-left', className)}>
+    <section aria-label="Hero Dashboard Overview" className={cn('space-y-5 sm:space-y-6 text-left', className)}>
       {/* Top Header & Actions Row */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         {/* Title & Subtitle */}

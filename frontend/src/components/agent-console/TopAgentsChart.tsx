@@ -97,9 +97,9 @@ export function TopAgentsChart({ className }: TopAgentsChartProps) {
       }
       className={className}
     >
-      <div style={{ width: '100%', height: 260 }} className="pt-2 text-xs font-sans">
+      <div style={{ width: '100%', height: 270 }} className="pt-2 text-xs font-sans">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={sortedData} layout="vertical" margin={{ top: 5, right: 20, left: 40, bottom: 5 }}>
+          <BarChart data={sortedData} layout="vertical" margin={{ top: 5, right: 20, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="rgba(255,255,255,0.06)" />
 
             <XAxis type="number" stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} />
@@ -111,7 +111,7 @@ export function TopAgentsChart({ className }: TopAgentsChartProps) {
               fontSize={11}
               tickLine={false}
               axisLine={false}
-              width={110}
+              width={125}
             />
 
             <RechartsTooltip content={<CustomTooltip />} />

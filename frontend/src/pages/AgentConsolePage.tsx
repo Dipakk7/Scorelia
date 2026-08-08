@@ -55,7 +55,7 @@ export function AgentConsolePage() {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="space-y-6 text-left max-w-[1600px] mx-auto font-sans p-4 sm:p-6 pb-12"
+      className="space-y-6 sm:space-y-8 text-left max-w-[1600px] mx-auto font-sans px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-12"
     >
       {/* 1. Breadcrumb Navigation & Top Action Toolbar */}
       <motion.div variants={itemVariants} className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -76,11 +76,11 @@ export function AgentConsolePage() {
       {/* 4. Main Workspace Layout or Section View */}
       <motion.div variants={itemVariants} id={`agent-tabpanel-${activeTab}`} role="tabpanel" aria-labelledby={`agent-tab-${activeTab}`}>
         {isTAKSection ? (
-          <TaskAutomationKnowledgeWorkspace initialSection={activeTab as any} />
+          <TaskAutomationKnowledgeWorkspace key={`tak-${activeTab}`} initialSection={activeTab as any} />
         ) : isAdminSection ? (
-          <AdministrationWorkspace initialTab={mapAdminTab(activeTab)} />
+          <AdministrationWorkspace key={`admin-${activeTab}`} initialTab={mapAdminTab(activeTab)} />
         ) : (
-          <WorkspaceLayout activeTab={activeTab} />
+          <WorkspaceLayout key={`workspace-${activeTab}`} activeTab={activeTab} />
         )}
       </motion.div>
 

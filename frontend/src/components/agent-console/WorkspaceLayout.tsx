@@ -11,16 +11,16 @@ export interface WorkspaceLayoutProps {
 
 export function WorkspaceLayout({ activeTab = 'overview', className }: WorkspaceLayoutProps) {
   return (
-    <div className={cn('space-y-6', className)}>
+    <div className={cn('space-y-6 sm:space-y-8 text-left', className)}>
       {/* 12-Column Responsive Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Main Content Workspace (8 Columns on Desktop, 12 Columns on Tablet/Mobile) */}
-        <main className="lg:col-span-8 space-y-6">
-          <MainWorkspace />
+        <main className="lg:col-span-8 space-y-6 sm:space-y-8">
+          <MainWorkspace activeTab={activeTab} />
         </main>
 
         {/* Right Sidebar (4 Columns on Desktop, 12 Columns on Tablet/Mobile) */}
-        <div className="lg:col-span-4 space-y-6">
+        <div className="lg:col-span-4 space-y-6 sm:space-y-8">
           <RightSidebar />
         </div>
       </div>

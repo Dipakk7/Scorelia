@@ -17,7 +17,7 @@ export function AgentHeroHeader({ className }: AgentHeroHeaderProps) {
           </span>
         </h1>
       </div>
-      <p className="text-xs sm:text-sm text-slate-400 max-w-2xl font-normal leading-relaxed">
+      <p className="text-xs sm:text-sm text-slate-300 max-w-2xl font-medium leading-relaxed">
         Manage, monitor, and optimize your AI agents to automate your workflow.
       </p>
     </div>

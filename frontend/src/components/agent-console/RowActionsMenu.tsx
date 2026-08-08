@@ -59,7 +59,7 @@ export function RowActionsMenu({
           <div
             role="menu"
             aria-orientation="vertical"
-            className="absolute right-0 top-full mt-1 z-50 w-44 rounded-xl bg-[#121322] border border-white/10 shadow-2xl p-1.5 space-y-0.5 text-xs text-slate-200 animate-in fade-in zoom-in-95 duration-100"
+            className="absolute right-0 top-full mt-1 z-50 w-44 rounded-xl bg-[#121322] border border-white/10 shadow-2xl p-1.5 space-y-0.5 text-xs text-slate-200 animate-in fade-in zoom-in-95 duration-150"
           >
             <button
               type="button"

@@ -35,7 +35,7 @@ export function TopActionBar({
       <button
         onClick={onNewAgentClick}
         type="button"
-        className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition-all cursor-pointer shadow-md shadow-purple-900/30 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+        className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition-all duration-150 cursor-pointer shadow-md shadow-purple-900/30 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
       >
         <Plus size={15} className="stroke-[2.5]" />
         <span>New Agent</span>
@@ -46,7 +46,7 @@ export function TopActionBar({
         onClick={onNotificationClick}
         type="button"
         aria-label="Notifications"
-        className="relative p-2 rounded-xl bg-[#111322] border border-white/10 hover:border-white/20 text-slate-300 hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+        className="relative p-2 rounded-xl bg-[#111322] border border-white/10 hover:border-white/20 text-slate-300 hover:text-white transition-all duration-150 active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
       >
         <Bell size={16} />
         <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-purple-500 ring-2 ring-[#0b0c14]" />
@@ -57,7 +57,7 @@ export function TopActionBar({
         onClick={onProfileClick}
         type="button"
         aria-label="User Profile"
-        className="p-0.5 rounded-full ring-2 ring-purple-500/40 hover:ring-purple-400 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+        className="p-0.5 rounded-full ring-2 ring-purple-500/40 hover:ring-purple-400 transition-all duration-150 active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
       >
         <Avatar
           src={user?.profile_picture}

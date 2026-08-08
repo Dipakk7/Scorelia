@@ -87,7 +87,7 @@ export function AgentPerformanceChart({ timeRange = '7d', className }: AgentPerf
 
             <XAxis
               dataKey="date"
-              stroke="#94a3b8"
+              stroke="#cbd5e1"
               fontSize={11}
               tickLine={false}
               axisLine={false}
@@ -96,7 +96,7 @@ export function AgentPerformanceChart({ timeRange = '7d', className }: AgentPerf
 
             <YAxis
               yAxisId="left"
-              stroke="#94a3b8"
+              stroke="#cbd5e1"
               fontSize={11}
               tickLine={false}
               axisLine={false}

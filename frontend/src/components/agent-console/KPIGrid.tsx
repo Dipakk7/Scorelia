@@ -11,7 +11,7 @@ export function KPIGrid({ className }: KPIGridProps) {
   return (
     <div
       className={cn(
-        'grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 text-left',
+        'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 sm:gap-5 items-stretch text-left',
         className
       )}
       role="region"

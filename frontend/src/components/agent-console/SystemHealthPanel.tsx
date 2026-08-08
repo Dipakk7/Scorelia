@@ -51,11 +51,11 @@ export function SystemHealthPanel({ className }: SystemHealthPanelProps) {
           Enterprise Services ({services.length})
         </h4>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3 items-stretch">
           {services.map((srv) => (
             <div
               key={srv.id}
-              className="p-3.5 rounded-xl bg-[#111322] border border-white/10 space-y-2 shadow-md hover:border-white/20 transition-all"
+              className="p-3.5 rounded-xl bg-[#111322] border border-white/10 space-y-2 shadow-md hover:border-white/20 transition-all h-full flex flex-col justify-between"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">

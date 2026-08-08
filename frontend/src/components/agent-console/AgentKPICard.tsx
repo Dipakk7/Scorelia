@@ -72,7 +72,7 @@ function AgentKPICardComponent({
       aria-selected={onClick ? activeSelected : undefined}
       onClick={onClick}
       className={cn(
-        'group relative p-4 sm:p-5 rounded-2xl bg-[#111322] transition-all duration-300 flex flex-col justify-between overflow-hidden text-left select-none',
+        'group relative h-full p-4 sm:p-5 rounded-2xl bg-[#111322] transition-all duration-300 flex flex-col justify-between overflow-hidden text-left select-none',
         'hover:bg-[#16182c] hover:border-purple-500/40 hover:-translate-y-0.5',
         'active:scale-[0.98]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e]',
@@ -94,7 +94,7 @@ function AgentKPICardComponent({
       <div className="space-y-3 relative z-10">
         {/* Card Header Row */}
         <div className="flex items-center justify-between gap-2">
-          <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block truncate">
+          <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider block truncate">
             {title}
           </span>
           <div
@@ -117,7 +117,7 @@ function AgentKPICardComponent({
 
         {/* Subtitle or Progress Bar */}
         {subtitle && !progressProps && (
-          <p className="text-[11px] text-slate-400 font-medium truncate">{subtitle}</p>
+          <p className="text-[11px] text-slate-300 font-medium truncate">{subtitle}</p>
         )}
 
         {progressProps && (

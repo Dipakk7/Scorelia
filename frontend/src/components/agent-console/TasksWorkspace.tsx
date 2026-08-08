@@ -87,8 +87,8 @@ export function TasksWorkspace({ className }: TasksWorkspaceProps) {
   return (
     <div className={cn('space-y-5 text-left', className)}>
       {/* 1. Summary Cards Row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="p-4 rounded-2xl bg-[#111322] border border-white/10 flex items-center justify-between shadow-lg">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 items-stretch">
+        <div className="p-4 rounded-2xl bg-[#111322] border border-white/10 flex items-center justify-between shadow-lg h-full">
           <div className="space-y-1">
             <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Pending / Queued</span>
             <span className="text-2xl font-black text-white">{pendingCount}</span>

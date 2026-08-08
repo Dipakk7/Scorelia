@@ -8,7 +8,7 @@ export interface PageFooterProps {
 
 export function PageFooter({ className }: PageFooterProps) {
   return (
-    <footer className={cn('pt-4 border-t border-white/5 text-xs text-slate-400 font-sans', className)}>
+    <footer className={cn('pt-6 mt-6 sm:mt-8 border-t border-white/10 text-xs text-slate-400 font-sans', className)}>
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
         <div className="flex items-center gap-2">
           <Bot size={15} className="text-purple-400" />

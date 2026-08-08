@@ -125,7 +125,7 @@ export function AuditLogsWorkspace({ className }: AuditLogsWorkspaceProps) {
         />
       ) : (
         <div className="overflow-x-auto rounded-2xl border border-white/10 bg-[#111322] shadow-xl">
-          <table className="w-full text-left border-collapse font-sans text-xs">
+          <table className="w-full min-w-[750px] text-left border-collapse font-sans text-xs">
             <thead className="bg-[#0b0c14] border-b border-white/10 text-[11px] font-bold text-slate-400 uppercase tracking-wider select-none">
               <tr>
                 <th className="py-3.5 px-4">Timestamp</th>

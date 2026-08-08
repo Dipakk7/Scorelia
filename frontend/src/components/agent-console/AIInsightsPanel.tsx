@@ -29,7 +29,7 @@ export function AIInsightsPanel({ className }: AIInsightsPanelProps) {
 
   return (
     <div className={cn('space-y-4 text-left', className)}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
         {(insightsList || []).map((item) => {
           const isResolved = resolvedIds.includes(item.id)
 
@@ -37,7 +37,7 @@ export function AIInsightsPanel({ className }: AIInsightsPanelProps) {
             <div
               key={item.id}
               className={cn(
-                'p-5 rounded-2xl bg-[#111322] border transition-all flex flex-col justify-between space-y-4 shadow-xl hover:-translate-y-0.5',
+                'p-5 rounded-2xl bg-[#111322] border transition-all flex flex-col justify-between space-y-4 shadow-xl hover:-translate-y-0.5 h-full',
                 isResolved
                   ? 'opacity-50 border-white/5 bg-[#0b0c14]'
                   : item.priority === 'critical'

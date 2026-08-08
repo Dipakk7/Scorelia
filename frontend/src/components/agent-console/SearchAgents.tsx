@@ -30,7 +30,7 @@ export function SearchAgents({
   }, [searchTerm, onChange])
 
   return (
-    <div className={cn('relative flex-1 min-w-[200px]', className)}>
+    <div className={cn('relative flex-1 w-full min-w-0 sm:min-w-[200px]', className)}>
       <Search
         size={14}
         className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
