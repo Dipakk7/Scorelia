@@ -12,7 +12,7 @@ import {
   DrawerDescription,
   DrawerFooter,
 } from '@/components/ui/Drawer'
-import { FileText, Filter, Eye, CheckCircle2, AlertTriangle, ShieldAlert, Info } from 'lucide-react'
+import { FileText, Filter, Eye, CheckCircle2, AlertTriangle, ShieldAlert, Info, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export interface AuditLogsWorkspaceProps {
@@ -227,14 +227,24 @@ export function AuditLogsWorkspace({ className }: AuditLogsWorkspaceProps) {
       {selectedAudit && (
         <Drawer open={!!selectedAudit} onOpenChange={(open) => !open && setSelectedAudit(null)}>
           <DrawerContent className="bg-[#111322] border-l border-white/10 text-slate-200 max-w-lg p-6 space-y-6">
-            <DrawerHeader className="space-y-1 p-0">
-              <DrawerTitle className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
-                <FileText size={20} className="text-purple-400" />
-                <span>Audit Entry: {selectedAudit.id}</span>
-              </DrawerTitle>
-              <DrawerDescription className="text-xs text-slate-400">
-                Detailed telemetry and user action payload.
-              </DrawerDescription>
+            <DrawerHeader className="space-y-1 p-0 flex items-start justify-between">
+              <div>
+                <DrawerTitle className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+                  <FileText size={20} className="text-purple-400" />
+                  <span>Audit Entry: {selectedAudit.id}</span>
+                </DrawerTitle>
+                <DrawerDescription className="text-xs text-slate-400">
+                  Detailed telemetry and user action payload.
+                </DrawerDescription>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedAudit(null)}
+                aria-label="Close audit details"
+                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer shrink-0"
+              >
+                <X size={18} />
+              </button>
             </DrawerHeader>
 
             <div className="space-y-3 text-xs">

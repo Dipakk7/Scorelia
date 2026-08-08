@@ -1,6 +1,8 @@
 import React from 'react'
+import { OverviewSummaryCard } from './OverviewSummaryCard'
 import { AgentManagementWorkspace } from './AgentManagementWorkspace'
-import { PerformanceAnalyticsWorkspace } from './PerformanceAnalyticsWorkspace'
+import { ReportsAnalyticsWorkspace } from './ReportsAnalyticsWorkspace'
+import { ConsoleSettingsWorkspace } from './ConsoleSettingsWorkspace'
 import { cn } from '@/lib/utils'
 
 export interface MainWorkspaceProps {
@@ -10,22 +12,30 @@ export interface MainWorkspaceProps {
 }
 
 export function MainWorkspace({ activeTab = 'overview', className, onCreateAgentClick }: MainWorkspaceProps) {
-  const showManagement = activeTab === 'overview' || activeTab === 'agents' || activeTab === 'settings'
-  const showAnalytics = activeTab === 'overview' || activeTab === 'analytics' || activeTab === 'insights'
-
   return (
     <div className={cn('space-y-6 sm:space-y-8 text-left', className)}>
-      {/* 1. AGENT MANAGEMENT WORKSPACE */}
-      {showManagement && (
+      {/* OVERVIEW TAB */}
+      {activeTab === 'overview' && (
+        <OverviewSummaryCard />
+      )}
+
+      {/* AGENTS TAB */}
+      {activeTab === 'agents' && (
         <AgentManagementWorkspace onCreateAgentClick={onCreateAgentClick} />
       )}
 
-      {/* 2. PERFORMANCE ANALYTICS & MONITORING WORKSPACE */}
-      {showAnalytics && (
-        <PerformanceAnalyticsWorkspace />
+      {/* REPORTS / ANALYTICS TAB */}
+      {(activeTab === 'reports' || activeTab === 'analytics') && (
+        <ReportsAnalyticsWorkspace />
+      )}
+
+      {/* CONSOLE SETTINGS TAB */}
+      {activeTab === 'settings' && (
+        <ConsoleSettingsWorkspace />
       )}
     </div>
   )
 }
 
 export default MainWorkspace
+

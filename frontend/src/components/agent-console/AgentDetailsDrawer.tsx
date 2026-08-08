@@ -11,7 +11,7 @@ import { StatusBadge } from './StatusBadge'
 import { SuccessProgress } from './SuccessProgress'
 import DeleteDialog from '@/components/ui/DeleteDialog'
 import type { AgentConsoleItem } from '@/data/agentConsoleMockData'
-import { Bot, Pause, Play, Copy, Trash2, CheckCircle2, Clock, Zap, Database } from 'lucide-react'
+import { Bot, Pause, Play, Copy, Trash2, CheckCircle2, Clock, Zap, Database, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export interface AgentDetailsDrawerProps {
@@ -60,7 +60,17 @@ export function AgentDetailsDrawer({
                   </span>
                 </div>
               </div>
-              <StatusBadge status={agent.status} />
+              <div className="flex items-center gap-2">
+                <StatusBadge status={agent.status} />
+                <button
+                  type="button"
+                  onClick={onClose}
+                  aria-label="Close drawer"
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                >
+                  <X size={18} />
+                </button>
+              </div>
             </div>
             <DrawerDescription className="text-xs text-slate-300 leading-relaxed font-normal">
               {agent.description}

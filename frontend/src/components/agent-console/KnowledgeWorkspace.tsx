@@ -78,7 +78,7 @@ export function KnowledgeWorkspace({ className }: KnowledgeWorkspaceProps) {
   return (
     <div className={cn('space-y-6 text-left', className)}>
       {/* 1. Top Section: Quick Assignment Panel & Connected Sources */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
         {/* Quick Assignment Panel (7 Columns) */}
         <div className="lg:col-span-7 p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-4 flex flex-col justify-between">
           <div className="space-y-1">

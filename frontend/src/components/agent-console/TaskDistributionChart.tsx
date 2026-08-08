@@ -35,7 +35,7 @@ export function TaskDistributionChart({ className }: TaskDistributionChartProps)
     >
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
         {/* Recharts Donut Pie Chart */}
-        <div style={{ width: '100%', height: 250 }} className="sm:w-1/2">
+        <div style={{ width: '100%', height: 280 }} className="sm:w-1/2">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <RechartsTooltip content={<CustomTooltip />} />

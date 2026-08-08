@@ -12,7 +12,7 @@ import {
   DrawerDescription,
   DrawerFooter,
 } from '@/components/ui/Drawer'
-import { Terminal, CheckCircle2, AlertTriangle, Play, XCircle, Eye, Cpu, HardDrive } from 'lucide-react'
+import { Terminal, CheckCircle2, AlertTriangle, Play, XCircle, Eye, Cpu, HardDrive, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export interface ExecutionLogsWorkspaceProps {
@@ -184,14 +184,24 @@ export function ExecutionLogsWorkspace({ className }: ExecutionLogsWorkspaceProp
       {selectedExec && (
         <Drawer open={!!selectedExec} onOpenChange={(open) => !open && setSelectedExec(null)}>
           <DrawerContent className="bg-[#111322] border-l border-white/10 text-slate-200 max-w-lg p-6 space-y-6">
-            <DrawerHeader className="space-y-1 p-0">
-              <DrawerTitle className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
-                <Terminal size={20} className="text-purple-400" />
-                <span>Execution Trace: {selectedExec.id}</span>
-              </DrawerTitle>
-              <DrawerDescription className="text-xs text-slate-400">
-                Detailed worker thread telemetry and resource consumption.
-              </DrawerDescription>
+            <DrawerHeader className="space-y-1 p-0 flex items-start justify-between">
+              <div>
+                <DrawerTitle className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+                  <Terminal size={20} className="text-purple-400" />
+                  <span>Execution Trace: {selectedExec.id}</span>
+                </DrawerTitle>
+                <DrawerDescription className="text-xs text-slate-400">
+                  Detailed worker thread telemetry and resource consumption.
+                </DrawerDescription>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedExec(null)}
+                aria-label="Close trace details"
+                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer shrink-0"
+              >
+                <X size={18} />
+              </button>
             </DrawerHeader>
 
             <div className="space-y-3 text-xs">

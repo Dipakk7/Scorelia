@@ -69,7 +69,7 @@ export function AgentPerformanceChart({ timeRange = '7d', className }: AgentPerf
       headerActions={<ChartLegend items={seriesState} onToggleItem={handleToggleSeries} />}
       className={className}
     >
-      <div style={{ width: '100%', height: 280 }} className="pt-2 text-xs font-sans">
+      <div style={{ width: '100%', height: 340 }} className="pt-2 text-xs font-sans">
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
             <defs>

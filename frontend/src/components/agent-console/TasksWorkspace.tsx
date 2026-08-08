@@ -98,7 +98,7 @@ export function TasksWorkspace({ className }: TasksWorkspaceProps) {
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#111322] border border-white/10 flex items-center justify-between shadow-lg">
+        <div className="p-4 rounded-2xl bg-[#111322] border border-white/10 flex items-center justify-between shadow-lg h-full">
           <div className="space-y-1">
             <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Running Now</span>
             <span className="text-2xl font-black text-white">{runningCount}</span>
@@ -108,7 +108,7 @@ export function TasksWorkspace({ className }: TasksWorkspaceProps) {
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#111322] border border-white/10 flex items-center justify-between shadow-lg">
+        <div className="p-4 rounded-2xl bg-[#111322] border border-white/10 flex items-center justify-between shadow-lg h-full">
           <div className="space-y-1">
             <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Completed Today</span>
             <span className="text-2xl font-black text-white">{completedCount}</span>
@@ -118,7 +118,7 @@ export function TasksWorkspace({ className }: TasksWorkspaceProps) {
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#111322] border border-white/10 flex items-center justify-between shadow-lg">
+        <div className="p-4 rounded-2xl bg-[#111322] border border-white/10 flex items-center justify-between shadow-lg h-full">
           <div className="space-y-1">
             <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Failed Tasks</span>
             <span className="text-2xl font-black text-white">{failedCount}</span>
