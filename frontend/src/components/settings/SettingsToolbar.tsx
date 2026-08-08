@@ -17,17 +17,16 @@ export const SettingsToolbar: React.FC<SettingsToolbarProps> = ({
   notificationCount = 8,
 }) => {
   return (
-    <div className={cn('flex items-center gap-2 sm:gap-3', className)}>
-
+    <div className={cn('flex items-center gap-2.5 sm:gap-3 shrink-0', className)}>
       {/* Notifications Button */}
       <button
         type="button"
         aria-label="View Notifications"
-        className="relative p-2 text-[var(--muted)] hover:text-[var(--heading)] bg-[var(--surface-elevated)] hover:bg-[var(--surface-hover)] border border-[var(--border)] rounded-[var(--radius-md)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
+        className="relative h-10 w-10 flex items-center justify-center text-slate-300 hover:text-white bg-[#0d0f1e]/80 hover:bg-purple-950/40 border border-white/10 rounded-xl transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 cursor-pointer shadow-sm"
       >
-        <Bell className="w-4 h-4" />
+        <Bell className="w-4 h-4 text-purple-300" />
         {notificationCount > 0 && (
-          <span className="absolute -top-1 -right-1 flex items-center justify-center min-w-[16px] h-4 px-1 text-[10px] font-bold text-white bg-[var(--primary)] rounded-full ring-2 ring-[var(--surface)]">
+          <span className="absolute -top-1 -right-1 flex items-center justify-center min-w-[18px] h-4.5 px-1 text-[10px] font-bold text-white bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full ring-2 ring-[#111324] shadow-sm">
             {notificationCount}
           </span>
         )}
@@ -39,12 +38,13 @@ export const SettingsToolbar: React.FC<SettingsToolbarProps> = ({
           src={avatarUrl}
           alt={userName}
           fallbackText="DK"
-          className="h-8 w-8 ring-2 ring-[var(--border)] group-hover:ring-[var(--primary)]/50 transition-all"
+          className="h-10 w-10 ring-2 ring-white/15 group-hover:ring-purple-400/60 transition-all rounded-xl shadow-sm"
         />
-        <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-[var(--surface)]" />
+        <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full ring-2 ring-[#111324]" />
       </div>
     </div>
   )
 }
 
 export default SettingsToolbar
+

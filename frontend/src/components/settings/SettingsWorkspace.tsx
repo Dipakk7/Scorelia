@@ -42,7 +42,7 @@ export const SettingsWorkspace: React.FC<SettingsWorkspaceProps> = React.memo(({
 
   return (
     <SettingsErrorBoundary categoryName={`Settings Category (${activeTab})`} onReset={onRetry}>
-      <div className={cn('space-y-8 text-left font-sans min-h-[400px]', className)}>
+      <div className={cn('space-y-4 sm:space-y-5 lg:space-y-6 text-slate-100 text-left font-sans w-full', className)}>
         <Suspense fallback={<SettingsCategorySkeleton />}>
           {activeTab === 'general' && (
             <>

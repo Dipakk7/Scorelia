@@ -55,20 +55,20 @@ export const SettingsSelectCard: React.FC<SettingsSelectCardProps> = ({
       variant="elevated"
       hoverLift
       className={cn(
-        'p-4 border-[var(--border)] bg-[var(--surface-elevated)] space-y-3 font-sans transition-all duration-200 focus-within:ring-2 focus-within:ring-[var(--primary)]/30 focus-within:border-[var(--primary)]',
+        'p-5 sm:p-5 rounded-2xl bg-[#121426] border border-white/10 shadow-lg space-y-3 font-sans transition-all duration-200 focus-within:ring-2 focus-within:ring-purple-400/40 focus-within:border-purple-500 w-full',
         disabled && 'opacity-60 pointer-events-none',
         className
       )}
     >
       <div className="flex items-start gap-3">
-        <div className="p-2 rounded-lg bg-[var(--primary)]/10 text-[var(--primary)] shrink-0 group-hover:scale-105 transition-transform">
+        <div className="p-2 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 shrink-0 group-hover:scale-105 transition-transform">
           {renderPreferenceIcon(item.iconName, 'w-4 h-4')}
         </div>
         <div className="min-w-0 flex-1 text-left">
-          <h3 className="text-xs font-semibold text-[var(--heading)] truncate">
+          <h3 className="text-xs sm:text-sm font-bold text-white tracking-tight truncate font-sans">
             {item.title}
           </h3>
-          <p className="text-[11px] text-[var(--muted)] truncate">
+          <p className="text-[11px] text-slate-400 font-medium truncate font-sans">
             {item.description}
           </p>
         </div>
@@ -80,7 +80,7 @@ export const SettingsSelectCard: React.FC<SettingsSelectCardProps> = ({
         onChange={handleChange}
         disabled={disabled}
         aria-label={item.title}
-        className="h-9 text-xs"
+        className="h-10 text-xs sm:text-sm"
       />
     </Card>
   )

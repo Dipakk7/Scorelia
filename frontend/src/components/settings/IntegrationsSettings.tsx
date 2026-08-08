@@ -125,20 +125,22 @@ export const IntegrationsSettings: React.FC = () => {
 
   return (
     <SettingsCategoryLayout
-      icon={<Layers className="w-5 h-5 text-[var(--primary)]" />}
+      icon={<Layers className="w-5 h-5 text-purple-400" />}
       title="Integrations & API Bridges"
       subtitle="Connect external services, code repositories, LLM provider keys, and messaging bots."
+      badge="5 Available Bridges"
+      badgeVariant="info"
     >
       {/* OpenAI Key Modal */}
       {showOpenAIModal && (
-        <Card variant="elevated" className="p-4 border-[var(--primary)]/40 bg-[var(--primary)]/5 space-y-3">
+        <Card variant="elevated" className="p-4 sm:p-5 rounded-2xl border border-purple-500/40 bg-purple-950/20 space-y-3">
           <div className="flex items-center gap-2">
-            <Key className="w-4 h-4 text-[var(--primary)]" />
-            <h4 className="text-xs font-bold text-[var(--heading)]">
+            <Key className="w-4 h-4 text-purple-400" />
+            <h4 className="text-xs font-bold text-white font-sans">
               Connect OpenAI API Key
             </h4>
           </div>
-          <p className="text-[11px] text-[var(--muted)]">
+          <p className="text-[11px] text-slate-300 font-medium font-sans">
             Keys are encrypted using AES-256 and never returned in plaintext. Only masked keys are displayed.
           </p>
           <div className="flex items-center gap-2">
@@ -153,7 +155,7 @@ export const IntegrationsSettings: React.FC = () => {
               size="sm"
               onClick={handleSaveOpenAIKey}
               disabled={saveOpenAIKeyMutation.isPending || !openAIKey}
-              className="text-xs h-8 shrink-0 gap-1"
+              className="text-xs h-8 shrink-0 gap-1 font-semibold"
             >
               {saveOpenAIKeyMutation.isPending && <Loader2 className="w-3 h-3 animate-spin" />}
               Save Key
@@ -172,26 +174,26 @@ export const IntegrationsSettings: React.FC = () => {
       )}
 
       {/* Integration Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 w-full">
         {items.map((item) => (
           <Card
             key={item.id}
             variant="elevated"
             hoverLift
-            className="p-5 border-[var(--border)] bg-[var(--surface-elevated)] flex flex-col justify-between space-y-4 text-left font-sans"
+            className="p-5 rounded-2xl bg-[#121426] border border-white/10 shadow-xl flex flex-col justify-between space-y-4 text-left font-sans transition-all w-full"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-lg bg-[var(--surface)] text-[var(--primary)] border border-[var(--border)] shrink-0">
+                  <div className="p-2.5 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 shrink-0">
                     {renderIntegrationIcon(item.iconName)}
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-[var(--heading)]">
+                    <h3 className="text-sm font-bold text-white tracking-tight font-sans">
                       {item.name}
                     </h3>
                     {(item.accountIdentifier || item.maskedKey) && (
-                      <span className="text-[10px] text-[var(--muted)] block font-mono">
+                      <span className="text-[10px] text-slate-400 block font-mono">
                         {item.maskedKey || item.accountIdentifier}
                       </span>
                     )}
@@ -200,10 +202,10 @@ export const IntegrationsSettings: React.FC = () => {
                 <Badge
                   variant={item.isConnected ? 'success' : 'neutral'}
                   className={cn(
-                    'text-[10px] shrink-0',
+                    'text-[10px] shrink-0 font-semibold px-2 py-0.5',
                     item.isConnected
                       ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
-                      : 'bg-[var(--surface)] text-[var(--muted)] border-[var(--border)]'
+                      : 'bg-slate-800/60 text-slate-400 border-white/10'
                   )}
                 >
                   {item.isConnected && <CheckCircle2 className="w-3 h-3 mr-1 inline" />}
@@ -211,19 +213,19 @@ export const IntegrationsSettings: React.FC = () => {
                 </Badge>
               </div>
 
-              <p className="text-xs text-[var(--muted)] leading-relaxed">
+              <p className="text-xs text-slate-400 font-medium leading-relaxed font-sans">
                 {item.description}
               </p>
             </div>
 
-            <div className="pt-3 border-t border-[var(--border)]/40 flex items-center justify-between">
+            <div className="pt-3 border-t border-white/10 flex items-center justify-between">
               {item.isConnected ? (
                 <>
                   <button
                     type="button"
                     onClick={() => handleSync(item.id)}
                     disabled={syncMutation.isPending}
-                    className="text-[11px] text-emerald-400 font-medium inline-flex items-center gap-1 hover:underline"
+                    className="text-[11px] text-emerald-400 font-semibold inline-flex items-center gap-1 hover:underline cursor-pointer"
                   >
                     <RefreshCw className={cn('w-3 h-3', syncMutation.isPending && 'animate-spin')} />
                     <span>Sync Now</span>
@@ -233,14 +235,14 @@ export const IntegrationsSettings: React.FC = () => {
                     variant="outline"
                     onClick={() => handleDisconnect(item.id)}
                     disabled={disconnectMutation.isPending}
-                    className="text-xs h-7.5"
+                    className="text-xs h-7.5 font-medium"
                   >
                     Disconnect
                   </Button>
                 </>
               ) : (
                 <>
-                  <span className="text-[11px] text-[var(--muted)]">
+                  <span className="text-[11px] text-slate-400 font-medium">
                     Not connected yet
                   </span>
                   <Button
@@ -248,7 +250,7 @@ export const IntegrationsSettings: React.FC = () => {
                     variant="secondary"
                     onClick={() => handleConnect(item.id)}
                     disabled={connectMutation.isPending}
-                    className="text-xs h-7.5 gap-1"
+                    className="text-xs h-7.5 gap-1 font-semibold"
                   >
                     <Plus className="w-3 h-3" />
                     Connect Account

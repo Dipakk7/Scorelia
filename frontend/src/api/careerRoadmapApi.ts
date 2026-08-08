@@ -87,10 +87,10 @@ export class CareerRoadmapApiService {
   /* 1. Overview / Hero Data API */
   static async getOverviewData(): Promise<CareerRoadmapHeroData> {
     try {
-      const response = await api.get('/career-roadmap/overview')
+      const response = await api.get('/ai/roadmap/overview')
       return response.data
     } catch (error) {
-      console.warn('[CareerRoadmapApi] /career-roadmap/overview fallback used', error)
+      console.warn('[CareerRoadmapApi] /ai/roadmap/overview fallback used', error)
       return careerRoadmapHeroMockData
     }
   }
@@ -98,10 +98,10 @@ export class CareerRoadmapApiService {
   /* 2. Timeline API */
   static async getTimelineData(): Promise<TimelineApiResponse> {
     try {
-      const response = await api.get('/career-roadmap/timeline')
+      const response = await api.get('/ai/roadmap/timeline')
       return response.data
     } catch (error) {
-      console.warn('[CareerRoadmapApi] /career-roadmap/timeline fallback used', error)
+      console.warn('[CareerRoadmapApi] /ai/roadmap/timeline fallback used', error)
       return {
         phases: roadmapPhasesMockData,
         recommendedNextSteps: recommendedNextStepsMockData,
@@ -112,10 +112,10 @@ export class CareerRoadmapApiService {
   /* 3. Skills Gap API */
   static async getSkillsGapData(): Promise<SkillsGapApiResponse> {
     try {
-      const response = await api.get('/career-roadmap/skills-gap')
+      const response = await api.get('/ai/roadmap/skills-gap')
       return response.data
     } catch (error) {
-      console.warn('[CareerRoadmapApi] /career-roadmap/skills-gap fallback used', error)
+      console.warn('[CareerRoadmapApi] /ai/roadmap/skills-gap fallback used', error)
       return {
         skillsOverview: skillsOverviewMockData,
         skillCategories: skillCategoriesMockData,
@@ -131,10 +131,10 @@ export class CareerRoadmapApiService {
   /* 4. Milestones API */
   static async getMilestonesData(): Promise<MilestonesApiResponse> {
     try {
-      const response = await api.get('/career-roadmap/milestones')
+      const response = await api.get('/ai/roadmap/milestones')
       return response.data
     } catch (error) {
-      console.warn('[CareerRoadmapApi] /career-roadmap/milestones fallback used', error)
+      console.warn('[CareerRoadmapApi] /ai/roadmap/milestones fallback used', error)
       return {
         overview: milestonesOverviewMockData,
         goalTracker: goalTrackerMockData,
@@ -151,10 +151,10 @@ export class CareerRoadmapApiService {
   /* 5. Assistant API */
   static async getAssistantData(): Promise<AssistantApiResponse> {
     try {
-      const response = await api.get('/career-roadmap/assistant')
+      const response = await api.get('/ai/roadmap/assistant')
       return response.data
     } catch (error) {
-      console.warn('[CareerRoadmapApi] /career-roadmap/assistant fallback used', error)
+      console.warn('[CareerRoadmapApi] /ai/roadmap/assistant fallback used', error)
       return {
         messages: assistantMessagesMockData,
         suggestedPrompts: suggestedPromptsMockData,
@@ -172,14 +172,14 @@ export class CareerRoadmapApiService {
     roadmapId?: string
   ): Promise<AssistantApiResponse> {
     try {
-      const response = await api.post('/career-roadmap/assistant/message', {
+      const response = await api.post('/ai/roadmap/assistant/message', {
         message,
         context,
         roadmap_id: roadmapId,
       })
       return response.data
     } catch (error) {
-      console.warn('[CareerRoadmapApi] /career-roadmap/assistant/message fallback used', error)
+      console.warn('[CareerRoadmapApi] /ai/roadmap/assistant/message fallback used', error)
       const nowStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       const userMsg: ChatMessageData = {
         id: `user-${Date.now()}`,

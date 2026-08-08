@@ -115,11 +115,6 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
           >
             <div className="flex items-center gap-2.5 overflow-hidden">
               <Logo iconOnly={!expanded} className={cn("text-purple-400 shrink-0 transition-all duration-200", expanded ? "h-7 w-auto" : "h-7 w-7")} />
-              {expanded && (
-                <div className="flex flex-col text-left truncate">
-                  <span className="text-xs font-semibold text-slate-400 tracking-wider uppercase font-mono leading-none">AI Career Intelligence</span>
-                </div>
-              )}
             </div>
           </button>
         </div>
@@ -163,25 +158,6 @@ export function Sidebar({ pinned, setPinned, className }: SidebarProps) {
             )
           })}
         </nav>
-
-        {/* AI Mode Operational Box (Visible when expanded) */}
-        {expanded && (
-          <div className="mx-3 mb-3 p-3 rounded-xl bg-purple-950/20 border border-purple-500/20 backdrop-blur-md">
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                AI Mode
-              </span>
-              <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono">
-                Active
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-400 flex items-center justify-between">
-              <span>All agents operational</span>
-              <Sparkles size={13} className="text-purple-400 animate-pulse shrink-0" />
-            </p>
-          </div>
-        )}
 
         {/* User Profile Footer Box */}
         <div className="p-3 border-t border-white/5 bg-[#08090f]">

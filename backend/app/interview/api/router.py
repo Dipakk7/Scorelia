@@ -214,33 +214,32 @@ async def delete_session(
 
 @router.post(
     "/sessions/{id}/answer",
-    status_code=status.HTTP_501_NOT_IMPLEMENTED,
-    summary="Submit answer for a question - Not Implemented",
+    response_model=AnswerEvaluationResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Submit answer for a question",
 )
 async def submit_answer(
     id: uuid.UUID,
-    current_user: User = Depends(get_current_user)
+    request: AnswerSubmitRequest,
+    current_user: User = Depends(get_current_user),
+    manager: InterviewSessionManager = Depends(get_interview_session_manager)
 ):
-    """Placeholder endpoint returning 501 Not Implemented."""
-    raise HTTPException(
-        status_code=status.HTTP_501_NOT_IMPLEMENTED,
-        detail="Implemented in Phase 10 Part 1B / Part 2"
-    )
+    """Submit answer for the active turn in a session."""
+    return await manager.submit_answer(session_id=id, user_id=current_user.id, answer_text=request.answer)
 
 @router.post(
     "/sessions/{id}/complete",
-    status_code=status.HTTP_501_NOT_IMPLEMENTED,
-    summary="Complete interview session - Not Implemented",
+    status_code=status.HTTP_200_OK,
+    summary="Complete interview session",
 )
 async def complete_session(
     id: uuid.UUID,
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
+    manager: InterviewSessionManager = Depends(get_interview_session_manager)
 ):
-    """Placeholder endpoint returning 501 Not Implemented."""
-    raise HTTPException(
-        status_code=status.HTTP_501_NOT_IMPLEMENTED,
-        detail="Implemented in Phase 10 Part 1B / Part 2"
-    )
+    """Complete an interview session."""
+    await manager.complete_interview(session_id=id, user_id=current_user.id)
+    return {"success": True, "message": "Interview session completed successfully."}
 
 @router.post(
     "/generate",

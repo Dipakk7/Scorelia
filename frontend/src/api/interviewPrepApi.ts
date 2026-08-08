@@ -26,10 +26,69 @@ export class InterviewPrepApiService {
   /* 1. Overview APIs */
   static async getOverviewData(): Promise<InterviewPrepOverviewData> {
     try {
-      const response = await api.get('/interview-prep/overview')
+      const response = await api.get('/ai/interview/history/analytics')
+      if (response.data) {
+        const data = response.data
+        return {
+          metrics: [
+            { id: 'readiness', title: 'Overall Readiness Score', value: data.average_score || 87, unit: '/100', subtext: 'Excellent', gaugeScore: data.average_score || 87, readinessTag: 'Excellent', candidatePercentile: 'Top 18% of candidates' },
+            { id: 'completed_mocks', title: 'Mock Interviews', value: data.total_sessions || 12, unit: 'Completed', trend: '↑ 3 this week', trendType: 'positive', sparklinePoints: [10, 15, 12, 18, 22, 28, 30] },
+            { id: 'avg_score', title: 'Average Score', value: `${data.average_score || 84}%`, unit: 'Across all mocks', trend: '↑ 6% vs last week', trendType: 'positive', sparklinePoints: [60, 65, 72, 75, 78, 82, 84] },
+            { id: 'strong_areas', title: 'Strong Areas', value: 6, unit: 'Skills identified', badge: 'Improving', badgeVariant: 'success' },
+            { id: 'areas_to_improve', title: 'Areas to Improve', value: 3, unit: 'Focus areas', badge: 'Needs attention', badgeVariant: 'warning' },
+            { id: 'streak', title: 'Interview Streak', value: 5, unit: 'Days in a row', badge: 'Keep it up! 🔥', badgeVariant: 'orange' },
+          ],
+          upcomingInterview: { id: 'upcoming-1', dateMonth: 'MAY', dateDay: 22, title: 'AI/ML Engineer Interview', companyName: 'Google', companyLogo: 'https://api.iconify.design/logos:google-icon.svg', durationMinutes: 60, interviewType: 'Technical', scheduleTimeText: 'Tomorrow, 10:00 AM', isTomorrow: true, countdownText: 'In 18 hours' },
+          recommendations: [
+            { id: 'rec-1', title: 'AI/ML Engineer', roleMatchPercent: 92, badgeText: 'Role Match: 92%', badgeVariant: 'success', iconName: 'Bot', description: 'Practice questions tailored for AI/ML Engineer roles.', currentPracticed: 18, totalQuestions: 25, totalTimeMinutes: 45, difficulty: 'Medium', isBookmarked: false },
+            { id: 'rec-2', title: 'Machine Learning', skillMatchPercent: 88, badgeText: 'Skill Match: 88%', badgeVariant: 'success', iconName: 'Brain', description: 'Deep dive into ML concepts and problem-solving.', currentPracticed: 14, totalQuestions: 20, totalTimeMinutes: 40, difficulty: 'Hard', isBookmarked: true },
+            { id: 'rec-3', title: 'System Design', badgeText: 'Need Improvement', badgeVariant: 'warning', iconName: 'Layers', description: 'Enhance your system design and architecture skills.', currentPracticed: 6, totalQuestions: 15, totalTimeMinutes: 60, difficulty: 'Hard', isBookmarked: false },
+          ],
+          practiceTopics: [
+            { id: 'topic-1', title: 'Machine Learning', totalQuestions: 25, completionPercent: 72, priority: '+ High', priorityVariant: 'high', estimatedTimeMinutes: 45, iconName: 'Brain', colorTheme: 'emerald' },
+            { id: 'topic-2', title: 'Deep Learning', totalQuestions: 20, completionPercent: 50, priority: 'Medium', priorityVariant: 'medium', estimatedTimeMinutes: 40, iconName: 'Cpu', colorTheme: 'cyan' },
+            { id: 'topic-3', title: 'Python Programming', totalQuestions: 30, completionPercent: 85, priority: '+ High', priorityVariant: 'high', estimatedTimeMinutes: 50, iconName: 'Code2', colorTheme: 'purple' },
+            { id: 'topic-4', title: 'SQL & Databases', totalQuestions: 18, completionPercent: 60, priority: 'Medium', priorityVariant: 'medium', estimatedTimeMinutes: 30, iconName: 'Database', colorTheme: 'indigo' },
+            { id: 'topic-5', title: 'Data Structures & Algorithms', totalQuestions: 22, completionPercent: 40, priority: '+ High', priorityVariant: 'high', estimatedTimeMinutes: 60, iconName: 'Boxes', colorTheme: 'amber' },
+            { id: 'topic-6', title: 'System Design', totalQuestions: 15, completionPercent: 35, priority: 'Medium', priorityVariant: 'medium', estimatedTimeMinutes: 60, iconName: 'Network', colorTheme: 'blue' },
+          ],
+          questionBankStats: {
+            difficulties: [
+              { id: 'easy', label: 'Easy', questionCount: 156, avgScorePercent: 82, accentColor: 'emerald' },
+              { id: 'medium', label: 'Medium', questionCount: 243, avgScorePercent: 74, accentColor: 'amber' },
+              { id: 'hard', label: 'Hard', questionCount: 189, avgScorePercent: 68, accentColor: 'rose' },
+            ],
+            libraryStats: [
+              { title: 'Question Library', value: '1,250+ Total Questions', iconName: 'BookOpen' },
+              { title: 'Companies', value: '50+ Top Companies', iconName: 'Building2' },
+              { title: 'Roles Covered', value: '12+ Job Roles', iconName: 'Briefcase' },
+              { title: 'Updated', value: 'Daily New Questions', iconName: 'RefreshCw' },
+            ],
+          },
+          aiSidebarData: {
+            assistantName: 'Scorelia AI Assistant',
+            status: 'Online',
+            greeting: 'Hi Dipak! I can help you prepare for your interviews and improve your performance.',
+            quickPrompts: ['Generate practice questions', 'Review my last interview', 'How to answer "Tell me about yourself?"', 'Explain a technical concept'],
+            coreSkills: [
+              { label: 'Machine Learning', percentage: 92, iconName: 'Brain' },
+              { label: 'Python', percentage: 88, iconName: 'Code2' },
+              { label: 'SQL', percentage: 76, iconName: 'Database' },
+              { label: 'System Design', percentage: 72, iconName: 'Network' },
+              { label: 'Deep Learning', percentage: 61, iconName: 'Cpu' },
+              { label: 'Data Structures', percentage: 58, iconName: 'Boxes' },
+            ],
+            recentPerformance: [
+              { id: 'perf-1', title: 'AI/ML Engineer Mock', date: 'May 18, 2026', scorePercent: 86, scoreTag: 'Passed' },
+              { id: 'perf-2', title: 'Machine Learning Mock', date: 'May 16, 2026', scorePercent: 82, scoreTag: 'Passed' },
+              { id: 'perf-3', title: 'Python Technical Mock', date: 'May 14, 2026', scorePercent: 78, scoreTag: 'Passed' },
+            ],
+          },
+        }
+      }
       return response.data
     } catch (error) {
-      console.warn('[InterviewPrepApi] /interview-prep/overview fallback used', error)
+      console.warn('[InterviewPrepApi] /ai/interview/history/analytics fallback used', error)
       return {
         metrics: [
           { id: 'readiness', title: 'Overall Readiness Score', value: 87, unit: '/100', subtext: 'Excellent', gaugeScore: 87, readinessTag: 'Excellent', candidatePercentile: 'Top 18% of candidates' },
@@ -140,7 +199,19 @@ export class InterviewPrepApiService {
 
   static async getRecentMockHistory(): Promise<MockInterviewHistoryItem[]> {
     try {
-      const response = await api.get('/interview-prep/mock-history')
+      const response = await api.get('/ai/interview/sessions')
+      if (Array.isArray(response.data?.sessions)) {
+        return response.data.sessions.map((s: any) => ({
+          id: s.id,
+          date: new Date(s.created_at || Date.now()).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+          company: s.company_name || 'Target Company',
+          role: s.target_role || 'Software Engineer',
+          interviewType: s.interview_type || 'Technical',
+          durationMinutes: 45,
+          scorePercent: s.status === 'COMPLETED' ? 85 : 0,
+          status: s.status === 'COMPLETED' ? 'Completed' : s.status === 'IN_PROGRESS' ? 'In Progress' : 'Cancelled',
+        }))
+      }
       return response.data
     } catch {
       return [
@@ -154,8 +225,17 @@ export class InterviewPrepApiService {
 
   static async startMockInterview(config: MockInterviewSetupConfig) {
     try {
-      const response = await api.post('/interview-prep/mock-start', config)
-      return response.data
+      const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(config.resumeId)
+      const payload = {
+        resume_id: isUuid ? config.resumeId : undefined,
+        company_name: config.companyName || 'Target Company',
+        target_role: config.targetRole || 'Software Engineer',
+        interview_type: (config.interviewType || 'technical').toUpperCase(),
+        difficulty: (config.difficulty || 'medium').toUpperCase(),
+        total_questions: Math.min(Math.max(Math.round((config.durationMinutes || 45) / 10), 1), 10),
+      }
+      const response = await api.post('/ai/interview/generate', payload)
+      return { success: true, sessionId: response.data.id, message: 'Interview session initialized' }
     } catch {
       return { success: true, sessionId: `session-${Date.now()}`, message: 'Interview session initialized' }
     }

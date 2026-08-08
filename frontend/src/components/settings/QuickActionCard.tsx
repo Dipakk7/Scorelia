@@ -42,7 +42,7 @@ export const QuickActionCard: React.FC<QuickActionCardProps> = ({
       variant="elevated"
       hoverLift
       className={cn(
-        'p-4 border-[var(--border)] bg-[var(--surface-elevated)] flex flex-col justify-between items-center text-center space-y-3 group font-sans transition-all focus-within:ring-2 focus-within:ring-[var(--primary)]/30',
+        'p-5 rounded-2xl bg-[#121426] border border-white/10 shadow-lg flex flex-col justify-between items-center text-center space-y-3 group font-sans transition-all focus-within:ring-2 focus-within:ring-purple-400/40 w-full',
         disabled && 'opacity-60 pointer-events-none',
         className
       )}
@@ -50,10 +50,10 @@ export const QuickActionCard: React.FC<QuickActionCardProps> = ({
       {/* Icon Circle */}
       <div
         className={cn(
-          'p-2.5 rounded-full group-hover:scale-110 transition-transform shrink-0',
+          'p-3 rounded-xl group-hover:scale-105 transition-transform shrink-0 border',
           isDanger
-            ? 'bg-[var(--danger)]/10 text-[var(--danger)]'
-            : 'bg-[var(--primary)]/10 text-[var(--primary)]'
+            ? 'bg-red-500/10 text-red-400 border-red-500/20'
+            : 'bg-purple-500/10 text-purple-400 border-purple-500/20'
         )}
       >
         {renderQuickActionIcon(item.iconName, 'w-5 h-5')}
@@ -61,10 +61,10 @@ export const QuickActionCard: React.FC<QuickActionCardProps> = ({
 
       {/* Title & Subtitle */}
       <div className="space-y-1">
-        <h3 className="text-xs font-bold text-[var(--heading)] line-clamp-1">
+        <h3 className="text-xs sm:text-sm font-bold text-white tracking-tight line-clamp-1 font-sans">
           {item.title}
         </h3>
-        <p className="text-[11px] text-[var(--muted)] leading-tight line-clamp-2">
+        <p className="text-[11px] text-slate-400 font-medium leading-tight line-clamp-2 font-sans">
           {item.subtitle}
         </p>
       </div>
@@ -76,7 +76,7 @@ export const QuickActionCard: React.FC<QuickActionCardProps> = ({
         onClick={onAction}
         disabled={disabled}
         type="button"
-        className="w-full text-xs h-8 mt-2 justify-center gap-1 font-medium"
+        className="w-full text-xs h-8.5 mt-2 justify-center gap-1 font-semibold"
       >
         {item.actionLabel}
       </Button>

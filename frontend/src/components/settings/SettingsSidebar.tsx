@@ -22,7 +22,7 @@ export const SettingsSidebar: React.FC<SettingsSidebarProps> = ({
   className,
 }) => {
   return (
-    <aside className={cn('space-y-4 text-left font-sans', className)}>
+    <aside className={cn('space-y-4 sm:space-y-5 lg:space-y-6 text-left font-sans', className)}>
       {/* 1. Account Overview Card */}
       <AccountOverviewCard
         userProfile={accountOverviewMockData.userProfile}

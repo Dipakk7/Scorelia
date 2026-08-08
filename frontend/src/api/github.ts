@@ -1,11 +1,11 @@
-import axios from 'axios'
+import api from '@/api/api'
 import { githubHeroMockData } from '@/data/githubHeroMockData'
 import { githubAnalyticsMockData } from '@/data/githubAnalyticsMockData'
 import { githubRepositoriesMockData } from '@/data/githubRepositoriesMockData'
 import { githubDeveloperMetricsMockData } from '@/data/githubDeveloperMetricsMockData'
 import { githubAIInsightsMockData } from '@/data/githubAIInsightsMockData'
 
-const API_BASE = '/api/v1/github'
+const API_BASE = '/github'
 const GITHUB_TOKEN_KEY = 'scorelia_github_token'
 const GITHUB_USERNAME_KEY = 'scorelia_github_username'
 
@@ -64,7 +64,7 @@ export const fetchGitHubConnectionStatus = async (): Promise<GitHubConnectionSta
       }
     }
 
-    const response = await axios.get(`${API_BASE}/connection`, {
+    const response = await api.get(`${API_BASE}/connection`, {
       headers: getHeaders(),
     })
     return response.data
@@ -85,7 +85,7 @@ export const fetchGitHubConnectionStatus = async (): Promise<GitHubConnectionSta
 }
 
 export const connectGitHubToken = async (token: string): Promise<GitHubConnectionStatus> => {
-  const response = await axios.post(`${API_BASE}/oauth/connect`, { accessToken: token })
+  const response = await api.post(`${API_BASE}/oauth/connect`, { accessToken: token })
   if (response.data && response.data.isConnected) {
     setGitHubToken(token, response.data.username)
   }
@@ -94,7 +94,7 @@ export const connectGitHubToken = async (token: string): Promise<GitHubConnectio
 
 export const connectGitHubUsername = async (username: string): Promise<GitHubConnectionStatus> => {
   const tokenIdentifier = `username:${username}`
-  const response = await axios.post(`${API_BASE}/oauth/connect`, { accessToken: tokenIdentifier })
+  const response = await api.post(`${API_BASE}/oauth/connect`, { accessToken: tokenIdentifier })
   if (response.data && response.data.isConnected) {
     setGitHubToken(tokenIdentifier, response.data.username)
   }
@@ -103,7 +103,7 @@ export const connectGitHubUsername = async (username: string): Promise<GitHubCon
 
 export const disconnectGitHub = async (): Promise<void> => {
   try {
-    await axios.post(`${API_BASE}/oauth/disconnect`, {}, { headers: getHeaders() })
+    await api.post(`${API_BASE}/oauth/disconnect`, {}, { headers: getHeaders() })
   } finally {
     clearGitHubToken()
   }
@@ -111,7 +111,7 @@ export const disconnectGitHub = async (): Promise<void> => {
 
 export const fetchGitHubHeroData = async () => {
   try {
-    const response = await axios.get(`${API_BASE}/hero`, { headers: getHeaders() })
+    const response = await api.get(`${API_BASE}/hero`, { headers: getHeaders() })
     const data = response.data
     return {
       profileName: data?.profileName ?? githubHeroMockData.profileName,
@@ -126,7 +126,7 @@ export const fetchGitHubHeroData = async () => {
 
 export const fetchGitHubAnalyticsData = async () => {
   try {
-    const response = await axios.get(`${API_BASE}/analytics`, { headers: getHeaders() })
+    const response = await api.get(`${API_BASE}/analytics`, { headers: getHeaders() })
     const data = response.data
     return {
       totalContributions: data?.totalContributions ?? 0,
@@ -142,7 +142,7 @@ export const fetchGitHubAnalyticsData = async () => {
 
 export const fetchGitHubRepositoriesData = async () => {
   try {
-    const response = await axios.get(`${API_BASE}/repositories`, { headers: getHeaders() })
+    const response = await api.get(`${API_BASE}/repositories`, { headers: getHeaders() })
     const data = response.data
     return {
       summary: data?.summary ?? githubRepositoriesMockData.summary,
@@ -155,7 +155,7 @@ export const fetchGitHubRepositoriesData = async () => {
 
 export const fetchGitHubDeveloperMetricsData = async () => {
   try {
-    const response = await axios.get(`${API_BASE}/developer-metrics`, { headers: getHeaders() })
+    const response = await api.get(`${API_BASE}/developer-metrics`, { headers: getHeaders() })
     const data = response.data
     return {
       codeQuality: {
@@ -233,7 +233,7 @@ export const fetchGitHubDeveloperMetricsData = async () => {
 
 export const fetchGitHubInsightsData = async () => {
   try {
-    const response = await axios.get(`${API_BASE}/insights`, { headers: getHeaders() })
+    const response = await api.get(`${API_BASE}/insights`, { headers: getHeaders() })
     const data = response.data
     return {
       insights: Array.isArray(data?.insights) ? data.insights : [],
@@ -250,7 +250,7 @@ export const fetchGitHubInsightsData = async () => {
 
 export const triggerGitHubSync = async () => {
   try {
-    const response = await axios.post(`${API_BASE}/sync`, {}, { headers: getHeaders() })
+    const response = await api.post(`${API_BASE}/sync`, {}, { headers: getHeaders() })
     return response.data
   } catch (error) {
     return {

@@ -57,10 +57,10 @@ export const SettingsSelect = React.forwardRef<HTMLSelectElement, SettingsSelect
             aria-invalid={!!error}
             aria-describedby={error ? `${selectId}-error` : helperText ? `${selectId}-helper` : undefined}
             className={cn(
-              'w-full min-h-[38px] h-9.5 pl-3 pr-8 border rounded-[var(--radius-input)] bg-[var(--surface)] text-[var(--heading)] placeholder-[var(--muted)]/60 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/30 focus:border-[var(--primary)] disabled:pointer-events-none disabled:opacity-[var(--opacity-disabled)] transition-all duration-200 appearance-none cursor-pointer shadow-xs',
+              'w-full min-h-[40px] h-10 pl-3 pr-8 border border-white/10 rounded-xl bg-[#0d0f1e]/80 text-slate-100 text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-purple-400/50 focus:border-purple-500 disabled:pointer-events-none disabled:opacity-50 transition-all duration-200 appearance-none cursor-pointer shadow-inner',
               error
-                ? 'border-[var(--danger)] focus:border-[var(--danger)] focus:ring-[var(--danger)]/20'
-                : 'border-[var(--border)] hover:border-[var(--primary)]/50',
+                ? 'border-red-500/80 focus:border-red-500 focus:ring-red-500/20'
+                : 'hover:border-purple-500/40',
               className
             )}
             {...props}
@@ -75,14 +75,14 @@ export const SettingsSelect = React.forwardRef<HTMLSelectElement, SettingsSelect
                 key={opt.value}
                 value={opt.value}
                 disabled={opt.disabled}
-                className="bg-[var(--surface-elevated)] text-[var(--heading)] py-1"
+                className="bg-[#121426] text-white py-1.5"
               >
                 {opt.label}
               </option>
             ))}
           </select>
-          <div className="absolute right-2.5 pointer-events-none text-[var(--muted)] flex items-center justify-center">
-            <ChevronDown className="w-3.5 h-3.5 opacity-80" />
+          <div className="absolute right-2.5 pointer-events-none text-slate-400 flex items-center justify-center">
+            <ChevronDown className="w-4 h-4 opacity-80" />
           </div>
         </div>
         {error && (

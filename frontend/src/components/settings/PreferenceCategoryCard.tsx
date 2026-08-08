@@ -47,29 +47,29 @@ export const PreferenceCategoryCard: React.FC<PreferenceCategoryCardProps> = ({
       variant="elevated"
       hoverLift
       className={cn(
-        'p-4 border-[var(--border)] bg-[var(--surface-elevated)] flex flex-col justify-between space-y-4 font-sans text-left transition-all',
+        'p-5 rounded-2xl bg-[#121426] border border-white/10 shadow-lg flex flex-col justify-between space-y-4 font-sans text-left transition-all w-full',
         disabled && 'opacity-60 pointer-events-none',
         className
       )}
     >
-      <div className="space-y-4">
+      <div className="space-y-4 w-full">
         {/* Category Header */}
-        <div className="flex items-center gap-2.5 pb-2.5 border-b border-[var(--border)]/40">
-          <div className="p-1.5 rounded-md bg-[var(--primary)]/10 text-[var(--primary)] shrink-0">
+        <div className="flex items-center gap-2.5 pb-3 border-b border-white/10">
+          <div className="p-2 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 shrink-0">
             {renderCategoryIcon(category.iconName, 'w-4 h-4')}
           </div>
-          <div>
-            <h3 className="text-sm font-bold text-[var(--heading)]">
+          <div className="min-w-0 flex-1">
+            <h3 className="text-sm font-bold text-white tracking-tight truncate font-sans">
               {category.title}
             </h3>
-            <p className="text-[10px] text-[var(--muted)] line-clamp-1">
+            <p className="text-[11px] text-slate-400 font-medium line-clamp-1 font-sans">
               {category.description}
             </p>
           </div>
         </div>
 
         {/* 3 Preference Toggles */}
-        <div className="space-y-1.5">
+        <div className="space-y-1.5 w-full">
           {category.items.map((item) => {
             const isChecked = values?.[item.id] !== undefined ? values[item.id] : localValues[item.id]
             return (
@@ -89,13 +89,13 @@ export const PreferenceCategoryCard: React.FC<PreferenceCategoryCardProps> = ({
       </div>
 
       {/* Note & Footer Link */}
-      <div className="pt-3 border-t border-[var(--border)]/40 text-[11px] text-[var(--muted)] leading-snug">
+      <div className="pt-3 border-t border-white/10 text-[11px] text-slate-400 font-medium leading-snug">
         <span>{category.note}</span>
         {category.linkText && (
           <a
             href="#learn-more"
             onClick={(e) => e.preventDefault()}
-            className="ml-1 text-[var(--primary)] hover:underline font-medium inline-block"
+            className="ml-1 text-purple-400 hover:text-purple-300 hover:underline font-semibold inline-block"
           >
             {category.linkText}
           </a>

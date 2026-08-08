@@ -26,22 +26,22 @@ export const SidebarCard: React.FC<SidebarCardProps> = ({
       variant="elevated"
       hoverLift
       className={cn(
-        'p-4 border-[var(--border)] bg-[var(--surface-elevated)] space-y-3 font-sans text-left transition-all',
+        'p-5 rounded-2xl bg-[#121426] border border-white/10 shadow-xl space-y-3 font-sans text-left transition-all w-full',
         className
       )}
     >
       {(title || action || icon) && (
-        <div className="flex items-center justify-between gap-2 border-b border-[var(--border)]/40 pb-2.5">
+        <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-3">
           <div className="flex items-center gap-2 min-w-0">
-            {icon && <div className="text-[var(--primary)] shrink-0">{icon}</div>}
+            {icon && <div className="text-purple-400 shrink-0">{icon}</div>}
             <div className="min-w-0">
               {title && (
-                <h3 className="text-xs font-bold text-[var(--heading)] uppercase tracking-wider truncate">
+                <h3 className="text-xs font-bold text-white uppercase tracking-wider truncate font-sans">
                   {title}
                 </h3>
               )}
               {subtitle && (
-                <p className="text-[10px] text-[var(--muted)] truncate">
+                <p className="text-[10px] text-slate-400 font-medium truncate font-sans">
                   {subtitle}
                 </p>
               )}
@@ -51,10 +51,10 @@ export const SidebarCard: React.FC<SidebarCardProps> = ({
         </div>
       )}
 
-      <div className="space-y-3">{children}</div>
+      <div className="space-y-3 w-full">{children}</div>
 
       {footer && (
-        <div className="pt-2 border-t border-[var(--border)]/40 text-xs">
+        <div className="pt-2.5 border-t border-white/10 text-xs text-slate-400 font-medium">
           {footer}
         </div>
       )}

@@ -40,15 +40,15 @@ export const GeneralPreferencesSection: React.FC<GeneralPreferencesSectionProps>
   return (
     <section
       aria-label="General Preferences"
-      className={cn('space-y-4 text-left font-sans', className)}
+      className={cn('space-y-4 text-left font-sans w-full', className)}
     >
       {/* Header & Reset Button */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-1 border-b border-[var(--border)]/30">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-white/10">
         <div>
-          <h2 className="text-lg font-bold text-[var(--heading)]">
+          <h2 className="text-lg font-bold text-white tracking-tight font-sans">
             {generalPreferencesMockData.sectionTitle}
           </h2>
-          <p className="text-xs text-[var(--muted)]">
+          <p className="text-xs text-slate-400 font-medium font-sans">
             {generalPreferencesMockData.sectionSubtitle}
           </p>
         </div>
@@ -61,7 +61,7 @@ export const GeneralPreferencesSection: React.FC<GeneralPreferencesSectionProps>
       </div>
 
       {/* 6 Preference Select Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 w-full">
         {generalPreferencesMockData.items.map((item) => (
           <SettingsSelectCard
             key={item.id}

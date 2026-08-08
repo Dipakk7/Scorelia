@@ -17,20 +17,20 @@ export const QuickSettingsPanel: React.FC<QuickSettingsPanelProps> = React.memo(
   return (
     <section
       aria-label="Quick Settings Panel"
-      className={cn('space-y-4 text-left font-sans', className)}
+      className={cn('space-y-4 text-left font-sans w-full', className)}
     >
       {/* Panel Header */}
-      <div>
-        <h2 className="text-lg font-bold text-[var(--heading)]">
+      <div className="pb-3 border-b border-white/10">
+        <h2 className="text-lg font-bold text-white tracking-tight font-sans">
           {systemPreferencesMockData.quickSettingsTitle}
         </h2>
-        <p className="text-xs text-[var(--muted)]">
+        <p className="text-xs text-slate-400 font-medium font-sans">
           {systemPreferencesMockData.quickSettingsSubtitle}
         </p>
       </div>
 
       {/* 5 Action Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5 sm:gap-4 w-full">
         {systemPreferencesMockData.quickActions.map((action) => (
           <QuickActionCard
             key={action.id}

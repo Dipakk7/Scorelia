@@ -22,25 +22,25 @@ export const SettingsCategoryHeader: React.FC<SettingsCategoryHeaderProps> = ({
   className,
 }) => {
   return (
-    <div className={cn('flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[var(--border)]/40 font-sans text-left', className)}>
+    <div className={cn('flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 border-b border-white/10 font-sans text-left w-full', className)}>
       <div className="flex items-start gap-3 min-w-0">
         {icon && (
-          <div className="p-2 rounded-lg bg-[var(--primary)]/10 text-[var(--primary)] shrink-0 mt-0.5">
+          <div className="p-2 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 shrink-0 mt-0.5">
             {icon}
           </div>
         )}
-        <div className="min-w-0">
-          <div className="flex items-center gap-2">
-            <h2 className="text-xl font-bold text-[var(--heading)] truncate">
+        <div className="min-w-0 space-y-0.5">
+          <div className="flex items-center gap-2 flex-wrap">
+            <h2 className="text-xl font-bold text-white tracking-tight truncate">
               {title}
             </h2>
             {badge && (
-              <Badge variant={badgeVariant} className="text-[10px] shrink-0">
+              <Badge variant={badgeVariant} className="text-[10px] shrink-0 font-semibold px-2 py-0.5">
                 {badge}
               </Badge>
             )}
           </div>
-          <p className="text-xs text-[var(--muted)] line-clamp-1">
+          <p className="text-xs text-slate-400 font-medium leading-relaxed">
             {subtitle}
           </p>
         </div>

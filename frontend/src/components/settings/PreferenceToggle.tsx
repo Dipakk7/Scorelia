@@ -53,22 +53,22 @@ export const PreferenceToggle: React.FC<PreferenceToggleProps> = React.memo(({
   return (
     <div
       className={cn(
-        'flex items-center justify-between gap-3 py-2.5 px-2 rounded-md transition-colors font-sans hover:bg-[var(--surface-hover)]/40 min-h-[44px]',
+        'flex items-center justify-between gap-3 py-2.5 px-3 rounded-xl transition-all font-sans hover:bg-white/5 border border-transparent hover:border-white/5 min-h-[44px] w-full',
         disabled && 'opacity-50 pointer-events-none',
         className
       )}
     >
       <div className="flex items-center gap-2.5 min-w-0 flex-1 text-left">
         {iconName && (
-          <div className="p-1 rounded bg-[var(--surface)] text-[var(--muted)] shrink-0">
+          <div className="p-1.5 rounded-lg bg-slate-800/80 text-purple-400 border border-white/10 shrink-0">
             {renderToggleIcon(iconName)}
           </div>
         )}
         <div className="min-w-0 flex-1">
-          <label htmlFor={id} className="text-xs font-semibold text-[var(--heading)] cursor-pointer truncate block">
+          <label htmlFor={id} className="text-xs font-semibold text-slate-100 cursor-pointer truncate block font-sans">
             {title}
           </label>
-          <p className="text-[10px] text-[var(--muted)] truncate leading-tight">
+          <p className="text-[11px] text-slate-400 font-medium truncate leading-tight font-sans">
             {description}
           </p>
         </div>
@@ -82,7 +82,7 @@ export const PreferenceToggle: React.FC<PreferenceToggleProps> = React.memo(({
         role="switch"
         aria-checked={checked}
         aria-label={title}
-        className="shrink-0"
+        className="shrink-0 cursor-pointer"
       />
     </div>
   )

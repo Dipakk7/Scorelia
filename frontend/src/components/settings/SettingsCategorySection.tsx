@@ -30,26 +30,26 @@ export const SettingsCategorySection: React.FC<SettingsCategorySectionProps> = R
         variant="elevated"
         hoverLift
         className={cn(
-          'p-5 border-[var(--border)] bg-[var(--surface-elevated)] space-y-4 font-sans text-left transition-all duration-[var(--duration-normal)] focus-within:ring-1 focus-within:ring-[var(--primary)]/40',
+          'p-5 sm:p-6 rounded-2xl bg-[#121426] border border-white/10 shadow-xl space-y-4 font-sans text-left transition-all duration-200 focus-within:ring-1 focus-within:ring-purple-400/40 w-full',
           className
         )}
       >
         {(title || action || icon) && (
-          <div className="flex items-center justify-between gap-3 border-b border-[var(--border)]/40 pb-3">
+          <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-3 sm:pb-3.5">
             <div className="flex items-center gap-2.5 min-w-0">
               {icon && (
-                <div className="p-1.5 rounded-md bg-[var(--primary)]/10 text-[var(--primary)] shrink-0">
+                <div className="p-1.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20 shrink-0">
                   {icon}
                 </div>
               )}
               <div className="min-w-0">
                 {title && (
-                  <h3 className="text-sm font-bold text-[var(--heading)] truncate">
+                  <h3 className="text-sm sm:text-base font-bold text-white tracking-tight truncate font-sans">
                     {title}
                   </h3>
                 )}
                 {description && (
-                  <p className="text-xs text-[var(--muted)] line-clamp-1">
+                  <p className="text-xs text-slate-400 font-medium line-clamp-1 font-sans">
                     {description}
                   </p>
                 )}
@@ -59,10 +59,10 @@ export const SettingsCategorySection: React.FC<SettingsCategorySectionProps> = R
           </div>
         )}
 
-        <div className="space-y-4">{children}</div>
+        <div className="space-y-4 w-full">{children}</div>
 
         {footer && (
-          <div className="pt-3 border-t border-[var(--border)]/40 text-xs text-[var(--muted)]">
+          <div className="pt-3 border-t border-white/10 text-xs text-slate-400 font-medium">
             {footer}
           </div>
         )}
