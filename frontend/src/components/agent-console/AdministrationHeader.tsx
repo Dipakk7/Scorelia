@@ -11,13 +11,13 @@ export function AdministrationHeader({ className }: AdministrationHeaderProps) {
     <div className={cn('flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-left', className)}>
       <div className="space-y-1">
         <h2 className="text-base font-bold text-white tracking-tight flex items-center gap-2.5">
-          <span>Logs, Reports & Administration</span>
+          <span>System Administration & Operational Control</span>
           <span className="p-1.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
             <Shield size={16} />
           </span>
         </h2>
         <p className="text-xs text-slate-400">
-          Review audit history, generate reports, manage exports, and perform administrative operations.
+          Execute bulk agent commands, run system health diagnostics, and review administrative access scopes.
         </p>
       </div>
 

@@ -31,19 +31,19 @@ export function ReportsWorkspace({ className }: ReportsWorkspaceProps) {
   }
 
   return (
-    <div className={cn('space-y-6 text-left', className)}>
+    <div className={cn('space-y-4 sm:space-y-5 text-left font-sans w-full max-w-full min-w-0', className)}>
       {/* 1. Report Templates Grid */}
       <div className="space-y-3">
-        <h3 className="text-sm font-bold text-white tracking-tight flex items-center gap-2">
+        <h3 className="text-xs sm:text-sm font-bold text-white tracking-tight flex items-center gap-2">
           <BarChart2 size={16} className="text-purple-400" />
           <span>Available Executive Report Templates ({templates.length})</span>
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4 items-stretch">
           {templates.map((tmpl) => (
             <div
               key={tmpl.id}
-              className="p-5 rounded-2xl bg-[#111322] border border-white/10 hover:border-purple-500/40 shadow-xl space-y-4 transition-all hover:-translate-y-0.5 flex flex-col justify-between"
+              className="p-4 rounded-xl bg-[#111322] border border-white/10 hover:border-purple-500/40 shadow-lg space-y-3.5 transition-all hover:-translate-y-0.5 flex flex-col justify-between"
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between">

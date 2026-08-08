@@ -8,10 +8,14 @@ import { HeroDashboard } from '@/components/agent-console/HeroDashboard'
 import { AgentWorkspaceTabs } from '@/components/agent-console/AgentWorkspaceTabs'
 import type { AgentTabId } from '@/components/agent-console/AgentWorkspaceTabs'
 import { WorkspaceLayout } from '@/components/agent-console/WorkspaceLayout'
-import { TaskAutomationKnowledgeWorkspace } from '@/components/agent-console/TaskAutomationKnowledgeWorkspace'
-import { AdministrationWorkspace } from '@/components/agent-console/AdministrationWorkspace'
+import { AgentManagementWorkspace } from '@/components/agent-console/AgentManagementWorkspace'
+import { TasksWorkspace } from '@/components/agent-console/TasksWorkspace'
+import { AutomationsWorkspace } from '@/components/agent-console/AutomationsWorkspace'
+import { KnowledgeWorkspace } from '@/components/agent-console/KnowledgeWorkspace'
 import { LogsStreamWorkspace } from '@/components/agent-console/LogsStreamWorkspace'
-import { PageFooter } from '@/components/agent-console/PageFooter'
+import { ReportsAnalyticsWorkspace } from '@/components/agent-console/ReportsAnalyticsWorkspace'
+import { AdministrationWorkspace } from '@/components/agent-console/AdministrationWorkspace'
+import { ConsoleSettingsWorkspace } from '@/components/agent-console/ConsoleSettingsWorkspace'
 
 export function AgentConsolePage() {
   const shouldReduceMotion = useScoreliaReducedMotion()
@@ -41,51 +45,45 @@ export function AgentConsolePage() {
     // Action handler placeholder
   }
 
-  const isTAKSection = activeTab === 'tasks' || activeTab === 'automations' || activeTab === 'knowledge'
-
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="space-y-5 sm:space-y-6 text-left max-w-[1720px] mx-auto font-sans px-4 sm:px-6 lg:px-8 2xl:px-10 py-5 sm:py-6 pb-16 select-none"
-    >
-      {/* 1. Master Page Header Row (Title & Description on Left, Action Controls on Right) */}
-      <motion.div variants={itemVariants} className="flex flex-col md:flex-row md:items-start justify-between gap-4">
-        <AgentHeroHeader />
-        <TopActionBar onNewAgentClick={handleNewAgentClick} />
-      </motion.div>
+    <div className="-m-4 md:-m-6 lg:-m-8 p-3 sm:p-4 lg:p-5 w-[calc(100%+2rem)] md:w-[calc(100%+3rem)] lg:w-[calc(100%+4rem)] space-y-4 sm:space-y-5 text-slate-100 selection:bg-purple-500/30 font-sans max-w-[1920px] mx-auto text-left select-none">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="space-y-4 sm:space-y-5 w-full max-w-full"
+      >
+        {/* 1. Master Page Header Row (Title & Description on Left, Action Controls on Right) */}
+        <motion.div variants={itemVariants} className="relative overflow-hidden p-5 sm:p-6 rounded-2xl bg-gradient-to-b from-[#14162a] via-[#111324] to-[#0d0f1e] border border-white/10 shadow-2xl shadow-purple-950/20 backdrop-blur-md transition-all duration-300 flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-5 text-left w-full max-w-full">
+          {/* Ambient Glow Effects matching RAG Workspace */}
+          <div className="absolute -top-24 -left-24 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
 
-      {/* 2. Hero KPI Grid (Rendered on Overview for high-level telemetry) */}
-      {activeTab === 'overview' && (
-        <motion.div variants={itemVariants}>
-          <HeroDashboard onNewAgentClick={handleNewAgentClick} />
+          <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-5 w-full">
+            <AgentHeroHeader />
+            <TopActionBar onNewAgentClick={handleNewAgentClick} />
+          </div>
         </motion.div>
-      )}
 
-      {/* 3. Workspace Navigation Tabs */}
-      <motion.div variants={itemVariants}>
-        <AgentWorkspaceTabs activeTab={activeTab} onTabChange={setActiveTab} />
-      </motion.div>
+        {/* 2. Workspace Navigation Tabs (Consistently positioned right under the Header Row) */}
+        <motion.div variants={itemVariants} className="w-full max-w-full">
+          <AgentWorkspaceTabs activeTab={activeTab} onTabChange={setActiveTab} />
+        </motion.div>
 
-      {/* 4. Main Workspace Layout or Specialized Section View */}
-      <motion.div variants={itemVariants} id={`agent-tabpanel-${activeTab}`} role="tabpanel" aria-labelledby={`agent-tab-${activeTab}`}>
-        {activeTab === 'logs' ? (
-          <LogsStreamWorkspace key="logs-stream" />
-        ) : isTAKSection ? (
-          <TaskAutomationKnowledgeWorkspace key={`tak-${activeTab}`} initialSection={activeTab as any} />
-        ) : activeTab === 'admin' ? (
-          <AdministrationWorkspace key="admin-panel" initialTab="admin" />
-        ) : (
-          <WorkspaceLayout key={`workspace-${activeTab}`} activeTab={activeTab} />
-        )}
+        {/* 3. Purpose-Built Main Workspace Layout per Tab */}
+        <motion.div variants={itemVariants} id={`agent-tabpanel-${activeTab}`} role="tabpanel" aria-labelledby={`agent-tab-${activeTab}`} className="w-full max-w-full">
+          {activeTab === 'overview' && <WorkspaceLayout key="workspace-overview" activeTab="overview" />}
+          {activeTab === 'agents' && <AgentManagementWorkspace key="workspace-agents" onCreateAgentClick={handleNewAgentClick} />}
+          {activeTab === 'tasks' && <TasksWorkspace key="workspace-tasks" />}
+          {activeTab === 'automations' && <AutomationsWorkspace key="workspace-automations" />}
+          {activeTab === 'knowledge' && <KnowledgeWorkspace key="workspace-knowledge" />}
+          {activeTab === 'logs' && <LogsStreamWorkspace key="workspace-logs" />}
+          {activeTab === 'reports' && <ReportsAnalyticsWorkspace key="workspace-reports" />}
+          {activeTab === 'admin' && <AdministrationWorkspace key="workspace-admin" />}
+          {activeTab === 'settings' && <ConsoleSettingsWorkspace key="workspace-settings" />}
+        </motion.div>
       </motion.div>
-
-      {/* 5. Page Footer */}
-      <motion.div variants={itemVariants}>
-        <PageFooter />
-      </motion.div>
-    </motion.div>
+    </div>
   )
 }
 

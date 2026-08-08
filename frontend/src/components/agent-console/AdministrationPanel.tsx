@@ -28,19 +28,19 @@ export function AdministrationPanel({ className }: AdministrationPanelProps) {
   }
 
   return (
-    <div className={cn('space-y-6 text-left', className)}>
+    <div className={cn('space-y-4 sm:space-y-5 text-left font-sans w-full max-w-full min-w-0', className)}>
       {/* Feedback Banner */}
       {feedback && (
-        <div className="p-3.5 rounded-2xl bg-purple-600/20 border border-purple-500/40 text-purple-200 text-xs font-semibold flex items-center gap-2.5 shadow-lg">
+        <div className="p-3 rounded-xl bg-purple-600/20 border border-purple-500/40 text-purple-200 text-xs font-semibold flex items-center gap-2.5 shadow-lg">
           <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
           <span>{feedback}</span>
         </div>
       )}
 
       {/* Top Grid: Bulk Operations & Maintenance Actions */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 items-stretch">
         {/* Bulk Operations (7 Columns) */}
-        <div className="lg:col-span-7 p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-4 h-full flex flex-col justify-between">
+        <div className="lg:col-span-7 p-4 sm:p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-3.5 flex flex-col justify-between">
           <div className="space-y-1">
             <h3 className="text-sm font-bold text-white tracking-tight flex items-center gap-2">
               <Shield size={16} className="text-purple-400" />

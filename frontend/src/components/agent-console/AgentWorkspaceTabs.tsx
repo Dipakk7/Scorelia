@@ -1,4 +1,5 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import {
   LayoutDashboard,
   Bot,
@@ -26,7 +27,7 @@ export type AgentTabId =
 export interface TabItem {
   id: AgentTabId
   label: string
-  icon: React.ComponentType<{ size?: number; className?: string }>
+  icon: React.ElementType
 }
 
 export interface AgentWorkspaceTabsProps {
@@ -40,7 +41,7 @@ export function AgentWorkspaceTabs({
   onTabChange,
   className,
 }: AgentWorkspaceTabsProps) {
-  const tabListRef = useRef<HTMLDivElement>(null)
+  const activeTabRef = useRef<HTMLButtonElement | null>(null)
 
   const tabs: TabItem[] = [
     { id: 'overview', label: 'Overview', icon: LayoutDashboard },
@@ -54,70 +55,66 @@ export function AgentWorkspaceTabs({
     { id: 'settings', label: 'Console Settings', icon: Settings },
   ]
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>, currentIndex: number) => {
-    let nextIndex = currentIndex
-
-    if (e.key === 'ArrowRight') {
-      e.preventDefault()
-      nextIndex = (currentIndex + 1) % tabs.length
-    } else if (e.key === 'ArrowLeft') {
-      e.preventDefault()
-      nextIndex = (currentIndex - 1 + tabs.length) % tabs.length
-    } else if (e.key === 'Home') {
-      e.preventDefault()
-      nextIndex = 0
-    } else if (e.key === 'End') {
-      e.preventDefault()
-      nextIndex = tabs.length - 1
+  useEffect(() => {
+    if (activeTabRef.current) {
+      activeTabRef.current.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
     }
-
-    if (nextIndex !== currentIndex) {
-      const nextTab = tabs[nextIndex]
-      onTabChange?.(nextTab.id)
-      const nextButton = tabListRef.current?.children[nextIndex] as HTMLButtonElement
-      nextButton?.focus()
-    }
-  }
+  }, [activeTab])
 
   return (
-    <nav
-      aria-label="Agent Console Workspace Sections"
-      className={cn('w-full border-b border-white/10 pb-2 text-left', className)}
-    >
-      <div
-        ref={tabListRef}
+    <div className={cn('sticky top-2 z-30 backdrop-blur-md bg-[#111322]/85 border border-white/10 p-1.5 rounded-2xl shadow-xl transition-all overflow-x-auto scrollbar-none text-left', className)}>
+      <nav
         role="tablist"
-        aria-label="Agent Console Tabs"
-        className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1"
+        aria-label="Agent Console Workspace Sections"
+        className="flex items-center gap-1.5 p-1 bg-[#0b0c14]/70 border border-white/5 rounded-xl w-max min-w-full sm:min-w-0 select-none"
       >
-        {tabs.map((tab, idx) => {
+        {tabs.map((tab) => {
           const Icon = tab.icon
-          const isActive = activeTab === tab.id
+          const isActive = tab.id === activeTab
 
           return (
             <button
               key={tab.id}
+              ref={isActive ? activeTabRef : null}
+              type="button"
               role="tab"
               id={`agent-tab-${tab.id}`}
-              aria-selected={isActive}
               aria-controls={`agent-tabpanel-${tab.id}`}
-              tabIndex={isActive ? 0 : -1}
-              onClick={() => onTabChange?.(tab.id)}
-              onKeyDown={(e) => handleKeyDown(e, idx)}
+              aria-selected={isActive}
+              onClick={() => onTabChange && onTabChange(tab.id)}
               className={cn(
-                'flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all duration-150 active:scale-95 cursor-pointer whitespace-nowrap border select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50',
+                'relative flex items-center gap-2 px-4 py-2.5 min-h-[44px] rounded-lg text-xs transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none whitespace-nowrap cursor-pointer select-none z-10',
                 isActive
-                  ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-purple-400 shadow-md shadow-purple-950/50'
-                  : 'bg-[#0b0c14] text-slate-300 border-white/10 hover:text-white hover:bg-white/5'
+                  ? 'text-white font-bold bg-purple-600/40 border border-purple-500/50 shadow-md shadow-purple-950/20'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 font-medium border border-transparent'
               )}
             >
-              <Icon size={16} className={cn('transition-colors', isActive ? 'text-white' : 'text-slate-400')} />
-              <span>{tab.label}</span>
+              <Icon
+                className={cn(
+                  'w-4 h-4 relative z-10 transition-colors duration-200 pointer-events-none shrink-0',
+                  isActive ? 'text-purple-200' : 'text-slate-400'
+                )}
+              />
+              <span
+                className={cn(
+                  'relative z-10 transition-colors duration-200 pointer-events-none',
+                  isActive ? 'text-white font-bold' : 'text-slate-400'
+                )}
+              >
+                {tab.label}
+              </span>
+              {isActive && (
+                <motion.div
+                  layoutId="agentActiveTabIndicator"
+                  className="absolute inset-0 bg-purple-500/20 rounded-lg border border-purple-400/50 pointer-events-none z-0"
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                />
+              )}
             </button>
           )
         })}
-      </div>
-    </nav>
+      </nav>
+    </div>
   )
 }
 

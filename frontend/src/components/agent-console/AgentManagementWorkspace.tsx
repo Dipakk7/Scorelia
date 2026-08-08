@@ -166,7 +166,7 @@ export function AgentManagementWorkspace({
   return (
     <section
       aria-label="Agent Management Workspace"
-      className={cn('p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-5 text-left', className)}
+      className={cn('p-4 sm:p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-4 text-left font-sans w-full max-w-full min-w-0', className)}
     >
       {/* 1. Workspace Header */}
       <WorkspaceHeader

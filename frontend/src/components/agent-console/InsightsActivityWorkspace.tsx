@@ -21,7 +21,7 @@ export function InsightsActivityWorkspace({
   isLoading: propIsLoading = false,
   className,
 }: InsightsActivityWorkspaceProps) {
-  const [activeTab, setActiveTab] = useState<InsightsTabId>('insights')
+  const [activeTab, setActiveTab] = useState<InsightsTabId>('notifications')
 
   const { isLoading: queryIsLoadingInsights } = useInsights()
   const { isLoading: queryIsLoadingHealth } = useSystemHealth()
@@ -33,31 +33,17 @@ export function InsightsActivityWorkspace({
 
   return (
     <section
-      aria-label="Insights, Activity & System Health Workspace"
-      className={cn('space-y-6 text-left', className)}
+      aria-label="System Health & Quick Operational Actions Sidebar"
+      className={cn('space-y-5 sm:space-y-6 text-left font-sans', className)}
     >
-      {/* 1. Insights Header */}
-      <InsightsHeader />
-
-      {/* 2. System Health & Resource Usage Overview */}
+      {/* 1. Group 1: System Health & Resource Usage Overview */}
       <SystemHealthPanel />
 
-      {/* 3. Quick System Operational Actions */}
+      {/* 2. Group 2: Quick System Operational Actions */}
       <QuickActionsPanel />
 
-      {/* 4. Section Tabs (Insights, Activity, Notifications) */}
-      <InsightsTabs activeTab={activeTab} onTabChange={setActiveTab} />
-
-      {/* 5. Tab View Panels */}
-      <div
-        id={`insights-tabpanel-${activeTab}`}
-        role="tabpanel"
-        aria-labelledby={`insights-tab-${activeTab}`}
-      >
-        {activeTab === 'insights' && <AIInsightsPanel />}
-        {activeTab === 'activity' && <ActivityTimeline />}
-        {activeTab === 'notifications' && <NotificationCenter />}
-      </div>
+      {/* 3. Group 3: Security & Audit Notifications */}
+      <NotificationCenter />
     </section>
   )
 }

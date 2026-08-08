@@ -12,9 +12,9 @@ export function ReportsAnalyticsWorkspace({ className }: ReportsAnalyticsWorkspa
   const [activeSubTab, setActiveSubTab] = useState<'analytics' | 'reports'>('analytics')
 
   return (
-    <div className={cn('space-y-6 text-left font-sans', className)}>
+    <div className={cn('space-y-4 sm:space-y-5 text-left font-sans w-full max-w-full min-w-0', className)}>
       {/* Sub-Section Navigation Bar */}
-      <div className="flex items-center justify-between gap-4 p-2 rounded-2xl bg-[#111322] border border-white/10 shadow-lg">
+      <div className="flex items-center justify-between gap-4 p-2 rounded-2xl bg-[#111322] border border-white/10 shadow-xl">
         <div className="flex items-center gap-2">
           <button
             type="button"

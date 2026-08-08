@@ -18,7 +18,7 @@ export function OverviewSummaryCard({ className }: OverviewSummaryCardProps) {
   const pendingTasks = tasks.filter((t) => t.status === 'pending' || t.status === 'queued')
 
   return (
-    <div className={cn('space-y-5 text-left font-sans', className)}>
+    <div className={cn('space-y-5 sm:space-y-6 text-left font-sans', className)}>
       {/* Active Agents Fleet Summary */}
       <div className="p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-4">
         <div className="flex items-center justify-between">
@@ -28,7 +28,7 @@ export function OverviewSummaryCard({ className }: OverviewSummaryCardProps) {
             </div>
             <div>
               <h3 className="font-bold text-white text-sm tracking-tight">Active AI Agent Fleet</h3>
-              <p className="text-xs text-slate-400">Live execution state of registered agents</p>
+              <p className="text-xs text-slate-400">Live operational state of deployed agents</p>
             </div>
           </div>
 
@@ -38,11 +38,11 @@ export function OverviewSummaryCard({ className }: OverviewSummaryCardProps) {
         </div>
 
         {/* Highlighted Agent Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {agents.slice(0, 4).map((agent) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {agents.slice(0, 6).map((agent) => (
             <div
               key={agent.id}
-              className="p-3.5 rounded-xl bg-[#0b0c14] border border-white/5 space-y-2.5 hover:border-purple-500/30 transition-all"
+              className="p-3 rounded-xl bg-[#0b0c14] border border-white/5 space-y-2.5 hover:border-purple-500/30 transition-all shadow-md"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 min-w-0">
@@ -65,10 +65,10 @@ export function OverviewSummaryCard({ className }: OverviewSummaryCardProps) {
                 </span>
               </div>
 
-              <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 pt-1.5 border-t border-white/5">
-                <span>Tasks: <strong className="text-white font-bold">{agent.tasksCompleted != null ? agent.tasksCompleted.toLocaleString() : '—'}</strong></span>
-                <span>Success: <strong className="text-emerald-400 font-bold">{agent.successRate != null ? `${agent.successRate}%` : '—'}</strong></span>
-                <span>Latency: <strong className="text-purple-300 font-bold">{agent.avgResponseTime || '—'}</strong></span>
+              <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 pt-2 border-t border-white/5">
+                <span>Tasks: <strong className="text-white font-bold">{agent.tasksCompleted != null ? agent.tasksCompleted.toLocaleString() : '0'}</strong></span>
+                <span>Success: <strong className="text-emerald-400 font-bold">{agent.status === 'offline' ? '—' : (agent.successRate != null ? `${agent.successRate}%` : '—')}</strong></span>
+                <span>Latency: <strong className="text-purple-300 font-bold">{agent.status === 'offline' ? '—' : (agent.avgResponseTime && agent.avgResponseTime !== '—' ? agent.avgResponseTime : '—')}</strong></span>
               </div>
             </div>
           ))}
@@ -76,15 +76,15 @@ export function OverviewSummaryCard({ className }: OverviewSummaryCardProps) {
       </div>
 
       {/* Real-time Task Execution Status Highlights */}
-      <div className="p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-4">
+      <div className="p-4 sm:p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="p-2 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
               <Zap size={18} />
             </div>
             <div>
-              <h3 className="font-bold text-white text-sm tracking-tight">Active Execution Queue</h3>
-              <p className="text-xs text-slate-400">Real-time worker tasks currently executing</p>
+              <h3 className="font-bold text-white text-sm tracking-tight">Real-Time Execution Queue</h3>
+              <p className="text-xs text-slate-400">Active worker tasks currently executing in system pool</p>
             </div>
           </div>
 
@@ -100,7 +100,7 @@ export function OverviewSummaryCard({ className }: OverviewSummaryCardProps) {
 
         {/* Task List Snippet */}
         <div className="space-y-2.5">
-          {tasks.slice(0, 3).map((task) => (
+          {tasks.slice(0, 5).map((task) => (
             <div
               key={task.id}
               className="p-3 rounded-xl bg-[#0b0c14] border border-white/5 space-y-2 text-xs"

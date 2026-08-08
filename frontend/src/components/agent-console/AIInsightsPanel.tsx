@@ -9,9 +9,10 @@ import { cn } from '@/lib/utils'
 
 export interface AIInsightsPanelProps {
   className?: string
+  maxItems?: number
 }
 
-export function AIInsightsPanel({ className }: AIInsightsPanelProps) {
+export function AIInsightsPanel({ className, maxItems = 3 }: AIInsightsPanelProps) {
   const { insights: queryInsights, applyFix } = useInsights()
   const [insightsList, setInsightsList] = useState<InsightItem[]>(mockInsightsList)
   const [resolvedIds, setResolvedIds] = useState<string[]>([])
@@ -27,17 +28,19 @@ export function AIInsightsPanel({ className }: AIInsightsPanelProps) {
     await applyFix(id)
   }
 
+  const displayedInsights = (insightsList || []).slice(0, maxItems)
+
   return (
-    <div className={cn('space-y-4 text-left', className)}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
-        {(insightsList || []).map((item) => {
+    <div className={cn('space-y-3 text-left font-sans', className)}>
+      <div className="grid grid-cols-1 gap-3">
+        {displayedInsights.map((item) => {
           const isResolved = resolvedIds.includes(item.id)
 
           return (
             <div
               key={item.id}
               className={cn(
-                'p-5 rounded-2xl bg-[#111322] border transition-all flex flex-col justify-between space-y-4 shadow-xl hover:-translate-y-0.5 h-full',
+                'p-3.5 sm:p-4 rounded-xl bg-[#111322] border transition-all space-y-3 shadow-lg hover:-translate-y-0.5 h-auto',
                 isResolved
                   ? 'opacity-50 border-white/5 bg-[#0b0c14]'
                   : item.priority === 'critical'

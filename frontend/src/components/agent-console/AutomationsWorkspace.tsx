@@ -65,9 +65,9 @@ export function AutomationsWorkspace({ className }: AutomationsWorkspaceProps) {
   }, [automationsList, statusFilter, searchQuery])
 
   return (
-    <div className={cn('space-y-5 text-left', className)}>
+    <div className={cn('space-y-4 sm:space-y-5 text-left font-sans w-full max-w-full min-w-0', className)}>
       {/* 1. Header Toolbar Controls */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 p-4 rounded-2xl bg-[#111322] border border-white/10 shadow-lg">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 sm:p-4 rounded-2xl bg-[#111322] border border-white/10 shadow-xl">
         <SearchAgents
           value={searchQuery}
           onChange={setSearchQuery}
@@ -102,11 +102,11 @@ export function AutomationsWorkspace({ className }: AutomationsWorkspaceProps) {
           }}
         />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5 sm:gap-4 items-stretch">
           {filteredAutomations.map((auto) => (
             <div
               key={auto.id}
-              className="p-5 rounded-2xl bg-[#111322] border border-white/10 hover:border-purple-500/40 shadow-xl space-y-4 transition-all hover:-translate-y-1 flex flex-col justify-between"
+              className="p-4 rounded-xl bg-[#111322] border border-white/10 hover:border-purple-500/40 shadow-lg space-y-3.5 transition-all hover:-translate-y-0.5 flex flex-col justify-between"
             >
               <div className="space-y-3">
                 {/* Header Row */}

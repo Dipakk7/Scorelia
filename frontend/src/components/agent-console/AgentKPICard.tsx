@@ -72,56 +72,57 @@ function AgentKPICardComponent({
       aria-selected={onClick ? activeSelected : undefined}
       onClick={onClick}
       className={cn(
-        'group relative h-full p-4 sm:p-5 rounded-2xl bg-[#111322] transition-all duration-300 flex flex-col justify-between overflow-hidden text-left select-none',
-        'hover:bg-[#16182c] hover:border-purple-500/40 hover:-translate-y-0.5',
+        'group relative p-3.5 sm:p-4 rounded-xl bg-[#111322] transition-all duration-200 flex flex-col justify-between overflow-hidden text-left select-none space-y-2.5',
+        'hover:bg-[#151728] hover:border-purple-500/40 hover:-translate-y-0.5',
         'active:scale-[0.98]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080e]',
         onClick && 'cursor-pointer',
         activeSelected
           ? 'border border-purple-500 shadow-[0_0_16px_rgba(168,85,247,0.3)] scale-[1.01]'
-          : 'border border-white/10 shadow-xl',
+          : 'border border-white/10 shadow-lg',
         className
       )}
     >
       {/* Background Accent Glow */}
       <div
         className={cn(
-          'absolute -top-12 -right-12 w-24 h-24 rounded-full blur-2xl pointer-events-none opacity-20 transition-opacity group-hover:opacity-40',
+          'absolute -top-12 -right-12 w-20 h-20 rounded-full blur-2xl pointer-events-none opacity-20 transition-opacity group-hover:opacity-40',
           iconBgClass
         )}
       />
 
-      <div className="space-y-3 relative z-10">
+      <div className="space-y-2 relative z-10">
         {/* Card Header Row */}
         <div className="flex items-center justify-between gap-2">
-          <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider leading-tight pr-1">
+          <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider leading-tight pr-1 truncate">
             {title}
           </span>
           <div
             className={cn(
-              'p-2.5 rounded-xl border flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shrink-0',
+              'p-2 rounded-lg border flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shrink-0',
               iconBgClass,
               iconColorClass
             )}
           >
-            <Icon size={18} />
+            <Icon size={16} />
           </div>
         </div>
 
         {/* Numeric Counter */}
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl sm:text-3xl font-black text-white tracking-tight font-sans">
+          <span className="text-xl sm:text-2xl font-black text-white tracking-tight font-sans">
             {formattedCountText}
           </span>
         </div>
 
-        {/* Subtitle or Progress Bar */}
-        {subtitle && !progressProps && (
+        {/* Subtitle */}
+        {subtitle && (
           <p className="text-[11px] text-slate-300 font-medium truncate">{subtitle}</p>
         )}
 
+        {/* Progress Bar */}
         {progressProps && (
-          <div className="pt-1">
+          <div className="pt-0.5">
             <KPIProgress
               current={progressProps.current}
               total={progressProps.total}
@@ -133,9 +134,9 @@ function AgentKPICardComponent({
 
       {/* Card Footer Trend Badge */}
       {trendValue && (
-        <div className="pt-3 border-t border-white/5 flex items-center justify-between text-xs relative z-10">
+        <div className="pt-2 border-t border-white/5 flex items-center justify-between text-xs relative z-10">
           <KPITrend value={trendValue} direction={trendDirection} />
-          <span className="text-[10px] text-slate-500 font-mono font-medium">vs prev 30d</span>
+          <span className="text-[10px] text-slate-500 font-mono font-medium">vs prev 7d</span>
         </div>
       )}
     </div>

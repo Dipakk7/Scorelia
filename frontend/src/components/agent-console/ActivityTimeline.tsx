@@ -9,9 +9,10 @@ import { cn } from '@/lib/utils'
 
 export interface ActivityTimelineProps {
   className?: string
+  maxItems?: number
 }
 
-export function ActivityTimeline({ className }: ActivityTimelineProps) {
+export function ActivityTimeline({ className, maxItems = 3 }: ActivityTimelineProps) {
   const { timeline: queryTimeline } = useInsights()
   const [timelineEvents, setTimelineEvents] = useState<ActivityTimelineItem[]>(mockActivityTimeline)
   const [categoryFilter, setCategoryFilter] = useState<string>('all')
@@ -26,6 +27,8 @@ export function ActivityTimeline({ className }: ActivityTimelineProps) {
     if (categoryFilter === 'all') return timelineEvents
     return timelineEvents.filter((item) => item.category === categoryFilter)
   }, [timelineEvents, categoryFilter])
+
+  const displayedEvents = (filteredEvents || []).slice(0, maxItems)
 
   return (
     <div className={cn('space-y-4 text-left', className)}>
@@ -95,7 +98,7 @@ export function ActivityTimeline({ className }: ActivityTimelineProps) {
 
       {/* Timeline Stream */}
       <div className="relative pl-6 space-y-4 border-l border-white/10 ml-3 py-2">
-        {(filteredEvents || []).map((item) => (
+        {displayedEvents.map((item) => (
           <div key={item.id} className="relative group">
             {/* Timeline Icon Node */}
             <div className="absolute -left-[33px] top-0.5 h-7 w-7 rounded-full bg-[#111322] border border-white/20 flex items-center justify-center text-xs shadow-md">

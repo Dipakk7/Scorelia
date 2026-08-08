@@ -85,52 +85,52 @@ export function TasksWorkspace({ className }: TasksWorkspaceProps) {
   }, [tasksList, statusFilter, priorityFilter, searchQuery])
 
   return (
-    <div className={cn('space-y-5 text-left', className)}>
+    <div className={cn('space-y-4 sm:space-y-5 text-left font-sans w-full max-w-full min-w-0', className)}>
       {/* 1. Summary Cards Row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 items-stretch">
-        <div className="p-4 rounded-2xl bg-[#111322] border border-white/10 flex items-center justify-between shadow-lg h-full">
-          <div className="space-y-1">
-            <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Pending / Queued</span>
-            <span className="text-2xl font-black text-white">{pendingCount}</span>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-4 items-stretch">
+        <div className="p-3.5 sm:p-4 rounded-xl bg-[#111322] border border-white/10 flex items-center justify-between shadow-lg">
+          <div className="space-y-0.5">
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Pending / Queued</span>
+            <span className="text-xl sm:text-2xl font-black text-white">{pendingCount}</span>
           </div>
-          <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
-            <Clock size={20} />
-          </div>
-        </div>
-
-        <div className="p-4 rounded-2xl bg-[#111322] border border-white/10 flex items-center justify-between shadow-lg h-full">
-          <div className="space-y-1">
-            <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Running Now</span>
-            <span className="text-2xl font-black text-white">{runningCount}</span>
-          </div>
-          <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
-            <Play size={20} className="animate-pulse" />
+          <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 shrink-0">
+            <Clock size={18} />
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#111322] border border-white/10 flex items-center justify-between shadow-lg h-full">
-          <div className="space-y-1">
-            <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Completed Today</span>
-            <span className="text-2xl font-black text-white">{completedCount}</span>
+        <div className="p-3.5 sm:p-4 rounded-xl bg-[#111322] border border-white/10 flex items-center justify-between shadow-lg">
+          <div className="space-y-0.5">
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Running Now</span>
+            <span className="text-xl sm:text-2xl font-black text-white">{runningCount}</span>
           </div>
-          <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
-            <CheckSquare size={20} />
+          <div className="p-2 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-400 shrink-0">
+            <Play size={18} className="animate-pulse" />
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-[#111322] border border-white/10 flex items-center justify-between shadow-lg h-full">
-          <div className="space-y-1">
-            <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Failed Tasks</span>
-            <span className="text-2xl font-black text-white">{failedCount}</span>
+        <div className="p-3.5 sm:p-4 rounded-xl bg-[#111322] border border-white/10 flex items-center justify-between shadow-lg">
+          <div className="space-y-0.5">
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Completed Today</span>
+            <span className="text-xl sm:text-2xl font-black text-white">{completedCount}</span>
           </div>
-          <div className="p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400">
-            <AlertCircle size={20} />
+          <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shrink-0">
+            <CheckSquare size={18} />
+          </div>
+        </div>
+
+        <div className="p-3.5 sm:p-4 rounded-xl bg-[#111322] border border-white/10 flex items-center justify-between shadow-lg">
+          <div className="space-y-0.5">
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Failed Tasks</span>
+            <span className="text-xl sm:text-2xl font-black text-white">{failedCount}</span>
+          </div>
+          <div className="p-2 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 shrink-0">
+            <AlertCircle size={18} />
           </div>
         </div>
       </div>
 
       {/* 2. Controls Toolbar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 p-4 rounded-2xl bg-[#111322] border border-white/10 shadow-lg">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 sm:p-4 rounded-2xl bg-[#111322] border border-white/10 shadow-xl">
         <SearchAgents
           value={searchQuery}
           onChange={setSearchQuery}

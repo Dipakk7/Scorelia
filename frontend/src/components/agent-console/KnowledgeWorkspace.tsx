@@ -76,18 +76,18 @@ export function KnowledgeWorkspace({ className }: KnowledgeWorkspaceProps) {
   const selectedAgentObj = mockAgentsData.find((a) => a.id === selectedAgentId)
 
   return (
-    <div className={cn('space-y-6 text-left', className)}>
+    <div className={cn('space-y-4 sm:space-y-5 text-left font-sans w-full max-w-full min-w-0', className)}>
       {/* 1. Top Section: Quick Assignment Panel & Connected Sources */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 items-stretch">
         {/* Quick Assignment Panel (7 Columns) */}
-        <div className="lg:col-span-7 p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-4 flex flex-col justify-between">
+        <div className="lg:col-span-7 p-4 sm:p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-3.5 flex flex-col justify-between">
           <div className="space-y-1">
-            <h3 className="text-sm font-bold text-white tracking-tight flex items-center gap-2">
+            <h3 className="text-xs sm:text-sm font-bold text-white tracking-tight flex items-center gap-2">
               <Zap size={16} className="text-purple-400" />
               <span>Quick Knowledge Assignment Panel</span>
             </h3>
             <p className="text-xs text-slate-400">
-              Bind vector knowledge collections directly to specific AI agents to empower real-time retrieval context.
+              Bind vector knowledge collections directly to specific AI agents for real-time RAG context.
             </p>
           </div>
 
@@ -142,7 +142,7 @@ export function KnowledgeWorkspace({ className }: KnowledgeWorkspaceProps) {
             <button
               type="button"
               onClick={handleAssign}
-              className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-md cursor-pointer transition-all shrink-0 active:scale-95"
+              className="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-md cursor-pointer transition-all shrink-0 active:scale-95"
             >
               Assign Collection
             </button>
@@ -157,9 +157,9 @@ export function KnowledgeWorkspace({ className }: KnowledgeWorkspaceProps) {
         </div>
 
         {/* Connected Sources Summary (5 Columns) */}
-        <div className="lg:col-span-5 p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-3.5 flex flex-col justify-between">
+        <div className="lg:col-span-5 p-4 sm:p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-3 flex flex-col justify-between">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-white tracking-tight flex items-center gap-2">
+            <h3 className="text-xs sm:text-sm font-bold text-white tracking-tight flex items-center gap-2">
               <LinkIcon size={15} className="text-blue-400" />
               <span>Connected Sources ({sources.length})</span>
             </h3>
@@ -173,9 +173,9 @@ export function KnowledgeWorkspace({ className }: KnowledgeWorkspaceProps) {
               <div key={src.id} className="p-2.5 rounded-xl bg-[#0b0c14] border border-white/5 space-y-1">
                 <div className="flex items-center justify-between gap-1">
                   <span className="font-bold text-slate-200 truncate text-[11px]">{src.name}</span>
-                  {src.connectionState === 'connected' && <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />}
-                  {src.connectionState === 'syncing' && <span className="h-1.5 w-1.5 rounded-full bg-purple-400 animate-ping" />}
-                  {src.connectionState === 'error' && <span className="h-1.5 w-1.5 rounded-full bg-rose-400" />}
+                  {src.connectionState === 'connected' && <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0" />}
+                  {src.connectionState === 'syncing' && <span className="h-1.5 w-1.5 rounded-full bg-purple-400 animate-ping shrink-0" />}
+                  {src.connectionState === 'error' && <span className="h-1.5 w-1.5 rounded-full bg-rose-400 shrink-0" />}
                 </div>
                 <div className="flex justify-between text-[10px] text-slate-400">
                   <span>{src.documentCount} docs</span>
@@ -188,7 +188,7 @@ export function KnowledgeWorkspace({ className }: KnowledgeWorkspaceProps) {
       </div>
 
       {/* 2. Knowledge Collections Toolbar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 p-4 rounded-2xl bg-[#111322] border border-white/10 shadow-lg">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 sm:p-4 rounded-2xl bg-[#111322] border border-white/10 shadow-xl">
         <SearchAgents
           value={searchQuery}
           onChange={setSearchQuery}
@@ -196,7 +196,7 @@ export function KnowledgeWorkspace({ className }: KnowledgeWorkspaceProps) {
         />
         <button
           type="button"
-          className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-md cursor-pointer transition-all"
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-md cursor-pointer transition-all shrink-0"
         >
           <Plus size={15} className="stroke-[2.5]" />
           <span>Add Collection</span>
@@ -207,11 +207,11 @@ export function KnowledgeWorkspace({ className }: KnowledgeWorkspaceProps) {
       {filteredCollections.length === 0 ? (
         <EmptyKnowledgeState onResetFilters={() => setSearchQuery('')} />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5 sm:gap-4 items-stretch">
           {filteredCollections.map((col) => (
             <div
               key={col.id}
-              className="p-5 rounded-2xl bg-[#111322] border border-white/10 hover:border-purple-500/40 shadow-xl space-y-4 transition-all hover:-translate-y-1 flex flex-col justify-between"
+              className="p-4 rounded-xl bg-[#111322] border border-white/10 hover:border-purple-500/40 shadow-lg space-y-3.5 transition-all hover:-translate-y-0.5 flex flex-col justify-between"
             >
               <div className="space-y-3">
                 {/* Collection Header */}

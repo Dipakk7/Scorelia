@@ -55,9 +55,9 @@ export function ExecutionLogsWorkspace({ className }: ExecutionLogsWorkspaceProp
   }, [filteredLogs, currentPage, pageSize])
 
   return (
-    <div className={cn('space-y-5 text-left', className)}>
+    <div className={cn('space-y-4 sm:space-y-5 text-left font-sans w-full max-w-full min-w-0', className)}>
       {/* Controls Toolbar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 p-4 rounded-2xl bg-[#111322] border border-white/10 shadow-lg">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 p-3.5 sm:p-4 rounded-2xl bg-[#111322] border border-white/10 shadow-xl">
         <SearchAgents
           value={searchQuery}
           onChange={(q) => {

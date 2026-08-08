@@ -15,7 +15,7 @@ export function ConsoleSettingsWorkspace({ className }: ConsoleSettingsWorkspace
   const [searchQuery, setSearchQuery] = useState('')
 
   return (
-    <div className={cn('space-y-6 text-left font-sans', className)}>
+    <div className={cn('space-y-4 sm:space-y-5 text-left font-sans w-full max-w-full min-w-0', className)}>
       {/* Settings Workspace Header */}
       <SettingsHeader
         title="Agent Console Settings & Governance"

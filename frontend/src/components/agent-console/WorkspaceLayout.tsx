@@ -1,7 +1,8 @@
 import React from 'react'
+import { KPIGrid } from './KPIGrid'
 import { MainWorkspace } from './MainWorkspace'
 import { RightSidebar } from './RightSidebar'
-import { BottomMetricsBar } from './BottomMetricsBar'
+import { IntelligenceAuditWorkspace } from './IntelligenceAuditWorkspace'
 import { cn } from '@/lib/utils'
 
 export interface WorkspaceLayoutProps {
@@ -10,47 +11,26 @@ export interface WorkspaceLayoutProps {
 }
 
 export function WorkspaceLayout({ activeTab = 'overview', className }: WorkspaceLayoutProps) {
-  const isFullWidthTab = activeTab === 'reports' || activeTab === 'analytics' || activeTab === 'settings'
-  const isAgentsTab = activeTab === 'agents'
-
   return (
-    <div className={cn('space-y-6 text-left font-sans', className)}>
-      {isFullWidthTab ? (
-        /* Full Width 12-Column Layout for Reports & Settings */
-        <main className="w-full">
+    <div className={cn('space-y-5 sm:space-y-6 text-left font-sans w-full max-w-full min-w-0', className)}>
+      {/* 1. Hero Telemetry KPI Strip */}
+      <KPIGrid />
+
+      {/* 2. Primary 12-Column Responsive Overview Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start w-full max-w-full">
+        {/* Left Column: Primary Operational Content (8 Columns on Desktop) */}
+        <main className="lg:col-span-8 space-y-5 sm:space-y-6 min-w-0">
           <MainWorkspace activeTab={activeTab} />
+          {activeTab === 'overview' && (
+            <IntelligenceAuditWorkspace />
+          )}
         </main>
-      ) : (
-        /* Dynamic 12-Column Responsive Grid Layout */
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-          {/* Main Content Workspace */}
-          <main
-            className={cn(
-              isAgentsTab
-                ? 'lg:col-span-8 xl:col-span-9 space-y-6'
-                : 'lg:col-span-7 xl:col-span-8 space-y-6'
-            )}
-          >
-            <MainWorkspace activeTab={activeTab} />
-          </main>
 
-          {/* Right Sidebar Column */}
-          <div
-            className={cn(
-              isAgentsTab
-                ? 'lg:col-span-4 xl:col-span-3 space-y-6'
-                : 'lg:col-span-5 xl:col-span-4 space-y-6'
-            )}
-          >
-            <RightSidebar />
-          </div>
-        </div>
-      )}
-
-      {/* Bottom Metrics Bar */}
-      <section aria-label="System Operational Metrics" className="pt-2">
-        <BottomMetricsBar />
-      </section>
+        {/* Right Column: Supporting System Health, Quick Actions & Notifications (4 Columns on Desktop) */}
+        <aside aria-label="Agent Console Companion Sidebar" className="lg:col-span-4 space-y-5 sm:space-y-6 min-w-0">
+          <RightSidebar />
+        </aside>
+      </div>
     </div>
   )
 }

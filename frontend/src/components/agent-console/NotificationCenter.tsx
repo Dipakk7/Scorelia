@@ -9,9 +9,10 @@ import { cn } from '@/lib/utils'
 
 export interface NotificationCenterProps {
   className?: string
+  maxItems?: number
 }
 
-export function NotificationCenter({ className }: NotificationCenterProps) {
+export function NotificationCenter({ className, maxItems = 3 }: NotificationCenterProps) {
   const { notifications: queryNotifications, markAsRead, dismissNotification } = useNotifications()
   const [notifications, setNotifications] = useState<NotificationItem[]>(mockNotificationsList)
   const [categoryFilter, setCategoryFilter] = useState<string>('all')
@@ -44,6 +45,7 @@ export function NotificationCenter({ className }: NotificationCenterProps) {
   }, [notifications, categoryFilter])
 
   const unreadCount = notifications.filter((n) => !n.isRead).length
+  const displayedNotifications = (filteredNotifications || []).slice(0, maxItems)
 
   return (
     <div className={cn('space-y-4 text-left', className)}>
@@ -90,7 +92,7 @@ export function NotificationCenter({ className }: NotificationCenterProps) {
 
       {/* Notifications List */}
       <div className="space-y-2.5">
-        {(filteredNotifications || []).map((n) => (
+        {displayedNotifications.map((n) => (
           <div
             key={n.id}
             className={cn(

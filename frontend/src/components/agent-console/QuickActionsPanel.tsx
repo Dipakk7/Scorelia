@@ -36,13 +36,13 @@ export function QuickActionsPanel({ className }: QuickActionsPanelProps) {
   ]
 
   return (
-    <div className={cn('p-5 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-4 text-left', className)}>
+    <div className={cn('p-3.5 sm:p-4 rounded-2xl bg-[#111322] border border-white/10 shadow-xl space-y-3 text-left font-sans', className)}>
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-bold text-white tracking-tight">Quick System Operational Actions</h3>
+        <h3 className="text-xs sm:text-sm font-bold text-white tracking-tight">Quick System Actions</h3>
         <span className="text-[10px] font-mono font-semibold text-purple-400">8 Actions</span>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
+      <div className="grid grid-cols-2 gap-2 text-xs">
         {actions.map((act) => {
           const Icon = act.icon
           return (
@@ -50,10 +50,10 @@ export function QuickActionsPanel({ className }: QuickActionsPanelProps) {
               key={act.name}
               type="button"
               onClick={() => handleActionClick(act.name)}
-              className="p-3 rounded-xl bg-[#0b0c14] border border-white/10 hover:border-purple-500/40 text-slate-200 hover:text-white flex flex-col items-center text-center space-y-1.5 transition-all duration-150 cursor-pointer hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+              className="p-2.5 rounded-xl bg-[#0b0c14] border border-white/10 hover:border-purple-500/40 text-slate-200 hover:text-white flex flex-col items-center text-center space-y-1 transition-all duration-150 cursor-pointer hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
             >
-              <Icon size={18} className={act.color} />
-              <span className="font-semibold text-[11px] leading-tight line-clamp-2">{act.name}</span>
+              <Icon size={16} className={act.color} />
+              <span className="font-semibold text-[10px] leading-tight line-clamp-2">{act.name}</span>
             </button>
           )
         })}

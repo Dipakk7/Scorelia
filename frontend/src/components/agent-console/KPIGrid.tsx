@@ -11,7 +11,7 @@ export function KPIGrid({ className }: KPIGridProps) {
   return (
     <div
       className={cn(
-        'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 sm:gap-5 items-stretch text-left',
+        'grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3.5 sm:gap-4 items-stretch text-left w-full max-w-full min-w-0',
         className
       )}
       role="region"
@@ -22,7 +22,7 @@ export function KPIGrid({ className }: KPIGridProps) {
         id="total-agents"
         title="Total Agents"
         numericValue={8}
-        subtitle="2 Active"
+        subtitle="6 Active • 2 Idle"
         icon={Bot}
         iconBgClass="bg-purple-500/10 border-purple-500/20"
         iconColorClass="text-purple-400"
@@ -58,7 +58,7 @@ export function KPIGrid({ className }: KPIGridProps) {
       {/* 4. Avg. Response Time */}
       <AgentKPICard
         id="avg-response-time"
-        title="Avg. Response Time"
+        title="Avg. Latency"
         numericValue={1.32}
         suffix="s"
         decimals={2}
@@ -72,9 +72,9 @@ export function KPIGrid({ className }: KPIGridProps) {
       {/* 5. Credits Used */}
       <AgentKPICard
         id="credits-used"
-        title="Credits Used"
+        title="API Credit Usage"
         numericValue={2450}
-        subtitle="78% of 5,000 monthly limit"
+        subtitle="2,450 / 5,000 credits used"
         icon={Database}
         iconBgClass="bg-indigo-500/10 border-indigo-500/20"
         iconColorClass="text-indigo-400"
@@ -85,12 +85,14 @@ export function KPIGrid({ className }: KPIGridProps) {
         }}
       />
 
-      {/* 6. Active Today */}
+      {/* 6. System Health */}
       <AgentKPICard
-        id="active-today"
-        title="Active Today"
-        numericValue={3}
-        trendValue="1 vs yesterday"
+        id="system-health"
+        title="System Health"
+        numericValue={99.8}
+        suffix="%"
+        decimals={1}
+        trendValue="0.4% vs last 7 days"
         trendDirection="up"
         icon={Activity}
         iconBgClass="bg-teal-500/10 border-teal-500/20"
