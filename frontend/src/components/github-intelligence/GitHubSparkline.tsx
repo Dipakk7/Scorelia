@@ -88,10 +88,10 @@ export const GitHubSparkline: React.FC<GitHubSparklineProps> = ({
         ))}
       </svg>
 
-      {/* Hover Tooltip Overlay (UI placeholder) */}
+      {/* Hover Tooltip Overlay */}
       {hoveredIdx !== null && (
         <div
-          className="absolute -top-6 transform -translate-x-1/2 px-1.5 py-0.5 rounded bg-[var(--heading)] text-[var(--surface)] text-[9px] font-bold font-mono shadow-md z-20 pointer-events-none"
+          className="absolute -top-6 transform -translate-x-1/2 px-1.5 py-0.5 rounded bg-slate-950 text-white border border-slate-700/80 text-[9px] font-bold font-mono shadow-md z-20 pointer-events-none"
           style={{ left: `${points[hoveredIdx].x}%` }}
         >
           {points[hoveredIdx].val}
@@ -100,3 +100,5 @@ export const GitHubSparkline: React.FC<GitHubSparklineProps> = ({
     </div>
   )
 }
+
+export default GitHubSparkline

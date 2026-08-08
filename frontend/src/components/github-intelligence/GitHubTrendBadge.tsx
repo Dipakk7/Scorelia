@@ -20,8 +20,8 @@ export const GitHubTrendBadge: React.FC<GitHubTrendBadgeProps> = ({
   const badgeBg = isUp
     ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
     : isDown
-    ? 'bg-amber-500/10 text-amber-400 border-amber-500/20'
-    : 'bg-[var(--surface-hover)] text-[var(--muted)] border-[var(--border)]'
+    ? 'bg-rose-500/10 text-rose-400 border-rose-500/20'
+    : 'bg-slate-800 text-slate-400 border-slate-700/60'
 
   const label = isUp ? `Increased by ${trend}` : isDown ? `Decreased by ${trend}` : `Neutral trend ${trend}`
 
@@ -29,19 +29,21 @@ export const GitHubTrendBadge: React.FC<GitHubTrendBadgeProps> = ({
     <span
       aria-label={label}
       className={cn(
-        'inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-bold rounded-md border select-none transition-colors',
+        'inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-bold font-mono rounded-md border select-none transition-colors shrink-0',
         badgeBg,
         className
       )}
     >
       {isUp ? (
-        <ArrowUpRight size={11} className="shrink-0" />
+        <ArrowUpRight size={10} className="shrink-0" />
       ) : isDown ? (
-        <ArrowDownRight size={11} className="shrink-0" />
+        <ArrowDownRight size={10} className="shrink-0" />
       ) : (
-        <Minus size={11} className="shrink-0" />
+        <Minus size={10} className="shrink-0" />
       )}
       <span className="truncate">{trend}</span>
     </span>
   )
 }
+
+export default GitHubTrendBadge

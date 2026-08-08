@@ -21,34 +21,38 @@ export const GitHubKPIGrid: React.FC<GitHubKPIGridProps> = ({
 }) => {
   if (isLoading) {
     return (
-      <div className={cn('grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3 sm:gap-4', className)}>
-        {Array.from({ length: 7 }).map((_, idx) => (
-          <div
-            key={idx}
-            className="p-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)]/70 flex flex-col justify-between h-36 space-y-3"
-          >
-            <div className="flex items-center justify-between">
-              <Skeleton className="h-8 w-8 rounded-xl" />
-              <Skeleton className="h-4 w-12 rounded" />
+      <section aria-label="Executive GitHub KPIs Loading" className="w-full">
+        <div className={cn('grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-3.5 lg:gap-4 w-full animate-pulse', className)}>
+          {Array.from({ length: 7 }).map((_, idx) => (
+            <div
+              key={idx}
+              className="p-3.5 sm:p-4 rounded-2xl border border-white/10 bg-[#0f101c] flex flex-col justify-between h-36 space-y-3"
+            >
+              <div className="flex items-center justify-between">
+                <Skeleton className="h-8 w-8 rounded-xl bg-slate-800" />
+                <Skeleton className="h-4 w-12 rounded bg-slate-800/60" />
+              </div>
+              <Skeleton className="h-7 w-20 rounded-lg bg-slate-800" />
+              <Skeleton className="h-8 w-full rounded-lg bg-slate-800/50" />
             </div>
-            <Skeleton className="h-7 w-20 rounded-lg" />
-            <Skeleton className="h-8 w-full rounded-lg" />
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </section>
     )
   }
 
   return (
-    <div className={cn('grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3 sm:gap-4', className)}>
-      {metrics.map((kpi) => (
-        <GitHubKPICard
-          key={kpi.id}
-          kpi={kpi}
-          isSelected={selectedKpiId === kpi.id}
-          onClick={() => onCardClick?.(kpi)}
-        />
-      ))}
-    </div>
+    <section aria-label="Executive GitHub KPIs" className="w-full">
+      <div className={cn('grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-3.5 lg:gap-4 w-full', className)}>
+        {metrics.map((kpi) => (
+          <GitHubKPICard
+            key={kpi.id}
+            kpi={kpi}
+            isSelected={selectedKpiId === kpi.id}
+            onClick={() => onCardClick?.(kpi)}
+          />
+        ))}
+      </div>
+    </section>
   )
 }

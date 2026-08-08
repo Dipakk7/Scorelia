@@ -17,31 +17,33 @@ export const ContributionTimeline: React.FC<ContributionTimelineProps> = ({
   return (
     <div
       className={cn(
-        'p-5 rounded-2xl border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md shadow-sm flex flex-col justify-between space-y-4 text-left font-sans',
+        'p-5 sm:p-6 rounded-2xl border border-white/10 bg-[#121426]/90 backdrop-blur-md shadow-xl shadow-purple-950/10 flex flex-col justify-between space-y-4 text-left font-sans',
         className
       )}
     >
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-1.5 font-bold text-sm text-[var(--heading)]">
+          <div className="flex items-center gap-1.5 font-bold text-sm text-white">
             <Calendar size={15} className="text-purple-400" />
             <span>Contribution Timeline</span>
             <span title="Contributions heat distribution">
-              <HelpCircle size={13} className="text-[var(--muted)] cursor-pointer" />
+              <HelpCircle size={13} className="text-slate-400 cursor-pointer hover:text-white transition-colors" />
             </span>
           </div>
-          <p className="text-[11px] text-[var(--muted)] m-0 mt-0.5">When your contributions happened</p>
+          <p className="text-[11px] text-slate-400 m-0 mt-0.5">When your contributions happened</p>
         </div>
-        <div className="px-2.5 py-1 text-[11px] font-semibold rounded-lg bg-[var(--surface-hover)] text-[var(--muted)] border border-[var(--border)] cursor-pointer select-none">
+        <div className="px-2.5 py-1 text-[11px] font-semibold rounded-lg bg-slate-900 border border-slate-700/80 text-slate-300 font-mono select-none">
           Last 30 Days ▾
         </div>
       </div>
 
       <ContributionHeatmap timeline={timeline} />
 
-      <div className="pt-2 border-t border-[var(--border)]/50 flex items-center justify-between">
+      <div className="pt-2 border-t border-white/5 flex items-center justify-between">
         <AnalyticsChartLegend variant="heatmap" />
       </div>
     </div>
   )
 }
+
+export default ContributionTimeline

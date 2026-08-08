@@ -11,16 +11,16 @@ export interface GitHubSidebarProps {
 export const GitHubSidebar: React.FC<GitHubSidebarProps> = ({ isLoading = false, className }) => {
   if (isLoading) {
     return (
-      <div className={cn('space-y-6', className)}>
-        <Skeleton className="h-64 rounded-2xl" />
-        <Skeleton className="h-64 rounded-2xl" />
-        <Skeleton className="h-48 rounded-2xl" />
+      <div className={cn('space-y-4 sm:space-y-5 lg:space-y-6 w-full', className)}>
+        <Skeleton className="h-48 rounded-2xl w-full" />
+        <Skeleton className="h-48 rounded-2xl w-full" />
+        <Skeleton className="h-36 rounded-2xl w-full" />
       </div>
     )
   }
 
   return (
-    <div className={cn('space-y-6 text-left font-sans', className)}>
+    <div className={cn('space-y-4 sm:space-y-5 lg:space-y-6 text-left font-sans w-full', className)}>
       <AIInsightsWorkspace isLoading={isLoading} />
     </div>
   )

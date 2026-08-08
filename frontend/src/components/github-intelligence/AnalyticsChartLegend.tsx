@@ -20,7 +20,7 @@ export const AnalyticsChartLegend: React.FC<AnalyticsChartLegendProps> = ({
 }) => {
   if (variant === 'heatmap') {
     return (
-      <div className={cn('flex items-center gap-2 text-[10px] text-[var(--muted)] select-none', className)}>
+      <div className={cn('flex items-center gap-2 text-[10px] text-slate-400 select-none font-mono', className)}>
         <span>Less</span>
         <div className="flex gap-1.5 items-center">
           <span className="h-3 w-3 rounded-[3px] bg-emerald-950/40 border border-emerald-900/40" title="0 contributions" />
@@ -36,16 +36,18 @@ export const AnalyticsChartLegend: React.FC<AnalyticsChartLegendProps> = ({
   if (!items || items.length === 0) return null
 
   return (
-    <div className={cn('flex flex-wrap items-center gap-x-4 gap-y-2 text-xs select-none', className)}>
+    <div className={cn('flex flex-wrap items-center gap-x-4 gap-y-2 text-xs select-none font-sans', className)}>
       {items.map((item) => (
         <div key={item.label} className="flex items-center gap-1.5">
           <span className="h-2.5 w-2.5 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
-          <span className="text-[var(--body)] font-medium text-[11px]">{item.label}</span>
+          <span className="text-slate-300 font-medium text-[11px]">{item.label}</span>
           {item.value !== undefined && (
-            <span className="text-[var(--heading)] font-bold text-[11px]">{item.value}</span>
+            <span className="text-white font-bold text-[11px] font-mono">{item.value}</span>
           )}
         </div>
       ))}
     </div>
   )
 }
+
+export default AnalyticsChartLegend

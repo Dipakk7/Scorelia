@@ -118,13 +118,13 @@ export const RepositoryIntelligenceWorkspace: React.FC<RepositoryIntelligenceWor
     healthFilter !== 'all'
 
   return (
-    <div className={cn('space-y-6 w-full text-left font-sans', className)}>
+    <div className={cn('space-y-4 sm:space-y-5 lg:space-y-6 w-full text-left font-sans', className)}>
       {/* 1. Statistics Panel */}
       <RepositoryStatisticsPanel summary={summary} />
 
       {/* 2. Search & Toolbar */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 p-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md shadow-sm">
-        <div className="flex-1">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl border border-white/10 bg-[#121426]/90 backdrop-blur-md shadow-sm">
+        <div className="flex-1 w-full md:max-w-md lg:max-w-lg">
           <RepositorySearchBar value={searchQuery} onChange={setSearchQuery} />
         </div>
         <RepositoryFilterBar
@@ -159,7 +159,7 @@ export const RepositoryIntelligenceWorkspace: React.FC<RepositoryIntelligenceWor
           </div>
 
           {/* Mobile Card Grid */}
-          <div className="grid grid-cols-1 gap-4 md:hidden w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:hidden w-full">
             {paginatedRepositories.map((repo) => (
               <RepositoryCard key={repo.id} repo={repo} onOpenRepo={onOpenRepo} />
             ))}

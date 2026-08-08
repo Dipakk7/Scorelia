@@ -39,15 +39,15 @@ export const RepositoryStatisticsPanel: React.FC<RepositoryStatisticsPanelProps>
         return (
           <div
             key={card.label}
-            className="p-3 rounded-2xl border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md shadow-sm hover:border-purple-500/40 transition-all text-left flex flex-col justify-between"
+            className="p-3 rounded-2xl border border-white/10 bg-[#121426]/90 backdrop-blur-md shadow-sm hover:border-purple-500/40 hover:bg-[#15172a] transition-all text-left flex flex-col justify-between"
           >
             <div className="flex items-center justify-between gap-1 mb-1">
-              <span className="text-[10px] font-semibold text-[var(--muted)] truncate">{card.label}</span>
+              <span className="text-[10px] font-semibold text-slate-400 truncate">{card.label}</span>
               <div className={cn('p-1 rounded-lg border', card.bg)}>
                 <Icon size={12} className={card.color} />
               </div>
             </div>
-            <div className="text-lg font-extrabold font-display text-[var(--heading)] tracking-tight">
+            <div className="text-lg font-extrabold font-mono text-white tracking-tight">
               {card.value}
             </div>
           </div>
@@ -56,3 +56,5 @@ export const RepositoryStatisticsPanel: React.FC<RepositoryStatisticsPanelProps>
     </div>
   )
 }
+
+export default RepositoryStatisticsPanel

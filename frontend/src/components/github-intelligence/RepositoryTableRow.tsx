@@ -19,23 +19,23 @@ export const RepositoryTableRow: React.FC<RepositoryTableRowProps> = ({
     <tr
       tabIndex={0}
       className={cn(
-        'group hover:bg-[var(--surface-hover)]/70 transition-colors duration-150 border-b border-[var(--border)]/60 text-xs font-sans',
-        'focus-visible:outline-none focus-visible:bg-[var(--surface-hover)]',
+        'group hover:bg-purple-950/20 transition-colors duration-150 border-b border-white/5 text-xs font-sans select-none',
+        'focus-visible:outline-none focus-visible:bg-purple-950/30',
         className
       )}
     >
       {/* Repo Details */}
-      <td className="py-3 px-4 text-left">
+      <td className="py-3.5 px-4 text-left">
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 shrink-0">
             <Code2 size={16} />
           </div>
           <div className="min-w-0">
-            <div className="font-bold text-sm text-[var(--heading)] flex items-center gap-2">
-              <span className="truncate group-hover:text-purple-400 transition-colors">{repo.name}</span>
+            <div className="font-bold text-sm text-white flex items-center gap-2">
+              <span className="truncate group-hover:text-purple-300 transition-colors">{repo.name}</span>
               <span
                 className={cn(
-                  'text-[9px] font-mono px-1.5 py-0.2 rounded border uppercase tracking-wider',
+                  'text-[9px] font-mono px-1.5 py-0.5 rounded border uppercase tracking-wider',
                   repo.visibility === 'Public'
                     ? 'border-emerald-500/30 text-emerald-400 bg-emerald-500/10'
                     : 'border-sky-500/30 text-sky-400 bg-sky-500/10'
@@ -44,7 +44,7 @@ export const RepositoryTableRow: React.FC<RepositoryTableRowProps> = ({
                 {repo.visibility}
               </span>
             </div>
-            <div className="text-[11px] text-[var(--muted)] truncate max-w-xs sm:max-w-sm mt-0.5">
+            <div className="text-[11px] text-slate-400 truncate max-w-xs sm:max-w-sm mt-0.5 font-sans">
               {repo.description}
             </div>
           </div>
@@ -52,8 +52,8 @@ export const RepositoryTableRow: React.FC<RepositoryTableRowProps> = ({
       </td>
 
       {/* Language */}
-      <td className="py-3 px-3 text-left">
-        <span className="inline-flex items-center gap-1.5 font-medium text-[var(--heading)]">
+      <td className="py-3.5 px-3 text-left">
+        <span className="inline-flex items-center gap-1.5 font-medium text-slate-200">
           <span
             className="h-2.5 w-2.5 rounded-full shrink-0"
             style={{ backgroundColor: repo.languageColor }}
@@ -63,7 +63,7 @@ export const RepositoryTableRow: React.FC<RepositoryTableRowProps> = ({
       </td>
 
       {/* Stars */}
-      <td className="py-3 px-3 text-center font-bold text-[var(--heading)]">
+      <td className="py-3.5 px-3 text-center font-bold text-slate-200 font-mono">
         <span className="inline-flex items-center gap-1">
           <Star size={13} className="text-amber-400 fill-amber-400/20" />
           {repo.stars}
@@ -71,7 +71,7 @@ export const RepositoryTableRow: React.FC<RepositoryTableRowProps> = ({
       </td>
 
       {/* Forks */}
-      <td className="py-3 px-3 text-center font-bold text-[var(--heading)]">
+      <td className="py-3.5 px-3 text-center font-bold text-slate-200 font-mono">
         <span className="inline-flex items-center gap-1">
           <GitFork size={13} className="text-sky-400" />
           {repo.forks}
@@ -79,7 +79,7 @@ export const RepositoryTableRow: React.FC<RepositoryTableRowProps> = ({
       </td>
 
       {/* Issues */}
-      <td className="py-3 px-3 text-center font-bold text-[var(--heading)]">
+      <td className="py-3.5 px-3 text-center font-bold text-slate-200 font-mono">
         <span className="inline-flex items-center gap-1">
           <AlertCircle size={13} className="text-amber-400" />
           {repo.issues}
@@ -87,7 +87,7 @@ export const RepositoryTableRow: React.FC<RepositoryTableRowProps> = ({
       </td>
 
       {/* PRs */}
-      <td className="py-3 px-3 text-center font-bold text-[var(--heading)]">
+      <td className="py-3.5 px-3 text-center font-bold text-slate-200 font-mono">
         <span className="inline-flex items-center gap-1">
           <GitPullRequest size={13} className="text-emerald-400" />
           {repo.pullRequests}
@@ -95,22 +95,22 @@ export const RepositoryTableRow: React.FC<RepositoryTableRowProps> = ({
       </td>
 
       {/* Last Commit */}
-      <td className="py-3 px-3 text-center text-[var(--muted)] font-medium">
+      <td className="py-3.5 px-3 text-center text-slate-400 font-medium font-sans">
         {repo.lastCommit}
       </td>
 
       {/* Health */}
-      <td className="py-3 px-3 text-center">
+      <td className="py-3.5 px-3 text-center">
         <RepositoryHealthBadge health={repo.health} />
       </td>
 
       {/* Actions */}
-      <td className="py-3 px-4 text-right">
+      <td className="py-3.5 px-4 text-right">
         <button
           type="button"
           onClick={() => onOpenRepo?.(repo)}
           aria-label={`Open repository ${repo.name}`}
-          className="p-1.5 rounded-lg border border-[var(--border)] bg-[var(--surface-hover)] text-[var(--muted)] hover:text-purple-400 hover:border-purple-500/40 transition-all cursor-pointer"
+          className="p-1.5 rounded-lg border border-slate-700/80 bg-slate-900/80 text-slate-400 hover:text-purple-300 hover:border-purple-500/40 hover:bg-slate-800 transition-all cursor-pointer"
         >
           <ExternalLink size={14} />
         </button>
@@ -118,3 +118,5 @@ export const RepositoryTableRow: React.FC<RepositoryTableRowProps> = ({
     </tr>
   )
 }
+
+export default RepositoryTableRow

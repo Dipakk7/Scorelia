@@ -20,25 +20,19 @@ export const ContributionTypesChart: React.FC<ContributionTypesChartProps> = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
-  const legendItems = types.map((t) => ({
-    label: t.label,
-    color: t.color,
-    value: `${t.value} (${t.percentage}%)`,
-  }))
-
   return (
     <div
       className={cn(
-        'p-5 rounded-2xl border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md shadow-sm flex flex-col justify-between space-y-4 text-left font-sans',
+        'p-5 sm:p-6 rounded-2xl border border-white/10 bg-[#121426]/90 backdrop-blur-md shadow-xl shadow-purple-950/10 flex flex-col justify-between space-y-4 text-left font-sans',
         className
       )}
     >
       <div>
         <div className="flex items-center gap-2">
           <PieIcon size={16} className="text-purple-400" />
-          <h3 className="font-bold text-sm text-[var(--heading)] m-0">Contribution Types</h3>
+          <h3 className="font-bold text-sm text-white m-0">Contribution Types</h3>
         </div>
-        <p className="text-[11px] text-[var(--muted)] m-0 mt-0.5">What your contributions were</p>
+        <p className="text-[11px] text-slate-400 m-0 mt-0.5">What your contributions were</p>
       </div>
 
       <div className="flex items-center gap-4 py-1">
@@ -74,8 +68,8 @@ export const ContributionTypesChart: React.FC<ContributionTypesChartProps> = ({
                   if (active && payload && payload.length) {
                     const data = payload[0].payload as ContributionTypeMetric
                     return (
-                      <div className="p-2 rounded-xl bg-[var(--heading)] text-[var(--surface)] text-[10px] font-bold shadow-lg">
-                        <div>{data.label}</div>
+                      <div className="p-2.5 rounded-xl bg-slate-950 text-white border border-slate-700/80 text-[10px] font-bold shadow-xl space-y-0.5">
+                        <div className="text-slate-300">{data.label}</div>
                         <div className="text-purple-400 font-mono">{data.value} ({data.percentage}%)</div>
                       </div>
                     )
@@ -86,8 +80,8 @@ export const ContributionTypesChart: React.FC<ContributionTypesChartProps> = ({
             </PieChart>
           </ResponsiveContainer>
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 text-center">
-            <span className="text-lg font-black text-[var(--heading)]">{totalContributions}</span>
-            <span className="text-[9px] font-semibold text-[var(--muted)] uppercase">Total</span>
+            <span className="text-lg font-black text-white font-mono">{totalContributions}</span>
+            <span className="text-[9px] font-semibold text-slate-400 uppercase font-mono">Total</span>
           </div>
         </div>
 
@@ -97,28 +91,30 @@ export const ContributionTypesChart: React.FC<ContributionTypesChartProps> = ({
             <div
               key={t.label}
               className={cn(
-                'flex items-center justify-between p-1 rounded-lg transition-colors',
-                activeIndex === i ? 'bg-[var(--surface-hover)]' : ''
+                'flex items-center justify-between p-1.5 rounded-lg transition-colors',
+                activeIndex === i ? 'bg-slate-850' : 'hover:bg-slate-900/60'
               )}
             >
-              <span className="flex items-center gap-1.5 text-[var(--body)] font-medium">
-                <span className="h-2 w-2 rounded-full" style={{ backgroundColor: t.color }} /> {t.label}
+              <span className="flex items-center gap-1.5 text-slate-300 font-medium">
+                <span className="h-2 w-2 rounded-full shrink-0" style={{ backgroundColor: t.color }} /> {t.label}
               </span>
-              <span className="font-semibold text-[var(--heading)]">{t.value} ({t.percentage}%)</span>
+              <span className="font-bold text-white font-mono">{t.value} ({t.percentage}%)</span>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="pt-2 text-center border-t border-[var(--border)]/50">
+      <div className="pt-2 text-center border-t border-white/5">
         <button
           type="button"
           onClick={onViewDetails}
-          className="text-xs font-semibold text-purple-400 hover:text-purple-300 inline-flex items-center gap-1 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-md px-2 py-1"
+          className="text-xs font-semibold text-purple-400 hover:text-purple-300 inline-flex items-center gap-1 cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 rounded-md px-2 py-1"
         >
-          View full contribution analytics <ChevronRight size={13} />
+          <span>View full contribution analytics</span> <ChevronRight size={13} />
         </button>
       </div>
     </div>
   )
 }
+
+export default ContributionTypesChart

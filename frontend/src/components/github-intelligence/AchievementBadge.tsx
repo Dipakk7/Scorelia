@@ -20,7 +20,7 @@ export const AchievementBadge: React.FC<AchievementBadgeProps> = ({ achievement,
   return (
     <div
       className={cn(
-        'p-3 rounded-xl border border-[var(--border)] bg-[var(--surface-hover)]/40 flex items-center justify-between gap-3 font-sans text-xs text-left select-none',
+        'p-3 sm:p-3.5 rounded-xl border border-slate-700/80 bg-slate-900/80 hover:bg-slate-850 transition-colors flex items-center justify-between gap-3 font-sans text-xs text-left select-none',
         className
       )}
     >
@@ -29,11 +29,13 @@ export const AchievementBadge: React.FC<AchievementBadgeProps> = ({ achievement,
           <Icon size={16} />
         </div>
         <div className="min-w-0">
-          <div className="font-bold text-sm text-[var(--heading)] truncate">{achievement.title}</div>
-          <div className="text-[10px] text-[var(--muted)] truncate mt-0.5">{achievement.description}</div>
+          <div className="font-bold text-sm text-white truncate">{achievement.title}</div>
+          <div className="text-[10px] text-slate-400 truncate mt-0.5 font-sans">{achievement.description}</div>
         </div>
       </div>
-      <span className="text-[10px] text-[var(--muted)] font-medium shrink-0">{achievement.earnedAt}</span>
+      <span className="text-[10px] text-slate-400 font-mono shrink-0">{achievement.earnedAt}</span>
     </div>
   )
 }
+
+export default AchievementBadge

@@ -32,7 +32,7 @@ export const AIConfidenceBadge: React.FC<AIConfidenceBadgeProps> = ({
       title={`AI Confidence Level: ${confidence}% (${activeLevel})`}
       aria-label={`AI Confidence: ${confidence}% ${activeLevel}`}
       className={cn(
-        'inline-flex items-center gap-1 px-2 py-0.5 text-[9px] font-mono font-bold rounded-full border select-none transition-colors',
+        'inline-flex items-center gap-1.5 px-2 py-0.5 text-[9px] font-mono font-bold rounded-md border select-none transition-colors',
         config.bg,
         config.text,
         config.border,
@@ -44,3 +44,5 @@ export const AIConfidenceBadge: React.FC<AIConfidenceBadgeProps> = ({
     </span>
   )
 }
+
+export default AIConfidenceBadge

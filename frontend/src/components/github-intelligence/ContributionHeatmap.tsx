@@ -25,7 +25,7 @@ export const ContributionHeatmap: React.FC<ContributionHeatmapProps> = ({
   return (
     <div className={cn('space-y-2 select-none overflow-x-auto scrollbar-none py-1', className)}>
       {/* Month Separator Legend Header */}
-      <div className="flex items-center justify-between text-[10px] text-[var(--muted)] font-mono px-7">
+      <div className="flex items-center justify-between text-[10px] text-slate-400 font-mono px-7">
         <span>Apr 21</span>
         <span>Apr 28</span>
         <span>May 5</span>
@@ -35,7 +35,7 @@ export const ContributionHeatmap: React.FC<ContributionHeatmapProps> = ({
 
       <div className="flex items-center gap-2 min-w-max">
         {/* Day Labels */}
-        <div className="flex flex-col justify-between text-[9px] text-[var(--muted)] font-mono h-24 shrink-0 pr-1">
+        <div className="flex flex-col justify-between text-[9px] text-slate-400 font-mono h-24 shrink-0 pr-1">
           {DAYS_SHORT.map((day) => (
             <span key={day}>{day}</span>
           ))}
@@ -63,10 +63,12 @@ export const ContributionHeatmap: React.FC<ContributionHeatmapProps> = ({
 
       {/* Hover Tooltip Overlay */}
       {hoveredDay && (
-        <div className="text-center text-[10px] font-medium text-purple-400 font-mono py-0.5 animate-fade-in">
+        <div className="text-center text-[10px] font-medium text-purple-300 font-mono py-0.5 animate-fade-in">
           {hoveredDay.count} contributions on {hoveredDay.date} ({hoveredDay.day})
         </div>
       )}
     </div>
   )
 }
+
+export default ContributionHeatmap

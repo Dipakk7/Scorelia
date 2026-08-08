@@ -36,44 +36,44 @@ export const DeveloperPerformanceWorkspace: React.FC<DeveloperPerformanceWorkspa
   }
 
   return (
-    <div className={cn('space-y-6 w-full text-left font-sans', className)}>
+    <div className={cn('space-y-4 sm:space-y-5 lg:space-y-6 w-full text-left font-sans', className)}>
       {/* ROW 1: Code Quality Overview (6 cols) & Performance Cards (6 cols) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-        <div className="lg:col-span-6 w-full">
-          <CodeQualityOverview metrics={data.codeQuality} />
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-stretch">
+        <div className="lg:col-span-6 w-full flex flex-col">
+          <CodeQualityOverview metrics={data.codeQuality} className="h-full" />
         </div>
-        <div className="lg:col-span-6 w-full">
-          <DeveloperPerformanceCards productivity={data.productivity} />
+        <div className="lg:col-span-6 w-full flex flex-col">
+          <DeveloperPerformanceCards productivity={data.productivity} className="h-full" />
         </div>
       </div>
 
       {/* ROW 2: Commit Activity Chart (6 cols) & Pull Request Metrics (6 cols) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-        <div className="lg:col-span-6 w-full">
-          <CommitActivityChart activity={data.commitActivity} />
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-stretch">
+        <div className="lg:col-span-6 w-full flex flex-col">
+          <CommitActivityChart activity={data.commitActivity} className="h-full" />
         </div>
-        <div className="lg:col-span-6 w-full">
-          <PullRequestMetrics metrics={data.pullRequests} />
+        <div className="lg:col-span-6 w-full flex flex-col">
+          <PullRequestMetrics metrics={data.pullRequests} className="h-full" />
         </div>
       </div>
 
       {/* ROW 3: Code Review Metrics (6 cols) & Issue Resolution Metrics (6 cols) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-        <div className="lg:col-span-6 w-full">
-          <CodeReviewMetrics metrics={data.codeReviews} />
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-stretch">
+        <div className="lg:col-span-6 w-full flex flex-col">
+          <CodeReviewMetrics metrics={data.codeReviews} className="h-full" />
         </div>
-        <div className="lg:col-span-6 w-full">
-          <IssueResolutionMetrics metrics={data.issueResolution} />
+        <div className="lg:col-span-6 w-full flex flex-col">
+          <IssueResolutionMetrics metrics={data.issueResolution} className="h-full" />
         </div>
       </div>
 
       {/* ROW 4: Merge Statistics (6 cols) & Productivity Insights (6 cols) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-        <div className="lg:col-span-6 w-full">
-          <MergeStatistics metrics={data.mergeStatistics} />
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-stretch">
+        <div className="lg:col-span-6 w-full flex flex-col">
+          <MergeStatistics metrics={data.mergeStatistics} className="h-full" />
         </div>
-        <div className="lg:col-span-6 w-full">
-          <ProductivityInsights productivity={data.productivity} />
+        <div className="lg:col-span-6 w-full flex flex-col">
+          <ProductivityInsights productivity={data.productivity} className="h-full" />
         </div>
       </div>
     </div>

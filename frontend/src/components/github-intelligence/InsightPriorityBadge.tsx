@@ -28,7 +28,7 @@ export const InsightPriorityBadge: React.FC<InsightPriorityBadgeProps> = ({
     <span
       aria-label={`Priority: ${config.label}`}
       className={cn(
-        'inline-flex items-center gap-1 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded-md border select-none transition-colors',
+        'inline-flex items-center gap-1 px-2 py-0.5 text-[9px] font-bold font-mono uppercase tracking-wider rounded-md border select-none transition-colors',
         config.bg,
         config.text,
         config.border,
@@ -39,3 +39,5 @@ export const InsightPriorityBadge: React.FC<InsightPriorityBadgeProps> = ({
     </span>
   )
 }
+
+export default InsightPriorityBadge

@@ -45,17 +45,17 @@ export const RepositorySortMenu: React.FC<RepositorySortMenuProps> = ({
 
   return (
     <div className={cn('relative inline-block text-left select-none', className)}>
-      <div className="inline-flex items-center rounded-xl border border-[var(--border)] bg-[var(--surface-hover)]/80">
+      <div className="inline-flex items-center rounded-xl border border-slate-700/80 bg-slate-900/80">
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
           aria-label="Sort repositories"
-          className="inline-flex items-center gap-1.5 h-10 px-3 text-xs font-semibold text-[var(--heading)] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-l-xl"
+          className="inline-flex items-center gap-1.5 h-10 px-3 text-xs font-semibold text-slate-200 hover:text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 rounded-l-xl"
         >
-          <ArrowUpDown size={13} className="text-[var(--muted)]" />
+          <ArrowUpDown size={13} className="text-slate-400" />
           <span className="whitespace-nowrap">Sort: {activeOption.label}</span>
-          <ChevronDown size={13} className="text-[var(--muted)]" />
+          <ChevronDown size={13} className="text-slate-400" />
         </button>
 
         <button
@@ -63,7 +63,7 @@ export const RepositorySortMenu: React.FC<RepositorySortMenuProps> = ({
           onClick={toggleOrder}
           title={`Order: ${sortOrder === 'asc' ? 'Ascending' : 'Descending'}`}
           aria-label={`Toggle sort direction to ${sortOrder === 'asc' ? 'Descending' : 'Ascending'}`}
-          className="h-10 px-2 text-xs font-bold text-purple-400 border-l border-[var(--border)] hover:bg-[var(--border)]/40 cursor-pointer rounded-r-xl"
+          className="h-10 px-2 text-xs font-bold font-mono text-purple-400 border-l border-slate-700/80 hover:bg-slate-800 cursor-pointer rounded-r-xl"
         >
           {sortOrder === 'asc' ? '↑ ASC' : '↓ DESC'}
         </button>
@@ -72,7 +72,7 @@ export const RepositorySortMenu: React.FC<RepositorySortMenuProps> = ({
       {isOpen && (
         <>
           <div className="fixed inset-0 z-20" onClick={() => setIsOpen(false)} />
-          <div className="absolute right-0 mt-2 w-48 rounded-xl border border-[var(--border)] bg-[var(--surface)] shadow-lg z-30 py-1 font-sans">
+          <div className="absolute right-0 mt-2 w-48 rounded-xl border border-white/10 bg-[#121426] shadow-2xl shadow-purple-950/40 z-30 py-1 font-sans">
             {SORT_OPTIONS.map((opt) => {
               const isSelected = opt.field === sortField
               return (
@@ -82,7 +82,7 @@ export const RepositorySortMenu: React.FC<RepositorySortMenuProps> = ({
                   onClick={() => handleSelect(opt.field)}
                   className={cn(
                     'w-full text-left px-3.5 py-2 text-xs font-medium cursor-pointer flex items-center justify-between transition-colors',
-                    isSelected ? 'bg-purple-500/10 text-purple-400 font-semibold' : 'text-[var(--body)] hover:bg-[var(--surface-hover)]'
+                    isSelected ? 'bg-purple-500/10 text-purple-300 font-semibold' : 'text-slate-300 hover:bg-slate-800/80 hover:text-white'
                   )}
                 >
                   <span>{opt.label}</span>
@@ -96,3 +96,5 @@ export const RepositorySortMenu: React.FC<RepositorySortMenuProps> = ({
     </div>
   )
 }
+
+export default RepositorySortMenu

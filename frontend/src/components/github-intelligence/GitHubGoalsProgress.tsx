@@ -16,7 +16,7 @@ export const GitHubGoalsProgress: React.FC<GitHubGoalsProgressProps> = ({
   return (
     <div
       className={cn(
-        'p-5 rounded-2xl border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md shadow-sm space-y-4 font-sans text-left',
+        'p-5 sm:p-6 rounded-2xl border border-white/10 bg-[#121426]/90 backdrop-blur-md shadow-xl shadow-purple-950/10 space-y-4 font-sans text-left',
         className
       )}
     >
@@ -24,11 +24,11 @@ export const GitHubGoalsProgress: React.FC<GitHubGoalsProgressProps> = ({
         <div>
           <div className="flex items-center gap-2">
             <Target size={16} className="text-purple-400" />
-            <h3 className="font-bold text-sm text-[var(--heading)] m-0">GitHub Engineering Goals</h3>
+            <h3 className="font-bold text-sm text-white m-0">GitHub Engineering Goals</h3>
           </div>
-          <p className="text-[11px] text-[var(--muted)] m-0 mt-0.5">Target milestones & progress tracking</p>
+          <p className="text-[11px] text-slate-400 m-0 mt-0.5">Target milestones & progress tracking</p>
         </div>
-        <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">
+        <span className="px-2.5 py-1 text-[10px] font-bold font-mono rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">
           Monthly
         </span>
       </div>
@@ -41,3 +41,5 @@ export const GitHubGoalsProgress: React.FC<GitHubGoalsProgressProps> = ({
     </div>
   )
 }
+
+export default GitHubGoalsProgress

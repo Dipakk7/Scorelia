@@ -20,8 +20,8 @@ export interface GitHubSettingsWorkspaceProps {
 export const GitHubSettingsWorkspace: React.FC<GitHubSettingsWorkspaceProps> = ({
   isLoading = false,
   isConnected = true,
-  username = 'Octocat',
-  lastSyncedAt = 'Just now',
+  username = 'dipak',
+  lastSyncedAt = '2 min ago',
   rateLimit = { limit: 5000, remaining: 4850, reset_in_seconds: 3600 },
   onSync,
   onReconnect,
@@ -33,10 +33,10 @@ export const GitHubSettingsWorkspace: React.FC<GitHubSettingsWorkspaceProps> = (
 
   if (isLoading) {
     return (
-      <div className={cn('p-6 rounded-3xl border border-[var(--border)] bg-[var(--surface)]/70 animate-pulse space-y-6', className)}>
-        <div className="h-8 w-48 bg-[var(--surface-hover)] rounded-xl" />
-        <div className="h-32 w-full bg-[var(--surface-hover)] rounded-2xl" />
-        <div className="h-48 w-full bg-[var(--surface-hover)] rounded-2xl" />
+      <div className={cn('p-6 rounded-2xl border border-white/10 bg-[#121426]/70 animate-pulse space-y-6', className)}>
+        <div className="h-8 w-48 bg-slate-800 rounded-xl" />
+        <div className="h-32 w-full bg-slate-800 rounded-2xl" />
+        <div className="h-48 w-full bg-slate-800 rounded-2xl" />
       </div>
     )
   }
@@ -44,31 +44,31 @@ export const GitHubSettingsWorkspace: React.FC<GitHubSettingsWorkspaceProps> = (
   const rateLimitPercentage = Math.round((rateLimit.remaining / rateLimit.limit) * 100)
 
   return (
-    <div className={cn('space-y-6 w-full text-left font-sans', className)}>
+    <div className={cn('space-y-4 sm:space-y-5 lg:space-y-6 w-full text-left font-sans', className)}>
       {/* 1. Settings Header */}
-      <div className="flex items-center justify-between p-5 rounded-3xl border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md shadow-sm">
+      <div className="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-white/10 bg-[#121426]/90 backdrop-blur-md shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="p-3 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
-            <Settings size={22} />
+          <div className="p-2.5 sm:p-3 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
+            <Settings size={20} />
           </div>
           <div>
-            <h3 className="text-base font-bold text-[var(--heading)] m-0">GitHub Intelligence Settings</h3>
-            <p className="text-xs text-[var(--muted)] m-0">Manage connection, sync rules, and rate limits</p>
+            <h3 className="text-sm sm:text-base font-bold text-white m-0">GitHub Intelligence Settings</h3>
+            <p className="text-xs text-slate-400 m-0">Manage connection, sync rules, and rate limits</p>
           </div>
         </div>
       </div>
 
       {/* 2. Connection Status & Account Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="p-6 rounded-3xl border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md shadow-sm space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 lg:gap-6">
+        <div className="p-5 sm:p-6 rounded-2xl border border-white/10 bg-[#121426]/90 backdrop-blur-md shadow-sm space-y-4">
           <div className="flex items-center justify-between">
-            <h4 className="text-sm font-bold text-[var(--heading)] m-0 flex items-center gap-2">
+            <h4 className="text-sm font-bold text-white m-0 flex items-center gap-2">
               <Key size={16} className="text-purple-400" />
               <span>Authentication Status</span>
             </h4>
             <span
               className={cn(
-                'inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full border',
+                'inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold font-mono rounded-full border',
                 isConnected
                   ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                   : 'bg-rose-500/10 text-rose-400 border-rose-500/20'
@@ -79,14 +79,14 @@ export const GitHubSettingsWorkspace: React.FC<GitHubSettingsWorkspaceProps> = (
             </span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[var(--surface-hover)]/40 border border-[var(--border)] space-y-2">
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-[var(--muted)]">GitHub Account</span>
-              <span className="font-semibold text-[var(--heading)]">@{username}</span>
+          <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-2">
+            <div className="flex items-center justify-between text-xs font-mono">
+              <span className="text-slate-400 font-sans">GitHub Account</span>
+              <span className="font-semibold text-white">@{username}</span>
             </div>
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-[var(--muted)]">Last Synchronized</span>
-              <span className="font-semibold text-[var(--heading)]">{lastSyncedAt}</span>
+            <div className="flex items-center justify-between text-xs font-mono">
+              <span className="text-slate-400 font-sans">Last Synchronized</span>
+              <span className="font-semibold text-white">{lastSyncedAt}</span>
             </div>
           </div>
 
@@ -94,7 +94,7 @@ export const GitHubSettingsWorkspace: React.FC<GitHubSettingsWorkspaceProps> = (
             <button
               type="button"
               onClick={onSync}
-              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-semibold rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-all cursor-pointer"
+              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-semibold rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md shadow-purple-950/20 transition-all cursor-pointer"
             >
               <RefreshCw size={14} />
               <span>Trigger Manual Sync</span>
@@ -103,7 +103,7 @@ export const GitHubSettingsWorkspace: React.FC<GitHubSettingsWorkspaceProps> = (
               <button
                 type="button"
                 onClick={onReconnect}
-                className="px-4 py-2.5 text-xs font-semibold rounded-xl border border-[var(--border)] bg-[var(--surface-hover)] text-[var(--heading)] hover:bg-[var(--border)] transition-all cursor-pointer"
+                className="px-4 py-2.5 text-xs font-semibold rounded-xl border border-slate-700/80 bg-slate-900/80 text-slate-300 hover:text-white hover:bg-slate-800 transition-all cursor-pointer"
               >
                 Reconnect
               </button>
@@ -112,20 +112,20 @@ export const GitHubSettingsWorkspace: React.FC<GitHubSettingsWorkspaceProps> = (
         </div>
 
         {/* Rate Limit Info */}
-        <div className="p-6 rounded-3xl border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md shadow-sm space-y-4">
-          <h4 className="text-sm font-bold text-[var(--heading)] m-0 flex items-center gap-2">
+        <div className="p-5 sm:p-6 rounded-2xl border border-white/10 bg-[#121426]/90 backdrop-blur-md shadow-sm space-y-4">
+          <h4 className="text-sm font-bold text-white m-0 flex items-center gap-2">
             <Shield size={16} className="text-sky-400" />
             <span>GitHub API Rate Limit</span>
           </h4>
 
           <div className="space-y-2">
-            <div className="flex justify-between items-center text-xs">
-              <span className="text-[var(--muted)]">Remaining Requests</span>
-              <span className="font-bold text-[var(--heading)]">
+            <div className="flex justify-between items-center text-xs font-mono">
+              <span className="text-slate-400 font-sans">Remaining Requests</span>
+              <span className="font-bold text-white">
                 {rateLimit.remaining.toLocaleString()} / {rateLimit.limit.toLocaleString()} ({rateLimitPercentage}%)
               </span>
             </div>
-            <div className="w-full h-3 rounded-full bg-[var(--surface-hover)] overflow-hidden border border-[var(--border)]">
+            <div className="w-full h-3 rounded-full bg-slate-900 overflow-hidden border border-slate-700/80">
               <div
                 className="h-full bg-gradient-to-r from-purple-500 to-sky-400 transition-all duration-500 rounded-full"
                 style={{ width: `${rateLimitPercentage}%` }}
@@ -133,9 +133,9 @@ export const GitHubSettingsWorkspace: React.FC<GitHubSettingsWorkspaceProps> = (
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[var(--surface-hover)]/40 border border-[var(--border)] space-y-1">
-            <span className="text-xs text-[var(--muted)]">Rate Limit Reset Window</span>
-            <p className="text-xs font-semibold text-[var(--heading)] m-0">
+          <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-700/80 space-y-1">
+            <span className="text-xs text-slate-400">Rate Limit Reset Window</span>
+            <p className="text-xs font-semibold text-white m-0 font-mono">
               Resets in approx {Math.ceil(rateLimit.reset_in_seconds / 60)} minutes
             </p>
           </div>
@@ -143,16 +143,16 @@ export const GitHubSettingsWorkspace: React.FC<GitHubSettingsWorkspaceProps> = (
       </div>
 
       {/* 3. Sync & Cache Preferences */}
-      <div className="p-6 rounded-3xl border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md shadow-sm space-y-6">
-        <h4 className="text-sm font-bold text-[var(--heading)] m-0 flex items-center gap-2">
+      <div className="p-5 sm:p-6 rounded-2xl border border-white/10 bg-[#121426]/90 backdrop-blur-md shadow-sm space-y-5">
+        <h4 className="text-sm font-bold text-white m-0 flex items-center gap-2">
           <Database size={16} className="text-emerald-400" />
           <span>Synchronization Preferences</span>
         </h4>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="p-4 rounded-2xl border border-[var(--border)] bg-[var(--surface-hover)]/30 space-y-2">
-            <label className="flex items-center justify-between text-xs font-semibold text-[var(--heading)] cursor-pointer">
-              <span>Automatic Background Sync</span>
+          <div className="p-4 rounded-xl border border-slate-700/80 bg-slate-900/60 space-y-2">
+            <label className="flex items-center justify-between text-xs font-semibold text-white cursor-pointer">
+              <span>Auto Background Sync</span>
               <input
                 type="checkbox"
                 checked={autoSync}
@@ -160,15 +160,15 @@ export const GitHubSettingsWorkspace: React.FC<GitHubSettingsWorkspaceProps> = (
                 className="rounded text-purple-600 focus:ring-purple-500 cursor-pointer"
               />
             </label>
-            <p className="text-[11px] text-[var(--muted)] m-0">Keep metrics refreshed automatically</p>
+            <p className="text-[11px] text-slate-400 m-0">Keep metrics refreshed automatically</p>
           </div>
 
-          <div className="p-4 rounded-2xl border border-[var(--border)] bg-[var(--surface-hover)]/30 space-y-2">
-            <label className="text-xs font-semibold text-[var(--heading)] block">Sync Frequency</label>
+          <div className="p-4 rounded-xl border border-slate-700/80 bg-slate-900/60 space-y-2">
+            <label className="text-xs font-semibold text-white block">Sync Frequency</label>
             <select
               value={syncFrequency}
               onChange={(e) => setSyncFrequency(e.target.value)}
-              className="w-full text-xs bg-[var(--surface)] border border-[var(--border)] text-[var(--heading)] rounded-xl p-2 focus:ring-2 focus:ring-purple-500 cursor-pointer"
+              className="w-full text-xs bg-slate-900 border border-slate-700/80 text-white rounded-lg p-2 focus:ring-2 focus:ring-purple-400 cursor-pointer"
             >
               <option value="15m">Every 15 minutes</option>
               <option value="1h">Every 1 hour</option>
@@ -177,12 +177,12 @@ export const GitHubSettingsWorkspace: React.FC<GitHubSettingsWorkspaceProps> = (
             </select>
           </div>
 
-          <div className="p-4 rounded-2xl border border-[var(--border)] bg-[var(--surface-hover)]/30 space-y-2">
-            <label className="text-xs font-semibold text-[var(--heading)] block">Cache Retention</label>
+          <div className="p-4 rounded-xl border border-slate-700/80 bg-slate-900/60 space-y-2">
+            <label className="text-xs font-semibold text-white block">Cache Retention</label>
             <select
               value={cacheDuration}
               onChange={(e) => setCacheDuration(e.target.value)}
-              className="w-full text-xs bg-[var(--surface)] border border-[var(--border)] text-[var(--heading)] rounded-xl p-2 focus:ring-2 focus:ring-purple-500 cursor-pointer"
+              className="w-full text-xs bg-slate-900 border border-slate-700/80 text-white rounded-lg p-2 focus:ring-2 focus:ring-purple-400 cursor-pointer"
             >
               <option value="12h">12 Hours</option>
               <option value="24h">24 Hours</option>

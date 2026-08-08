@@ -31,23 +31,24 @@ export const RepositoryAnalyticsWorkspace: React.FC<RepositoryAnalyticsWorkspace
   }
 
   return (
-    <div className={cn('grid grid-cols-1 lg:grid-cols-12 gap-6 w-full text-left font-sans', className)}>
+    <div className={cn('grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 w-full text-left font-sans items-stretch', className)}>
       {/* Panel 1: Contribution Timeline Heatmap (5 cols) */}
-      <div className="lg:col-span-5 w-full">
-        <ContributionTimeline timeline={data.timeline} />
+      <div className="lg:col-span-5 w-full flex flex-col">
+        <ContributionTimeline timeline={data.timeline} className="h-full" />
       </div>
 
       {/* Panel 2: Contribution Types Donut Chart (4 cols) */}
-      <div className="lg:col-span-4 w-full">
+      <div className="lg:col-span-4 w-full flex flex-col">
         <ContributionTypesChart
           types={data.contributionTypes}
           totalContributions={data.totalContributions}
+          className="h-full"
         />
       </div>
 
       {/* Panel 3: Top Languages Progress Bars (3 cols) */}
-      <div className="lg:col-span-3 w-full">
-        <TopLanguagesPanel languages={data.languages} />
+      <div className="lg:col-span-3 w-full flex flex-col">
+        <TopLanguagesPanel languages={data.languages} className="h-full" />
       </div>
     </div>
   )

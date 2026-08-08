@@ -36,8 +36,8 @@ export const RepositoryFilterBar: React.FC<RepositoryFilterBarProps> = ({
   return (
     <div className={cn('flex flex-wrap items-center justify-between gap-3 w-full font-sans select-none', className)}>
       <div className="flex flex-wrap items-center gap-2.5 flex-1">
-        <div className="flex items-center gap-1.5 text-xs font-bold text-[var(--muted)] shrink-0 pr-1">
-          <Filter size={14} />
+        <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400 shrink-0 pr-1">
+          <Filter size={14} className="text-purple-400" />
           <span>Filters:</span>
         </div>
 
@@ -46,7 +46,7 @@ export const RepositoryFilterBar: React.FC<RepositoryFilterBarProps> = ({
           value={visibilityFilter}
           onChange={(e) => onVisibilityChange?.(e.target.value)}
           aria-label="Filter by visibility"
-          className="h-10 px-3 text-xs font-semibold rounded-xl border border-[var(--border)] bg-[var(--surface-hover)]/80 text-[var(--heading)] focus:outline-none focus:ring-2 focus:ring-purple-500 cursor-pointer"
+          className="h-10 px-3 text-xs font-semibold rounded-xl border border-slate-700/80 bg-slate-900/80 text-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-400 cursor-pointer"
         >
           <option value="all">All Visibilities</option>
           <option value="Public">Public Only</option>
@@ -58,7 +58,7 @@ export const RepositoryFilterBar: React.FC<RepositoryFilterBarProps> = ({
           value={languageFilter}
           onChange={(e) => onLanguageChange?.(e.target.value)}
           aria-label="Filter by language"
-          className="h-10 px-3 text-xs font-semibold rounded-xl border border-[var(--border)] bg-[var(--surface-hover)]/80 text-[var(--heading)] focus:outline-none focus:ring-2 focus:ring-purple-500 cursor-pointer"
+          className="h-10 px-3 text-xs font-semibold rounded-xl border border-slate-700/80 bg-slate-900/80 text-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-400 cursor-pointer"
         >
           <option value="all">All Languages</option>
           <option value="TypeScript">TypeScript</option>
@@ -73,7 +73,7 @@ export const RepositoryFilterBar: React.FC<RepositoryFilterBarProps> = ({
           value={healthFilter}
           onChange={(e) => onHealthChange?.(e.target.value)}
           aria-label="Filter by health rating"
-          className="h-10 px-3 text-xs font-semibold rounded-xl border border-[var(--border)] bg-[var(--surface-hover)]/80 text-[var(--heading)] focus:outline-none focus:ring-2 focus:ring-purple-500 cursor-pointer"
+          className="h-10 px-3 text-xs font-semibold rounded-xl border border-slate-700/80 bg-slate-900/80 text-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-400 cursor-pointer"
         >
           <option value="all">All Health Ratings</option>
           <option value="Excellent">Excellent</option>
@@ -88,7 +88,7 @@ export const RepositoryFilterBar: React.FC<RepositoryFilterBarProps> = ({
           <button
             type="button"
             onClick={onResetFilters}
-            className="inline-flex items-center gap-1 h-10 px-3 text-xs font-semibold text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-xl transition-all cursor-pointer"
+            className="inline-flex items-center gap-1 h-10 px-3 text-xs font-semibold text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-xl transition-all cursor-pointer border border-rose-500/20"
           >
             <RotateCcw size={12} />
             <span>Reset</span>
@@ -105,3 +105,5 @@ export const RepositoryFilterBar: React.FC<RepositoryFilterBarProps> = ({
     </div>
   )
 }
+
+export default RepositoryFilterBar

@@ -36,24 +36,36 @@ export const AIInsightsWorkspace: React.FC<AIInsightsWorkspaceProps> = ({
   }
 
   return (
-    <div className={cn('space-y-6 w-full text-left font-sans', className)}>
-      {/* AI Engineering Insights */}
-      <AIInsightsPanel insights={data.insights} />
+    <div className={cn('space-y-4 sm:space-y-5 lg:space-y-6 w-full text-left font-sans', className)}>
+      {/* ROW 1: AI Engineering Insights (7 cols) & Smart Recommendations (5 cols) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-stretch">
+        <div className="lg:col-span-7 w-full flex flex-col">
+          <AIInsightsPanel insights={data.insights} className="h-full" />
+        </div>
+        <div className="lg:col-span-5 w-full flex flex-col">
+          <SmartRecommendations recommendations={data.recommendations} className="h-full" />
+        </div>
+      </div>
 
-      {/* Smart Recommendations */}
-      <SmartRecommendations recommendations={data.recommendations} />
+      {/* ROW 2: Weekly Engineering Summary (6 cols) & GitHub Goals Progress (6 cols) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-stretch">
+        <div className="lg:col-span-6 w-full flex flex-col">
+          <WeeklyEngineeringSummary summary={data.weeklySummary[0]} className="h-full" />
+        </div>
+        <div className="lg:col-span-6 w-full flex flex-col">
+          <GitHubGoalsProgress goals={data.goals} className="h-full" />
+        </div>
+      </div>
 
-      {/* Live Activity Feed Timeline */}
-      <ActivityFeedTimeline items={data.activityFeed} />
-
-      {/* Weekly Executive Summary */}
-      <WeeklyEngineeringSummary summary={data.weeklySummary[0]} />
-
-      {/* GitHub Goals Progress */}
-      <GitHubGoalsProgress goals={data.goals} />
-
-      {/* Achievements Timeline */}
-      <AchievementTimeline achievements={data.achievements} />
+      {/* ROW 3: Live Realtime Activity Timeline (7 cols) & Achievements & Badges (5 cols) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 items-stretch">
+        <div className="lg:col-span-7 w-full flex flex-col">
+          <ActivityFeedTimeline items={data.activityFeed} className="h-full" />
+        </div>
+        <div className="lg:col-span-5 w-full flex flex-col">
+          <AchievementTimeline achievements={data.achievements} className="h-full" />
+        </div>
+      </div>
     </div>
   )
 }

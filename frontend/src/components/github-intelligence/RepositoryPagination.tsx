@@ -27,23 +27,23 @@ export const RepositoryPagination: React.FC<RepositoryPaginationProps> = ({
   return (
     <div
       className={cn(
-        'flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md font-sans text-xs select-none',
+        'flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl border border-white/10 bg-[#121426]/90 backdrop-blur-md font-sans text-xs select-none shadow-sm',
         className
       )}
     >
-      <div className="flex items-center gap-3 text-[var(--muted)] font-medium">
+      <div className="flex items-center gap-3 text-slate-400 font-medium">
         <span>
-          Showing <strong className="text-[var(--heading)] font-bold">{startItem}–{endItem}</strong> of{' '}
-          <strong className="text-[var(--heading)] font-bold">{totalItems}</strong> repositories
+          Showing <strong className="text-white font-bold font-mono">{startItem}–{endItem}</strong> of{' '}
+          <strong className="text-white font-bold font-mono">{totalItems}</strong> repositories
         </span>
 
-        <div className="flex items-center gap-1.5 pl-3 border-l border-[var(--border)]">
-          <label htmlFor="repo-page-size" className="text-[11px]">Per page:</label>
+        <div className="flex items-center gap-1.5 pl-3 border-l border-white/10">
+          <label htmlFor="repo-page-size" className="text-[11px] text-slate-400">Per page:</label>
           <select
             id="repo-page-size"
             value={pageSize}
             onChange={(e) => onPageSizeChange?.(Number(e.target.value))}
-            className="h-8 px-2 text-xs font-bold rounded-lg border border-[var(--border)] bg-[var(--surface-hover)] text-[var(--heading)] focus:outline-none focus:ring-2 focus:ring-purple-500 cursor-pointer"
+            className="h-8 px-2 text-xs font-bold rounded-lg border border-slate-700/80 bg-slate-900/80 text-white focus:outline-none focus:ring-2 focus:ring-purple-400 cursor-pointer"
           >
             <option value={5}>5</option>
             <option value={10}>10</option>
@@ -58,7 +58,7 @@ export const RepositoryPagination: React.FC<RepositoryPaginationProps> = ({
           disabled={currentPage <= 1}
           onClick={() => onPageChange?.(currentPage - 1)}
           aria-label="Previous Page"
-          className="inline-flex items-center justify-center h-8 px-3 rounded-lg border border-[var(--border)] bg-[var(--surface-hover)]/80 text-[var(--heading)] hover:bg-[var(--border)]/50 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
+          className="inline-flex items-center justify-center h-8 px-3 rounded-lg border border-slate-700/80 bg-slate-900/80 text-slate-200 hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer text-xs font-semibold"
         >
           <ChevronLeft size={14} />
           <span>Prev</span>
@@ -74,10 +74,10 @@ export const RepositoryPagination: React.FC<RepositoryPaginationProps> = ({
               onClick={() => onPageChange?.(pageNum)}
               aria-current={isActive ? 'page' : undefined}
               className={cn(
-                'inline-flex items-center justify-center h-8 w-8 text-xs font-bold rounded-lg transition-all cursor-pointer border',
+                'inline-flex items-center justify-center h-8 w-8 text-xs font-bold font-mono rounded-lg transition-all cursor-pointer border',
                 isActive
-                  ? 'bg-purple-600 text-white border-purple-500 shadow-md'
-                  : 'border-[var(--border)] bg-[var(--surface-hover)]/80 text-[var(--heading)] hover:bg-[var(--border)]/50'
+                  ? 'bg-purple-600 text-white border-purple-500 shadow-md shadow-purple-950/30'
+                  : 'border-slate-700/80 bg-slate-900/80 text-slate-300 hover:bg-slate-800 hover:text-white'
               )}
             >
               {pageNum}
@@ -90,7 +90,7 @@ export const RepositoryPagination: React.FC<RepositoryPaginationProps> = ({
           disabled={currentPage >= totalPages}
           onClick={() => onPageChange?.(currentPage + 1)}
           aria-label="Next Page"
-          className="inline-flex items-center justify-center h-8 px-3 rounded-lg border border-[var(--border)] bg-[var(--surface-hover)]/80 text-[var(--heading)] hover:bg-[var(--border)]/50 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer"
+          className="inline-flex items-center justify-center h-8 px-3 rounded-lg border border-slate-700/80 bg-slate-900/80 text-slate-200 hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer text-xs font-semibold"
         >
           <span>Next</span>
           <ChevronRight size={14} />
@@ -99,3 +99,5 @@ export const RepositoryPagination: React.FC<RepositoryPaginationProps> = ({
     </div>
   )
 }
+
+export default RepositoryPagination

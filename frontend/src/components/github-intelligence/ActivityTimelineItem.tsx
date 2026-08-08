@@ -27,25 +27,27 @@ export const ActivityTimelineItem: React.FC<ActivityTimelineItemProps> = ({ item
 
       <div className="flex-1 space-y-1 min-w-0 py-0.5">
         <div className="flex items-center justify-between gap-2">
-          <span className="font-bold text-[var(--heading)] group-hover:text-purple-400 transition-colors truncate">
+          <span className="font-bold text-white group-hover:text-purple-300 transition-colors truncate">
             {item.title}
           </span>
-          <span className="text-[10px] text-[var(--muted)] shrink-0 flex items-center gap-1 font-medium">
+          <span className="text-[10px] text-slate-400 shrink-0 flex items-center gap-1 font-medium font-mono">
             <Clock size={10} /> {item.timestamp}
           </span>
         </div>
 
-        <p className="text-[11px] text-[var(--muted)] m-0 truncate leading-normal">
+        <p className="text-xs text-slate-300 m-0 truncate leading-normal font-sans">
           {item.description}
         </p>
 
         <div className="flex items-center gap-2 pt-0.5 text-[10px]">
-          <span className="px-1.5 py-0.2 rounded border border-[var(--border)] bg-[var(--surface-hover)] text-[var(--heading)] font-mono">
+          <span className="px-1.5 py-0.5 rounded border border-slate-700/80 bg-slate-900 text-slate-300 font-mono">
             {item.repository}
           </span>
-          <span className="text-[var(--muted)] font-medium">by {item.author}</span>
+          <span className="text-slate-400 font-medium">by {item.author}</span>
         </div>
       </div>
     </div>
   )
 }
+
+export default ActivityTimelineItem

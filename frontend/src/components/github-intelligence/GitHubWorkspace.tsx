@@ -30,10 +30,10 @@ export interface GitHubWorkspaceProps {
 }
 
 export const GitHubWorkspaceSkeleton: React.FC = () => (
-  <div className="space-y-6 animate-pulse">
-    <Skeleton className="h-64 w-full rounded-3xl bg-[var(--surface-hover)]/60" />
-    <Skeleton className="h-96 w-full rounded-3xl bg-[var(--surface-hover)]/60" />
-    <Skeleton className="h-96 w-full rounded-3xl bg-[var(--surface-hover)]/60" />
+  <div className="space-y-4 sm:space-y-5 lg:space-y-6 animate-pulse w-full">
+    <Skeleton className="h-64 w-full rounded-2xl bg-slate-900 border border-white/10" />
+    <Skeleton className="h-96 w-full rounded-2xl bg-slate-900 border border-white/10" />
+    <Skeleton className="h-96 w-full rounded-2xl bg-slate-900 border border-white/10" />
   </div>
 )
 
@@ -72,10 +72,10 @@ export const GitHubWorkspace: React.FC<GitHubWorkspaceProps> = ({
 
   return (
     <GitHubErrorBoundary sectionName={`GitHub Workspace Tab (${activeTab})`} onReset={onRetry}>
-      <div className={cn('space-y-6 text-left font-sans min-h-[400px]', className)}>
+      <div className={cn('space-y-4 sm:space-y-5 lg:space-y-6 text-left font-sans w-full', className)}>
         <Suspense fallback={<GitHubWorkspaceSkeleton />}>
           {activeTab === 'overview' && (
-            <>
+            <div className="space-y-4 sm:space-y-5 lg:space-y-6 w-full">
               <RepositoryAnalyticsWorkspace data={analyticsData} isLoading={isLoading} onSync={onSync} />
               <RepositoryIntelligenceWorkspace
                 summary={repositoriesData?.summary}
@@ -84,7 +84,7 @@ export const GitHubWorkspace: React.FC<GitHubWorkspaceProps> = ({
                 onSync={onSync}
               />
               <DeveloperPerformanceWorkspace data={developerMetricsData} isLoading={isLoading} onSync={onSync} />
-            </>
+            </div>
           )}
 
           {activeTab === 'repositories' && (

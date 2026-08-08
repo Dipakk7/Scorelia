@@ -21,7 +21,7 @@ export const GitHubOfflineBanner: React.FC<GitHubOfflineBannerProps> = ({
     <div
       role="alert"
       className={cn(
-        'p-3 px-4 rounded-2xl border border-purple-500/30 bg-purple-500/10 backdrop-blur-md shadow-sm font-sans text-xs flex flex-wrap items-center justify-between gap-3 text-left select-none',
+        'p-3 px-4 rounded-2xl border border-purple-500/30 bg-purple-950/20 backdrop-blur-md shadow-lg font-sans text-xs flex flex-wrap items-center justify-between gap-3 text-left select-none',
         className
       )}
     >
@@ -30,9 +30,9 @@ export const GitHubOfflineBanner: React.FC<GitHubOfflineBannerProps> = ({
           <WifiOff size={14} />
         </div>
         <div className="truncate">
-          <span className="font-bold text-[var(--heading)]">Working Offline: </span>
-          <span className="text-[var(--muted)]">Displaying cached GitHub intelligence data.</span>
-          <span className="text-[10px] text-[var(--muted)] font-mono ml-2 inline-flex items-center gap-1">
+          <span className="font-bold text-white">Working Offline: </span>
+          <span className="text-slate-300">Displaying cached GitHub intelligence data.</span>
+          <span className="text-[10px] text-slate-400 font-mono ml-2 inline-flex items-center gap-1">
             <Clock size={10} /> Last synced {lastSync}
           </span>
         </div>
@@ -42,7 +42,7 @@ export const GitHubOfflineBanner: React.FC<GitHubOfflineBannerProps> = ({
         <button
           type="button"
           onClick={onReconnect}
-          className="inline-flex items-center gap-1 px-3 py-1 text-[11px] font-bold rounded-lg bg-purple-600 hover:bg-purple-500 text-white shadow-sm transition-all cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+          className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-bold rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md shadow-purple-950/20 transition-all cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
         >
           <RefreshCw size={12} />
           <span>Reconnect</span>
@@ -51,3 +51,5 @@ export const GitHubOfflineBanner: React.FC<GitHubOfflineBannerProps> = ({
     </div>
   )
 }
+
+export default GitHubOfflineBanner

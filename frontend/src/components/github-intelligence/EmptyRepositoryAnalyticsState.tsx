@@ -14,7 +14,7 @@ export const EmptyRepositoryAnalyticsState: React.FC<EmptyRepositoryAnalyticsSta
   return (
     <div
       className={cn(
-        'flex flex-col items-center justify-center min-h-[280px] p-8 text-center rounded-3xl border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md shadow-sm space-y-4 font-sans',
+        'flex flex-col items-center justify-center min-h-[300px] p-8 text-center rounded-2xl border border-white/10 bg-[#121426]/90 backdrop-blur-md shadow-xl shadow-purple-950/10 space-y-4 font-sans select-none',
         className
       )}
     >
@@ -23,20 +23,24 @@ export const EmptyRepositoryAnalyticsState: React.FC<EmptyRepositoryAnalyticsSta
       </div>
 
       <div className="max-w-sm space-y-1">
-        <h4 className="text-base font-bold text-[var(--heading)] m-0">No Analytics Data Available</h4>
-        <p className="text-xs text-[var(--muted)] m-0 leading-relaxed">
+        <h4 className="text-base font-bold text-white m-0">No Analytics Data Available</h4>
+        <p className="text-xs text-slate-400 m-0 leading-relaxed font-sans">
           Sync your repository activity to populate contribution timelines, contribution breakdowns, and language statistics.
         </p>
       </div>
 
-      <button
-        type="button"
-        onClick={onSync}
-        className="inline-flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
-      >
-        <RefreshCw size={14} />
-        <span>Sync GitHub Data</span>
-      </button>
+      {onSync && (
+        <button
+          type="button"
+          onClick={onSync}
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md shadow-purple-950/20 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+        >
+          <RefreshCw size={14} />
+          <span>Sync GitHub Data</span>
+        </button>
+      )}
     </div>
   )
 }
+
+export default EmptyRepositoryAnalyticsState

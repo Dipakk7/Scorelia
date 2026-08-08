@@ -17,25 +17,25 @@ export const GoalProgressCard: React.FC<GoalProgressCardProps> = ({ goal, classN
   return (
     <div
       className={cn(
-        'p-3.5 rounded-xl border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md shadow-sm space-y-2 font-sans text-xs text-left select-none',
+        'p-3.5 sm:p-4 rounded-xl border border-slate-700/80 bg-slate-900/80 backdrop-blur-md shadow-sm space-y-2 font-sans text-xs text-left select-none',
         className
       )}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="font-bold text-[var(--heading)] truncate">{goal.goal}</span>
-        <span className={cn('px-2 py-0.5 text-[9px] font-bold rounded-md border', statusColor)}>
+        <span className="font-bold text-white truncate">{goal.goal}</span>
+        <span className={cn('px-2 py-0.5 text-[9px] font-bold font-mono rounded-md border', statusColor)}>
           {goal.status}
         </span>
       </div>
 
-      <div className="flex items-baseline justify-between text-[11px]">
-        <span className="text-[var(--muted)]">
-          <strong className="text-[var(--heading)]">{goal.current}</strong> / {goal.target} {goal.unit}
+      <div className="flex items-baseline justify-between text-[11px] font-mono">
+        <span className="text-slate-400 font-sans">
+          <strong className="text-white font-mono">{goal.current}</strong> / {goal.target} {goal.unit}
         </span>
         <span className="font-bold text-purple-400 font-mono">{goal.progress}%</span>
       </div>
 
-      <div className="h-1.5 w-full rounded-full bg-[var(--surface-hover)] overflow-hidden">
+      <div className="h-1.5 w-full rounded-full bg-slate-800 overflow-hidden">
         <div
           className="h-full rounded-full bg-gradient-to-r from-sky-400 to-purple-500 transition-all duration-300"
           style={{ width: `${Math.min(goal.progress, 100)}%` }}
@@ -44,3 +44,5 @@ export const GoalProgressCard: React.FC<GoalProgressCardProps> = ({ goal, classN
     </div>
   )
 }
+
+export default GoalProgressCard

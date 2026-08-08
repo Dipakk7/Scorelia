@@ -35,18 +35,18 @@ export const GitHubSyncButton: React.FC<GitHubSyncButtonProps> = ({
       aria-label="Sync GitHub Data"
       className={cn(
         'inline-flex items-center justify-center gap-2 h-10 px-4 text-xs font-semibold rounded-xl',
-        'bg-[var(--surface-hover)] hover:bg-[var(--border)]/50 text-[var(--heading)] border border-[var(--border)]',
+        'bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-slate-700/80',
         'transition-all duration-200 cursor-pointer active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 shadow-sm',
         className
       )}
     >
       {isLoading ? (
         <RefreshCw className="h-4 w-4 animate-spin text-purple-400" />
       ) : (
-        <Github size={16} className="text-[var(--heading)] shrink-0" />
+        <Github size={15} className="text-purple-400 shrink-0" />
       )}
-      <span className="whitespace-nowrap">Sync Now</span>
+      <span className="whitespace-nowrap">{isLoading ? 'Syncing...' : 'Sync Now'}</span>
     </button>
   )
 }

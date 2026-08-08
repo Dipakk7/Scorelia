@@ -33,50 +33,52 @@ export const MetricTrendCard: React.FC<MetricTrendCardProps> = ({
     <div
       tabIndex={0}
       className={cn(
-        'group p-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)]/70 backdrop-blur-md shadow-sm',
-        'hover:border-purple-500/40 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 text-left font-sans select-none flex flex-col justify-between space-y-3',
+        'group p-4 rounded-2xl border border-white/10 bg-[#121426]/90 backdrop-blur-md shadow-sm',
+        'hover:border-purple-500/40 hover:bg-[#15172a] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 text-left font-sans select-none flex flex-col justify-between space-y-3',
         className
       )}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[11px] font-semibold text-[var(--muted)] truncate group-hover:text-[var(--heading)] transition-colors">
+        <span className="text-xs font-bold text-slate-300 truncate group-hover:text-white transition-colors">
           {title}
         </span>
         {Icon && (
-          <div className="p-1.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20">
-            <Icon size={14} />
+          <div className="p-1.5 sm:p-2 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 shrink-0">
+            <Icon size={15} />
           </div>
         )}
       </div>
 
       <div className="space-y-1">
         <div className="flex items-baseline justify-between gap-2">
-          <span className="text-2xl font-extrabold font-display text-[var(--heading)] tracking-tight">
+          <span className="text-2xl sm:text-3xl font-extrabold font-mono text-white tracking-tight leading-none">
             {value}
           </span>
           <span
             className={cn(
-              'inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-bold rounded-md border',
+              'inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-bold font-mono rounded-md border shrink-0',
               isUp
                 ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                 : isDown
-                ? 'bg-amber-500/10 text-amber-400 border-amber-500/20'
-                : 'bg-[var(--surface-hover)] text-[var(--muted)] border-[var(--border)]'
+                ? 'bg-rose-500/10 text-rose-400 border-rose-500/20'
+                : 'bg-slate-800 text-slate-400 border-slate-700/60'
             )}
           >
-            {isUp ? <ArrowUpRight size={11} /> : isDown ? <ArrowDownRight size={11} /> : <Minus size={11} />}
+            {isUp ? <ArrowUpRight size={10} /> : isDown ? <ArrowDownRight size={10} /> : <Minus size={10} />}
             {trend}
           </span>
         </div>
-        <div className="text-[10px] text-[var(--muted)] font-medium truncate">{comparisonLabel}</div>
+        <div className="text-[10px] text-slate-500 font-medium truncate font-sans">{comparisonLabel}</div>
       </div>
 
       {sparklineData && (
         <div className="pt-1">
-          <GitHubSparkline data={sparklineData} color={statusColor} height={30} />
+          <GitHubSparkline data={sparklineData} color={statusColor} height={28} />
         </div>
       )}
     </div>
   )
 }
+
+export default MetricTrendCard

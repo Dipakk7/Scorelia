@@ -22,61 +22,65 @@ export const AIInsightCard: React.FC<AIInsightCardProps> = ({
     <div
       tabIndex={0}
       className={cn(
-        'group p-4 rounded-2xl border border-purple-500/20 bg-purple-500/5 backdrop-blur-md shadow-sm space-y-3 font-sans text-left text-xs',
-        'hover:border-purple-500/40 hover:shadow-md transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 select-none',
+        'group p-4 sm:p-5 rounded-2xl border border-purple-500/20 bg-purple-950/10 backdrop-blur-md shadow-sm space-y-3 font-sans text-left text-xs',
+        'hover:border-purple-500/40 hover:bg-purple-950/20 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-purple-950/20 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 select-none',
         className
       )}
     >
       <div className="flex items-start justify-between gap-2">
-        <div className="flex items-center gap-2 min-w-0">
-          <div className="p-1.5 rounded-lg bg-purple-500/10 text-purple-400 shrink-0">
-            <Sparkles size={15} />
+        <div className="flex items-center gap-2.5 min-w-0">
+          <div className="p-2 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 shrink-0">
+            <Sparkles size={16} />
           </div>
           <div className="min-w-0">
-            <div className="font-bold text-sm text-[var(--heading)] truncate group-hover:text-purple-400 transition-colors">
+            <div className="font-bold text-sm text-white truncate group-hover:text-purple-300 transition-colors">
               {insight.title}
             </div>
-            <div className="text-[10px] text-[var(--muted)] font-medium flex items-center gap-1.5 mt-0.5">
-              <span>{insight.category}</span>
+            <div className="text-[10px] text-slate-400 font-medium flex items-center gap-2 mt-0.5">
+              <span className="font-mono uppercase text-purple-400 bg-purple-500/10 border border-purple-500/20 px-1.5 py-0.5 rounded text-[9px]">
+                {insight.category}
+              </span>
               <span>•</span>
-              <span className="flex items-center gap-1">
+              <span className="flex items-center gap-1 font-mono">
                 <Clock size={10} /> {insight.generatedAt}
               </span>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-1 shrink-0">
+        <div className="flex items-center gap-1.5 shrink-0">
           <InsightPriorityBadge priority={insight.priority} />
           {onDismiss && (
             <button
               type="button"
               onClick={() => onDismiss(insight)}
               aria-label={`Dismiss insight ${insight.title}`}
-              className="p-1 text-[var(--muted)] hover:text-rose-400 rounded-md transition-colors cursor-pointer"
+              className="p-1 text-slate-400 hover:text-rose-400 rounded-lg hover:bg-rose-500/10 transition-colors cursor-pointer"
             >
-              <X size={13} />
+              <X size={14} />
             </button>
           )}
         </div>
       </div>
 
-      <p className="text-[11px] text-[var(--muted)] leading-relaxed m-0 line-clamp-2">
+      <p className="text-xs text-slate-300 leading-relaxed m-0 line-clamp-2 font-sans">
         {insight.description}
       </p>
 
-      <div className="flex items-center justify-between pt-2 border-t border-purple-500/10 text-[10px]">
+      <div className="flex items-center justify-between pt-2.5 border-t border-purple-500/10 text-[10px]">
         <AIConfidenceBadge confidence={insight.confidence} level={insight.confidenceLevel} />
 
         <button
           type="button"
           onClick={() => onViewDetails?.(insight)}
-          className="inline-flex items-center gap-1 text-[11px] font-bold text-purple-400 hover:text-purple-300 transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1 text-xs font-bold text-purple-400 hover:text-purple-300 transition-colors cursor-pointer"
         >
-          <span>Action</span>
-          <ArrowRight size={12} />
+          <span>View Details</span>
+          <ArrowRight size={13} />
         </button>
       </div>
     </div>
   )
 }
+
+export default AIInsightCard

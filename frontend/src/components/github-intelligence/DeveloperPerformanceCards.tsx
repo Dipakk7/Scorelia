@@ -14,7 +14,7 @@ export const DeveloperPerformanceCards: React.FC<DeveloperPerformanceCardsProps>
   className,
 }) => {
   return (
-    <div className={cn('grid grid-cols-1 sm:grid-cols-2 gap-4 font-sans select-none', className)}>
+    <div className={cn('grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 font-sans select-none', className)}>
       <MetricTrendCard
         title="Developer Score"
         value={`${productivity.developerScore}/100`}
@@ -61,3 +61,5 @@ export const DeveloperPerformanceCards: React.FC<DeveloperPerformanceCardsProps>
     </div>
   )
 }
+
+export default DeveloperPerformanceCards

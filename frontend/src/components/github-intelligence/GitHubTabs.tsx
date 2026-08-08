@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useRef, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import {
   LayoutDashboard,
   FolderGit2,
   Activity,
   ShieldCheck,
   GitPullRequest,
-  Sparkles,
   Award,
+  Sparkles,
   Settings,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -21,13 +22,19 @@ export type GitHubTabId =
   | 'deep_insights'
   | 'settings'
 
+export interface TabItem {
+  id: GitHubTabId
+  label: string
+  icon: React.ElementType
+}
+
 export interface GitHubTabsProps {
   activeTab?: GitHubTabId
   onTabChange?: (tab: GitHubTabId) => void
   className?: string
 }
 
-export const GITHUB_TABS: { id: GitHubTabId; label: string; icon: React.ElementType }[] = [
+export const GITHUB_TABS: TabItem[] = [
   { id: 'overview', label: 'Overview', icon: LayoutDashboard },
   { id: 'repositories', label: 'Repositories', icon: FolderGit2 },
   { id: 'activity', label: 'Activity', icon: Activity },
@@ -43,42 +50,67 @@ export const GitHubTabs: React.FC<GitHubTabsProps> = ({
   onTabChange,
   className,
 }) => {
-  const [internalTab, setInternalTab] = useState<GitHubTabId>(activeTab)
-  const currentTab = onTabChange ? activeTab : internalTab
+  const activeTabRef = useRef<HTMLButtonElement | null>(null)
 
-  const handleSelect = (tabId: GitHubTabId) => {
-    if (!onTabChange) {
-      setInternalTab(tabId)
-    } else {
-      onTabChange(tabId)
+  useEffect(() => {
+    if (activeTabRef.current) {
+      activeTabRef.current.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
     }
-  }
+  }, [activeTab])
 
   return (
-    <div className={cn('w-full border-b border-[var(--border)] overflow-x-auto scrollbar-none', className)}>
-      <nav aria-label="GitHub Intelligence Navigation" className="flex items-center gap-1 min-w-max pb-px">
+    <div
+      className={cn(
+        'sticky top-2 z-30 backdrop-blur-md bg-[#111322]/85 border border-white/10 p-1.5 rounded-2xl shadow-xl transition-all overflow-x-auto scrollbar-none text-left',
+        className
+      )}
+    >
+      <nav
+        role="tablist"
+        aria-label="GitHub Intelligence Workspace Sections"
+        className="flex items-center gap-1.5 p-1 bg-[#0b0c14]/70 border border-white/5 rounded-xl w-max min-w-full sm:min-w-0 select-none"
+      >
         {GITHUB_TABS.map((tab) => {
           const Icon = tab.icon
-          const isActive = tab.id === currentTab
+          const isActive = tab.id === activeTab
+
           return (
             <button
               key={tab.id}
+              ref={isActive ? activeTabRef : null}
               type="button"
-              onClick={() => handleSelect(tab.id)}
-              aria-selected={isActive}
               role="tab"
+              id={`github-tab-${tab.id}`}
+              aria-controls={`github-tabpanel-${tab.id}`}
+              aria-selected={isActive}
+              onClick={() => onTabChange && onTabChange(tab.id)}
               className={cn(
-                'relative flex items-center gap-2 px-4 py-2.5 text-xs font-semibold rounded-xl transition-all cursor-pointer border',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500',
+                'relative flex items-center gap-2 px-4 py-2.5 min-h-[44px] rounded-lg text-xs transition-all duration-200 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none whitespace-nowrap cursor-pointer select-none z-10',
                 isActive
-                  ? 'bg-purple-500/10 text-purple-400 border-purple-500/30 shadow-sm'
-                  : 'text-[var(--muted)] hover:text-[var(--heading)] hover:bg-[var(--surface-hover)] border-transparent'
+                  ? 'text-white font-bold bg-purple-600/40 border border-purple-500/50 shadow-md shadow-purple-950/20'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 font-medium border border-transparent'
               )}
             >
-              <Icon size={14} className={isActive ? 'text-purple-400' : 'text-[var(--muted)]'} />
-              <span>{tab.label}</span>
+              <Icon
+                className={cn(
+                  'w-4 h-4 relative z-10 transition-colors duration-200 pointer-events-none shrink-0',
+                  isActive ? 'text-purple-200' : 'text-slate-400'
+                )}
+              />
+              <span
+                className={cn(
+                  'relative z-10 transition-colors duration-200 pointer-events-none',
+                  isActive ? 'text-white font-bold' : 'text-slate-400'
+                )}
+              >
+                {tab.label}
+              </span>
               {isActive && (
-                <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-purple-500 rounded-full shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
+                <motion.div
+                  layoutId="githubActiveTabIndicator"
+                  className="absolute inset-0 bg-purple-500/20 rounded-lg border border-purple-400/50 pointer-events-none z-0"
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                />
               )}
             </button>
           )
@@ -87,3 +119,5 @@ export const GitHubTabs: React.FC<GitHubTabsProps> = ({
     </div>
   )
 }
+
+export default GitHubTabs
