@@ -2,11 +2,7 @@ import React, { useState } from 'react'
 import { ChartToolbar } from './ChartToolbar'
 import type { TimeRangeType } from './ChartToolbar'
 import { TopChartsSection } from './TopChartsSection'
-import { PerformanceSection } from './PerformanceSection'
-import { InsightCardsSection } from './InsightCardsSection'
-import { BottomMetricsSection } from './BottomMetricsSection'
 import { AnalyticsChartSkeleton } from './AnalyticsChartSkeleton'
-import { EmptyChartState } from './EmptyChartState'
 import { useAnalyticsChartsWorkspace } from '@/services/analytics/analyticsQueries'
 import type { AnalyticsTabId } from './AnalyticsTabs'
 
@@ -32,7 +28,7 @@ export function AnalyticsChartsWorkspace({
   }
 
   return (
-    <div className={`space-y-6 lg:space-y-8 ${className}`}>
+    <div className={`space-y-4 sm:space-y-5 ${className}`}>
       {/* Chart Filter Toolbar */}
       <ChartToolbar
         timeRange={timeRange}
@@ -43,22 +39,10 @@ export function AnalyticsChartsWorkspace({
       {isLoading ? (
         <AnalyticsChartSkeleton />
       ) : (
-        <>
-          {/* Interactive Recharts Section */}
-          <TopChartsSection
-            data={chartsData}
-            onViewFullBreakdown={() => onNavigateTab?.('feature_usage')}
-          />
-
-          {/* Performance Section */}
-          <PerformanceSection />
-
-          {/* Insight Cards Section */}
-          <InsightCardsSection onNavigateTab={onNavigateTab} />
-
-          {/* Bottom Metrics Section */}
-          <BottomMetricsSection />
-        </>
+        <TopChartsSection
+          data={chartsData}
+          onViewFullBreakdown={() => onNavigateTab?.('feature_usage')}
+        />
       )}
     </div>
   )

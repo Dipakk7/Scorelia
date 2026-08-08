@@ -63,17 +63,17 @@ export function PerformanceMetricCard({
       onClick={onClick}
       role="article"
       aria-label={`${metric.title}: ${metric.value}. ${metric.trend}`}
-      className={`group relative flex flex-col justify-between p-4 rounded-2xl bg-[#0f101c] border border-white/10 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50 min-h-[140px] text-left ${className}`}
+      className={`group relative flex flex-col justify-between h-full p-3.5 sm:p-4 rounded-2xl bg-[#0f101c] border border-white/10 transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50 text-left ${className}`}
     >
       {/* Header: Icon Pill & Status Badge */}
       <div className="flex items-center justify-between gap-2 mb-2">
         <div className="flex items-center gap-2.5 min-w-0">
           <div
-            className={`p-2 rounded-xl border flex items-center justify-center shrink-0 ${metric.iconBg}`}
+            className={`p-1.5 sm:p-2 rounded-xl border flex items-center justify-center shrink-0 ${metric.iconBg}`}
           >
-            <IconComponent size={17} className="stroke-[2]" aria-hidden="true" />
+            <IconComponent size={16} className="stroke-[2]" aria-hidden="true" />
           </div>
-          <span className="text-xs font-semibold text-slate-400 group-hover:text-slate-200 transition-colors truncate">
+          <span className="text-xs font-bold text-slate-300 group-hover:text-white transition-colors truncate">
             {metric.title}
           </span>
         </div>
@@ -82,15 +82,15 @@ export function PerformanceMetricCard({
 
       {/* Primary Metric Value */}
       <div className="my-1">
-        <span className="text-2xl font-extrabold text-slate-100 font-mono tabular-nums tracking-tight leading-none block">
+        <span className="text-2xl sm:text-3xl font-extrabold text-slate-100 font-mono tabular-nums tracking-tight leading-none block">
           {metric.value}
         </span>
       </div>
 
       {/* Footer: Trend, Comparison & Sparkline */}
-      <div className="flex items-end justify-between pt-2 border-t border-white/5 gap-2">
+      <div className="flex items-end justify-between pt-2 border-t border-white/5 gap-2 mt-auto">
         <div className="flex flex-col text-left min-w-0">
-          <span className="text-xs font-bold text-emerald-400">{metric.trend}</span>
+          <span className="text-xs font-bold text-emerald-400 font-mono">{metric.trend}</span>
           <span className="text-[10px] font-medium text-slate-500 truncate mt-0.5">
             {metric.comparisonLabel}
           </span>

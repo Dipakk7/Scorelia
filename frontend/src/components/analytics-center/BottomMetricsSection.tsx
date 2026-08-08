@@ -75,7 +75,7 @@ const bottomMetrics: BottomMetricItem[] = [
 export function BottomMetricsSection({ className = '' }: { className?: string }) {
   return (
     <div
-      className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3.5 sm:gap-4 ${className}`}
+      className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-3.5 lg:gap-4 ${className}`}
       role="region"
       aria-label="Platform Operational Metrics"
     >
@@ -85,7 +85,7 @@ export function BottomMetricsSection({ className = '' }: { className?: string })
           <div
             key={item.id}
             tabIndex={0}
-            className="flex items-center gap-3.5 p-4 rounded-2xl bg-[#0f101c] border border-white/10 hover:border-purple-500/40 transition-all duration-200 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50"
+            className="flex items-center gap-3.5 h-full p-3.5 sm:p-4 rounded-2xl bg-[#0f101c] border border-white/10 hover:border-purple-500/40 transition-all duration-200 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50"
           >
             <div
               className={`p-2.5 rounded-xl border flex items-center justify-center shrink-0 ${item.iconBg}`}

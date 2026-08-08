@@ -15,15 +15,19 @@ export function QuickActionsPanel({
   onActionClick,
   className = '',
 }: QuickActionsPanelProps) {
-  return (
-    <div className={`space-y-3 text-left ${className}`}>
-      <span className="text-xs font-extrabold text-slate-100 flex items-center gap-1.5 font-display">
-        <SlidersHorizontal size={14} className="text-purple-400" />
-        Quick Actions
-      </span>
+  const visibleActions = actions.slice(0, 3)
 
-      <div className="space-y-2">
-        {actions.map((action) => (
+  return (
+    <div className={`space-y-2.5 text-left ${className}`}>
+      <div className="flex items-center justify-between">
+        <span className="text-xs font-extrabold text-slate-100 flex items-center gap-1.5 font-display">
+          <SlidersHorizontal size={13} className="text-purple-400" />
+          Quick Actions
+        </span>
+      </div>
+
+      <div className="space-y-1.5">
+        {visibleActions.map((action) => (
           <QuickActionCard key={action.id} action={action} onClick={onActionClick} />
         ))}
       </div>

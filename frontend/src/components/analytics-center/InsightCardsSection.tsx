@@ -72,25 +72,15 @@ export function InsightCardsSection({
   className = '',
 }: InsightCardsSectionProps) {
   return (
-    <div className={`grid grid-cols-1 xl:grid-cols-7 gap-3.5 sm:gap-4 ${className}`}>
-      {/* Promo Banner Box */}
-      <div className="xl:col-span-1 p-4 rounded-2xl bg-gradient-to-br from-purple-950/40 via-[#0f101c] to-[#0f101c] border border-purple-500/30 flex flex-col justify-between text-left">
-        <div className="space-y-1.5">
-          <span className="text-[10px] font-extrabold uppercase tracking-widest text-purple-400 flex items-center gap-1 font-mono">
-            <Sparkles size={12} className="animate-pulse" />
-            Deep Analytics
-          </span>
-          <h4 className="text-xs font-bold text-slate-100 leading-snug">
-            Explore deeper insights in other tabs
-          </h4>
-          <p className="text-[11px] text-slate-400 font-medium leading-relaxed m-0">
-            Our analytics center provides comprehensive insights across multiple dimensions.
-          </p>
-        </div>
+    <div className={`space-y-3 text-left ${className}`}>
+      <div className="flex items-center justify-between">
+        <span className="text-xs font-extrabold uppercase tracking-widest text-purple-400 flex items-center gap-1 font-mono">
+          <Sparkles size={12} className="animate-pulse" />
+          Deep Analytics Workspaces
+        </span>
       </div>
 
-      {/* 6 Insight Cards */}
-      <div className="xl:col-span-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3.5 sm:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-3.5 lg:gap-4">
         {insightCards.map((card) => {
           const Icon = card.icon
           return (
@@ -98,10 +88,10 @@ export function InsightCardsSection({
               key={card.id}
               type="button"
               onClick={() => onNavigateTab?.(card.id)}
-              className="group flex flex-col justify-between p-4 rounded-2xl bg-[#0f101c] border border-white/10 hover:border-purple-500/40 hover:bg-[#131424] transition-all duration-200 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50"
+              className="group flex flex-col justify-between p-3.5 rounded-2xl bg-[#0f101c] border border-white/10 hover:border-purple-500/40 hover:bg-[#131424] transition-all duration-200 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50 h-full"
             >
               <div>
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-2.5">
                   <div
                     className={`p-2 rounded-xl border flex items-center justify-center ${card.iconBg}`}
                   >

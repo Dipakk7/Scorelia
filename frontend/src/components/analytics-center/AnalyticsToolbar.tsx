@@ -14,27 +14,27 @@ export function AnalyticsToolbar({
 }: AnalyticsToolbarProps) {
   return (
     <div
-      className={`hidden md:flex items-center justify-between p-3 rounded-xl bg-[#0f101c]/80 border border-white/5 backdrop-blur-md text-xs text-slate-400 ${className}`}
+      className={`flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 rounded-2xl bg-[#121426]/90 border border-white/10 backdrop-blur-md text-xs text-slate-400 shadow-md transition-all ${className}`}
     >
-      <div className="flex items-center gap-3">
-        <span className="flex items-center gap-1.5 font-semibold text-slate-300">
-          <Layers size={14} className="text-purple-400" />
+      <div className="flex items-center gap-2.5">
+        <span className="flex items-center gap-1.5 font-bold text-slate-200">
+          <Layers size={15} className="text-purple-400 shrink-0" />
           Dashboard View:
         </span>
-        <span className="px-2.5 py-0.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 font-mono text-[11px] font-semibold">
+        <span className="px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 font-mono text-[11px] font-bold tracking-tight truncate">
           Executive Real-time Operational Intelligence
         </span>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2.5">
         {onCustomizeDashboard && (
           <button
             type="button"
             onClick={onCustomizeDashboard}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-purple-600/20 border border-purple-500/30 text-purple-300 hover:bg-purple-600/30 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/30 text-purple-200 font-semibold text-xs transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
             aria-label="Customize dashboard layout and widgets"
           >
-            <SlidersHorizontal size={13} className="shrink-0" />
+            <SlidersHorizontal size={13} className="shrink-0 text-purple-300" />
             <span>Customize Dashboard</span>
           </button>
         )}
@@ -42,10 +42,10 @@ export function AnalyticsToolbar({
         <button
           type="button"
           onClick={onRefresh}
-          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white font-semibold text-xs transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
           aria-label="Refresh analytics data"
         >
-          <RefreshCw size={13} className="shrink-0" />
+          <RefreshCw size={13} className="shrink-0 text-slate-400" />
           <span>Sync Data</span>
         </button>
       </div>

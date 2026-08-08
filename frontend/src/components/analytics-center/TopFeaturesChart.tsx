@@ -40,17 +40,20 @@ export function TopFeaturesChart({
 
   return (
     <div
-      className={`flex flex-col justify-between h-full p-5 rounded-2xl bg-[#0f101c] border border-white/10 text-left ${className}`}
+      className={`flex flex-col justify-between h-full p-4 sm:p-5 rounded-2xl bg-[#0f101c] border border-white/10 text-left shadow-sm ${className}`}
     >
-      {/* Header */}
-      <div>
-        <h3 className="text-sm sm:text-base font-bold text-slate-100 m-0 tracking-tight">
+      {/* Chart Header */}
+      <div className="mb-3">
+        <h3 className="text-sm sm:text-base font-bold text-slate-100 m-0 tracking-tight font-display">
           Top Features by Usage
         </h3>
+        <p className="text-xs text-slate-400 font-medium m-0 mt-0.5">
+          Workflow feature adoption & utilization breakdown
+        </p>
       </div>
 
-      {/* Donut Chart & Legend */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 my-3">
+      {/* Donut Chart & Legend List */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 my-2">
         {/* Recharts PieChart */}
         <div className="relative w-36 h-36 shrink-0 flex items-center justify-center">
           <ResponsiveContainer width="100%" height="100%">
@@ -104,7 +107,7 @@ export function TopFeaturesChart({
               key={item.feature}
               onMouseEnter={() => setActiveIndex(idx)}
               onMouseLeave={() => setActiveIndex(null)}
-              className={`flex items-center justify-between gap-2 p-1 rounded-lg transition-colors cursor-pointer ${
+              className={`flex items-center justify-between gap-2 p-1 px-1.5 rounded-lg transition-colors cursor-pointer ${
                 activeIndex === idx ? 'bg-white/5' : ''
               }`}
             >
@@ -124,7 +127,7 @@ export function TopFeaturesChart({
       </div>
 
       {/* Bottom Link */}
-      <div className="pt-2 border-t border-white/5 flex justify-end">
+      <div className="pt-2 border-t border-white/5 flex justify-end mt-auto">
         <button
           type="button"
           onClick={onViewFullBreakdown}

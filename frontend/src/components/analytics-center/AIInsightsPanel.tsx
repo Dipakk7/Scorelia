@@ -23,13 +23,13 @@ export function AIInsightsPanel({
   className = '',
 }: AIInsightsPanelProps) {
   return (
-    <div className={`space-y-5 text-left ${className}`}>
+    <div className={`space-y-4 text-left ${className}`}>
       {/* AI Insights Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <h3 className="text-xs font-extrabold text-slate-100 flex items-center gap-1.5 font-display m-0">
             <Sparkles size={14} className="text-purple-400 animate-pulse" />
-            AI Insights
+            AI Intelligence & Insights
           </h3>
           <span className="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-[10px] font-bold font-mono border border-purple-500/30">
             {insights.length} Active
@@ -55,7 +55,13 @@ export function AIInsightsPanel({
 
       {/* Executive Recommendations Sub-section */}
       {recommendations && recommendations.length > 0 && (
-        <div className="space-y-2.5 pt-2 border-t border-white/5">
+        <div className="space-y-2.5 pt-3 border-t border-white/10">
+          <div className="flex items-center justify-between mb-1">
+            <h4 className="text-xs font-bold text-slate-200 font-display flex items-center gap-1.5 m-0">
+              <Sparkles size={13} className="text-purple-400" />
+              Executive Recommendations
+            </h4>
+          </div>
           {recommendations.slice(0, 2).map((rec) => (
             <ExecutiveRecommendationCard
               key={rec.id}

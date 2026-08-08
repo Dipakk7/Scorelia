@@ -57,16 +57,16 @@ export function PlatformActivityChart({
 
   return (
     <div
-      className={`flex flex-col justify-between h-full p-5 rounded-2xl bg-[#0f101c] border border-white/10 text-left ${className}`}
+      className={`flex flex-col justify-between h-full p-4 sm:p-5 rounded-2xl bg-[#0f101c] border border-white/10 text-left shadow-sm ${className}`}
     >
-      {/* Header */}
-      <div className="flex items-start justify-between gap-2 mb-4">
+      {/* Chart Header */}
+      <div className="flex items-start justify-between gap-2 mb-3">
         <div>
-          <h3 className="text-sm sm:text-base font-bold text-slate-100 m-0 tracking-tight">
+          <h3 className="text-sm sm:text-base font-bold text-slate-100 m-0 tracking-tight font-display">
             Platform Activity
           </h3>
           <p className="text-xs text-slate-400 font-medium m-0 mt-0.5">
-            Total sessions over time
+            Daily session volume & platform engagement over time
           </p>
         </div>
         <button
@@ -78,8 +78,8 @@ export function PlatformActivityChart({
         </button>
       </div>
 
-      {/* Recharts Area/Line Chart */}
-      <div className="w-full h-56 my-1">
+      {/* Recharts Area/Line Primary Chart */}
+      <div className="w-full h-64 sm:h-72 my-1">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
             <defs>
@@ -89,7 +89,7 @@ export function PlatformActivityChart({
               </linearGradient>
             </defs>
 
-            <CartesianGrid strokeDasharray="3 3" stroke="#ffffff0d" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#ffffff0a" vertical={false} />
 
             <XAxis
               dataKey="displayDate"
@@ -116,7 +116,7 @@ export function PlatformActivityChart({
               stroke="#c084fc"
               strokeWidth={3}
               fill="url(#purpleSessionsGrad)"
-              activeDot={{ r: 6, fill: '#f43f5e', stroke: '#ffffff', strokeWidth: 2 }}
+              activeDot={{ r: 5, fill: '#c084fc', stroke: '#ffffff', strokeWidth: 2 }}
               {...animationProps}
             />
           </AreaChart>

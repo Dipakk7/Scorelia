@@ -21,10 +21,17 @@ export function TopChartsSection({
   className = '',
 }: TopChartsSectionProps) {
   return (
-    <div className={`grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-5 ${className}`}>
-      <PlatformActivityChart data={data.platformActivity} isLoading={isLoading} isEmpty={isEmpty} />
-      <ActiveUsersGrowthChart data={data.activeUsersGrowth} isLoading={isLoading} isEmpty={isEmpty} />
-      <TopFeaturesChart data={data.topFeatures} onViewFullBreakdown={onViewFullBreakdown} />
+    <div className={`space-y-4 sm:space-y-5 ${className}`}>
+      {/* Primary Chart: Full Width Platform Activity */}
+      <div className="w-full">
+        <PlatformActivityChart data={data.platformActivity} isLoading={isLoading} isEmpty={isEmpty} />
+      </div>
+
+      {/* Secondary Charts: Dual Column Row for Active Users & Top Features */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+        <ActiveUsersGrowthChart data={data.activeUsersGrowth} isLoading={isLoading} isEmpty={isEmpty} />
+        <TopFeaturesChart data={data.topFeatures} onViewFullBreakdown={onViewFullBreakdown} />
+      </div>
     </div>
   )
 }

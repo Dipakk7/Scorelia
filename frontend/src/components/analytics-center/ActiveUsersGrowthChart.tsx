@@ -55,16 +55,16 @@ export function ActiveUsersGrowthChart({
 
   return (
     <div
-      className={`flex flex-col justify-between h-full p-5 rounded-2xl bg-[#0f101c] border border-white/10 text-left ${className}`}
+      className={`flex flex-col justify-between h-full p-4 sm:p-5 rounded-2xl bg-[#0f101c] border border-white/10 text-left shadow-sm ${className}`}
     >
-      {/* Header */}
-      <div className="flex items-start justify-between gap-2 mb-4">
+      {/* Chart Header */}
+      <div className="flex items-start justify-between gap-2 mb-3">
         <div>
-          <h3 className="text-sm sm:text-base font-bold text-slate-100 m-0 tracking-tight">
+          <h3 className="text-sm sm:text-base font-bold text-slate-100 m-0 tracking-tight font-display">
             Active Users Growth
           </h3>
           <p className="text-xs text-slate-400 font-medium m-0 mt-0.5">
-            Unique active users over time
+            Unique active user trend over recent timeframes
           </p>
         </div>
         <button
@@ -87,7 +87,7 @@ export function ActiveUsersGrowthChart({
               </linearGradient>
             </defs>
 
-            <CartesianGrid strokeDasharray="3 3" stroke="#ffffff0d" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#ffffff0a" vertical={false} />
 
             <XAxis
               dataKey="displayDate"
@@ -114,7 +114,7 @@ export function ActiveUsersGrowthChart({
               stroke="#38bdf8"
               strokeWidth={3}
               fill="url(#cyanUsersGrad)"
-              activeDot={{ r: 6, fill: '#38bdf8', stroke: '#ffffff', strokeWidth: 2 }}
+              activeDot={{ r: 5, fill: '#38bdf8', stroke: '#ffffff', strokeWidth: 2 }}
               {...animationProps}
             />
           </AreaChart>

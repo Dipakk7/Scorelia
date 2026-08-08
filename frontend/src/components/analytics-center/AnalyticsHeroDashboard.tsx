@@ -3,6 +3,8 @@ import { analyticsHeroMockData } from '@/data/analyticsHeroMockData'
 import type { AnalyticsHeroOverviewData, KPIMetricItem } from '@/data/analyticsHeroMockData'
 import { AnalyticsHero } from './AnalyticsHero'
 import { AnalyticsToolbar } from './AnalyticsToolbar'
+import { AnalyticsTabs } from './AnalyticsTabs'
+import type { AnalyticsTabId } from './AnalyticsTabs'
 import { AnalyticsKPIGrid } from './AnalyticsKPIGrid'
 import { AnalyticsHeroSkeleton } from './AnalyticsHeroSkeleton'
 
@@ -11,6 +13,8 @@ interface AnalyticsHeroDashboardProps {
   selectedKpiId?: string
   isLoading?: boolean
   isEmpty?: boolean
+  activeTab?: AnalyticsTabId
+  onTabChange?: (tab: AnalyticsTabId) => void
   onExportReport?: () => void
   onAddWidget?: () => void
   onRefreshData?: () => void
@@ -24,6 +28,8 @@ export function AnalyticsHeroDashboard({
   selectedKpiId,
   isLoading = false,
   isEmpty = false,
+  activeTab = 'overview',
+  onTabChange,
   onExportReport,
   onAddWidget,
   onRefreshData,
@@ -36,7 +42,7 @@ export function AnalyticsHeroDashboard({
   }
 
   return (
-    <div className={`space-y-6 w-full ${className}`}>
+    <div className={`space-y-4 sm:space-y-5 w-full ${className}`}>
       {/* Executive Hero Header */}
       <AnalyticsHero
         lastUpdated={data.lastUpdated}
@@ -45,13 +51,22 @@ export function AnalyticsHeroDashboard({
         onAddWidget={onAddWidget || onCustomizeDashboard}
       />
 
-      {/* Operational Toolbar */}
+      {/* Operational Toolbar Controls */}
       <AnalyticsToolbar
         onRefresh={onRefreshData}
         onCustomizeDashboard={onCustomizeDashboard}
       />
 
-      {/* KPI Overview Grid */}
+      {/* Analytics Navigation Tabs */}
+      {onTabChange && (
+        <AnalyticsTabs
+          activeTab={activeTab}
+          onTabChange={onTabChange}
+          onFilterClick={onCustomizeDashboard}
+        />
+      )}
+
+      {/* KPI Overview Grid (6 Cards) */}
       <AnalyticsKPIGrid
         kpis={data.kpis}
         selectedKpiId={selectedKpiId}

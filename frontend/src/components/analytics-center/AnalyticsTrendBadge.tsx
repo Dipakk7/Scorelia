@@ -19,10 +19,10 @@ export function AnalyticsTrendBadge({
   const isNegative = trend === 'negative'
 
   const formattedText = isAbsoluteNumber
-    ? `↑ ${percentageChange > 0 ? percentageChange : Math.abs(percentageChange)}`
-    : `${isPositive ? '↑' : isNegative ? '↓' : ''} ${Math.abs(percentageChange)}%`
+    ? `${isPositive ? '+' : isNegative ? '-' : ''}${Math.abs(percentageChange)} pts`
+    : `${isPositive ? '+' : isNegative ? '-' : ''}${Math.abs(percentageChange)}%`
 
-  const accessibleText = `${isPositive ? 'Increased by' : isNegative ? 'Decreased by' : 'Changed by'} ${Math.abs(percentageChange)}${isAbsoluteNumber ? '' : ' percent'}`
+  const accessibleText = `${isPositive ? 'Increased by' : isNegative ? 'Decreased by' : 'Changed by'} ${Math.abs(percentageChange)}${isAbsoluteNumber ? ' points' : ' percent'}`
 
   const colorStyles = isPositive
     ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20'
@@ -34,11 +34,11 @@ export function AnalyticsTrendBadge({
 
   return (
     <span
-      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-bold font-mono border leading-none transition-colors ${colorStyles} ${className}`}
+      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold font-mono border leading-none transition-colors ${colorStyles} ${className}`}
       aria-label={accessibleText}
       title={accessibleText}
     >
-      <IconComponent size={12} className="shrink-0 stroke-[2.5]" aria-hidden="true" />
+      <IconComponent size={11} className="shrink-0 stroke-[2.5]" aria-hidden="true" />
       <span>{formattedText}</span>
     </span>
   )
