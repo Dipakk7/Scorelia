@@ -41,7 +41,7 @@ export const ContributionTypesChart: React.FC<ContributionTypesChartProps> = ({
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
-                data={types}
+                data={types ?? []}
                 cx="50%"
                 cy="50%"
                 innerRadius={36}
@@ -51,7 +51,7 @@ export const ContributionTypesChart: React.FC<ContributionTypesChartProps> = ({
                 onMouseEnter={(_, index) => setActiveIndex(index)}
                 onMouseLeave={() => setActiveIndex(null)}
               >
-                {types.map((entry, index) => (
+                {(types ?? []).map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={entry.color}
@@ -80,14 +80,14 @@ export const ContributionTypesChart: React.FC<ContributionTypesChartProps> = ({
             </PieChart>
           </ResponsiveContainer>
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 text-center">
-            <span className="text-lg font-black text-white font-mono">{totalContributions}</span>
+            <span className="text-lg font-black text-white font-mono">{totalContributions ?? 0}</span>
             <span className="text-[9px] font-semibold text-slate-400 uppercase font-mono">Total</span>
           </div>
         </div>
 
         {/* Legend Breakdown */}
         <div className="space-y-1.5 flex-1 text-[11px]">
-          {types.map((t, i) => (
+          {(types ?? []).map((t, i) => (
             <div
               key={t.label}
               className={cn(

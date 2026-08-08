@@ -72,5 +72,6 @@ export * from './GitHubErrorBoundary'
 export * from './GitHubSettingsWorkspace'
 export * from './GitHubSkeleton'
 export * from './EmptyGitHubState'
+export * from './GitHubConnectModal'
 
 

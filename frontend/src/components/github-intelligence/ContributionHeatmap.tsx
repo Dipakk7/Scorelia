@@ -43,7 +43,7 @@ export const ContributionHeatmap: React.FC<ContributionHeatmapProps> = ({
 
         {/* 7-Row Grid (5 Weeks) */}
         <div className="grid grid-flow-col grid-rows-7 gap-1.5 flex-1 min-w-[260px]">
-          {timeline.map((item) => (
+          {(timeline ?? []).map((item) => (
             <div
               key={item.id}
               tabIndex={0}

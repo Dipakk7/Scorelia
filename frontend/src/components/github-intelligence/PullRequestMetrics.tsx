@@ -12,6 +12,14 @@ export const PullRequestMetrics: React.FC<PullRequestMetricsProps> = ({
   metrics = githubDeveloperMetricsMockData.pullRequests,
   className,
 }) => {
+  const safeMetrics = metrics ?? githubDeveloperMetricsMockData.pullRequests
+  const mergeRate = safeMetrics?.mergeRate ?? (safeMetrics as any)?.mergeSuccessRate ?? 0
+  const opened = safeMetrics?.opened ?? (safeMetrics as any)?.totalPRs ?? 0
+  const merged = safeMetrics?.merged ?? (safeMetrics as any)?.mergedPRs ?? 0
+  const averageMergeTime = safeMetrics?.averageMergeTime ?? ((safeMetrics as any)?.averageMergeTimeHours ? `${(safeMetrics as any).averageMergeTimeHours} hrs` : '0 hrs')
+  const averageReviewTime = safeMetrics?.averageReviewTime ?? '2.0 hrs'
+  const reviewCycles = safeMetrics?.reviewCycles ?? 1.0
+
   return (
     <div
       className={cn(
@@ -28,7 +36,7 @@ export const PullRequestMetrics: React.FC<PullRequestMetricsProps> = ({
           <p className="text-[11px] text-slate-400 m-0 mt-0.5">PR lifecycle & merge efficiency</p>
         </div>
         <span className="px-2.5 py-1 text-[10px] font-bold font-mono rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-          {metrics.mergeRate}% Merge Rate
+          {mergeRate}% Merge Rate
         </span>
       </div>
 
@@ -36,28 +44,28 @@ export const PullRequestMetrics: React.FC<PullRequestMetricsProps> = ({
         <div className="p-3 rounded-xl border border-slate-700/80 bg-slate-900/80 space-y-1">
           <div className="text-[10px] text-slate-400 font-sans">Opened vs Merged</div>
           <div className="text-base font-extrabold text-white font-mono">
-            {metrics.merged} <span className="text-xs text-slate-400 font-normal">/ {metrics.opened} PRs</span>
+            {merged} <span className="text-xs text-slate-400 font-normal">/ {opened} PRs</span>
           </div>
           <div className="h-1.5 w-full rounded-full bg-slate-800 overflow-hidden">
-            <div className="h-full rounded-full bg-emerald-400" style={{ width: `${metrics.mergeRate}%` }} />
+            <div className="h-full rounded-full bg-emerald-400" style={{ width: `${mergeRate}%` }} />
           </div>
         </div>
 
         <div className="p-3 rounded-xl border border-slate-700/80 bg-slate-900/80 space-y-1">
           <div className="text-[10px] text-slate-400 font-sans">Avg Merge Time</div>
-          <div className="text-base font-extrabold text-sky-400 font-mono">{metrics.averageMergeTime}</div>
+          <div className="text-base font-extrabold text-sky-400 font-mono">{averageMergeTime}</div>
           <div className="text-[9px] text-emerald-400 font-semibold font-sans">Fast turn-around</div>
         </div>
 
         <div className="p-3 rounded-xl border border-slate-700/80 bg-slate-900/80 space-y-1">
           <div className="text-[10px] text-slate-400 font-sans">Avg Review Time</div>
-          <div className="text-base font-extrabold text-purple-400 font-mono">{metrics.averageReviewTime}</div>
+          <div className="text-base font-extrabold text-purple-400 font-mono">{averageReviewTime}</div>
           <div className="text-[9px] text-purple-400 font-semibold font-sans">Prompt review cycles</div>
         </div>
 
         <div className="p-3 rounded-xl border border-slate-700/80 bg-slate-900/80 space-y-1">
           <div className="text-[10px] text-slate-400 font-sans font-medium">Review Cycles</div>
-          <div className="text-base font-extrabold text-white font-mono">{metrics.reviewCycles}</div>
+          <div className="text-base font-extrabold text-white font-mono">{reviewCycles}</div>
           <div className="text-[9px] text-emerald-400 font-semibold font-sans">Low friction</div>
         </div>
       </div>

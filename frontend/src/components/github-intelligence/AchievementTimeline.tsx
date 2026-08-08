@@ -29,12 +29,12 @@ export const AchievementTimeline: React.FC<AchievementTimelineProps> = ({
           <p className="text-[11px] text-slate-400 m-0 mt-0.5">Unlocked achievements & contribution streaks</p>
         </div>
         <span className="px-2.5 py-1 text-[10px] font-bold font-mono rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
-          {achievements.length} Unlocked
+          {(achievements ?? []).length} Unlocked
         </span>
       </div>
 
       <div className="space-y-3">
-        {achievements.map((item) => (
+        {(achievements ?? []).map((item) => (
           <AchievementBadge key={item.id} achievement={item} />
         ))}
       </div>

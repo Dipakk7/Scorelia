@@ -10,6 +10,7 @@ import {
   GitHubBottomStatusBar,
   GitHubOfflineBanner,
   GitHubErrorBoundary,
+  GitHubConnectModal,
   type GitHubTabId,
   GITHUB_TABS,
 } from '@/components/github-intelligence'
@@ -20,6 +21,7 @@ import { useGitHubRepositories } from '@/hooks/github/useGitHubRepositories'
 import { useGitHubDeveloperMetrics } from '@/hooks/github/useGitHubDeveloperMetrics'
 import { useGitHubInsights } from '@/hooks/github/useGitHubInsights'
 import { useGitHubSync } from '@/hooks/github/useGitHubSync'
+import { connectGitHubToken, connectGitHubUsername, disconnectGitHub } from '@/api/github'
 
 export function GitHubIntelligencePage() {
   const shouldReduceMotion = useScoreliaReducedMotion()
@@ -27,6 +29,7 @@ export function GitHubIntelligencePage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [dateRange, setDateRange] = useState('30d')
   const [selectedKPI, setSelectedKPI] = useState<GitHubKPIMetric | null>(null)
+  const [isConnectModalOpen, setIsConnectModalOpen] = useState(false)
 
   // React Query Integration for All Intelligence Queries
   const {
@@ -85,6 +88,29 @@ export function GitHubIntelligencePage() {
     refetchInsights()
   }
 
+  const handleOpenConnectModal = () => {
+    setIsConnectModalOpen(true)
+  }
+
+  const handleCloseConnectModal = () => {
+    setIsConnectModalOpen(false)
+  }
+
+  const handleConnectToken = async (token: string) => {
+    await connectGitHubToken(token)
+    handleRefetchAll()
+  }
+
+  const handleConnectUsername = async (username: string) => {
+    await connectGitHubUsername(username)
+    handleRefetchAll()
+  }
+
+  const handleDisconnect = async () => {
+    await disconnectGitHub()
+    handleRefetchAll()
+  }
+
   const handleKPICardClick = (kpi: GitHubKPIMetric) => {
     setSelectedKPI(kpi)
   }
@@ -141,7 +167,7 @@ export function GitHubIntelligencePage() {
           {/* Offline Banner Indicator */}
           {isOffline && (
             <motion.div variants={itemVariants}>
-              <GitHubOfflineBanner isOffline={isOffline} onReconnect={handleSync} />
+              <GitHubOfflineBanner isOffline={isOffline} onReconnect={handleOpenConnectModal} />
             </motion.div>
           )}
 
@@ -159,7 +185,7 @@ export function GitHubIntelligencePage() {
               onDateRangeChange={setDateRange}
               onSync={handleSync}
               onExportReport={() => alert('AI Report generation requested.')}
-              onConnect={handleSync}
+              onConnect={handleOpenConnectModal}
               onKPICardClick={handleKPICardClick}
               connection={connection}
               isSyncing={isSyncing}
@@ -189,7 +215,7 @@ export function GitHubIntelligencePage() {
                     error={combinedError}
                     onRetry={handleRefetchAll}
                     onSync={handleSync}
-                    onReconnect={handleSync}
+                    onReconnect={handleOpenConnectModal}
                     connection={connection}
                     analyticsData={analyticsData}
                     repositoriesData={repositoriesData}
@@ -210,7 +236,7 @@ export function GitHubIntelligencePage() {
                   error={combinedError}
                   onRetry={handleRefetchAll}
                   onSync={handleSync}
-                  onReconnect={handleSync}
+                  onReconnect={handleOpenConnectModal}
                   connection={connection}
                   analyticsData={analyticsData}
                   repositoriesData={repositoriesData}
@@ -227,6 +253,18 @@ export function GitHubIntelligencePage() {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* GitHub Account Connect & Authentication Modal */}
+      <GitHubConnectModal
+        isOpen={isConnectModalOpen}
+        onClose={handleCloseConnectModal}
+        onConnectToken={handleConnectToken}
+        onConnectUsername={handleConnectUsername}
+        onDisconnect={handleDisconnect}
+        isConnected={connection?.isConnected ?? false}
+        currentUsername={connection?.username}
+        avatarUrl={connection?.avatarUrl}
+      />
     </GitHubErrorBoundary>
   )
 }

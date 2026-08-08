@@ -12,10 +12,18 @@ export const MergeStatistics: React.FC<MergeStatisticsProps> = ({
   metrics = githubDeveloperMetricsMockData.mergeStatistics,
   className,
 }) => {
-  const totalStrategies = metrics.fastForward + metrics.squashMerge + metrics.rebaseMerge || 1
-  const squashPct = Math.round((metrics.squashMerge / totalStrategies) * 100)
-  const ffPct = Math.round((metrics.fastForward / totalStrategies) * 100)
-  const rebasePct = Math.round((metrics.rebaseMerge / totalStrategies) * 100)
+  const safeMetrics = metrics ?? githubDeveloperMetricsMockData.mergeStatistics
+  const fastForward = safeMetrics?.fastForward ?? (safeMetrics as any)?.fastForwardMerges ?? 0
+  const squashMerge = safeMetrics?.squashMerge ?? (safeMetrics as any)?.squashMerges ?? 0
+  const rebaseMerge = safeMetrics?.rebaseMerge ?? (safeMetrics as any)?.rebaseMerges ?? 0
+  const successfulMerges = safeMetrics?.successfulMerges ?? 0
+  const conflicts = safeMetrics?.conflicts ?? 0
+  const failedMerges = safeMetrics?.failedMerges ?? 0
+
+  const totalStrategies = fastForward + squashMerge + rebaseMerge || 1
+  const squashPct = Math.round((squashMerge / totalStrategies) * 100)
+  const ffPct = Math.round((fastForward / totalStrategies) * 100)
+  const rebasePct = Math.round((rebaseMerge / totalStrategies) * 100)
 
   return (
     <div
@@ -40,17 +48,17 @@ export const MergeStatistics: React.FC<MergeStatisticsProps> = ({
       <div className="grid grid-cols-3 gap-3 text-center">
         <div className="p-3 rounded-xl border border-slate-700/80 bg-slate-900/80">
           <div className="text-[10px] text-slate-400 font-sans">Successful</div>
-          <div className="text-lg font-extrabold text-emerald-400 mt-1 font-mono">{metrics.successfulMerges}</div>
+          <div className="text-lg font-extrabold text-emerald-400 mt-1 font-mono">{successfulMerges}</div>
         </div>
 
         <div className="p-3 rounded-xl border border-slate-700/80 bg-slate-900/80">
           <div className="text-[10px] text-slate-400 font-sans">Conflicts</div>
-          <div className="text-lg font-extrabold text-amber-400 mt-1 font-mono">{metrics.conflicts}</div>
+          <div className="text-lg font-extrabold text-amber-400 mt-1 font-mono">{conflicts}</div>
         </div>
 
         <div className="p-3 rounded-xl border border-slate-700/80 bg-slate-900/80">
           <div className="text-[10px] text-slate-400 font-sans">Failed</div>
-          <div className="text-lg font-extrabold text-white mt-1 font-mono">{metrics.failedMerges}</div>
+          <div className="text-lg font-extrabold text-white mt-1 font-mono">{failedMerges}</div>
         </div>
       </div>
 

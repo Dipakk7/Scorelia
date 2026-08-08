@@ -33,12 +33,12 @@ export const AIInsightsPanel: React.FC<AIInsightsPanelProps> = ({
           <p className="text-[11px] text-slate-400 m-0 mt-0.5">Automated repository & developer intelligence</p>
         </div>
         <span className="px-2.5 py-1 text-[10px] font-bold font-mono rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">
-          {insights.length} Active
+          {(insights ?? []).length} Active
         </span>
       </div>
 
       <div className="space-y-3">
-        {insights.map((insight) => (
+        {(insights ?? []).map((insight) => (
           <AIInsightCard
             key={insight.id}
             insight={insight}

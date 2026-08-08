@@ -34,7 +34,7 @@ export const ActivityFeedTimeline: React.FC<ActivityFeedTimelineProps> = ({
       </div>
 
       <div className="relative pl-2 space-y-4 before:absolute before:left-4 before:top-3 before:bottom-3 before:w-0.5 before:bg-slate-800">
-        {items.map((item) => (
+        {(items ?? []).map((item) => (
           <ActivityTimelineItem key={item.id} item={item} />
         ))}
       </div>

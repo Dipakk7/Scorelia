@@ -36,11 +36,11 @@ async def get_connection_status(
 async def connect_github_token(
     payload: ConnectTokenRequest,
 ):
-    """Connect a GitHub access token."""
+    """Connect a GitHub access token or username."""
     service = GitHubService(token=payload.accessToken)
     status_data = await service.get_connection_status()
     if not status_data["isConnected"]:
-        raise HTTPException(status_code=400, detail="Invalid GitHub token provided.")
+        raise HTTPException(status_code=400, detail="Invalid GitHub token or account username provided.")
     return status_data
 
 @router.post("/oauth/disconnect")
@@ -57,9 +57,37 @@ async def trigger_sync(
     sync_mgr = GitHubSyncManager(token=token)
     return await sync_mgr.sync_now()
 
+@router.get("/hero")
+async def get_hero_data(
+    service: GitHubService = Depends(get_github_service),
+):
+    """Fetch hero KPI data and account status."""
+    return await service.get_hero_data()
+
+@router.get("/analytics")
+async def get_analytics_data(
+    service: GitHubService = Depends(get_github_service),
+):
+    """Fetch activity analytics and contribution breakdown."""
+    return await service.get_analytics_data()
+
 @router.get("/repositories")
 async def get_repositories(
     service: GitHubService = Depends(get_github_service),
 ):
     """Fetch user repositories and summary statistics."""
     return await service.get_repositories()
+
+@router.get("/developer-metrics")
+async def get_developer_metrics(
+    service: GitHubService = Depends(get_github_service),
+):
+    """Fetch developer quality and productivity metrics."""
+    return await service.get_developer_metrics()
+
+@router.get("/insights")
+async def get_insights_data(
+    service: GitHubService = Depends(get_github_service),
+):
+    """Fetch AI insights, recommendations, and goals."""
+    return await service.get_insights_data()

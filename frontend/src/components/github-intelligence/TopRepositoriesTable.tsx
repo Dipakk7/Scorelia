@@ -31,7 +31,7 @@ export const TopRepositoriesTable: React.FC<TopRepositoriesTableProps> = ({
           </tr>
         </thead>
         <tbody className="divide-y divide-white/5">
-          {repositories.map((repo) => (
+          {(repositories ?? []).map((repo) => (
             <RepositoryTableRow key={repo.id} repo={repo} onOpenRepo={onOpenRepo} />
           ))}
         </tbody>

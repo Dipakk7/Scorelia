@@ -12,6 +12,14 @@ export const CodeReviewMetrics: React.FC<CodeReviewMetricsProps> = ({
   metrics = githubDeveloperMetricsMockData.codeReviews,
   className,
 }) => {
+  const safeMetrics = metrics ?? githubDeveloperMetricsMockData.codeReviews
+  const reviewQualityScore = safeMetrics?.reviewQualityScore ?? (safeMetrics as any)?.approvalRate ?? 0
+  const reviewsCompleted = safeMetrics?.reviewsCompleted ?? 0
+  const approvals = safeMetrics?.approvals ?? 0
+  const changeRequests = safeMetrics?.changeRequests ?? 0
+  const responseTime = safeMetrics?.responseTime ?? ((safeMetrics as any)?.averageResponseTimeHours ? `${(safeMetrics as any).averageResponseTimeHours} hrs` : '0 hrs')
+  const comments = safeMetrics?.comments ?? 0
+
   return (
     <div
       className={cn(
@@ -28,29 +36,29 @@ export const CodeReviewMetrics: React.FC<CodeReviewMetricsProps> = ({
           <p className="text-[11px] text-slate-400 m-0 mt-0.5">Peer review activity & responsiveness</p>
         </div>
         <span className="px-2.5 py-1 text-[10px] font-bold font-mono rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-          Score: {metrics.reviewQualityScore}%
+          Score: {reviewQualityScore}%
         </span>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
         <div className="p-3 rounded-xl border border-slate-700/80 bg-slate-900/80">
           <div className="text-[10px] text-slate-400 font-sans">Reviews Completed</div>
-          <div className="text-lg font-extrabold text-white mt-1 font-mono">{metrics.reviewsCompleted}</div>
+          <div className="text-lg font-extrabold text-white mt-1 font-mono">{reviewsCompleted}</div>
         </div>
 
         <div className="p-3 rounded-xl border border-slate-700/80 bg-slate-900/80">
           <div className="text-[10px] text-slate-400 font-sans">Approvals</div>
-          <div className="text-lg font-extrabold text-emerald-400 mt-1 font-mono">{metrics.approvals}</div>
+          <div className="text-lg font-extrabold text-emerald-400 mt-1 font-mono">{approvals}</div>
         </div>
 
         <div className="p-3 rounded-xl border border-slate-700/80 bg-slate-900/80">
           <div className="text-[10px] text-slate-400 font-sans">Change Requests</div>
-          <div className="text-lg font-extrabold text-amber-400 mt-1 font-mono">{metrics.changeRequests}</div>
+          <div className="text-lg font-extrabold text-amber-400 mt-1 font-mono">{changeRequests}</div>
         </div>
 
         <div className="p-3 rounded-xl border border-slate-700/80 bg-slate-900/80">
           <div className="text-[10px] text-slate-400 font-sans">Response Time</div>
-          <div className="text-lg font-extrabold text-sky-400 mt-1 font-mono">{metrics.responseTime}</div>
+          <div className="text-lg font-extrabold text-sky-400 mt-1 font-mono">{responseTime}</div>
         </div>
       </div>
 
@@ -58,7 +66,7 @@ export const CodeReviewMetrics: React.FC<CodeReviewMetricsProps> = ({
         <span className="text-slate-400 flex items-center gap-1.5">
           <MessageSquare size={13} className="text-indigo-400" /> Review Comments Given
         </span>
-        <span className="font-bold text-white font-mono">{metrics.comments} comments</span>
+        <span className="font-bold text-white font-mono">{comments} comments</span>
       </div>
     </div>
   )

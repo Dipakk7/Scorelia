@@ -34,7 +34,7 @@ export const GitHubGoalsProgress: React.FC<GitHubGoalsProgressProps> = ({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {goals.map((goal) => (
+        {(goals ?? []).map((goal) => (
           <GoalProgressCard key={goal.id} goal={goal} />
         ))}
       </div>

@@ -26,8 +26,11 @@ class GitHubClient:
             "Accept": "application/vnd.github.v3+json",
             "User-Agent": "Scorelia-V3-GitHub-Intelligence",
         }
-        if self.token:
-            headers["Authorization"] = f"token {self.token}"
+        if self.token and not self.token.startswith("username:"):
+            token_val = self.token
+            if token_val.startswith("Bearer "):
+                token_val = token_val.replace("Bearer ", "")
+            headers["Authorization"] = f"token {token_val}"
         return headers
 
     async def request(
@@ -66,9 +69,15 @@ class GitHubClient:
             return response.json()
 
     async def get_user_profile(self) -> Dict[str, Any]:
-        """Fetch current authenticated GitHub user profile."""
+        """Fetch authenticated GitHub user profile or public profile."""
+        if self.token and self.token.startswith("username:"):
+            uname = self.token.split("username:")[1].strip()
+            return await self.request("GET", f"users/{uname}")
         return await self.request("GET", "user")
 
     async def list_repositories(self, per_page: int = 30) -> list:
-        """Fetch repository list for authenticated user."""
+        """Fetch repository list for authenticated user or public user."""
+        if self.token and self.token.startswith("username:"):
+            uname = self.token.split("username:")[1].strip()
+            return await self.request("GET", f"users/{uname}/repos", params={"per_page": per_page, "sort": "updated"})
         return await self.request("GET", "user/repos", params={"per_page": per_page, "sort": "updated"})

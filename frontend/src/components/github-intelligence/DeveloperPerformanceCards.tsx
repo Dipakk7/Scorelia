@@ -13,11 +13,17 @@ export const DeveloperPerformanceCards: React.FC<DeveloperPerformanceCardsProps>
   productivity = githubDeveloperMetricsMockData.productivity,
   className,
 }) => {
+  const safeProd = productivity ?? githubDeveloperMetricsMockData.productivity
+  const devScore = safeProd?.developerScore ?? 90
+  const velScore = safeProd?.velocityScore ?? 88
+  const conScore = safeProd?.consistencyScore ?? 94
+  const colScore = safeProd?.collaborationScore ?? 89
+
   return (
     <div className={cn('grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 font-sans select-none', className)}>
       <MetricTrendCard
         title="Developer Score"
-        value={`${productivity.developerScore}/100`}
+        value={`${devScore}/100`}
         trend="+5 pts"
         trendDirection="up"
         comparisonLabel="Top 12% globally"
@@ -28,7 +34,7 @@ export const DeveloperPerformanceCards: React.FC<DeveloperPerformanceCardsProps>
 
       <MetricTrendCard
         title="Velocity Score"
-        value={`${productivity.velocityScore}/100`}
+        value={`${velScore}/100`}
         trend="+12%"
         trendDirection="up"
         comparisonLabel="High shipping rate"
@@ -39,7 +45,7 @@ export const DeveloperPerformanceCards: React.FC<DeveloperPerformanceCardsProps>
 
       <MetricTrendCard
         title="Consistency Score"
-        value={`${productivity.consistencyScore}/100`}
+        value={`${conScore}/100`}
         trend="+4%"
         trendDirection="up"
         comparisonLabel="30-day streak"
@@ -50,7 +56,7 @@ export const DeveloperPerformanceCards: React.FC<DeveloperPerformanceCardsProps>
 
       <MetricTrendCard
         title="Collaboration Score"
-        value={`${productivity.collaborationScore}/100`}
+        value={`${colScore}/100`}
         trend="+9%"
         trendDirection="up"
         comparisonLabel="14 PR reviews completed"

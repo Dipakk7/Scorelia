@@ -21,6 +21,9 @@ export const CommitActivityChart: React.FC<CommitActivityChartProps> = ({
   activity = githubDeveloperMetricsMockData.commitActivity,
   className,
 }) => {
+  const safeActivity = activity ?? githubDeveloperMetricsMockData.commitActivity
+  const chartData = Array.isArray(safeActivity?.chartData) ? safeActivity.chartData : []
+
   return (
     <div
       className={cn(
@@ -38,7 +41,7 @@ export const CommitActivityChart: React.FC<CommitActivityChartProps> = ({
         </div>
         <div className="flex items-center gap-3 text-xs font-semibold">
           <span className="text-slate-300 font-mono">
-            <strong className="text-sky-400 font-bold">{activity.monthlyCommits}</strong> Monthly Commits
+            <strong className="text-sky-400 font-bold">{safeActivity?.monthlyCommits ?? 0}</strong> Monthly Commits
           </span>
         </div>
       </div>
@@ -46,7 +49,7 @@ export const CommitActivityChart: React.FC<CommitActivityChartProps> = ({
       {/* Chart */}
       <div className="h-44 w-full pt-2">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={activity.chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+          <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
             <defs>
               <linearGradient id="commitGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#38bdf8" stopOpacity={0.4} />
@@ -85,8 +88,8 @@ export const CommitActivityChart: React.FC<CommitActivityChartProps> = ({
       </div>
 
       <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[11px] text-slate-400 font-sans">
-        <span>Avg Commit Size: <strong className="text-white font-mono">{activity.averageCommitSize}</strong></span>
-        <span>Frequency: <strong className="text-emerald-400 font-mono">{activity.commitFrequency}</strong></span>
+        <span>Avg Commit Size: <strong className="text-white font-mono">{safeActivity?.averageCommitSize ?? '0 LOC'}</strong></span>
+        <span>Frequency: <strong className="text-emerald-400 font-mono">{safeActivity?.commitFrequency ?? 'Normal'}</strong></span>
       </div>
     </div>
   )

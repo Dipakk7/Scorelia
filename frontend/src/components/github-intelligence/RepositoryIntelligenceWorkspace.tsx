@@ -50,7 +50,7 @@ export const RepositoryIntelligenceWorkspace: React.FC<RepositoryIntelligenceWor
   }
 
   const filteredRepositories = useMemo(() => {
-    let result = [...repositories]
+    let result = Array.isArray(repositories) ? [...repositories] : []
 
     // Search query filter
     if (searchQuery.trim()) {

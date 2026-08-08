@@ -33,7 +33,7 @@ export const TopLanguagesPanel: React.FC<TopLanguagesPanelProps> = ({
       </div>
 
       <div className="space-y-1.5 py-1">
-        {languages.map((lang) => (
+        {(languages ?? []).map((lang) => (
           <LanguageProgressBar key={lang.language} language={lang} />
         ))}
       </div>

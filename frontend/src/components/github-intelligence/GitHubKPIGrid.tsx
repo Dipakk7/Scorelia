@@ -44,7 +44,7 @@ export const GitHubKPIGrid: React.FC<GitHubKPIGridProps> = ({
   return (
     <section aria-label="Executive GitHub KPIs" className="w-full">
       <div className={cn('grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-3.5 lg:gap-4 w-full', className)}>
-        {metrics.map((kpi) => (
+        {(metrics ?? []).map((kpi) => (
           <GitHubKPICard
             key={kpi.id}
             kpi={kpi}
